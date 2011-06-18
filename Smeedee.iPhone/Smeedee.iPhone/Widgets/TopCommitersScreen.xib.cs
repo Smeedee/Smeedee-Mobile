@@ -34,11 +34,10 @@ namespace Smeedee.iPhone
 		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("ConfigurationCell") ??
-					   new UITableViewCell(UITableViewCellStyle.Subtitle, "ConfigurationCell");
+			var cell = tableView.DequeueReusableCell("TopCommitersCell") ??
+					   new UITableViewCell(UITableViewCellStyle.Default, "TopCommitersCell");
 			
-			cell.TextLabel.Text = "Cell " + indexPath.Row;
-			cell.DetailTextLabel.Text = "Section " + indexPath.Section;
+			cell.TextLabel.Text = "Top commiter " + indexPath.Row;
 			cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 			
 			return cell;
