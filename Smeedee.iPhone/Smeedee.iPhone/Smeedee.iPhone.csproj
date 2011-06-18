@@ -94,15 +94,30 @@
     <Compile Include="ConfigurationScreen.xib.designer.cs">
       <DependentUpon>ConfigurationScreen.xib</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\TopCommitersScreen.xib.cs">
+      <DependentUpon>TopCommitersScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TopCommitersScreen.xib.designer.cs">
+      <DependentUpon>TopCommitersScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="WidgetsScreen.xib.cs">
+      <DependentUpon>WidgetsScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="WidgetsScreen.xib.designer.cs">
+      <DependentUpon>WidgetsScreen.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
     <Page Include="ConfigurationScreen.xib" />
+    <Page Include="Widgets\TopCommitersScreen.xib" />
+    <Page Include="WidgetsScreen.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Images\" />
     <Folder Include="Images\TabIcons\" />
+    <Folder Include="Widgets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\TabIcons\configuration.png" />
