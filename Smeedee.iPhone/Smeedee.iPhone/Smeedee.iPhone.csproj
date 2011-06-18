@@ -88,9 +88,16 @@
       <DependentUpon>MainWindow.xib</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
+    <Compile Include="ConfigurationScreen.xib.cs">
+      <DependentUpon>ConfigurationScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationScreen.xib.designer.cs">
+      <DependentUpon>ConfigurationScreen.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
+    <Page Include="ConfigurationScreen.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
