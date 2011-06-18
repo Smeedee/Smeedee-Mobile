@@ -38,7 +38,6 @@ namespace Smeedee.iPhone
 					   new UITableViewCell(UITableViewCellStyle.Default, "TopCommitersCell");
 			
 			cell.TextLabel.Text = "Top commiter " + indexPath.Row;
-			cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 			
 			return cell;
 		}
