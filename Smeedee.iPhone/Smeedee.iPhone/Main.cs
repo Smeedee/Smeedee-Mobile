@@ -20,11 +20,9 @@ namespace Smeedee.iPhone
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
-			// If you have defined a view, add it here:
-			// window.AddSubview (navigationController.View);
+			window.AddSubview(tabBarController.View);
 
 			window.MakeKeyAndVisible();
-
 			return true;
 		}
 

@@ -93,4 +93,12 @@
     <Page Include="MainWindow.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="Images\TabIcons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\TabIcons\configuration.png" />
+    <Content Include="Images\TabIcons\widgets.png" />
+  </ItemGroup>
 </Project>
