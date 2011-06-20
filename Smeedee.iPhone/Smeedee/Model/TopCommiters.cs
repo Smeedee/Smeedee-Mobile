@@ -14,6 +14,11 @@ namespace Smeedee.Model
 			get;
 			private set;
 		}
+		
+		public void Load(Action callback)
+		{
+			callback();
+		}
 	}
 	
 	public class TopCommiter
