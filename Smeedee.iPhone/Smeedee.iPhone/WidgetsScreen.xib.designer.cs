@@ -17,6 +17,10 @@ namespace Smeedee.iPhone {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
+		private MonoTouch.UIKit.UIPageControl __mt_pageControl;
+		
+		private MonoTouch.UIKit.UIScrollView __mt_scrollView;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -27,6 +31,30 @@ namespace Smeedee.iPhone {
 			set {
 				this.__mt_view = value;
 				this.SetNativeField("view", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("pageControl")]
+		private MonoTouch.UIKit.UIPageControl pageControl {
+			get {
+				this.__mt_pageControl = ((MonoTouch.UIKit.UIPageControl)(this.GetNativeField("pageControl")));
+				return this.__mt_pageControl;
+			}
+			set {
+				this.__mt_pageControl = value;
+				this.SetNativeField("pageControl", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("scrollView")]
+		private MonoTouch.UIKit.UIScrollView scrollView {
+			get {
+				this.__mt_scrollView = ((MonoTouch.UIKit.UIScrollView)(this.GetNativeField("scrollView")));
+				return this.__mt_scrollView;
+			}
+			set {
+				this.__mt_scrollView = value;
+				this.SetNativeField("scrollView", value);
 			}
 		}
 	}
