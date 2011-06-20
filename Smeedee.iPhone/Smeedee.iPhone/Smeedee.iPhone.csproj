@@ -129,5 +129,6 @@
   <ItemGroup>
     <Content Include="Images\TabIcons\configuration.png" />
     <Content Include="Images\TabIcons\widgets.png" />
+    <Content Include="Images\logo.png" />
   </ItemGroup>
 </Project>
