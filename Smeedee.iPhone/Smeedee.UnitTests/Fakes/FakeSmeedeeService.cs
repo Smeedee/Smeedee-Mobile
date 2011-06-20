@@ -11,11 +11,11 @@ namespace Smeedee.UnitTests
 		{
 		}
 
-		public IEnumerable<TopCommiter> LoadTopCommiters()
+		public IEnumerable<Commiter> LoadTopCommiters()
 		{
 			return new [] {
-				new TopCommiter(),
-				new TopCommiter()
+				new Commiter(),
+				new Commiter()
 			};
 		}
 	}

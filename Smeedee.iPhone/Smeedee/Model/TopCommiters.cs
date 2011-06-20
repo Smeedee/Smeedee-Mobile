@@ -10,10 +10,10 @@ namespace Smeedee.Model
 		
 		public TopCommiters()
 		{
-			Commiters = new List<TopCommiter>();
+			Commiters = new List<Commiter>();
 		}
 		
-		public List<TopCommiter> Commiters {
+		public List<Commiter> Commiters {
 			get;
 			private set;
 		}
@@ -27,7 +27,7 @@ namespace Smeedee.Model
 		}
 	}
 	
-	public class TopCommiter
+	public class Commiter
 	{
 	}
 }

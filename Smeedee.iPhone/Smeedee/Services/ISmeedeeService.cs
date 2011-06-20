@@ -6,6 +6,6 @@ namespace Smeedee.Services
 {
 	public interface ISmeedeeService
 	{
-		IEnumerable<TopCommiter> LoadTopCommiters();
+		IEnumerable<Commiter> LoadTopCommiters();
 	}
 }

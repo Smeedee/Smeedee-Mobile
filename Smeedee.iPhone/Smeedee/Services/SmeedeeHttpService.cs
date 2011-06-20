@@ -10,7 +10,7 @@ namespace Smeedee.Services
 		{
 		}
 		
-		public IEnumerable<TopCommiter> LoadTopCommiters()
+		public IEnumerable<Commiter> LoadTopCommiters()
 		{
 			throw new NotImplementedException();
 		}
