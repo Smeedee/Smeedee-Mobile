@@ -37,10 +37,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\TopCommitersTests.cs" />
+    <Compile Include="Fakes\FakeSmeedeeService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="Fakes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Smeedee\Smeedee.csproj">

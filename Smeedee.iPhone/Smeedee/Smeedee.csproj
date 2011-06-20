@@ -35,9 +35,13 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Model\TopCommiters.cs" />
+    <Compile Include="Services\ISmeedeeService.cs" />
+    <Compile Include="Model\SmeedeeApp.cs" />
+    <Compile Include="Services\SmeedeeHttpService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

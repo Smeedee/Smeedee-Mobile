@@ -22,11 +22,19 @@ namespace Smeedee.UnitTests.Model
 		[TestFixture]
 		public class When_loading_TopCommiters
 		{
+			private TopCommiters topCommiters;
+			
+			[SetUp]
+			public void SetUp()
+			{
+				SmeedeeApp.SmeedeeService = new FakeSmeedeeService();
+				
+				topCommiters = new TopCommiters();
+			}
+			
 			[Test]
 			public void Then_assure_the_callback_is_executed()
 			{
-				var topCommiters = new TopCommiters();
-				
 				var callbackWasExecuted = false;
 				
 				topCommiters.Load(() => {
@@ -34,6 +42,14 @@ namespace Smeedee.UnitTests.Model
 				});
 				
 				Assert.IsTrue(callbackWasExecuted);
+			}
+			
+			[Test]
+			public void Then_assure_commiters_are_loaded_into_the_model()
+			{
+				topCommiters.Load(() => { });
+				
+				Assert.IsTrue(topCommiters.Commiters.Count() > 0);
 			}
 		}
 	}
