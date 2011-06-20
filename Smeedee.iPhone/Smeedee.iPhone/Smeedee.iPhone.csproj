@@ -106,12 +106,19 @@
     <Compile Include="WidgetsScreen.xib.designer.cs">
       <DependentUpon>WidgetsScreen.xib</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\SmeedeeWelcomeScreen.xib.cs">
+      <DependentUpon>SmeedeeWelcomeScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\SmeedeeWelcomeScreen.xib.designer.cs">
+      <DependentUpon>SmeedeeWelcomeScreen.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
     <Page Include="ConfigurationScreen.xib" />
     <Page Include="Widgets\TopCommitersScreen.xib" />
     <Page Include="WidgetsScreen.xib" />
+    <Page Include="Widgets\SmeedeeWelcomeScreen.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

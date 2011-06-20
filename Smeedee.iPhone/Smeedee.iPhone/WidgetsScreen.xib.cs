@@ -26,48 +26,49 @@ namespace Smeedee.iPhone
 
 		#endregion
 		
+		private const int SCREEN_WIDTH = 320;
+		
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			
-			CreatePanels();
+			AddWidgetsToScreen();
+			AttachScrollEvent();
 		}
 		
-		private void CreatePanels()
+		private void AddWidgetsToScreen()
 		{
-			scrollView.Scrolled += ScrollViewScrolled;
+			var widgets = new UIViewController[] {
+				new SmeedeeWelcomeScreen(),
+				new TopCommitersScreen()
+			};
 			
-			int count = 4;
-			var scrollFrame = scrollView.Frame;
-			scrollFrame.Width = scrollFrame.Width * count;
-			scrollView.ContentSize = new SizeF(1280, 320);
-			// 320, 1280
-			Console.WriteLine("Size: {0} / {1}", scrollView.ContentSize.Height, scrollView.ContentSize.Width);
+			var count = widgets.Length;
+			var scrollViewWidth = SCREEN_WIDTH * count;
+			
+			scrollView.Frame.Width = scrollViewWidth;
+			scrollView.ContentSize = new SizeF(scrollViewWidth, SCREEN_WIDTH);
 			
 			for (int i = 0; i < count; i++)
 			{
-				var label = new UILabel();
-				label.TextColor = UIColor.White;
-				label.TextAlignment = UITextAlignment.Center;
-				label.Text = i.ToString();
-				label.BackgroundColor = UIColor.Black;
-				label.UserInteractionEnabled = false;
+				var widget = widgets[i].View;
+				
+				var location = new PointF();
+				location.X = SCREEN_WIDTH * i;
 				
 				var frame = scrollView.Frame;
-				var location = new PointF();
-				location.X = frame.Width * i;
-				
 				frame.Location = location;
-				label.Frame = frame;
-				Console.WriteLine("Label: {0} / {1}", frame.Height, frame.Width);
+				widget.Frame = frame;
 				
-				scrollView.AddSubview(label);
+				scrollView.AddSubview(widget);
 			}
 			
-			var tc = new TopCommitersScreen();
-			scrollView.AddSubview(tc.View);
-			
-			pageControl.Pages = count + 1;
+			pageControl.Pages = count;
+		}
+		
+		private void AttachScrollEvent()
+		{
+			scrollView.Scrolled += ScrollViewScrolled;
 		}
 		
 		private void ScrollViewScrolled(object sender, EventArgs e)
