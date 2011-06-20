@@ -53,11 +53,8 @@ namespace Smeedee.iPhone
 			{
 				var widget = widgets[i].View;
 				
-				var location = new PointF();
-				location.X = SCREEN_WIDTH * i;
-				
 				var frame = scrollView.Frame;
-				frame.Location = location;
+				frame.Location = new PointF(SCREEN_WIDTH * i, 0);
 				widget.Frame = frame;
 				
 				scrollView.AddSubview(widget);
