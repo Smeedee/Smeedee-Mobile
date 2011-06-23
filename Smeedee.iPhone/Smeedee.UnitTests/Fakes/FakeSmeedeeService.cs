@@ -14,8 +14,8 @@ namespace Smeedee.UnitTests
 		public IEnumerable<Commiter> LoadTopCommiters()
 		{
 			return new [] {
-				new Commiter(),
-				new Commiter()
+				new Commiter { Name = "John Doe" },
+				new Commiter { Name = "Mary Poppins" }
 			};
 		}
 	}

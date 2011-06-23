@@ -29,5 +29,9 @@ namespace Smeedee.Model
 	
 	public class Commiter
 	{
+		public string Name {
+			get;
+			set;
+		}
 	}
 }

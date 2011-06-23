@@ -51,6 +51,16 @@ namespace Smeedee.UnitTests.Model
 				
 				Assert.IsTrue(topCommiters.Commiters.Count() > 0);
 			}
+			
+			[Test]
+			public void Then_assure_that_commiters_have_real_data()
+			{
+				topCommiters.Load(() => { });
+				
+				foreach (var commiter in topCommiters.Commiters) {
+					Assert.IsTrue(commiter.Name.Length > 0);
+				}
+			}
 		}
 	}
 }
