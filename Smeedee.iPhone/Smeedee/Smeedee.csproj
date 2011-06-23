@@ -38,6 +38,7 @@
     <Compile Include="Model\SmeedeeApp.cs" />
     <Compile Include="Services\SmeedeeHttpService.cs" />
     <Compile Include="Model\TopCommiters.cs" />
+    <Compile Include="Model\Commiter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

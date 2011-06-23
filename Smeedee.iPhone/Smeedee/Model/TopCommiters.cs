@@ -26,12 +26,4 @@ namespace Smeedee.Model
 			callback();
 		}
 	}
-	
-	public class Commiter
-	{
-		public string Name {
-			get;
-			set;
-		}
-	}
 }
