@@ -39,6 +39,7 @@
     <Compile Include="Model\TopCommitersTests.cs" />
     <Compile Include="Fakes\FakeSmeedeeService.cs" />
     <Compile Include="Model\SmeedeeAppTests.cs" />
+    <Compile Include="Model\CommiterTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
