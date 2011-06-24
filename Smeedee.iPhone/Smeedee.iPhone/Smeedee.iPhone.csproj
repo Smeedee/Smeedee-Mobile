@@ -112,6 +112,12 @@
     <Compile Include="Widgets\SmeedeeWelcomeScreen.xib.designer.cs">
       <DependentUpon>SmeedeeWelcomeScreen.xib</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\TableCells\TopCommiterTableCell.xib.cs">
+      <DependentUpon>TopCommiterTableCell.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\TopCommiterTableCell.xib.designer.cs">
+      <DependentUpon>TopCommiterTableCell.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
@@ -119,16 +125,19 @@
     <Page Include="Widgets\TopCommitersScreen.xib" />
     <Page Include="WidgetsScreen.xib" />
     <Page Include="Widgets\SmeedeeWelcomeScreen.xib" />
+    <Page Include="Widgets\TableCells\TopCommiterTableCell.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Images\" />
     <Folder Include="Images\TabIcons\" />
     <Folder Include="Widgets\" />
+    <Folder Include="Widgets\TableCells\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\TabIcons\configuration.png" />
     <Content Include="Images\TabIcons\widgets.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\user.png" />
   </ItemGroup>
 </Project>

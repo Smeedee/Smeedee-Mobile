@@ -34,12 +34,18 @@ namespace Smeedee.iPhone
 		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("TopCommitersCell") ??
-					   new UITableViewCell(UITableViewCellStyle.Default, "TopCommitersCell");
+			// TODO: add cell reuse/virtualization here!!
+			var topCommiterCellController = new TopCommiterTableCell();
 			
-			cell.TextLabel.Text = "Top commiter " + indexPath.Row;
+			NSBundle.MainBundle.LoadNib("TopCommiterTableCell", topCommiterCellController, null);
+			topCommiterCellController.BindDataToCell("User " + indexPath.Row, 27);
 			
-			return cell;
+			return topCommiterCellController.Cell;
+		}
+		
+		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+		{
+			return 60f;
 		}
 	}
 }
