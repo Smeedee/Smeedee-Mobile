@@ -39,6 +39,7 @@
     <Compile Include="Services\SmeedeeHttpService.cs" />
     <Compile Include="Model\TopCommiters.cs" />
     <Compile Include="Model\Commiter.cs" />
+    <Compile Include="Services\SmeedeeFakeService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
