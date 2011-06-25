@@ -10,6 +10,7 @@ namespace Smeedee.Model
 		}
 		
 		public static ISmeedeeService SmeedeeService = new SmeedeeHttpService();
+		
+		public static SmeedeeApp Instance = new SmeedeeApp();
 	}
 }
-
