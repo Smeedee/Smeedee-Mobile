@@ -20,10 +20,10 @@ namespace Smeedee.Model
 		
 		public void Load(Action callback)
 		{
-			var data = smeedeeService.LoadTopCommiters();
-			Commiters.AddRange(data);
-			
-			callback();
+			smeedeeService.LoadTopCommiters((args) => {
+				Commiters.AddRange(args.Result);
+				callback();
+			});
 		}
 	}
 }
