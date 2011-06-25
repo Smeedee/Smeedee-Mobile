@@ -118,6 +118,21 @@
     <Compile Include="Widgets\TableCells\TopCommiterTableCell.xib.designer.cs">
       <DependentUpon>TopCommiterTableCell.xib</DependentUpon>
     </Compile>
+    <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
+      <Link>Model\SmeedeeApp.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
+      <Link>Services\ISmeedeeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
+      <Link>Services\SmeedeeHttpService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\Commiter.cs">
+      <Link>Model\Commiter.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\TopCommiters.cs">
+      <Link>Model\TopCommiters.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
@@ -133,6 +148,8 @@
     <Folder Include="Images\TabIcons\" />
     <Folder Include="Widgets\" />
     <Folder Include="Widgets\TableCells\" />
+    <Folder Include="Model\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\TabIcons\configuration.png" />
