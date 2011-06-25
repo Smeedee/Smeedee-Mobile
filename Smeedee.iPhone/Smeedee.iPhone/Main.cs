@@ -40,6 +40,8 @@ namespace Smeedee.iPhone
 		
 		private void RegisterAllSupportedWidgets()
 		{
+			// HACK: a more elegant solutions is needed here. Perhaps reflection, and
+			//       scanning the current assembly for IWidget types?
 			app.RegisterAvailableWidgets(new [] {
 				typeof(SmeedeeWelcomeScreen),
 				typeof(TopCommitersScreen)
