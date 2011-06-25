@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
-	public partial class TopCommitersScreen : UITableViewController
+	public partial class TopCommitersScreen : UITableViewController, IWidget
 	{
 		public TopCommitersScreen() : base("TopCommitersScreen", null)
 		{

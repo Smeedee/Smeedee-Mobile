@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
@@ -20,6 +21,11 @@ namespace Smeedee.iPhone
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
+			SmeedeeApp.Instance.RegisterAvailableWidgets(new [] {
+				typeof(SmeedeeWelcomeScreen),
+				typeof(TopCommitersScreen)
+			});
+			
 			window.AddSubview(tabBarController.View);
 
 			window.MakeKeyAndVisible();

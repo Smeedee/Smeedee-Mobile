@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
@@ -38,12 +39,15 @@ namespace Smeedee.iPhone
 		
 		private void AddWidgetsToScreen()
 		{
-			var widgets = new UIViewController[] {
-				new SmeedeeWelcomeScreen(),
-				new TopCommitersScreen()
-			};
+			var usersWidgets = SmeedeeApp.Instance.GetWidgets();
 			
-			var count = widgets.Length;
+			var widgets = new List<UIViewController>();
+			foreach (var userWidget in usersWidgets)
+			{
+				widgets.Add(userWidget as UIViewController);
+			}
+			
+			var count = widgets.Count();
 			var scrollViewWidth = SCREEN_WIDTH * count;
 			
 			scrollView.Frame.Width = scrollViewWidth;
@@ -75,4 +79,6 @@ namespace Smeedee.iPhone
 			pageControl.CurrentPage = (int)page;
 		}
 	}
+	
+	
 }
