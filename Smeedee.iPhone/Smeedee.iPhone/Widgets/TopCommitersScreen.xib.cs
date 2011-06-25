@@ -17,12 +17,24 @@ namespace Smeedee.iPhone
 		{
 			base.ViewDidLoad();
 			
-			TableView.Source = new TopCommitersTableSource();
+			var topCommiters = new TopCommiters();
+			topCommiters.Load(() => {
+				TableView.ReloadData();
+			});
+			
+			TableView.Source = new TopCommitersTableSource(topCommiters.Commiters);
 		}
 	}
 	
 	public class TopCommitersTableSource : UITableViewSource
 	{
+		private IEnumerable<Commiter> commiters;
+		
+		public TopCommitersTableSource(IEnumerable<Commiter> commiters)
+		{
+			this.commiters = commiters;
+		}
+		
 		public override int NumberOfSections(UITableView tableView)
 		{
 			return 1;
@@ -30,16 +42,18 @@ namespace Smeedee.iPhone
 		
 		public override int RowsInSection(UITableView tableview, int section)
 		{
-			return 3;
+			return commiters.Count();
 		}
 		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
+			var commiter = commiters.ElementAt(indexPath.Row);
+			
 			// TODO: add cell reuse/virtualization here!!
 			var topCommiterCellController = new TopCommiterTableCell();
 			
 			NSBundle.MainBundle.LoadNib("TopCommiterTableCell", topCommiterCellController, null);
-			topCommiterCellController.BindDataToCell("User " + indexPath.Row, 27);
+			topCommiterCellController.BindDataToCell(commiter.Name, 123);
 			
 			return topCommiterCellController.Cell;
 		}
