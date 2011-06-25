@@ -18,10 +18,12 @@ namespace Smeedee.iPhone
 	// The name AppDelegate is referenced in the MainWindow.xib file.
 	public partial class AppDelegate : UIApplicationDelegate
 	{
+		private SmeedeeApp app = SmeedeeApp.Instance;
+		
 		// This method is invoked when the application has loaded its UI and its ready to run
-		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+		public override bool FinishedLaunching(UIApplication uiApp, NSDictionary options)
 		{
-			SmeedeeApp.Instance.RegisterAvailableWidgets(new [] {
+			app.RegisterAvailableWidgets(new [] {
 				typeof(SmeedeeWelcomeScreen),
 				typeof(TopCommitersScreen)
 			});
@@ -30,11 +32,6 @@ namespace Smeedee.iPhone
 
 			window.MakeKeyAndVisible();
 			return true;
-		}
-
-		// This method is required in iPhoneOS 3.0
-		public override void OnActivated(UIApplication application)
-		{
 		}
 	}
 }

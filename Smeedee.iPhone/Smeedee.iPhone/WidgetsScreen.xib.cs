@@ -29,6 +29,8 @@ namespace Smeedee.iPhone
 		
 		private const int SCREEN_WIDTH = 320;
 		
+		private SmeedeeApp app = SmeedeeApp.Instance;
+		
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -39,14 +41,7 @@ namespace Smeedee.iPhone
 		
 		private void AddWidgetsToScreen()
 		{
-			var usersWidgets = SmeedeeApp.Instance.GetWidgets();
-			
-			var widgets = new List<UIViewController>();
-			foreach (var userWidget in usersWidgets)
-			{
-				widgets.Add(userWidget as UIViewController);
-			}
-			
+			var widgets = GetWidgets();
 			var count = widgets.Count();
 			var scrollViewWidth = SCREEN_WIDTH * count;
 			
@@ -55,7 +50,7 @@ namespace Smeedee.iPhone
 			
 			for (int i = 0; i < count; i++)
 			{
-				var widget = widgets[i].View;
+				var widget = widgets.ElementAt(i).View;
 				
 				var frame = scrollView.Frame;
 				frame.Location = new PointF(SCREEN_WIDTH * i, 0);
@@ -65,6 +60,16 @@ namespace Smeedee.iPhone
 			}
 			
 			pageControl.Pages = count;
+		}
+		
+		private IEnumerable<UIViewController> GetWidgets()
+		{
+			var usersWidgets = app.GetWidgets();
+			
+			foreach (var userWidget in usersWidgets)
+			{
+				yield return userWidget as UIViewController;
+			}
 		}
 		
 		private void AttachScrollEvent()
