@@ -133,6 +133,9 @@
     <Compile Include="..\Smeedee\Model\TopCommiters.cs">
       <Link>Model\TopCommiters.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\SmeedeeFakeService.cs">
+      <Link>Services\SmeedeeFakeService.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
