@@ -136,6 +136,12 @@
     <Compile Include="..\Smeedee\Services\SmeedeeFakeService.cs">
       <Link>Services\SmeedeeFakeService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\AsyncResult.cs">
+      <Link>Services\AsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\IWidget.cs">
+      <Link>Model\IWidget.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />

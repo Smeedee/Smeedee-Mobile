@@ -30,8 +30,4 @@ namespace Smeedee.Model
 			}
 		}
 	}
-	
-	public interface IWidget
-	{
-	}
 }

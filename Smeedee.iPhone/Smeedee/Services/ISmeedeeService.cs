@@ -8,14 +8,4 @@ namespace Smeedee.Services
 	{
 		void LoadTopCommiters(Action<AsyncResult<IEnumerable<Commiter>>> callback);
 	}
-	
-	public class AsyncResult<T>
-	{
-		public AsyncResult(T result)
-		{
-			Result = result;
-		}
-		
-		public T Result { get; private set; }
-	}
 }
