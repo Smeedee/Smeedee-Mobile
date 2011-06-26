@@ -19,7 +19,16 @@ namespace Smeedee.Model
 		
 		public void RegisterAvailableWidgets(IEnumerable<Type> widgetTypes)
 		{
-			availableWidgetTypes.AddRange(widgetTypes);
+			foreach (var widget in widgetTypes)
+			{
+				if (availableWidgetTypes.Contains(widget)) continue;
+				availableWidgetTypes.Add(widget);
+			}
+		}
+		
+		public void ClearRegisteredWidgets()
+		{
+			availableWidgetTypes.Clear();
 		}
 		
 		public IEnumerable<IWidget> GetWidgets()
