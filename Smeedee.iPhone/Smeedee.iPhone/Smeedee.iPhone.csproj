@@ -142,6 +142,12 @@
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
     </Compile>
+    <Compile Include="Widgets\TestWebViewScreen.xib.cs">
+      <DependentUpon>TestWebViewScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TestWebViewScreen.xib.designer.cs">
+      <DependentUpon>TestWebViewScreen.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
@@ -150,6 +156,7 @@
     <Page Include="WidgetsScreen.xib" />
     <Page Include="Widgets\SmeedeeWelcomeScreen.xib" />
     <Page Include="Widgets\TableCells\TopCommiterTableCell.xib" />
+    <Page Include="Widgets\TestWebViewScreen.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -159,11 +166,15 @@
     <Folder Include="Widgets\TableCells\" />
     <Folder Include="Model\" />
     <Folder Include="Services\" />
+    <Folder Include="Widgets\Html\" />
+    <Folder Include="Widgets\Html\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\TabIcons\configuration.png" />
     <Content Include="Images\TabIcons\widgets.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\user.png" />
+    <Content Include="Widgets\Html\Scripts\jquery-1.5.min.js" />
+    <Content Include="Widgets\Html\Test.html" />
   </ItemGroup>
 </Project>

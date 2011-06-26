@@ -44,7 +44,8 @@ namespace Smeedee.iPhone
 			//       scanning the current assembly for IWidget types?
 			app.RegisterAvailableWidgets(new [] {
 				typeof(SmeedeeWelcomeScreen),
-				typeof(TopCommitersScreen)
+				typeof(TopCommitersScreen),
+				typeof(TestWebViewScreen)
 			});
 		}
 		
