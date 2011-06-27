@@ -32,6 +32,11 @@ namespace Smeedee.iPhone
 			return true;
 		}
 		
+		public override void HandleOpenURL(UIApplication application, NSUrl url)
+		{
+			Console.WriteLine("URL: " + url.AbsoluteUrl);
+		}
+		
 		private void ConfigureDependencies()
 		{
 			//SmeedeeApp.SmeedeeService = new SmeedeeHttpService(); // Production
