@@ -37,6 +37,9 @@ namespace Smeedee.Android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060000
+			public const int ContainerLayout = 2131099648;
+			
 			// aapt resource value: 0x7f060001
 			public const int MyButton = 2131099649;
 			
@@ -45,9 +48,6 @@ namespace Smeedee.Android
 			
 			// aapt resource value: 0x7f060002
 			public const int new_rss_tab = 2131099650;
-			
-			// aapt resource value: 0x7f060000
-			public const int test_widget = 2131099648;
 			
 			private Id()
 			{
