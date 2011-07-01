@@ -5,3 +5,4 @@ test-results
 *.pidb
 *.suo
 *ReSharper*
+*.user
