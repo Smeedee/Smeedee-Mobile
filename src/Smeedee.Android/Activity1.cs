@@ -19,7 +19,19 @@ namespace Smeedee.Android
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
+
             ConfigureDependencies();
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.Main, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            return base.OnOptionsItemSelected(item);
         }
 
         private void ConfigureDependencies()
