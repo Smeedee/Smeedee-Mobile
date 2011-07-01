@@ -1,0 +1,27 @@
+<mockup version="1.0" skin="sketch" measuredW="872" measuredH="553" mockupW="282" mockupH="510">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="590" y="43" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::PointyButton" x="625" y="344" w="208" h="-1" measuredW="57" measuredH="28" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>11820806</color>
+        <direction>center</direction>
+        <text>Log%20in</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Canvas" x="617" y="142" w="228" h="332" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Image" x="652" y="158" w="-1" h="-1" measuredW="77" measuredH="79" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>../smeedee-logo.png</src>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::iPhoneMenu" x="623" y="241" w="210" h="-1" measuredW="215" measuredH="97" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>server%20url%0Ausername%0Apassword</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
