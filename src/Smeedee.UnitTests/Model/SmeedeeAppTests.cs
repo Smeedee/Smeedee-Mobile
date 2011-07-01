@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
@@ -24,10 +25,6 @@ namespace Smeedee.UnitTests.Model
 		[TestFixture]
 		public class When_registering_widgets : Shared
 		{
-			public class TestWidget : IWidget
-			{
-			}
-			
 			[Test]
 			public void Then_they_should_be_available_when_getting_widgets()
 			{
@@ -55,6 +52,41 @@ namespace Smeedee.UnitTests.Model
 			}
 		}
 		
+		[TestFixture]
+		public class When_registering_widgets_dynamically : Shared
+		{
+			[Test]
+			public void Then_they_should_be_available_when_getting_widgets()
+			{
+				app.RegisterAvailableWidgets();
+				
+				var widgets = app.GetWidgets();
+				
+				AssertContains(widgets, typeof(TestWidget));
+				AssertContains(widgets, typeof(AnotherTestWidget));
+			}
+			
+			[Test]
+			public void Then_it_should_only_contain_concrete_types()
+			{
+				app.RegisterAvailableWidgets();
+				
+				var exceptionWasThrown = false;
+				try {
+					app.GetWidgets();
+				} catch {
+					exceptionWasThrown = true;
+				}
+				Assert.IsFalse(exceptionWasThrown);
+			}
+			
+			private void AssertContains(IEnumerable<IWidget> allWidgets, Type typeToCheck)
+			{
+				var testWidget = allWidgets.Single(w => w.GetType() == typeToCheck);
+				Assert.IsNotNull(testWidget);
+			}
+		}
+		
 		public class Shared
 		{
 			protected SmeedeeApp app;
@@ -65,6 +97,18 @@ namespace Smeedee.UnitTests.Model
 				app = SmeedeeApp.Instance;
 				app.ClearRegisteredWidgets();
 			}
+		}
+		
+		public class TestWidget : IWidget
+		{
+		}
+		
+		public class AnotherTestWidget : IWidget
+		{
+		}
+		
+		public interface IIntermediateWidget : IWidget
+		{
 		}
 	}
 }

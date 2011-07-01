@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Smeedee.Services;
 
 namespace Smeedee.Model
@@ -16,6 +17,19 @@ namespace Smeedee.Model
 		public static ISmeedeeService SmeedeeService = new SmeedeeHttpService();
 		
 		private List<Type> availableWidgetTypes = new List<Type>();
+		
+		public void RegisterAvailableWidgets()
+		{
+			var types = Assembly.GetCallingAssembly().GetTypes();
+			
+			foreach (var type in types)
+			{
+				if (typeof(IWidget).IsAssignableFrom(type))
+				{
+					availableWidgetTypes.Add(type);
+				}
+			}
+		}
 		
 		public void RegisterAvailableWidgets(IEnumerable<Type> widgetTypes)
 		{
