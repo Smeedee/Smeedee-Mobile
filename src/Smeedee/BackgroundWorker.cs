@@ -10,7 +10,9 @@ namespace Smeedee
     {
         public void Invoke(Action unitOfWork)
         {
-            new Thread(() => unitOfWork()).Start();
+            ThreadPool.QueueUserWorkItem(t => {
+                unitOfWork();
+            });
         }
     }
 }
