@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Web.Script.Serialization;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Smeedee.Services;
 
@@ -12,9 +8,9 @@ namespace Smeedee.UnitTests.Services
     [TestFixture]
     class PersistenceServiceTests
     {
-        private FakeKVStorage _fakeKvStorage;
-        private PersistenceService _persistenceService;
-        private const string KEY = "TEST_KEY";
+        protected FakeKVStorage _fakeKvStorage;
+        protected PersistenceService _persistenceService;
+        protected const string KEY = "TEST_KEY";
 
         [SetUp]
         public void SetUp()
@@ -29,11 +25,14 @@ namespace Smeedee.UnitTests.Services
             _persistenceService.Save(KEY, 1);
             Assert.AreEqual("1", _fakeKvStorage.savedValues[KEY]);
         }
-    }
 
-    internal class MyClass
-    {
-        public int LOL { get; set; }
-        public string lol2 { get; set; }
+        [Test]
+        public void should_save_simple_string_argument()
+        {
+            _persistenceService.Save(KEY, "Hello World");
+            Assert.AreEqual("Hello World", _fakeKvStorage.savedValues[KEY]);
+        }
+
+        
     }
 }
