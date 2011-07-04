@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -38,8 +38,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Services\IMobileKVPersister.cs" />
+    <Compile Include="Services\IPersistenceService.cs" />
     <Compile Include="Services\ISmeedeeService.cs" />
     <Compile Include="Model\SmeedeeApp.cs" />
+    <Compile Include="Services\PersistenceService.cs" />
     <Compile Include="Services\SmeedeeHttpService.cs" />
     <Compile Include="Model\TopCommiters.cs" />
     <Compile Include="Model\Commiter.cs" />
@@ -48,8 +51,5 @@
     <Compile Include="Model\IWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
