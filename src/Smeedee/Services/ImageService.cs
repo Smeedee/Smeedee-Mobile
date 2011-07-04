@@ -21,16 +21,15 @@ namespace Smeedee.Services
             //var img = new ImageView();
             //var bmp = new BitmapFactory().decodeByteArray(bytes);
             //img.setImageBitmap(bmp);
+            
             //Usage iPhone:
             //UIImage img = UIImage.LoadFromData(NSData.FromArray(bytes));
-            worker.Invoke(() =>
-                {
-                    var webClient = new WebClient();
-                    var bytes = webClient.DownloadData(uri);
-                    callback(bytes);
-                });
+            
+            worker.Invoke(() =>{
+                var webClient = new WebClient();
+                var bytes = webClient.DownloadData(uri);
+                callback(bytes);
+            });
         }
-
-        
     }
 }
