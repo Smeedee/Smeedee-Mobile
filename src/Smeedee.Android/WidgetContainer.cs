@@ -19,10 +19,22 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            
             ConfigureDependencies();
-
+            
             SetContentView(Resource.Layout.Main);
+            AddWidgetsToFlipper();
+            SetNextButtonText();
+            BindEventsToNavigationButtons();
+        }
 
+        private void ConfigureDependencies()
+        {
+            SmeedeeApp.SmeedeeService = new SmeedeeFakeService();
+        }
+        
+        private void AddWidgetsToFlipper()
+        {
             var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
 
             var widgets = GetWidgets();
@@ -30,27 +42,6 @@ namespace Smeedee.Android
             {
                 flipper.AddView(widget as View);
             }
-
-            var text = FindViewById<Button>(Resource.Id.BtnNext);
-            text.Text = widgets.Count() + " w";
-
-            var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-            btnPrev.Click += (obj, e) =>
-                                 {
-                                     flipper.ShowPrevious();
-                                     flipper.RefreshDrawableState();
-                                 };
-
-            var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-            btnNext.Click += delegate
-                                 {
-                                     flipper.ShowNext();
-                                 };
-        }
-
-        private void ConfigureDependencies()
-        {
-            SmeedeeApp.SmeedeeService = new SmeedeeFakeService();
         }
 
         private IEnumerable<IWidget> GetWidgets()
@@ -65,7 +56,38 @@ namespace Smeedee.Android
             }
             return instances;
         }
-
+  
+        private void SetNextButtonText()
+        {
+            var nextButtonText = FindViewById<Button>(Resource.Id.BtnNext);
+            nextButtonText.Text = widgets.Count() + " w";
+        }
+        
+        private void BindEventsToNavigationButtons()
+        {
+            BindPreviousButtonClickEvent();
+            BindNextButtonClickEvent();
+        }
+        
+        private void BindPreviousButtonClickEvent()
+        {
+            var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
+            btnPrev.Click += (obj, e) =>
+                                 {
+                                     flipper.ShowPrevious();
+                                     flipper.RefreshDrawableState();
+                                 };
+        }
+        
+        private void BindNextButtonClickEvent()
+        {
+            var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
+            btnNext.Click += delegate
+                                 {
+                                     flipper.ShowNext();
+                                 };
+        }
+        
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
