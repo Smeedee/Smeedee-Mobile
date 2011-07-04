@@ -33,9 +33,19 @@ namespace Smeedee.Model
         {
             foreach (var widget in widgetTypes)
             {
-                if (AvailableWidgetTypes.Where(e => e.GUID == widget.GUID).Count() > 0) continue;
+                if (WidgetTypeIsAlreadyRegistered(widget)) continue;
                 AvailableWidgetTypes.Add(widget);
             }
+        }
+        
+        private bool WidgetTypeIsAlreadyRegistered(Type widgetType)
+        {
+            foreach (var registeredWidgetType in AvailableWidgetTypes)
+            {
+                if (registeredWidgetType.Name == widgetType.Name) return true;
+            }
+            
+            return false;
         }
     }
 }
