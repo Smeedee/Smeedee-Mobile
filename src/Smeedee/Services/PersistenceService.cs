@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Script.Serialization;
 
 namespace Smeedee.Services
@@ -8,6 +7,7 @@ namespace Smeedee.Services
     {
         private IMobileKVPersister storage;
         private JavaScriptSerializer jsonSerializer;
+        
         public PersistenceService(IMobileKVPersister mobileKvStorage)
         {
             storage = mobileKvStorage;
@@ -21,19 +21,15 @@ namespace Smeedee.Services
 
         public T Get<T>(string key, T defaultObject)
         {
-            // TODO: Is it correct behavior to allow all other exceptions to bubble up?
-            // TODO: For now we have a bit of duplication here to allow tests to prove the
-            // system behavior. If logging is ever implemented that would be a better way
-            // to assert system behavior.
+            // NOTE: Reason for System.Exception:
+            // We need to go this high in the exception hierarchy in order
+            // to catch the System.Exception thrown when JavaScriptSerializer
+            // fails to cast objects to the given type.
             try
             {
                 return jsonSerializer.Deserialize<T>(storage.Get(key));
             }
-            catch(KeyNotFoundException)
-            {
-                return defaultObject;
-            }
-            catch(FormatException)
+            catch(Exception)
             {
                 return defaultObject;
             }
