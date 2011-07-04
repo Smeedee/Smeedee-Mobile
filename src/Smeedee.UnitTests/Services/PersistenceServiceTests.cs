@@ -7,52 +7,106 @@ using Smeedee.UnitTests.Resources;
 
 namespace Smeedee.UnitTests.Services
 {
-    [TestFixture]
-    class PersistenceServiceTests
+    
+    abstract class PersistenceServiceTests
     {
         protected FakeKVStorage _fakeKvStorage;
         protected PersistenceService _persistenceService;
-        protected const string KEY = "TEST_KEY";
+        protected const string KEY = "DUMMY_KEY";
 
-        [SetUp]
-        public void SetUp()
+        [TestFixture]
+        public class When_saving : PersistenceServiceTests
         {
-            _fakeKvStorage = new FakeKVStorage();
-            _persistenceService = new PersistenceService(_fakeKvStorage);
+            [SetUp]
+            public void SetUp()
+            {
+                _fakeKvStorage = new FakeKVStorage();
+                _persistenceService = new PersistenceService(_fakeKvStorage);
+            }
+
+            [Test]
+            public void should_ask_to_save_simple_int_argument_as_json()
+            {
+                _persistenceService.Save(KEY, 1);
+                Assert.AreEqual("1", _fakeKvStorage.savedValues[KEY]);
+            }
+
+            [Test]
+            public void should_ask_to_save_simple_string_argument_as_json()
+            {
+                _persistenceService.Save(KEY, "Hello World");
+                Assert.AreEqual("\"Hello World\"", _fakeKvStorage.savedValues[KEY]);
+            }
+
+            [Test]
+            public void should_ask_to_save_simple_list_with_ints_as_json()
+            {
+                _persistenceService.Save(KEY, new List<int>() { 1, 2, 3, 4 });
+                Assert.AreEqual("[1,2,3,4]", _fakeKvStorage.savedValues[KEY]);
+            }
+
+            [Test]
+            public void should_ask_to_save_simple_custom_data_structure_as_json()
+            {
+                _persistenceService.Save(KEY, new SimpleDataStructure()
+                {
+                    var1 = 10.2,
+                    var2 = true,
+                    var3 = "Test"
+                });
+                Assert.AreEqual(PersistenceServiceResources.SimpleCustomClassJson,
+                                _fakeKvStorage.savedValues[KEY]);
+            }
         }
 
-        [Test]
-        public void should_save_simple_int_argument()
+        [TestFixture]
+        public class When_retrieving : PersistenceServiceTests
         {
-            _persistenceService.Save(KEY, 1);
-            Assert.AreEqual("1", _fakeKvStorage.savedValues[KEY]);
+            [SetUp]
+            public void SetUp()
+            {
+                _fakeKvStorage = new FakeKVStorage();
+                _persistenceService = new PersistenceService(_fakeKvStorage);
+            }
+
+            [Test]
+            public void Should_properly_deserialize_simple_int_describes_as_json()
+            {
+                _fakeKvStorage.retrievableContent = "1";
+                Assert.AreEqual(1, _persistenceService.Get<int>(KEY, 42));
+            }
+
+            [Test]
+            public void Should_properly_deserialize_simple_string_describes_as_json()
+            {
+                _fakeKvStorage.retrievableContent = "\"Hello World\"";
+                Assert.AreEqual("Hello World", _persistenceService.Get<string>(KEY, "This is wrong"));
+            }
+
+            [Test]
+            public void Should_properly_deserialize_simple_list_of_ints_described_as_json()
+            {
+                _fakeKvStorage.retrievableContent = "[1,2,3,4]";
+                Assert.AreEqual(new List<int>() {1, 2, 3, 4}, _persistenceService.Get(KEY, new List<int>()));
+            }
+
+            [Test]
+            public void Should_properly_deserialize_simple_custom_object_describes_as_json()
+            {
+                _fakeKvStorage.retrievableContent = PersistenceServiceResources.SimpleCustomClassJson;
+                Assert.AreEqual(new SimpleDataStructure()
+                {
+                    var1 = 10.2,
+                    var2 = true,
+                    var3 = "Test"
+                }, _persistenceService.Get<SimpleDataStructure>(KEY, null));
+            }
         }
 
-        [Test]
-        public void should_save_simple_string_argument()
+        [TestFixture]
+        public class When_retrieving_should_return_default_object : PersistenceServiceTests
         {
-            _persistenceService.Save(KEY, "Hello World");
-            Assert.AreEqual("\"Hello World\"", _fakeKvStorage.savedValues[KEY]);
-        }
-
-        [Test]
-        public void should_save_simple_list_with_ints()
-        {
-            _persistenceService.Save(KEY, new List<int>() {1, 2, 3, 4});
-            Assert.AreEqual("[1,2,3,4]", _fakeKvStorage.savedValues[KEY]);
-        }
-
-        [Test]
-        public void should_save_simple_custom_data_structure()
-        {
-            _persistenceService.Save(KEY, new SimpleDataStructure()
-                                              {
-                                                  var1 = 10.2, 
-                                                  var2 = true, 
-                                                  var3 = "Test"
-                                              });
-            Assert.AreEqual(PersistenceServiceResources.SimpleCustomClassJson, 
-                            _fakeKvStorage.savedValues[KEY]);
+            
         }
     }
 
@@ -61,5 +115,11 @@ namespace Smeedee.UnitTests.Services
         public double var1;
         public bool var2;
         public string var3;
+
+        public override bool Equals(object obj)
+        {
+            var other = (SimpleDataStructure) obj;
+            return (var1 == other.var1 && var2 == other.var2 && var3 == other.var3);
+        }
     }
 }

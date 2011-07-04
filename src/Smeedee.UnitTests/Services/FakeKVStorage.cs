@@ -6,6 +6,7 @@ namespace Smeedee.UnitTests.Services
     public class FakeKVStorage : IMobileKVPersister
     {
         public Dictionary<string, string> savedValues;
+        public string retrievableContent { get; set; }
 
         public FakeKVStorage()
         {
@@ -19,7 +20,7 @@ namespace Smeedee.UnitTests.Services
 
         public string Get(string key)
         {
-            return savedValues[key];
+            return retrievableContent;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Smeedee.Services
 
         public T Get<T>(string key, T defaultObject)
         {
-            throw new NotImplementedException();
+            return jsonSerializer.Deserialize<T>(storage.Get(key));
         }
     }
 }
