@@ -31,11 +31,11 @@ namespace Smeedee.UnitTests.Model
 				app.RegisterAvailableWidgets(new [] { 
 					typeof(TestWidget)
 				});
-				
-				var widgets = app.GetWidgets();
+
+                var widgets = app.AvailableWidgetTypes;
 				
 				Assert.AreEqual(1, widgets.Count());
-				Assert.AreEqual(typeof(TestWidget).Name, widgets.First().GetType().Name);
+				Assert.AreEqual(typeof(TestWidget).Name, widgets.First().Name);
 			}
 			
 			[Test]
@@ -45,8 +45,8 @@ namespace Smeedee.UnitTests.Model
 					typeof(TestWidget),
 					typeof(TestWidget)
 				});
-				
-				var widgets = app.GetWidgets();
+
+                var widgets = app.AvailableWidgetTypes;
 				
 				Assert.AreEqual(1, widgets.Count());
 			}
@@ -59,11 +59,11 @@ namespace Smeedee.UnitTests.Model
 			public void Then_they_should_be_available_when_getting_widgets()
 			{
 				app.RegisterAvailableWidgets();
-				
-				var widgets = app.GetWidgets();
-				
-				AssertContains(widgets, typeof(TestWidget));
-				AssertContains(widgets, typeof(AnotherTestWidget));
+
+                var widgets = app.AvailableWidgetTypes;
+
+                Assert.Contains(typeof(TestWidget), widgets.ToList());
+                Assert.Contains(typeof(AnotherTestWidget), widgets.ToList());
 			}
 			
 			[Test]
@@ -72,22 +72,29 @@ namespace Smeedee.UnitTests.Model
 				app.RegisterAvailableWidgets();
 
                 var exceptionWasThrown = false;
-                var widgets = new List<IWidget>();
+                var widgetTypes = new List<Type>();
 				try {
-					widgets = app.GetWidgets().ToList();
+					widgetTypes = app.AvailableWidgetTypes;
+				    foreach (var type in widgetTypes)
+				    {
+				        Activator.CreateInstance(type);
+				    }
 				} catch {
 					exceptionWasThrown = true;
 				}
-			    var nonConcrete = widgets.Where(o => o.GetType().IsInterface || o.GetType().IsAbstract).ToList();
-                Assert.IsEmpty(nonConcrete);
 				Assert.IsFalse(exceptionWasThrown);
 			}
 			
-			private void AssertContains(IEnumerable<IWidget> allWidgets, Type typeToCheck)
-			{
-				var testWidget = allWidgets.Single(w => w.GetType() == typeToCheck);
-				Assert.IsNotNull(testWidget);
-			}
+            public void Registering_widgets_should_be_idempotent()
+            {
+                app.RegisterAvailableWidgets();
+                var countOne = app.AvailableWidgetTypes.Count;
+
+                app.RegisterAvailableWidgets();
+                var countTwo = app.AvailableWidgetTypes.Count;
+
+                Assert.AreEqual(countOne, countTwo);
+            }
 		}
 		
 		public class Shared
@@ -98,7 +105,7 @@ namespace Smeedee.UnitTests.Model
 			public void SetUp()
 			{
 				app = SmeedeeApp.Instance;
-				app.ClearRegisteredWidgets();
+                app.AvailableWidgetTypes.Clear();
 			}
 		}
 		
