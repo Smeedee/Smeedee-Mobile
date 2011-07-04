@@ -1,16 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ContainerLayout"
-    android:orientation="vertical"
+<?xml version="1.0" encoding="utf-8" ?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/flipper"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
+  <ScrollView android:id="@+id/scripScroll0"
+  android:layout_below="@id/navBar"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#fff"
+  android:fadingEdgeLength="6px">
+    <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
-<Button  
-    android:id="@+id/MyButton"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/Hello" />
-  
-  
-  
-</LinearLayout>
+      <TextView android:id="@+id/text0"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:layout_marginLeft="5px"
+      android:layout_marginRight="5px"
+      android:textColor="#111"
+      android:typeface="serif"
+      android:text="First"/>
+    </RelativeLayout>
+  </ScrollView>
+  <ScrollView android:id="@+id/scripScroll1"
+  android:layout_below="@id/navBar"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#fff"
+  android:fadingEdgeLength="6px">
+    <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+      <TextView android:id="@+id/text1"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:layout_marginLeft="5px"
+      android:layout_marginRight="5px"
+      android:textColor="#111"
+      android:typeface="serif"
+      android:text="Second"/>
+    </RelativeLayout>
+  </ScrollView>
+  <ScrollView android:id="@+id/scripScroll2"
+  android:layout_below="@id/navBar"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#fff"
+  android:fadingEdgeLength="6px">
+    <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+      <TextView android:id="@+id/text2"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:layout_marginLeft="5px"
+      android:layout_marginRight="5px"
+      android:textColor="#111"
+      android:typeface="serif"
+      android:text="Third"/>
+    </RelativeLayout>
+  </ScrollView>
+</ViewFlipper>
