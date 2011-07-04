@@ -11,13 +11,15 @@
       android:text="@string/Prev" />
   
   <Button
-      android:id="@+id/BtnPrev"
+      android:id="@+id/BtnNext"
+      android:layout_alignParentRight="true"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/Next" />
 
   <ViewFlipper
       android:id="@+id/Flipper"
+      android:layout_below="@id/BtnNext"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent">
   </ViewFlipper>

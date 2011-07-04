@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -29,6 +30,22 @@ namespace Smeedee.Android
             {
                 flipper.AddView(widget as View);
             }
+
+            var text = FindViewById<Button>(Resource.Id.BtnNext);
+            text.Text = widgets.Count() + " w";
+
+            var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
+            btnPrev.Click += (obj, e) =>
+                                 {
+                                     flipper.ShowPrevious();
+                                     flipper.RefreshDrawableState();
+                                 };
+
+            var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
+            btnNext.Click += delegate
+                                 {
+                                     flipper.ShowNext();
+                                 };
         }
 
         private void ConfigureDependencies()
@@ -38,13 +55,15 @@ namespace Smeedee.Android
 
         private IEnumerable<IWidget> GetWidgets()
         {
-            SmeedeeApp.Instance.RegisterAvailableWidgets();
+            SmeedeeApp.Instance.RegisterAvailableWidgets(new Type[] {typeof(FooWidget), typeof(TestWidget)});
 
             var widgetTypes = SmeedeeApp.Instance.AvailableWidgetTypes;
+            var instances = new List<IWidget>();
             foreach (var widgetType in widgetTypes)
             {
-                yield return Activator.CreateInstance(widgetType, this) as IWidget;
+                instances.Add(Activator.CreateInstance(widgetType, this) as IWidget);
             }
+            return instances;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -52,8 +71,6 @@ namespace Smeedee.Android
             MenuInflater.Inflate(Resource.Menu.Main, menu);
             return true;
         }
-
-
     }
 }
 

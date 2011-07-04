@@ -37,23 +37,26 @@ namespace Smeedee.Android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060002
+			public const int BtnNext = 2131099650;
+			
 			// aapt resource value: 0x7f060001
 			public const int BtnPrev = 2131099649;
 			
-			// aapt resource value: 0x7f060002
-			public const int Flipper = 2131099650;
-			
 			// aapt resource value: 0x7f060003
-			public const int MyButton = 2131099651;
+			public const int Flipper = 2131099651;
+			
+			// aapt resource value: 0x7f060004
+			public const int MyButton = 2131099652;
 			
 			// aapt resource value: 0x7f060000
 			public const int RootLayout = 2131099648;
 			
-			// aapt resource value: 0x7f060005
-			public const int about = 2131099653;
+			// aapt resource value: 0x7f060006
+			public const int about = 2131099654;
 			
-			// aapt resource value: 0x7f060004
-			public const int new_rss_tab = 2131099652;
+			// aapt resource value: 0x7f060005
+			public const int new_rss_tab = 2131099653;
 			
 			private Id()
 			{
@@ -88,8 +91,11 @@ namespace Smeedee.Android
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f040005
+			public const int ApplicationName = 2130968581;
+			
 			// aapt resource value: 0x7f040004
-			public const int ApplicationName = 2130968580;
+			public const int FooWidgetText = 2130968580;
 			
 			// aapt resource value: 0x7f040002
 			public const int Hello = 2130968578;
