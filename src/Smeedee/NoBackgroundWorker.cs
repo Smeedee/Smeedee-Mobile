@@ -7,9 +7,9 @@ namespace Smeedee
 {
     public class NoBackgroundWorker : IBackgroundWorker
     {
-        public void Invoke(Action fn)
+        public void Invoke(Action unitOfWork)
         {
-            fn();
+            unitOfWork();
         }
     }
 }
