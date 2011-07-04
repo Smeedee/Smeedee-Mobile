@@ -36,22 +36,27 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BackgroundWorker.cs" />
-    <Compile Include="NoBackgroundWorker.cs" />
     <Compile Include="IBackgroundWorker.cs" />
+    <Compile Include="NoBackgroundWorker.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\CachedImageService.cs" />
     <Compile Include="Services\FakeImageService.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\IMobileKVPersister.cs" />
+    <Compile Include="Services\IPersistenceService.cs" />
     <Compile Include="Services\ISmeedeeService.cs" />
     <Compile Include="Model\SmeedeeApp.cs" />
+    <Compile Include="Services\PersistenceService.cs" />
     <Compile Include="Services\SmeedeeHttpService.cs" />
     <Compile Include="Model\TopCommiters.cs" />
     <Compile Include="Model\Commiter.cs" />
@@ -59,7 +64,6 @@
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Model\IWidget.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -69,4 +73,5 @@
   <ItemGroup>
     <None Include="Resources\default_person.jpeg" />
   </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
