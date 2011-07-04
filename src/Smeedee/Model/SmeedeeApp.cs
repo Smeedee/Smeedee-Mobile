@@ -25,7 +25,7 @@ namespace Smeedee.Model
         {
             var types = Assembly.GetCallingAssembly().GetTypes();
             var widgets = from type in types where typeof(IWidget).IsAssignableFrom(type) select type;
-            var concrete = from type in widgets where !(type.IsAbstract || type.IsInterface) select type;
+            var concrete = from type in widgets where !type.IsInterface select type;
             RegisterAvailableWidgets(concrete);
         }
         
