@@ -37,22 +37,16 @@ namespace Smeedee.UnitTests.Model
             }
             
             [Test]
-            public void Then_it_should_only_contain_concrete_types()
+            public void Then_it_should_not_contain_interfaces()
             {
                 app.RegisterAvailableWidgets();
 
-                var exceptionWasThrown = false;
-                var widgetTypes = new List<Type>();
-                try {
-                    widgetTypes = app.AvailableWidgetTypes;
-                    foreach (var type in widgetTypes)
-                    {
-                        Activator.CreateInstance(type);
-                    }
-                } catch {
-                    exceptionWasThrown = true;
+                var widgetTypes = app.AvailableWidgetTypes;
+                
+                foreach (var widgetType in widgetTypes)
+                {
+                    Assert.IsFalse(widgetType.IsInterface);
                 }
-                Assert.IsFalse(exceptionWasThrown);
             }
             
             [Test]
