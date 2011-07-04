@@ -8,9 +8,9 @@ namespace Smeedee
 {
     public class BackgroundWorker : IBackgroundWorker
     {
-        public void Invoke(Action fn)
+        public void Invoke(Action unitOfWork)
         {
-            new Thread(() => fn()).Start();
+            new Thread(() => unitOfWork()).Start();
         }
     }
 }
