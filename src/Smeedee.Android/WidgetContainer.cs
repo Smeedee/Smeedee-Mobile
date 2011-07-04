@@ -18,23 +18,33 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            ConfigureDependencies();
+
             SetContentView(Resource.Layout.Main);
 
-            var layout = FindViewById<LinearLayout>(Resource.Id.ContainerLayout);
+            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
 
             var widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                layout.AddView(widget as View);
+                flipper.AddView(widget as View);
             }
+        }
 
-
-            ConfigureDependencies();
+        private void ConfigureDependencies()
+        {
+            SmeedeeApp.SmeedeeService = new SmeedeeFakeService();
         }
 
         private IEnumerable<IWidget> GetWidgets()
         {
-            return new IWidget[] {new TestWidget(null)};
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
+
+            var widgetTypes = SmeedeeApp.Instance.AvailableWidgetTypes;
+            foreach (var widgetType in widgetTypes)
+            {
+                yield return Activator.CreateInstance(widgetType, this) as IWidget;
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -43,21 +53,7 @@ namespace Smeedee.Android
             return true;
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            return base.OnOptionsItemSelected(item);
-        }
 
-        private void ConfigureDependencies()
-        {
-            SmeedeeApp.SmeedeeService = new SmeedeeFakeService();
-            RegisterAllSupportedWidgets();
-        }
-
-        private void RegisterAllSupportedWidgets()
-        {
-            
-        }
     }
 }
 
