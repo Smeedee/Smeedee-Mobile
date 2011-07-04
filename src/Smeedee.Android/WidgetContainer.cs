@@ -55,7 +55,7 @@ namespace Smeedee.Android
 
         private IEnumerable<IWidget> GetWidgets()
         {
-            SmeedeeApp.Instance.RegisterAvailableWidgets(new Type[] {typeof(FooWidget), typeof(TestWidget)});
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
 
             var widgetTypes = SmeedeeApp.Instance.AvailableWidgetTypes;
             var instances = new List<IWidget>();

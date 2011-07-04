@@ -23,36 +23,6 @@ namespace Smeedee.UnitTests.Model
         }
         
         [TestFixture]
-        public class When_registering_widgets : Shared
-        {
-            [Test]
-            public void Then_they_should_be_available_when_getting_widgets()
-            {
-                app.RegisterAvailableWidgets(new [] { 
-                    typeof(TestWidget)
-                });
-
-                var widgets = app.AvailableWidgetTypes;
-                
-                Assert.AreEqual(1, widgets.Count());
-                Assert.AreEqual(typeof(TestWidget).Name, widgets.First().Name);
-            }
-            
-            [Test]
-            public void Then_a_widget_already_registered_should_not_appear_twice()
-            {
-                app.RegisterAvailableWidgets(new [] { 
-                    typeof(TestWidget),
-                    typeof(TestWidget)
-                });
-
-                var widgets = app.AvailableWidgetTypes;
-                
-                Assert.AreEqual(1, widgets.Count());
-            }
-        }
-        
-        [TestFixture]
         public class When_registering_widgets_dynamically : Shared
         {
             [Test]

@@ -29,7 +29,7 @@ namespace Smeedee.Model
             RegisterAvailableWidgets(concrete);
         }
         
-        public void RegisterAvailableWidgets(IEnumerable<Type> widgetTypes)
+        private void RegisterAvailableWidgets(IEnumerable<Type> widgetTypes)
         {
             foreach (var widget in widgetTypes)
             {
@@ -37,6 +37,5 @@ namespace Smeedee.Model
                 AvailableWidgetTypes.Add(widget);
             }
         }
-
     }
 }
