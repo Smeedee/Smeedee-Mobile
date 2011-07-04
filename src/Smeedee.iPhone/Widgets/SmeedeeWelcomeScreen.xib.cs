@@ -7,15 +7,15 @@ using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
-	public partial class SmeedeeWelcomeScreen : UIViewController, IWidget
-	{
-		public SmeedeeWelcomeScreen() : base("SmeedeeWelcomeScreen", null)
-		{
-		}
-		
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-		}
-	}
+    public partial class SmeedeeWelcomeScreen : UIViewController, IWidget
+    {
+        public SmeedeeWelcomeScreen() : base("SmeedeeWelcomeScreen", null)
+        {
+        }
+        
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+        }
+    }
 }

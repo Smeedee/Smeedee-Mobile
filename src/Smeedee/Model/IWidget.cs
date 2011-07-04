@@ -2,7 +2,7 @@ using System;
 
 namespace Smeedee
 {
-	public interface IWidget
-	{
-	}
+    public interface IWidget
+    {
+    }
 }
