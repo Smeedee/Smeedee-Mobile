@@ -16,6 +16,8 @@ namespace Smeedee.Android
     [Activity(Label = "Smeedee.Android", MainLauncher = true, Icon = "@drawable/icon")]
     public class WidgetContainer : Activity
     {
+        private SmeedeeApp app = SmeedeeApp.Instance;
+        
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -46,7 +48,7 @@ namespace Smeedee.Android
 
         private IEnumerable<IWidget> GetWidgets()
         {
-            SmeedeeApp.Instance.RegisterAvailableWidgets();
+            app.RegisterAvailableWidgets();
 
             var widgetTypes = SmeedeeApp.Instance.AvailableWidgetTypes;
             var instances = new List<IWidget>();
