@@ -106,7 +106,25 @@ namespace Smeedee.UnitTests.Services
         [TestFixture]
         public class When_retrieving_should_return_default_object : PersistenceServiceTests
         {
-            
+            [SetUp]
+            public void SetUp()
+            {
+                _fakeKvStorage = new FakeKVStorage();
+                _persistenceService = new PersistenceService(_fakeKvStorage);
+            }
+
+            [Test]
+            public void Should_return_default_if_key_does_not_exist()
+            {
+                Assert.AreEqual(1, _persistenceService.Get<int>("Non existing key", 1));
+            }
+
+            [Test]
+            public void Should_return_default_if_returned_value_can_not_be_deserialzed_to_given_type()
+            {
+                _persistenceService.Save(KEY, "Hello World");
+                Assert.AreEqual(1, _persistenceService.Get<int>(KEY, 1));
+            }
         }
     }
 

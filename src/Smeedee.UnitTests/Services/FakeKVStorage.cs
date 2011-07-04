@@ -20,6 +20,8 @@ namespace Smeedee.UnitTests.Services
 
         public string Get(string key)
         {
+            if (string.IsNullOrEmpty(retrievableContent))
+                return savedValues[key];
             return retrievableContent;
         }
     }
