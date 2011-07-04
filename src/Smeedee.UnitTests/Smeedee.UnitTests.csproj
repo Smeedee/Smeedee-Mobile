@@ -61,6 +61,11 @@
     <Compile Include="Fakes\FakeSmeedeeService.cs" />
     <Compile Include="Model\SmeedeeAppTests.cs" />
     <Compile Include="Model\CommiterTests.cs" />
+    <Compile Include="Resources\PersistenceServiceResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersistenceServiceResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\FakeKVStorage.cs" />
     <Compile Include="Services\PersistenceServiceTests.cs" />
   </ItemGroup>
@@ -87,5 +92,11 @@
       <Project>{AF18AD1D-665E-4E1C-932E-B6EFC18F6D5A}</Project>
       <Name>Smeedee</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PersistenceServiceResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PersistenceServiceResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

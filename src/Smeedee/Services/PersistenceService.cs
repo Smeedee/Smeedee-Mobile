@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Smeedee.Services
 {
     public class PersistenceService : IPersistenceService
     {
         private IMobileKVPersister storage;
+        private JavaScriptSerializer jsonSerializer;
         public PersistenceService(IMobileKVPersister mobileKvStorage)
         {
             storage = mobileKvStorage;
+            jsonSerializer = new JavaScriptSerializer();
         }
 
         public void Save(string key, Object value)
         {
-            storage.Save(key, value.ToString());
+            storage.Save(key, jsonSerializer.Serialize(value));
         }
 
         public T Get<T>(string key, T defaultObject)
