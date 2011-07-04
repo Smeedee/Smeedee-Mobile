@@ -26,16 +26,17 @@ namespace Smeedee.Model
             var types = Assembly.GetCallingAssembly().GetTypes();
             var widgets = from type in types where typeof(IWidget).IsAssignableFrom(type) select type;
             var concrete = from type in widgets where !(type.IsAbstract || type.IsInterface) select type;
-            AvailableWidgetTypes.AddRange(concrete);
+            RegisterAvailableWidgets(concrete);
 		}
 		
 		public void RegisterAvailableWidgets(IEnumerable<Type> widgetTypes)
 		{
 			foreach (var widget in widgetTypes)
 			{
-                if (AvailableWidgetTypes.Contains(widget)) continue;
+                if (AvailableWidgetTypes.Where(e => e.GUID == widget.GUID).Count() > 0) continue;
                 AvailableWidgetTypes.Add(widget);
 			}
 		}
+
 	}
 }

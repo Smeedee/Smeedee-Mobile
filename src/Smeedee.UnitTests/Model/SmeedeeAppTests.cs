@@ -85,6 +85,7 @@ namespace Smeedee.UnitTests.Model
 				Assert.IsFalse(exceptionWasThrown);
 			}
 			
+            [Test]
             public void Registering_widgets_should_be_idempotent()
             {
                 app.RegisterAvailableWidgets();
