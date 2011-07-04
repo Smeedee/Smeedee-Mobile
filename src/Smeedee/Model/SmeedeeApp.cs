@@ -10,7 +10,7 @@ namespace Smeedee.Model
 	{
 		// This class is a singleton: private constructor; static instance variable.
 		private SmeedeeApp() { }
-		public static SmeedeeApp Instance = new SmeedeeApp();
+		public readonly static SmeedeeApp Instance = new SmeedeeApp();
 		
 		// The data service, responsible for connecting to the Smeedee back-end.
 		// Overrideable, for faking and testing purposes.
@@ -20,15 +20,10 @@ namespace Smeedee.Model
 		
 		public void RegisterAvailableWidgets()
 		{
-			var types = Assembly.GetCallingAssembly().GetTypes();
-			
-			foreach (var type in types)
-			{
-				if (typeof(IWidget).IsAssignableFrom(type))
-				{
-					availableWidgetTypes.Add(type);
-				}
-			}
+            var types = Assembly.GetCallingAssembly().GetTypes();
+            var widgets = from type in types where typeof(IWidget).IsAssignableFrom(type) select type;
+            var concrete = from type in widgets where !(type.IsAbstract || type.IsInterface) select type;
+            availableWidgetTypes.AddRange(concrete);
 		}
 		
 		public void RegisterAvailableWidgets(IEnumerable<Type> widgetTypes)

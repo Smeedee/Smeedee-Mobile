@@ -70,13 +70,16 @@ namespace Smeedee.UnitTests.Model
 			public void Then_it_should_only_contain_concrete_types()
 			{
 				app.RegisterAvailableWidgets();
-				
-				var exceptionWasThrown = false;
+
+                var exceptionWasThrown = false;
+                var widgets = new List<IWidget>();
 				try {
-					app.GetWidgets();
+					widgets = app.GetWidgets().ToList();
 				} catch {
 					exceptionWasThrown = true;
 				}
+			    var nonConcrete = widgets.Where(o => o.GetType().IsInterface || o.GetType().IsAbstract).ToList();
+                Assert.IsEmpty(nonConcrete);
 				Assert.IsFalse(exceptionWasThrown);
 			}
 			
