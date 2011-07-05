@@ -34,7 +34,7 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            inflater.Inflate(Resource.Layout.StartPageWidgetLayout, this);
+            inflater.Inflate(Resource.Layout.StartPageWidget, this);
         }
     }
 }

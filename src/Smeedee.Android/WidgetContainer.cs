@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Smeedee.Android.Screens;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
 using Smeedee.Services;

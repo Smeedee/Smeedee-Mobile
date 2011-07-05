@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!-- This will contain a lot more in the future -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/ServerSettingsTextView"
+          android:id="@+id/ServerSettingsScreenTextView"
           android:text="@string/ServerSettings"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent" />

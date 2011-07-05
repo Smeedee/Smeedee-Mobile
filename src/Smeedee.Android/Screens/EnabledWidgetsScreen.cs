@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Smeedee.Android
+namespace Smeedee.Android.Screens
 {
     [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
     public class EnabledWidgetsScreen : ListActivity
@@ -24,7 +24,7 @@ namespace Smeedee.Android
             widgetsAsStrings.Add("Widget2");
             widgetsAsStrings.Add("Widget3");
 
-            ListAdapter = new ArrayAdapter<string>(this, Resource.Layout.EnabledWidgetsListLayout, widgetsAsStrings);
+            ListAdapter = new ArrayAdapter<string>(this, Resource.Layout.EnabledWidgetsScreenListLayout, widgetsAsStrings);
 
             ListView.ItemClick += delegate(object sender, ItemEventArgs args)
             {

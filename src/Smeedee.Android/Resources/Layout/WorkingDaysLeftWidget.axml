@@ -22,7 +22,7 @@
     android:layout_height="wrap_content"
     android:paddingRight="5sp"
     android:textSize="22sp"
-    android:textColor="#fff"
+    android:textColor="#ffffff"
     android:text="Working days left" />
   
 </LinearLayout>

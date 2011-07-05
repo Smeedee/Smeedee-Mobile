@@ -10,17 +10,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Smeedee.Android
+namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "ServerSettingsScreen", Theme = "@android:style/Theme.NoTitleBar")]
-    public class ServerSettingsScreen : Activity
+    [Activity(Label = "LoginScreen", Theme = "@android:style/Theme.NoTitleBar")]
+    public class LoginScreen : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            var view = FindViewById(Resource.Id.ServerSettingsTextView);
-
+            var view = FindViewById<TextView>(Resource.Id.ServerSettingsScreenTextView);
             SetContentView(view);
         }
     }
