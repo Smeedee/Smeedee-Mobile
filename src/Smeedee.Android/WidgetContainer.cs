@@ -28,8 +28,6 @@ namespace Smeedee.Android
             
             ConfigureDependencies();
             
-            SetContentView(Resource.Layout.Main);
-
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
         }
