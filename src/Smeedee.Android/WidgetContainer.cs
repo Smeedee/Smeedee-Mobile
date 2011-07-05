@@ -29,11 +29,11 @@ namespace Smeedee.Android
             
             SetContentView(Resource.Layout.Main);
 
-            //_flipper.AddView(new FooWidget(this));
-            //_flipper.AddView(new TestWidget(this));
+            _flipper.AddView(new FooWidget(this));
+            _flipper.AddView(new TestWidget(this));
 
 
-            //AddWidgetsToFlipper();
+            AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
         }
 

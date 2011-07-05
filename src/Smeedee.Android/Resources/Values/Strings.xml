@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!--Global Application resources-->
+  <string name="ApplicationName">Smeedee Mobile</string>
+  
+  <!-- Widget Container strings-->
   <string name="Prev">Previous</string>
   <string name="Next">Next</string>
-  <string name="Hello">Hello World, Click Me!</string>
-  <string name="TestWidgetText">Inside TestWidget</string>
-  <string name="FooWidgetText">Inside FooWidget. Lots of random text</string>
-  <string name="ApplicationName">Smeedee Mobile</string>
   <string name="GlobalSettings">Global Settings</string>
   <string name="WidgetSettings">Widget Settings</string>
+
+  <!--Global Settings Activity resources-->
+  <string name="BtnServerSettings">Server Settings</string>
+  <string name="BtnEnabledWidgets">Enabled widgets</string>
+  <string name="ServerSettings">ServerSettings</string>
+  <string name="EnabledWidgets">EnabledWidgets</string>
+
+  <!--TestWidget-->
+  <string name="TestWidgetText">Inside TestWidget</string>
+  
+  <!--FooWidget-->
+  <string name="FooWidgetText">Inside FooWidget. Lots of random text</string>
+  
+  <!--Working days left-->
+
+  <!--Top Commiters-->
+
+  <!--Latest changeset-->
+
+  <!--Build status-->
+  
 </resources>
