@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Smeedee.Android.Widgets
 {
-    public class WorkingDaysLeftWidget : RelativeLayout, IWidget
+    public class WorkingDaysLeftWidget : RelativeLayout/*, IWidget*/
     {
         public WorkingDaysLeftWidget(Context context)
             : base(context)
