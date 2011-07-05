@@ -41,6 +41,18 @@ namespace Smeedee.UnitTests.Services
             Assert.AreSame(ins1, locator.Get<IFoo>());
             Assert.AreSame(ins2, locator.Get<IBar>());
         }
+
+        [Test]
+        public void Should_be_able_to_overwrite_bindings()
+        {
+            var ins1 = new Foo();
+            var ins2 = new Foo();
+
+            locator.Bind<IFoo>(ins1);
+            locator.Bind<IFoo>(ins2);
+
+            Assert.AreSame(ins2, locator.Get<IFoo>());
+        }
     }
 
     public interface IFoo { }

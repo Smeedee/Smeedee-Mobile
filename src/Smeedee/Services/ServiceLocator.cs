@@ -16,7 +16,7 @@ namespace Smeedee.Services
 
         public void Bind<T>(T arg)
         {
-            store.Add(typeof(T), arg);
+            store[typeof(T)] = arg;
         }
 
         public T Get<T>()
