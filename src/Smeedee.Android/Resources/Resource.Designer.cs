@@ -79,6 +79,15 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060006
 			public const int TopBanner = 2131099654;
 			
+			// aapt resource value: 0x7f06000b
+			public const int WorkingDaysLeftLayout = 2131099659;
+			
+			// aapt resource value: 0x7f06000c
+			public const int WorkingDaysLeftNumber = 2131099660;
+			
+			// aapt resource value: 0x7f06000d
+			public const int WorkingDaysLeftText = 2131099661;
+			
 			private Id()
 			{
 			}
