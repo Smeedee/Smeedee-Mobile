@@ -7,16 +7,21 @@ namespace Smeedee.Services
 {
     public class ServiceLocator
     {
-        private Object store;
+        private IDictionary<Type, object> store;
+
+        public ServiceLocator()
+        {
+            store = new Dictionary<Type, object>();
+        }
 
         public void Bind<T>(T arg)
         {
-            store = arg;
+            store.Add(typeof(T), arg);
         }
 
         public T Get<T>()
         {
-            return (T)store;
+            return (T)store[typeof(T)];
         }
     }
 }

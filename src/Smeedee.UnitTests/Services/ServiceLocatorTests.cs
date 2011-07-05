@@ -21,6 +21,30 @@ namespace Smeedee.UnitTests.Services
 
             Assert.AreSame(instance, obj);
         }
+
+        [Test]
+        public void Should_be_able_to_handle_multiple_bindings()
+        {
+            var locator = new ServiceLocator();
+            var ins1 = new TestInterfaceImpl();
+            var ins2 = new AnotherTestInterfaceImpl();
+
+            locator.Bind<ITestInterface>(ins1);
+            locator.Bind<IAnotherInterface>(ins2);
+
+            var obj1 = locator.Get<ITestInterface>();
+            var obj2 = locator.Get<IAnotherInterface>();
+
+            Assert.True(ins1 == obj1 && ins2 == obj2);
+        }
+    }
+
+    public class AnotherTestInterfaceImpl : IAnotherInterface
+    {
+    }
+
+    public interface IAnotherInterface
+    {
     }
 
     public class TestInterfaceImpl : ITestInterface
