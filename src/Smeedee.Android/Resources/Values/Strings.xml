@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="TestWidgetText">Inside TestWidget</string>
-    <string name="ApplicationName">Smeedee.Android</string>
+  <string name="Prev">Previous</string>
+  <string name="Next">Next</string>
+  <string name="Hello">Hello World, Click Me!</string>
+  <string name="TestWidgetText">Inside TestWidget</string>
+  <string name="FooWidgetText">Inside FooWidget. Lots of random text</string>
+  <string name="ApplicationName">Smeedee.Android</string>
 </resources>

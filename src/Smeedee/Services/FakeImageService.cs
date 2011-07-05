@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Drawing;
-using System.Drawing.Imaging;
 using Smeedee.Properties;
 
 namespace Smeedee.Services
 {
-    public class FakeImageService :IImageService
+    public class FakeImageService : IImageService
     {
         private byte[] bytes;
         private IBackgroundWorker worker;
         private Image defaultImage = Resources.default_person;
-        
-
+  
         public FakeImageService(IBackgroundWorker worker)
         {
             this.worker = worker;

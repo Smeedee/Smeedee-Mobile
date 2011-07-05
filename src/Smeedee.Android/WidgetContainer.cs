@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -15,49 +16,74 @@ namespace Smeedee.Android
     [Activity(Label = "Smeedee.Android", MainLauncher = true, Icon = "@drawable/icon")]
     public class WidgetContainer : Activity
     {
+        private SmeedeeApp app = SmeedeeApp.Instance;
+        
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.Main);
-
-            var layout = FindViewById<LinearLayout>(Resource.Id.ContainerLayout);
-
-            var widgets = GetWidgets();
-            foreach (var widget in widgets)
-            {
-                layout.AddView(widget as View);
-            }
-
-
+            
             ConfigureDependencies();
-        }
-
-        private IEnumerable<IWidget> GetWidgets()
-        {
-            return new IWidget[] {new TestWidget(null)};
-        }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.Main, menu);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            return base.OnOptionsItemSelected(item);
+            
+            SetContentView(Resource.Layout.Main);
+            AddWidgetsToFlipper();
+            BindEventsToNavigationButtons();
         }
 
         private void ConfigureDependencies()
         {
             SmeedeeApp.SmeedeeService = new SmeedeeFakeService();
-            RegisterAllSupportedWidgets();
+        }
+        
+        private void AddWidgetsToFlipper()
+        {
+            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+
+            var widgets = GetWidgets();
+            foreach (var widget in widgets)
+            {
+                flipper.AddView(widget as View);
+            }
         }
 
-        private void RegisterAllSupportedWidgets()
+        private IEnumerable<IWidget> GetWidgets()
         {
-            
+            app.RegisterAvailableWidgets();
+
+            var widgetTypes = SmeedeeApp.Instance.AvailableWidgetTypes;
+            var instances = new List<IWidget>();
+            foreach (var widgetType in widgetTypes)
+            {
+                instances.Add(Activator.CreateInstance(widgetType, this) as IWidget);
+            }
+            return instances;
+        }
+  
+        private void BindEventsToNavigationButtons()
+        {
+            BindPreviousButtonClickEvent();
+            BindNextButtonClickEvent();
+        }
+        
+        private void BindPreviousButtonClickEvent()
+        {
+            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+
+            var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
+            btnPrev.Click += (obj, e) => flipper.ShowPrevious();
+        }
+        
+        private void BindNextButtonClickEvent()
+        {
+            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+
+            var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
+            btnNext.Click += (sender, args) => flipper.ShowNext();
+        }
+        
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.Main, menu);
+            return true;
         }
     }
 }
-
