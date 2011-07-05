@@ -13,15 +13,18 @@ using Smeedee.Services;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee.Android", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Smeedee Mobile", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
     public class WidgetContainer : Activity
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
+        private ViewFlipper _flipper;
         
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            
+
+            _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+
             ConfigureDependencies();
             
             SetContentView(Resource.Layout.Main);
@@ -36,12 +39,10 @@ namespace Smeedee.Android
         
         private void AddWidgetsToFlipper()
         {
-            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-
             var widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                flipper.AddView(widget as View);
+                _flipper.AddView(widget as View);
             }
         }
 
@@ -66,18 +67,14 @@ namespace Smeedee.Android
         
         private void BindPreviousButtonClickEvent()
         {
-            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-            btnPrev.Click += (obj, e) => flipper.ShowPrevious();
+            btnPrev.Click += (obj, e) => _flipper.ShowPrevious();
         }
         
         private void BindNextButtonClickEvent()
         {
-            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-            btnNext.Click += (sender, args) => flipper.ShowNext();
+            btnNext.Click += (sender, args) => _flipper.ShowNext();
         }
         
         public override bool OnCreateOptionsMenu(IMenu menu)
