@@ -107,7 +107,8 @@ namespace Smeedee.Android
             }
             if (item == btnGlobalSettings)
             {
-                //TODO: Open Global Settings view/activity
+                var globalSettings = new Intent(this, typeof (GlobalSettings));
+                StartActivity(globalSettings);
                 return true;
             } 
             
