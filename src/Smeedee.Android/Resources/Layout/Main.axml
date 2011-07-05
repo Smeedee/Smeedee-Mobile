@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RootLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+  android:id="@+id/RootLayout"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
 
-<LinearLayout android:id="@+id/TopBanner"
+  <LinearLayout 
+    android:id="@+id/TopBanner"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#777777">
     
-  <Button
+    <Button
       android:id="@+id/BtnPrev"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/Prev" />
   
-  <Button
+    <Button
       android:id="@+id/BtnNext"
       android:layout_alignParentRight="true"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/Next" />
-</LinearLayout>
   
-    <ViewFlipper
-      android:id="@+id/Flipper"
-      android:layout_below="@id/BtnNext"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent">
+  </LinearLayout>
+
+  <ViewFlipper
+    android:id="@+id/Flipper"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
   </ViewFlipper>
+
+  <TextView
+    android:text="Foobar"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />
 
 </LinearLayout>

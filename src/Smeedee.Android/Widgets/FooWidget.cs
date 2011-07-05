@@ -5,6 +5,8 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
@@ -32,6 +34,8 @@ namespace Smeedee.Android.Widgets
             text.SetHeight(500);
             text.SetWidth(200);
             text.SetText(Resource.String.FooWidgetText);
+            text.SetTextColor(Color.White);
+            text.SetBackgroundColor(Color.Tomato);
             AddView(text);
         }
     }
