@@ -22,16 +22,11 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            SetContentView(Resource.Layout.Main);
 
             _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
 
             ConfigureDependencies();
-            
-            SetContentView(Resource.Layout.Main);
-
-            _flipper.AddView(new FooWidget(this));
-            _flipper.AddView(new TestWidget(this));
-
 
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
@@ -99,7 +94,8 @@ namespace Smeedee.Android
             }
             if (item == btnGlobalSettings)
             {
-                //TODO: Open Global Settings view/activity
+                var globalSettings = new Intent(this, typeof(GlobalSettings));
+                StartActivity(globalSettings);
                 return true;
             } 
             

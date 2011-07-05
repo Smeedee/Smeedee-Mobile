@@ -18,6 +18,7 @@
               android:text="@string/GlobalSettings"/>
     
   </LinearLayout>
+  
   <!--End of TopBanner-->
 
     <Button
