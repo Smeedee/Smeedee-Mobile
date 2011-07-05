@@ -83,7 +83,8 @@
     <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
       <Link>Services\SmeedeeHttpService.cs</Link>
     </Compile>
-    <Compile Include="Resources\GlobalSettings.cs" />
+    <Compile Include="EnabledWidgetsScreen.cs" />
+    <Compile Include="GlobalSettings.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +96,7 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\Layout\GlobalSettings.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -102,7 +104,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\GlobalSettingsList.xml" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Menu\Main.xml">
       <SubType>Designer</SubType>
