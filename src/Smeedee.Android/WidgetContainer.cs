@@ -69,11 +69,7 @@ namespace Smeedee.Android
             var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
 
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-            btnPrev.Click += (obj, e) =>
-                                 {
-                                     flipper.ShowPrevious();
-                                     flipper.RefreshDrawableState();
-                                 };
+            btnPrev.Click += (obj, e) => flipper.ShowPrevious();
         }
         
         private void BindNextButtonClickEvent()
@@ -81,10 +77,7 @@ namespace Smeedee.Android
             var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
 
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-            btnNext.Click += delegate
-                                 {
-                                     flipper.ShowNext();
-                                 };
+            btnNext.Click += (sender, args) => flipper.ShowNext();
         }
         
         public override bool OnCreateOptionsMenu(IMenu menu)
