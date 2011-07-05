@@ -10,7 +10,7 @@
     android:id="@+id/TopBanner"
     android:layout_width="fill_parent"
     android:gravity="center"
-    android:layout_height="wrap_content"
+    android:layout_height="50sp"
     android:background="#777777">
     
     <Button
