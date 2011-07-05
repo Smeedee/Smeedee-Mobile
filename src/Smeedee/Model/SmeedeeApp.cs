@@ -8,17 +8,22 @@ namespace Smeedee.Model
 {
     public class SmeedeeApp
     {
+        public readonly static SmeedeeApp Instance = new SmeedeeApp();
+
         // This class is a singleton: private constructor; static instance variable.
         private SmeedeeApp()
         {
             AvailableWidgetTypes = new List<Type>();
+            ServiceLocator = new ServiceLocator();
+            ConfigureServices();
         }
-        public readonly static SmeedeeApp Instance = new SmeedeeApp();
-        
-        // The data service, responsible for connecting to the Smeedee back-end.
-        // Overrideable, for faking and testing purposes.
-        public static ISmeedeeService SmeedeeService = new SmeedeeHttpService();
-        
+
+        private void ConfigureServices()
+        {
+            ServiceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
+        }
+
+        public ServiceLocator ServiceLocator { get; private set; }
         public List<Type> AvailableWidgetTypes { get; private set; }
 
         public void RegisterAvailableWidgets()

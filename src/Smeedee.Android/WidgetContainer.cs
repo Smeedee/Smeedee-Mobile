@@ -34,7 +34,7 @@ namespace Smeedee.Android
 
         private void ConfigureDependencies()
         {
-            SmeedeeApp.SmeedeeService = new SmeedeeFakeService();
+            SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
         }
         
         private void AddWidgetsToFlipper()
@@ -76,11 +76,29 @@ namespace Smeedee.Android
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
             btnNext.Click += (sender, args) => _flipper.ShowNext();
         }
-        
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
             return true;
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            var btnWidgetSettings = FindViewById(Resource.Id.BtnWidgetSettings);
+            var btnGlobalSettings = FindViewById(Resource.Id.BtnGlobalSettings);
+
+            if (item == btnWidgetSettings)
+            {
+                //TODO: Open current widget settings view
+                var currentWidget = _flipper.CurrentView;
+                return true;
+            }
+            if (item == btnGlobalSettings)
+            {
+                //TODO: Open Global Settings view/activity
+                return true;
+            } 
+            
+            return base.OnOptionsItemSelected(item);
         }
     }
 }

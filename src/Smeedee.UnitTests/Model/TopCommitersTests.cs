@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee.UnitTests.Model
 {
@@ -27,7 +28,7 @@ namespace Smeedee.UnitTests.Model
             [SetUp]
             public void SetUp()
             {
-                SmeedeeApp.SmeedeeService = new FakeSmeedeeService();
+                SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new FakeSmeedeeService());
                 
                 topCommiters = new TopCommiters();
             }
