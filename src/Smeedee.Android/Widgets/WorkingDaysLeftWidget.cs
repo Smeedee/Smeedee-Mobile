@@ -10,13 +10,14 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee.Android.Widgets
 {
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
-        public WorkingDaysLeftWidget(Context context)
-            : base(context)
+        public WorkingDaysLeftWidget(Context context) : base(context)
         {
             Initialize();
         }
