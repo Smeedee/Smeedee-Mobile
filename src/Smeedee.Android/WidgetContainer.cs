@@ -26,7 +26,6 @@ namespace Smeedee.Android
             
             SetContentView(Resource.Layout.Main);
             AddWidgetsToFlipper();
-            SetNextButtonText();
             BindEventsToNavigationButtons();
         }
 
@@ -59,12 +58,6 @@ namespace Smeedee.Android
             return instances;
         }
   
-        private void SetNextButtonText()
-        {
-            var nextButtonText = FindViewById<Button>(Resource.Id.BtnNext);
-            nextButtonText.Text = widgets.Count() + " w";
-        }
-        
         private void BindEventsToNavigationButtons()
         {
             BindPreviousButtonClickEvent();
