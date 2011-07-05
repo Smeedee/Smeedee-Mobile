@@ -27,14 +27,15 @@ namespace Smeedee.Android
             {
                 case Resource.Id.BtnEnabledWidgets:
 
-                    var enabledWidgetsScreen = new Intent(this, typeof(EnabledWidgetsScreen));
+                    var enabledWidgetsScreen = new Intent(this, typeof (EnabledWidgetsScreen));
                     StartActivity(enabledWidgetsScreen);
                     break;
 
                 case Resource.Id.BtnServerSettings:
-                    var serverSettingsScreen = new Intent(this, typeof(ServerSettingsScreen));
+                    var serverSettingsScreen = new Intent(this, typeof (ServerSettingsScreen));
                     StartActivity(serverSettingsScreen);
                     break;
+            }
         }
     }
 }
