@@ -6,7 +6,7 @@ namespace Smeedee.Model
 {
     public class TopCommiters
     {
-        private ISmeedeeService smeedeeService = SmeedeeApp.SmeedeeService;
+        private readonly ISmeedeeService smeedeeService = SmeedeeApp.Instance.ServiceLocator.Get<ISmeedeeService>();
         
         public TopCommiters()
         {

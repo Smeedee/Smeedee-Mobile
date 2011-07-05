@@ -39,7 +39,7 @@ namespace Smeedee.Android
 
         private void ConfigureDependencies()
         {
-            SmeedeeApp.SmeedeeService = new SmeedeeFakeService();
+            SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
         }
         
         private void AddWidgetsToFlipper()
