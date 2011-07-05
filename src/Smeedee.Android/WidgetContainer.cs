@@ -73,6 +73,8 @@ namespace Smeedee.Android
         
         private void BindPreviousButtonClickEvent()
         {
+            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
             btnPrev.Click += (obj, e) =>
                                  {
@@ -83,6 +85,8 @@ namespace Smeedee.Android
         
         private void BindNextButtonClickEvent()
         {
+            var flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
             btnNext.Click += delegate
                                  {
