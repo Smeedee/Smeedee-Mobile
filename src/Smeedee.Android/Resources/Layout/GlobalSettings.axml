@@ -13,8 +13,7 @@
 
     <TextView android:id="@+id/GlobalSettingsHeadline"
               android:textColor="#ffffff"
-              android:layout_centerHorizontal="false"
-              android:textSize="30sp"
+              android:textSize="15sp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/GlobalSettings"/>
@@ -27,16 +26,22 @@
       android:id="@+id/BtnEnabledWidgets"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:layout_centerHorizontal="false"
+      android:textSize="20sp"
+      android:paddingBottom="5sp"
       android:background="#333333"
-      android:textSize="30sp"
+      android:textColor="#ffffff"
       android:text="@string/BtnEnabledWidgets" />
 
     <Button
         android:id="@+id/BtnServerSettings"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:layout_centerHorizontal="false"
+        android:textSize="20sp"
+        android:paddingBottom="5sp"
         android:background="#333333"
+        android:textColor="#ffffff"
         android:text="@string/BtnServerSettings" />
 
   </LinearLayout>

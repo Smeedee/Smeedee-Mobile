@@ -85,9 +85,6 @@ namespace Smeedee.Android
                                  };
         }
 
-
-
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
