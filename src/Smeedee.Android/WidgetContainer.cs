@@ -96,23 +96,23 @@ namespace Smeedee.Android
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            var btnWidgetSettings = FindViewById(Resource.Id.BtnWidgetSettings);
-            var btnGlobalSettings = FindViewById(Resource.Id.BtnGlobalSettings);
+            switch (item.ItemId)
+            {
+                case Resource.Id.BtnWidgetSettings:
 
-            if (item == btnWidgetSettings)
-            {
-                //TODO: Open current widget settings view
-                var currentWidget = flipper.CurrentView;
-                return true;
+                    // TODO: Open current widget settings view
+                    // var currentWidget = flipper.CurrentView;
+                    return true;
+
+                case Resource.Id.BtnGlobalSettings:
+
+                    var globalSettings = new Intent(this, typeof (GlobalSettings));
+                    StartActivity(globalSettings);
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(item);
             }
-            if (item == btnGlobalSettings)
-            {
-                var globalSettings = new Intent(this, typeof (GlobalSettings));
-                StartActivity(globalSettings);
-                return true;
-            } 
-            
-            return base.OnOptionsItemSelected(item);
         }
     }
 }

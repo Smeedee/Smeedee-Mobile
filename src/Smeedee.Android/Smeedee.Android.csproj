@@ -98,8 +98,12 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\Layout\GlobalSettings.axml" />
-    <AndroidResource Include="Resources\Layout\EnabledWidgets.axml" />
+    <AndroidResource Include="Resources\Layout\GlobalSettings.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\EnabledWidgets.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Layout\ServerSettings.axml" />
     <AndroidResource Include="Resources\Layout\EnabledWidgetsListLayout.axml" />
   </ItemGroup>
