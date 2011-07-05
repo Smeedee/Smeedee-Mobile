@@ -65,18 +65,6 @@
     <Compile Include="..\Smeedee\Services\AsyncResult.cs">
       <Link>Services\AsyncResult.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\CachedImageService.cs">
-      <Link>Services\CachedImageService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\FakeImageService.cs">
-      <Link>Services\FakeImageService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IImageService.cs">
-      <Link>Services\IImageService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\ImageService.cs">
-      <Link>Services\ImageService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
       <Link>Services\IMobileKVPersister.cs</Link>
     </Compile>
@@ -85,9 +73,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
       <Link>Services\ISmeedeeService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\PersistenceService.cs">
-      <Link>Services\PersistenceService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
