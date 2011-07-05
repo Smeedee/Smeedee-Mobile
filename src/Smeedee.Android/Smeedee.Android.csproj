@@ -105,9 +105,6 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\GlobalSettingsList.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\Menu\Main.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
