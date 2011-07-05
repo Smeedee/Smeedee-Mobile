@@ -62,8 +62,14 @@
     <Compile Include="Fakes\FakeSmeedeeService.cs" />
     <Compile Include="Model\SmeedeeAppTests.cs" />
     <Compile Include="Model\CommiterTests.cs" />
+    <Compile Include="Services\CachedImageServiceTests.cs" />
     <Compile Include="Services\FakeImageServiceTests.cs" />
-    <Compile Include="Resources\PersistenceServiceResources.Designer.cs">      <AutoGen>True</AutoGen>      <DesignTime>True</DesignTime>      <DependentUpon>PersistenceServiceResources.resx</DependentUpon>    </Compile>    <Compile Include="Services\FakeKVStorage.cs" />
+    <Compile Include="Resources\PersistenceServiceResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersistenceServiceResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\FakeKVStorage.cs" />
     <Compile Include="Services\PersistenceServiceTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
