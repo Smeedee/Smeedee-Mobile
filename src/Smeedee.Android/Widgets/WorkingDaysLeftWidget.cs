@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Smeedee.Android.Widgets
 {
-    public class WorkingDaysLeftWidget : RelativeLayout/*, IWidget*/
+    public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
         public WorkingDaysLeftWidget(Context context)
             : base(context)
@@ -23,6 +23,9 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
+            var text = new TextView(Context) {Text = "10 Working days left"};
+
+            AddView(text);
         }
     }
 }
