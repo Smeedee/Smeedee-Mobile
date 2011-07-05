@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="EnabledWidgetsScreen.cs" />
     <Compile Include="GlobalSettings.cs" />
+    <Compile Include="ServerSettingsScreen.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,15 +98,14 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\Layout\GlobalSettings.axml" />
+    <AndroidResource Include="Resources\Layout\EnabledWidgets.axml" />
+    <AndroidResource Include="Resources\Layout\ServerSettings.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Layout\GlobalSettingsList.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Menu\Main.xml">
