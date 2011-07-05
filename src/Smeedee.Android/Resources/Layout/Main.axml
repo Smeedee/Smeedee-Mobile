@@ -32,9 +32,4 @@
     android:layout_height="wrap_content">
   </ViewFlipper>
 
-  <TextView
-    android:text="Foobar"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
-
 </LinearLayout>

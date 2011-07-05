@@ -31,8 +31,10 @@ namespace Smeedee.Android.Widgets
         {
             var text = new TextView(Context);
             text.SetHeight(500);
-            text.SetWidth(300);
+            text.SetWidth(400);
             text.SetText(Resource.String.TestWidgetText);
+            text.SetTextColor(Color.White);
+            text.SetBackgroundColor(Color.AliceBlue);
             AddView(text);
         }
     }
