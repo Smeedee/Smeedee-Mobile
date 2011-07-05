@@ -23,9 +23,9 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            var text = new TextView(Context) {Text = "10 Working days left"};
+            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+            inflater.Inflate(Resource.Layout.WorkingDaysLeftWidget, this);
 
-            AddView(text);
         }
     }
 }

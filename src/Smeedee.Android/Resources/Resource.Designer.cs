@@ -96,6 +96,9 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f030003
 			public const int ServerSettings = 2130903043;
 			
+			// aapt resource value: 0x7f030004
+			public const int WorkingDaysLeftWidget = 2130903044;
+			
 			private Layout()
 			{
 			}
