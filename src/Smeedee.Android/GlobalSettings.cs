@@ -12,34 +12,29 @@ using Android.Widget;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "GlobalSettings")]
+    [Activity(Label = "GlobalSettings", Theme = "@android:style/Theme.NoTitleBar")]
     public class GlobalSettings : Activity, View.IOnClickListener
     {
-        private Button enabledWidgetsBtn;
-        private Button serverSettingsBtn;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
             SetContentView(Resource.Layout.GlobalSettings);
-
-            enabledWidgetsBtn = FindViewById<Button>(Resource.Id.BtnEnabledWidgets);
-            serverSettingsBtn = FindViewById<Button>(Resource.Id.BtnServerSettings);
         }
 
         public void OnClick(View v)
         {
-            if (v == enabledWidgetsBtn)
+            switch (v.Id)
             {
-                var enabledWidgetsScreen = new Intent(this, typeof(EnabledWidgetsScreen));
-                StartActivity(enabledWidgetsScreen);
-            }
-            if (v == serverSettingsBtn)
-            {
-                var serverSettingsScreen = new Intent(this, typeof(ServerSettingsScreen));
-                StartActivity(serverSettingsScreen);
-            }
+                case Resource.Id.BtnEnabledWidgets:
+
+                    var enabledWidgetsScreen = new Intent(this, typeof(EnabledWidgetsScreen));
+                    StartActivity(enabledWidgetsScreen);
+                    break;
+
+                case Resource.Id.BtnServerSettings:
+                    var serverSettingsScreen = new Intent(this, typeof(ServerSettingsScreen));
+                    StartActivity(serverSettingsScreen);
+                    break;
         }
     }
 }
