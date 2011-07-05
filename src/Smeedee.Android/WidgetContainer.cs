@@ -24,18 +24,10 @@ namespace Smeedee.Android
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-
             flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
             
             ConfigureDependencies();
             
-            SetContentView(Resource.Layout.Main);
-
-
-
-
-
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
         }
@@ -50,7 +42,6 @@ namespace Smeedee.Android
             var widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                _flipper.AddView(widget as View);
                 flipper.AddView(widget as View);
             }
         }
@@ -77,7 +68,6 @@ namespace Smeedee.Android
         private void BindPreviousButtonClickEvent()
         {
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-            btnPrev.Click += (obj, e) => _flipper.ShowPrevious();
             btnPrev.Click += (obj, e) =>
                                  {
                                      flipper.ShowPrevious();
@@ -88,7 +78,6 @@ namespace Smeedee.Android
         private void BindNextButtonClickEvent()
         {
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-            btnNext.Click += (sender, args) => _flipper.ShowNext();
             btnNext.Click += (sender, args) =>
                                  {
                                      flipper.ShowNext();
@@ -113,7 +102,6 @@ namespace Smeedee.Android
             if (item == btnWidgetSettings)
             {
                 //TODO: Open current widget settings view
-                var currentWidget = _flipper.CurrentView;
                 var currentWidget = flipper.CurrentView;
                 return true;
             }
