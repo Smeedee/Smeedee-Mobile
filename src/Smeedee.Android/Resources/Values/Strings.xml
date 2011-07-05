@@ -5,7 +5,7 @@
   <string name="Hello">Hello World, Click Me!</string>
   <string name="TestWidgetText">Inside TestWidget</string>
   <string name="FooWidgetText">Inside FooWidget. Lots of random text</string>
-  <string name="ApplicationName">Smeedee.Android</string>
+  <string name="ApplicationName">Smeedee Mobile</string>
   <string name="GlobalSettings">Global Settings</string>
   <string name="WidgetSettings">Widget Settings</string>
 </resources>

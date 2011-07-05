@@ -4,6 +4,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+<LinearLayout android:id="@+id/TopBanner"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#777777">
+    
   <Button
       android:id="@+id/BtnPrev"
       android:layout_width="wrap_content"
@@ -16,8 +21,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/Next" />
-
-  <ViewFlipper
+</LinearLayout>
+  
+    <ViewFlipper
       android:id="@+id/Flipper"
       android:layout_below="@id/BtnNext"
       android:layout_width="fill_parent"
