@@ -10,14 +10,21 @@ namespace Smeedee.UnitTests.Services
     [TestFixture]
     public class ServiceLocatorTests
     {
+        private ServiceLocator locator;
+
+        [SetUp]
+        public void SetUp()
+        {
+           locator = new ServiceLocator(); 
+        }
+
         [Test]
         public void Should_be_able_to_store_and_retrieve()
         {
-            var locator = new ServiceLocator();
-            var instance = new TestInterfaceImpl();
-            locator.Bind<ITestInterface>(instance);
+            var instance = new Foo();
+            locator.Bind<IFoo>(instance);
 
-            var obj = locator.Get<ITestInterface>();
+            var obj = locator.Get<IFoo>();
 
             Assert.AreSame(instance, obj);
         }
@@ -25,33 +32,19 @@ namespace Smeedee.UnitTests.Services
         [Test]
         public void Should_be_able_to_handle_multiple_bindings()
         {
-            var locator = new ServiceLocator();
-            var ins1 = new TestInterfaceImpl();
-            var ins2 = new AnotherTestInterfaceImpl();
+            var ins1 = new Foo();
+            var ins2 = new Bar();
 
-            locator.Bind<ITestInterface>(ins1);
-            locator.Bind<IAnotherInterface>(ins2);
+            locator.Bind<IFoo>(ins1);
+            locator.Bind<IBar>(ins2);
 
-            var obj1 = locator.Get<ITestInterface>();
-            var obj2 = locator.Get<IAnotherInterface>();
-
-            Assert.True(ins1 == obj1 && ins2 == obj2);
+            Assert.AreSame(ins1, locator.Get<IFoo>());
+            Assert.AreSame(ins2, locator.Get<IBar>());
         }
     }
 
-    public class AnotherTestInterfaceImpl : IAnotherInterface
-    {
-    }
-
-    public interface IAnotherInterface
-    {
-    }
-
-    public class TestInterfaceImpl : ITestInterface
-    {
-    }
-
-    public interface ITestInterface
-    {
-    }
+    public interface IFoo { }
+    public interface IBar { }
+    public class Foo : IFoo { }
+    public class Bar : IBar { }
 }
