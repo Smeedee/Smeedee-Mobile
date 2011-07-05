@@ -40,8 +40,8 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060004
 			public const int BtnEnabledWidgets = 2131099652;
 			
-			// aapt resource value: 0x7f06000c
-			public const int BtnGlobalSettings = 2131099660;
+			// aapt resource value: 0x7f06000e
+			public const int BtnGlobalSettings = 2131099662;
 			
 			// aapt resource value: 0x7f060008
 			public const int BtnNext = 2131099656;
@@ -52,8 +52,8 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060005
 			public const int BtnServerSettings = 2131099653;
 			
-			// aapt resource value: 0x7f06000b
-			public const int BtnWidgetSettings = 2131099659;
+			// aapt resource value: 0x7f06000d
+			public const int BtnWidgetSettings = 2131099661;
 			
 			// aapt resource value: 0x7f060000
 			public const int EnabledWidgetsTextView = 2131099648;
@@ -75,6 +75,12 @@ namespace Smeedee.Android
 			
 			// aapt resource value: 0x7f060006
 			public const int TopBanner = 2131099654;
+			
+			// aapt resource value: 0x7f06000b
+			public const int WorkingDaysLeftNumber = 2131099659;
+			
+			// aapt resource value: 0x7f06000c
+			public const int WorkingDaysLeftText = 2131099660;
 			
 			private Id()
 			{
