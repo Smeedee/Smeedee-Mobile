@@ -17,17 +17,17 @@ namespace Smeedee.Android
     public class WidgetContainer : Activity
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
-        private ViewFlipper _flipper;
+        private ViewFlipper flipper;
         
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-
+            flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+            
             ConfigureDependencies();
-
+            
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
         }
@@ -42,7 +42,7 @@ namespace Smeedee.Android
             var widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                _flipper.AddView(widget as View);
+                flipper.AddView(widget as View);
             }
         }
 
@@ -68,19 +68,32 @@ namespace Smeedee.Android
         private void BindPreviousButtonClickEvent()
         {
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-            btnPrev.Click += (obj, e) => _flipper.ShowPrevious();
+            btnPrev.Click += (obj, e) =>
+                                 {
+                                     flipper.ShowPrevious();
+                                     flipper.RefreshDrawableState();
+                                 };
         }
         
         private void BindNextButtonClickEvent()
         {
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-            btnNext.Click += (sender, args) => _flipper.ShowNext();
+            btnNext.Click += (sender, args) =>
+                                 {
+                                     flipper.ShowNext();
+                                     flipper.RefreshDrawableState();
+                                 };
         }
+
+
+
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
             return true;
         }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             var btnWidgetSettings = FindViewById(Resource.Id.BtnWidgetSettings);
@@ -89,13 +102,12 @@ namespace Smeedee.Android
             if (item == btnWidgetSettings)
             {
                 //TODO: Open current widget settings view
-                var currentWidget = _flipper.CurrentView;
+                var currentWidget = flipper.CurrentView;
                 return true;
             }
             if (item == btnGlobalSettings)
             {
-                var globalSettings = new Intent(this, typeof(GlobalSettings));
-                StartActivity(globalSettings);
+                //TODO: Open Global Settings view/activity
                 return true;
             } 
             
