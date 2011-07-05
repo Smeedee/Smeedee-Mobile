@@ -57,6 +57,7 @@
     <Compile Include="Services\ISmeedeeService.cs" />
     <Compile Include="Model\SmeedeeApp.cs" />
     <Compile Include="Services\PersistenceService.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\SmeedeeHttpService.cs" />
     <Compile Include="Model\TopCommiters.cs" />
     <Compile Include="Model\Commiter.cs" />
