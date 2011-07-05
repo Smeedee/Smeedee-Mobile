@@ -3,10 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-  
+    android:layout_height="600px" >
+
   <RelativeLayout
-      android:orientation="vertical"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:gravity="center" >
@@ -14,11 +13,16 @@
         android:id="@+id/SmeedeeIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/icon" />
     <TextView
+        android:id="@+id/SmeedeeStartPageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/SmeedeeIcon"
+        android:layout_gravity="center"
+        android:textColor="#fd9c00"
+        android:textSize="20sp"
         android:text="@string/StartPageWidget" />
     
   </RelativeLayout>
