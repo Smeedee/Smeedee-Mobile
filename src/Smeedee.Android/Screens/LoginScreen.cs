@@ -19,7 +19,7 @@ namespace Smeedee.Android.Screens
         {
             base.OnCreate(bundle);
 
-            var view = FindViewById<TextView>(Resource.Id.ServerSettingsScreenTextView);
+            var view = FindViewById<TextView>(Resource.Id.LoginScreen);
             SetContentView(view);
         }
     }

@@ -43,11 +43,11 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060011
 			public const int BtnGlobalSettings = 2131099665;
 			
-			// aapt resource value: 0x7f060008
-			public const int BtnNext = 2131099656;
+			// aapt resource value: 0x7f060009
+			public const int BtnNext = 2131099657;
 			
-			// aapt resource value: 0x7f060007
-			public const int BtnPrev = 2131099655;
+			// aapt resource value: 0x7f060008
+			public const int BtnPrev = 2131099656;
 			
 			// aapt resource value: 0x7f060005
 			public const int BtnServerSettings = 2131099653;
@@ -58,8 +58,8 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060000
 			public const int EnabledWidgetsTextView = 2131099648;
 			
-			// aapt resource value: 0x7f060009
-			public const int Flipper = 2131099657;
+			// aapt resource value: 0x7f06000a
+			public const int Flipper = 2131099658;
 			
 			// aapt resource value: 0x7f060003
 			public const int GlobalSettingsHeadline = 2131099651;
@@ -67,23 +67,23 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060002
 			public const int GlobalSettingsTopBanner = 2131099650;
 			
+			// aapt resource value: 0x7f060006
+			public const int LoginScreen = 2131099654;
+			
 			// aapt resource value: 0x7f060001
 			public const int RootLayout = 2131099649;
 			
-			// aapt resource value: 0x7f06000a
-			public const int ServerSettingsScreenTextView = 2131099658;
-			
 			// aapt resource value: 0x7f06000b
-			public const int SmeedeeIcon = 2131099659;
+			public const int ServerSettingsScreenTextView = 2131099659;
 			
 			// aapt resource value: 0x7f06000c
-			public const int SmeedeeStartPageTextView = 2131099660;
-			
-			// aapt resource value: 0x7f060006
-			public const int TopBanner = 2131099654;
+			public const int SmeedeeIcon = 2131099660;
 			
 			// aapt resource value: 0x7f06000d
-			public const int WorkingDaysLeftLayout = 2131099661;
+			public const int SmeedeeStartPageTextView = 2131099661;
+			
+			// aapt resource value: 0x7f060007
+			public const int TopBanner = 2131099655;
 			
 			// aapt resource value: 0x7f06000e
 			public const int WorkingDaysLeftNumber = 2131099662;
@@ -109,16 +109,19 @@ namespace Smeedee.Android
 			public const int GlobalSettingsScreen = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int Main = 2130903043;
+			public const int LoginScreen = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int ServerSettingsScreen = 2130903044;
+			public const int Main = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int StartPageWidget = 2130903045;
+			public const int ServerSettingsScreen = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int WorkingDaysLeftWidget = 2130903046;
+			public const int StartPageWidget = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int WorkingDaysLeftWidget = 2130903047;
 			
 			private Layout()
 			{
@@ -142,38 +145,38 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f040000
 			public const int ApplicationName = 2130968576;
 			
+			// aapt resource value: 0x7f040007
+			public const int BtnEnabledWidgets = 2130968583;
+			
 			// aapt resource value: 0x7f040006
-			public const int BtnEnabledWidgets = 2130968582;
+			public const int BtnServerSettings = 2130968582;
 			
-			// aapt resource value: 0x7f040005
-			public const int BtnServerSettings = 2130968581;
+			// aapt resource value: 0x7f040009
+			public const int EnabledWidgets = 2130968585;
 			
-			// aapt resource value: 0x7f040008
-			public const int EnabledWidgets = 2130968584;
-			
-			// aapt resource value: 0x7f04000a
-			public const int FooWidgetText = 2130968586;
-			
-			// aapt resource value: 0x7f040003
-			public const int GlobalSettings = 2130968579;
-			
-			// aapt resource value: 0x7f040002
-			public const int Next = 2130968578;
+			// aapt resource value: 0x7f040004
+			public const int GlobalSettings = 2130968580;
 			
 			// aapt resource value: 0x7f040001
-			public const int Prev = 2130968577;
+			public const int LoginScreen = 2130968577;
 			
-			// aapt resource value: 0x7f040007
-			public const int ServerSettings = 2130968583;
+			// aapt resource value: 0x7f040003
+			public const int Next = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int Prev = 2130968578;
+			
+			// aapt resource value: 0x7f040008
+			public const int ServerSettings = 2130968584;
 			
 			// aapt resource value: 0x7f04000b
 			public const int StartPageWidget = 2130968587;
 			
-			// aapt resource value: 0x7f040009
-			public const int TestWidgetText = 2130968585;
+			// aapt resource value: 0x7f040005
+			public const int WidgetSettings = 2130968581;
 			
-			// aapt resource value: 0x7f040004
-			public const int WidgetSettings = 2130968580;
+			// aapt resource value: 0x7f04000a
+			public const int WorkingDaysLeft = 2130968586;
 			
 			private String()
 			{

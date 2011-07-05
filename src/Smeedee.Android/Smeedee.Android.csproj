@@ -83,7 +83,6 @@
     <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
       <Link>Services\SmeedeeHttpService.cs</Link>
     </Compile>
-    <None Include="Resources\Layout\LoginScreen.axml" />
     <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
@@ -110,6 +109,7 @@
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\LoginScreen.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
