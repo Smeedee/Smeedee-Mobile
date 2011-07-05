@@ -3,12 +3,14 @@
 android:id="@+id/flipper"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent">
+  
   <ScrollView android:id="@+id/scripScroll0"
   android:layout_below="@id/navBar"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:background="#fff"
   android:fadingEdgeLength="6px">
+    
     <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -23,6 +25,7 @@ android:layout_height="fill_parent">
       android:text="First"/>
     </RelativeLayout>
   </ScrollView>
+  
   <ScrollView android:id="@+id/scripScroll1"
   android:layout_below="@id/navBar"
   android:layout_width="fill_parent"
