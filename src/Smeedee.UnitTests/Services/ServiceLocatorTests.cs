@@ -11,10 +11,15 @@ namespace Smeedee.UnitTests.Services
     public class ServiceLocatorTests
     {
         [Test]
-        public void Should_be_able_to_bind_class_implementing_the_said_interface()
+        public void Should_be_able_to_store_and_retrieve()
         {
             var locator = new ServiceLocator();
-            locator.Bind<ITestInterface>(new TestInterfaceImpl());
+            var instance = new TestInterfaceImpl();
+            locator.Bind<ITestInterface>(instance);
+
+            var obj = locator.Get<ITestInterface>();
+
+            Assert.AreSame(instance, obj);
         }
     }
 

@@ -13,5 +13,10 @@ namespace Smeedee.Services
         {
             store = arg;
         }
+
+        public T Get<T>()
+        {
+            return (T)store;
+        }
     }
 }
