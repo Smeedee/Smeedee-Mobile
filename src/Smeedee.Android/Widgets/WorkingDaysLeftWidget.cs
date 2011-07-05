@@ -25,7 +25,6 @@ namespace Smeedee.Android.Widgets
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             inflater.Inflate(Resource.Layout.WorkingDaysLeftWidget, this);
-
         }
     }
 }
