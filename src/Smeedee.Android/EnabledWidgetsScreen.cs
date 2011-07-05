@@ -19,9 +19,18 @@ namespace Smeedee.Android
         {
             base.OnCreate(bundle);
 
-            var view = FindViewById(Resource.Id.EnabledWidgetsTextView);
-            
-            SetContentView(view);
+            List<string> widgetsAsStrings = new List<string>();
+            widgetsAsStrings.Add("Widget1");
+            widgetsAsStrings.Add("Widget2");
+            widgetsAsStrings.Add("Widget3");
+
+            ListAdapter = new ArrayAdapter<string>(this, Resource.Layout.EnabledWidgetsListLayout, widgetsAsStrings);
+
+            ListView.ItemClick += delegate(object sender, ItemEventArgs args)
+            {
+                // When clicked, show a toast with the TextView text  
+                Toast.MakeText(Application, ((TextView)args.View).Text, ToastLength.Short).Show();
+            }; 
         }
     }
 }

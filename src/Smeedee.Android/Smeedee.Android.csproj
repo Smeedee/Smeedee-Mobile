@@ -103,6 +103,7 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\Layout\GlobalSettings.axml" />
+    <AndroidResource Include="Resources\Layout\EnabledWidgetsListLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
