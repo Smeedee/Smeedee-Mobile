@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Smeedee.Services
 {
     public class ServiceLocator
     {
-        private IDictionary<Type, object> store;
+        private readonly IDictionary<Type, object> store;
 
         public ServiceLocator()
         {
@@ -22,7 +20,9 @@ namespace Smeedee.Services
         public T Get<T>()
         {
             if (store.ContainsKey(typeof(T)))
+            {
                 return (T)store[typeof(T)];
+            }
             throw new ArgumentException("Type not bound");
         }
     }
