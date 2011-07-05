@@ -18,7 +18,7 @@ namespace Smeedee.Services
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
-            var cacheKey = "image_cache." + uri.ToString();
+            var cacheKey = "image_cache." + uri;
             var cached = cache.Get<byte[]>(cacheKey, null);
             if (cached == null)
             {
