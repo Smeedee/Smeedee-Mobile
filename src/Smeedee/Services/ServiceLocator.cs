@@ -21,7 +21,9 @@ namespace Smeedee.Services
 
         public T Get<T>()
         {
-            return (T)store[typeof(T)];
+            if (store.ContainsKey(typeof(T)))
+                return (T)store[typeof(T)];
+            throw new ArgumentException("Type not bound");
         }
     }
 }
