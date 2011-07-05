@@ -68,6 +68,9 @@
     <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
       <Link>Services\ISmeedeeService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
+      <Link>Services\ServiceLocator.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\SmeedeeFakeService.cs">
       <Link>Services\SmeedeeFakeService.cs</Link>
     </Compile>
