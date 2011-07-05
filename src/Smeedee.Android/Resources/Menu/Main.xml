@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/new_rss_tab"
-        android:title="New RSSTab" />
-  <item android:id="@+id/about"
-        android:title="About" />
+  <item android:id="@+id/BtnWidgetSettings"
+        android:title="@string/WidgetSettings" />
+  <item android:id="@+id/BtnGlobalSettings"
+        android:title="@string/GlobalSettings" />
 </menu>
