@@ -90,6 +90,7 @@
     <Compile Include="Widgets\FooWidget.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Widgets\TestWidget.cs" />
+    <Compile Include="Widgets\WorkingDaysLeftWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
