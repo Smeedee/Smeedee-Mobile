@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "EnabledWidgetsScreen")]
+    [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
     public class EnabledWidgetsScreen : ListActivity
     {
         protected override void OnCreate(Bundle bundle)

@@ -90,7 +90,6 @@
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Widgets\BuildStatus.cs" />
     <Compile Include="Widgets\FooWidget.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Widgets\TestWidget.cs" />
@@ -123,6 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\StartPageWidgetLayout.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -33,9 +33,8 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            var smeedeeIcon = new ImageView(context);
-            smeedeeIcon.SetImageResource(Resource.Drawable.Icon);
-            AddView(smeedeeIcon);
+            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+            inflater.Inflate(Resource.Layout.StartPageWidgetLayout, this);
         }
     }
 }

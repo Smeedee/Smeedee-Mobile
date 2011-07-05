@@ -20,7 +20,10 @@
   
   <!--FooWidget-->
   <string name="FooWidgetText">Inside FooWidget. Lots of random text</string>
-  
+
+  <!--Working days left-->
+  <string name="StartPageWidget">smeede mobile</string>
+
   <!--Working days left-->
 
   <!--Top Commiters-->
