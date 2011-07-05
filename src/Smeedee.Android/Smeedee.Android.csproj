@@ -108,6 +108,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\EnabledWidgetsListLayout.axml" />
+    <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
