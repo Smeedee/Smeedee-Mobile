@@ -65,12 +65,6 @@
     <Compile Include="..\Smeedee\Services\AsyncResult.cs">
       <Link>Services\AsyncResult.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\CachedImageService.cs">
-      <Link>Services\CachedImageService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IImageService.cs">
-      <Link>Services\IImageService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
       <Link>Services\IMobileKVPersister.cs</Link>
     </Compile>
@@ -97,6 +91,7 @@
     <Compile Include="Widgets\FooWidget.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Widgets\TestWidget.cs" />
+    <Compile Include="Widgets\WorkingDaysLeftWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
