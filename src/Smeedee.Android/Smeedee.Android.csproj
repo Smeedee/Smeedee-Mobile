@@ -100,6 +100,7 @@
     <AndroidResource Include="Resources\Layout\GlobalSettings.axml" />
     <AndroidResource Include="Resources\Layout\EnabledWidgets.axml" />
     <AndroidResource Include="Resources\Layout\ServerSettings.axml" />
+    <AndroidResource Include="Resources\Layout\EnabledWidgetsListLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
