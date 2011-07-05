@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -13,7 +14,7 @@ using Android.Views;
 using Android.Widget;
 using Smeedee.Services;
 
-namespace Smeedee.Android.Widgets
+namespace Smeedee.Android.Views
 {
     public class LoginView : LinearLayout, IWidget
     {
@@ -31,8 +32,7 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            var fakeImageService = new FakeImageService(new BackgroundWorker());
-            var bmp = BitmapFactory.DecodeByteArray(imageService())
+            
         }
     }
 }

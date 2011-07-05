@@ -65,8 +65,32 @@
     <Compile Include="..\Smeedee\Services\AsyncResult.cs">
       <Link>Services\AsyncResult.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\CachedImageService.cs">
+      <Link>Services\CachedImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\FakeImageService.cs">
+      <Link>Services\FakeImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IImageService.cs">
+      <Link>Services\IImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ImageService.cs">
+      <Link>Services\ImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
+      <Link>Services\IMobileKVPersister.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
+      <Link>Services\IPersistenceService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
       <Link>Services\ISmeedeeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\PersistenceService.cs">
+      <Link>Services\PersistenceService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
+      <Link>Services\ServiceLocator.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\SmeedeeFakeService.cs">
       <Link>Services\SmeedeeFakeService.cs</Link>
@@ -78,6 +102,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Widgets\FooWidget.cs" />
+    <Compile Include="Views\LoginView.cs" />
     <Compile Include="Widgets\TestWidget.cs" />
   </ItemGroup>
   <ItemGroup>

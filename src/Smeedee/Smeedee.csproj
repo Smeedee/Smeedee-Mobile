@@ -40,9 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="BackgroundWorker.cs" />
-    <Compile Include="IBackgroundWorker.cs" />
-    <Compile Include="NoBackgroundWorker.cs" />
+    <Compile Include="Utilities\BackgroundWorker.cs" />
+    <Compile Include="Utilities\IBackgroundWorker.cs" />
+    <Compile Include="Utilities\NoBackgroundWorker.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -57,7 +57,6 @@
     <Compile Include="Services\ISmeedeeService.cs" />
     <Compile Include="Model\SmeedeeApp.cs" />
     <Compile Include="Services\PersistenceService.cs" />
-    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\SmeedeeHttpService.cs" />
     <Compile Include="Model\TopCommiters.cs" />
     <Compile Include="Model\Commiter.cs" />
