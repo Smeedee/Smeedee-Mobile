@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Smeedee.Android.Widgets
 {
-    public class StartPageWidget : LinearLayout, IWidget
+    public class StartPageWidget : RelativeLayout, IWidget
     {
         private Context context;
 
