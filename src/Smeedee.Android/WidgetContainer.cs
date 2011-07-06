@@ -36,6 +36,7 @@ namespace Smeedee.Android
         private void ConfigureDependencies()
         {
             SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
+            SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
         }
         
         private void AddWidgetsToFlipper()

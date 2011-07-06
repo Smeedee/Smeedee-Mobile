@@ -1,7 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!-- This will contain a lot more in the future -->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/LoginScreen"
-          android:text="@string/LoginScreen"
-          android:layout_width="fill_parent"
-          android:layout_height="fill_parent" />
+<RelativeLayout 
+  android:id="@+id/mainlayout" 
+  android:layout_height="fill_parent" 
+  android:layout_width="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <LinearLayout
+      android:orientation="vertical"
+      android:gravity="center_horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:id="@+id/LoginLinearLayout">
+    <ImageView
+        android:id="@+id/SmeedeeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15px"
+        android:src="@drawable/icon"
+        />
+    <EditText
+        android:id="@+id/ServerUrlInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textUri"
+        android:hint="Server URL"
+        />
+    <EditText
+        android:id="@+id/AccessKeyInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textVisiblePassword"
+        android:hint="Access Key"
+        />
+    <TextView
+        android:id="@+id/ErrorNotificationText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Authentication failed. Please check your url and key."
+        android:visibility="invisible"
+        android:textColor="#F33"
+        />
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:padding="10dp"
+        />
+  </LinearLayout>
+
+</RelativeLayout>

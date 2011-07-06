@@ -14,7 +14,7 @@
     android:paddingRight="5sp"
     android:textSize="30sp"
     android:textColor="#F25000"
-    android:text="13" />
+    android:text="" />
   
   <TextView
     android:id="@+id/WorkingDaysLeftText"
