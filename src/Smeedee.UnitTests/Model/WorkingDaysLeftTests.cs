@@ -40,13 +40,32 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(42, model.DaysLeft);
         }
+
+        [Test]
+        public void Should_get_the_correct_string_for_every_number_of_days()
+        {
+            var correctPairs = new[] {
+                Tuple.Create(0, "working days left"),
+                Tuple.Create(1, "working day left"),
+                Tuple.Create(2, "working days left"),
+                Tuple.Create(10, "working days left"),
+            };
+
+            foreach (var pair in correctPairs)
+            {
+                WorkingDaysLeftFakeService.FakeDays = pair.Item1;
+                model.Load(() => { });
+
+                Assert.AreEqual(pair.Item2, model.DaysLeftText);
+            }
+        }
     }
 
     public class WorkingDaysLeftFakeService : IWorkingDaysLeftService
     {
         private IBackgroundWorker worker;
 
-        public int FakeDays { get; set; }
+        public static int FakeDays { get; set; }
 
         public WorkingDaysLeftFakeService(IBackgroundWorker worker)
         {
