@@ -9,7 +9,8 @@ namespace Smeedee.Services
     {
         public void GetNumberOfWorkingDaysLeft(Action<int> callback)
         {
-            throw new NotImplementedException();
+            const int days = 42;
+            callback(days);
         }
     }
 }

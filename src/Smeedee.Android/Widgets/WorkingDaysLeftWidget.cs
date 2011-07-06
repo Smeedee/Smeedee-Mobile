@@ -17,9 +17,14 @@ namespace Smeedee.Android.Widgets
 {
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
+        private WorkingDaysLeft model;
+
         public WorkingDaysLeftWidget(Context context) : base(context)
         {
             Initialize();
+
+            model = new WorkingDaysLeft();
+            model.Load(UpdateView);
         }
 
         private void Initialize()
@@ -27,5 +32,13 @@ namespace Smeedee.Android.Widgets
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             inflater.Inflate(Resource.Layout.WorkingDaysLeftWidget, this);
         }
+
+        private void UpdateView()
+        {
+            var textView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftNumber);
+            var days = model.DaysLeft.ToString();
+            textView.SetText(days, TextView.BufferType.Normal);
+        }
+
     }
 }
