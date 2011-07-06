@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using NUnit;
 using NUnit.Framework;
 using Smeedee.Model;
 using Smeedee.Services;
@@ -14,13 +9,22 @@ namespace Smeedee.UnitTests.Model
     [TestFixture]
     public class WorkingDaysLeftTests
     {
+        private WorkingDaysLeft model;
+
+        [SetUp]
+        public void SetUp()
+        {
+            SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(
+                new WorkingDaysLeftFakeService(new NoBackgroundWorker())
+            );
+            model = new WorkingDaysLeft();
+        }
+
         [Test]
         public void Should_invoke_callback_on_load()
         {
-            SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService(new NoBackgroundWorker()));
-            var model = new WorkingDaysLeft();
-
             var callbackWasExecuted = false;
+
             model.Load(() =>
             {
                 callbackWasExecuted = true;
@@ -32,9 +36,6 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_fetch_data_from_service()
         {
-            SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService(new NoBackgroundWorker()));
-            var model = new WorkingDaysLeft();
-
             model.Load(() => { });
 
             Assert.AreEqual(42, model.DaysLeft);
