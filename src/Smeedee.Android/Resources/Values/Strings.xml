@@ -2,6 +2,9 @@
 <resources>
   <!--Global Application resources-->
   <string name="ApplicationName">Smeedee Mobile</string>
+
+  <!--LoginView-->
+  <string name="LoginWidgetTestText">Login Widget</string>
   
   <!-- Widget Container strings-->
   <string name="Prev">Previous</string>
