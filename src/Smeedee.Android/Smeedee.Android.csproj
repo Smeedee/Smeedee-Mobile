@@ -98,6 +98,7 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
+    <Compile Include="AppInitializer.cs" />
     <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />

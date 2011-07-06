@@ -15,12 +15,6 @@ namespace Smeedee.Model
         {
             AvailableWidgetTypes = new List<Type>();
             ServiceLocator = new ServiceLocator();
-            ConfigureServices();
-        }
-
-        private void ConfigureServices()
-        {
-            ServiceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
         }
 
         public ServiceLocator ServiceLocator { get; private set; }
@@ -49,6 +43,16 @@ namespace Smeedee.Model
             }
             
             return false;
+        }
+
+        public string GetStoredLoginKey()
+        {
+            return "myPassword";
+        }
+
+        public string GetStoredLoginUrl()
+        {
+            return "http://my.url";
         }
     }
 }
