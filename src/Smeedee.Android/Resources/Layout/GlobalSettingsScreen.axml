@@ -31,7 +31,7 @@
     android:text="@string/BtnEnabledWidgets" />
 
   <Button
-    android:id="@+id/BtnServerSettings"
+    android:id="@+id/BtnServerAndUserSettings"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:text="@string/BtnServerSettings" />

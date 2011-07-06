@@ -1,41 +1,46 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Views;
 using Android.Widget;
 
 namespace Smeedee.Android.Screens
 {
     [Activity(Label = "GlobalSettings", Theme = "@android:style/Theme.NoTitleBar")]
-    public class GlobalSettings : Activity, View.IOnClickListener
+    public class GlobalSettings : Activity
     {
-        private Button _enabledWidgetBtn;
-        private Button _serverSettingsBtn;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.GlobalSettingsScreen);
 
-            _enabledWidgetBtn = FindViewById<Button>(Resource.Id.BtnEnabledWidgets);
-            _serverSettingsBtn = FindViewById<Button>(Resource.Id.BtnServerSettings);
-
-            _enabledWidgetBtn.SetOnClickListener(this);
-            _serverSettingsBtn.SetOnClickListener(this);
+            BindEventsToButtons();
         }
 
-        public void OnClick(View v)
+        private void BindEventsToButtons()
         {
-            if (v == _enabledWidgetBtn)
-            {
-                var enabledWidgetsScreen = new Intent(this, typeof(EnabledWidgetsScreen));
-                StartActivity(enabledWidgetsScreen);
-            }
-            if (v == _serverSettingsBtn)
+            BindClickEventToEnabledWidgetsBtn();
+            BindClickEventToServerAndUserSettingsBtn();
+        }
+
+        private void BindClickEventToEnabledWidgetsBtn()
+        {
+            var btnPrev = FindViewById<Button>(Resource.Id.BtnEnabledWidgets);
+            btnPrev.Click += (obj, e) =>
+                                 {
+                                     var enabledWidgetsScreen = new Intent(this, typeof (EnabledWidgetsScreen));
+                                     StartActivity(enabledWidgetsScreen);
+                                 };
+        }
+
+        private void BindClickEventToServerAndUserSettingsBtn()
+        {
+            var btnPrev = FindViewById<Button>(Resource.Id.BtnServerAndUserSettings);
+            btnPrev.Click += (obj, e) =>
             {
                 var serverSettingsScreen = new Intent(this, typeof(ServerSettingsScreen));
                 StartActivity(serverSettingsScreen);
-            }
+            };
         }
     }
 }
