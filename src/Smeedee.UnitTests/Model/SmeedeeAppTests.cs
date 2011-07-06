@@ -49,8 +49,32 @@ namespace Smeedee.UnitTests.Model
                 Assert.AreEqual(countOne, countTwo);
             }
 
+            [Test]
+            public void Registered_widgets_should_have_their_name_properly_set_in_the_model()
+            {
+                app.RegisterAvailableWidgets();
+                var widgets = app.AvailableWidgetTypes;
 
+                Assert.Contains("Test Widget", widgets.Select(m => m.Name).ToList());
+                Assert.Contains("Test Widget 2", widgets.Select(m => m.Name).ToList());
+            }
 
+            [Test]
+            public void Registered_widget_should_have_their_icon_properly_set_in_the_model()
+            {
+                app.RegisterAvailableWidgets();
+                var widgets = app.AvailableWidgetTypes;
+
+                Assert.Contains("icon/url", widgets.Select(m => m.Icon).ToList());
+                Assert.Contains("icon/url/2", widgets.Select(m => m.Icon).ToList());
+            }
+
+            [Test]
+            [Ignore]
+            public void Registered_widget_should_have_their_enabled_state_set_properly()
+            {
+                // TODO: Make up something smart.
+            }
         }
         
         public class Shared
