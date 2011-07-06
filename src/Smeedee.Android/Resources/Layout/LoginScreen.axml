@@ -32,6 +32,14 @@
         android:inputType="textVisiblePassword"
         android:hint="Access Key"
         />
+    <TextView
+        android:id="@+id/ErrorNotificationText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Authentication failed. Please check your url and key."
+        android:visibility="invisible"
+        android:textColor="#F33"
+        />
     <Button
         android:id="@+id/LoginButton"
         android:layout_width="fill_parent"
