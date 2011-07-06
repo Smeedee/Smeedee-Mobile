@@ -105,12 +105,16 @@
     <AndroidResource Include="Resources\Layout\ServerSettingsScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+<<<<<<< HEAD
+    <AndroidResource Include="Resources\Layout\EnabledWidgetsListLayout.axml" />
+    <AndroidResource Include="Resources\Layout\LoginViewLayout.axml" />
+=======
     <AndroidResource Include="Resources\Layout\EnabledWidgetsScreenListLayout.axml" />
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\LoginScreen.axml" />
-    <AndroidResource Include="Resources\Layout\LoginViewLayout.axml" />
+>>>>>>> 75cc39e58d3a6e8f826ca8ee0140e3a3a72a9100
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />

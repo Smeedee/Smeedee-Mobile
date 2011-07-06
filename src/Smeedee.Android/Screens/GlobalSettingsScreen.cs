@@ -9,8 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Screens;
 
-namespace Smeedee.Android
+namespace Smeedee.Android.Screens
 {
     [Activity(Label = "GlobalSettings", Theme = "@android:style/Theme.NoTitleBar")]
     public class GlobalSettings : Activity, View.IOnClickListener
@@ -21,7 +22,7 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.GlobalSettings);
+            SetContentView(Resource.Layout.GlobalSettingsScreen);
 
             enabledWidgetBtn = FindViewById<Button>(Resource.Id.BtnEnabledWidgets);
             serverSettingsBtn = FindViewById<Button>(Resource.Id.BtnServerSettings);

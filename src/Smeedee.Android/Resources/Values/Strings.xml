@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!--Global Application resources-->
   <string name="ApplicationName">Smeedee Mobile</string>
 
   <!--LoginView-->
   <string name="LoginWidgetTestText">Login Widget</string>
   
-  <!-- Widget Container strings-->
+  <!--LoginScreen-->
+  <string name="LoginScreen">Login screen</string>
+  
+  <!-- WidgetContainer-->
   <string name="Prev">Previous</string>
   <string name="Next">Next</string>
   <string name="GlobalSettings">Global Settings</string>
   <string name="WidgetSettings">Widget Settings</string>
 
-  <!--Global Settings Activity resources-->
+  <!--GlobalSettings-->
   <string name="BtnServerSettings">Server Settings</string>
   <string name="BtnEnabledWidgets">Enabled widgets</string>
   <string name="ServerSettings">ServerSettings</string>
   <string name="EnabledWidgets">EnabledWidgets</string>
 
-  <!--TestWidget-->
-  <string name="TestWidgetText">Inside TestWidget</string>
+  <!--*** WIDGETS ***-->
   
-  <!--FooWidget-->
-  <string name="FooWidgetText">Inside FooWidget. Lots of random text</string>
-
   <!--Working days left-->
+  <string name="WorkingDaysLeft">working days left</string>
+
+  <!--Start Page-->
   <string name="StartPageWidget">smeede mobile</string>
-
-  <!--Working days left-->
 
   <!--Top Commiters-->
 

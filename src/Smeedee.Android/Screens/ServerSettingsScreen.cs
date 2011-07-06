@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Smeedee.Android
+namespace Smeedee.Android.Screens
 {
     [Activity(Label = "ServerSettingsScreen", Theme = "@android:style/Theme.NoTitleBar")]
     public class ServerSettingsScreen : Activity
@@ -19,8 +19,7 @@ namespace Smeedee.Android
         {
             base.OnCreate(bundle);
 
-            var view = FindViewById(Resource.Id.ServerSettingsTextView);
-
+            var view = FindViewById<TextView>(Resource.Id.ServerSettingsScreenTextView);
             SetContentView(view);
         }
     }
