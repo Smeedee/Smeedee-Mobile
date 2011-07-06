@@ -19,14 +19,8 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            if (inflater != null)
-            {
-                inflater.Inflate(Resource.Layout.BuildStatusWidget, this);
-            }
-            else
-            {
-                throw new Exception("Ammagad inflater was null");
-            }
+            inflater.Inflate(Resource.Layout.BuildStatusWidget, this);
+            
 
 
             var lv = FindViewById<ListView>(Resource.Id.build_list);
