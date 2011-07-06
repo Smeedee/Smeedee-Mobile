@@ -9,7 +9,7 @@
   <LinearLayout 
     android:id="@+id/GlobalSettingsTopBanner"
     android:layout_width="fill_parent"
-    android:layout_height="50sp"
+    android:layout_height="@string/TopBannerHeight"
     android:gravity="center"
     android:background="#777777">
 

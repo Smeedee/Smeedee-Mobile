@@ -10,6 +10,7 @@
   <string name="Next">Next</string>
   <string name="GlobalSettings">Global Settings</string>
   <string name="WidgetSettings">Widget Settings</string>
+  <string name="TopBannerHeight">30sp</string>
 
   <!--GlobalSettings-->
   <string name="BtnServerSettings">Server Settings</string>
