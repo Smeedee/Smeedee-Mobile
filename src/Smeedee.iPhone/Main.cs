@@ -39,8 +39,8 @@ namespace Smeedee.iPhone
         
         private void ConfigureDependencies()
         {
-            //SmeedeeApp.SmeedeeService = new SmeedeeHttpService(); // Production
-            SmeedeeApp.SmeedeeService = new SmeedeeFakeService(); // Developing/offline
+            //app.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
+            app.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
         }
         
         private void RegisterAllSupportedWidgets()

@@ -64,11 +64,11 @@ namespace Smeedee.iPhone
         
         private IEnumerable<UIViewController> GetWidgets()
         {
-            var widgetTypes = app.AvailableWidgetTypes;
+            var widgets = app.AvailableWidgets;
             
-            foreach (var widgetType in widgetTypes)
+            foreach (var widget in widgets)
             {
-                var widgetInstance = Activator.CreateInstance(widgetType) as UIViewController;
+                var widgetInstance = Activator.CreateInstance(widget.Type) as UIViewController;
                 yield return widgetInstance;
             }
         }
