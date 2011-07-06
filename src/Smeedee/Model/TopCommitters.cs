@@ -10,10 +10,10 @@ namespace Smeedee.Model
         
         public TopCommitters()
         {
-            Commiters = new List<Committer>();
+            Committers = new List<Committer>();
         }
         
-        public List<Committer> Commiters {
+        public List<Committer> Committers {
             get;
             private set;
         }
@@ -21,7 +21,7 @@ namespace Smeedee.Model
         public void Load(Action callback)
         {
             smeedeeService.LoadTopCommiters((args) => {
-                Commiters.AddRange(args.Result);
+                Committers.AddRange(args.Result);
                 callback();
             });
         }

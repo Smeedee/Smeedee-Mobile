@@ -16,7 +16,7 @@ namespace Smeedee.UnitTests.Model
             {
                 var topCommiters = new TopCommitters();
                 
-                Assert.AreEqual(0, topCommiters.Commiters.Count());
+                Assert.AreEqual(0, topCommiters.Committers.Count());
             }
         }
         
@@ -50,7 +50,7 @@ namespace Smeedee.UnitTests.Model
             {
                 topCommiters.Load(() => { });
                 
-                Assert.IsTrue(topCommiters.Commiters.Count() > 0);
+                Assert.IsTrue(topCommiters.Committers.Count() > 0);
             }
             
             [Test]
@@ -58,7 +58,7 @@ namespace Smeedee.UnitTests.Model
             {
                 topCommiters.Load(() => { });
                 
-                foreach (var commiter in topCommiters.Commiters) {
+                foreach (var commiter in topCommiters.Committers) {
                     Assert.IsTrue(commiter.Name.Length > 0);
                 }
             }

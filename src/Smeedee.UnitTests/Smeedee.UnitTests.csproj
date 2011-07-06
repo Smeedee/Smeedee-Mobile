@@ -61,7 +61,7 @@
     <Compile Include="Model\TopCommittersTests.cs" />
     <Compile Include="Fakes\FakeSmeedeeService.cs" />
     <Compile Include="Model\SmeedeeAppTests.cs" />
-    <Compile Include="Model\CommiterTests.cs" />
+    <Compile Include="Model\CommitterTests.cs" />
     <Compile Include="Model\WorkingDaysLeftTests.cs" />
     <Compile Include="Services\CachedImageServiceTests.cs" />
     <Compile Include="Services\FakeImageServiceTests.cs" />
