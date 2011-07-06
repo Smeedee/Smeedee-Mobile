@@ -12,8 +12,26 @@ namespace Smeedee.Model
             
             Name = name;
         }
+
+        public Committer(string name, int commits, string url)
+        {
+            Name = name;
+            Commits = commits;
+            ImageUri = new Uri(url);
+        }
         
         public string Name {
+            get;
+            private set;
+        }
+
+        public int Commits {
+            get; 
+            private set;
+        }
+
+        public Uri ImageUri
+        {
             get;
             private set;
         }
