@@ -43,6 +43,7 @@
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
     <Compile Include="Utilities\BackgroundWorker.cs" />
     <Compile Include="Utilities\IBackgroundWorker.cs" />
     <Compile Include="Utilities\NoBackgroundWorker.cs" />
