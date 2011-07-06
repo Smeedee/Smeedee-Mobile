@@ -46,15 +46,17 @@ namespace Smeedee.UnitTests.Model
     {
         private IBackgroundWorker worker;
 
+        public int FakeDays { get; set; }
+
         public WorkingDaysLeftFakeService(IBackgroundWorker worker)
         {
             this.worker = worker;
+            FakeDays = 42;
         }
 
         public void GetNumberOfWorkingDaysLeft(Action<int> callback)
         {
-            const int fakeResult = 42;
-            worker.Invoke(() => callback(fakeResult));
+            worker.Invoke(() => callback(FakeDays));
         }
     }
 
