@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+  xmlns:a="http://schemas.android.com/apk/res/android"
+  a:paddingBottom="5sp"
+  a:paddingTop="5sp"
+  a:layout_width="fill_parent"
+  a:layout_height="?android:attr/listPreferredItemHeight">
+
+  <!-- Image - TODO: Make real-->
+  <ImageView
+    a:id="@+id/WidgetIcon"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:src="@drawable/icon"
+    />
+  <!-- Widget Title-->
+  <TextView 
+    a:id="@+id/WidgetTitle"
+    a:layout_toRightOf="@id/WidgetIcon"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:layout_centerVertical="true"
+    a:textSize="22sp"
+    a:textStyle="bold"
+	  />
+
+  <!-- Checkbox -->
+  <CheckBox a:id="@+id/Checkbox"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:layout_alignParentRight="true"
+    a:layout_marginRight="8dip"
+    a:focusable="false"
+	  />
+</RelativeLayout>

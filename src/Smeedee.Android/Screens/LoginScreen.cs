@@ -14,7 +14,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "LoginScreen", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "LoginScreen", MainLauncher = false, Theme = "@android:style/Theme.NoTitleBar")]
     public class LoginScreen : Activity
     {
         private ILoginValidationService loginValidator;

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -7,28 +9,33 @@ using Android.Widget;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "EnabledWidgetsScreen", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
     public class EnabledWidgetsScreen : Activity
     {
-        private ListView lView;
-        private string[] lv_items = { "Android", "iPhone", "BlackBerry",
-                                       "AndroidPeople", "J2ME", "Listview", "ArrayAdapter", "ListItem",
-                                       "Us", "UK", "India"  };
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
             SetContentView(Resource.Layout.EnabledWidgetsScreen);
-            
-            lView = FindViewById<ListView>(Resource.Id.ListView01);
-            //	 Set option as Multiple Choice. So that user can able to select more the one option from list
-            
-            var adapter = new ArrayAdapter<string>(this, Resource.Layout.EnabledWidgetsScreen, lv_items);
 
-            lView.ChoiceMode = ChoiceMode.Multiple;
+            var listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
 
-            lView.Adapter = adapter;
+            // create the grid item mapping
+            var from = new[] { "WidgetTitle" };
+            var to = new[] { Resource.Id.WidgetTitle };
+
+            // prepare the list of all records
+            IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
+            for (var i = 0; i < 10; i++)
+            {
+                IDictionary<String, object> map = new Dictionary<String, object>();
+                map.Add("WidgetTitle", "Widget " + i);
+                                                      
+                fillMaps.Add(map);
+            }
+            // fill in the grid_item layout
+            var adapter = new SimpleAdapter(this, fillMaps, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
+            listView.Adapter = adapter;
             
         }
     }
