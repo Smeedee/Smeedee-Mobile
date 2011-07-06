@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Model;
 using Smeedee.Services;
 
 namespace Smeedee.Android.Screens
@@ -41,7 +42,7 @@ namespace Smeedee.Android.Screens
 
         private void ShowNextScreen()
         {
-            var haveEnabledWidgets = false; //TODO: Figure this out by looking at the config data
+            var haveEnabledWidgets = true; //TODO: Figure this out by looking at the config data
             Intent nextActivity = null;
             if (haveEnabledWidgets)
             {
