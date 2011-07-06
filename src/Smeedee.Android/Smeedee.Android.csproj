@@ -87,6 +87,7 @@
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\ServerSettingsScreen.cs" />
+    <Compile Include="Widgets\BuildStatus.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -110,6 +111,8 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\LoginScreen.axml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />

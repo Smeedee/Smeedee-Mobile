@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+  <!-- Bilde -->
+  <TextView android:id="@+id/item1"
+    android:text="row_id"
+    android:layout_height="fill_parent"
+    android:layout_width="wrap_content"
+    android:width="20dip"
+    />
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+   
+    <!-- Buildconfig Name -->
+    <TextView android:id="@+id/item2"
+      android:text="col_1"
+      android:layout_height="fill_parent"
+      android:layout_width="wrap_content"
+      android:width="100dip"
+	    />
+  
+    <!-- Status color -->
+    <TextView android:id="@+id/item3"
+      android:text="col_2"
+      android:layout_height="fill_parent"
+      android:layout_width="wrap_content"
+      android:width="100dip"
+	    />
+  
+    <!-- Timestamp -->
+    <TextView android:id="@+id/item4"
+      android:text="col_3"
+      android:layout_height="fill_parent"
+      android:layout_width="wrap_content"
+      android:width="100dip"
+	    />
+  </LinearLayout>
+</LinearLayout>

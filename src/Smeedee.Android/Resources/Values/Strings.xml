@@ -30,5 +30,6 @@
   <!--Latest changeset-->
 
   <!--Build status-->
+  <string name="BuildStatus">Build status ftw</string>
   
 </resources>
