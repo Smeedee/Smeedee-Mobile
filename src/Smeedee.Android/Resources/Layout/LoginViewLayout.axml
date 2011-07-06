@@ -1,16 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-  <TextView
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent"
+  android:layout_width="fill_parent"
+  android:gravity="center_vertical"
+  >
+  <LinearLayout
+      android:orientation="vertical"
+      android:gravity="center_horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent" >
+    <ImageView
+        android:id="@+id/SmeedeeIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/LoginWidgetTestText" />
-  <ImageView
-      android:id="@+id/SmeedeeIcon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/icon" />
-</LinearLayout>
+        android:paddingBottom="15px"
+        android:src="@drawable/icon" 
+        />
+    <EditText
+        android:id="@+id/ServerUrlInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textUri"
+        android:hint="Server URL"
+        />
+    <EditText
+        android:id="@+id/AccessKeyInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textUri"
+        android:hint="Access Key"
+        />
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:padding="10dp"
+        />
+  </LinearLayout>
+</RelativeLayout>

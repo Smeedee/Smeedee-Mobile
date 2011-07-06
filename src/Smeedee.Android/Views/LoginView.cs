@@ -32,7 +32,8 @@ namespace Smeedee.Android.Views
 
         private void Initialize()
         {
-            
+            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+            inflater.Inflate(Resource.Layout.LoginViewLayout, this);
         }
     }
 }
