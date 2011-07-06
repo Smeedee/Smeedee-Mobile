@@ -17,21 +17,20 @@ namespace Smeedee.UnitTests.Model
             {
                 app.RegisterAvailableWidgets();
 
-                var widgets = app.AvailableWidgetTypes;
+                var widgets = app.AvailableWidgets;
 
                 Assert.Contains(typeof(TestWidget), widgets.Select(m => m.Type).ToList());
                 Assert.Contains(typeof(AnotherTestWidget), widgets.Select(m => m.Type).ToList());
             }
-
 
             [Test]
             public void Then_it_should_not_contain_interfaces()
             {
                 app.RegisterAvailableWidgets();
 
-                var widgetTypes = app.AvailableWidgetTypes;
+                var widgets = app.AvailableWidgets;
 
-                foreach (var widgetType in widgetTypes)
+                foreach (var widgetType in widgets)
                 {
                     Assert.IsFalse(widgetType.Type.IsInterface);
                 }
@@ -41,10 +40,10 @@ namespace Smeedee.UnitTests.Model
             public void Registering_widgets_should_be_idempotent()
             {
                 app.RegisterAvailableWidgets();
-                var countOne = app.AvailableWidgetTypes.Count;
+                var countOne = app.AvailableWidgets.Count;
 
                 app.RegisterAvailableWidgets();
-                var countTwo = app.AvailableWidgetTypes.Count;
+                var countTwo = app.AvailableWidgets.Count;
 
                 Assert.AreEqual(countOne, countTwo);
             }
@@ -53,7 +52,7 @@ namespace Smeedee.UnitTests.Model
             public void Registered_widgets_should_have_their_name_properly_set_in_the_model()
             {
                 app.RegisterAvailableWidgets();
-                var widgets = app.AvailableWidgetTypes;
+                var widgets = app.AvailableWidgets;
 
                 Assert.Contains("Test Widget", widgets.Select(m => m.Name).ToList());
                 Assert.Contains("Test Widget 2", widgets.Select(m => m.Name).ToList());
@@ -63,7 +62,7 @@ namespace Smeedee.UnitTests.Model
             public void Registered_widget_should_have_their_icon_properly_set_in_the_model()
             {
                 app.RegisterAvailableWidgets();
-                var widgets = app.AvailableWidgetTypes;
+                var widgets = app.AvailableWidgets;
 
                 Assert.Contains("icon/url", widgets.Select(m => m.Icon).ToList());
                 Assert.Contains("icon/url/2", widgets.Select(m => m.Icon).ToList());
@@ -85,7 +84,7 @@ namespace Smeedee.UnitTests.Model
             public void SetUp()
             {
                 app = SmeedeeApp.Instance;
-                app.AvailableWidgetTypes.Clear();
+                app.AvailableWidgets.Clear();
             }
         }
         

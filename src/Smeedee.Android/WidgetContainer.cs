@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Android;
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Smeedee.Android.Screens;
-using Smeedee.Android.Widgets;
 using Smeedee.Model;
-using Smeedee.Services;
 
 namespace Smeedee.Android
 {
@@ -45,7 +40,7 @@ namespace Smeedee.Android
         {
             app.RegisterAvailableWidgets();
 
-            var widgetTypes = SmeedeeApp.Instance.AvailableWidgetTypes;
+            var widgetTypes = SmeedeeApp.Instance.AvailableWidgets;
             var instances = new List<IWidget>();
             foreach (var widgetType in widgetTypes)
             {
