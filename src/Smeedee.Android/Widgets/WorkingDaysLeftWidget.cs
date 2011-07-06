@@ -7,6 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
+    [WidgetAttribute("Working Days Left", "icon")]
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
         private WorkingDaysLeft model;
