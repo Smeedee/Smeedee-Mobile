@@ -62,6 +62,15 @@
     <Compile Include="..\Smeedee\Model\TopCommiters.cs">
       <Link>Model\TopCommiters.cs</Link>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="..\Smeedee\Model\WidgetAttribute.cs">
+      <Link>Model\WidgetAttribute.cs</Link>
+    </Compile>
+>>>>>>> 4f4ddfb451ab5d998182af928b102d6d5d94f93d
+    <Compile Include="..\Smeedee\Model\WidgetModel.cs">
+      <Link>Model\WidgetModel.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>
     </Compile>
@@ -98,11 +107,13 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
+    <Compile Include="MainActivity.cs" />
     <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\ServerSettingsScreen.cs" />
     <Compile Include="Widgets\BuildStatus.cs" />
+    <Compile Include="Widgets\LatestChangesetsWidget.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -124,15 +135,11 @@
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-<<<<<<< HEAD
     <AndroidResource Include="Resources\Layout\LoginScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-=======
-    <AndroidResource Include="Resources\Layout\LoginScreen.axml" />
     <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
     <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
->>>>>>> d9ceefa42dae5e778bab6e279df76558c4bbad6e
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -150,6 +157,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\StartPageWidget.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen_ListItem.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

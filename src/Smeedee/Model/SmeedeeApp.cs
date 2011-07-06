@@ -24,8 +24,7 @@ namespace Smeedee.Model
         {
             var types = Assembly.GetCallingAssembly().GetTypes();
             var widgets = from type in types
-                          where typeof(IWidget).IsAssignableFrom(type) &&
-                                !type.IsInterface
+                          where typeof(IWidget).IsAssignableFrom(type) && !type.IsInterface
                           select type;
             
             foreach (var widget in widgets)
@@ -55,7 +54,7 @@ namespace Smeedee.Model
             var model = ModelFromAttributes(((WidgetAttribute[])widgetAttributes)[0]);
             model.Type = type;
 
-            // TODO: Write code for checking whether or not the widget is enabled.
+            // TODO: Write code for checking whether or not the widget is enabled
             return model;
         }
 

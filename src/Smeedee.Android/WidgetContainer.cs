@@ -74,13 +74,11 @@ namespace Smeedee.Android
                                      flipper.RefreshDrawableState();
                                  };
         }
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
             return true;
         }
-
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -93,10 +91,7 @@ namespace Smeedee.Android
 
                 case Resource.Id.BtnGlobalSettings:
 
-                    // TODO: What happens if a user clicks multiple times on Global Settings?
-                    // Will multiple activities start, or is Android so smart that is just uses the one
-                    // it has got from before
-                    var globalSettings = new Intent(this, typeof (GlobalSettings));
+                    var globalSettings = new Intent(this, typeof(GlobalSettings));
                     StartActivity(globalSettings);
                     return true;
 
