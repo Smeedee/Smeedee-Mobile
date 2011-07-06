@@ -28,7 +28,7 @@ namespace Smeedee.UnitTests.Model
             [SetUp]
             public void SetUp()
             {
-                SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new FakeSmeedeeService());
+                SmeedeeApp.Instance.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
                 
                 topCommiters = new TopCommitters();
             }

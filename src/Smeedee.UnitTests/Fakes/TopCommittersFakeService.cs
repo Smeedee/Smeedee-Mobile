@@ -5,12 +5,8 @@ using Smeedee.Services;
 
 namespace Smeedee.UnitTests
 {
-    public class FakeSmeedeeService : ISmeedeeService
+    public class TopCommittersFakeService : ITopCommittersService
     {
-        public FakeSmeedeeService()
-        {
-        }
-
         public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Committer>>> callback)
         {
             callback(
