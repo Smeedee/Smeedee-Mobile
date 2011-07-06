@@ -14,7 +14,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Start Page", "icon")]
+    [WidgetAttribute("Start Page", "@drawable/icon")]
     public class StartPageWidget : RelativeLayout, IWidget
     {
         public StartPageWidget(Context context) :

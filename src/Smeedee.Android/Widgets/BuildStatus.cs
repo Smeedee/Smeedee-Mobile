@@ -8,7 +8,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Build Status", "icon")]
+    [WidgetAttribute("Build Status", "@drawable/icon")]
     public class BuildStatus : RelativeLayout, IWidget
     {
 

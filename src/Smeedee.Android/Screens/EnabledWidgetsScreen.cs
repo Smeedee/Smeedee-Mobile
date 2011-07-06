@@ -6,6 +6,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
+using Object = Java.Lang.Object;
 
 namespace Smeedee.Android.Screens
 {
@@ -28,13 +29,12 @@ namespace Smeedee.Android.Screens
 
             var listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
 
-            // Create mapping from key to resource
-            var from = new[] { "WidgetTitle" };
-            var to = new[] { Resource.Id.WidgetTitle };
+            var from = new[] { "WidgetIcon", "WidgetTitle" };
+            var to = new[] { Resource.Id.WidgetIcon, Resource.Id.WidgetTitle };
 
             var listItems = PopulateEnabledWidgetsList();
 
-            // fill in the grid_item layout
+            
             var adapter = new SimpleAdapter(this, listItems, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
             listView.Adapter = adapter;
         }
@@ -70,6 +70,7 @@ namespace Smeedee.Android.Screens
             foreach (var widget in widgets)
             {
                 IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
+                keyValueMap.Add("WidgetIcon", widget.Icon);
                 keyValueMap.Add("WidgetTitle", widget.Name);
                 listItems.Add(keyValueMap);
             }
