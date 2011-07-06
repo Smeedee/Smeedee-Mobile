@@ -9,10 +9,10 @@ namespace Smeedee.UnitTests.Model
     public class TopCommittersTests
     {
         [TestFixture]
-        public class When_creating_a_new_TopCommiters_instance
+        public class When_creating_a_new_TopCommitters_instance
         {
             [Test]
-            public void Then_assure_there_are_no_commiters()
+            public void Then_assure_there_are_no_committers()
             {
                 var topCommiters = new TopCommitters();
                 
@@ -21,7 +21,7 @@ namespace Smeedee.UnitTests.Model
         }
         
         [TestFixture]
-        public class When_loading_TopCommiters
+        public class When_loading_TopCommitters
         {
             private TopCommitters topCommiters;
             
@@ -54,7 +54,7 @@ namespace Smeedee.UnitTests.Model
             }
             
             [Test]
-            public void Then_assure_that_commiters_have_real_data()
+            public void Then_assure_that_committers_have_real_data()
             {
                 topCommiters.Load(() => { });
                 
