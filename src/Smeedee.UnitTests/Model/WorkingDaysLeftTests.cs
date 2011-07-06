@@ -15,7 +15,7 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_invoke_callback_on_load()
         {
-            SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new WorkingDaysFakeService());
+            SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
             var model = new WorkingDaysLeft();
 
             var callbackWasExecuted = false;
@@ -28,15 +28,14 @@ namespace Smeedee.UnitTests.Model
         }
     }
 
-
-    class WorkingDaysFakeService : ISmeedeeService
+    interface IWorkingDaysLeftService
     {
-        public void GetWorkingDaysLeft(Action<AsyncResult<int>> callback)
-        {
-            throw new NotImplementedException();
-        }
+        int GetNumberOfWorkingDaysLeft(Action<AsyncResult<int>> callback);
+    }
 
-        public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Commiter>>> callback)
+    class WorkingDaysLeftFakeService : IWorkingDaysLeftService
+    {
+        public int GetNumberOfWorkingDaysLeft(Action<AsyncResult<int>> callback)
         {
             throw new NotImplementedException();
         }
