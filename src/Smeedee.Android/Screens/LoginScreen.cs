@@ -18,9 +18,7 @@ namespace Smeedee.Android.Screens
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            var view = FindViewById<TextView>(Resource.Id.LoginScreen);
-            SetContentView(view);
+            SetContentView(Resource.Layout.LoginScreen);
         }
     }
 }
