@@ -9,6 +9,8 @@ namespace Smeedee.Android.Widgets
 {
     public class BuildStatusWidget : RelativeLayout, IWidget
     {
+        private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime" };
+        private readonly int[] listItemMappingTo = new[] {  Resource.Id.item2, Resource.Id.item3, Resource.Id.item4 };
 
         public BuildStatusWidget(Context context)
             : base(context)
@@ -18,18 +20,26 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
+            CreateGui();
+            FillBuildList();
+        }
+        
+        private void CreateGui()
+        {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             inflater.Inflate(Resource.Layout.BuildStatusWidget, this);
-            
+        }
 
+        private void FillBuildList()
+        {
+            var buildList = FindViewById<ListView>(Resource.Id.build_list);
 
-            var lv = FindViewById<ListView>(Resource.Id.build_list);
+            var adapter = new SimpleAdapter(Context, CreateFakeData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
+            buildList.Adapter = adapter;
+        }
 
-            // create the grid item mapping
-            var from = new[] { "project_name", "username", "datetime" };
-            var to = new[] {  Resource.Id.item2, Resource.Id.item3, Resource.Id.item4 };
-
-            // prepare the list of all records
+        private IList<IDictionary<string, object>> CreateFakeData()
+        {
             IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
             for (var i = 0; i < 10; i++)
             {
@@ -41,9 +51,7 @@ namespace Smeedee.Android.Widgets
                                                       };
                 fillMaps.Add(map);
             }
-            // fill in the grid_item layout
-            var adapter = new SimpleAdapter(Context, fillMaps, Resource.Layout.BuildStatusWidget_ListItem, from, to);
-            lv.Adapter = adapter;
+            return fillMaps;
         }
     }
 }
