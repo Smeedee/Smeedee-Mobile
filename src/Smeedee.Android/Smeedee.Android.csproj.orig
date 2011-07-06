@@ -62,8 +62,17 @@
     <Compile Include="..\Smeedee\Model\TopCommiters.cs">
       <Link>Model\TopCommiters.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
+      <Link>Model\WorkingDaysLeft.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\AsyncResult.cs">
       <Link>Services\AsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
+      <Link>Services\FakeLoginValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
+      <Link>Services\ILoginValidationService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
       <Link>Services\IMobileKVPersister.cs</Link>
@@ -74,6 +83,9 @@
     <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
       <Link>Services\ISmeedeeService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
+      <Link>Services\IWorkingDaysLeftService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>
@@ -83,10 +95,14 @@
     <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
       <Link>Services\SmeedeeHttpService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
+      <Link>Services\WorkingDaysLeftFakeService.cs</Link>
+    </Compile>
     <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\ServerSettingsScreen.cs" />
+    <Compile Include="Widgets\BuildStatus.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -105,16 +121,18 @@
     <AndroidResource Include="Resources\Layout\ServerSettingsScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-<<<<<<< HEAD
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsListLayout.axml" />
-    <AndroidResource Include="Resources\Layout\LoginViewLayout.axml" />
-=======
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreenListLayout.axml" />
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+<<<<<<< HEAD
+    <AndroidResource Include="Resources\Layout\LoginScreen.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+=======
     <AndroidResource Include="Resources\Layout\LoginScreen.axml" />
->>>>>>> 75cc39e58d3a6e8f826ca8ee0140e3a3a72a9100
+    <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
+>>>>>>> d9ceefa42dae5e778bab6e279df76558c4bbad6e
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -133,7 +151,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\StartPageWidget.axml" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
