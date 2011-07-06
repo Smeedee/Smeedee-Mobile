@@ -9,39 +9,39 @@
 // ------------------------------------------------------------------------------
 
 namespace Smeedee.iPhone {
-    
-    
-    // Base type probably should be MonoTouch.UIKit.UIViewController or subclass
-    [MonoTouch.Foundation.Register("TestWebViewScreen")]
-    public partial class TestWebViewScreen {
-        
-        private MonoTouch.UIKit.UIView __mt_view;
-        
-        private MonoTouch.UIKit.UIWebView __mt_webView;
-        
-        #pragma warning disable 0169
-        [MonoTouch.Foundation.Connect("view")]
-        private MonoTouch.UIKit.UIView view {
-            get {
-                this.__mt_view = ((MonoTouch.UIKit.UIView)(this.GetNativeField("view")));
-                return this.__mt_view;
-            }
-            set {
-                this.__mt_view = value;
-                this.SetNativeField("view", value);
-            }
-        }
-        
-        [MonoTouch.Foundation.Connect("webView")]
-        private MonoTouch.UIKit.UIWebView webView {
-            get {
-                this.__mt_webView = ((MonoTouch.UIKit.UIWebView)(this.GetNativeField("webView")));
-                return this.__mt_webView;
-            }
-            set {
-                this.__mt_webView = value;
-                this.SetNativeField("webView", value);
-            }
-        }
-    }
+	
+	
+	// Base type probably should be MonoTouch.UIKit.UIViewController or subclass
+	[MonoTouch.Foundation.Register("TestWebViewScreen")]
+	public partial class TestWebViewScreen {
+		
+		private MonoTouch.UIKit.UIView __mt_view;
+		
+		private MonoTouch.UIKit.UIWebView __mt_webView;
+		
+		#pragma warning disable 0169
+		[MonoTouch.Foundation.Connect("view")]
+		private MonoTouch.UIKit.UIView view {
+			get {
+				this.__mt_view = ((MonoTouch.UIKit.UIView)(this.GetNativeField("view")));
+				return this.__mt_view;
+			}
+			set {
+				this.__mt_view = value;
+				this.SetNativeField("view", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("webView")]
+		private MonoTouch.UIKit.UIWebView webView {
+			get {
+				this.__mt_webView = ((MonoTouch.UIKit.UIWebView)(this.GetNativeField("webView")));
+				return this.__mt_webView;
+			}
+			set {
+				this.__mt_webView = value;
+				this.SetNativeField("webView", value);
+			}
+		}
+	}
 }
