@@ -9,7 +9,7 @@ namespace Smeedee.Services
     {
         public bool IsValid(string url, string key)
         {
-            return url == "url" && key == "pass";
+            return url != "wrong" && key != "wrong";
         }
     }
 }
