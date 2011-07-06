@@ -11,7 +11,7 @@ using Smeedee.Services;
 namespace Smeedee.Android
 {
     [Activity(Label = "Smeedee", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
-    public class AppInitializer : Activity
+    public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -47,8 +47,9 @@ namespace Smeedee.Android
             var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 
             //fill in global bindings here:
-            serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
+            serviceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
             serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
+            serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
             serviceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
         }
     }

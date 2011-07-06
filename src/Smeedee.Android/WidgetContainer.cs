@@ -27,18 +27,10 @@ namespace Smeedee.Android
 
             flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
             
-            ConfigureDependencies();
-            
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
         }
 
-        private void ConfigureDependencies()
-        {
-            SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
-            SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
-        }
-        
         private void AddWidgetsToFlipper()
         {
             var widgets = GetWidgets();
