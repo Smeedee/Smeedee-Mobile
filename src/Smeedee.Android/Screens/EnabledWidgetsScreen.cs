@@ -33,7 +33,6 @@ namespace Smeedee.Android.Screens
             var to = new[] { Resource.Id.WidgetIcon, Resource.Id.WidgetTitle, Resource.Id.Checkbox };
 
             var listItems = PopulateEnabledWidgetsList();
-
             
             var adapter = new SimpleAdapter(this, listItems, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
 

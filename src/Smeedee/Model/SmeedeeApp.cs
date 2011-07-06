@@ -23,14 +23,14 @@ namespace Smeedee.Model
         public void RegisterAvailableWidgets()
         {
             var types = Assembly.GetCallingAssembly().GetTypes();
-            var widgets = from type in types
+            var widgetsAsType = from type in types
                           where typeof(IWidget).IsAssignableFrom(type) && !type.IsInterface
                           select type;
             
-            foreach (var widget in widgets)
+            foreach (var widgetAsType in widgetsAsType)
             {
-                if (WidgetTypeIsAlreadyRegistered(widget)) continue;
-                AvailableWidgets.Add(GetModelFromType(widget));
+                if (WidgetTypeIsAlreadyRegistered(widgetAsType)) continue;
+                AvailableWidgets.Add(GetModelFromType(widgetAsType));
             }
         }
 
@@ -51,13 +51,13 @@ namespace Smeedee.Model
             if (!typeHasAttributes)
                 throw new ArgumentException("A widget without attributes was passed");
 
-            var model = ModelFromAttributes(((WidgetAttribute[])widgetAttributes)[0]);
+            var model = ModelFromAttributes(((WidgetAttribute[])widgetAttributes)[0], type);
             return model;
         }
 
-        private static WidgetModel ModelFromAttributes(WidgetAttribute attr)
+        private static WidgetModel ModelFromAttributes(WidgetAttribute attr, Type type)
         {
-            return new WidgetModel(attr.Name, attr.Icon, attr.Type, attr.IsEnabled);
+            return new WidgetModel(attr.Name, attr.Icon, type, attr.IsEnabled);
         }
 
         public string GetStoredLoginKey()

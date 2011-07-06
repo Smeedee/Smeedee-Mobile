@@ -11,7 +11,6 @@ namespace Smeedee.Model
         public string Name { get; private set; }
         public string Icon { get; private set; }
         public bool IsEnabled { get; set; } //TODO: Discuss private/public on this attribute
-        public Type Type { get; private set; }
 
         public WidgetAttribute(string name, string icon)
         {
