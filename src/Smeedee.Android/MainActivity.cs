@@ -8,7 +8,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Smeedee", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)

@@ -17,19 +17,15 @@ namespace Smeedee.Android.Widgets
     [WidgetAttribute("Start Page", "icon")]
     public class StartPageWidget : RelativeLayout, IWidget
     {
-        private Context context;
-
         public StartPageWidget(Context context) :
             base(context)
         {
-            this.context = context;
             Initialize();
         }
 
         public StartPageWidget(Context context, IAttributeSet attrs) :
             base(context, attrs)
         {
-            this.context = context;
             Initialize();
         }
 

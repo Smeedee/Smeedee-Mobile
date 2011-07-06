@@ -74,6 +74,11 @@ namespace Smeedee.Android
                                      flipper.RefreshDrawableState();
                                  };
         }
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.Main, menu);
+            return true;
+        }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
