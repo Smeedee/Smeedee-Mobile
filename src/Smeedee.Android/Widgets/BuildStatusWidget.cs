@@ -7,10 +7,10 @@ using Android.Widget;
 
 namespace Smeedee.Android.Widgets
 {
-    public class BuildStatus : RelativeLayout, IWidget
+    public class BuildStatusWidget : RelativeLayout, IWidget
     {
 
-        public BuildStatus(Context context)
+        public BuildStatusWidget(Context context)
             : base(context)
         {
             Initialize();

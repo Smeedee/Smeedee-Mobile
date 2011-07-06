@@ -42,8 +42,8 @@
   <TextView
     a:background="#151"
     a:layout_marginRight="8dip"
-    a:width="10dip"
+    a:width="5dip"
     a:layout_alignParentRight="true"
-    a:layout_width="14dip"
+    a:layout_width="5dip"
     a:layout_height="fill_parent"/>
 </RelativeLayout>
