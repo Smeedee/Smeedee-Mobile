@@ -52,19 +52,12 @@ namespace Smeedee.Model
                 throw new ArgumentException("A widget without attributes was passed");
 
             var model = ModelFromAttributes(((WidgetAttribute[])widgetAttributes)[0]);
-            model.Type = type;
-
-            // TODO: Write code for checking whether or not the widget is enabled
             return model;
         }
 
         private static WidgetModel ModelFromAttributes(WidgetAttribute attr)
         {
-            return new WidgetModel
-            {
-                Name = attr.Name,
-                Icon = attr.Icon
-            };
+            return new WidgetModel(attr.Name, attr.Icon, attr.Type, attr.IsEnabled);
         }
 
         public string GetStoredLoginKey()

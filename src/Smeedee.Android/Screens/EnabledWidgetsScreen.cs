@@ -6,16 +6,16 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
-using Object = Java.Lang.Object;
 
 namespace Smeedee.Android.Screens
 {
     [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
-    public class EnabledWidgetsScreen : Activity
+    public class EnabledWidgetsScreen : Activity, View.IOnClickListener
     {
-        private readonly SmeedeeApp app = SmeedeeApp.Instance;
+        private readonly SmeedeeApp _app = SmeedeeApp.Instance;
         private Button _saveSettingsBtn;
         private bool _firstTimeUserOpensThisActivity = true;
+        private ListView _listView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -27,20 +27,24 @@ namespace Smeedee.Android.Screens
             if (_firstTimeUserOpensThisActivity) ViewSaveButton();
             else HideSaveButton();
 
-            var listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
+            _listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
 
-            var from = new[] { "WidgetIcon", "WidgetTitle" };
-            var to = new[] { Resource.Id.WidgetIcon, Resource.Id.WidgetTitle };
+            var from = new[] { "WidgetIcon", "WidgetTitle", "Checkbox" };
+            var to = new[] { Resource.Id.WidgetIcon, Resource.Id.WidgetTitle, Resource.Id.Checkbox };
 
             var listItems = PopulateEnabledWidgetsList();
 
             
             var adapter = new SimpleAdapter(this, listItems, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
-            listView.Adapter = adapter;
+
+            //TODO: _listViewSetOnClickListener(this) and handle list clicks
+            _listView.Adapter = adapter;
         }
 
         private void ViewSaveButton()
         {
+            var saveBtn = FindViewById(Resource.Id.BtnSaveSettings);
+            saveBtn.Visibility = ViewStates.Visible;
             BindSaveButtonClickEvent();
             _firstTimeUserOpensThisActivity = false;
         }
@@ -63,7 +67,7 @@ namespace Smeedee.Android.Screens
 
         private IList<IDictionary<string, object>> PopulateEnabledWidgetsList()
         {
-            var widgets = app.AvailableWidgets;
+            var widgets = _app.AvailableWidgets;
 
             IList<IDictionary<String, object>> listItems = new List<IDictionary<String, object>>();
 
@@ -72,10 +76,16 @@ namespace Smeedee.Android.Screens
                 IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
                 keyValueMap.Add("WidgetIcon", widget.Icon);
                 keyValueMap.Add("WidgetTitle", widget.Name);
+                keyValueMap.Add("Checkbox", widget.IsEnabled);
                 listItems.Add(keyValueMap);
             }
 
             return listItems;
+        }
+
+        public void OnClick(View v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
