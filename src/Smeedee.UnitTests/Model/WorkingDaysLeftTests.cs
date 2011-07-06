@@ -1,24 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit;
 using NUnit.Framework;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Utilities;
 
 namespace Smeedee.UnitTests.Model
 {
     [TestFixture]
-    class WorkingDaysLeftTests
+    public class WorkingDaysLeftTests
     {
+        private WorkingDaysLeft model;
+
+        [SetUp]
+        public void SetUp()
+        {
+            SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(
+                new WorkingDaysLeftFakeService(new NoBackgroundWorker())
+            );
+            model = new WorkingDaysLeft();
+        }
+
         [Test]
         public void Should_invoke_callback_on_load()
         {
-            SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new WorkingDaysFakeService());
-            var model = new WorkingDaysLeft();
-
             var callbackWasExecuted = false;
+
             model.Load(() =>
             {
                 callbackWasExecuted = true;
@@ -26,19 +32,29 @@ namespace Smeedee.UnitTests.Model
 
             Assert.IsTrue(callbackWasExecuted);
         }
+
+        [Test]
+        public void Should_fetch_data_from_service()
+        {
+            model.Load(() => { });
+
+            Assert.AreEqual(42, model.DaysLeft);
+        }
     }
 
-
-    class WorkingDaysFakeService : ISmeedeeService
+    public class WorkingDaysLeftFakeService : IWorkingDaysLeftService
     {
-        public void GetWorkingDaysLeft(Action<AsyncResult<int>> callback)
+        private IBackgroundWorker worker;
+
+        public WorkingDaysLeftFakeService(IBackgroundWorker worker)
         {
-            throw new NotImplementedException();
+            this.worker = worker;
         }
 
-        public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Commiter>>> callback)
+        public void GetNumberOfWorkingDaysLeft(Action<int> callback)
         {
-            throw new NotImplementedException();
+            const int fakeResult = 42;
+            worker.Invoke(() => callback(fakeResult));
         }
     }
 
