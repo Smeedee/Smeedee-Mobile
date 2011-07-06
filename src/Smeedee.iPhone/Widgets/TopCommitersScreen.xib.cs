@@ -7,6 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
+    [Widget("Top Commiters", "/foo.bar.png")]
     public partial class TopCommitersScreen : UITableViewController, IWidget
     {
         public TopCommitersScreen() : base("TopCommitersScreen", null)
