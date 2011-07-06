@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,25 +9,34 @@ using Android.Widget;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
-    public class EnabledWidgetsScreen : ListActivity
+    [Activity(Label = "EnabledWidgetsScreen", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
+    public class EnabledWidgetsScreen : Activity
     {
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            SetContentView(Resource.Layout.EnabledWidgetsScreen);
 
-            List<string> widgetsAsStrings = new List<string>();
-            widgetsAsStrings.Add("Widget1");
-            widgetsAsStrings.Add("Widget2");
-            widgetsAsStrings.Add("Widget3");
+            var listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
 
-            ListAdapter = new ArrayAdapter<string>(this, Resource.Layout.EnabledWidgetsScreenListLayout, widgetsAsStrings);
+            // create the grid item mapping
+            var from = new[] { "WidgetTitle" };
+            var to = new[] { Resource.Id.WidgetTitle };
 
-            ListView.ItemClick += delegate(object sender, ItemEventArgs args)
+            // prepare the list of all records
+            IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
+            for (var i = 0; i < 10; i++)
             {
-                // When clicked, show a toast with the TextView text  
-                Toast.MakeText(Application, ((TextView)args.View).Text, ToastLength.Short).Show();
-            }; 
+                IDictionary<String, object> map = new Dictionary<String, object>();
+                map.Add("WidgetTitle", "Widget " + i);
+                                                      
+                fillMaps.Add(map);
+            }
+            // fill in the grid_item layout
+            var adapter = new SimpleAdapter(this, fillMaps, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
+            listView.Adapter = adapter;
+            
         }
     }
 }

@@ -103,6 +103,7 @@
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\ServerSettingsScreen.cs" />
+    <Compile Include="Widgets\BuildStatus.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -121,13 +122,14 @@
     <AndroidResource Include="Resources\Layout\ServerSettingsScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreenListLayout.axml" />
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\LoginScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -146,7 +148,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\StartPageWidget.axml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen_ListItem.axml" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

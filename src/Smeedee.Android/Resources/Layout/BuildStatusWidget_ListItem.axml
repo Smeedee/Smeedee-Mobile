@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:a="http://schemas.android.com/apk/res/android"
+  a:paddingBottom="5sp"
+  a:paddingTop="5sp"
+  a:layout_width="fill_parent"
+  a:layout_height="?android:attr/listPreferredItemHeight">
+  
+  <!-- Bilde - TODO: Make real-->
+  <ImageView
+    a:id="@+id/SmeedeeIcon"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:src="@drawable/icon" 
+    />
+  <!-- Buildconfig Name -->
+  <TextView a:id="@+id/item2"
+    a:text="col_1"
+    a:layout_toRightOf="@id/SmeedeeIcon"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:textSize="22sp"
+    a:textStyle="bold"
+	  />
+  
+  <!-- Status color -->
+  <TextView a:id="@+id/item3"
+    a:text="col_2"
+    a:layout_below="@id/item2"
+    a:layout_toRightOf="@id/SmeedeeIcon"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+	  />
+  
+  <!-- Timestamp -->
+  <TextView a:id="@+id/item4"
+    a:text="col_3"
+    a:layout_below="@id/item3"
+    a:layout_toRightOf="@id/SmeedeeIcon"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+	  />
+  <TextView
+    a:background="#151"
+    a:layout_marginRight="8dip"
+    a:width="10dip"
+    a:layout_alignParentRight="true"
+    a:layout_width="14dip"
+    a:layout_height="fill_parent"/>
+</RelativeLayout>
