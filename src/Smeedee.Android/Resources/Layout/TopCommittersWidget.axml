@@ -1,19 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout 
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="horizontal"
-  android:gravity="center"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  xmlns:a="http://schemas.android.com/apk/res/android"
+  a:layout_width="fill_parent"
+  a:layout_height="fill_parent"
+  a:orientation="vertical"
+  a:gravity="top">
 
+  <LinearLayout
+    a:layout_width="fill_parent"
+    a:layout_height="wrap_content"
+    a:paddingBottom="5dip"
+    a:orientation="vertical">
 
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingLeft="5sp"
-    android:paddingRight="5sp"
-    android:textSize="30sp"
-    android:textColor="#F88017"
-    android:text="TopCommitters" />
+    <TextView
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:textColor="#F88017"
+      a:textSize="20sp"
+      a:text="Top committers" />
 
+    <TextView
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:textSize="14sp"
+      a:text="Showing number of commits for the past day" />
+  </LinearLayout>
+
+  <TableLayout
+    a:layout_width="fill_parent"
+    a:layout_height="wrap_content"
+    a:stretchColumns="1">
+
+    <TableRow>
+      <ImageView
+        a:layout_width="wrap_content"
+        a:layout_height="wrap_content"
+        a:src="@drawable/icon"
+        a:padding="3dip" />
+      <TextView
+        a:text="Lars K. Melhus"
+        a:textColor="#fff"
+        a:textSize="18sp"
+        a:padding="3dip" />
+      <TextView
+        a:text="37"
+        a:paddingTop="3dip"
+        a:textColor="#fff"
+        a:textSize="24sp"
+        a:paddingRight="10dip" />
+    </TableRow>
+
+    <TableRow>
+      <ImageView
+        a:layout_width="wrap_content"
+        a:layout_height="wrap_content"
+        a:src="@drawable/icon"
+        a:padding="3dip" />
+      <TextView
+        a:text="Lars Eidnes"
+        a:textColor="#fff"
+        a:textSize="18sp"
+        a:padding="3dip" />
+      <TextView
+        a:text="29"
+        a:paddingTop="3dip"
+        a:textColor="#fff"
+        a:textSize="24sp"
+        a:paddingRight="10dip" />
+    </TableRow>
+
+  </TableLayout>
+  
 </LinearLayout>
