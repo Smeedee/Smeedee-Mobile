@@ -62,6 +62,9 @@
     <Compile Include="..\Smeedee\Model\TopCommiters.cs">
       <Link>Model\TopCommiters.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetAttribute.cs">
+      <Link>Model\WidgetAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\WidgetModel.cs">
       <Link>Model\WidgetModel.cs</Link>
     </Compile>
@@ -107,6 +110,7 @@
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\ServerSettingsScreen.cs" />
     <Compile Include="Widgets\BuildStatus.cs" />
+    <Compile Include="Widgets\LatestChangesetsWidget.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

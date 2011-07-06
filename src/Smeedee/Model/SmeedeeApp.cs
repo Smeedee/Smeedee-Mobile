@@ -13,12 +13,12 @@ namespace Smeedee.Model
         // This class is a singleton: private constructor; static instance variable.
         private SmeedeeApp()
         {
-            AvailableWidgetTypes = new List<Type>();
+            AvailableWidgets = new List<WidgetModel>();
             ServiceLocator = new ServiceLocator();
         }
 
         public ServiceLocator ServiceLocator { get; private set; }
-        public List<Type> AvailableWidgetTypes { get; private set; }
+        public List<WidgetModel> AvailableWidgets { get; private set; }
 
         public void RegisterAvailableWidgets()
         {
@@ -31,18 +31,41 @@ namespace Smeedee.Model
             foreach (var widget in widgets)
             {
                 if (WidgetTypeIsAlreadyRegistered(widget)) continue;
-                AvailableWidgetTypes.Add(widget);
+                AvailableWidgets.Add(GetModelFromType(widget));
             }
         }
-        
+
         private bool WidgetTypeIsAlreadyRegistered(Type widgetType)
         {
-            foreach (var registeredWidgetType in AvailableWidgetTypes)
+            foreach (var registeredWidget in AvailableWidgets)
             {
-                if (registeredWidgetType.Name == widgetType.Name) return true;
+                if (registeredWidget.Type.Name == widgetType.Name) return true;
             }
             
             return false;
+        }
+
+        private WidgetModel GetModelFromType(Type type)
+        {
+            var widgetAttributes = type.GetCustomAttributes(typeof(WidgetAttribute), true);
+            var typeHasAttributes = (widgetAttributes.Count() > 0 && widgetAttributes is WidgetAttribute[]);
+            if (!typeHasAttributes)
+                throw new ArgumentException("A widget without attributes was passed");
+
+            var model = ModelFromAttributes(((WidgetAttribute[])widgetAttributes)[0]);
+            model.Type = type;
+
+            // TODO: Write code for checking whether or not the widget is enabled.
+            return model;
+        }
+
+        private static WidgetModel ModelFromAttributes(WidgetAttribute attr)
+        {
+            return new WidgetModel
+            {
+                Name = attr.Name,
+                Icon = attr.Icon
+            };
         }
 
         public string GetStoredLoginKey()

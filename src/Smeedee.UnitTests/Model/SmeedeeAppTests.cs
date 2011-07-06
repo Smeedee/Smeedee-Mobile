@@ -13,26 +13,26 @@ namespace Smeedee.UnitTests.Model
         public class When_registering_widgets_dynamically : Shared
         {
             [Test]
-            public void Then_they_should_be_available_when_getting_widgets()
+            public void Then_their_type_should_be_contained_in_a_returned_model()
             {
                 app.RegisterAvailableWidgets();
 
-                var widgets = app.AvailableWidgetTypes;
+                var widgets = app.AvailableWidgets;
 
-                Assert.Contains(typeof(TestWidget), widgets.ToList());
-                Assert.Contains(typeof(AnotherTestWidget), widgets.ToList());
+                Assert.Contains(typeof(TestWidget), widgets.Select(m => m.Type).ToList());
+                Assert.Contains(typeof(AnotherTestWidget), widgets.Select(m => m.Type).ToList());
             }
-            
+
             [Test]
             public void Then_it_should_not_contain_interfaces()
             {
                 app.RegisterAvailableWidgets();
 
-                var widgetTypes = app.AvailableWidgetTypes;
-                
-                foreach (var widgetType in widgetTypes)
+                var widgets = app.AvailableWidgets;
+
+                foreach (var widgetType in widgets)
                 {
-                    Assert.IsFalse(widgetType.IsInterface);
+                    Assert.IsFalse(widgetType.Type.IsInterface);
                 }
             }
             
@@ -40,12 +40,39 @@ namespace Smeedee.UnitTests.Model
             public void Registering_widgets_should_be_idempotent()
             {
                 app.RegisterAvailableWidgets();
-                var countOne = app.AvailableWidgetTypes.Count;
+                var countOne = app.AvailableWidgets.Count;
 
                 app.RegisterAvailableWidgets();
-                var countTwo = app.AvailableWidgetTypes.Count;
+                var countTwo = app.AvailableWidgets.Count;
 
                 Assert.AreEqual(countOne, countTwo);
+            }
+
+            [Test]
+            public void Registered_widgets_should_have_their_name_properly_set_in_the_model()
+            {
+                app.RegisterAvailableWidgets();
+                var widgets = app.AvailableWidgets;
+
+                Assert.Contains("Test Widget", widgets.Select(m => m.Name).ToList());
+                Assert.Contains("Test Widget 2", widgets.Select(m => m.Name).ToList());
+            }
+
+            [Test]
+            public void Registered_widget_should_have_their_icon_properly_set_in_the_model()
+            {
+                app.RegisterAvailableWidgets();
+                var widgets = app.AvailableWidgets;
+
+                Assert.Contains("icon/url", widgets.Select(m => m.Icon).ToList());
+                Assert.Contains("icon/url/2", widgets.Select(m => m.Icon).ToList());
+            }
+
+            [Test]
+            [Ignore]
+            public void Registered_widget_should_have_their_enabled_state_set_properly()
+            {
+                // TODO: Make up something smart.
             }
         }
         
@@ -57,14 +84,16 @@ namespace Smeedee.UnitTests.Model
             public void SetUp()
             {
                 app = SmeedeeApp.Instance;
-                app.AvailableWidgetTypes.Clear();
+                app.AvailableWidgets.Clear();
             }
         }
         
+        [WidgetAttribute("Test Widget", "icon/url")]
         public class TestWidget : IWidget
         {
         }
-        
+
+        [WidgetAttribute("Test Widget 2", "icon/url/2")]
         public class AnotherTestWidget : IWidget
         {
         }
