@@ -33,9 +33,14 @@ namespace Smeedee.Android.Widgets
 
         private void UpdateView()
         {
-            var textView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftNumber);
+            var daysView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftNumber);
+            var textView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftText);
+            
             var days = model.DaysLeft.ToString();
-            textView.SetText(days, TextView.BufferType.Normal);
+            var text = model.DaysLeftText;
+
+            daysView.SetText(days, TextView.BufferType.Normal);
+            textView.SetText(text, TextView.BufferType.Normal);
         }
     }
 }

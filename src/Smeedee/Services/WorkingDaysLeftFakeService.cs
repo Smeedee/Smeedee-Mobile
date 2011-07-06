@@ -9,7 +9,7 @@ namespace Smeedee.Services
     {
         public void GetNumberOfWorkingDaysLeft(Action<int> callback)
         {
-            const int days = 42;
+            const int days = 1;
             callback(days);
         }
     }
