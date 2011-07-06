@@ -16,5 +16,13 @@ namespace Smeedee.Model
         }
 
         public int DaysLeft { get; set; }
+
+        public string DaysLeftText
+        {
+            get
+            {
+                return DaysLeft == 1 ? "working day left" : "working days left";
+            }
+        }
     }
 }

@@ -62,6 +62,9 @@
     <Compile Include="..\Smeedee\Model\TopCommiters.cs">
       <Link>Model\TopCommiters.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
+      <Link>Model\WorkingDaysLeft.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\AsyncResult.cs">
       <Link>Services\AsyncResult.cs</Link>
     </Compile>
@@ -80,6 +83,9 @@
     <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
       <Link>Services\ISmeedeeService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
+      <Link>Services\IWorkingDaysLeftService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>
@@ -88,6 +94,9 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
       <Link>Services\SmeedeeHttpService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
+      <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
     <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
