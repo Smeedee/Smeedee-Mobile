@@ -11,7 +11,7 @@
     android:layout_width="fill_parent"
     android:gravity="center"
     android:layout_height="50sp"
-    android:background="#777777">
+    android:background="#1d1d1d">
     
     <Button
       android:id="@+id/BtnPrev"

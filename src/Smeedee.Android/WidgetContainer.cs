@@ -14,7 +14,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee Mobile", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Smeedee Mobile", Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
     public class WidgetContainer : Activity
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
@@ -27,17 +27,10 @@ namespace Smeedee.Android
 
             flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
             
-            ConfigureDependencies();
-            
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
         }
 
-        private void ConfigureDependencies()
-        {
-            SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
-        }
-        
         private void AddWidgetsToFlipper()
         {
             var widgets = GetWidgets();

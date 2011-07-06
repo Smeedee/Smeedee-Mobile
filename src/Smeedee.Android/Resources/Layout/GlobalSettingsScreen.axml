@@ -9,14 +9,13 @@
   <LinearLayout 
     android:id="@+id/GlobalSettingsTopBanner"
     android:layout_width="fill_parent"
-    android:layout_height="50sp"
-    android:gravity="center"
-    android:background="#777777">
+    android:layout_height="30sp"
+    android:background="#1d1d1d">
 
   <TextView 
     android:id="@+id/GlobalSettingsHeadline"
     android:textColor="#ffffff"
-    android:textSize="20sp"
+    android:textSize="15sp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/GlobalSettings"/>

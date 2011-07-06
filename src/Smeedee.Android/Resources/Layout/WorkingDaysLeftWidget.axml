@@ -13,8 +13,8 @@
     android:paddingLeft="5sp"
     android:paddingRight="5sp"
     android:textSize="30sp"
-    android:textColor="#F88017"
-    android:text="13" />
+    android:textColor="#F25000"
+    android:text="" />
   
   <TextView
     android:id="@+id/WorkingDaysLeftText"
