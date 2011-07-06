@@ -136,7 +136,10 @@ namespace Smeedee.Android
 			public const int StartPageWidget = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int WorkingDaysLeftWidget = 2130903047;
+			public const int TopCommittersWidget = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int WorkingDaysLeftWidget = 2130903048;
 			
 			private Layout()
 			{
