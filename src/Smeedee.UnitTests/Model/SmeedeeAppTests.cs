@@ -10,19 +10,6 @@ namespace Smeedee.UnitTests.Model
     public class SmeedeeAppTests
     {
         [TestFixture]
-        public class When_in_default_state
-        {
-            [Test]
-            public void Then_the_default_service_should_be_the_HTTP_service()
-            {
-                var httpServiceType = typeof(SmeedeeHttpService);
-                var defaultServiceType = SmeedeeApp.Instance.ServiceLocator.Get<ISmeedeeService>().GetType();
-                
-                Assert.AreEqual(httpServiceType.Name, defaultServiceType.Name);
-            }
-        }
-        
-        [TestFixture]
         public class When_registering_widgets_dynamically : Shared
         {
             [Test]
