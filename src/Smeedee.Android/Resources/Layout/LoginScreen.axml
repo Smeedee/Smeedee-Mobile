@@ -22,14 +22,14 @@
         android:id="@+id/ServerUrlInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textVisiblePassword"
+        android:inputType="textUri"
         android:hint="Server URL"
         />
     <EditText
         android:id="@+id/AccessKeyInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textUri"
+        android:inputType="textVisiblePassword"
         android:hint="Access Key"
         />
     <Button
