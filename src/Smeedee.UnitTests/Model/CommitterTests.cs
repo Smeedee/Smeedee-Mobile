@@ -17,6 +17,15 @@ namespace Smeedee.UnitTests.Model
             {
                 new Committer(null);
             }
+
+            [Test]
+            public void Then_the_provided_name_should_be_accessible()
+            {
+                var committer = new Committer("John Doe");
+                var name = committer.Name;
+
+                Assert.AreEqual("John Doe", name);
+            }
         }
     }
 }
