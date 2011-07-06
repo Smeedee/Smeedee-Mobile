@@ -9,6 +9,7 @@
       android:gravity="center_horizontal"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:layout_marginTop="-76px"
       android:layout_centerVertical="true"
       android:id="@+id/LoginLinearLayout">
     <ImageView
@@ -22,7 +23,7 @@
         android:id="@+id/ServerUrlInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textUri"
+        android:inputType="textVisiblePassword"
         android:hint="Server URL"
         />
     <EditText
