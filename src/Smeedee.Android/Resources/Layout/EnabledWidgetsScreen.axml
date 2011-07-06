@@ -16,4 +16,10 @@
     </ListView>
     
   </LinearLayout>
+  <Button
+    android:id="@+id/BtnSaveSettings"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/SaveSettingsBtn"
+    android:padding="10dp" />
 </LinearLayout>

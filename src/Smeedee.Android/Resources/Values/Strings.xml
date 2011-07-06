@@ -19,6 +19,7 @@
   <string name="BtnEnabledWidgets">Enabled widgets</string>
   <string name="ServerSettings">ServerSettings</string>
   <string name="EnabledWidgets">EnabledWidgets</string>
+  <string name="SaveSettingsBtn">Save</string>
 
   <!--*** WIDGETS ***-->
   

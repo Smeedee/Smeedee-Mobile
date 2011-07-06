@@ -17,20 +17,20 @@ namespace Smeedee.Android.Screens
     [Activity(Label = "LoginScreen", Theme = "@android:style/Theme.NoTitleBar")]
     public class LoginScreen : Activity
     {
-        private ILoginValidationService loginValidator;
+        private ILoginValidationService _loginValidator;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.LoginScreen);
 
-            loginValidator = new FakeLoginValidationService();
+            _loginValidator = new FakeLoginValidationService();
 
             var submitButton = FindViewById<Button>(Resource.Id.LoginButton);
             var urlInput = FindViewById<EditText>(Resource.Id.ServerUrlInput);
             var keyInput = FindViewById<EditText>(Resource.Id.AccessKeyInput);
             submitButton.Click += delegate(object sender, EventArgs args)
                 {
-                    if (loginValidator.IsValid(urlInput.Text, keyInput.Text))
+                    if (_loginValidator.IsValid(urlInput.Text, keyInput.Text))
                     {
                         ShowNextScreen();
                     } else
@@ -42,7 +42,7 @@ namespace Smeedee.Android.Screens
 
         private void ShowNextScreen()
         {
-            var haveEnabledWidgets = true; //TODO: Figure this out by looking at the config data
+            const bool haveEnabledWidgets = true; //TODO: Figure this out by looking at the config data
             Intent nextActivity = null;
             if (haveEnabledWidgets)
             {
