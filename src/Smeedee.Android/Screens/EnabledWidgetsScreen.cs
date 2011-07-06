@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,25 +7,29 @@ using Android.Widget;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
-    public class EnabledWidgetsScreen : ListActivity
+    [Activity(Label = "EnabledWidgetsScreen", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
+    public class EnabledWidgetsScreen : Activity
     {
+        private ListView lView;
+        private string[] lv_items = { "Android", "iPhone", "BlackBerry",
+                                       "AndroidPeople", "J2ME", "Listview", "ArrayAdapter", "ListItem",
+                                       "Us", "UK", "India"  };
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            List<string> widgetsAsStrings = new List<string>();
-            widgetsAsStrings.Add("Widget1");
-            widgetsAsStrings.Add("Widget2");
-            widgetsAsStrings.Add("Widget3");
+            SetContentView(Resource.Layout.EnabledWidgetsScreen);
+            
+            lView = FindViewById<ListView>(Resource.Id.ListView01);
+            //	 Set option as Multiple Choice. So that user can able to select more the one option from list
+            
+            var adapter = new ArrayAdapter<string>(this, Resource.Layout.EnabledWidgetsScreen, lv_items);
 
-            ListAdapter = new ArrayAdapter<string>(this, Resource.Layout.EnabledWidgetsScreenListLayout, widgetsAsStrings);
+            lView.ChoiceMode = ChoiceMode.Multiple;
 
-            ListView.ItemClick += delegate(object sender, ItemEventArgs args)
-            {
-                // When clicked, show a toast with the TextView text  
-                Toast.MakeText(Application, ((TextView)args.View).Text, ToastLength.Short).Show();
-            }; 
+            lView.Adapter = adapter;
+            
         }
     }
 }

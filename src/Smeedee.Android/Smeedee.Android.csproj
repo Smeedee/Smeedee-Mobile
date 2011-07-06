@@ -105,7 +105,6 @@
     <AndroidResource Include="Resources\Layout\ServerSettingsScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreenListLayout.axml" />
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>

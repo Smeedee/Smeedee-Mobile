@@ -14,7 +14,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee Mobile", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Smeedee Mobile", Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
     public class WidgetContainer : Activity
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
