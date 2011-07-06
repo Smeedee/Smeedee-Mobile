@@ -3,7 +3,7 @@
   a:paddingBottom="5sp"
   a:paddingTop="5sp"
   a:layout_width="fill_parent"
-  a:layout_height="?android:attr/listPreferredItemHeight">
+  a:layout_height="fill_parent">
   
   <!-- Bilde - TODO: Make real-->
   <ImageView
@@ -13,7 +13,7 @@
     a:src="@drawable/icon" 
     />
   <!-- Buildconfig Name -->
-  <TextView a:id="@+id/item2"
+  <TextView a:id="@+id/projectname"
     a:text="col_1"
     a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
@@ -23,18 +23,18 @@
 	  />
   
   <!-- Status color -->
-  <TextView a:id="@+id/item3"
+  <TextView a:id="@+id/username"
     a:text="col_2"
-    a:layout_below="@id/item2"
+    a:layout_below="@id/projectname"
     a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
 	  />
   
   <!-- Timestamp -->
-  <TextView a:id="@+id/item4"
+  <TextView a:id="@+id/datetime"
     a:text="col_3"
-    a:layout_below="@id/item3"
+    a:layout_below="@id/username"
     a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"

@@ -10,7 +10,7 @@ namespace Smeedee.Android.Widgets
     public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime" };
-        private readonly int[] listItemMappingTo = new[] {  Resource.Id.item2, Resource.Id.item3, Resource.Id.item4 };
+        private readonly int[] listItemMappingTo = new[] {  Resource.Id.projectname, Resource.Id.username, Resource.Id.datetime };
 
         public BuildStatusWidget(Context context)
             : base(context)

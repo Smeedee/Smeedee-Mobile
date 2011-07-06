@@ -97,17 +97,17 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060002
 			public const int build_list = 2131099650;
 			
-			// aapt resource value: 0x7f060004
-			public const int item2 = 2131099652;
-			
-			// aapt resource value: 0x7f060005
-			public const int item3 = 2131099653;
-			
 			// aapt resource value: 0x7f060006
-			public const int item4 = 2131099654;
+			public const int datetime = 2131099654;
 			
 			// aapt resource value: 0x7f060001
 			public const int layout = 2131099649;
+			
+			// aapt resource value: 0x7f060004
+			public const int projectname = 2131099652;
+			
+			// aapt resource value: 0x7f060005
+			public const int username = 2131099653;
 			
 			private Id()
 			{
