@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Android;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 
 namespace Smeedee.Android.Screens
@@ -12,6 +10,14 @@ namespace Smeedee.Android.Screens
     [Activity(Label = "EnabledWidgetsScreen", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
     public class EnabledWidgetsScreen : Activity
     {
+        //private IWidgetModelsService service = SmeedeeApp.Instance.ServiceLocator.Get<WidgetModelsService>();
+
+
+        public EnabledWidgetsScreen()
+        {
+            // service.GetAllWidgetModels and store them in a list
+            // take out the data I need
+        }
 
         protected override void OnCreate(Bundle bundle)
         {

@@ -62,6 +62,9 @@
     <Compile Include="..\Smeedee\Model\TopCommiters.cs">
       <Link>Model\TopCommiters.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetModel.cs">
+      <Link>Model\WidgetModel.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>
     </Compile>
