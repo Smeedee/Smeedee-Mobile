@@ -8,6 +8,6 @@ namespace Smeedee.Services
 {
     public interface ITopCommittersService
     {
-        void LoadTopCommiters(Action<AsyncResult<IEnumerable<Committer>>> callback);
+        void LoadTopCommiters(Action<IEnumerable<Committer>> callback);
     }
 }

@@ -7,13 +7,13 @@ namespace Smeedee.UnitTests
 {
     public class TopCommittersFakeService : ITopCommittersService
     {
-        public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Committer>>> callback)
+        public void LoadTopCommiters(Action<IEnumerable<Committer>> callback)
         {
             callback(
-                new AsyncResult<IEnumerable<Committer>>(new [] {
+                new [] {
                     new Committer("John Doe"),
                     new Committer("Mary Poppins")
-                })
+                }
             );
         }
     }
