@@ -1,43 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+  a:orientation="horizontal"
+  a:paddingBottom="5sp"
+  a:paddingTop="5sp"
+  a:layout_width="fill_parent"
+  a:layout_height="fill_parent">
   
-  <!-- Bilde -->
-  <TextView android:id="@+id/item1"
-    android:text="row_id"
-    android:layout_height="fill_parent"
-    android:layout_width="wrap_content"
-    android:width="20dip"
+  <!-- Bilde - TODO: Make real-->
+  <ImageView
+    a:id="@+id/SmeedeeIcon"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:src="@drawable/icon" 
     />
   <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    a:id="@+id/build_text_info"
+    a:orientation="vertical"
+    a:layout_width="fill_parent"
+    a:layout_height="wrap_content"
+    a:paddingLeft="2sp">
    
     <!-- Buildconfig Name -->
-    <TextView android:id="@+id/item2"
-      android:text="col_1"
-      android:layout_height="fill_parent"
-      android:layout_width="wrap_content"
-      android:width="100dip"
+    <TextView a:id="@+id/item2"
+      a:text="col_1"
+      a:layout_width="fill_parent"
+      a:layout_height="wrap_content"
+      a:textSize="22sp"
+      a:textStyle="bold"
 	    />
   
     <!-- Status color -->
-    <TextView android:id="@+id/item3"
-      android:text="col_2"
-      android:layout_height="fill_parent"
-      android:layout_width="wrap_content"
-      android:width="100dip"
+    <TextView a:id="@+id/item3"
+      a:text="col_2"
+      a:layout_width="fill_parent"
+      a:layout_height="wrap_content"
 	    />
   
     <!-- Timestamp -->
-    <TextView android:id="@+id/item4"
-      android:text="col_3"
-      android:layout_height="fill_parent"
-      android:layout_width="wrap_content"
-      android:width="100dip"
+    <TextView a:id="@+id/item4"
+      a:text="col_3"
+      a:layout_width="fill_parent"
+      a:layout_height="wrap_content"
 	    />
   </LinearLayout>
+  <TextView
+    a:background="#151"
+    a:width="6px"
+    a:layout_toRightOf="@+id/build_text_info"
+    a:layout_width="fill_parent"
+    a:layout_height="fill_parent"/>
 </LinearLayout>

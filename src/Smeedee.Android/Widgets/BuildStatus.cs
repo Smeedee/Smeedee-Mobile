@@ -32,8 +32,8 @@ namespace Smeedee.Android.Widgets
             var lv = FindViewById<ListView>(Resource.Id.build_list);
 
             // create the grid item mapping
-            var from = new[] { "rowid", "col_1", "col_2", "col_3" };
-            var to = new[] { Resource.Id.item1, Resource.Id.item2, Resource.Id.item3, Resource.Id.item4 };
+            var from = new[] { "project_name", "username", "datetime" };
+            var to = new[] {  Resource.Id.item2, Resource.Id.item3, Resource.Id.item4 };
 
             // prepare the list of all records
             IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
@@ -41,10 +41,9 @@ namespace Smeedee.Android.Widgets
             {
                 IDictionary<String, object> map = new Dictionary<String, object>
                                                       {
-                                                          {"rowid", "" + i},
-                                                          {"col_1", "col_1_item_" + i},
-                                                          {"col_2", "col_2_item_" + i},
-                                                          {"col_3", "col_3_item_" + i}
+                                                          {"project_name", "Project " + i},
+                                                          {"username", "Dag Olav Prestegarden"},
+                                                          {"datetime", DateTime.Now.ToString()}
                                                       };
                 fillMaps.Add(map);
             }

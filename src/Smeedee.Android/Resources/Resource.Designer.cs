@@ -40,8 +40,8 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f06000c
 			public const int BtnEnabledWidgets = 2131099660;
 			
-			// aapt resource value: 0x7f060019
-			public const int BtnGlobalSettings = 2131099673;
+			// aapt resource value: 0x7f060018
+			public const int BtnGlobalSettings = 2131099672;
 			
 			// aapt resource value: 0x7f060011
 			public const int BtnNext = 2131099665;
@@ -52,8 +52,8 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f06000d
 			public const int BtnServerSettings = 2131099661;
 			
-			// aapt resource value: 0x7f060018
-			public const int BtnWidgetSettings = 2131099672;
+			// aapt resource value: 0x7f060017
+			public const int BtnWidgetSettings = 2131099671;
 			
 			// aapt resource value: 0x7f060000
 			public const int BuildStatusLayout = 2131099648;
@@ -79,41 +79,38 @@ namespace Smeedee.Android
 			// aapt resource value: 0x7f060013
 			public const int ServerSettingsScreenTextView = 2131099667;
 			
-			// aapt resource value: 0x7f060014
-			public const int SmeedeeIcon = 2131099668;
+			// aapt resource value: 0x7f060003
+			public const int SmeedeeIcon = 2131099651;
 			
-			// aapt resource value: 0x7f060015
-			public const int SmeedeeStartPageTextView = 2131099669;
+			// aapt resource value: 0x7f060014
+			public const int SmeedeeStartPageTextView = 2131099668;
 			
 			// aapt resource value: 0x7f06000f
 			public const int TopBanner = 2131099663;
 			
+			// aapt resource value: 0x7f060015
+			public const int WorkingDaysLeftNumber = 2131099669;
+			
 			// aapt resource value: 0x7f060016
-			public const int WorkingDaysLeftNumber = 2131099670;
-			
-			// aapt resource value: 0x7f060017
-			public const int WorkingDaysLeftText = 2131099671;
-			
-			// aapt resource value: 0x7f060007
-			public const int build_list = 2131099655;
-			
-			// aapt resource value: 0x7f060001
-			public const int header = 2131099649;
+			public const int WorkingDaysLeftText = 2131099670;
 			
 			// aapt resource value: 0x7f060002
-			public const int item1 = 2131099650;
-			
-			// aapt resource value: 0x7f060003
-			public const int item2 = 2131099651;
+			public const int build_list = 2131099650;
 			
 			// aapt resource value: 0x7f060004
-			public const int item3 = 2131099652;
+			public const int build_text_info = 2131099652;
 			
 			// aapt resource value: 0x7f060005
-			public const int item4 = 2131099653;
+			public const int item2 = 2131099653;
 			
 			// aapt resource value: 0x7f060006
-			public const int layout = 2131099654;
+			public const int item3 = 2131099654;
+			
+			// aapt resource value: 0x7f060007
+			public const int item4 = 2131099655;
+			
+			// aapt resource value: 0x7f060001
+			public const int layout = 2131099649;
 			
 			private Id()
 			{
