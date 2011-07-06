@@ -10,9 +10,11 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
+    [WidgetAttribute("Start Page", "icon")]
     public class StartPageWidget : RelativeLayout, IWidget
     {
         private Context context;
