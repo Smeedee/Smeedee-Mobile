@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -48,7 +49,7 @@ namespace Smeedee.Android
             var instances = new List<IWidget>();
             foreach (var widgetType in widgetTypes)
             {
-                instances.Add(Activator.CreateInstance(widgetType, this) as IWidget);
+                instances.Add(Activator.CreateInstance(widgetType.Type, this) as IWidget);
             }
             return instances;
         }

@@ -13,12 +13,12 @@ namespace Smeedee.Model
         // This class is a singleton: private constructor; static instance variable.
         private SmeedeeApp()
         {
-            AvailableWidgetTypes = new List<Type>();
+            AvailableWidgetTypes = new List<WidgetModel>();
             ServiceLocator = new ServiceLocator();
         }
 
         public ServiceLocator ServiceLocator { get; private set; }
-        public List<Type> AvailableWidgetTypes { get; private set; }
+        public List<WidgetModel> AvailableWidgetTypes { get; private set; }
 
         public void RegisterAvailableWidgets()
         {
@@ -31,7 +31,7 @@ namespace Smeedee.Model
             foreach (var widget in widgets)
             {
                 if (WidgetTypeIsAlreadyRegistered(widget)) continue;
-                AvailableWidgetTypes.Add(widget);
+                AvailableWidgetTypes.Add(new WidgetModel() { Type = widget });
             }
         }
         
@@ -39,7 +39,7 @@ namespace Smeedee.Model
         {
             foreach (var registeredWidgetType in AvailableWidgetTypes)
             {
-                if (registeredWidgetType.Name == widgetType.Name) return true;
+                if (registeredWidgetType.Type.Name == widgetType.Name) return true;
             }
             
             return false;

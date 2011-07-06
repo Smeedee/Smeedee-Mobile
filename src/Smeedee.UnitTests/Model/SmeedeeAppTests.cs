@@ -13,26 +13,27 @@ namespace Smeedee.UnitTests.Model
         public class When_registering_widgets_dynamically : Shared
         {
             [Test]
-            public void Then_they_should_be_available_when_getting_widgets()
+            public void Then_their_type_should_be_contained_in_a_returned_model()
             {
                 app.RegisterAvailableWidgets();
 
                 var widgets = app.AvailableWidgetTypes;
 
-                Assert.Contains(typeof(TestWidget), widgets.ToList());
-                Assert.Contains(typeof(AnotherTestWidget), widgets.ToList());
+                Assert.Contains(typeof(TestWidget), widgets.Select(m => m.Type).ToList());
+                Assert.Contains(typeof(AnotherTestWidget), widgets.Select(m => m.Type).ToList());
             }
-            
+
+
             [Test]
             public void Then_it_should_not_contain_interfaces()
             {
                 app.RegisterAvailableWidgets();
 
                 var widgetTypes = app.AvailableWidgetTypes;
-                
+
                 foreach (var widgetType in widgetTypes)
                 {
-                    Assert.IsFalse(widgetType.IsInterface);
+                    Assert.IsFalse(widgetType.Type.IsInterface);
                 }
             }
             
@@ -47,6 +48,9 @@ namespace Smeedee.UnitTests.Model
 
                 Assert.AreEqual(countOne, countTwo);
             }
+
+
+
         }
         
         public class Shared
@@ -61,10 +65,12 @@ namespace Smeedee.UnitTests.Model
             }
         }
         
+        [WidgetAttribute("Test Widget", "icon/url")]
         public class TestWidget : IWidget
         {
         }
-        
+
+        [WidgetAttribute("Test Widget 2", "icon/url/2")]
         public class AnotherTestWidget : IWidget
         {
         }
