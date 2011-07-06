@@ -58,7 +58,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\TopCommitersTests.cs" />
+    <Compile Include="Model\TopCommittersTests.cs" />
     <Compile Include="Fakes\FakeSmeedeeService.cs" />
     <Compile Include="Model\SmeedeeAppTests.cs" />
     <Compile Include="Model\CommiterTests.cs" />

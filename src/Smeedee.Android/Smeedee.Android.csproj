@@ -50,8 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Smeedee\Model\Commiter.cs">
-      <Link>Model\Commiter.cs</Link>
+    <Compile Include="..\Smeedee\Model\Committer.cs">
+      <Link>Model\Committer.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
@@ -59,8 +59,8 @@
     <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
       <Link>Model\SmeedeeApp.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\TopCommiters.cs">
-      <Link>Model\TopCommiters.cs</Link>
+    <Compile Include="..\Smeedee\Model\TopCommitters.cs">
+      <Link>Model\TopCommitters.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>

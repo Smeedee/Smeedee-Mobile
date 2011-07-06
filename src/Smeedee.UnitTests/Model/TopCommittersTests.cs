@@ -6,7 +6,7 @@ using Smeedee.Services;
 
 namespace Smeedee.UnitTests.Model
 {
-    public class TopCommitersTests
+    public class TopCommittersTests
     {
         [TestFixture]
         public class When_creating_a_new_TopCommiters_instance
@@ -14,7 +14,7 @@ namespace Smeedee.UnitTests.Model
             [Test]
             public void Then_assure_there_are_no_commiters()
             {
-                var topCommiters = new TopCommiters();
+                var topCommiters = new TopCommitters();
                 
                 Assert.AreEqual(0, topCommiters.Commiters.Count());
             }
@@ -23,14 +23,14 @@ namespace Smeedee.UnitTests.Model
         [TestFixture]
         public class When_loading_TopCommiters
         {
-            private TopCommiters topCommiters;
+            private TopCommitters topCommiters;
             
             [SetUp]
             public void SetUp()
             {
                 SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new FakeSmeedeeService());
                 
-                topCommiters = new TopCommiters();
+                topCommiters = new TopCommitters();
             }
             
             [Test]

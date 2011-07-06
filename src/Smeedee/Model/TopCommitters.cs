@@ -4,16 +4,16 @@ using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-    public class TopCommiters
+    public class TopCommitters
     {
         private readonly ISmeedeeService smeedeeService = SmeedeeApp.Instance.ServiceLocator.Get<ISmeedeeService>();
         
-        public TopCommiters()
+        public TopCommitters()
         {
-            Commiters = new List<Commiter>();
+            Commiters = new List<Committer>();
         }
         
-        public List<Commiter> Commiters {
+        public List<Committer> Commiters {
             get;
             private set;
         }

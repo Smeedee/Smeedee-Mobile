@@ -64,8 +64,8 @@
     <Compile Include="Model\SmeedeeApp.cs" />
     <Compile Include="Services\PersistenceService.cs" />
     <Compile Include="Services\SmeedeeHttpService.cs" />
-    <Compile Include="Model\TopCommiters.cs" />
-    <Compile Include="Model\Commiter.cs" />
+    <Compile Include="Model\TopCommitters.cs" />
+    <Compile Include="Model\Committer.cs" />
     <Compile Include="Services\SmeedeeFakeService.cs" />
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Model\IWidget.cs" />

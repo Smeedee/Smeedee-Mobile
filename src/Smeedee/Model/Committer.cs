@@ -4,9 +4,9 @@ using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-    public class Commiter
+    public class Committer
     {
-        public Commiter(string name)
+        public Committer(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
             

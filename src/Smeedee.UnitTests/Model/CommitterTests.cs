@@ -6,7 +6,7 @@ using Smeedee.Services;
 
 namespace Smeedee.UnitTests.Model
 {
-    public class CommiterTests
+    public class CommitterTests
     {
         [TestFixture]
         public class When_initializing
@@ -15,7 +15,7 @@ namespace Smeedee.UnitTests.Model
             [ExpectedException(typeof(ArgumentNullException))]
             public void Then_assure_the_name_is_validated()
             {
-                new Commiter(null);
+                new Committer(null);
             }
         }
     }

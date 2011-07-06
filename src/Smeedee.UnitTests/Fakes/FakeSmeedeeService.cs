@@ -11,12 +11,12 @@ namespace Smeedee.UnitTests
         {
         }
 
-        public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Commiter>>> callback)
+        public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Committer>>> callback)
         {
             callback(
-                new AsyncResult<IEnumerable<Commiter>>(new [] {
-                    new Commiter("John Doe"),
-                    new Commiter("Mary Poppins")
+                new AsyncResult<IEnumerable<Committer>>(new [] {
+                    new Committer("John Doe"),
+                    new Committer("Mary Poppins")
                 })
             );
         }

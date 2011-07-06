@@ -18,18 +18,18 @@ namespace Smeedee.Services
             set { fakeDelay = value; }
         }
 
-        public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Commiter>>> callback)
+        public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Committer>>> callback)
         {
             var fakeData = new [] {
-                new Commiter("Alex"),
-                new Commiter("Dag Olav"),
-                new Commiter("Lars 1"),
-                new Commiter("Lars 2"),
-                new Commiter("Børge"),
+                new Committer("Alex"),
+                new Committer("Dag Olav"),
+                new Committer("Lars 1"),
+                new Committer("Lars 2"),
+                new Committer("Børge"),
             };
             
             BackgroundWorkWithDelay(() => {
-                callback(new AsyncResult<IEnumerable<Commiter>>(fakeData));
+                callback(new AsyncResult<IEnumerable<Committer>>(fakeData));
             });
         }
         
