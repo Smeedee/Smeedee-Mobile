@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
+    <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Utilities\BackgroundWorker.cs" />
     <Compile Include="Utilities\IBackgroundWorker.cs" />
