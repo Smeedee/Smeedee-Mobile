@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Smeedee.Model;
 
 namespace Smeedee.Services
 {
-    public class BuildStatusService : IModelService
+    public class BuildStatusService : IModelService<BuildStatus>
     {
-        public IEnumerable<T> Get<T>()
+        public IEnumerable<BuildStatus> Get()
         {
             throw new NotImplementedException();
         }
 
-        public T GetSingle<T>()
+        public BuildStatus GetSingle()
         {
             throw new NotImplementedException();
         }

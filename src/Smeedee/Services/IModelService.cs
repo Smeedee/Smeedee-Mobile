@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Smeedee.Model;
 
 namespace Smeedee.Services
 {
-    public interface IModelService
+    public interface IModelService<T> where T : IModel
     {
-        IEnumerable<T> Get<T>();
-        T GetSingle<T>();
+        IEnumerable<T> Get();
+        T GetSingle();
     }
 }

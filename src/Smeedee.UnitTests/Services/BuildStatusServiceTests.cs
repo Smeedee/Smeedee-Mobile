@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Smeedee.Model;
 using Smeedee.Services;
 
 namespace Smeedee.UnitTests.Services
@@ -13,7 +14,7 @@ namespace Smeedee.UnitTests.Services
         [Test]
         public void Should_implement_IModelService()
         {
-            Assert.True(typeof(IModelService).IsAssignableFrom(typeof(BuildStatusService)));
+            Assert.True(typeof(IModelService<BuildStatus>).IsAssignableFrom(typeof(BuildStatusService)));
         }
     }
 }
