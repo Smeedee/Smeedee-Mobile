@@ -11,7 +11,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="5sp"
-    android:src="@drawable/icon" />
+    android:src="@drawable/icon_smeedee" />
   <TextView
     android:id="@+id/SmeedeeStartPageTextView"
     android:layout_width="wrap_content"

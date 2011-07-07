@@ -10,7 +10,7 @@
     a:id="@+id/SmeedeeIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
-    a:src="@drawable/icon" 
+    a:src="@drawable/icon_smeedee" 
     />
   <!-- Buildconfig Name -->
   <TextView a:id="@+id/projectname"

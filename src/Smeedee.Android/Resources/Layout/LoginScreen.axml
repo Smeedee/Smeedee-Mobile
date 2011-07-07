@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="15px"
-        android:src="@drawable/icon"
+        android:src="@drawable/icon_smeedee"
         />
     <EditText
         android:id="@+id/ServerUrlInput"
