@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Smeedee\Model\Changeset.cs">
+      <Link>Model\Changeset.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\Commiter.cs">
       <Link>Model\Commiter.cs</Link>
     </Compile>
@@ -70,6 +73,9 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
       <Link>Services\FakeLoginValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IChangesetService.cs">
+      <Link>Services\IChangesetService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
       <Link>Services\ILoginValidationService.cs</Link>
@@ -131,6 +137,12 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
     <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
+    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget_ListItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -151,6 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen_ListItem.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\DefaultPerson.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
