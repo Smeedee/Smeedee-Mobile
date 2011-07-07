@@ -6,8 +6,6 @@ namespace Smeedee.Model
 {
     public class TopCommitters
     {
-        private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
-        
         public TopCommitters()
         {
             Committers = new List<Committer>();
@@ -16,14 +14,6 @@ namespace Smeedee.Model
         public List<Committer> Committers {
             get;
             private set;
-        }
-        
-        public void Load(Action callback)
-        {
-            service.LoadTopCommiters((args) => {
-                Committers.AddRange(args);
-                callback();
-            });
         }
     }
 }

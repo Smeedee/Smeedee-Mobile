@@ -31,7 +31,7 @@ namespace Smeedee.Android.Widgets
             }
             else
             {
-                throw new Exception("Unable to inflate view on Working days left widget");
+                throw new Exception("Unable to inflate view on Top committers widget");
             }
         }
     }
