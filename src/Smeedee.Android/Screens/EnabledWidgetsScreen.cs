@@ -13,19 +13,12 @@ namespace Smeedee.Android.Screens
     public class EnabledWidgetsScreen : Activity, View.IOnClickListener
     {
         private readonly SmeedeeApp _app = SmeedeeApp.Instance;
-        private Button _saveSettingsBtn;
-        private bool _firstTimeUserOpensThisActivity = true;
         private ListView _listView;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.EnabledWidgetsScreen);
-
-            _saveSettingsBtn = FindViewById<Button>(Resource.Id.BtnSaveSettings);
-
-            if (_firstTimeUserOpensThisActivity) ViewSaveButton();
-            else HideSaveButton();
 
             _listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
 
@@ -38,30 +31,6 @@ namespace Smeedee.Android.Screens
 
             //TODO: _listViewSetOnClickListener(this) and handle list clicks
             _listView.Adapter = adapter;
-        }
-
-        private void ViewSaveButton()
-        {
-            var saveBtn = FindViewById(Resource.Id.BtnSaveSettings);
-            saveBtn.Visibility = ViewStates.Visible;
-            BindSaveButtonClickEvent();
-            _firstTimeUserOpensThisActivity = false;
-        }
-
-        private void BindSaveButtonClickEvent()
-        {
-            _saveSettingsBtn.Click += delegate(object sender, EventArgs args)
-            {
-                //TODO: Iterate over the list and instansiate/deinstansiate the widgets the user has checked
-
-                var widgetContainer = new Intent(this, typeof(WidgetContainer));
-                StartActivity(widgetContainer);
-            };
-        }
-
-        private void HideSaveButton()
-        {
-            _saveSettingsBtn.Visibility = ViewStates.Invisible;
         }
 
         private IList<IDictionary<string, object>> PopulateEnabledWidgetsList()

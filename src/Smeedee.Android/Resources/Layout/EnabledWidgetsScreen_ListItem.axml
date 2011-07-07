@@ -11,7 +11,6 @@
     a:id="@+id/WidgetIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
-    a:src="@drawable/icon"
     />
   <!-- Widget Title This will be overwritten in code with data from model-->
   <TextView 

@@ -32,26 +32,13 @@ namespace Smeedee.Android.Screens
                 {
                     if (_loginValidator.IsValid(urlInput.Text, keyInput.Text))
                     {
-                        ShowNextScreen();
+                        var widgetContainer = new Intent(this, typeof(WidgetContainer));
+                        StartActivity(widgetContainer);
                     } else
                     {
                         NotifyInvalidInput();
                     }
                 };
-        }
-
-        private void ShowNextScreen()
-        {
-            const bool haveEnabledWidgets = true; //TODO: Figure this out by looking at the config data
-            Intent nextActivity = null;
-            if (haveEnabledWidgets)
-            {
-                nextActivity = new Intent(this, typeof(WidgetContainer));
-            } else
-            {
-                nextActivity = new Intent(this, typeof(EnabledWidgetsScreen));
-            }
-            StartActivity(nextActivity);
         }
 
         private void NotifyInvalidInput()
