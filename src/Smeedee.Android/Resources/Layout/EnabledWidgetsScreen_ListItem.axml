@@ -30,6 +30,5 @@
     a:layout_height="wrap_content"
     a:layout_alignParentRight="true"
     a:layout_marginRight="8dip"
-    a:focusable="false"
 	  />
 </RelativeLayout>
