@@ -14,7 +14,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [Widget("Top Committers", "@drawable/Icon", IsEnabled = true)]
+    [Widget("Top Committers", Resource.Drawable.Icon, IsEnabled = true)]
     public class TopCommittersWidget : RelativeLayout , IWidget
     {
         public TopCommittersWidget(Context context) : base(context)

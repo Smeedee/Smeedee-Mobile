@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Text;
 using Android.Text.Style;
@@ -16,6 +17,7 @@ namespace Smeedee.Android.Widgets
     [WidgetAttribute("Latest Changesets", Resource.Drawable.Icon, IsEnabled = true)]
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
+        internal const string NoMessageTag = "(no message)";
         private IChangesetService changesetService;
         public LatestChangesetsWidget(Context context) :
             base(context)
@@ -37,12 +39,12 @@ namespace Smeedee.Android.Widgets
 
             var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
 
-            var from = new[] { "Image", "User", "Text", "Date" };
+            var from = new[] { "Image", "User", "Msg", "Date"};
             var to = new[] { Ids.CommitterIcon, Ids.ChangesetUser, Ids.ChangesetText, Ids.ChangesetDate };
 
             var listItems = BuildList();
 
-            var adapter = new SimpleAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to);
+            var adapter = new SpecialAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to);
             commitList.Adapter = adapter;
         }
 
@@ -55,8 +57,14 @@ namespace Smeedee.Android.Widgets
                 IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
                 keyValueMap.Add("Image", Resource.Drawable.DefaultPerson);
                 keyValueMap.Add("User", changeset.User);
-                keyValueMap.Add("Text", changeset.Message);
                 keyValueMap.Add("Date", PrettyPrint(changeset.Date));
+                if (changeset.Message == "")
+                {
+                    keyValueMap.Add("Msg", NoMessageTag);
+                } else
+                {
+                    keyValueMap.Add("Msg", changeset.Message);
+                }
                 listItems.Add(keyValueMap);
             }
             return listItems;
@@ -68,19 +76,58 @@ namespace Smeedee.Android.Widgets
             return (DateTime.Now - date).ToHumanReadableString();
         }
     }
+
+    public class SpecialAdapter : SimpleAdapter {
+
+        public SpecialAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to) :
+                                  base(context, items, resource, from, to)
+        {
+        }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+	        var view = base.GetView(position, convertView, parent);
+            if (!(view is LinearLayout)) return view;
+
+            var linearLayout = (view as LinearLayout).GetChildAt(1);
+            if (!(linearLayout is LinearLayout)) return view;
+            
+            var text = (linearLayout as LinearLayout).GetChildAt(1);
+            if (!(text is TextView)) return view;
+            
+            var textView = text as TextView;
+            var color = textView.Text == LatestChangesetsWidget.NoMessageTag ? Color.Red : Color.White;
+            textView.SetTextColor(color);
+
+            return view;
+        }
+}
+
     public class FakeChangesetService : IChangesetService
     {
         public IEnumerable<Changeset> GetLatestChangesets()
         {
             return new []
                 {
-                    new Changeset() { Date = new DateTime(2011, 7, 4, 2, 0, 0), 
+                    new Changeset() { Date = new DateTime(2011, 7, 7, 12, 0, 0), 
                                       User = "larspars", 
-                                      Message = "Refactored HerpFactory.Derp()", },
-                    new Changeset() { Date = new DateTime(2011, 7, 3, 2, 0, 0), 
+                                      Message = "Refactored HerpFactory.Derp()" },
+                    new Changeset() { Date = new DateTime(2011, 7, 7, 1, 10, 0), 
+                                      User = "larmel", 
+                                      Message = "Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it? "},
+                    new Changeset() { Date = new DateTime(2011, 7, 6, 2, 0, 0), 
                                       User = "larspars", 
-                                      Message = "Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) How about that? ",}
-                           
+                                      Message = ""},
+                    new Changeset() { Date = new DateTime(2011, 7, 6, 1, 0, 0), 
+                                      User = "dagolap", 
+                                      Message = "Coded new codes."},
+                    new Changeset() { Date = new DateTime(2011, 7, 5, 1, 0, 0), 
+                                      User = "rodsjo", 
+                                      Message = "Programmed them programs."},
+                    new Changeset() { Date = new DateTime(2011, 7, 7, 2, 0, 0), 
+                                      User = "larspars", 
+                                      Message = "Blabla" },               
+                         
                 };
         }
     }
