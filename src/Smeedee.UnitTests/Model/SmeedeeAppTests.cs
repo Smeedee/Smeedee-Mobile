@@ -64,8 +64,8 @@ namespace Smeedee.UnitTests.Model
                 app.RegisterAvailableWidgets();
                 var widgets = app.AvailableWidgets;
 
-                Assert.Contains("icon/url", widgets.Select(m => m.Icon).ToList());
-                Assert.Contains("icon/url/2", widgets.Select(m => m.Icon).ToList());
+                Assert.Contains(1, widgets.Select(m => m.Icon).ToList());
+                Assert.Contains(2, widgets.Select(m => m.Icon).ToList());
             }
 
             [Test]
@@ -88,12 +88,12 @@ namespace Smeedee.UnitTests.Model
             }
         }
         
-        [WidgetAttribute("Test Widget", "icon/url")]
+        [WidgetAttribute("Test Widget", 1)]
         public class TestWidget : IWidget
         {
         }
 
-        [WidgetAttribute("Test Widget 2", "icon/url/2")]
+        [WidgetAttribute("Test Widget 2", 2)]
         public class AnotherTestWidget : IWidget
         {
         }

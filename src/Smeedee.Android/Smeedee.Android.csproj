@@ -163,7 +163,9 @@
     <AndroidResource Include="Resources\Layout\StartPageWidget.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen_ListItem.axml" />
+    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen_ListItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

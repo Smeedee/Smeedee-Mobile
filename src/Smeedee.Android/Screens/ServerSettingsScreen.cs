@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "ServerSettingsScreen", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Server and user settings", Theme = "@android:style/Theme")]
     public class ServerSettingsScreen : Activity
     {
         protected override void OnCreate(Bundle bundle)
