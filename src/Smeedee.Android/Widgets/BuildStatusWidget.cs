@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -27,7 +26,7 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             CreateGui();
-            FillBuildList();
+            bgWorker.Invoke(FillBuildList);
         }
         
         private void CreateGui()
@@ -38,12 +37,11 @@ namespace Smeedee.Android.Widgets
 
         private void FillBuildList()
         {
-            bgWorker.Invoke(() => {
-                var buildList = FindViewById<ListView>(Resource.Id.build_list);
+            var buildList = FindViewById<ListView>(Resource.Id.build_list);
 
-                var adapter = new SimpleAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
-                buildList.Adapter = adapter;
-            });
+            var adapter = new SimpleAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
+                
+            buildList.Adapter = adapter;
         }
 
         private IList<IDictionary<string, object>> GetData()
