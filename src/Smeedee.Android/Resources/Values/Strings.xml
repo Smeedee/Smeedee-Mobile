@@ -15,10 +15,11 @@
   <string name="WidgetSettings">Widget Settings</string>
 
   <!--GlobalSettings-->
-  <string name="BtnServerSettings">Server Settings</string>
-  <string name="BtnEnabledWidgets">Enabled widgets</string>
+  <string name="BtnServerSettings">Server and user settings</string>
+  <string name="BtnEnabledWidgets">Enable or diasable widgets</string>
   <string name="ServerSettings">ServerSettings</string>
   <string name="EnabledWidgets">EnabledWidgets</string>
+  <string name="SaveSettingsBtn">Save</string>
 
   <!--*** WIDGETS ***-->
   

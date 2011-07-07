@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Smeedee.Android.Screens;
-using Smeedee.Android.Widgets;
 using Smeedee.Model;
-using Smeedee.Services;
 
 namespace Smeedee.Android
 {
@@ -18,14 +14,14 @@ namespace Smeedee.Android
     public class WidgetContainer : Activity
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
-        private ViewFlipper flipper;
+        private ViewFlipper _flipper;
         
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+            _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
             
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
@@ -36,7 +32,7 @@ namespace Smeedee.Android
             var widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                flipper.AddView(widget as View);
+                _flipper.AddView(widget as View);
             }
         }
 
@@ -44,11 +40,11 @@ namespace Smeedee.Android
         {
             app.RegisterAvailableWidgets();
 
-            var widgetTypes = SmeedeeApp.Instance.AvailableWidgetTypes;
+            var widgetTypes = SmeedeeApp.Instance.AvailableWidgets;
             var instances = new List<IWidget>();
             foreach (var widgetType in widgetTypes)
             {
-                instances.Add(Activator.CreateInstance(widgetType, this) as IWidget);
+                instances.Add(Activator.CreateInstance(widgetType.Type, this) as IWidget);
             }
             return instances;
         }
@@ -64,8 +60,8 @@ namespace Smeedee.Android
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
             btnPrev.Click += (obj, e) =>
                                  {
-                                     flipper.ShowPrevious();
-                                     flipper.RefreshDrawableState();
+                                     _flipper.ShowPrevious();
+                                     _flipper.RefreshDrawableState();
                                  };
         }
         
@@ -74,17 +70,15 @@ namespace Smeedee.Android
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
             btnNext.Click += (sender, args) =>
                                  {
-                                     flipper.ShowNext();
-                                     flipper.RefreshDrawableState();
+                                     _flipper.ShowNext();
+                                     _flipper.RefreshDrawableState();
                                  };
         }
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
             return true;
         }
-
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -92,15 +86,12 @@ namespace Smeedee.Android
                 case Resource.Id.BtnWidgetSettings:
 
                     // TODO: Open current widget settings view
-                    // var currentWidget = flipper.CurrentView;
+                    // var currentWidget = _flipper.CurrentView;
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:
 
-                    // TODO: What happens if a user clicks multiple times on Global Settings?
-                    // Will multiple activities start, or is Android so smart that is just uses the one
-                    // it has got from before
-                    var globalSettings = new Intent(this, typeof (GlobalSettings));
+                    var globalSettings = new Intent(this, typeof(GlobalSettings));
                     StartActivity(globalSettings);
                     return true;
 

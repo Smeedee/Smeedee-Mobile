@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    public class BuildStatusWidget : RelativeLayout, IWidget
+    [WidgetAttribute("Build Status", "@drawable/icon", IsEnabled = true)]
+    public class BuildStatus : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime" };
         private readonly int[] listItemMappingTo = new[] {  Resource.Id.projectname, Resource.Id.username, Resource.Id.datetime };

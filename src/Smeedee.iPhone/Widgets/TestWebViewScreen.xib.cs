@@ -5,9 +5,11 @@ using System.IO;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
+    [Widget("Test Web Widget", "/foo.bar.png")]
     public partial class TestWebViewScreen : UIViewController, IWidget
     {
         #region Constructors

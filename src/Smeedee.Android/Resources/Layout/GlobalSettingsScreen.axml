@@ -6,24 +6,6 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
 
-  <LinearLayout 
-    android:id="@+id/GlobalSettingsTopBanner"
-    android:layout_width="fill_parent"
-    android:layout_height="30sp"
-    android:background="#1d1d1d">
-
-  <TextView 
-    android:id="@+id/GlobalSettingsHeadline"
-    android:textColor="#ffffff"
-    android:textSize="15sp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/GlobalSettings"/>
-    
-  </LinearLayout>
-  
-  <!--End of TopBanner-->
-
   <Button
     android:id="@+id/BtnEnabledWidgets"
     android:layout_width="fill_parent"
@@ -31,7 +13,7 @@
     android:text="@string/BtnEnabledWidgets" />
 
   <Button
-    android:id="@+id/BtnServerSettings"
+    android:id="@+id/BtnServerAndUserSettings"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:text="@string/BtnServerSettings" />

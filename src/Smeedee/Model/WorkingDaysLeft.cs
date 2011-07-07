@@ -15,7 +15,7 @@ namespace Smeedee.Model
             }); 
         }
 
-        public int DaysLeft { get; set; }
+        public int DaysLeft { get; private set; }
 
         public string DaysLeftText
         {
