@@ -27,6 +27,7 @@
   </LinearLayout>
 
   <TableLayout
+    a:id="@+id/TopCommittersTable"
     a:layout_width="fill_parent"
     a:layout_height="wrap_content"
     a:stretchColumns="1">

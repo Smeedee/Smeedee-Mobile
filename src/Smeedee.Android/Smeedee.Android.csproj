@@ -119,6 +119,9 @@
     <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
       <Link>Services\SmeedeeHttpService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
+      <Link>Services\TopCommittersFakeService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>

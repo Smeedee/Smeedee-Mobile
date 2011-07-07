@@ -20,12 +20,15 @@ namespace Smeedee.Android.Widgets
     {
         private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
 
+        private TopCommitters model;
+
         public TopCommittersWidget(Context context) : base(context)
         {
-            InitializeView();
+            InflateView();
+            InitializeModelAndUpdateView();
         }
-        
-        private void InitializeView()
+
+        private void InflateView()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             if (inflater != null)
@@ -36,6 +39,17 @@ namespace Smeedee.Android.Widgets
             {
                 throw new Exception("Unable to inflate view on Top committers widget");
             }
+        }
+
+        private void InitializeModelAndUpdateView()
+        {
+            model = service.GetSingle();
+            UpdateView();
+        }
+
+        private void UpdateView()
+        {
+            
         }
     }
 }
