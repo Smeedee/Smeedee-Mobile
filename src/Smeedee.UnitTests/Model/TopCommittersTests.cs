@@ -14,6 +14,7 @@ namespace Smeedee.UnitTests.Model
             [Test]
             public void Then_assure_there_are_no_committers()
             {
+                SmeedeeApp.Instance.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
                 var topCommiters = new TopCommitters();
                 
                 Assert.AreEqual(0, topCommiters.Committers.Count());

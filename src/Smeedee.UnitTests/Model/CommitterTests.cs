@@ -19,7 +19,14 @@ namespace Smeedee.UnitTests.Model
             }
 
             [Test]
-            public void Then_the_provided_data_should_be_accessible()
+            [ExpectedException(typeof(ArgumentNullException))]
+            public void Then_assure_the_image_url_is_validated()
+            {
+                new Committer("John Doe", 42, null);
+            }
+
+            [Test]
+            public void Then_the_provided_data_should_be_set_in_properties()
             {
                 var committer = new Committer("John Doe", 42, "http://www.foo.com/img.png");
                 
