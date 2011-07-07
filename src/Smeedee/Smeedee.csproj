@@ -42,11 +42,14 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Model\BuildStatus.cs" />
     <Compile Include="Model\BuildSuccessState.cs" />
+    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
+    <Compile Include="Services\BuildStatusService.cs" />
     <Compile Include="Services\FakeLoginValidationService.cs" />
     <Compile Include="Services\ILoginValidationService.cs" />
+    <Compile Include="Services\IModelService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\WorkingDaysLeftFakeService.cs" />

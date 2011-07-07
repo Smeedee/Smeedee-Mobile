@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Smeedee\Model\BuildStatus.cs">
+      <Link>Model\BuildStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\BuildSuccessState.cs">
+      <Link>Model\BuildSuccessState.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\Commiter.cs">
       <Link>Model\Commiter.cs</Link>
     </Compile>
