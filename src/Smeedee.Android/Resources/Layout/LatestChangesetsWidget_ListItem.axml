@@ -4,16 +4,34 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
   <ImageView
+    android:id="@+id/CommitterIcon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:maxHeight="50px"
     android:maxWidth="50px"
     android:adjustViewBounds="true"
-    android:src="@drawable/defaultperson"
+    android:src="@drawable/defaultperson" />
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/ChangesetUser"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textStyle="bold"
       />
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hei from latest changesets"
+    <TextView
+      android:id="@+id/ChangesetText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="#FFF"
       />
+    <TextView
+      android:id="@+id/ChangesetDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="#CCC"
+      />
+  </LinearLayout>
 </LinearLayout>

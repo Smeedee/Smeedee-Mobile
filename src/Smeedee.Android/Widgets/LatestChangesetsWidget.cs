@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Android.Content;
+using Android.Graphics;
 using Android.Text;
+using Android.Text.Style;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
 using Smeedee.Services;
-using Object = Java.Lang.Object;
+using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
@@ -34,33 +36,31 @@ namespace Smeedee.Android.Widgets
             inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
 
             var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
-            //Do();
-            //var list = BuildList();
-            //AddView(BuildList());
+
+            var from = new[] { "Image", "User", "Text", "Date" };
+            var to = new[] { Ids.CommitterIcon, Ids.ChangesetUser, Ids.ChangesetText, Ids.ChangesetDate };
+
+            var listItems = BuildList();
+
+            var adapter = new SimpleAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to);
+            commitList.Adapter = adapter;
         }
 
-        private void Do()
+        private IList<IDictionary<string, object>> BuildList()
         {
-            var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
-            LayoutInflater inflater = LayoutInflater.From(Context);
-            inflater.Inflate(Resource.Layout.LatestChangesetsWidget_ListItem, commitList);
-            
-        }
+            IList<IDictionary<String, object>> listItems = new List<IDictionary<String, object>>();
 
-        private ListView BuildList()
-        {
-            var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
             foreach (var changeset in changesetService.GetLatestChangesets())
             {
-                var view = new LinearLayout(Context);
-                var img = new ImageView(Context);
-                img.SetImageResource(Resource.Drawable.DefaultPerson);
-                img.SetMaxHeight(50);
-                img.SetMaxWidth(50);
-                view.AddView(img);
-                commitList.AddView(view);
+                IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
+                keyValueMap.Add("Image", Resource.Drawable.DefaultPerson);
+                keyValueMap.Add("User", changeset.User);
+                keyValueMap.Add("Text", changeset.Message);
+                keyValueMap.Add("Date", changeset.Date);
+                listItems.Add(keyValueMap);
             }
-            return commitList;
+            return listItems;
+
         }
     }
     public class FakeChangesetService : IChangesetService
