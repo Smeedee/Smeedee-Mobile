@@ -113,9 +113,6 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\TimeSpanPrettyPrintExtension.cs">
-      <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
-    </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
@@ -180,9 +177,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <AndroidResource Include="Resources\Drawable\DefaultPerson.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
+=======
     <AndroidResource Include="Resources\Drawable\icon_projectstatus.png" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon_workingdaysleft.png" />
+>>>>>>> 1628c41ae55e35beebd1b3308de7318c67ffc9f5
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

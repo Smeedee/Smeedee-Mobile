@@ -40,7 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Model\Changeset.cs" />    <Compile Include="Model\WidgetAttribute.cs" />
+    <Compile Include="Model\Changeset.cs" />
+    <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\FakeLoginValidationService.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Services\SmeedeeFakeService.cs" />
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Model\IWidget.cs" />
+    <Compile Include="Utilities\TimeSpanPrettyPrintExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

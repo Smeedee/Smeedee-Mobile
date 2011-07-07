@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Utilities;
 using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
@@ -33,7 +34,7 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            changesetService = new FakeChangesetService();
+            changesetService = SmeedeeApp.Instance.ServiceLocator.Get<IChangesetService>();
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
 
@@ -42,44 +43,36 @@ namespace Smeedee.Android.Widgets
             var from = new[] { "Image", "User", "Msg", "Date"};
             var to = new[] { Ids.CommitterIcon, Ids.ChangesetUser, Ids.ChangesetText, Ids.ChangesetDate };
 
-            var listItems = BuildList();
+            var listItems = CreateListItems();
 
-            var adapter = new SpecialAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to);
+            var adapter = new TextColoringAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to);
             commitList.Adapter = adapter;
         }
 
-        private IList<IDictionary<string, object>> BuildList()
+        private IList<IDictionary<string, object>> CreateListItems()
         {
             IList<IDictionary<String, object>> listItems = new List<IDictionary<String, object>>();
 
             foreach (var changeset in changesetService.GetLatestChangesets())
             {
                 IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
+
+                var msg = (changeset.Message == "") ? NoMessageTag : changeset.Message;
+                keyValueMap.Add("Msg", msg);
                 keyValueMap.Add("Image", Resource.Drawable.DefaultPerson);
                 keyValueMap.Add("User", changeset.User);
-                keyValueMap.Add("Date", PrettyPrint(changeset.Date));
-                if (changeset.Message == "")
-                {
-                    keyValueMap.Add("Msg", NoMessageTag);
-                } else
-                {
-                    keyValueMap.Add("Msg", changeset.Message);
-                }
+                keyValueMap.Add("Date", (DateTime.Now - changeset.Date).PrettyPrint());
+                
                 listItems.Add(keyValueMap);
             }
+
             return listItems;
-
-        }
-
-        private string PrettyPrint(DateTime date)
-        {
-            return (DateTime.Now - date).ToHumanReadableString();
         }
     }
 
-    public class SpecialAdapter : SimpleAdapter {
-
-        public SpecialAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to) :
+    internal class TextColoringAdapter : SimpleAdapter 
+    {
+        public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to) :
                                   base(context, items, resource, from, to)
         {
         }
@@ -129,64 +122,6 @@ namespace Smeedee.Android.Widgets
                                       Message = "Blabla" },               
                          
                 };
-        }
-    }
-
-    public static class TimeSpanHelpers
-    {
-        public static string ToHumanReadableString(
-            this TimeSpan ts)
-        {
-            const int SECOND = 1;
-            const int MINUTE = 60 * SECOND;
-            const int HOUR = 60 * MINUTE;
-            const int DAY = 24 * HOUR;
-            const int MONTH = 30 * DAY;
-
-            var delta = ts.TotalSeconds;
-
-            if (delta < 0)
-            {
-                return "not yet";
-            }
-            if (delta < 1 * MINUTE)
-            {
-                return ts.Seconds == 1 ? "one second ago" : ts.Seconds + " seconds ago";
-            }
-            if (delta < 2 * MINUTE)
-            {
-                return "a minute ago";
-            }
-            if (delta < 45 * MINUTE)
-            {
-                return ts.Minutes + " minutes ago";
-            }
-            if (delta < 90 * MINUTE)
-            {
-                return "an hour ago";
-            }
-            if (delta < 24 * HOUR)
-            {
-                return ts.Hours + " hours ago";
-            }
-            if (delta < 48 * HOUR)
-            {
-                return "yesterday";
-            }
-            if (delta < 30 * DAY)
-            {
-                return ts.Days + " days ago";
-            }
-            if (delta < 12 * MONTH)
-            {
-                int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
-                return months <= 1 ? "one month ago" : months + " months ago";
-            }
-            else
-            {
-                int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
-                return years <= 1 ? "one year ago" : years + " years ago";
-            }
         }
     }
 }

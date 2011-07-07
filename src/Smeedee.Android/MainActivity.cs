@@ -3,6 +3,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Smeedee.Android.Screens;
+using Smeedee.Android.Widgets;
 using Smeedee.Model;
 using Smeedee.Services;
 
@@ -30,6 +31,7 @@ namespace Smeedee.Android
             serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
             serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
             serviceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
+            serviceLocator.Bind<IChangesetService>(new FakeChangesetService());
         }
 
         private Intent DetermineNextActivity()
