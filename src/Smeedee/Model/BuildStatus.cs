@@ -38,19 +38,5 @@ namespace Smeedee.Model
                 _username = value;
             }
         }
-
-        // TODO: Make this individual based on platform?
-        public static int SuccessStateColor(int state)
-        {
-            switch (state)
-                {
-                    case (int)Model.BuildSuccessState.Success:
-                        return 0xf00ff00;
-                    case (int)Model.BuildSuccessState.Failure:
-                        return 0xfff0000;
-                    default:
-                        return 0xff25000;
-                }
-        }
     }
 }

@@ -20,7 +20,6 @@ namespace Smeedee.UnitTests.Model
             }
         }
 
-
         [TestFixture]
         public class When_instantiating : BuildStatusTests
         {
@@ -52,28 +51,6 @@ namespace Smeedee.UnitTests.Model
                 var model = new BuildStatus(PROJECT, BuildSuccessState.Success, "", DATE);
             }
 
-        }
-
-        [TestFixture]
-        public class When_converting_color_to_string
-        {
-            [Test]
-            public void Should_properly_convert_successful_to_green()
-            {
-                Assert.AreEqual(0xf00ff00, BuildStatus.SuccessStateColor((int)BuildSuccessState.Success));
-            }
-
-            [Test]
-            public void Should_properly_convert_failure_to_red()
-            {
-                Assert.AreEqual(0xfff0000, BuildStatus.SuccessStateColor((int)BuildSuccessState.Failure));
-            }
-
-            [Test]
-            public void Should_properly_convert_unknown_to_orange()
-            {
-                Assert.AreEqual(0xff25000, BuildStatus.SuccessStateColor((int)BuildSuccessState.Unknown));
-            }
         }
     }
 }
