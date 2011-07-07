@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Smeedee.Utilities
 {
-    static class TimeSpanPrettyPrintExtension
+    public static class TimeSpanPrettyPrintExtension
     {
         public static string PrettyPrint(this TimeSpan ts)
         {
