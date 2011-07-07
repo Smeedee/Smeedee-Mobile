@@ -14,16 +14,15 @@ namespace Smeedee.Android.Widgets
         private readonly IModelService<WorkingDaysLeft> modelService =
             SmeedeeApp.Instance.ServiceLocator.Get<IModelService<WorkingDaysLeft>>();
         
-        private readonly WorkingDaysLeft _model;
+        private WorkingDaysLeft _model;
 
         public WorkingDaysLeftWidget(Context context) : base(context)
         {
-            InitializeView();
-
-            _model = new WorkingDaysLeft(1);
+            InflateView();
+            InitializeModelAndUpdateView();
         }
 
-        private void InitializeView()
+        private void InflateView()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             if (inflater != null)
@@ -33,6 +32,13 @@ namespace Smeedee.Android.Widgets
             {
                 throw new Exception("Unable to inflate view on Working days left widget");
             }
+        }
+
+        private void InitializeModelAndUpdateView()
+        {
+            // TODO: This queued in a thread, modelService is synchronous
+            _model = modelService.GetSingle();
+            UpdateView();
         }
 
         private void UpdateView()

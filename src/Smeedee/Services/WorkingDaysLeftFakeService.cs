@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Smeedee.Model;
 
 namespace Smeedee.Services
 {
-    class WorkingDaysLeftFakeService : IWorkingDaysLeftService
+    class WorkingDaysLeftFakeService : IModelService<WorkingDaysLeft>
     {
-        public void GetNumberOfWorkingDaysLeft(Action<int> callback)
+        private WorkingDaysLeft model = new WorkingDaysLeft(1);
+
+        public IEnumerable<WorkingDaysLeft> Get()
         {
-            const int days = 1;
-            callback(days);
+            return new [] {model};
+        }
+
+        public WorkingDaysLeft GetSingle()
+        {
+            return model;
         }
     }
 }

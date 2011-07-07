@@ -31,7 +31,7 @@ namespace Smeedee.Android
             
             serviceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
             serviceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
-            serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
+            serviceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
             serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
             serviceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
         }
