@@ -5,14 +5,9 @@ namespace Smeedee.Model
 {
     public class WorkingDaysLeft
     {
-        private IWorkingDaysLeftService service = SmeedeeApp.Instance.ServiceLocator.Get<IWorkingDaysLeftService>();
-
-        public void Load(Action callback)
+        public WorkingDaysLeft(int days)
         {
-            service.GetNumberOfWorkingDaysLeft((result) => { 
-                DaysLeft = result;
-                callback(); 
-            }); 
+            DaysLeft = days;
         }
 
         public int DaysLeft { get; private set; }

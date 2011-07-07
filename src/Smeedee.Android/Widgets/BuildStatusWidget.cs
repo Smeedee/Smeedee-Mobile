@@ -13,7 +13,7 @@ namespace Smeedee.Android.Widgets
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime" };
         private readonly int[] listItemMappingTo = new[] {  Resource.Id.projectname, Resource.Id.username, Resource.Id.datetime };
-        private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
+        //private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
 
         public BuildStatusWidget(Context context)
             : base(context)
