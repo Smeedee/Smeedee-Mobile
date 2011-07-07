@@ -73,7 +73,13 @@ namespace Smeedee.UnitTests.Model
                 var model = new BuildStatus(PROJECT, BuildSuccessState.Failure, USER, DateTime.Now);
                 Assert.AreEqual("#F00", model.BuildSuccessStateString);
             }
-            
+
+            [Test]
+            public void Should_properly_convert_unknown_to_orange()
+            {
+                var model = new BuildStatus(PROJECT, BuildSuccessState.Unknown, USER, DateTime.Now);
+                Assert.AreEqual("#F25000", model.BuildSuccessStateString);
+            }
         }
     }
 }

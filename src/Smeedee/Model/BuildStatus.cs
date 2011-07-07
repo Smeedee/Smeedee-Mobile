@@ -51,7 +51,7 @@ namespace Smeedee.Model
                     case Model.BuildSuccessState.Failure:
                         return "#F00";
                     default:
-                        return "#000";
+                        return "#F25000";
                 }
             }
         }
