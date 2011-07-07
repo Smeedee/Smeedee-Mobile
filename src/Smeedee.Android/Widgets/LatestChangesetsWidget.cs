@@ -13,7 +13,7 @@ using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Latest Changesets", "@drawable/icon", IsEnabled = true)]
+    [WidgetAttribute("Latest Changesets", Resource.Drawable.Icon, IsEnabled = true)]
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         private IChangesetService changesetService;
