@@ -9,7 +9,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Enabled or disable widgets", Theme = "@android:style/Theme")]
     public class EnabledWidgetsScreen : Activity, View.IOnClickListener
     {
         private readonly SmeedeeApp _app = SmeedeeApp.Instance;

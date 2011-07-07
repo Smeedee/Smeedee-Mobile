@@ -5,7 +5,7 @@ using Android.Widget;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "GlobalSettings", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Application settings", Theme = "@android:style/Theme")]
     public class GlobalSettings : Activity
     {
 
