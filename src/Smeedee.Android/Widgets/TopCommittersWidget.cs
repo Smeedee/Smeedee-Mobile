@@ -10,10 +10,12 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    public class TopCommittersWidget : RelativeLayout/*, IWidget*/
+    [Widget("Top Committers", "@drawable/Icon", IsEnabled = true)]
+    public class TopCommittersWidget : RelativeLayout , IWidget
     {
         public TopCommittersWidget(Context context) : base(context)
         {
