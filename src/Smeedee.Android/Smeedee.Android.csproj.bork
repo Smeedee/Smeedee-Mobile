@@ -50,11 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Smeedee\Model\Committer.cs">
+      <Link>Model\Committer.cs</Link>
     <Compile Include="..\Smeedee\Model\Changeset.cs">
       <Link>Model\Changeset.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\Committer.cs">
-      <Link>Model\Committer.cs</Link>
+    <Compile Include="..\Smeedee\Model\Commiter.cs">
+      <Link>Model\Commiter.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
@@ -147,14 +149,11 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
     <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
-    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget.axml">
+    <AndroidResource Include="Resources\Layout\TopCommittersWidget.axml">      <SubType>AndroidResource</SubType>    </AndroidResource>    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\LatestChangesetsWidget_ListItem.axml">
       <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout\TopCommittersWidget.axml">
-      <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>

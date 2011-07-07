@@ -1,20 +1,28 @@
-using System;
-using System.Collections.Generic;
 using Android.Content;
+<<<<<<< HEAD
+using Android.OS;
+using Android.Runtime;
 using Android.Text;
+=======
+>>>>>>> 1c3c793990a5897df0222035f64ee8dee901aaaf
 using Android.Util;
-using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
+<<<<<<< HEAD
 using Smeedee.Services;
 using Object = Java.Lang.Object;
+=======
+>>>>>>> 1c3c793990a5897df0222035f64ee8dee901aaaf
 
 namespace Smeedee.Android.Widgets
 {
     [WidgetAttribute("Latest Changesets", "@drawable/icon", IsEnabled = true)]
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
+<<<<<<< HEAD
         private IChangesetService changesetService;
+=======
+>>>>>>> 1c3c793990a5897df0222035f64ee8dee901aaaf
         public LatestChangesetsWidget(Context context) :
             base(context)
         {
