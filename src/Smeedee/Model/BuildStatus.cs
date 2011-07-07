@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Smeedee.Model
 {
     public class BuildStatus
     {
-        public BuildStatus(string projectName, BuildSuccessState buildSuccessState, string username, DateTime dateTime)
+        public BuildStatus(string projectName, BuildSuccessState buildSuccessState, string username, DateTime buildTime)
         {
-            ProjectName = projectName;
+            BuildTime = buildTime;
             BuildSuccessState = buildSuccessState;
+            ProjectName = projectName;
             Username = username;
-
         }
+
+        public DateTime BuildTime { get; private set; }
+        public BuildSuccessState BuildSuccessState { get; private set; }
 
         private string _projectName;
         public string ProjectName
@@ -26,8 +26,6 @@ namespace Smeedee.Model
                 _projectName = value;
             }
         }
-
-        public BuildSuccessState BuildSuccessState { get; private set; }
 
         private string _username;
         public string Username
