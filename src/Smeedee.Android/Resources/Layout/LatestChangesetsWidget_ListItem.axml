@@ -7,10 +7,15 @@
     android:id="@+id/CommitterIcon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:maxHeight="50px"
-    android:maxWidth="50px"
+    android:maxHeight="70px"
+    android:maxWidth="70px"
     android:adjustViewBounds="true"
-    android:src="@drawable/defaultperson" />
+    android:src="@drawable/defaultperson" 
+    android:paddingBottom="6px"
+    android:paddingLeft="6px"
+    android:paddingTop="6px"
+    android:paddingRight="10px"
+    />
   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -31,7 +36,7 @@
       android:id="@+id/ChangesetDate"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textColor="#CCC"
+      android:paddingBottom="4px"
       />
   </LinearLayout>
 </LinearLayout>
