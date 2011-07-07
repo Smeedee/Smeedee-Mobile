@@ -35,7 +35,7 @@
       <ImageView
         a:layout_width="wrap_content"
         a:layout_height="wrap_content"
-        a:src="@drawable/icon"
+        a:src="@drawable/icon_smeedee"
         a:padding="3dip" />
       <TextView
         a:text="Lars K. Melhus"
@@ -54,7 +54,7 @@
       <ImageView
         a:layout_width="wrap_content"
         a:layout_height="wrap_content"
-        a:src="@drawable/icon"
+        a:src="@drawable/icon_smeedee"
         a:padding="3dip" />
       <TextView
         a:text="Lars Eidnes"

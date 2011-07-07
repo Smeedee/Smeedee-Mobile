@@ -5,7 +5,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Latest Changesets", Resource.Drawable.Icon, IsEnabled = true)]
+    [WidgetAttribute("Latest Changesets", Resource.Drawable.icon_smeedee, IsEnabled = true)]
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         public LatestChangesetsWidget(Context context) :

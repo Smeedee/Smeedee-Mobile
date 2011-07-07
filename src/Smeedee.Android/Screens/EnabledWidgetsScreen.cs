@@ -45,7 +45,7 @@ namespace Smeedee.Android.Screens
                 listItems.Add(keyValueMap);
 
                 //BindClickEventToCheckBox();
-                //TODO: Fix ClickEvent Handler
+                // TODO: Fix ClickEvent Handler
             }
 
             return listItems;
