@@ -10,6 +10,9 @@ namespace Smeedee.Android.Widgets
     [WidgetAttribute("Working Days Left", "@drawable/Icon", IsEnabled = true)]
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
+        private readonly IModelService<WorkingDaysLeft> modelService =
+            SmeedeeApp.Instance.ServiceLocator.Get<IModelService<WorkingDaysLeft>>();
+        
         private readonly WorkingDaysLeft _model;
 
         public WorkingDaysLeftWidget(Context context) : base(context)
