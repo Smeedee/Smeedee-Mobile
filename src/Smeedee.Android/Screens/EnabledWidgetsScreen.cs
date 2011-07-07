@@ -9,8 +9,8 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "Enabled or disable widgets", Theme = "@android:style/Theme")]
-    public class EnabledWidgetsScreen : Activity, View.IOnClickListener
+    [Activity(Label = "Enable or disable widgets", Theme = "@android:style/Theme")]
+    public class EnabledWidgetsScreen : Activity
     {
         private readonly SmeedeeApp _app = SmeedeeApp.Instance;
         private ListView _listView;
@@ -29,7 +29,6 @@ namespace Smeedee.Android.Screens
             
             var adapter = new SimpleAdapter(this, listItems, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
 
-            //TODO: _listViewSetOnClickListener(this) and handle list clicks
             _listView.Adapter = adapter;
         }
 
@@ -49,11 +48,6 @@ namespace Smeedee.Android.Screens
             }
 
             return listItems;
-        }
-
-        public void OnClick(View v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

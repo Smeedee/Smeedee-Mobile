@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Smeedee.Android.Screens;
+using Smeedee.Android.Widgets;
 using Smeedee.Model;
 
 namespace Smeedee.Android
@@ -40,11 +41,11 @@ namespace Smeedee.Android
         {
             app.RegisterAvailableWidgets();
 
-            var widgetTypes = SmeedeeApp.Instance.AvailableWidgets;
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
             var instances = new List<IWidget>();
-            foreach (var widgetType in widgetTypes)
+            foreach (var widget in widgets)
             {
-                instances.Add(Activator.CreateInstance(widgetType.Type, this) as IWidget);
+                instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
             }
             return instances;
         }
@@ -61,16 +62,24 @@ namespace Smeedee.Android
             btnPrev.Click += (obj, e) =>
                                  {
                                      _flipper.ShowPrevious();
+                                     //SetCorrectTopBannerWidgetIcon();
                                      _flipper.RefreshDrawableState();
                                  };
         }
-        
+
+        private void SetCorrectTopBannerWidgetIcon()
+        {
+            //var currentView = _flipper.CurrentView;
+            throw new NotImplementedException();
+        }
+
         private void BindNextButtonClickEvent()
         {
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
             btnNext.Click += (sender, args) =>
                                  {
                                      _flipper.ShowNext();
+                                     //SetCorrectTopBannerWidgetIcon();
                                      _flipper.RefreshDrawableState();
                                  };
         }
