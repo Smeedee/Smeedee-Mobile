@@ -16,15 +16,25 @@ namespace Smeedee.UnitTests.Model
             var topCommiters = new TopCommitters(null);
         }
 
-        [Test]
-        public void Should_make_accessible_list_of_committers_provided()
+        [TestFixture]
+        public class When_instanciating_top_committers_with_list_of_committers
         {
-            var topCommitters = new TopCommitters(new[] {
-                new Committer("Lars", 17, "http://www.foo.com/img.png"),
-                new Committer("Dag Olav", 19, "http://www.foo.com/img.png")
-            });
+            private TopCommitters model;
 
-            Assert.AreEqual(2, topCommitters.Committers.Count());
+            [SetUp]
+            public void SetUp()
+            {
+                model = new TopCommitters(new[] {
+                    new Committer("Lars", 17, "http://www.foo.com/img.png"),
+                    new Committer("Dag Olav", 19, "http://www.foo.com/img.png")
+                });
+            }
+
+            [Test]
+            public void Should_make_accessible_list_of_committers_provided()
+            {
+                Assert.AreEqual(2, model.Committers.Count());
+            }
         }
     }
 }
