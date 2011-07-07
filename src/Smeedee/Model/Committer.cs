@@ -6,8 +6,6 @@ namespace Smeedee.Model
 {
     public class Committer
     {
-        public Committer(string name) : this(name, 0, "http://www.foo.com/img.png") { }
-
         public Committer(string name, int commits, string url)
         {
             if (name == null)

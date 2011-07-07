@@ -21,11 +21,11 @@ namespace Smeedee.Services
         public void LoadTopCommiters(Action<AsyncResult<IEnumerable<Committer>>> callback)
         {
             var fakeData = new [] {
-                new Committer("Alex"),
-                new Committer("Dag Olav"),
-                new Committer("Lars 1"),
-                new Committer("Lars 2"),
-                new Committer("Børge"),
+                new Committer("Alex", 16, "http://www.foo.com/alex.png"),
+                new Committer("Dag Olav", 16, "http://www.foo.com/dagolap.png"),
+                new Committer("Lars 1", 16, "http://www.foo.com/l1.png"),
+                new Committer("Lars 2", 16, "http://www.foo.com/l2.png"),
+                new Committer("Børge", 16, "http://www.foo.com/borge.png"),
             };
             
             BackgroundWorkWithDelay(() => {

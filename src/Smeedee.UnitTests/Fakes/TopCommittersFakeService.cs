@@ -11,8 +11,8 @@ namespace Smeedee.UnitTests
         {
             callback(
                 new [] {
-                    new Committer("John Doe"),
-                    new Committer("Mary Poppins")
+                    new Committer("John Doe", 16, "http://www.foo.com/doe.png"),
+                    new Committer("Mary Poppins", 16, "http://www.foo.com/mary.png")
                 }
             );
         }
