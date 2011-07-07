@@ -66,6 +66,14 @@ namespace Smeedee.UnitTests.Model
                 var model = new BuildStatus(PROJECT, BuildSuccessState.Success, USER, DateTime.Now);
                 Assert.AreEqual("#0F0", model.BuildSuccessStateString);
             }
+
+            [Test]
+            public void Should_properly_convert_failure_to_red()
+            {
+                var model = new BuildStatus(PROJECT, BuildSuccessState.Failure, USER, DateTime.Now);
+                Assert.AreEqual("#F00", model.BuildSuccessStateString);
+            }
+            
         }
     }
 }

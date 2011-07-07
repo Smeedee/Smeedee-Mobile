@@ -48,8 +48,10 @@ namespace Smeedee.Model
                 {
                     case Model.BuildSuccessState.Success:
                         return "#0F0";
+                    case Model.BuildSuccessState.Failure:
+                        return "#F00";
                     default:
-                        return "#999";
+                        return "#000";
                 }
             }
         }
