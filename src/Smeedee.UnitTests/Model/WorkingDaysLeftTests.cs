@@ -29,6 +29,13 @@ namespace Smeedee.UnitTests.Model
             }
         }
 
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Should_not_accept_negative_number_of_days_left()
+        {
+            new WorkingDaysLeft(-1);
+        }
+
     }
 
 }

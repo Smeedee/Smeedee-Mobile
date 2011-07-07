@@ -7,6 +7,10 @@ namespace Smeedee.Model
     {
         public WorkingDaysLeft(int days)
         {
+            if (days < 0)
+            {
+                throw new ArgumentException("Days left must be a positive integer");
+            }
             DaysLeft = days;
         }
 
