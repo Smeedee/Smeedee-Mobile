@@ -7,16 +7,17 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
+    [WidgetAttribute("Working Days Left", "@drawable/Icon", IsEnabled = true)]
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
-        private WorkingDaysLeft model;
+        private readonly WorkingDaysLeft _model;
 
         public WorkingDaysLeftWidget(Context context) : base(context)
         {
             InitializeView();
 
-            model = new WorkingDaysLeft();
-            model.Load(UpdateView);
+            _model = new WorkingDaysLeft();
+            _model.Load(UpdateView);
         }
 
         private void InitializeView()
@@ -36,8 +37,8 @@ namespace Smeedee.Android.Widgets
             var daysView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftNumber);
             var textView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftText);
             
-            var days = model.DaysLeft.ToString();
-            var text = model.DaysLeftText;
+            var days = _model.DaysLeft.ToString();
+            var text = _model.DaysLeftText;
 
             daysView.SetText(days, TextView.BufferType.Normal);
             textView.SetText(text, TextView.BufferType.Normal);

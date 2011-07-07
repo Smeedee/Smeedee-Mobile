@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Smeedee\Model\Committer.cs">
+      <Link>Model\Committer.cs</Link>
     <Compile Include="..\Smeedee\Model\Changeset.cs">
       <Link>Model\Changeset.cs</Link>
     </Compile>
@@ -62,8 +64,14 @@
     <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
       <Link>Model\SmeedeeApp.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\TopCommiters.cs">
-      <Link>Model\TopCommiters.cs</Link>
+    <Compile Include="..\Smeedee\Model\TopCommitters.cs">
+      <Link>Model\TopCommitters.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetAttribute.cs">
+      <Link>Model\WidgetAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetModel.cs">
+      <Link>Model\WidgetModel.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>
@@ -88,6 +96,9 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
       <Link>Services\ISmeedeeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ITopCommittersService.cs">
+      <Link>Services\ITopCommittersService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
       <Link>Services\IWorkingDaysLeftService.cs</Link>
@@ -115,6 +126,7 @@
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Widgets\TopCommittersWidget.cs" />
     <Compile Include="Widgets\WorkingDaysLeftWidget.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,14 +142,14 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\LoginScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
     <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
-    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget.axml">
+    <AndroidResource Include="Resources\Layout\TopCommittersWidget.axml">      <SubType>AndroidResource</SubType>    </AndroidResource>    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\LatestChangesetsWidget_ListItem.axml">

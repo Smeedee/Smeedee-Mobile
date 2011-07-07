@@ -13,36 +13,51 @@ namespace Smeedee.Model
         // This class is a singleton: private constructor; static instance variable.
         private SmeedeeApp()
         {
-            AvailableWidgetTypes = new List<Type>();
+            AvailableWidgets = new List<WidgetModel>();
             ServiceLocator = new ServiceLocator();
         }
 
         public ServiceLocator ServiceLocator { get; private set; }
-        public List<Type> AvailableWidgetTypes { get; private set; }
+        public List<WidgetModel> AvailableWidgets { get; private set; }
 
         public void RegisterAvailableWidgets()
         {
             var types = Assembly.GetCallingAssembly().GetTypes();
-            var widgets = from type in types
-                          where typeof(IWidget).IsAssignableFrom(type) &&
-                                !type.IsInterface
+            var widgetsAsType = from type in types
+                          where typeof(IWidget).IsAssignableFrom(type) && !type.IsInterface
                           select type;
             
-            foreach (var widget in widgets)
+            foreach (var widgetAsType in widgetsAsType)
             {
-                if (WidgetTypeIsAlreadyRegistered(widget)) continue;
-                AvailableWidgetTypes.Add(widget);
+                if (WidgetTypeIsAlreadyRegistered(widgetAsType)) continue;
+                AvailableWidgets.Add(GetModelFromType(widgetAsType));
             }
         }
-        
+
         private bool WidgetTypeIsAlreadyRegistered(Type widgetType)
         {
-            foreach (var registeredWidgetType in AvailableWidgetTypes)
+            foreach (var registeredWidget in AvailableWidgets)
             {
-                if (registeredWidgetType.Name == widgetType.Name) return true;
+                if (registeredWidget.Type.Name == widgetType.Name) return true;
             }
             
             return false;
+        }
+
+        private WidgetModel GetModelFromType(Type type)
+        {
+            var widgetAttributes = type.GetCustomAttributes(typeof(WidgetAttribute), true);
+            var typeHasAttributes = (widgetAttributes.Count() > 0 && widgetAttributes is WidgetAttribute[]);
+            if (!typeHasAttributes)
+                throw new ArgumentException("A widget without attributes was passed");
+
+            var model = ModelFromAttributes(((WidgetAttribute[])widgetAttributes)[0], type);
+            return model;
+        }
+
+        private static WidgetModel ModelFromAttributes(WidgetAttribute attr, Type type)
+        {
+            return new WidgetModel(attr.Name, attr.Icon, type, attr.IsEnabled);
         }
 
         public string GetStoredLoginKey()

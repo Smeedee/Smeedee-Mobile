@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
+    [WidgetAttribute("Build Status", "@drawable/icon", IsEnabled = true)]
     public class BuildStatus : RelativeLayout, IWidget
     {
 

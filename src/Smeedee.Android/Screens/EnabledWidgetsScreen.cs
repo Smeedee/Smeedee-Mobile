@@ -3,40 +3,57 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "EnabledWidgetsScreen", Theme = "@android:style/Theme.NoTitleBar")]
-    public class EnabledWidgetsScreen : Activity
+    [Activity(Label = "Enabled or disable widgets", Theme = "@android:style/Theme")]
+    public class EnabledWidgetsScreen : Activity, View.IOnClickListener
     {
+        private readonly SmeedeeApp _app = SmeedeeApp.Instance;
+        private ListView _listView;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.EnabledWidgetsScreen);
 
-            var listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
+            _listView = FindViewById<ListView>(Resource.Id.EnabledWidgetsScreenBuildList);
 
-            // create the grid item mapping
-            var from = new[] { "WidgetTitle" };
-            var to = new[] { Resource.Id.WidgetTitle };
+            var from = new[] { "WidgetIcon", "WidgetTitle", "Checkbox" };
+            var to = new[] { Resource.Id.WidgetIcon, Resource.Id.WidgetTitle, Resource.Id.Checkbox };
 
-            // prepare the list of all records
-            IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
-            for (var i = 0; i < 10; i++)
-            {
-                IDictionary<String, object> map = new Dictionary<String, object>();
-                map.Add("WidgetTitle", "Widget " + i);
-                                                      
-                fillMaps.Add(map);
-            }
-            // fill in the grid_item layout
-            var adapter = new SimpleAdapter(this, fillMaps, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
-            listView.Adapter = adapter;
+            var listItems = PopulateEnabledWidgetsList();
             
+            var adapter = new SimpleAdapter(this, listItems, Resource.Layout.EnabledWidgetsScreen_ListItem, from, to);
+
+            //TODO: _listViewSetOnClickListener(this) and handle list clicks
+            _listView.Adapter = adapter;
+        }
+
+        private IList<IDictionary<string, object>> PopulateEnabledWidgetsList()
+        {
+            var widgets = _app.AvailableWidgets;
+
+            IList<IDictionary<String, object>> listItems = new List<IDictionary<String, object>>();
+
+            foreach (var widget in widgets)
+            {
+                IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
+                keyValueMap.Add("WidgetIcon", widget.Icon);
+                keyValueMap.Add("WidgetTitle", widget.Name);
+                keyValueMap.Add("Checkbox", widget.IsEnabled);
+                listItems.Add(keyValueMap);
+            }
+
+            return listItems;
+        }
+
+        public void OnClick(View v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

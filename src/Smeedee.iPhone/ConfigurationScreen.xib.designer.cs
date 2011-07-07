@@ -9,10 +9,10 @@
 // ------------------------------------------------------------------------------
 
 namespace Smeedee.iPhone {
-    
-    
-    // Base type probably should be MonoTouch.UIKit.UIViewController or subclass
-    [MonoTouch.Foundation.Register("ConfigurationScreen")]
-    public partial class ConfigurationScreen {
-    }
+	
+	
+	// Base type probably should be MonoTouch.UIKit.UIViewController or subclass
+	[MonoTouch.Foundation.Register("ConfigurationScreen")]
+	public partial class ConfigurationScreen {
+	}
 }

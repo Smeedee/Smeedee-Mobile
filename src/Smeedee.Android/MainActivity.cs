@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -10,7 +8,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Smeedee Mobile", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
@@ -20,19 +18,29 @@ namespace Smeedee.Android
             ConfigureDependencies();
             
             var activity = DetermineNextActivity();
-
             StartActivity(activity);
+        }
+
+        private void ConfigureDependencies()
+        {
+            var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
+
+            // Fill in global bindings here:
+            serviceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
+            serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
+            serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
+            serviceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
         }
 
         private Intent DetermineNextActivity()
         {
-            Type nextActivity = HasAValidUrlAndKey()
+            Type nextActivity = UserHasAValidUrlAndKey()
                                     ? typeof (WidgetContainer)
                                     : typeof (LoginScreen);
             return new Intent(this, nextActivity);
         }
 
-        private bool HasAValidUrlAndKey()
+        private bool UserHasAValidUrlAndKey()
         {
             var key = SmeedeeApp.Instance.GetStoredLoginKey();
             var url = SmeedeeApp.Instance.GetStoredLoginUrl();
@@ -40,17 +48,6 @@ namespace Smeedee.Android
 
             var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();
             return validator.IsValid(url, key);
-        }
-
-        private void ConfigureDependencies()
-        {
-            var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
-
-            //fill in global bindings here:
-            serviceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
-            serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
-            serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
-            serviceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
         }
     }
 }

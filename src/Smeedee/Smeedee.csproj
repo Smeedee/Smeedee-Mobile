@@ -40,11 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Model\Changeset.cs" />
+    <Compile Include="Model\Changeset.cs" />    <Compile Include="Model\WidgetAttribute.cs" />
+    <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\FakeLoginValidationService.cs" />
     <Compile Include="Services\IChangesetService.cs" />
     <Compile Include="Services\ILoginValidationService.cs" />
+    <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
@@ -66,8 +68,8 @@
     <Compile Include="Model\SmeedeeApp.cs" />
     <Compile Include="Services\PersistenceService.cs" />
     <Compile Include="Services\SmeedeeHttpService.cs" />
-    <Compile Include="Model\TopCommiters.cs" />
-    <Compile Include="Model\Commiter.cs" />
+    <Compile Include="Model\TopCommitters.cs" />
+    <Compile Include="Model\Committer.cs" />
     <Compile Include="Services\SmeedeeFakeService.cs" />
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Model\IWidget.cs" />

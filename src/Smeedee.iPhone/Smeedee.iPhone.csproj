@@ -148,6 +148,15 @@
     <Compile Include="Widgets\TestWebViewScreen.xib.designer.cs">
       <DependentUpon>TestWebViewScreen.xib</DependentUpon>
     </Compile>
+    <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
+      <Link>Services\ServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetModel.cs">
+      <Link>Model\WidgetModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetAttribute.cs">
+      <Link>Model\WidgetAttribute.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
