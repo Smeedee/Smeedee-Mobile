@@ -26,49 +26,11 @@
       a:text="Showing number of commits for the past day" />
   </LinearLayout>
 
-  <TableLayout
+  <ListView
+    a:id="@+id/TopCommittersList"
     a:layout_width="fill_parent"
-    a:layout_height="wrap_content"
-    a:stretchColumns="1">
+    a:layout_height="wrap_content">
 
-    <TableRow>
-      <ImageView
-        a:layout_width="wrap_content"
-        a:layout_height="wrap_content"
-        a:src="@drawable/icon_smeedee"
-        a:padding="3dip" />
-      <TextView
-        a:text="Lars K. Melhus"
-        a:textColor="#fff"
-        a:textSize="18sp"
-        a:padding="3dip" />
-      <TextView
-        a:text="37"
-        a:paddingTop="3dip"
-        a:textColor="#fff"
-        a:textSize="24sp"
-        a:paddingRight="10dip" />
-    </TableRow>
-
-    <TableRow>
-      <ImageView
-        a:layout_width="wrap_content"
-        a:layout_height="wrap_content"
-        a:src="@drawable/icon_smeedee"
-        a:padding="3dip" />
-      <TextView
-        a:text="Lars Eidnes"
-        a:textColor="#fff"
-        a:textSize="18sp"
-        a:padding="3dip" />
-      <TextView
-        a:text="29"
-        a:paddingTop="3dip"
-        a:textColor="#fff"
-        a:textSize="24sp"
-        a:paddingRight="10dip" />
-    </TableRow>
-
-  </TableLayout>
+  </ListView>
   
 </LinearLayout>

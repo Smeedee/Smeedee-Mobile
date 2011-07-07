@@ -119,6 +119,9 @@
     <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
       <Link>Services\SmeedeeHttpService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
+      <Link>Services\TopCommittersFakeService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
@@ -163,6 +166,9 @@
     <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
     <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
     <AndroidResource Include="Resources\Layout\TopCommittersWidget.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\TopCommittersWidget_ListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

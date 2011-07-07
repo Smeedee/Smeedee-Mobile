@@ -4,26 +4,19 @@ using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-    public class TopCommitters
+    public class TopCommitters : IModel
     {
-        private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
-        
-        public TopCommitters()
+        public TopCommitters(IEnumerable<Committer> committers)
         {
-            Committers = new List<Committer>();
+            Committers = new List<Committer>(committers);
+            Committers.Sort(
+                (e1, e2) => e2.Commits.CompareTo(e1.Commits)
+            );
         }
-        
-        public List<Committer> Committers {
+
+        public List<Committer> Committers { 
             get;
             private set;
-        }
-        
-        public void Load(Action callback)
-        {
-            service.LoadTopCommiters((args) => {
-                Committers.AddRange(args);
-                callback();
-            });
         }
     }
 }

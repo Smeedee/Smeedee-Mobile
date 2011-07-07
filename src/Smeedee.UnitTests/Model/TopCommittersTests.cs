@@ -6,62 +6,48 @@ using Smeedee.Services;
 
 namespace Smeedee.UnitTests.Model
 {
+    [TestFixture]
     public class TopCommittersTests
     {
-        [TestFixture]
-        public class When_creating_a_new_TopCommitters_instance
+        [Test]
+        public void Should_implement_IModel()
         {
-            [Test]
-            public void Then_assure_there_are_no_committers()
-            {
-                SmeedeeApp.Instance.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
-                var topCommiters = new TopCommitters();
-                
-                Assert.AreEqual(0, topCommiters.Committers.Count());
-            }
+            Assert.That(typeof(IModel).IsAssignableFrom(typeof(TopCommitters)));
         }
-        
-        [TestFixture]
-        public class When_loading_TopCommitters
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Should_throw_exception_on_null_argument()
         {
-            private TopCommitters topCommiters;
-            
+            var topCommiters = new TopCommitters(null);
+        }
+
+        [TestFixture]
+        public class When_instanciating_top_committers_with_list_of_committers
+        {
+            private TopCommitters model;
+
             [SetUp]
             public void SetUp()
             {
-                SmeedeeApp.Instance.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
-                
-                topCommiters = new TopCommitters();
-            }
-            
-            [Test]
-            public void Then_assure_the_callback_is_executed()
-            {
-                var callbackWasExecuted = false;
-                
-                topCommiters.Load(() => {
-                    callbackWasExecuted = true;
+                model = new TopCommitters(new[] {
+                    new Committer("Lars", 17, "http://www.foo.com/img.png"),
+                    new Committer("Dag Olav", 24, "http://www.foo.com/img.png"),
+                    new Committer("Borge", 16, "http://www.foo.com/img.png")
                 });
-                
-                Assert.IsTrue(callbackWasExecuted);
             }
-            
+
             [Test]
-            public void Then_assure_commiters_are_loaded_into_the_model()
+            public void Should_make_accessible_list_of_committers_provided()
             {
-                topCommiters.Load(() => { });
-                
-                Assert.IsTrue(topCommiters.Committers.Count() > 0);
+                Assert.AreEqual(3, model.Committers.Count());
             }
-            
+
             [Test]
-            public void Then_assure_that_committers_have_real_data()
+            public void Should_return_list_in_sorted_order()
             {
-                topCommiters.Load(() => { });
-                
-                foreach (var commiter in topCommiters.Committers) {
-                    Assert.IsTrue(commiter.Name.Length > 0);
-                }
+                Assert.AreEqual(24, model.Committers.First().Commits);
+                Assert.AreEqual(17, model.Committers.ElementAt(1).Commits);
             }
         }
     }
