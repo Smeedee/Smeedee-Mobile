@@ -169,9 +169,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\Layout\StartPageWidget.axml" />
   </ItemGroup>
   <ItemGroup>
@@ -179,8 +176,17 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
+  <ItemGroup>    <AndroidResource Include="Resources\Drawable\DefaultPerson.jpeg" />  </ItemGroup>  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\icon_projectstatus.png" />
+  </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\DefaultPerson.jpeg" />
+    <AndroidResource Include="Resources\Drawable\icon_smeedee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\icon_topcommitters.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\icon_workingdaysleft.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

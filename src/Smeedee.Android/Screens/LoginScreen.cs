@@ -25,10 +25,10 @@ namespace Smeedee.Android.Screens
 
             _loginValidator = new FakeLoginValidationService();
 
-            var submitButton = FindViewById<Button>(Resource.Id.LoginButton);
+            var submitButton = FindViewById<Button>(Resource.Id.BtnLogin);
             var urlInput = FindViewById<EditText>(Resource.Id.ServerUrlInput);
             var keyInput = FindViewById<EditText>(Resource.Id.AccessKeyInput);
-            submitButton.Click += delegate(object sender, EventArgs args)
+            submitButton.Click += delegate
                 {
                     if (_loginValidator.IsValid(urlInput.Text, keyInput.Text))
                     {
