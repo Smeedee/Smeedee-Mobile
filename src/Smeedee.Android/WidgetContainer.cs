@@ -14,14 +14,14 @@ namespace Smeedee.Android
     public class WidgetContainer : Activity
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
-        private ViewFlipper flipper;
+        private ViewFlipper _flipper;
         
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+            _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
             
             AddWidgetsToFlipper();
             BindEventsToNavigationButtons();
@@ -32,7 +32,7 @@ namespace Smeedee.Android
             var widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                flipper.AddView(widget as View);
+                _flipper.AddView(widget as View);
             }
         }
 
@@ -60,8 +60,8 @@ namespace Smeedee.Android
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
             btnPrev.Click += (obj, e) =>
                                  {
-                                     flipper.ShowPrevious();
-                                     flipper.RefreshDrawableState();
+                                     _flipper.ShowPrevious();
+                                     _flipper.RefreshDrawableState();
                                  };
         }
         
@@ -70,8 +70,8 @@ namespace Smeedee.Android
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
             btnNext.Click += (sender, args) =>
                                  {
-                                     flipper.ShowNext();
-                                     flipper.RefreshDrawableState();
+                                     _flipper.ShowNext();
+                                     _flipper.RefreshDrawableState();
                                  };
         }
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -86,7 +86,7 @@ namespace Smeedee.Android
                 case Resource.Id.BtnWidgetSettings:
 
                     // TODO: Open current widget settings view
-                    // var currentWidget = flipper.CurrentView;
+                    // var currentWidget = _flipper.CurrentView;
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:
