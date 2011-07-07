@@ -27,5 +27,19 @@ namespace Smeedee.UnitTests.Model
         {
             var model = new BuildStatus("", BuildSuccessState.Success, USER, DATE);
         }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Should_not_allow_null_in_username()
+        {
+            var model = new BuildStatus(PROJECT, BuildSuccessState.Success, null, DATE);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Should_not_allow_empty_string_in_username()
+        {
+            var model = new BuildStatus(PROJECT, BuildSuccessState.Success, "", DATE);
+        }
     }
 }
