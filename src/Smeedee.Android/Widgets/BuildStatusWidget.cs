@@ -9,10 +9,11 @@ using Smeedee.Model;
 namespace Smeedee.Android.Widgets
 {
     [WidgetAttribute("Build Status", "@drawable/icon", IsEnabled = true)]
-    public class BuildStatus : RelativeLayout, IWidget
+    public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime" };
         private readonly int[] listItemMappingTo = new[] {  Resource.Id.projectname, Resource.Id.username, Resource.Id.datetime };
+        private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
 
         public BuildStatusWidget(Context context)
             : base(context)

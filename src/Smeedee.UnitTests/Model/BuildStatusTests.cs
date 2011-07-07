@@ -15,10 +15,17 @@ namespace Smeedee.UnitTests.Model
         private readonly DateTime DATE = DateTime.MinValue;
          
         [Test]
+        [ExpectedException(typeof(ArgumentException))]
         public void Should_not_allow_null_in_project_name()
         {
-            //var model = new Model(null, BuildSuccessState.Success, USER, DATE);
+            var model = new BuildStatus(null, BuildSuccessState.Success, USER, DATE);
+        }
 
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Should_not_allow_empty_string_in_project_name()
+        {
+            var model = new BuildStatus("", BuildSuccessState.Success, USER, DATE);
         }
     }
 }
