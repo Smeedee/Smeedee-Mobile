@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-  <TextView
+  <ListView
+    android:id="@+id/LatestChangesetsList"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:text="Hello from latest changesets"
+    android:layout_height="wrap_content"
     />
 </LinearLayout>
