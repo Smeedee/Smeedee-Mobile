@@ -109,9 +109,7 @@
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\ServerSettingsScreen.cs" />
-    <Compile Include="Widgets\BuildStatus.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
-    <Compile Include="Widgets\BuildStatus.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
