@@ -2,7 +2,7 @@
 
 namespace Smeedee.Model
 {
-    public class BuildStatus
+    public class BuildStatus : IModel
     {
         public BuildStatus(string projectName, BuildSuccessState buildSuccessState, string username, DateTime buildTime)
         {

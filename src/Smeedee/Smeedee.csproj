@@ -42,6 +42,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Model\BuildStatus.cs" />
     <Compile Include="Model\BuildSuccessState.cs" />
+    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
