@@ -7,42 +7,73 @@
   <LinearLayout
     android:id="@+id/ServerSettingsLinearLayout"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true">
-    <EditText
+    android:layout_height="wrap_content" >
+    
+    <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="#1d1d1d">
+    <TextView
+      android:text="Server url"
+      android:textColor="#ffffff"
+      android:textSize="14sp"
+      android:layout_alignParentLeft="true"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"/>
+    </LinearLayout>
+      
+      <EditText
       android:id="@+id/ServerUrlInput"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:inputType="textUri"
       />
+    
+    <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="#1d1d1d">
+      <TextView
+        android:text="User password"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:layout_alignParentLeft="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+    
     <EditText
       android:id="@+id/AccessKeyInput"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:inputType="textVisiblePassword"
+      android:paddingBottom="10dp"
       />
+    
     <LinearLayout
       android:orientation="horizontal"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:gravity="center">
+      android:gravity="fill_horizontal">
+      
       <Button
         android:id="@+id/BtnSaveServerAndUserSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="10dp"
         />
       <Button
         android:id="@+id/BtnCancelServerAndUserSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="10dp"
         />
     </LinearLayout>
-   
+
   </LinearLayout>
 </RelativeLayout>
