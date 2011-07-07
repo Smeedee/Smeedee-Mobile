@@ -83,6 +83,9 @@
     <Compile Include="..\Smeedee\Services\AsyncResult.cs">
       <Link>Services\AsyncResult.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
+      <Link>Services\FakeBuildStatusService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
       <Link>Services\FakeLoginValidationService.cs</Link>
     </Compile>
@@ -115,6 +118,12 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
+      <Link>Utilities\BackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
+      <Link>Utilities\IBackgroundWorker.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Screens\EnabledWidgetsScreen.cs" />

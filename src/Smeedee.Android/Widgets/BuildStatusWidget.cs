@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Utilities;
 
 namespace Smeedee.Android.Widgets
 {
@@ -15,6 +16,7 @@ namespace Smeedee.Android.Widgets
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime" };
         private readonly int[] listItemMappingTo = new[] {  Resource.Id.projectname, Resource.Id.username, Resource.Id.datetime };
         private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
+        private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         public BuildStatusWidget(Context context)
             : base(context)
@@ -36,22 +38,24 @@ namespace Smeedee.Android.Widgets
 
         private void FillBuildList()
         {
-            var buildList = FindViewById<ListView>(Resource.Id.build_list);
+            bgWorker.Invoke(() => {
+                var buildList = FindViewById<ListView>(Resource.Id.build_list);
 
-            var adapter = new SimpleAdapter(Context, CreateFakeData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
-            buildList.Adapter = adapter;
+                var adapter = new SimpleAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
+                buildList.Adapter = adapter;
+            });
         }
 
-        private IList<IDictionary<string, object>> CreateFakeData()
+        private IList<IDictionary<string, object>> GetData()
         {
             IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
-            for (var i = 0; i < 10; i++)
+            foreach (var build in service.Get())
             {
                 IDictionary<String, object> map = new Dictionary<String, object>
                                                       {
-                                                          {"project_name", "Project " + i},
-                                                          {"username", "Dag Olav Prestegarden"},
-                                                          {"datetime", DateTime.Now.ToString()}
+                                                          {"project_name", build.ProjectName},
+                                                          {"username", build.Username},
+                                                          {"datetime", build.BuildTime}
                                                       };
                 fillMaps.Add(map);
             }

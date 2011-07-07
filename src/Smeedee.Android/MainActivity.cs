@@ -5,6 +5,7 @@ using Android.OS;
 using Smeedee.Android.Screens;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Utilities;
 
 namespace Smeedee.Android
 {
@@ -26,6 +27,9 @@ namespace Smeedee.Android
             var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 
             // Fill in global bindings here:
+            serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+            
+            serviceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
             serviceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
             serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
             serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
