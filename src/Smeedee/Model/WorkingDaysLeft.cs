@@ -3,7 +3,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-    public class WorkingDaysLeft
+    public class WorkingDaysLeft : IModel
     {
         public WorkingDaysLeft(int days)
         {

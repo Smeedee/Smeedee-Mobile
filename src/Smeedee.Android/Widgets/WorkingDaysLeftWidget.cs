@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee.Android.Widgets
 {
@@ -19,8 +20,7 @@ namespace Smeedee.Android.Widgets
         {
             InitializeView();
 
-            _model = new WorkingDaysLeft();
-            _model.Load(UpdateView);
+            _model = new WorkingDaysLeft(1);
         }
 
         private void InitializeView()
