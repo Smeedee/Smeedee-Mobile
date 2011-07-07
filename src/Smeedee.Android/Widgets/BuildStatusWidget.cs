@@ -55,7 +55,8 @@ namespace Smeedee.Android.Widgets
                                                       {
                                                           {"project_name", build.ProjectName},
                                                           {"username", build.Username},
-                                                          {"datetime", build.BuildTime}
+                                                          {"datetime", build.BuildTime},
+                                                          {"success_status", build.BuildSuccessStateString}
                                                       };
                 fillMaps.Add(map);
             }

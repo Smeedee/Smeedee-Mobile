@@ -53,7 +53,19 @@ namespace Smeedee.UnitTests.Model
             public void Should_not_allow_empty_string_in_username()
             {
                 var model = new BuildStatus(PROJECT, BuildSuccessState.Success, "", DATE);
-            } 
+            }
+
+        }
+
+        [TestFixture]
+        public class When_converting_color_to_string
+        {
+            [Test]
+            public void Should_properly_convert_successful_to_green()
+            {
+                var model = new BuildStatus(PROJECT, BuildSuccessState.Success, USER, DateTime.Now);
+                Assert.AreEqual("#0F0", model.BuildSuccessStateString);
+            }
         }
     }
 }

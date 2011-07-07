@@ -38,5 +38,20 @@ namespace Smeedee.Model
                 _username = value;
             }
         }
+
+        // TODO: Make this individual based on platform?
+        public string BuildSuccessStateString
+        {
+            get
+            {
+                switch (BuildSuccessState)
+                {
+                    case Model.BuildSuccessState.Success:
+                        return "#0F0";
+                    default:
+                        return "#999";
+                }
+            }
+        }
     }
 }
