@@ -6,31 +6,32 @@ using Smeedee.Services;
 
 namespace Smeedee.UnitTests.Model
 {
-    public class TopCommitersTests
+    public class TopCommittersTests
     {
         [TestFixture]
-        public class When_creating_a_new_TopCommiters_instance
+        public class When_creating_a_new_TopCommitters_instance
         {
             [Test]
-            public void Then_assure_there_are_no_commiters()
+            public void Then_assure_there_are_no_committers()
             {
-                SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new FakeSmeedeeService());
-                var topCommiters = new TopCommiters();
-                Assert.AreEqual(0, topCommiters.Commiters.Count());
+                SmeedeeApp.Instance.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+                var topCommiters = new TopCommitters();
+                
+                Assert.AreEqual(0, topCommiters.Committers.Count());
             }
         }
         
         [TestFixture]
-        public class When_loading_TopCommiters
+        public class When_loading_TopCommitters
         {
-            private TopCommiters topCommiters;
+            private TopCommitters topCommiters;
             
             [SetUp]
             public void SetUp()
             {
-                SmeedeeApp.Instance.ServiceLocator.Bind<ISmeedeeService>(new FakeSmeedeeService());
+                SmeedeeApp.Instance.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
                 
-                topCommiters = new TopCommiters();
+                topCommiters = new TopCommitters();
             }
             
             [Test]
@@ -50,15 +51,15 @@ namespace Smeedee.UnitTests.Model
             {
                 topCommiters.Load(() => { });
                 
-                Assert.IsTrue(topCommiters.Commiters.Count() > 0);
+                Assert.IsTrue(topCommiters.Committers.Count() > 0);
             }
             
             [Test]
-            public void Then_assure_that_commiters_have_real_data()
+            public void Then_assure_that_committers_have_real_data()
             {
                 topCommiters.Load(() => { });
                 
-                foreach (var commiter in topCommiters.Commiters) {
+                foreach (var commiter in topCommiters.Committers) {
                     Assert.IsTrue(commiter.Name.Length > 0);
                 }
             }
