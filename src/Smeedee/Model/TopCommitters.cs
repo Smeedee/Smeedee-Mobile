@@ -9,9 +9,12 @@ namespace Smeedee.Model
         public TopCommitters(IEnumerable<Committer> committers)
         {
             Committers = new List<Committer>(committers);
+            Committers.Sort(
+                (e1, e2) => e2.Commits.CompareTo(e1.Commits)
+            );
         }
-        
-        public List<Committer> Committers {
+
+        public List<Committer> Committers { 
             get;
             private set;
         }

@@ -35,6 +35,12 @@ namespace Smeedee.UnitTests.Model
             {
                 Assert.AreEqual(2, model.Committers.Count());
             }
+
+            [Test]
+            public void Should_return_list_in_sorted_order()
+            {
+                Assert.AreEqual(19, model.Committers.First().Commits);
+            }
         }
     }
 }
