@@ -6,9 +6,9 @@ namespace Smeedee.Model
 {
     public class TopCommitters
     {
-        public TopCommitters()
+        public TopCommitters(IEnumerable<Committer> committers)
         {
-            Committers = new List<Committer>();
+            Committers = new List<Committer>(committers);
         }
         
         public List<Committer> Committers {
