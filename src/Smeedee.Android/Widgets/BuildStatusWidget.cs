@@ -40,8 +40,10 @@ namespace Smeedee.Android.Widgets
             var buildList = FindViewById<ListView>(Resource.Id.build_list);
 
             var adapter = new SimpleAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
-                
-            buildList.Adapter = adapter;
+            Handler.Post(() =>
+                             {
+                                buildList.Adapter = adapter;
+                             });
         }
 
         private IList<IDictionary<string, object>> GetData()
