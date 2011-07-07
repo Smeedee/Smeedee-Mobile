@@ -10,6 +10,12 @@ namespace Smeedee.UnitTests.Model
     public class TopCommittersTests
     {
         [Test]
+        public void Should_implement_IModel()
+        {
+            Assert.That(typeof(IModel).IsAssignableFrom(typeof(TopCommitters)));
+        }
+
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Should_throw_exception_on_null_argument()
         {

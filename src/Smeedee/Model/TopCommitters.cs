@@ -4,7 +4,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-    public class TopCommitters
+    public class TopCommitters : IModel
     {
         public TopCommitters(IEnumerable<Committer> committers)
         {

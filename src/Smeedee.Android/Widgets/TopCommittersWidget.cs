@@ -11,12 +11,15 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee.Android.Widgets
 {
     [Widget("Top Committers", Resource.Drawable.icon_topcommitters, IsEnabled = true)]
     public class TopCommittersWidget : RelativeLayout , IWidget
     {
+        private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
+
         public TopCommittersWidget(Context context) : base(context)
         {
             InitializeView();
