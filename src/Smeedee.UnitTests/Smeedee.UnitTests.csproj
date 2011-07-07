@@ -75,6 +75,7 @@
     <Compile Include="Services\FakeKVStorage.cs" />
     <Compile Include="Services\PersistenceServiceTests.cs" />
     <Compile Include="Services\ServiceLocatorTests.cs" />
+    <Compile Include="TimeSpanPrettyPrintExtensionTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

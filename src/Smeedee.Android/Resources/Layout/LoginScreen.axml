@@ -41,7 +41,7 @@
         android:textColor="#F33"
         />
     <Button
-        android:id="@+id/LoginButton"
+        android:id="@+id/BtnLogin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Login"

@@ -43,11 +43,13 @@
     <Compile Include="Model\BuildStatus.cs" />
     <Compile Include="Model\BuildSuccessState.cs" />
     <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\Changeset.cs" />
     <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\FakeBuildStatusService.cs" />
     <Compile Include="Services\FakeLoginValidationService.cs" />
+    <Compile Include="Services\IChangesetService.cs" />
     <Compile Include="Services\ILoginValidationService.cs" />
     <Compile Include="Services\IModelService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Services\SmeedeeFakeService.cs" />
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Model\IWidget.cs" />
+    <Compile Include="Utilities\TimeSpanPrettyPrintExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

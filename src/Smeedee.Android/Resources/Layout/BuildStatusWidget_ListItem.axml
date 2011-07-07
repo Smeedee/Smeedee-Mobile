@@ -45,8 +45,12 @@
   <TextView
     a:id="@+id/buildstatus"
     a:visibility="invisible"
-    a:layout_width="wrap_content"
-    a:layout_height="wrap_content"/>
+    a:background="#151"
+    a:layout_marginRight="8dip"
+    a:width="5dip"
+    a:layout_alignParentRight="true"
+    a:layout_width="5dip"
+    a:layout_height="fill_parent"/>
 
   <TextView
     a:id="@+id/buildstatusdisplay"
