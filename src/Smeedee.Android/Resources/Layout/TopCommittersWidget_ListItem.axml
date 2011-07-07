@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+  xmlns:a="http://schemas.android.com/apk/res/android"
+  a:layout_width="fill_parent"
+  a:layout_height="fill_parent">
+  <ImageView
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:src="@drawable/icon_topcommitters"
+    a:padding="3dip" />
+  <TextView
+    a:id="@+id/CommitterName"
+    a:textColor="#fff"
+    a:textSize="18sp"
+    a:padding="3dip" />
+  <TextView
+    a:id="@+id/NumberOfCommits"
+    a:paddingTop="3dip"
+    a:textColor="#fff"
+    a:textSize="24sp"
+    a:paddingRight="10dip" />
+</RelativeLayout>

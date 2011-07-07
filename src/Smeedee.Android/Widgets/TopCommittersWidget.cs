@@ -25,7 +25,7 @@ namespace Smeedee.Android.Widgets
         public TopCommittersWidget(Context context) : base(context)
         {
             InflateView();
-            InitializeModelAndUpdateView();
+            //InitializeModelAndUpdateView();
         }
 
         private void InflateView()
@@ -43,13 +43,24 @@ namespace Smeedee.Android.Widgets
 
         private void InitializeModelAndUpdateView()
         {
-            model = service.GetSingle();
-            UpdateView();
-        }
+            //model = service.GetSingle();
 
-        private void UpdateView()
-        {
-            
+            var list = FindViewById<ListView>(Resource.Id.TopCommittersList);
+
+            var from = new string[] { "Name", "Commits" };
+            var to = new int[] { Resource.Id.CommitterName, Resource.Id.NumberOfCommits };
+
+            //var committer = model.Committers.First();
+
+            var data = new Dictionary<string, object> {
+                {"Name", "Lars"},
+                {"Commits", "10"}
+            };
+            var fillData = new List<IDictionary<string, object>>() {data};
+
+            var adapter = new SimpleAdapter(Context, fillData, Resource.Layout.TopCommittersWidget_ListItem, from, to);
+
+            Handler.Post(() => list.Adapter = adapter);
         }
     }
 }
