@@ -15,6 +15,10 @@ namespace Smeedee.Model
 
         public Committer(string name, int commits, string url)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
             Name = name;
             Commits = commits;
             ImageUri = new Uri(url);

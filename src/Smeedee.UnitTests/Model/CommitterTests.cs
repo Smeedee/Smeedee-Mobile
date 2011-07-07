@@ -15,7 +15,7 @@ namespace Smeedee.UnitTests.Model
             [ExpectedException(typeof(ArgumentNullException))]
             public void Then_assure_the_name_is_validated()
             {
-                new Committer(null);
+                new Committer(null, 42, "http://www.foo.com/img.png");
             }
 
             [Test]
