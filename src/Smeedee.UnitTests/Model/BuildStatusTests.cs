@@ -60,22 +60,19 @@ namespace Smeedee.UnitTests.Model
             [Test]
             public void Should_properly_convert_successful_to_green()
             {
-                var model = new BuildStatus(PROJECT, BuildSuccessState.Success, USER, DateTime.Now);
-                Assert.AreEqual("#0F0", model.BuildSuccessStateString);
+                Assert.AreEqual(0xf00ff00, BuildStatus.SuccessStateColor((int)BuildSuccessState.Success));
             }
 
             [Test]
             public void Should_properly_convert_failure_to_red()
             {
-                var model = new BuildStatus(PROJECT, BuildSuccessState.Failure, USER, DateTime.Now);
-                Assert.AreEqual("#F00", model.BuildSuccessStateString);
+                Assert.AreEqual(0xfff0000, BuildStatus.SuccessStateColor((int)BuildSuccessState.Failure));
             }
 
             [Test]
             public void Should_properly_convert_unknown_to_orange()
             {
-                var model = new BuildStatus(PROJECT, BuildSuccessState.Unknown, USER, DateTime.Now);
-                Assert.AreEqual("#F25000", model.BuildSuccessStateString);
+                Assert.AreEqual(0xff25000, BuildStatus.SuccessStateColor((int)BuildSuccessState.Unknown));
             }
         }
     }

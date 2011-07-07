@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+  <color name="smeedee_orange">#fff25000</color>
+  
+  <color name="build_green">#ff00ff00</color>
+  <color name="build_red">#ffff0000</color>
+  <color name="build_orange">#fff25000</color>
+</resources>

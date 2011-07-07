@@ -2,6 +2,8 @@
 {
     public enum BuildSuccessState
     {
-        Success, Failure, Unknown,
+        Success = 1,
+        Failure  = 2,
+        Unknown = 3,
     }
 }

@@ -14,7 +14,7 @@
     />
   <!-- Buildconfig Name -->
   <TextView a:id="@+id/projectname"
-    a:text="col_1"
+    a:text="projectname"
     a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
@@ -24,7 +24,7 @@
   
   <!-- Status color -->
   <TextView a:id="@+id/username"
-    a:text="col_2"
+    a:text="username"
     a:layout_below="@id/projectname"
     a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
@@ -33,13 +33,21 @@
   
   <!-- Timestamp -->
   <TextView a:id="@+id/datetime"
-    a:text="col_3"
+    a:text="datetime"
     a:layout_below="@id/username"
     a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
 	  />
+  
+  <!-- This textview is sort of a hack so that we have
+       a value we can convert to color in the widget -->
   <TextView
+    a:id="@+id/buildstatus"
+    a:visibility="invisible"/>
+
+  <TextView
+    a:id="@+id/buildstatusdisplay"
     a:background="#151"
     a:layout_marginRight="8dip"
     a:width="5dip"
