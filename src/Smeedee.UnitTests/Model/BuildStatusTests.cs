@@ -17,7 +17,7 @@ namespace Smeedee.UnitTests.Model
         public class In_general : BuildStatusTests
         {
             [Test]
-            public void Should_implement_from_IModel()
+            public void Should_implement_IModel()
             {
                 Assert.True(typeof (IModel).IsAssignableFrom(typeof (BuildStatus)));
             }
