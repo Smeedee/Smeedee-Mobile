@@ -25,11 +25,11 @@ namespace Smeedee.Services
             {
                 return Deserialize<T>(storage.Get(key));
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return defaultObject;
             }

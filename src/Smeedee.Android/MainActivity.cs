@@ -22,9 +22,7 @@ namespace Smeedee.Android
             base.OnCreate(bundle);
 
             ConfigureDependencies();
-
-            TestPersistor();
-
+            
             var activity = DetermineNextActivity();
             StartActivity(activity);
         }
