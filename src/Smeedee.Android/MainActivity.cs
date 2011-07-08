@@ -26,38 +26,7 @@ namespace Smeedee.Android
             var activity = DetermineNextActivity();
             StartActivity(activity);
         }
-
-        private IPersistenceService persistor;
-        [Serializable]
-        internal class SerializableSimpleDataStructure
-        {
-            public double var1;
-            public bool var2;
-            public string var3;
-
-            public override bool Equals(object obj)
-            {
-                var other = (SerializableSimpleDataStructure)obj;
-                return (var1 == other.var1 && var2 == other.var2 && var3 == other.var3);
-            }
-        }
-       
-        private bool DictCompare(Dictionary<String, String> dict1, Dictionary<String, String> dict2)
-        {
-            if (dict1.Keys.Count != dict2.Keys.Count)
-            {
-                return false;
-            }
-            try
-            {
-                return dict1.Keys.All(key => dict1[key].Equals(dict2[key]));
-            }
-            catch
-            {
-                return false; 
-            }
-        }
-
+        
         private void ConfigureDependencies()
         {
             var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
