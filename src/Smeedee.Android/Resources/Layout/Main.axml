@@ -29,6 +29,7 @@
     android:paddingLeft="30sp">
 
     <TextView
+      android:id="@+id/WidgetNameInTopBanner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textColor="#F25000"
@@ -36,6 +37,7 @@
       android:text="Widget name" />
 
     <TextView
+      android:id="@+id/WidgetDynamicDescriptionInTopBanner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="14sp"

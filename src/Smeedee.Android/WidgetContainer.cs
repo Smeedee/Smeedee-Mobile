@@ -16,7 +16,8 @@ namespace Smeedee.Android
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
         private ViewFlipper _flipper;
-        
+        private View _currentDisplayingView;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -25,6 +26,8 @@ namespace Smeedee.Android
             _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
             
             AddWidgetsToFlipper();
+            SetCorrectTopBannerWidgetTitle();
+            SetCorrectTopBannerWidgetDescription();
             BindEventsToNavigationButtons();
         }
 
@@ -35,6 +38,7 @@ namespace Smeedee.Android
             {
                 _flipper.AddView(widget as View);
             }
+            _currentDisplayingView = _flipper.CurrentView;
         }
 
         private IEnumerable<IWidget> GetWidgets()
@@ -62,27 +66,39 @@ namespace Smeedee.Android
             btnPrev.Click += (obj, e) =>
                                  {
                                      _flipper.ShowPrevious();
-                                     //SetCorrectTopBannerWidgetIcon();
-                                     //SetCorrectTopBannerWidgetTitle();
-                                     //SetCorrectTopBannerWidgetDescription();
                                      _flipper.RefreshDrawableState();
                                  };
         }
 
-        private void SetCorrectTopBannerWidgetIcon()
-        {
-            //var currentView = _flipper.CurrentView;
-            throw new NotImplementedException();
-        }
         private void SetCorrectTopBannerWidgetTitle()
         {
-            //var currentView = _flipper.CurrentView;
-            throw new NotImplementedException();
+            var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
+            var widgetNameFromAttribute = "widget name not set";
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            foreach (var widgetModel in widgets)
+            {
+                if (_currentDisplayingView.GetType() == widgetModel.Type)
+                {
+                    var widgetAttributes = (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
+                    widgetNameFromAttribute = widgetAttributes[0].Name;
+                }
+            }
+            widgetTitle.Text = widgetNameFromAttribute;
         }
         private void SetCorrectTopBannerWidgetDescription()
         {
-            //var currentView = _flipper.CurrentView;
-            throw new NotImplementedException();
+            var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
+            var widgetDescriptionFromAttribute = "widget description not set";
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            foreach (var widgetModel in widgets)
+            {
+                if (_currentDisplayingView.GetType() == widgetModel.Type)
+                {
+                    var widgetAttributes = (WidgetAttribute[])widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
+                    widgetDescriptionFromAttribute = widgetAttributes[0].DescriptionStatic;
+                }
+            }
+            widgetDescriptionDynamic.Text = widgetDescriptionFromAttribute;
         }
 
         private void BindNextButtonClickEvent()

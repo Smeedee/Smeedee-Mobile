@@ -49,7 +49,7 @@ namespace Smeedee.Model
             var widgetAttributes = type.GetCustomAttributes(typeof(WidgetAttribute), true);
             var typeHasAttributes = (widgetAttributes.Count() > 0 && widgetAttributes is WidgetAttribute[]);
             if (!typeHasAttributes)
-                throw new ArgumentException("A widget without attributes was passed");
+                throw new ArgumentException("A widget was passed without class attributes");
 
             var model = ModelFromAttributes(((WidgetAttribute[])widgetAttributes)[0], type);
             return model;
@@ -57,7 +57,7 @@ namespace Smeedee.Model
 
         private static WidgetModel ModelFromAttributes(WidgetAttribute attr, Type type)
         {
-            return new WidgetModel(attr.Name, attr.Icon, type, attr.IsEnabled);
+            return new WidgetModel(attr.Name, attr.Icon, attr.DescriptionStatic, type, attr.IsEnabled);
         }
 
         public string GetStoredLoginKey()
