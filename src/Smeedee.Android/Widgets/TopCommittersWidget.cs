@@ -23,10 +23,14 @@ namespace Smeedee.Android.Widgets
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         private TopCommitters model;
+        private ListView list;
 
         public TopCommittersWidget(Context context) : base(context)
         {
             InflateView();
+
+            list = FindViewById<ListView>(Resource.Id.TopCommittersList);
+
             bgWorker.Invoke(InitializeModelAndUpdateView);
         }
 
@@ -45,12 +49,13 @@ namespace Smeedee.Android.Widgets
 
         private void InitializeModelAndUpdateView()
         {
+            LoadModel();
+            ((Activity)Context).RunOnUiThread(() => list.Adapter = CreateAdapter());
+        }
+
+        private void LoadModel()
+        {
             model = service.GetSingle();
-
-            var list = FindViewById<ListView>(Resource.Id.TopCommittersList);
-            var adapter = CreateAdapter();
-
-            Handler.Post(() => list.Adapter = adapter);
         }
 
         private SimpleAdapter CreateAdapter()
