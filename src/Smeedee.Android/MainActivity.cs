@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Util;
 using Smeedee.Android.Screens;
+using Smeedee.Android.Services;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
 using Smeedee.Services;
@@ -22,7 +26,7 @@ namespace Smeedee.Android
             var activity = DetermineNextActivity();
             StartActivity(activity);
         }
-
+        
         private void ConfigureDependencies()
         {
             var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
@@ -37,6 +41,11 @@ namespace Smeedee.Android
             serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
             serviceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
             serviceLocator.Bind<IChangesetService>(new FakeChangesetService());
+
+            serviceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
+            serviceLocator.Bind<IPersistenceService>(new PersistenceService(
+                                                        serviceLocator.Get<IMobileKVPersister>()
+                                                    ));
         }
 
         private Intent DetermineNextActivity()

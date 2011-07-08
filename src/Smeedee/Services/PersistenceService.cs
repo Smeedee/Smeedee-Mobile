@@ -1,38 +1,63 @@
 ﻿using System;
-using System.Web.Script.Serialization;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Smeedee.Services
 {
     public class PersistenceService : IPersistenceService
     {
         private IMobileKVPersister storage;
-        private JavaScriptSerializer jsonSerializer;
         
         public PersistenceService(IMobileKVPersister mobileKvStorage)
         {
             storage = mobileKvStorage;
-            jsonSerializer = new JavaScriptSerializer();
         }
 
         public void Save(string key, Object value)
         {
-            storage.Save(key, jsonSerializer.Serialize(value));
+            storage.Save(key, Serialize(value));
         }
 
         public T Get<T>(string key, T defaultObject)
         {
-            // NOTE: Reason for System.Exception:
-            // We need to go this high in the exception hierarchy in order
-            // to catch the System.Exception thrown when JavaScriptSerializer
-            // fails to cast objects to the given type.
             try
             {
-                return jsonSerializer.Deserialize<T>(storage.Get(key));
+                return Deserialize<T>(storage.Get(key));
             }
-            catch(Exception)
+            catch (ArgumentException)
+            {
+                throw;
+            }
+            catch (Exception)
             {
                 return defaultObject;
             }
+        }
+
+        private static string Serialize(object obj)
+        {
+            var memoryStream = new MemoryStream();
+            try
+            {
+                new BinaryFormatter().Serialize(memoryStream, obj);
+                memoryStream.Position = 0;
+                return Convert.ToBase64String(memoryStream.ToArray());
+            }
+            finally
+            {
+                memoryStream.Close();
+            }
+        }
+
+        private static T Deserialize<T>(string obj)
+        {
+            byte[] bytes = Convert.FromBase64String(obj);
+            var binaryFormatter = new BinaryFormatter();
+            var deserialized = binaryFormatter.Deserialize(new MemoryStream(bytes));
+            if (!(deserialized is T))
+                throw new ArgumentException("The stored object is of type " + deserialized.GetType() + ", which can't be cast to " + typeof(T));
+            return (T)deserialized;
         }
     }
 }

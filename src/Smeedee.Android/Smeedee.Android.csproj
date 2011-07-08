@@ -116,6 +116,9 @@
     <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
       <Link>Services\IWorkingDaysLeftService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\PersistenceService.cs">
+      <Link>Services\PersistenceService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>
@@ -134,6 +137,9 @@
     <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
       <Link>Utilities\BackgroundWorker.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Utilities\Guard.cs">
+      <Link>Utilities\Guard.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
       <Link>Utilities\IBackgroundWorker.cs</Link>
     </Compile>
@@ -145,6 +151,7 @@
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Screens\ServerSettingsScreen.cs" />
+    <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />

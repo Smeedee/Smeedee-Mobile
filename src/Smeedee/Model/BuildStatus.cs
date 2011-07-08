@@ -1,4 +1,5 @@
 ﻿using System;
+using Smeedee.Utilities;
 
 namespace Smeedee.Model
 {
@@ -6,6 +7,8 @@ namespace Smeedee.Model
     {
         public BuildStatus(string projectName, BuildSuccessState buildSuccessState, string username, DateTime buildTime)
         {
+            Guard.NotNullOrEmpty(projectName, username);
+            Guard.NotNull(buildSuccessState, buildTime);
             BuildTime = buildTime;
             BuildSuccessState = buildSuccessState;
             ProjectName = projectName;
@@ -14,29 +17,7 @@ namespace Smeedee.Model
 
         public DateTime BuildTime { get; private set; }
         public BuildSuccessState BuildSuccessState { get; private set; }
-
-        private string _projectName;
-        public string ProjectName
-        {
-            get { return _projectName; }
-            private set 
-            { 
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Project name was null or empty");
-                _projectName = value;
-            }
-        }
-
-        private string _username;
-        public string Username
-        {
-            get { return _username; }
-            private set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Username was null or empty");
-                _username = value;
-            }
-        }
+        public string ProjectName { get; private set; }
+        public string Username { get; private set; }
     }
 }

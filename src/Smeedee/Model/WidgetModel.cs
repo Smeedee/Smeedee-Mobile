@@ -1,4 +1,5 @@
 ﻿using System;
+using Smeedee.Utilities;
 
 namespace Smeedee.Model
 {
@@ -11,7 +12,7 @@ namespace Smeedee.Model
 
         public WidgetModel(string name, int icon, Type type, bool isEnabled)
         {
-            if (name == null || type == null) throw new ArgumentNullException();
+            Guard.NotNull(name, type);
             Name = name;
             Icon = icon;
             Type = type;
