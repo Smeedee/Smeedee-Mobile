@@ -3,33 +3,39 @@
   xmlns:a="http://schemas.android.com/apk/res/android"
   a:layout_width="fill_parent"
   a:layout_height="fill_parent"
-  a:orientation="horizontal"
-  a:gravity="fill_horizontal">
-  <ImageView
-    a:layout_width="wrap_content"
-    a:layout_height="wrap_content"
-    a:src="@drawable/defaultperson"
-    a:maxHeight="70px"
-    a:maxWidth="70px"
-    a:adjustViewBounds="true"
-    a:paddingBottom="6px"
-    a:paddingLeft="6px"
-    a:paddingTop="6px"
-    a:paddingRight="10px" />
-  <TextView
-    a:id="@+id/committer_name"
-    a:layout_width="wrap_content"
-    a:layout_height="wrap_content"
-    a:textColor="#fff"
-    a:textStyle="bold"
-    a:textSize="18sp"
-    a:padding="3dip" />
+  a:layout_gravity="top"
+  a:gravity="center_vertical"
+  a:orientation="horizontal">
+  <LinearLayout
+    a:layout_width="0dip"
+    a:layout_height="fill_parent"
+    a:layout_weight="1">
+    <ImageView
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:src="@drawable/defaultperson"
+      a:maxHeight="70px"
+      a:maxWidth="70px"
+      a:adjustViewBounds="true"
+      a:paddingBottom="6px"
+      a:paddingLeft="6px"
+      a:paddingTop="6px"
+      a:paddingRight="10px" />
+    <TextView
+      a:id="@+id/committer_name"
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:textColor="#fff"
+      a:textStyle="bold"
+      a:textSize="18sp"
+      a:padding="3dip" />
+  </LinearLayout>
   <TextView
     a:id="@+id/number_of_commits"
-    a:layout_width="fill_parent"
+    a:layout_width="wrap_content"
     a:layout_height="wrap_content"
     a:paddingTop="3dip"
+    a:paddingRight="10dip"
     a:textColor="#fff"
-    a:textSize="24sp"
-    a:paddingRight="10dip" />
+    a:textSize="24sp" />
 </LinearLayout>
