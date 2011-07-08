@@ -137,6 +137,9 @@
     <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
       <Link>Utilities\BackgroundWorker.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Utilities\Guard.cs">
+      <Link>Utilities\Guard.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
       <Link>Utilities\IBackgroundWorker.cs</Link>
     </Compile>
