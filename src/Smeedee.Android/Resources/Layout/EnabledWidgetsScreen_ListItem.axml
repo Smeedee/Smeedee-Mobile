@@ -12,15 +12,31 @@
     a:layout_height="wrap_content"
     a:src="@drawable/icon_smeedee"
     />
-  <TextView 
-    a:id="@+id/WidgetTitle"
-    a:layout_toRightOf="@id/WidgetIcon"
-    a:layout_width="wrap_content"
-    a:layout_height="wrap_content"
-    a:layout_centerVertical="true"
-    a:textSize="22sp"
-    a:textStyle="bold"
-	  />
+
+  <!-- START: Widget title and description-->
+  <LinearLayout
+  a:layout_width="wrap_content"
+  a:layout_height="wrap_content"
+  a:layout_toRightOf="@id/WidgetIcon"
+  a:gravity="center_vertical"
+  a:orientation="vertical"
+  a:paddingLeft="10sp">
+
+    <TextView
+      a:id="@+id/WidgetTitleEnabledWidgetsScreen"
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:textSize="20sp"
+      a:text="Widget name" />
+
+    <TextView
+      a:id="@+id/WidgetDescriptionStaticEnabledWidgetsScreen"
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:textSize="12sp"
+      a:text="Widget description" />
+  </LinearLayout>
+  <!-- END: Widget title and description-->
 
   <CheckBox a:id="@+id/Checkbox"
     a:layout_width="wrap_content"

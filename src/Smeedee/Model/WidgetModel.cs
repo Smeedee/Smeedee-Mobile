@@ -13,7 +13,7 @@ namespace Smeedee.Model
 
         public WidgetModel(string name, int icon, string descriptionStatic, Type type, bool isEnabled)
         {
-            Guard.NotNull(name, type);
+            Guard.NotNull(name, type, descriptionStatic);
             Name = name;
             Icon = icon;
             DescriptionStatic = descriptionStatic;

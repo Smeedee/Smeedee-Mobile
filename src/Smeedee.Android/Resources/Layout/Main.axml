@@ -9,7 +9,7 @@
     android:layout_width="fill_parent"
     android:gravity="center"
     android:layout_height="55sp"
-    android:background="#1d1d1d">
+    android:background="@color/smeedee_darkgrey">
 
     <Button
       android:id="@+id/BtnPrev"
@@ -32,7 +32,7 @@
       android:id="@+id/WidgetNameInTopBanner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textColor="#F25000"
+      android:textColor="@color/smeedee_orange"
       android:textSize="20sp"
       android:text="Widget name" />
 
@@ -40,7 +40,7 @@
       android:id="@+id/WidgetDynamicDescriptionInTopBanner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="14sp"
+      android:textSize="12sp"
       android:text="Widget name description" />
     </LinearLayout>
     <!-- END: Widget title and description-->

@@ -53,7 +53,38 @@ namespace Smeedee.Android
             }
             return instances;
         }
-  
+
+        private void SetCorrectTopBannerWidgetTitle()
+        {
+            var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
+            var widgetNameFromAttribute = "widget name not set";
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            foreach (var widgetModel in widgets)
+            {
+                if (_currentDisplayingView.GetType() == widgetModel.Type)
+                {
+                    var widgetAttributes = (WidgetAttribute[])widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
+                    widgetNameFromAttribute = widgetAttributes[0].Name;
+                }
+            }
+            widgetTitle.Text = widgetNameFromAttribute;
+        }
+
+        private void SetCorrectTopBannerWidgetDescription()
+        {
+            var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
+            var widgetDescriptionFromAttribute = "";
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            foreach (var widgetModel in widgets)
+            {
+                if (_currentDisplayingView.GetType() == widgetModel.Type)
+                {
+                    var widgetAttributes = (WidgetAttribute[])widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
+                    widgetDescriptionFromAttribute = widgetAttributes[0].DescriptionStatic;
+                }
+            }
+            widgetDescriptionDynamic.Text = widgetDescriptionFromAttribute;
+        }
         private void BindEventsToNavigationButtons()
         {
             BindPreviousButtonClickEvent();
@@ -66,39 +97,10 @@ namespace Smeedee.Android
             btnPrev.Click += (obj, e) =>
                                  {
                                      _flipper.ShowPrevious();
+                                     SetCorrectTopBannerWidgetTitle();
+                                     SetCorrectTopBannerWidgetDescription();
                                      _flipper.RefreshDrawableState();
                                  };
-        }
-
-        private void SetCorrectTopBannerWidgetTitle()
-        {
-            var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
-            var widgetNameFromAttribute = "widget name not set";
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
-            foreach (var widgetModel in widgets)
-            {
-                if (_currentDisplayingView.GetType() == widgetModel.Type)
-                {
-                    var widgetAttributes = (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
-                    widgetNameFromAttribute = widgetAttributes[0].Name;
-                }
-            }
-            widgetTitle.Text = widgetNameFromAttribute;
-        }
-        private void SetCorrectTopBannerWidgetDescription()
-        {
-            var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
-            var widgetDescriptionFromAttribute = "widget description not set";
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
-            foreach (var widgetModel in widgets)
-            {
-                if (_currentDisplayingView.GetType() == widgetModel.Type)
-                {
-                    var widgetAttributes = (WidgetAttribute[])widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
-                    widgetDescriptionFromAttribute = widgetAttributes[0].DescriptionStatic;
-                }
-            }
-            widgetDescriptionDynamic.Text = widgetDescriptionFromAttribute;
         }
 
         private void BindNextButtonClickEvent()
@@ -107,17 +109,18 @@ namespace Smeedee.Android
             btnNext.Click += (sender, args) =>
                                  {
                                      _flipper.ShowNext();
-                                     //SetCorrectTopBannerWidgetIcon();
-                                     //SetCorrectTopBannerWidgetTitle();
-                                     //SetCorrectTopBannerWidgetDescription();
+                                     SetCorrectTopBannerWidgetTitle();
+                                     SetCorrectTopBannerWidgetDescription();
                                      _flipper.RefreshDrawableState();
                                  };
         }
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
             return true;
         }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
