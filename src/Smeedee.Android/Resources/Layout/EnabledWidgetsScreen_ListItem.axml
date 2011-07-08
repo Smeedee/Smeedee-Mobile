@@ -6,14 +6,12 @@
   a:layout_width="fill_parent"
   a:layout_height="?android:attr/listPreferredItemHeight">
 
-  <!-- Image This will be overwritten in code with data from model-->
   <ImageView
     a:id="@+id/WidgetIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
     a:src="@drawable/icon_smeedee"
     />
-  <!-- Widget Title This will be overwritten in code with data from model-->
   <TextView 
     a:id="@+id/WidgetTitle"
     a:layout_toRightOf="@id/WidgetIcon"
@@ -24,11 +22,11 @@
     a:textStyle="bold"
 	  />
 
-  <!-- Checkbox This will be overwritten in code with data from model-->
   <CheckBox a:id="@+id/Checkbox"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
     a:layout_alignParentRight="true"
     a:layout_marginRight="8dip"
+    a:focusable="false"        
 	  />
 </RelativeLayout>

@@ -7,16 +7,16 @@
 
   <LinearLayout
     android:id="@+id/TopBanner"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="50sp"
+    android:layout_height="55sp"
     android:background="#1d1d1d">
 
-<!--
     <LinearLayout
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dip"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="10sp">
 
     <TextView
       android:layout_width="wrap_content"
@@ -30,21 +30,20 @@
       android:layout_height="wrap_content"
       android:textSize="14sp"
       android:text="Widget name description" />
-     
+
     </LinearLayout>
- -->
+
     <Button
       android:id="@+id/BtnPrev"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/Prev" />
-  
+
     <Button
       android:id="@+id/BtnNext"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/Next" />
-  
   </LinearLayout>
   
   <ViewFlipper
