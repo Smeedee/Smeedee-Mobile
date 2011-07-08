@@ -63,11 +63,23 @@ namespace Smeedee.Android
                                  {
                                      _flipper.ShowPrevious();
                                      //SetCorrectTopBannerWidgetIcon();
+                                     //SetCorrectTopBannerWidgetTitle();
+                                     //SetCorrectTopBannerWidgetDescription();
                                      _flipper.RefreshDrawableState();
                                  };
         }
 
         private void SetCorrectTopBannerWidgetIcon()
+        {
+            //var currentView = _flipper.CurrentView;
+            throw new NotImplementedException();
+        }
+        private void SetCorrectTopBannerWidgetTitle()
+        {
+            //var currentView = _flipper.CurrentView;
+            throw new NotImplementedException();
+        }
+        private void SetCorrectTopBannerWidgetDescription()
         {
             //var currentView = _flipper.CurrentView;
             throw new NotImplementedException();
@@ -80,6 +92,8 @@ namespace Smeedee.Android
                                  {
                                      _flipper.ShowNext();
                                      //SetCorrectTopBannerWidgetIcon();
+                                     //SetCorrectTopBannerWidgetTitle();
+                                     //SetCorrectTopBannerWidgetDescription();
                                      _flipper.RefreshDrawableState();
                                  };
         }
