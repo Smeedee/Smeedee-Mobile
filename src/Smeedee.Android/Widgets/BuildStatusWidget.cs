@@ -11,7 +11,7 @@ using Smeedee.Utilities;
 namespace Smeedee.Android.Widgets
 {
     [WidgetAttribute("Build Status", Resource.Drawable.icon_projectstatus, IsEnabled = true)]
-    public class BuildStatusWidget : RelativeLayout/*, IWidget*/
+    public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };
         private readonly int[] listItemMappingTo = new[] {  Resource.Id.projectname, Resource.Id.username, Resource.Id.datetime, Resource.Id.buildstatus };
@@ -39,6 +39,8 @@ namespace Smeedee.Android.Widgets
         private void FillBuildList()
         {
             var buildList = FindViewById<ListView>(Resource.Id.build_list);
+
+            if (buildList == null) return;
 
             var adapter = new BuildStatusAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
             Handler.Post(() =>
