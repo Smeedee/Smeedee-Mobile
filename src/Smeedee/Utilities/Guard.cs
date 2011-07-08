@@ -12,5 +12,11 @@ namespace Smeedee.Utilities
             if (args.Any(arg => arg == null))
                 throw new ArgumentNullException();
         }
+
+        public static void NotNullOrEmpty(params string[] args)
+        {
+            if (args.Any(string.IsNullOrEmpty))
+                throw new ArgumentException("Argument cannot be null or empty");
+        }
     }
 }
