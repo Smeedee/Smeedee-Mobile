@@ -27,15 +27,15 @@
       a:layout_height="wrap_content"
       a:textColor="#fff"
       a:textStyle="bold"
-      a:textSize="18sp"
-      a:padding="3dip" />
+      a:textSize="16sp"
+      a:paddingTop="3dip" />
   </LinearLayout>
   <TextView
     a:id="@+id/number_of_commits"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
-    a:paddingTop="3dip"
+    a:paddingTop="1dip"
     a:paddingRight="10dip"
     a:textColor="#fff"
-    a:textSize="24sp" />
+    a:textSize="20sp" />
 </LinearLayout>
