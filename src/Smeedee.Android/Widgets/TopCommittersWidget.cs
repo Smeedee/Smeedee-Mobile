@@ -52,13 +52,15 @@ namespace Smeedee.Android.Widgets
             var from = new string[] { "name", "commits" };
             var to = new int[] { Resource.Id.committer_name, Resource.Id.number_of_commits };
 
-            var committer = model.Committers.First();
+            var fillData = new List<IDictionary<string, object>>();
 
-            var data = new Dictionary<string, object> {
-                {"name", committer.Name},
-                {"commits", committer.Commits}
-            };
-            var fillData = new List<IDictionary<string, object>>() {data};
+            foreach (var committer in model.Committers)
+            {
+                fillData.Add(new Dictionary<string, object> {
+                    {"name", committer.Name},
+                    {"commits", committer.Commits}
+                });
+            }
 
             var adapter = new SimpleAdapter(Context, fillData, Resource.Layout.TopCommittersWidget_ListItem, from, to);
             
