@@ -16,7 +16,7 @@ using Ids = Smeedee.Android.Resource.Id;
 namespace Smeedee.Android.Widgets
 {
     [WidgetAttribute("Latest Changesets", Resource.Drawable.icon_smeedee, IsEnabled = true)]
-    public class LatestChangesetsWidget : RelativeLayout, IWidget
+    public class LatestChangesetsWidget : RelativeLayout
     {
         internal const string NoMessageTag = "(no message)";
         private IChangesetService changesetService;
