@@ -13,7 +13,7 @@
 
     <Button
       android:id="@+id/BtnPrev"
-      android:background="@drawable/btn_left"
+      android:background="@drawable/navigation_button_left"
       android:layout_alignParentLeft="true"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
     
     <Button
       android:id="@+id/BtnNext"
-      android:background="@drawable/btn_right"
+      android:background="@drawable/navigation_button_right"
       android:layout_alignParentRight="true"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
