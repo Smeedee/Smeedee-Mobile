@@ -27,7 +27,7 @@ namespace Smeedee.Android
             
             AddWidgetsToFlipper();
             SetCorrectTopBannerWidgetTitle();
-            //SetCorrectTopBannerWidgetDescription();
+            SetCorrectTopBannerWidgetDescription();
             BindEventsToNavigationButtons();
         }
 
@@ -82,14 +82,23 @@ namespace Smeedee.Android
                     var widgetAttributes = (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
                     widgetNameFromAttribute = widgetAttributes[0].Name;
                 }
-                
             }
             widgetTitle.Text = widgetNameFromAttribute;
         }
         private void SetCorrectTopBannerWidgetDescription()
         {
-            //var currentView = _flipper.CurrentView;
-            throw new NotImplementedException();
+            var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
+            var widgetDescriptionFromAttribute = "widget description not set";
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            foreach (var widgetModel in widgets)
+            {
+                if (_currentDisplayingView.GetType() == widgetModel.Type)
+                {
+                    var widgetAttributes = (WidgetAttribute[])widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
+                    widgetDescriptionFromAttribute = widgetAttributes[0].DescriptionStatic;
+                }
+            }
+            widgetDescriptionDynamic.Text = widgetDescriptionFromAttribute;
         }
 
         private void BindNextButtonClickEvent()
