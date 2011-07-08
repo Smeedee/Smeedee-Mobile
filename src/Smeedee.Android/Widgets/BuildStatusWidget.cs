@@ -40,6 +40,8 @@ namespace Smeedee.Android.Widgets
         {
             var buildList = FindViewById<ListView>(Resource.Id.build_list);
 
+            if (buildList == null) return;
+
             var adapter = new BuildStatusAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
             Handler.Post(() =>
                              {
@@ -79,16 +81,17 @@ namespace Smeedee.Android.Widgets
         {
             var view = base.GetView(position, convertView, parent);
             var status = int.Parse(((TextView) view.FindViewById(Resource.Id.buildstatus)).Text);
-            var buildStatusView = view.FindViewById(Resource.Id.buildstatusdisplay) as TextView;
+            var buildStatusView = view.FindViewById(Resource.Id.buildstatusdisplay) as ImageView;
             
             if (buildStatusView != null)
             {
                 if (status == (int)BuildSuccessState.Success)
-                    buildStatusView.SetBackgroundResource(Resource.Color.build_green);
+                    buildStatusView.SetImageResource(Resource.Drawable.icon_buildsuccess);
                 if (status == (int)BuildSuccessState.Failure)
-                    buildStatusView.SetBackgroundResource(Resource.Color.build_red);
+                    buildStatusView.SetImageResource(Resource.Drawable.icon_buildfailure);
                 if (status == (int)BuildSuccessState.Unknown)
-                    buildStatusView.SetBackgroundResource(Resource.Color.build_orange);
+                    buildStatusView.SetImageResource(Resource.Drawable.icon_buildunknown);
+                
             } 
             return view;
         }

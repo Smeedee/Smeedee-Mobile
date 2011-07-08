@@ -102,25 +102,12 @@ namespace Smeedee.Android.Widgets
         {
             return new []
                 {
-                    new Changeset() { Date = new DateTime(2011, 7, 7, 12, 0, 0), 
-                                      User = "larspars", 
-                                      Message = "Refactored HerpFactory.Derp()" },
-                    new Changeset() { Date = new DateTime(2011, 7, 7, 1, 10, 0), 
-                                      User = "larmel", 
-                                      Message = "Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it? "},
-                    new Changeset() { Date = new DateTime(2011, 7, 6, 2, 0, 0), 
-                                      User = "larspars", 
-                                      Message = ""},
-                    new Changeset() { Date = new DateTime(2011, 7, 6, 1, 0, 0), 
-                                      User = "dagolap", 
-                                      Message = "Coded new codes."},
-                    new Changeset() { Date = new DateTime(2011, 7, 5, 1, 0, 0), 
-                                      User = "rodsjo", 
-                                      Message = "Programmed them programs."},
-                    new Changeset() { Date = new DateTime(2011, 7, 7, 2, 0, 0), 
-                                      User = "larspars", 
-                                      Message = "Blabla" },               
-                         
+                    new Changeset("Refactored HerpFactory.Derp()", new DateTime(2011, 7, 7, 12, 0, 0), "larspars"),
+                    new Changeset("Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it?", new DateTime(2011, 7, 7, 1, 10, 0), "larmel"),
+                    new Changeset("", new DateTime(2011, 7, 6, 2, 0, 0), "larspars"),
+                    new Changeset("Coded new codes.", new DateTime(2011, 7, 6, 1, 0, 0), "dagolap"),
+                    new Changeset("Programmed them programs.", new DateTime(2011, 7, 5, 1, 0, 0), "rodsjo"),
+                    new Changeset("Blabla", new DateTime(2011, 7, 7, 2, 0, 0), "larspars")
                 };
         }
     }
