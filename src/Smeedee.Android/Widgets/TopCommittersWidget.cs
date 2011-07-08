@@ -16,7 +16,7 @@ using Smeedee.Services;
 namespace Smeedee.Android.Widgets
 {
     [Widget("Top Committers", Resource.Drawable.icon_topcommitters, IsEnabled = true)]
-    public class TopCommittersWidget : RelativeLayout
+    public class TopCommittersWidget : RelativeLayout, IWidget
     {
         private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
 
