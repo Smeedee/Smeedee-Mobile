@@ -48,23 +48,34 @@ namespace Smeedee.Android.Widgets
             model = service.GetSingle();
 
             var list = FindViewById<ListView>(Resource.Id.TopCommittersList);
-            
+            var adapter = CreateAdapter();
+
+            Handler.Post(() => list.Adapter = adapter);
+        }
+
+        private SimpleAdapter CreateAdapter()
+        {
             var from = new string[] { "name", "commits" };
             var to = new int[] { Resource.Id.committer_name, Resource.Id.number_of_commits };
 
-            var fillData = new List<IDictionary<string, object>>();
+            var data = GetModelAsListData(from[0], from[1]);
+
+            return new SimpleAdapter(Context, data, Resource.Layout.TopCommittersWidget_ListItem, from, to);
+        }
+
+        private List<IDictionary<string, object>> GetModelAsListData(string nameField, string commitsField)
+        {
+            var data = new List<IDictionary<string, object>>();
 
             foreach (var committer in model.Committers)
             {
-                fillData.Add(new Dictionary<string, object> {
-                    {"name", committer.Name},
-                    {"commits", committer.Commits}
+                data.Add(new Dictionary<string, object> {
+                    {nameField, committer.Name},
+                    {commitsField, committer.Commits}
                 });
             }
 
-            var adapter = new SimpleAdapter(Context, fillData, Resource.Layout.TopCommittersWidget_ListItem, from, to);
-            
-            Handler.Post(() => list.Adapter = adapter);
-        }
+            return data;
+        } 
     }
 }
