@@ -37,7 +37,7 @@ namespace Smeedee.Services
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             var deserialized = binaryFormatter.Deserialize(memoryStream);
             if (!(deserialized is T))
-                throw new ArgumentException("The stored object is not of the type you are trying to access it as.");
+                throw new ArgumentException("The stored object is of type "+deserialized.GetType()+", which can't be cast to "+typeof(T));
             return (T)deserialized;
         }
 
