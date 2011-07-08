@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Android.App;
 using Android.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
@@ -17,6 +19,8 @@ namespace Smeedee.Android.Widgets
         private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
+        private ListView buildList;
+
         public BuildStatusWidget(Context context)
             : base(context)
         {
@@ -26,24 +30,31 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             CreateGui();
+            buildList = FindViewById<ListView>(Resource.Id.build_list);
+
             bgWorker.Invoke(FillBuildList);
         }
         
         private void CreateGui()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            inflater.Inflate(Resource.Layout.BuildStatusWidget, this);
+            if (inflater != null)
+            {
+                inflater.Inflate(Resource.Layout.BuildStatusWidget, this);
+            } else
+            {
+                throw new NullReferenceException("Failed to get inflater in Build status widget");
+            }
         }
 
         private void FillBuildList()
         {
-            var buildList = FindViewById<ListView>(Resource.Id.build_list);
-
-            var adapter = new BuildStatusAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
-            Handler.Post(() =>
-                             {
-                                buildList.Adapter = adapter;
-                             });
+            var data = GetData();
+            ((Activity)Context).RunOnUiThread(() =>
+            {
+                var adapter = new BuildStatusAdapter(Context, data, Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
+                buildList.Adapter = adapter;
+            });
         }
 
         private IList<IDictionary<string, object>> GetData()
@@ -78,16 +89,17 @@ namespace Smeedee.Android.Widgets
         {
             var view = base.GetView(position, convertView, parent);
             var status = int.Parse(((TextView) view.FindViewById(Resource.Id.buildstatus)).Text);
-            var buildStatusView = view.FindViewById(Resource.Id.buildstatusdisplay) as TextView;
+            var buildStatusView = view.FindViewById(Resource.Id.buildstatusdisplay) as ImageView;
             
             if (buildStatusView != null)
             {
                 if (status == (int)BuildSuccessState.Success)
-                    buildStatusView.SetBackgroundResource(Resource.Color.build_green);
+                    buildStatusView.SetImageResource(Resource.Drawable.icon_buildsuccess);
                 if (status == (int)BuildSuccessState.Failure)
-                    buildStatusView.SetBackgroundResource(Resource.Color.build_red);
+                    buildStatusView.SetImageResource(Resource.Drawable.icon_buildfailure);
                 if (status == (int)BuildSuccessState.Unknown)
-                    buildStatusView.SetBackgroundResource(Resource.Color.build_orange);
+                    buildStatusView.SetImageResource(Resource.Drawable.icon_buildunknown);
+                
             } 
             return view;
         }

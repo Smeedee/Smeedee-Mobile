@@ -5,28 +5,18 @@
   a:layout_width="fill_parent"
   a:layout_height="fill_parent">
   
-  <!-- Bilde - TODO: Make real-->
-  <ImageView
-    a:id="@+id/SmeedeeIcon"
-    a:layout_width="wrap_content"
-    a:layout_height="wrap_content"
-    a:src="@drawable/icon_smeedee" 
-    />
-  <!-- Buildconfig Name -->
   <TextView a:id="@+id/projectname"
     a:text="projectname"
-    a:layout_toRightOf="@id/SmeedeeIcon"
+    a:textColor="#FFFFFFFF"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
-    a:textSize="22sp"
-    a:textStyle="bold"
+    a:textSize="18sp"
 	  />
   
   <!-- Status color -->
   <TextView a:id="@+id/username"
     a:text="username"
     a:layout_below="@id/projectname"
-    a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
 	  />
@@ -35,7 +25,6 @@
   <TextView a:id="@+id/datetime"
     a:text="datetime"
     a:layout_below="@id/username"
-    a:layout_toRightOf="@id/SmeedeeIcon"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
 	  />
@@ -52,12 +41,14 @@
     a:layout_width="5dip"
     a:layout_height="fill_parent"/>
 
-  <TextView
+
+  <ImageView
     a:id="@+id/buildstatusdisplay"
-    a:background="#151"
     a:layout_marginRight="8dip"
-    a:width="5dip"
     a:layout_alignParentRight="true"
-    a:layout_width="5dip"
-    a:layout_height="fill_parent"/>
+    a:layout_centerVertical="true"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:src="@drawable/icon_buildunknown"
+    />
 </RelativeLayout>
