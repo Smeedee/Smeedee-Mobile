@@ -14,9 +14,9 @@ namespace Smeedee.Services
             storage = mobileKvStorage;
         }
 
-        private string Serialize(object obj)
+        private static string Serialize(object obj)
         {
-            MemoryStream memoryStream = new MemoryStream();
+            var memoryStream = new MemoryStream();
             try
             {
                 new BinaryFormatter().Serialize(memoryStream, obj);
@@ -30,12 +30,11 @@ namespace Smeedee.Services
             }
         }
 
-        private T Deserialize<T>(string obj)
+        private static T Deserialize<T>(string obj)
         {
             byte[] bytes = Convert.FromBase64String(obj);
-            MemoryStream memoryStream = new MemoryStream(bytes);
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            var deserialized = binaryFormatter.Deserialize(memoryStream);
+            var binaryFormatter = new BinaryFormatter();
+            var deserialized = binaryFormatter.Deserialize(new MemoryStream(bytes));
             if (!(deserialized is T))
                 throw new ArgumentException("The stored object is of type "+deserialized.GetType()+", which can't be cast to "+typeof(T));
             return (T)deserialized;
@@ -52,9 +51,12 @@ namespace Smeedee.Services
             {
                 return Deserialize<T>(storage.Get(key));
             }
+            catch (ArgumentException e)
+            {
+                throw;
+            }
             catch (Exception e)
             {
-                throw e;
                 return defaultObject;
             }
         }
