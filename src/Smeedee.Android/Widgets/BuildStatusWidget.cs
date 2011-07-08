@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Android.App;
 using Android.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
@@ -18,6 +20,8 @@ namespace Smeedee.Android.Widgets
         private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
+        private ListView buildList;
+
         public BuildStatusWidget(Context context)
             : base(context)
         {
@@ -27,26 +31,31 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             CreateGui();
+            buildList = FindViewById<ListView>(Resource.Id.build_list);
+
             bgWorker.Invoke(FillBuildList);
         }
         
         private void CreateGui()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            inflater.Inflate(Resource.Layout.BuildStatusWidget, this);
+            if (inflater != null)
+            {
+                inflater.Inflate(Resource.Layout.BuildStatusWidget, this);
+            } else
+            {
+                throw new NullReferenceException("Failed to get inflater in Build status widget");
+            }
         }
 
         private void FillBuildList()
         {
-            var buildList = FindViewById<ListView>(Resource.Id.build_list);
-
-            if (buildList == null) return;
-
-            var adapter = new BuildStatusAdapter(Context, GetData(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
-            Handler.Post(() =>
-                             {
-                                buildList.Adapter = adapter;
-                             });
+            var data = GetData();
+            ((Activity)Context).RunOnUiThread(() =>
+            {
+                var adapter = new BuildStatusAdapter(Context, data, Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
+                buildList.Adapter = adapter;
+            });
         }
 
         private IList<IDictionary<string, object>> GetData()
