@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Smeedee.Services;
+using Smeedee.Utilities;
 
 namespace Smeedee.Model
 {
@@ -8,10 +9,7 @@ namespace Smeedee.Model
     {
         public Committer(string name, int commits, string url)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException("name");
-            }
+            Guard.NotNull(name);
             Name = name;
             Commits = commits;
             ImageUri = new Uri(url);
