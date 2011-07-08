@@ -80,37 +80,69 @@ namespace Smeedee.UnitTests.Services
                 _persistenceService = new PersistenceService(_fakeKvStorage);
             }
 
-            [Test]
-            public void Should_properly_deserialize_simple_int_describes_as_json()
+            private bool SaveAndGetGivesEqualObject<T>(T input, T defaultValue) where T : class
             {
-                _fakeKvStorage.retrievableContent = "1";
-                Assert.AreEqual(1, _persistenceService.Get<int>(KEY, 42));
+                _persistenceService.Save("testkey", input);
+                var output = _persistenceService.Get<T>("testkey", defaultValue);
+                if (output is int[])
+                {
+                    Console.WriteLine((output as int[])[0]);
+                }
+                return input.Equals(output);
             }
 
             [Test]
-            public void Should_properly_deserialize_simple_string_describes_as_json()
+            public void Should_properly_deserialize_simple_int()
             {
-                _fakeKvStorage.retrievableContent = "\"Hello World\"";
-                Assert.AreEqual("Hello World", _persistenceService.Get<string>(KEY, "This is wrong"));
+                _persistenceService.Save(KEY, 42);
+                Assert.AreEqual(42, _persistenceService.Get(KEY, -1));
+            }
+
+
+            [Test]
+            public void Should_properly_deserialize_simple_string()
+            {
+                Assert.True(SaveAndGetGivesEqualObject("Hello world", "Default value"));
             }
 
             [Test]
-            public void Should_properly_deserialize_simple_list_of_ints_described_as_json()
+            public void Should_properly_deserialize_simple_array_of_ints()
             {
-                _fakeKvStorage.retrievableContent = "[1,2,3,4]";
-                Assert.AreEqual(new List<int>() {1, 2, 3, 4}, _persistenceService.Get(KEY, new List<int>()));
+                var input = new[] {1, 2, 3};
+                _persistenceService.Save("testkey", input);
+                var output = _persistenceService.Get("testkey", new [] { -7 });
+                for (var i = 0; i < input.Length; ++i)
+                {
+                    Assert.AreEqual(input[i], output[i]);
+                }
             }
 
             [Test]
             public void Should_properly_deserialize_simple_custom_object_describes_as_json()
             {
-                _fakeKvStorage.retrievableContent = PersistenceServiceResources.SimpleCustomClassJson;
-                Assert.AreEqual(new SerializableSimpleDataStructure()
-                                    {
-                                        var1 = 10.2,
-                                        var2 = true,
-                                        var3 = "Test"
-                                    }, _persistenceService.Get<SerializableSimpleDataStructure>(KEY, null));
+                var obj = new SerializableSimpleDataStructure()
+                              {
+                                  var1 = 10.2,
+                                  var2 = true,
+                                  var3 = "Test"
+                              };
+                Assert.True(SaveAndGetGivesEqualObject(obj, null));
+            }
+
+            [Test]
+            public void Should_give_argument_exception_when_Get_is_called_with_wrong_type()
+            {
+                var input = new[] { 1, 2, 3 };
+                _persistenceService.Save("testkey", input);
+                var exceptionWasThrown = false;
+                try
+                {
+                    var output = _persistenceService.Get("testkey", 2);
+                } catch (ArgumentException)
+                {
+                    exceptionWasThrown = true;
+                }
+                Assert.True(exceptionWasThrown);
             }
         }
 
@@ -127,14 +159,7 @@ namespace Smeedee.UnitTests.Services
             [Test]
             public void Should_return_default_if_key_does_not_exist()
             {
-                Assert.AreEqual(1, _persistenceService.Get<int>("Non existing key", 1));
-            }
-
-            [Test]
-            public void Should_return_default_if_returned_value_can_not_be_deserialzed_to_given_type()
-            {
-                _persistenceService.Save(KEY, "Hello World");
-                Assert.AreEqual(1, _persistenceService.Get<int>(KEY, 1));
+                Assert.AreEqual(1, _persistenceService.Get("Non existing key", 1));
             }
         }
     }

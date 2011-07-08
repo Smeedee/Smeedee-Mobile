@@ -14,32 +14,6 @@ namespace Smeedee.Services
             storage = mobileKvStorage;
         }
 
-        private static string Serialize(object obj)
-        {
-            var memoryStream = new MemoryStream();
-            try
-            {
-                new BinaryFormatter().Serialize(memoryStream, obj);
-                memoryStream.Position = 0;
-
-                return Convert.ToBase64String(memoryStream.ToArray());
-            }
-            finally
-            {
-                memoryStream.Close();
-            }
-        }
-
-        private static T Deserialize<T>(string obj)
-        {
-            byte[] bytes = Convert.FromBase64String(obj);
-            var binaryFormatter = new BinaryFormatter();
-            var deserialized = binaryFormatter.Deserialize(new MemoryStream(bytes));
-            if (!(deserialized is T))
-                throw new ArgumentException("The stored object is of type "+deserialized.GetType()+", which can't be cast to "+typeof(T));
-            return (T)deserialized;
-        }
-
         public void Save(string key, Object value)
         {
             storage.Save(key, Serialize(value));
@@ -59,6 +33,31 @@ namespace Smeedee.Services
             {
                 return defaultObject;
             }
+        }
+
+        private static string Serialize(object obj)
+        {
+            var memoryStream = new MemoryStream();
+            try
+            {
+                new BinaryFormatter().Serialize(memoryStream, obj);
+                memoryStream.Position = 0;
+                return Convert.ToBase64String(memoryStream.ToArray());
+            }
+            finally
+            {
+                memoryStream.Close();
+            }
+        }
+
+        private static T Deserialize<T>(string obj)
+        {
+            byte[] bytes = Convert.FromBase64String(obj);
+            var binaryFormatter = new BinaryFormatter();
+            var deserialized = binaryFormatter.Deserialize(new MemoryStream(bytes));
+            if (!(deserialized is T))
+                throw new ArgumentException("The stored object is of type " + deserialized.GetType() + ", which can't be cast to " + typeof(T));
+            return (T)deserialized;
         }
     }
 }
