@@ -9,7 +9,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
-    [Widget("Test Web Widget", "/foo.bar.png")]
+    [Widget("Test Web Widget", 2, DescriptionStatic = "Testing a web widget")]
     public partial class TestWebViewScreen : UIViewController, IWidget
     {
         #region Constructors

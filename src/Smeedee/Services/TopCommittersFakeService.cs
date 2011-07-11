@@ -26,7 +26,7 @@ namespace Smeedee.Services
 
         public TopCommitters GetSingle(IDictionary<string, string> args)
         {
-            var count = int.Parse(args["count"]);
+			var count = (args.ContainsKey("count")) ? int.Parse(args["count"]) : 5;
 
             var filteredData = data.Committers.Take(count);
             return new TopCommitters(filteredData.ToList());

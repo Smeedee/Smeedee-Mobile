@@ -5,6 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Utilities;
 
 namespace Smeedee.iPhone
 {
@@ -39,8 +40,11 @@ namespace Smeedee.iPhone
         
         private void ConfigureDependencies()
         {
-            //app.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
-            app.ServiceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
+            app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+			app.ServiceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
+			app.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
+			app.ServiceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
+			app.ServiceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
         }
         
         private void RegisterAllSupportedWidgets()

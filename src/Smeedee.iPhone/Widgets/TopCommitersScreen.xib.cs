@@ -3,42 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+
 using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee.iPhone
 {
-    [Widget("Top Commiters", "/foo.bar.png")]
+    [Widget("Top Commiters", 2, DescriptionStatic = "Shows the most active committers")]
     public partial class TopCommitersScreen : UITableViewController, IWidget
     {
         public TopCommitersScreen() : base("TopCommitersScreen", null)
         {
         }
         
-        private TopCommiters topCommiters = new TopCommiters();
-        
+        private TopCommitters topCommitters;
+        private IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
+		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             
             var tableSource = new TopCommitersTableSource();
             TableView.Source = tableSource;
-            
-            topCommiters.Load(() => {
-                InvokeOnMainThread(() => {
-                    tableSource.Commiters = topCommiters.Commiters;
-                    TableView.ReloadData();
-                });
+			
+			topCommitters = service.GetSingle(new Dictionary<string, string>());
+            InvokeOnMainThread(() => {
+                tableSource.Committers = topCommitters.Committers;
+                TableView.ReloadData();
             });
         }
     }
     
     public class TopCommitersTableSource : UITableViewSource
     {
-        public IEnumerable<Commiter> Commiters { get; set; }
+        public IEnumerable<Committer> Committers { get; set; }
         
         public TopCommitersTableSource()
         {
-            Commiters = new List<Commiter>();
+            Committers = new List<Committer>();
         }
         
         public override int NumberOfSections(UITableView tableView)
@@ -48,18 +50,18 @@ namespace Smeedee.iPhone
         
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return Commiters.Count();
+            return Committers.Count();
         }
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var commiter = Commiters.ElementAt(indexPath.Row);
+            var committer = Committers.ElementAt(indexPath.Row);
             
             // TODO: add cell reuse/virtualization here!!
             var topCommiterCellController = new TopCommiterTableCell();
             
             NSBundle.MainBundle.LoadNib("TopCommiterTableCell", topCommiterCellController, null);
-            topCommiterCellController.BindDataToCell(commiter.Name, 123);
+            topCommiterCellController.BindDataToCell(committer.Name, 123);
             
             return topCommiterCellController.Cell;
         }
