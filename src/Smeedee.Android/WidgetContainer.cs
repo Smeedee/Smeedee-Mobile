@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
@@ -202,18 +203,18 @@ namespace Smeedee.Android
             return prefs.GetBoolean(widget.Name, true);
         }
     }
+
 	class ProgressHandler : Handler
+    {
+        private ProgressDialog dialog;
+        public ProgressHandler(ProgressDialog dialog)
         {
-            private ProgressDialog dialog;
-            public ProgressHandler(ProgressDialog dialog)
-            {
-                this.dialog = dialog;
-            }
-            public override void HandleMessage(Message msg)
-            {
-                base.HandleMessage(msg);
-                dialog.Dismiss();
-            }
+            this.dialog = dialog;
         }
-	}
+        public override void HandleMessage(Message msg)
+        {
+            base.HandleMessage(msg);
+            dialog.Dismiss();
+        }
+    }
 }
