@@ -124,6 +124,10 @@ namespace Smeedee.Android
         {
             switch (item.ItemId)
             {
+                case Resource.Id.BtnRefreshCurrentWidget:
+                    return true;
+                    break;
+
                 case Resource.Id.BtnWidgetSettings:
 
                     // TODO: Open widget settings view based on witch widget is shown to the user

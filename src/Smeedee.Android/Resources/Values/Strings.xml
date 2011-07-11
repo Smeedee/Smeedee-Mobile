@@ -11,6 +11,7 @@
   <!-- WidgetContainer-->
   <string name="Prev">Previous</string>
   <string name="Next">Next</string>
+  <string name="RefreshCurrentWidget">Refresh current</string>
   <string name="GlobalSettings">Global Settings</string>
   <string name="WidgetSettings">Widget Settings</string>
 
