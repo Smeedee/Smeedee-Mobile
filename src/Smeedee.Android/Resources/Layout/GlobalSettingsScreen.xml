@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <PreferenceCategory 
-    android:title="Available widgets"
-    android:key="availableWidgets">
+    android:title="Available widgets">
+
+    <PreferenceScreen
+      android:key="availableWidgets"
+      android:title="Available widgets"
+      android:summary="Enable and disable widgets">
+      
+    </PreferenceScreen>
     
   </PreferenceCategory>
   

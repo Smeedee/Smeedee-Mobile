@@ -21,7 +21,7 @@ namespace Smeedee.Android.Screens
 
         private void PopulateAvailableWidgetsCheckboxes()
         {
-            var availableWidgetsCategory = (PreferenceCategory) FindPreference("availableWidgets");
+            var availableWidgetsCategory = (PreferenceScreen)FindPreference("availableWidgets");
             var widgets = SmeedeeApp.Instance.AvailableWidgets;
             foreach (var widgetModel in widgets)
             {
