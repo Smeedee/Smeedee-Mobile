@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  
+  <string-array name="colorNames">
+    <item>Yellow</item>
+    <item>Orange</item>
+    <item>Red</item>
+    <item>Magenta</item>
+    <item>Violet</item>
+    <item>Blue</item>
+    <item>Cyan</item>
+    <item>Green</item>
+  </string-array>
+
+  <string-array name="colorValues">
+    <item>b58900</item>
+    <item>cb4b16</item>
+    <item>dc322f</item>
+    <item>d33682</item>
+    <item>6c71c4</item>
+    <item>268bd2</item>
+    <item>2aa198</item>
+    <item>859900</item>
+  </string-array>
+</resources>

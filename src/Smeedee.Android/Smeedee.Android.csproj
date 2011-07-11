@@ -153,6 +153,7 @@
     <Compile Include="Screens\ServerSettingsScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
+    <Compile Include="Widgets\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
@@ -194,6 +195,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\navigation_button_left.xml" />
+    <AndroidResource Include="Resources\Values\Arrays.xml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -255,6 +259,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon_buildunknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings_ListItem.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

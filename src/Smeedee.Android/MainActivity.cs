@@ -14,7 +14,7 @@ using Smeedee.Utilities;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee Mobile", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/icon_smeedee")]
+    [Activity(Label = "Smeedee Mobile", Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/icon_smeedee")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
