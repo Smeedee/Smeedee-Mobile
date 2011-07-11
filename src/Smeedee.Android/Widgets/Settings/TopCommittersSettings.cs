@@ -21,6 +21,15 @@ namespace Smeedee.Android.Widgets.Settings
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.TopCommittersSettings);
 
+
+            var preferences = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            var countView = FindViewById<ListPreference>(Resource.Id.TopCommittersCountPrefId);
+            var countValue = preferences.GetString("TopCommittersCountPref", "5");
+            /*
+            countView.Summary = "Showing top " + countValue + " committers";
+            */
+            //countView.Summary = 
         }
     }
 }

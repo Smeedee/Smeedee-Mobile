@@ -4,6 +4,7 @@
   <PreferenceCategory 
     a:title="Committers">
     <ListPreference
+      a:id="@+id/TopCommittersCountPrefId"
       a:key="TopCommittersCountPref"
       a:title="Committers"
       a:summary="Currently showing top 5 committers"
@@ -15,6 +16,7 @@
   <PreferenceCategory
     a:title="Time">
     <ListPreference
+      a:id="@+id/TopCommittersTimePrefId"
       a:key="TopCommittersTimePref"
       a:title="Time period"
       a:summary="Showing top committers for the last 24 hours"
