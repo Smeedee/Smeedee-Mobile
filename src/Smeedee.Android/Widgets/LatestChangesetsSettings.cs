@@ -28,39 +28,29 @@ namespace Smeedee.Android.Widgets
         {
             base.OnCreate(savedInstanceState);
             AddPreferencesFromResource(Resource.Layout.LatestChangesetsSettings);
-            var colorPref = (CustomListPreference)FindPreference("lcs_customListPref");
-            Log.Debug("SMEEDEE", "colorPref.Value: " + colorPref.Value);
+            var colorPref = (ColoredListPreference)FindPreference("lcs_customListPref");
             //TODO: Deal with persisting the setting
         }
     }
 
-    public class CustomListPreference : ListPreference
+    public class ColoredListPreference : ListPreference
     {
-        private IPersistenceService persistence;
-        public CustomListPreference(Context context, IAttributeSet attrs)
+        public ColoredListPreference(Context context, IAttributeSet attrs)
             : base(context, attrs)
         {
-            //persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-            //persistence.Get("latest_changesets.color_index", 2);
         }
         
         protected override void OnPrepareDialogBuilder(AlertDialog.Builder builder)
         {
-            var clickedDialogEntryIndex = FindIndexOfValue(Value);
-            Log.Debug("SMEEDEE", "onPrepare Value " + Value);
-            Log.Debug("SMEEDEE", "clickedDialogEntryIndex " + clickedDialogEntryIndex);
             EventHandler<DialogClickEventArgs> onClick = (o, e) =>
                               {
-                                  Log.Debug("SMEEDEE", "Value pre: " + Value);
                                   var dialog = (AlertDialog) o;
-                                  var selectedIndex = (int) e.Which;
-                                  SetValueIndex(selectedIndex);
-                                  OnClick(dialog, DialogInterfaceButton.Positive);
+                                  SetValueIndex((int) e.Which);
+                                  OnClick((AlertDialog) o, DialogInterfaceButton.Positive);
                                   dialog.Dismiss();
-                                  Log.Debug("SMEEDEE", "Value post: " + Value);
                               };
             var adapter = CreateAdapter();
-            builder.SetSingleChoiceItems(adapter, clickedDialogEntryIndex, onClick);
+            builder.SetSingleChoiceItems(adapter, FindIndexOfValue(Value), onClick);
             
             HideOkButton(builder);
         }
@@ -90,15 +80,16 @@ namespace Smeedee.Android.Widgets
                                   {"colorValue", entryValues[i]}
                               });
             }
-            Func<int, Color> colorFn = (position) =>
-                                           {
-                                               var hex = (string) items[position]["colorValue"];
-                                               var r = Integer.ParseInt(hex.Substring(0, 2), 16);
-                                               var g = Integer.ParseInt(hex.Substring(2, 2), 16);
-                                               var b = Integer.ParseInt(hex.Substring(4, 2), 16);
-                                               return new Color(r, g, b);
-                                           };
+            Func<int, Color> colorFn = position => HexToColor(entryValues[position]);
             return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colorFn);
+        }
+
+        private static Color HexToColor(string hex)
+        {
+            var r = Integer.ParseInt(hex.Substring(0, 2), 16);
+            var g = Integer.ParseInt(hex.Substring(2, 2), 16);
+            var b = Integer.ParseInt(hex.Substring(4, 2), 16);
+            return new Color(r, g, b);
         }
 
         internal class TextColoringAdapter : SimpleAdapter
