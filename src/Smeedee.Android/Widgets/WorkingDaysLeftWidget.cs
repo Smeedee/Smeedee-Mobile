@@ -53,5 +53,10 @@ namespace Smeedee.Android.Widgets
             daysView.SetText(days, TextView.BufferType.Normal);
             textView.SetText(text, TextView.BufferType.Normal);
         }
+
+        public void Refresh()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

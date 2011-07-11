@@ -84,6 +84,11 @@ namespace Smeedee.Android.Widgets
             }
 
             return data;
-        } 
+        }
+
+        public void Refresh()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
