@@ -67,10 +67,13 @@ namespace Smeedee.Android.Widgets
 
         private IList<IDictionary<string, object>> GetListAdapterFromBuildModels()
         {
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+            var showTriggeredBy = prefs.GetBoolean("showTriggeredBy", true);
+
             return builds.Select(build => new Dictionary<String, object>
                         {
                             {"project_name", build.ProjectName},
-                            {"username", build.Username},
+                            {"username", (showTriggeredBy) ? build.Username : ""},
                             {"datetime", (DateTime.Now - build.BuildTime).PrettyPrint() }, 
                             { "success_status", (int) build.BuildSuccessState}
                         }).Cast<IDictionary<string, object>>().ToList();
