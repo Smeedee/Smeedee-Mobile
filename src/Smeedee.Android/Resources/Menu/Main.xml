@@ -4,9 +4,9 @@
         android:icon="@android:drawable/ic_menu_rotate"
         android:title="@string/RefreshCurrentWidget" />
   <item android:id="@+id/BtnWidgetSettings"
-        android:icon="@android:drawable/ic_menu_manage"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/WidgetSettings" />
   <item android:id="@+id/BtnGlobalSettings"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/GlobalSettings" />
 </menu>
