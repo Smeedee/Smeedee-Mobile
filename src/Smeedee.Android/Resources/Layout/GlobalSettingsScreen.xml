@@ -32,15 +32,17 @@
   
   <PreferenceCategory android:title="Server and user settings">
     <EditTextPreference
-   android:key="editTextPref"
-   android:title="Server URL"
-   android:summary="Change the Smeedee Server URL"
-   android:defaultValue="Nothing"/>
+      android:id="@+id/ServerURL"
+      android:key="serverUrl"
+      android:title="Server URL"
+      android:summary="Change the Smeedee Server URL"
+      android:defaultValue="url"/>
     <EditTextPreference
-   android:key="editTextPref"
-   android:title="User Password"
-   android:summary="Change your user password"
-   android:defaultValue="Nothing"/>
+      android:id="@+id/UserPassword"
+      android:key="userPassword"
+      android:title="User Password"
+      android:summary="Change your user password"
+      android:defaultValue="password"/>
   </PreferenceCategory>
   
 </PreferenceScreen>

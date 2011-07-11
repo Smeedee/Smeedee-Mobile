@@ -12,6 +12,8 @@ namespace Smeedee.Android.Screens
             base.OnCreate(bundle);
 
             AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
+
+            //TODO: Show the last stored url and user password in EditTextPreference.DefaultValue
         }
     }
 }
