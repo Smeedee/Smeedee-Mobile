@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<resources>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- Top Committers Settings -->
+  <string-array name="TopCommittersCountArray">
+    <item>Top 5</item>
+    <item>Top 10</item>
+    <item>Top 15</item>
+  </string-array>
+  <string-array name="TopCommittersCountValues">
+    <item>5</item>
+    <item>10</item>
+    <item>15</item>
+</string-array>
+</resources>

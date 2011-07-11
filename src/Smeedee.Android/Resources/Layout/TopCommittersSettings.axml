@@ -6,6 +6,13 @@
       android:title="Show image"
       android:summary="Toggle fancy image icon to the left"
       android:defaultValue="false"/>
+
+    <ListPreference
+      android:key="TopCommittersCountPref"
+      android:title="Committers"
+      android:summary="Currently showing top 5 committers"
+      android:entries="@array/TopCommittersCountArray"
+      android:entryValues="@array/TopCommittersCountValues" />
     
   </PreferenceCategory>
   
