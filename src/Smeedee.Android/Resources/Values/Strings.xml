@@ -11,8 +11,9 @@
   <!-- WidgetContainer-->
   <string name="Prev">Previous</string>
   <string name="Next">Next</string>
-  <string name="GlobalSettings">Global Settings</string>
-  <string name="WidgetSettings">Widget Settings</string>
+  <string name="RefreshCurrentWidget">Refresh</string>
+  <string name="WidgetSettings">Configure</string>
+  <string name="GlobalSettings">Settings</string>
 
   <!--GlobalSettings-->
   <string name="BtnServerSettings">Server and user settings</string>

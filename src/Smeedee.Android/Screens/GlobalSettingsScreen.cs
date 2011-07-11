@@ -35,5 +35,6 @@ namespace Smeedee.Android.Screens
                 availableWidgetsCategory.AddPreference(checkBox);
             }
         }
+
     }
 }

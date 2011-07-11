@@ -256,7 +256,7 @@
     <AndroidResource Include="Resources\Values\Arrays.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\BuildStatusSettings.xml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusSettings.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
