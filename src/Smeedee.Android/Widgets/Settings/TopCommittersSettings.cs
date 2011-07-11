@@ -17,30 +17,63 @@ namespace Smeedee.Android.Widgets.Settings
     [Activity(Label = "Top Committers Settings")]
     public class TopCommittersSettings : PreferenceActivity
     {
+        private ISharedPreferences preferences;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.TopCommittersSettings);
 
+            preferences = PreferenceManager.GetDefaultSharedPreferences(this);
+            UpdateSummaryForPreferences();
 
-            var preferences = PreferenceManager.GetDefaultSharedPreferences(this);
+        }
 
+        private void UpdateSummaryForPreferences()
+        {
+            UpdateSummaryForCount();
+            UpdateSummaryForTime();
+        }
+
+        private void UpdateSummaryForCount()
+        {
             var countPreference = FindPreference("TopCommittersCountPref") as ListPreference;
+            var val = preferences.GetString("TopCommittersCountPref", "5");
+
             if (countPreference != null)
             {
-                countPreference.Summary = "wat";
+                countPreference.Summary = "Showing top " + val + " committers";
             }
             else
             {
-                Log.Debug("TT", "Preference is NULL");
+                throw new NullReferenceException("Could not find Top committers 'count' preference");
             }
-            /*
-            var countView = FindViewById<ListPreference>(Resource.Id.TopCommittersCountPrefId);
-            var countValue = preferences.GetString("TopCommittersCountPref", "1");
+        }
 
-            countView.SetSummary(Resource.String.TopCommitters_CountSummary_1);
-            */
-            //countView.Summary = 
+        private void UpdateSummaryForTime()
+        {
+            var timePreference = FindPreference("TopCommittersTimePref") as ListPreference;
+            var val = preferences.GetString("TopCommittersTimePref", "1");
+
+            if (timePreference != null)
+            {
+                switch (val)
+                {
+                    case "1":
+                        timePreference.Summary = "Showing top committers for the past 24 hours";
+                        break;
+                    case "7":
+                        timePreference.Summary = "Showing top committers for the past week";
+                        break;
+                    case "30":
+                        timePreference.Summary = "Showing top committers for the past month";
+                        break;
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("Could not find Top committers 'count' preference");
+            }
         }
     }
 }
