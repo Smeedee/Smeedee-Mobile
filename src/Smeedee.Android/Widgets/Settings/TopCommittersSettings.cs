@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "My Activity")]
+    [Activity(Label = "Top Committers Settings")]
     public class TopCommittersSettings : PreferenceActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -21,7 +21,6 @@ namespace Smeedee.Android.Widgets.Settings
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.TopCommittersSettings);
 
-            // Create your application here
         }
     }
 }

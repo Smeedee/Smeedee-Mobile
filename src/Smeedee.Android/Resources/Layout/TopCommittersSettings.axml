@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-  <PreferenceCategory android:title="Number of committers">
-    <CheckBoxPreference
-      android:key="checkboxPref"
-      android:title="Show image"
-      android:summary="Toggle fancy image icon to the left"
-      android:defaultValue="false"/>
-
+<PreferenceScreen xmlns:a="http://schemas.android.com/apk/res/android">
+  
+  <PreferenceCategory 
+    a:title="Committers">
     <ListPreference
-      android:key="TopCommittersCountPref"
-      android:title="Committers"
-      android:summary="Currently showing top 5 committers"
-      android:entries="@array/TopCommittersCountArray"
-      android:entryValues="@array/TopCommittersCountValues" />
-    
+      a:key="TopCommittersCountPref"
+      a:title="Committers"
+      a:summary="Currently showing top 5 committers"
+      a:entries="@array/TopCommittersCountArray"
+      a:entryValues="@array/TopCommittersCountValues"
+      a:defaultValue="5" />
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    a:title="Time">
+    <ListPreference
+      a:key="TopCommittersTimePref"
+      a:title="Time period"
+      a:summary="Showing top committers for the last 24 hours"
+      a:entries="@array/TopCommittersTimeArray"
+      a:entryValues="@array/TopCommittersTimeValues"
+      a:defaultValue="1" />
   </PreferenceCategory>
   
 </PreferenceScreen>

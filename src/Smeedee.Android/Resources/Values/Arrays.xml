@@ -21,5 +21,16 @@
     <item>5</item>
     <item>10</item>
     <item>15</item>
-</string-array>
+  </string-array>
+  
+  <string-array name="TopCommittersTimeArray">
+    <item>Last 24 hours</item>
+    <item>Last week</item>
+    <item>Last month</item>
+  </string-array>
+  <string-array name="TopCommittersTimeValues">
+    <item>1</item>
+    <item>7</item>
+    <item>30</item>
+  </string-array>
 </resources>
