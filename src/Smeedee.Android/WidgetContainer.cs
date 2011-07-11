@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Preferences;
@@ -125,11 +125,31 @@ namespace Smeedee.Android
         {
             switch (item.ItemId)
             {
+                case Resource.Id.BtnRefreshCurrentWidget:
+                    var currentWidget = _flipper.CurrentView as IWidget;
+                    if (currentWidget != null)
+                    {
+                        var dialog = ProgressDialog.Show(this, "Refreshing", "Updating data for current widget", true);
+                        var handler = new ProgressHandler(dialog);
+                        ThreadPool.QueueUserWorkItem((arg) => {
+                            currentWidget.Refresh();
+                            handler.SendEmptyMessage(0);
+                        });
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("No current widget in view flipper");
+                    }
+                    return true;
+
                 case Resource.Id.BtnWidgetSettings:
 
                     // TODO: Make dynamic or something :)
                     if (GetWidgetAttribute("Name") == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
+
+                    if (GetWidgetAttribute("Name") == "Top Committers")
+                        StartActivity(new Intent(this, typeof(TopCommittersSettings)));
 
                     return true;
 
@@ -147,7 +167,7 @@ namespace Smeedee.Android
         protected override void OnResume()
         {
             base.OnResume();
-            Log.Debug("TT", "[REFRESHING WIDGETS]");
+            Log.Debug("TT", "[ REFRESHING WIDGETS ]");
 
             CheckForEnabledAndDisabledWidgets();
             SetCorrectTopBannerWidgetTitle();
@@ -182,4 +202,18 @@ namespace Smeedee.Android
             return prefs.GetBoolean(widget.Name, true);
         }
     }
+	class ProgressHandler : Handler
+        {
+            private ProgressDialog dialog;
+            public ProgressHandler(ProgressDialog dialog)
+            {
+                this.dialog = dialog;
+            }
+            public override void HandleMessage(Message msg)
+            {
+                base.HandleMessage(msg);
+                dialog.Dismiss();
+            }
+        }
+	}
 }

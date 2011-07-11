@@ -35,7 +35,7 @@ namespace Smeedee.Android.Widgets
             CreateGui();
             buildList = FindViewById<ListView>(Resource.Id.build_list);
 
-            bgWorker.Invoke(FillBuildList);
+            bgWorker.Invoke(RefreshBuildsFromServer);
         }
         
         private void CreateGui()
@@ -50,34 +50,49 @@ namespace Smeedee.Android.Widgets
             }
         }
 
-        private void FillBuildList()
+        private void RefreshBuildsFromServer()
         {
-            var data = GetData();
+            builds = service.Get(CreateServiceArgsDictionary());
+            RefreshUiBuildList();
+        }
 
+        private void RefreshUiBuildList()
+        {
             ((Activity)Context).RunOnUiThread(() =>
             {
-                var adapter = new BuildStatusAdapter(Context, data, Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
+                var adapter = new BuildStatusAdapter(Context, GetListAdapterFromBuildModels(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
                 buildList.Adapter = adapter;
             });
         }
 
-        private IList<IDictionary<string, object>> GetData()
+        private IList<IDictionary<string, object>> GetListAdapterFromBuildModels()
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
-            var showWhoTriggered = prefs.GetBoolean("showTriggeredBy", false);
-            builds = service.Get(new Dictionary<string, string>());
+            var showTriggeredBy = prefs.GetBoolean("showTriggeredBy", true);
 
             return builds.Select(build => new Dictionary<String, object>
                         {
                             {"project_name", build.ProjectName},
-                            {"username", (showWhoTriggered) ? build.Username : ""}, // TODO; this needs to be handled differently, not when fetching data.
+                            {"username", (showTriggeredBy) ? build.Username : ""},
                             {"datetime", (DateTime.Now - build.BuildTime).PrettyPrint() }, 
                             { "success_status", (int) build.BuildSuccessState}
                         }).Cast<IDictionary<string, object>>().ToList();
         }
 
+        private Dictionary<string, string> CreateServiceArgsDictionary()
+        {
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+            var args = new Dictionary<string, string>();
+
+            args["sorting"] = prefs.GetString("buildSortOrdering", "buildtime");
+            args["brokenBuildsAtTop"] = prefs.GetBoolean("brokenBuildsAtTop", true).ToString();
+
+            return args;
+        }
+
         public void Refresh()
         {
+            RefreshUiBuildList();
         }
     }
 

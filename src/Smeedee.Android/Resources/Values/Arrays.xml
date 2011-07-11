@@ -32,7 +32,7 @@
     </string-array>
 
     <string-array name="BuildStatusSortValues">
-      <item>1</item>
-      <item>2</item>
+      <item>buildtime</item>
+      <item>projectname</item>
     </string-array>
 </resources>
