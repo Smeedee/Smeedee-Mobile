@@ -1,0 +1,117 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.Graphics;
+using Android.OS;
+using Android.Preferences;
+using Android.Runtime;
+using Android.Util;
+using Android.Views;
+using Android.Widget;
+using Java.Lang;
+using Smeedee.Model;
+using Smeedee.Services;
+using Object = System.Object;
+using String = System.String;
+
+namespace Smeedee.Android.Widgets
+{
+    [Activity(Label = "Latest Changesets Settings", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar",
+        Icon = "@drawable/icon_smeedee")]
+    public class LatestChangesetsSettings : PreferenceActivity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            AddPreferencesFromResource(Resource.Layout.LatestChangesetsSettings);
+            var colorPref = (ColoredListPreference)FindPreference("lcs_customListPref");
+            //TODO: Deal with persisting the setting
+        }
+    }
+
+    public class ColoredListPreference : ListPreference
+    {
+        public ColoredListPreference(Context context, IAttributeSet attrs)
+            : base(context, attrs)
+        {
+        }
+        
+        protected override void OnPrepareDialogBuilder(AlertDialog.Builder builder)
+        {
+            EventHandler<DialogClickEventArgs> onClick = (o, e) =>
+                              {
+                                  var dialog = (AlertDialog) o;
+                                  SetValueIndex((int) e.Which);
+                                  OnClick((AlertDialog) o, DialogInterfaceButton.Positive);
+                                  dialog.Dismiss();
+                              };
+            var adapter = CreateAdapter();
+            builder.SetSingleChoiceItems(adapter, FindIndexOfValue(Value), onClick);
+            
+            HideOkButton(builder);
+        }
+
+        protected override void OnDialogClosed(bool positiveResult)
+        {
+            //do nothing, the base class resets the Value property in this method, we don't want that.
+        }
+
+        private static void HideOkButton(AlertDialog.Builder builder)
+        {
+            builder.SetPositiveButton("", (o, e) => { });
+        }
+
+        private TextColoringAdapter CreateAdapter()
+        {
+            var entries = GetEntries();
+            var entryValues = GetEntryValues();
+            var items = new List<IDictionary<string, object>>();
+            var from = new[] { "colorName" };
+            var to = new[] { Resource.Id.lcs_checkedtextview };
+            for (var i = 0; i < entries.Length; ++i)
+            {
+                items.Add(new Dictionary<string, object>()
+                              {
+                                  {"colorName", entries[i]},
+                                  {"colorValue", entryValues[i]}
+                              });
+            }
+            Func<int, Color> colorFn = position => HexToColor(entryValues[position]);
+            return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colorFn);
+        }
+
+        private static Color HexToColor(string hex)
+        {
+            var r = Integer.ParseInt(hex.Substring(0, 2), 16);
+            var g = Integer.ParseInt(hex.Substring(2, 2), 16);
+            var b = Integer.ParseInt(hex.Substring(4, 2), 16);
+            return new Color(r, g, b);
+        }
+
+        internal class TextColoringAdapter : SimpleAdapter
+        {
+            private Func<int, Color> colorFn;
+
+            public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Func<int, Color> colorFn) :
+                base(context, items, resource, from, to)
+            {
+                this.colorFn = colorFn;
+            }
+
+            public override View GetView(int position, View convertView, ViewGroup parent)
+            {
+                var view = base.GetView(position, convertView, parent);
+                if (!(view is CheckedTextView)) return view;
+
+                var checkedTextView = (view as CheckedTextView);
+                checkedTextView.SetTextColor(colorFn(position));
+                checkedTextView.SetBackgroundColor(Color.Black);
+                return view;
+            }
+        }
+    }
+}

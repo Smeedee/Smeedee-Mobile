@@ -1,3 +1,65 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Latest Commits Settings colors (from the Solarized color scheme) -->
+  <string-array name="colorNames">
+    <item>Yellow</item>
+    <item>Orange</item>
+    <item>Red</item>
+    <item>Magenta</item>
+    <item>Violet</item>
+    <item>Blue</item>
+    <item>Cyan</item>
+    <item>Green</item>
+  </string-array>
+
+  <string-array name="colorValues">
+    <item>b58900</item>
+    <item>cb4b16</item>
+    <item>dc322f</item>
+    <item>d33682</item>
+    <item>6c71c4</item>
+    <item>268bd2</item>
+    <item>2aa198</item>
+    <item>859900</item>
+  </string-array>
+  
+  <!-- Top Committers Settings -->
+  <string-array name="TopCommittersCountArray">
+    <item>Top 5</item>
+    <item>Top 10</item>
+    <item>Top 15</item>
+  </string-array>
+  <string-array name="TopCommittersCountValues">
+    <item>5</item>
+    <item>10</item>
+    <item>15</item>
+  </string-array>
+  
+  <string-array name="TopCommittersTimeArray">
+    <item>Past 24 hours</item>
+    <item>Past week</item>
+    <item>Past month</item>
+  </string-array>
+  <string-array name="TopCommittersTimeValues">
+    <item>1</item>
+    <item>7</item>
+    <item>30</item>
+  </string-array>
+  
+  
+  <!-- Build Status Settings -->
+    <string-array name="BuildStatusSortArray">
+      <item>Build Time</item>
+      <item>Project Name</item>
+    </string-array>
+
+    <string-array name="BuildStatusSortValues">
+      <item>1</item>
+      <item>2</item>
+    </string-array>
+=======
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <resources>
   
@@ -35,4 +97,5 @@
       <item>buildtime</item>
       <item>projectname</item>
     </string-array>
+>>>>>>> 38e48a7b5351fa3f161ef9b5a517c7ff6fd8fe5b
 </resources>
