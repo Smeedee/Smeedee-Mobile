@@ -27,7 +27,7 @@ namespace Smeedee.Android.Screens
 
                 var checkBox = new CheckBoxPreference(this)
                                    {
-                                       Checked = widgetModel.IsEnabled,
+                                       Checked = true,
                                        Title = widgetModel.Name,
                                        Summary = widgetModel.DescriptionStatic,
                                        Key = widgetModel.Name
@@ -36,7 +36,11 @@ namespace Smeedee.Android.Screens
                 availableWidgetsCategory.AddPreference(checkBox);
             }
         }
-
+        public override void OnWindowFocusChanged(bool hasFocus)
+        {
+            base.OnWindowFocusChanged(hasFocus);
+            LoadPreferences();
+        }
         private void LoadPreferences()
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);

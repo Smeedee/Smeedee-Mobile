@@ -53,7 +53,7 @@ namespace Smeedee.Android
             var instances = new List<IWidget>();
             foreach (var widget in widgets)
             {
-                if (widget.IsEnabled) instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
+                instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
             }
             return instances;
         }

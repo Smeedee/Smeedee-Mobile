@@ -10,7 +10,6 @@ namespace Smeedee.Model
         public string Name { get; private set; }
         public int Icon { get; private set; }
         public string DescriptionStatic { get; set; }
-        public bool IsEnabled { get; set; }
 
         public WidgetAttribute(string name, int icon)
         {

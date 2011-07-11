@@ -8,7 +8,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Working Days Left", Resource.Drawable.icon_workingdaysleft, DescriptionStatic = "Actual working days left of project", IsEnabled = true)]
+    [WidgetAttribute("Working Days Left", Resource.Drawable.icon_workingdaysleft, DescriptionStatic = "Actual working days left of project")]
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
         private readonly IModelService<WorkingDaysLeft> modelService =

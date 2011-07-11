@@ -13,7 +13,7 @@ using Smeedee.Utilities;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Build Status", Resource.Drawable.icon_projectstatus, DescriptionStatic = "Shows build status for projects", IsEnabled = true)]
+    [WidgetAttribute("Build Status", Resource.Drawable.icon_projectstatus, DescriptionStatic = "Shows build status for projects")]
     public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };
