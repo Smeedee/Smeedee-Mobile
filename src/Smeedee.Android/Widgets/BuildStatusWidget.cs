@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+
 using Android.App;
 using Android.Content;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
+
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Utilities;
 using Smeedee.Utilities;
 
 namespace Smeedee.Android.Widgets
@@ -66,7 +68,7 @@ namespace Smeedee.Android.Widgets
                                                       {
                                                           {"project_name", build.ProjectName},
                                                           {"username", build.Username},
-                                                          {"datetime", build.BuildTime},
+                                                          {"datetime", (DateTime.Now - build.BuildTime).PrettyPrint()},
                                                           {"success_status", (int)build.BuildSuccessState}
                                                       };
                 fillMaps.Add(map);
