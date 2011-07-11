@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
+using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
@@ -16,12 +17,16 @@ namespace Smeedee.Android.Widgets
         private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
+        private ISharedPreferences preferences;
+
         private TopCommitters model;
         private ListView list;
 
         public TopCommittersWidget(Context context) : base(context)
         {
             InflateView();
+
+            preferences = PreferenceManager.GetDefaultSharedPreferences(Context);
 
             list = FindViewById<ListView>(Resource.Id.TopCommittersList);
 
@@ -49,7 +54,10 @@ namespace Smeedee.Android.Widgets
 
         private void LoadModel()
         {
-            var args = new Dictionary<string, string>();
+            var args = new Dictionary<string, string>() {
+                {"count", preferences.GetString("TopCommittersCountPref", "5")},
+                {"time", preferences.GetString("TopCommittersTimePref", "1")},
+            };
             model = service.GetSingle(args);
         }
 
