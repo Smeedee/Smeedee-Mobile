@@ -1,6 +1,7 @@
 using Android.App;
 using Android.OS;
 using Android.Preferences;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
 {
@@ -13,7 +14,25 @@ namespace Smeedee.Android.Screens
 
             AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
 
+            PopulateAvailableWidgetsCheckboxes();
+
             //TODO: Show the last stored url and user password in EditTextPreference.DefaultValue
+        }
+
+        private void PopulateAvailableWidgetsCheckboxes()
+        {
+            var availableWidgetsCategory = (PreferenceCategory) FindPreference("availableWidgets");
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            foreach (var widgetModel in widgets)
+            {
+                var checkBox = new CheckBoxPreference(this)
+                                   {
+                                       Checked = widgetModel.IsEnabled,
+                                       Title = widgetModel.Name,
+                                       Summary = widgetModel.DescriptionStatic
+                                   };
+                availableWidgetsCategory.AddPreference(checkBox);
+            }
         }
     }
 }

@@ -1,32 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-  <PreferenceCategory android:title="Available widgets">
-    
-    <CheckBoxPreference
-       android:key="checkboxPref"
-       android:title="Widget 1"
-       android:summary="description"
-       android:defaultValue="true"/>
-    <CheckBoxPreference
-       android:key="checkboxPref"
-       android:title="Widget 2"
-       android:summary="description"
-       android:defaultValue="true"/>
-    <CheckBoxPreference
-       android:key="checkboxPref"
-       android:title="Widget 3"
-       android:summary="description"
-       android:defaultValue="true"/>
-    <CheckBoxPreference
-       android:key="checkboxPref"
-       android:title="Widget 4"
-       android:summary="description"
-       android:defaultValue="true"/>
-    <CheckBoxPreference
-       android:key="checkboxPref"
-       android:title="Widget 5"
-       android:summary="description"
-       android:defaultValue="true"/>
+  <PreferenceCategory 
+    android:title="Available widgets"
+    android:key="availableWidgets">
     
   </PreferenceCategory>
   
