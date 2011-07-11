@@ -60,7 +60,8 @@ namespace Smeedee.Android.Widgets
         private IList<IDictionary<string, object>> GetData()
         {
             IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
-            foreach (var build in service.Get())
+            var args = new Dictionary<string, string>();
+            foreach (var build in service.Get(args))
             {
                 IDictionary<String, object> map = new Dictionary<String, object>
                                                       {

@@ -49,7 +49,8 @@ namespace Smeedee.Android.Widgets
 
         private void LoadModel()
         {
-            model = service.GetSingle();
+            var args = new Dictionary<string, string>();
+            model = service.GetSingle(args);
         }
 
         private SimpleAdapter CreateAdapter()

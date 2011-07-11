@@ -17,12 +17,12 @@ namespace Smeedee.Services
                              new BuildStatus("Smeedee - Dev", BuildSuccessState.Failure, "stavanger", DateTime.Now)
                          };
         }
-        public IEnumerable<BuildStatus> Get()
+        public IEnumerable<BuildStatus> Get(IDictionary<string, string> args)
         {
             return builds;
         }
 
-        public BuildStatus GetSingle()
+        public BuildStatus GetSingle(IDictionary<string, string> args)
         {
             return builds[0];
         }
