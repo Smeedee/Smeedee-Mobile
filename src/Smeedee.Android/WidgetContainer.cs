@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
+using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -50,7 +52,7 @@ namespace Smeedee.Android
             var instances = new List<IWidget>();
             foreach (var widget in widgets)
             {
-                instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
+                if (widget.IsEnabled) instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
             }
             return instances;
         }
@@ -70,8 +72,7 @@ namespace Smeedee.Android
         private string GetWidgetAttribute(string attribute)
         {
             var setAttribute = "not set";
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
-            foreach (var widgetModel in widgets)
+            foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
             {
                 if (_flipper.CurrentView.GetType() == widgetModel.Type)
                 {
@@ -147,10 +148,38 @@ namespace Smeedee.Android
         {
             base.OnResume();
             Log.Debug("TT", "[REFRESHING WIDGETS]");
+
+            CheckForEnabledAndDisabledWidgets();
+            SetCorrectTopBannerWidgetTitle();
+            SetCorrectTopBannerWidgetDescription();
+
             foreach (var widget in widgets)
             {
                 widget.Refresh();
             }
+        }
+        private void CheckForEnabledAndDisabledWidgets()
+        {
+            var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
+            
+            var newWidgets = new List<IWidget>();
+            foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
+            {
+                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type));
+            }
+            
+            _flipper.RemoveAllViews();
+
+            foreach (var newWidget in newWidgets)
+            {
+                _flipper.AddView((View)newWidget);
+            }
+        }
+
+        private bool WidgetIsEnabled(WidgetModel widget)
+        {
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            return prefs.GetBoolean(widget.Name, true);
         }
     }
 }
