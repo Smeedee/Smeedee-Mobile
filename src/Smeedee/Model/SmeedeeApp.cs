@@ -59,15 +59,5 @@ namespace Smeedee.Model
         {
             return new WidgetModel(attr.Name, attr.Icon, attr.DescriptionStatic, type, attr.IsEnabled);
         }
-
-        public string GetStoredLoginKey()
-        {
-            return "myPassword";
-        }
-
-        public string GetStoredLoginUrl()
-        {
-            return "http://my.url";
-        }
     }
 }

@@ -147,10 +147,8 @@
       <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
-    <Compile Include="Screens\ServerSettingsScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
@@ -166,13 +164,7 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout\ServerSettingsScreen.axml">
+    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
@@ -213,11 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\StartPageWidget.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen_ListItem.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\DefaultPerson.jpeg" />

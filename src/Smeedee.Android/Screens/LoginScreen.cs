@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
+using Android.Preferences;
 using Android.Views;
 using Android.Widget;
-using Smeedee.Model;
 using Smeedee.Services;
 
 namespace Smeedee.Android.Screens
@@ -32,6 +26,11 @@ namespace Smeedee.Android.Screens
                 {
                     if (_loginValidator.IsValid(urlInput.Text, keyInput.Text))
                     {
+                        var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                        var editor = prefs.Edit();
+                        editor.PutString("serverUrl", urlInput.Text);
+                        editor.PutString("userPassword", keyInput.Text);
+
                         var widgetContainer = new Intent(this, typeof(WidgetContainer));
                         StartActivity(widgetContainer);
                     } else
