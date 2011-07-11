@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:gravity="center"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content" >
+  <TextView
+    android:id="@+id/TeamMember1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Dag Olav Prestegarden" />
+  <TextView
+    android:id="@+id/TeamMember2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Lars Eidnes" />
+  <TextView
+    android:id="@+id/TeamMember3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Lars Kirkholdt Melhus" />
+  <TextView
+    android:id="@+id/TeamMember4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Børge Rødsjø" />
+</LinearLayout>

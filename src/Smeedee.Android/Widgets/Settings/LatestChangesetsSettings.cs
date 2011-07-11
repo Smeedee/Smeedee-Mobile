@@ -13,8 +13,7 @@ using Java.Lang;
 
 namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "Latest Changesets Settings", Theme = "@android:style/Theme.NoTitleBar",
-        Icon = "@drawable/icon_smeedee")]
+    [Activity(Label = "Latest Changesets Settings", Theme = "@android:style/Theme")]
     public class LatestChangesetsSettings : PreferenceActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

@@ -160,6 +160,11 @@ namespace Smeedee.Android
                     StartActivity(globalSettings);
                     return true;
 
+                case Resource.Id.BtnAbout:
+
+                    var about = new Intent(this, typeof(About));
+                    StartActivity(about);
+                    return true;
                 default:
                     return base.OnOptionsItemSelected(item);
             }

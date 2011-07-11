@@ -5,7 +5,7 @@ using Android.Preferences;
 
 namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "BuildStatusSettings")]
+    [Activity(Label = "Build Status Settings", Theme = "@android:style/Theme")]
     public class BuildStatusSettings : PreferenceActivity
     {
         protected override void OnCreate(Bundle bundle)

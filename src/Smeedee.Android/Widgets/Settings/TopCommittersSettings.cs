@@ -6,7 +6,7 @@ using Android.Preferences;
 
 namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "Top Committers Settings")]
+    [Activity(Label = "Top Committers Settings", Theme = "@android:style/Theme")]
     public class TopCommittersSettings : PreferenceActivity
     {
         private ISharedPreferences preferences;

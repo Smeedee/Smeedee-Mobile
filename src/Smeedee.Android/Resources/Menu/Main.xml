@@ -9,4 +9,7 @@
   <item android:id="@+id/BtnGlobalSettings"
         android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/GlobalSettings" />
+  <item android:id="@+id/BtnAbout"
+        android:icon="@drawable/icon_smeedee_blackwhite"
+        android:title="@string/About" />
 </menu>
