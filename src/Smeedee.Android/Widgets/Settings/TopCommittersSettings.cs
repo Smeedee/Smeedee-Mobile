@@ -19,6 +19,7 @@ namespace Smeedee.Android.Widgets.Settings
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            AddPreferencesFromResource(Resource.Layout.TopCommittersSettings);
 
             // Create your application here
         }

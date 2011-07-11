@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-</LinearLayout>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory android:title="Number of committers">
+    <CheckBoxPreference
+      android:key="checkboxPref"
+      android:title="Show image"
+      android:summary="Toggle fancy image icon to the left"
+      android:defaultValue="false"/>
+    
+  </PreferenceCategory>
+  
+</PreferenceScreen>

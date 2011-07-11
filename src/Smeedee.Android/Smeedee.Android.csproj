@@ -154,6 +154,7 @@
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
+    <Compile Include="Widgets\Settings\TopCommittersSettings.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -194,6 +195,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\navigation_button_left.xml" />
+    <AndroidResource Include="Resources\Layout\TopCommittersSettings.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
