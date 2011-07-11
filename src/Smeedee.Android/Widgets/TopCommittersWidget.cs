@@ -30,7 +30,7 @@ namespace Smeedee.Android.Widgets
 
             list = FindViewById<ListView>(Resource.Id.TopCommittersList);
 
-            bgWorker.Invoke(InitializeModelAndUpdateView);
+            bgWorker.Invoke(LoadModelAndUpdateView);
         }
 
         private void InflateView()
@@ -46,7 +46,7 @@ namespace Smeedee.Android.Widgets
             }
         }
 
-        private void InitializeModelAndUpdateView()
+        private void LoadModelAndUpdateView()
         {
             LoadModel();
             ((Activity)Context).RunOnUiThread(() => list.Adapter = CreateAdapter());
@@ -88,6 +88,7 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
+            LoadModelAndUpdateView();
         }
     }
 }

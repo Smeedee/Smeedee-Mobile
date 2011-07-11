@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
@@ -146,6 +147,7 @@ namespace Smeedee.Android
         protected override void OnResume()
         {
             base.OnResume();
+            Log.Debug("TT", "[REFRESHING WIDGETS]");
             foreach (var widget in widgets)
             {
                 widget.Refresh();
