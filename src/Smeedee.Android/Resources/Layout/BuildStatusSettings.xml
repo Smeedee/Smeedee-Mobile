@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen xmlns:a="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+    a:title="Sorting">
+    <CheckBoxPreference
+            a:title="Broken builds at top"
+            a:defaultValue="true"
+            a:key="brokenBuildsAtTop"
+            a:summaryOn="Broken builds are now shown first regardless of sorting order."
+            a:summaryOff="Broken builds are now shown like normal builds."/>
+
+  </PreferenceCategory>
+</PreferenceScreen>

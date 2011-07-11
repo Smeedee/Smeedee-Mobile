@@ -123,11 +123,10 @@ namespace Smeedee.Android
             {
                 case Resource.Id.BtnWidgetSettings:
 
-                    // TODO: Open widget settings view based on witch widget is shown to the user
-                    // var currentWidget = _flipper.CurrentView;
+                    // TODO: Make dynamic or something :)
+                    if (GetWidgetAttribute("Name") == "Build Status")
+                        StartActivity(new Intent(this, typeof(BuildStatusSettings)));
 
-                    var settingsIntent = new Intent(this, typeof (TopCommittersSettings));
-                    StartActivity(settingsIntent);
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:
