@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/BtnRefreshCurrentWidget"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="@string/RefreshCurrentWidget" />
   <item android:id="@+id/BtnWidgetSettings"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/WidgetSettings" />
   <item android:id="@+id/BtnGlobalSettings"
+        android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/GlobalSettings" />
 </menu>
