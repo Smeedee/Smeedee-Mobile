@@ -8,6 +8,7 @@ using Android.Content;
 using Android.OS;
 using Android.Preferences;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 
@@ -24,10 +25,20 @@ namespace Smeedee.Android.Widgets.Settings
 
             var preferences = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            var countView = FindViewById<ListPreference>(Resource.Id.TopCommittersCountPrefId);
-            var countValue = preferences.GetString("TopCommittersCountPref", "5");
+            var countPreference = FindPreference("TopCommittersCountPref") as ListPreference;
+            if (countPreference != null)
+            {
+                countPreference.Summary = "wat";
+            }
+            else
+            {
+                Log.Debug("TT", "Preference is NULL");
+            }
             /*
-            countView.Summary = "Showing top " + countValue + " committers";
+            var countView = FindViewById<ListPreference>(Resource.Id.TopCommittersCountPrefId);
+            var countValue = preferences.GetString("TopCommittersCountPref", "1");
+
+            countView.SetSummary(Resource.String.TopCommitters_CountSummary_1);
             */
             //countView.Summary = 
         }
