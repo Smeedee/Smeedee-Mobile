@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Smeedee.Android.Screens;
-using Smeedee.Android.Widgets;
+using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 
 namespace Smeedee.Android
@@ -16,7 +17,8 @@ namespace Smeedee.Android
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
         private ViewFlipper _flipper;
-        private View _currentDisplayingView;
+
+        private IEnumerable<IWidget> widgets;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -33,12 +35,11 @@ namespace Smeedee.Android
 
         private void AddWidgetsToFlipper()
         {
-            var widgets = GetWidgets();
+            widgets = GetWidgets();
             foreach (var widget in widgets)
             {
                 _flipper.AddView(widget as View);
             }
-            _currentDisplayingView = _flipper.CurrentView;
         }
 
         private IEnumerable<IWidget> GetWidgets()
@@ -57,34 +58,32 @@ namespace Smeedee.Android
         private void SetCorrectTopBannerWidgetTitle()
         {
             var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
-            var widgetNameFromAttribute = "widget name not set";
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
-            foreach (var widgetModel in widgets)
-            {
-                if (_currentDisplayingView.GetType() == widgetModel.Type)
-                {
-                    var widgetAttributes = (WidgetAttribute[])widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
-                    widgetNameFromAttribute = widgetAttributes[0].Name;
-                }
-            }
-            widgetTitle.Text = widgetNameFromAttribute;
+            widgetTitle.Text = GetWidgetAttribute("Name");
         }
 
         private void SetCorrectTopBannerWidgetDescription()
         {
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
-            var widgetDescriptionFromAttribute = "";
+            widgetDescriptionDynamic.Text = GetWidgetAttribute("DescriptionStatic");
+        }
+
+        private string GetWidgetAttribute(string attribute)
+        {
+            var setAttribute = "not set";
             var widgets = SmeedeeApp.Instance.AvailableWidgets;
             foreach (var widgetModel in widgets)
             {
-                if (_currentDisplayingView.GetType() == widgetModel.Type)
+                if (_flipper.CurrentView.GetType() == widgetModel.Type)
                 {
-                    var widgetAttributes = (WidgetAttribute[])widgetModel.Type.GetCustomAttributes(typeof(WidgetAttribute), true);
-                    widgetDescriptionFromAttribute = widgetAttributes[0].DescriptionStatic;
+                    var widgetAttributes =
+                        (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof (WidgetAttribute), true);
+                    if (attribute == "Name") setAttribute = widgetAttributes[0].Name;
+                    if (attribute == "DescriptionStatic") setAttribute = widgetAttributes[0].DescriptionStatic;
                 }
             }
-            widgetDescriptionDynamic.Text = widgetDescriptionFromAttribute;
+            return setAttribute;
         }
+        
         private void BindEventsToNavigationButtons()
         {
             BindPreviousButtonClickEvent();
@@ -127,8 +126,10 @@ namespace Smeedee.Android
             {
                 case Resource.Id.BtnWidgetSettings:
 
-                    // TODO: Open current widget settings view
-                    // var currentWidget = _flipper.CurrentView;
+                    // TODO: Make dynamic or something :)
+                    if (GetWidgetAttribute("Name") == "Build Status")
+                        StartActivity(new Intent(this, typeof(BuildStatusSettings)));
+
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:
@@ -139,6 +140,16 @@ namespace Smeedee.Android
 
                 default:
                     return base.OnOptionsItemSelected(item);
+            }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Log.Debug("TT", "[REFRESHING WIDGETS]");
+            foreach (var widget in widgets)
+            {
+                widget.Refresh();
             }
         }
     }

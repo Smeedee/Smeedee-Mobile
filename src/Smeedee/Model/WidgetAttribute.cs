@@ -10,11 +10,11 @@ namespace Smeedee.Model
         public string Name { get; private set; }
         public int Icon { get; private set; }
         public string DescriptionStatic { get; set; }
-        public bool IsEnabled { get; set; } //TODO: Discuss private/public on this attribute
+        public bool IsEnabled { get; set; }
 
         public WidgetAttribute(string name, int icon)
         {
-            Guard.NotNull(name);
+            Guard.NotNull(name, icon);
             Name = name;
             Icon = icon;
         }

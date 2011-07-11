@@ -32,5 +32,9 @@ namespace Smeedee.Android.Widgets
                 throw new Exception("Unable to inflate view on Start Page Widget");
             }
         }
+
+        public void Refresh()
+        {
+        }
     }
 }

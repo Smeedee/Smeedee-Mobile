@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -37,7 +37,8 @@ namespace Smeedee.Android.Widgets
         private void InitializeModelAndUpdateView()
         {
             // TODO: This queued in a thread, modelService is synchronous
-            _model = modelService.GetSingle();
+            var args = new Dictionary<string, string>();
+            _model = modelService.GetSingle(args);
             UpdateView();
         }
 
@@ -51,6 +52,10 @@ namespace Smeedee.Android.Widgets
 
             daysView.SetText(days, TextView.BufferType.Normal);
             textView.SetText(text, TextView.BufferType.Normal);
+        }
+
+        public void Refresh()
+        {
         }
     }
 }

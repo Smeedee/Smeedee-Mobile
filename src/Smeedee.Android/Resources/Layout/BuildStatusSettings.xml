@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen xmlns:a="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+    a:title="Sorting">
+    <CheckBoxPreference
+        a:title="Broken builds at top"
+        a:defaultValue="true"
+        a:key="brokenBuildsAtTop"
+        a:summaryOn="Broken builds are now shown first regardless of sorting order."
+        a:summaryOff="Broken builds are now shown like normal builds."/>
+
+    <ListPreference
+        a:title="Build ordering"
+        a:summary="Set how you want your list of builds ordered."
+        a:key="buildSortOrdering"
+        a:defaultValue="1"
+        a:entries="@array/BuildStatusSortArray"
+        a:entryValues="@array/BuildStatusSortValues" />
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    a:title="Display">
+    <CheckBoxPreference
+        a:title="Show username"
+        a:defaultValue="true"
+        a:key="showTriggeredBy"
+        a:summaryOn="Who triggered a build is now shown."
+        a:summaryOff="Who triggered a build is now hidden."/>
+    
+  </PreferenceCategory>
+</PreferenceScreen>

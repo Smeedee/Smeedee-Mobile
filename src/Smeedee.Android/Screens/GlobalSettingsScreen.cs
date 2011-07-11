@@ -1,46 +1,39 @@
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Widget;
+using Android.Preferences;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "Application settings", Theme = "@android:style/Theme")]
-    public class GlobalSettings : Activity
+    [Activity(Label = "Smeedee settings", Theme = "@android:style/Theme")]
+    public class GlobalSettings : PreferenceActivity
     {
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.GlobalSettingsScreen);
 
-            BindEventsToButtons();
+            AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
+
+            PopulateAvailableWidgetsCheckboxes();
+
+            //TODO: Show the last stored url and user password in EditTextPreference.DefaultValue
         }
 
-        private void BindEventsToButtons()
+        private void PopulateAvailableWidgetsCheckboxes()
         {
-            BindClickEventToEnabledWidgetsBtn();
-            BindClickEventToServerAndUserSettingsBtn();
-        }
-
-        private void BindClickEventToEnabledWidgetsBtn()
-        {
-            var btnPrev = FindViewById<Button>(Resource.Id.BtnEnabledWidgets);
-            btnPrev.Click += (obj, e) =>
-                                 {
-                                     var enabledWidgetsScreen = new Intent(this, typeof (EnabledWidgetsScreen));
-                                     StartActivity(enabledWidgetsScreen);
-                                 };
-        }
-
-        private void BindClickEventToServerAndUserSettingsBtn()
-        {
-            var btnPrev = FindViewById<Button>(Resource.Id.BtnServerAndUserSettings);
-            btnPrev.Click += (obj, e) =>
+            var availableWidgetsCategory = (PreferenceScreen)FindPreference("availableWidgets");
+            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            foreach (var widgetModel in widgets)
             {
-                var serverSettingsScreen = new Intent(this, typeof(ServerSettingsScreen));
-                StartActivity(serverSettingsScreen);
-            };
+                var checkBox = new CheckBoxPreference(this)
+                                   {
+                                       Checked = widgetModel.IsEnabled,
+                                       Title = widgetModel.Name,
+                                       Summary = widgetModel.DescriptionStatic,
+                                       Key = widgetModel.Name
+                                   };
+                availableWidgetsCategory.AddPreference(checkBox);
+            }
         }
     }
 }

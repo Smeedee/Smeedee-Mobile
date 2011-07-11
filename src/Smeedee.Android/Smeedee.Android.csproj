@@ -147,14 +147,14 @@
       <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Screens\EnabledWidgetsScreen.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
-    <Compile Include="Screens\ServerSettingsScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
+    <Compile Include="Widgets\Settings\BuildStatusSettings.cs" />
+    <Compile Include="Widgets\Settings\TopCommittersSettings.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
     <Compile Include="WidgetContainer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -165,13 +165,7 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout\ServerSettingsScreen.axml">
+    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
@@ -195,6 +189,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\navigation_button_left.xml" />
+    <AndroidResource Include="Resources\Layout\TopCommittersSettings.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Values\Arrays.xml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -212,11 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\StartPageWidget.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen_ListItem.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\DefaultPerson.jpeg" />
@@ -260,11 +252,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon_buildunknown.png" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings.axml" />
+  <ItemGroup>    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings.axml" />  </ItemGroup>  <ItemGroup>    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings_ListItem.axml" />  </ItemGroup>  <ItemGroup>
+    <AndroidResource Include="Resources\Values\Arrays.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings_ListItem.axml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusSettings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

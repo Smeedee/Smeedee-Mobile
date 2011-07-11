@@ -4,6 +4,7 @@ using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Util;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
@@ -58,8 +59,10 @@ namespace Smeedee.Android
 
         private bool UserHasAValidUrlAndKey()
         {
-            var key = SmeedeeApp.Instance.GetStoredLoginKey();
-            var url = SmeedeeApp.Instance.GetStoredLoginUrl();
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            var key = prefs.GetString("userPassword", "<unset>");
+            var url = prefs.GetString("serverUrl", "<unset>");
             if (url == null || key == null) return false;
 
             var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();
