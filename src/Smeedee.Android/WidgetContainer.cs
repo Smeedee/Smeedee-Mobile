@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Smeedee.Android.Screens;
+using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 
 namespace Smeedee.Android
@@ -124,6 +125,9 @@ namespace Smeedee.Android
 
                     // TODO: Open widget settings view based on witch widget is shown to the user
                     // var currentWidget = _flipper.CurrentView;
+
+                    var settingsIntent = new Intent(this, typeof (TopCommittersSettings));
+                    StartActivity(settingsIntent);
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<resources>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- Top Committers Settings -->
+  <string-array name="TopCommittersCountArray">
+    <item>Top 5</item>
+    <item>Top 10</item>
+    <item>Top 15</item>
+  </string-array>
+  <string-array name="TopCommittersCountValues">
+    <item>5</item>
+    <item>10</item>
+    <item>15</item>
+  </string-array>
+  
+  <string-array name="TopCommittersTimeArray">
+    <item>Last 24 hours</item>
+    <item>Last week</item>
+    <item>Last month</item>
+  </string-array>
+  <string-array name="TopCommittersTimeValues">
+    <item>1</item>
+    <item>7</item>
+    <item>30</item>
+  </string-array>
+</resources>
