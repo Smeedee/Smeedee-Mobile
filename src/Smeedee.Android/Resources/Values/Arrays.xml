@@ -24,9 +24,9 @@
   </string-array>
   
   <string-array name="TopCommittersTimeArray">
-    <item>Last 24 hours</item>
-    <item>Last week</item>
-    <item>Last month</item>
+    <item>Past 24 hours</item>
+    <item>Past week</item>
+    <item>Past month</item>
   </string-array>
   <string-array name="TopCommittersTimeValues">
     <item>1</item>

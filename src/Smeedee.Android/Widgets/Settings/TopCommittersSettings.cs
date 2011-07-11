@@ -42,7 +42,7 @@ namespace Smeedee.Android.Widgets.Settings
 
             if (countPreference != null)
             {
-                countPreference.Summary = "Showing top " + val + " committers";
+                countPreference.Summary = "Top " + val + " committers";
             }
             else
             {
@@ -60,13 +60,13 @@ namespace Smeedee.Android.Widgets.Settings
                 switch (val)
                 {
                     case "1":
-                        timePreference.Summary = "Showing top committers for the past 24 hours";
+                        timePreference.Summary = "The past 24 hours";
                         break;
                     case "7":
-                        timePreference.Summary = "Showing top committers for the past week";
+                        timePreference.Summary = "The past week";
                         break;
                     case "30":
-                        timePreference.Summary = "Showing top committers for the past month";
+                        timePreference.Summary = "The past month";
                         break;
                 }
             }
@@ -74,6 +74,12 @@ namespace Smeedee.Android.Widgets.Settings
             {
                 throw new NullReferenceException("Could not find Top committers 'count' preference");
             }
+        }
+
+        public override void OnWindowFocusChanged(bool hasFocus)
+        {
+            base.OnWindowFocusChanged(hasFocus);
+            UpdateSummaryForPreferences();
         }
     }
 }
