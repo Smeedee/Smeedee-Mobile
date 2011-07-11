@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Android.App;
 using Android.Content;
+using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 
 using Smeedee.Model;
 using Smeedee.Services;
-using Smeedee.Utilities;
 using Smeedee.Utilities;
 
 namespace Smeedee.Android.Widgets
@@ -22,6 +22,7 @@ namespace Smeedee.Android.Widgets
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         private ListView buildList;
+        private IEnumerable<BuildStatus> builds;
 
         public BuildStatusWidget(Context context)
             : base(context)
@@ -52,6 +53,7 @@ namespace Smeedee.Android.Widgets
         private void FillBuildList()
         {
             var data = GetData();
+
             ((Activity)Context).RunOnUiThread(() =>
             {
                 var adapter = new BuildStatusAdapter(Context, data, Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
@@ -61,19 +63,17 @@ namespace Smeedee.Android.Widgets
 
         private IList<IDictionary<string, object>> GetData()
         {
-            IList<IDictionary<String, object>> fillMaps = new List<IDictionary<String, object>>();
-            foreach (var build in service.Get())
-            {
-                IDictionary<String, object> map = new Dictionary<String, object>
-                                                      {
-                                                          {"project_name", build.ProjectName},
-                                                          {"username", build.Username},
-                                                          {"datetime", (DateTime.Now - build.BuildTime).PrettyPrint()},
-                                                          {"success_status", (int)build.BuildSuccessState}
-                                                      };
-                fillMaps.Add(map);
-            }
-            return fillMaps;
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+            var showWhoTriggered = prefs.GetBoolean("showTriggeredBy", false);
+            builds = service.Get();
+
+            return builds.Select(build => new Dictionary<String, object>
+                        {
+                            {"project_name", build.ProjectName},
+                            {"username", (showWhoTriggered) ? build.Username : ""}, 
+                            {"datetime", (DateTime.Now - build.BuildTime).PrettyPrint() }, 
+                            { "success_status", (int) build.BuildSuccessState}
+                        }).Cast<IDictionary<string, object>>().ToList();
         }
     }
 

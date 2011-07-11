@@ -1,16 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <resources>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <!-- Top Committers Settings -->
   <string-array name="TopCommittersCountArray">
     <item>Top 5</item>
@@ -33,4 +23,16 @@
     <item>7</item>
     <item>30</item>
   </string-array>
+  
+  
+  <!-- Build Status Settings -->
+    <string-array name="BuildStatusSortArray">
+      <item>Build Time</item>
+      <item>Project Name</item>
+    </string-array>
+
+    <string-array name="BuildStatusSortValues">
+      <item>1</item>
+      <item>2</item>
+    </string-array>
 </resources>
