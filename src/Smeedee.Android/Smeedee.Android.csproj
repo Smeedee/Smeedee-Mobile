@@ -164,7 +164,7 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.axml">
+    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\EnabledWidgetsScreen.axml">
