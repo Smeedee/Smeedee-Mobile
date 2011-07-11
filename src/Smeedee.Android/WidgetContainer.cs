@@ -17,6 +17,8 @@ namespace Smeedee.Android
         private SmeedeeApp app = SmeedeeApp.Instance;
         private ViewFlipper _flipper;
 
+        private IEnumerable<IWidget> widgets;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -32,7 +34,7 @@ namespace Smeedee.Android
 
         private void AddWidgetsToFlipper()
         {
-            var widgets = GetWidgets();
+            widgets = GetWidgets();
             foreach (var widget in widgets)
             {
                 _flipper.AddView(widget as View);
@@ -138,6 +140,15 @@ namespace Smeedee.Android
 
                 default:
                     return base.OnOptionsItemSelected(item);
+            }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            foreach (var widget in widgets)
+            {
+                widget.Refresh();
             }
         }
     }
