@@ -13,6 +13,8 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using Smeedee.Model;
+using Smeedee.Services;
 using Object = System.Object;
 using String = System.String;
 
@@ -26,44 +28,50 @@ namespace Smeedee.Android.Widgets
         {
             base.OnCreate(savedInstanceState);
             AddPreferencesFromResource(Resource.Layout.LatestChangesetsSettings);
+            var colorPref = (CustomListPreference)FindPreference("lcs_customListPref");
+            Log.Debug("SMEEDEE", "colorPref.Value: " + colorPref.Value);
+            //TODO: Deal with persisting the setting
         }
     }
 
     public class CustomListPreference : ListPreference
     {
+        private IPersistenceService persistence;
         public CustomListPreference(Context context, IAttributeSet attrs)
             : base(context, attrs)
         {
+            //persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+            //persistence.Get("latest_changesets.color_index", 2);
         }
         
         protected override void OnPrepareDialogBuilder(AlertDialog.Builder builder)
         {
-            Log.Debug("SMEEDEE", "OnCreateDialogView returning null:");
-            var entries = GetEntries();
-            var entryValues = GetEntryValues();
-            if (entries == null || entryValues == null) {
-                throw new IllegalStateException(
-                        "ListPreference requires an entries array and an entryValues array.");
-            }
-
             var clickedDialogEntryIndex = FindIndexOfValue(Value);
-            var self = this;
+            Log.Debug("SMEEDEE", "onPrepare Value " + Value);
+            Log.Debug("SMEEDEE", "clickedDialogEntryIndex " + clickedDialogEntryIndex);
             EventHandler<DialogClickEventArgs> onClick = (o, e) =>
                               {
-                                  //mClickedDialogEntryIndex = which;
-                                  //ListPreference.this.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
-                                  //self.OnClick(dialog, DialogInterface.BUTTON_POSITIVE);
-                                  //self.OnClick(null, e.Which);
-                                  //dialog.dismiss();
+                                  Log.Debug("SMEEDEE", "Value pre: " + Value);
+                                  var dialog = (AlertDialog) o;
+                                  var selectedIndex = (int) e.Which;
+                                  SetValueIndex(selectedIndex);
+                                  OnClick(dialog, DialogInterfaceButton.Positive);
+                                  dialog.Dismiss();
+                                  Log.Debug("SMEEDEE", "Value post: " + Value);
                               };
             var adapter = CreateAdapter();
             builder.SetSingleChoiceItems(adapter, clickedDialogEntryIndex, onClick);
             
-            /*
-             * The typical interaction for list-based dialogs is to have
-             * click-on-an-item dismiss the dialog instead of the user having to
-             * press 'Ok'.
-             */
+            HideOkButton(builder);
+        }
+
+        protected override void OnDialogClosed(bool positiveResult)
+        {
+            //do nothing, the base class resets the Value property in this method, we don't want that.
+        }
+
+        private static void HideOkButton(AlertDialog.Builder builder)
+        {
             builder.SetPositiveButton("", (o, e) => { });
         }
 
@@ -110,6 +118,7 @@ namespace Smeedee.Android.Widgets
 
                 var checkedTextView = (view as CheckedTextView);
                 checkedTextView.SetTextColor(colorFn(position));
+                checkedTextView.SetBackgroundColor(Color.Black);
                 return view;
             }
         }

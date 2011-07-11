@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <CheckBoxPreference
-    android:key="checkboxPref"
+    android:key="lcs_checkboxPref"
     android:title="Highlight Empty"
     android:summary="Highlight empty commit messages"
     android:defaultValue="false"/>
   
   <ListPreference
     android:title="Highlight color"
-    android:key="listPref"
+    android:key="lcs_listPref"
     android:defaultValue="digiGreen"
     android:entries="@array/colorNames"
     android:entryValues="@array/colorValues" />
   <smeedee.android.widgets.CustomListPreference
     android:title="Highlight color"
-    android:key="listPref"
-    android:defaultValue="digiGreen"
+    android:key="lcs_customListPref"
+    android:defaultValue="dc322f"
     android:entries="@array/colorNames"
     android:entryValues="@array/colorValues" />
     />
