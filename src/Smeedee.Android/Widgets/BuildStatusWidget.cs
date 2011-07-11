@@ -74,6 +74,10 @@ namespace Smeedee.Android.Widgets
             }
             return fillMaps;
         }
+
+        public void Refresh()
+        {
+        }
     }
 
     internal class BuildStatusAdapter : SimpleAdapter
