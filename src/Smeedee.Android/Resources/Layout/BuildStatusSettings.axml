@@ -14,7 +14,7 @@
         a:title="Build ordering"
         a:summary="Set how you want your list of builds ordered."
         a:key="buildSortOrdering"
-        a:defaultValue="1"
+        a:defaultValue="buildtime"
         a:entries="@array/BuildStatusSortArray"
         a:entryValues="@array/BuildStatusSortValues" />
   </PreferenceCategory>
