@@ -148,6 +148,9 @@ namespace Smeedee.Android
                     if (GetWidgetAttribute("Name") == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
 
+                    if (GetWidgetAttribute("Name") == "Top Committers")
+                        StartActivity(new Intent(this, typeof(TopCommittersSettings)));
+
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:
