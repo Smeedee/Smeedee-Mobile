@@ -36,13 +36,13 @@
       android:key="serverUrl"
       android:title="Server URL"
       android:summary="Change the Smeedee Server URL"
-      android:defaultValue="url"/>
+      android:defaultValue="server url"/>
     <EditTextPreference
       android:id="@+id/UserPassword"
       android:key="userPassword"
       android:title="User Password"
       android:summary="Change your user password"
-      android:defaultValue="password"/>
+      android:defaultValue="user password"/>
   </PreferenceCategory>
   
 </PreferenceScreen>
