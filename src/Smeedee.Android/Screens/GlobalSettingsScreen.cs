@@ -29,7 +29,8 @@ namespace Smeedee.Android.Screens
                                    {
                                        Checked = widgetModel.IsEnabled,
                                        Title = widgetModel.Name,
-                                       Summary = widgetModel.DescriptionStatic
+                                       Summary = widgetModel.DescriptionStatic,
+                                       Key = widgetModel.Name
                                    };
                 availableWidgetsCategory.AddPreference(checkBox);
             }
