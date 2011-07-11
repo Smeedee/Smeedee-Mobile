@@ -65,6 +65,10 @@ namespace Smeedee.Android.Widgets
 
             return listItems;
         }
+
+        public void Refresh()
+        {
+        }
     }
 
     internal class TextColoringAdapter : SimpleAdapter 

@@ -65,15 +65,19 @@ namespace Smeedee.Android.Widgets
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
             var showWhoTriggered = prefs.GetBoolean("showTriggeredBy", false);
-            builds = service.Get();
+            builds = service.Get(new Dictionary<string, string>());
 
             return builds.Select(build => new Dictionary<String, object>
                         {
                             {"project_name", build.ProjectName},
-                            {"username", (showWhoTriggered) ? build.Username : ""}, 
+                            {"username", (showWhoTriggered) ? build.Username : ""}, // TODO; this needs to be handled differently, not when fetching data.
                             {"datetime", (DateTime.Now - build.BuildTime).PrettyPrint() }, 
                             { "success_status", (int) build.BuildSuccessState}
                         }).Cast<IDictionary<string, object>>().ToList();
+        }
+
+        public void Refresh()
+        {
         }
     }
 

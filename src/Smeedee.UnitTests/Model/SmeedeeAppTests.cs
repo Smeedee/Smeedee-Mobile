@@ -103,11 +103,17 @@ namespace Smeedee.UnitTests.Model
         [WidgetAttribute("Test Widget", 1, DescriptionStatic = "description static 1", IsEnabled = true)]
         public class TestWidget : IWidget
         {
+            public void Refresh()
+            {
+            }
         }
 
         [WidgetAttribute("Test Widget 2", 2, DescriptionStatic = "description static 2", IsEnabled = false)]
         public class AnotherTestWidget : IWidget
         {
+            public void Refresh()
+            {
+            }
         }
         
         public interface IIntermediateWidget : IWidget

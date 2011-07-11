@@ -7,7 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iPhone
 {
-    [Widget("Welcome Screen", "/foo.bar.png")]
+    [Widget("Welcome Screen", 2, DescriptionStatic = "No widgets yet")]
     public partial class SmeedeeWelcomeScreen : UIViewController, IWidget
     {
         public SmeedeeWelcomeScreen() : base("SmeedeeWelcomeScreen", null)

@@ -6,7 +6,7 @@
     <ListPreference
       a:id="@+id/TopCommittersCountPrefId"
       a:key="TopCommittersCountPref"
-      a:title="Committers"
+      a:title="Number of committers"
       a:summary="Currently showing top 5 committers"
       a:entries="@array/TopCommittersCountArray"
       a:entryValues="@array/TopCommittersCountValues"

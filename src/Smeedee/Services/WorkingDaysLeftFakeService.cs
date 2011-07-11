@@ -10,12 +10,12 @@ namespace Smeedee.Services
     {
         private WorkingDaysLeft model = new WorkingDaysLeft(1);
 
-        public IEnumerable<WorkingDaysLeft> Get()
+        public IEnumerable<WorkingDaysLeft> Get(IDictionary<string, string> args)
         {
             return new [] {model};
         }
 
-        public WorkingDaysLeft GetSingle()
+        public WorkingDaysLeft GetSingle(IDictionary<string, string> args)
         {
             return model;
         }
