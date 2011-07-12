@@ -45,17 +45,17 @@ namespace Smeedee.Android.Widgets
 
         private void UpdateUI()
         {
-            CreateListAdapter(changesets);
+            CreateListAdapter();
         }
 
-        private void CreateListAdapter(IEnumerable<Changeset> changesets)
+        private void CreateListAdapter()
         {
             var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
 
             var from = new[] {"Image", "User", "Msg", "Date"};
             var to = new[] { Ids.LatestChangesetWidget_CommitterIcon, Ids.LatestChangesetWidget_ChangesetUser, Ids.LatestChangesetWidget_ChangesetText, Ids.LatestChangesetWidget_ChangesetDate };
 
-            var listItems = CreateListItems(changesets);
+            var listItems = CreateListItems();
 
             var adapter = new TextColoringAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to);
             commitList.Adapter = adapter;
@@ -67,21 +67,22 @@ namespace Smeedee.Android.Widgets
             inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
         }
 
-        private IList<IDictionary<string, object>> CreateListItems(IEnumerable<Changeset> changesets)
+        private IList<IDictionary<string, object>> CreateListItems()
         {
             IList<IDictionary<String, object>> listItems = new List<IDictionary<String, object>>();
 
             foreach (var changeset in changesets)
             {
-                IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
-
                 var msg = (changeset.Message == "") ? NoMessageTag : changeset.Message;
-                keyValueMap["Msg"] = msg;
-                keyValueMap["Image"] = Resource.Drawable.DefaultPerson;
-                keyValueMap["User"] = changeset.User;
-                keyValueMap["Date"] =  (DateTime.Now - changeset.Date).PrettyPrint();
-                
-                listItems.Add(keyValueMap);
+                listItems.Add(
+                    new Dictionary<string, object>()
+                        {
+                            {"Msg", msg},
+                            {"Image", Resource.Drawable.DefaultPerson},
+                            {"User", changeset.User},
+                            {"Date", (DateTime.Now - changeset.Date).PrettyPrint()}
+                        }
+                    );
             }
 
             return listItems;
