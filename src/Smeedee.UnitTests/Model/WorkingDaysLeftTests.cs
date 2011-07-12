@@ -1,57 +1,36 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Smeedee.Model;
-using Smeedee.Services;
-using Smeedee.Utilities;
 
 namespace Smeedee.UnitTests.Model
 {
     [TestFixture]
     public class WorkingDaysLeftTests
     {
-        private WorkingDaysLeft model;
-
-        [Test]
-        public void Should_return_the_correct_suffix_for_positive_number_of_days()
+        [TestCase(0, "working days left")]
+        [TestCase(1, "working day left")]
+        [TestCase(42, "working days left")]
+        public void Should_return_the_correct_suffix_for_positive_number_of_days(int days, string expected)
         {
-            var correctPairs = new[] {
-                Tuple.Create(0, "working days left"),
-                Tuple.Create(1, "working day left"),
-                Tuple.Create(2, "working days left"),
-                Tuple.Create(10, "working days left"),
-            };
+            var model = new WorkingDaysLeft(days);
 
-            foreach (var pair in correctPairs)
-            {
-                model = new WorkingDaysLeft(pair.Item1);
-
-                Assert.AreEqual(pair.Item2, model.DaysLeftText);
-            }
+            Assert.AreEqual(expected, model.DaysLeftText);
         }
 
-        [Test]
-        public void Should_return_overtime_suffix_for_negative_number_of_days()
+        [TestCase(-1, "day on overtime")]
+        [TestCase(-2, "days on overtime")]
+        public void Should_return_overtime_suffix_for_negative_number_of_days(int days, string expected)
         {
-            var correctPairs = new[] {
-                Tuple.Create(-1, "day on overtime"),
-                Tuple.Create(-2, "days on overtime")
-            };
+            var model = new WorkingDaysLeft(days);
 
-            foreach (var pair in correctPairs)
-            {
-                model = new WorkingDaysLeft(pair.Item1);
-
-                Assert.AreEqual(pair.Item2, model.DaysLeftText);
-            }
+            Assert.AreEqual(expected, model.DaysLeftText);
         }
 
         [Test]
         public void Should_return_absolute_value_of_days()
         {
-            model = new WorkingDaysLeft(-1);
+            var model = new WorkingDaysLeft(-1);
+
             Assert.AreEqual(1, model.DaysLeft);
         }
-
     }
-
 }
