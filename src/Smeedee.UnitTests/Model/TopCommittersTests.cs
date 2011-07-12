@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
@@ -19,7 +20,7 @@ namespace Smeedee.UnitTests.Model
         [ExpectedException(typeof(ArgumentNullException))]
         public void Should_throw_exception_on_null_argument()
         {
-            var topCommiters = new TopCommitters(null);
+            var topCommiters = new TopCommitters(null, 0);
         }
 
         [TestFixture]
@@ -34,7 +35,13 @@ namespace Smeedee.UnitTests.Model
                     new Committer("Lars", 17, "http://www.foo.com/img.png"),
                     new Committer("Dag Olav", 24, "http://www.foo.com/img.png"),
                     new Committer("Borge", 16, "http://www.foo.com/img.png")
-                });
+                }, 7);
+            }
+
+            [Test]
+            public void Should_contain_number_of_days()
+            {
+                Assert.AreEqual(7, model.Days);
             }
 
             [Test]

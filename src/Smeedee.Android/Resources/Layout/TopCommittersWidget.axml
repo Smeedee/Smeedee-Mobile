@@ -5,6 +5,27 @@
   a:layout_height="fill_parent"
   a:orientation="vertical"
   a:gravity="top">
+
+  <LinearLayout
+    a:layout_width="fill_parent"
+    a:layout_height="wrap_content"
+    a:paddingBottom="5dip"
+    a:orientation="vertical">
+<!--
+    <TextView
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:textColor="#F88017"
+      a:textSize="20sp"
+      a:text="Top committers" />-->
+
+    <TextView
+      a:id="@+id/TopCommittersTimeText"
+      a:layout_width="wrap_content"
+      a:layout_height="wrap_content"
+      a:textSize="14sp" />
+  </LinearLayout>
+
   <ListView
     a:id="@+id/TopCommittersList"
     a:layout_width="fill_parent"
