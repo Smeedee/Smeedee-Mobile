@@ -17,6 +17,8 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIWindow __mt_window;
 		
+		private MonoTouch.UIKit.UITabBarController __mt_tabBar;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("window")]
 		private MonoTouch.UIKit.UIWindow window {
@@ -27,6 +29,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_window = value;
 				this.SetNativeField("window", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("tabBar")]
+		private MonoTouch.UIKit.UITabBarController tabBar {
+			get {
+				this.__mt_tabBar = ((MonoTouch.UIKit.UITabBarController)(this.GetNativeField("tabBar")));
+				return this.__mt_tabBar;
+			}
+			set {
+				this.__mt_tabBar = value;
+				this.SetNativeField("tabBar", value);
 			}
 		}
 	}

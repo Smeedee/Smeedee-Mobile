@@ -6,20 +6,16 @@ using MonoTouch.UIKit;
 
 namespace Smeedee.iOS
 {
-
-    // The name AppDelegateIPhone is referenced in the MainWindowIPhone.xib file.
     public partial class AppDelegateIPhone : UIApplicationDelegate
     {
         // This method is invoked when the application has loaded its UI and its ready to run
-        public override bool FinishedLaunching (UIApplication app, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            // If you have defined a view, add it here:
-            // window.AddSubview (navigationController.View);
+            var sharedApp = new AppDelegateShared(window, tabBar);
+            sharedApp.FinishedLaunching();
 
-            window.MakeKeyAndVisible ();
-
+            window.MakeKeyAndVisible();
             return true;
         }
     }
 }
-
