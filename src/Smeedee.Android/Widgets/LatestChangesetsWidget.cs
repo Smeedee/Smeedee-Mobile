@@ -38,7 +38,7 @@ namespace Smeedee.Android.Widgets
             var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
 
             var from = new[] { "Image", "User", "Msg", "Date"};
-            var to = new[] { Ids.CommitterIcon, Ids.ChangesetUser, Ids.ChangesetText, Ids.ChangesetDate };
+            var to = new[] { Ids.LatestChangesetWidget_CommitterIcon, Ids.LatestChangesetWidget_ChangesetUser, Ids.LatestChangesetWidget_ChangesetText, Ids.LatestChangesetWidget_ChangesetDate };
 
             var listItems = CreateListItems();
 

@@ -5,6 +5,8 @@
   <!--LoginScreen-->
   <string name="LoginScreenErrorNotificationText">Authentication failed. Please check your url and password</string>
   <string name="LoginScreenBtnLogin">Login</string>
+  <string name="LoginScreenServerUrlHint">Server URL</string>
+  <string name="LoginScreenUserPasswordHint">User Password</string>
   
   <!-- Menu-->
   <string name="MenuBtnRefreshCurrentWidget">Refresh</string>
@@ -31,9 +33,16 @@
   <string name="WorkingDaysLeft">working days left</string>
 
   <!--Start Page-->
-  <string name="StartPageWidget">smeedee mobile</string>
+  <string name="StartPageWidgetTitle">smeedee mobile</string>
 
   <!--Top Commiters-->
+  <string name="TopCommittersSettingsPreferenceCategory1">Committers</string>
+  <string name="TopCommittersSettingsPreferenceCategory2">Time</string>
+  <string name="TopCommittersSettingsNumberOfCommittersTitle">Number of committers</string>
+  <string name="TopCommittersSettingsNumberOfCommittersSummary">Currently showing top 5 committers</string>
+  <string name="TopCommittersSettingsTimePeriodTitle">Time period</string>
+  <string name="TopCommittersSettingsTimePeriodSummary">Showing top committers for the last 24 hours</string>
+  
 
   <!--Latest changeset-->
   <string name="LatestChangesetsSettingsHighlightEmptyTitle">Highlight empty</string>

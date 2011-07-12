@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
-using Android.Preferences;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Services;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Utilities;
@@ -17,8 +17,7 @@ namespace Smeedee.Android.Widgets
         private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
-        private ISharedPreferences preferences;
-
+        private AndroidKVPersister database;
         private TopCommitters model;
         private ListView list;
 
@@ -26,7 +25,7 @@ namespace Smeedee.Android.Widgets
         {
             InflateView();
 
-            preferences = PreferenceManager.GetDefaultSharedPreferences(Context);
+            database = new AndroidKVPersister(Context);
 
             list = FindViewById<ListView>(Resource.Id.TopCommittersList);
 
@@ -55,8 +54,8 @@ namespace Smeedee.Android.Widgets
         private void LoadModel()
         {
             var args = new Dictionary<string, string>() {
-                {"count", preferences.GetString("TopCommittersCountPref", "5")},
-                {"time", preferences.GetString("TopCommittersTimePref", "1")},
+                {"count", database.Get("TopCommittersCountPref")},
+                {"time", database.Get("TopCommittersTimePref")},
             };
             model = service.GetSingle(args);
         }
@@ -64,7 +63,7 @@ namespace Smeedee.Android.Widgets
         private SimpleAdapter CreateAdapter()
         {
             var from = new string[] { "name", "commits" };
-            var to = new int[] { Resource.Id.committer_name, Resource.Id.number_of_commits };
+            var to = new int[] { Resource.Id.TopCommittersWidget_committer_name, Resource.Id.TopCommittersWidget_number_of_commits };
 
             var data = GetModelAsListData(from[0], from[1]);
 

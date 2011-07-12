@@ -2,24 +2,24 @@
 <PreferenceScreen xmlns:a="http://schemas.android.com/apk/res/android">
   
   <PreferenceCategory 
-    a:title="Committers">
+    a:title="@string/TopCommittersSettingsPreferenceCategory1">
     <ListPreference
       a:id="@+id/TopCommittersCountPrefId"
       a:key="TopCommittersCountPref"
-      a:title="Number of committers"
-      a:summary="Currently showing top 5 committers"
+      a:title="@string/TopCommittersSettingsNumberOfCommittersTitle"
+      a:summary="@string/TopCommittersSettingsNumberOfCommittersSummary"
       a:entries="@array/TopCommittersCountArray"
       a:entryValues="@array/TopCommittersCountValues"
       a:defaultValue="5" />
   </PreferenceCategory>
 
   <PreferenceCategory
-    a:title="Time">
+    a:title="@string/TopCommittersSettingsPreferenceCategory2">
     <ListPreference
       a:id="@+id/TopCommittersTimePrefId"
       a:key="TopCommittersTimePref"
-      a:title="Time period"
-      a:summary="Showing top committers for the last 24 hours"
+      a:title="@string/TopCommittersSettingsTimePeriodTitle"
+      a:summary="@string/TopCommittersSettingsTimePeriodSummary"
       a:entries="@array/TopCommittersTimeArray"
       a:entryValues="@array/TopCommittersTimeValues"
       a:defaultValue="1" />
