@@ -217,17 +217,32 @@
     <Compile Include="ConfigurationScreen.xib.designer.cs">
       <DependentUpon>ConfigurationScreen.xib</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\TestWidget.xib.cs">
+      <DependentUpon>TestWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TestWidget.xib.designer.cs">
+      <DependentUpon>TestWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TestWidget2.xib.cs">
+      <DependentUpon>TestWidget2.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TestWidget2.xib.designer.cs">
+      <DependentUpon>TestWidget2.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
     <Page Include="MainWindowIPad.xib" />
     <Page Include="WidgetsScreen.xib" />
     <Page Include="ConfigurationScreen.xib" />
+    <Page Include="Widgets\TestWidget.xib" />
+    <Page Include="Widgets\TestWidget2.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Services\" />
     <Folder Include="Utilities\" />
+    <Folder Include="Widgets\" />
   </ItemGroup>
 </Project>
