@@ -61,7 +61,7 @@ namespace Smeedee.Android.Widgets
         {
             var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
 
-            var from = new[] { "Image", "User", "Msg", "Date"};
+            var from = new[] {"Image", "User", "Msg", "Date"};
             var to = new[] { Ids.LatestChangesetWidget_CommitterIcon, Ids.LatestChangesetWidget_ChangesetUser, Ids.LatestChangesetWidget_ChangesetText, Ids.LatestChangesetWidget_ChangesetDate };
 
             var listItems = CreateListItems(changesets);
@@ -98,11 +98,10 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            backgroundWorker.Invoke(GetDataAndUpdateUI);
+            //backgroundWorker.Invoke(GetDataAndUpdateUI);
 
             //ContextSwitcher.Using((Activity)Context).
-            //new ContextSwitcher((Activity)Context).InBackground(GetData).InUI(UpdateUI).Do();
-
+            new ContextSwitcher((Activity)Context).InBackground(GetData).InUI(UpdateUI).Do();
         }
     }
 

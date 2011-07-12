@@ -151,6 +151,7 @@
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
+    <Compile Include="Utilities\ContextSwitcher.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\Settings\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
