@@ -28,6 +28,8 @@ namespace Smeedee.iOS
     
     public class BuildStatusTableSource : UITableViewSource
     {
+        private TableCellFactory cellFactory = new TableCellFactory("BuildStatusTableCellController", typeof(BuildStatusTableCellController));
+        
         public override int NumberOfSections(UITableView tableView)
         {
             return 1;
@@ -40,9 +42,14 @@ namespace Smeedee.iOS
         
         public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
         {
-            var cell = new UITableViewCell(UITableViewCellStyle.Default, "CellID");
-            cell.TextLabel.Text = "Cell " + indexPath.Row;
-            return cell;
+            var cellController = cellFactory.NewTableCellController(tableView, indexPath) as BuildStatusTableCellController;
+            
+            return cellController.TableViewCell;
+        }
+        
+        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+        {
+            return 75;
         }
     }
 }

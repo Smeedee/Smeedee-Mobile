@@ -241,6 +241,14 @@
     <Compile Include="Widgets\BuildStatusWidget.xib.designer.cs">
       <DependentUpon>BuildStatusWidget.xib</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\TableCells\BuildStatusTableCellController.xib.cs">
+      <DependentUpon>BuildStatusTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\BuildStatusTableCellController.xib.designer.cs">
+      <DependentUpon>BuildStatusTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\TableCellFactory.cs" />
+    <Compile Include="Lib\TableViewCellController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -251,6 +259,7 @@
     <Page Include="Widgets\TestWidget2.xib" />
     <Page Include="Widgets\TopCommittersWidget.xib" />
     <Page Include="Widgets\BuildStatusWidget.xib" />
+    <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -259,6 +268,7 @@
     <Folder Include="Widgets\" />
     <Folder Include="Lib\" />
     <Folder Include="Images\" />
+    <Folder Include="Widgets\TableCells\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />
