@@ -47,6 +47,8 @@ namespace Smeedee.Android.Screens
             var serverUrlPreference = (EditTextPreference) FindPreference("serverUrl");
             var userPasswordPreference = (EditTextPreference)FindPreference("userPassword");
 
+            var database = new AndroidKVPersister(this);
+
             serverUrlPreference.Summary = database.Get("serverUrl");
             userPasswordPreference.Summary = database.Get("userPassword");
         }
