@@ -1,14 +1,14 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Services;
+using Smeedee.Android.Services;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "Login", Theme = "@android:style/Theme")]
+    [Activity(Label = "Login Screen", Theme = "@android:style/Theme")]
     public class LoginScreen : Activity
     {
         private ILoginValidationService _loginValidator;
@@ -21,15 +21,14 @@ namespace Smeedee.Android.Screens
 
             var submitButton = FindViewById<Button>(Resource.Id.BtnLogin);
             var urlInput = FindViewById<EditText>(Resource.Id.ServerUrlInput);
-            var keyInput = FindViewById<EditText>(Resource.Id.AccessKeyInput);
+            var userPasswordInput = FindViewById<EditText>(Resource.Id.UserPasswordInput);
             submitButton.Click += delegate
                 {
-                    if (_loginValidator.IsValid(urlInput.Text, keyInput.Text))
+                    if (_loginValidator.IsValid(urlInput.Text, userPasswordInput.Text))
                     {
-                        var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-                        var editor = prefs.Edit();
-                        editor.PutString("serverUrl", urlInput.Text);
-                        editor.PutString("userPassword", keyInput.Text);
+                        var database = new AndroidKVPersister(this);
+                        database.Save("severUrl", urlInput.Text);
+                        database.Save("userPassword", userPasswordInput.Text);
 
                         var widgetContainer = new Intent(this, typeof(WidgetContainer));
                         StartActivity(widgetContainer);

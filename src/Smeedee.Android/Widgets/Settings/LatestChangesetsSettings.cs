@@ -1,27 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Preferences;
-using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
-using Smeedee.Model;
-using Smeedee.Services;
-using Object = System.Object;
-using String = System.String;
 
-namespace Smeedee.Android.Widgets
+
+namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "Latest Changesets Settings", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar",
-        Icon = "@drawable/icon_smeedee")]
+    [Activity(Label = "Latest Changesets Settings", Theme = "@android:style/Theme")]
     public class LatestChangesetsSettings : PreferenceActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

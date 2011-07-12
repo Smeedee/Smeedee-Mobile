@@ -1,20 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Preferences;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 
 namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "Top Committers Settings")]
+    [Activity(Label = "Top Committers Settings", Theme = "@android:style/Theme")]
     public class TopCommittersSettings : PreferenceActivity
     {
         private ISharedPreferences preferences;
@@ -26,7 +18,6 @@ namespace Smeedee.Android.Widgets.Settings
 
             preferences = PreferenceManager.GetDefaultSharedPreferences(this);
             UpdateSummaryForPreferences();
-
         }
 
         private void UpdateSummaryForPreferences()

@@ -1,18 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<RelativeLayout 
-  android:id="@+id/mainlayout" 
-  android:layout_height="fill_parent" 
-  android:layout_width="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent"
+  android:layout_width="fill_parent" >
   <LinearLayout
-      android:orientation="vertical"
-      android:gravity="center_horizontal"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:id="@+id/LoginLinearLayout">
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true">
     <ImageView
-        android:id="@+id/SmeedeeIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="15px"
@@ -26,7 +23,7 @@
         android:hint="Server URL"
         />
     <EditText
-        android:id="@+id/AccessKeyInput"
+        android:id="@+id/UserPasswordInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textVisiblePassword"
@@ -36,7 +33,7 @@
         android:id="@+id/ErrorNotificationText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Authentication failed. Please check your url and key."
+        android:text="@string/LoginScreenErrorNotificationText"
         android:visibility="invisible"
         android:textColor="#F33"
         />
@@ -44,7 +41,7 @@
         android:id="@+id/BtnLogin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/LoginScreenBtnLogin"
         android:padding="10dp"
         />
   </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
   <!-- Latest Commits Settings colors (from the Solarized color scheme) -->
   <string-array name="colorNames">
     <item>Yellow</item>
@@ -46,7 +45,6 @@
     <item>7</item>
     <item>30</item>
   </string-array>
-  
   
   <!-- Build Status Settings -->
     <string-array name="BuildStatusSortArray">

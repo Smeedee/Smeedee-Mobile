@@ -147,6 +147,7 @@
       <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Screens\About.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
@@ -165,7 +166,7 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.xml">
+    <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\WorkingDaysLeftWidget.axml">
@@ -193,14 +194,16 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Values\Arrays.xml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Values\Strings.xml" />
+    <AndroidResource Include="Resources\Values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Menu\Main.xml">
@@ -263,6 +266,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\BuildStatusSettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\About.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\icon_smeedee_blackwhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

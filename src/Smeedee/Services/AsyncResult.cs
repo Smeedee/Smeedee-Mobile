@@ -1,5 +1,3 @@
-using System;
-
 namespace Smeedee
 {
     public class AsyncResult<T>

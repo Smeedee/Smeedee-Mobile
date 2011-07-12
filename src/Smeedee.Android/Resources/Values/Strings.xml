@@ -2,25 +2,22 @@
 <resources>
   <string name="ApplicationName">Smeedee Mobile</string>
 
-  <!--LoginView-->
-  <string name="LoginWidgetTestText">Login Widget</string>
-  
   <!--LoginScreen-->
-  <string name="LoginScreen">Login screen</string>
+  <string name="LoginScreenErrorNotificationText">Authentication failed. Please check your url and password</string>
+  <string name="LoginScreenBtnLogin">Login</string>
   
-  <!-- WidgetContainer-->
-  <string name="Prev">Previous</string>
-  <string name="Next">Next</string>
-  <string name="RefreshCurrentWidget">Refresh</string>
-  <string name="WidgetSettings">Configure</string>
-  <string name="GlobalSettings">Settings</string>
+  <!-- Menu-->
+  <string name="MenuBtnRefreshCurrentWidget">Refresh</string>
+  <string name="MenuBtnWidgetSettings">Configure</string>
+  <string name="MenuBtnGlobalSettings">Settings</string>
+  <string name="MenuBtnAbout">About</string>
 
   <!--GlobalSettings-->
-  <string name="BtnServerSettings">Server and user settings</string>
-  <string name="BtnEnabledWidgets">Enable or diasable widgets</string>
-  <string name="ServerSettings">ServerSettings</string>
-  <string name="EnabledWidgets">EnabledWidgets</string>
-  <string name="SaveSettingsBtn">Save</string>
+  <string name="GlobalSettingsScreenPreferenceCategory1">Available Widgets</string>
+  <string name="GlobalSettingsScreenPreferenceCategory2">Server and user settings</string>
+  <string name="GlobalSettingsScreenAvailableWidgetsTitle">Available widgets</string>
+  <string name="GlobalSettingsScreenServerUrlTitle">Server URL</string>
+  <string name="GlobalSettingsScreenUserPasswordTitle">User password</string>
 
   <!--*** WIDGETS ***-->
   

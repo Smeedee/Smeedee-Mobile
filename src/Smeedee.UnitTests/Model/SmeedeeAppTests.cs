@@ -77,15 +77,6 @@ namespace Smeedee.UnitTests.Model
                 Assert.Contains("description static 1", widgets.Select(m => m.DescriptionStatic).ToList());
                 Assert.Contains("description static 2", widgets.Select(m => m.DescriptionStatic).ToList());
             }
-            [Test]
-            public void Registered_widget_should_have_their_static_description_set_properly()
-            {
-                app.RegisterAvailableWidgets();
-                var widgets = app.AvailableWidgets;
-
-                Assert.Contains(true, widgets.Select(m => m.IsEnabled).ToList());
-                Assert.Contains(false, widgets.Select(m => m.IsEnabled).ToList());
-            }
         }
         
         public class Shared
@@ -100,7 +91,7 @@ namespace Smeedee.UnitTests.Model
             }
         }
         
-        [WidgetAttribute("Test Widget", 1, DescriptionStatic = "description static 1", IsEnabled = true)]
+        [WidgetAttribute("Test Widget", 1, DescriptionStatic = "description static 1")]
         public class TestWidget : IWidget
         {
             public void Refresh()
@@ -108,7 +99,7 @@ namespace Smeedee.UnitTests.Model
             }
         }
 
-        [WidgetAttribute("Test Widget 2", 2, DescriptionStatic = "description static 2", IsEnabled = false)]
+        [WidgetAttribute("Test Widget 2", 2, DescriptionStatic = "description static 2")]
         public class AnotherTestWidget : IWidget
         {
             public void Refresh()

@@ -1,19 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Preferences;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+
 
 namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "My Activity")]
+    [Activity(Label = "Build Status Settings", Theme = "@android:style/Theme")]
     public class BuildStatusSettings : PreferenceActivity
     {
         protected override void OnCreate(Bundle bundle)

@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:id="@+id/BtnRefreshCurrentWidget"
         android:icon="@android:drawable/ic_menu_rotate"
-        android:title="@string/RefreshCurrentWidget" />
+        android:title="@string/MenuBtnRefreshCurrentWidget" />
   <item android:id="@+id/BtnWidgetSettings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:title="@string/WidgetSettings" />
+        android:title="@string/MenuBtnWidgetSettings" />
   <item android:id="@+id/BtnGlobalSettings"
         android:icon="@android:drawable/ic_menu_manage"
-        android:title="@string/GlobalSettings" />
+        android:title="@string/MenuBtnGlobalSettings" />
+  <item android:id="@+id/BtnAbout"
+        android:icon="@drawable/icon_smeedee_blackwhite"
+        android:title="@string/MenuBtnAbout" />
 </menu>

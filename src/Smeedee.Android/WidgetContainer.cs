@@ -53,7 +53,7 @@ namespace Smeedee.Android
             var instances = new List<IWidget>();
             foreach (var widget in widgets)
             {
-                if (widget.IsEnabled) instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
+                instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
             }
             return instances;
         }
@@ -160,6 +160,11 @@ namespace Smeedee.Android
                     StartActivity(globalSettings);
                     return true;
 
+                case Resource.Id.BtnAbout:
+
+                    var about = new Intent(this, typeof(About));
+                    StartActivity(about);
+                    return true;
                 default:
                     return base.OnOptionsItemSelected(item);
             }

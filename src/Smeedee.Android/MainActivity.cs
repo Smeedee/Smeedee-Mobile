@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Preferences;
-using Android.Util;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
 using Smeedee.Android.Widgets;
@@ -15,7 +12,7 @@ using Smeedee.Utilities;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee Mobile", Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/icon_smeedee")]
+    [Activity(Label = "Smeedee Mobile", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/icon_smeedee")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
@@ -59,10 +56,11 @@ namespace Smeedee.Android
 
         private bool UserHasAValidUrlAndKey()
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            var database = new AndroidKVPersister(this);
 
-            var key = prefs.GetString("userPassword", "<unset>");
-            var url = prefs.GetString("serverUrl", "<unset>");
+            var url = database.Get("serverUrl");
+            var key = database.Get("userPassword");
+
             if (url == null || key == null) return false;
 
             var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();

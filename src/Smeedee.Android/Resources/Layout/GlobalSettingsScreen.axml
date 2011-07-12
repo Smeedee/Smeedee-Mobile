@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory 
+    android:title="@string/GlobalSettingsScreenPreferenceCategory1">
+    <PreferenceScreen
+      android:key="availableWidgets"
+      android:title="@string/GlobalSettingsScreenAvailableWidgetsTitle"
+      android:summary="Enable and disable widgets">
+    </PreferenceScreen>
+  </PreferenceCategory>
+  
+  <PreferenceCategory 
+    android:title="@string/GlobalSettingsScreenPreferenceCategory2">
+    <EditTextPreference
+      android:id="@+id/serverUrl"
+      android:key="serverUrl"
+      android:title="@string/GlobalSettingsScreenServerUrlTitle"
+      android:inputType="textUri"
+      android:defaultValue="http://smeedee.trondheim.org"/>
+    <EditTextPreference
+      android:id="@+id/userPassword"
+      android:key="userPassword"
+      android:title="@string/GlobalSettingsScreenUserPasswordTitle"
+      android:inputType="textVisiblePassword"
+      android:defaultValue="GW#¤hs35SG"/>
+  </PreferenceCategory>
+  
+</PreferenceScreen>
