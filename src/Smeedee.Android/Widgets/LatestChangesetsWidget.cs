@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Util;
@@ -16,7 +17,8 @@ namespace Smeedee.Android.Widgets
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";
-        private IChangesetService changesetService;
+        private IEnumerable<Changeset> changesets;
+
         public LatestChangesetsWidget(Context context) :
             base(context)
         {
@@ -31,13 +33,26 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            changesetService = SmeedeeApp.Instance.ServiceLocator.Get<IChangesetService>();
-            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
+            InflateLayout();
+            Refresh();
+        }
 
+        private void GetData()
+        {
+            var changesetService = SmeedeeApp.Instance.ServiceLocator.Get<IChangesetService>();
+            changesets = changesetService.GetLatestChangesets();
+        }
+
+        private void UpdateUI()
+        {
+            CreateListAdapter();
+        }
+
+        private void CreateListAdapter()
+        {
             var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
 
-            var from = new[] { "Image", "User", "Msg", "Date"};
+            var from = new[] {"Image", "User", "Msg", "Date"};
             var to = new[] { Ids.LatestChangesetWidget_CommitterIcon, Ids.LatestChangesetWidget_ChangesetUser, Ids.LatestChangesetWidget_ChangesetText, Ids.LatestChangesetWidget_ChangesetDate };
 
             var listItems = CreateListItems();
@@ -46,21 +61,28 @@ namespace Smeedee.Android.Widgets
             commitList.Adapter = adapter;
         }
 
+        private void InflateLayout()
+        {
+            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+            inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
+        }
+
         private IList<IDictionary<string, object>> CreateListItems()
         {
             IList<IDictionary<String, object>> listItems = new List<IDictionary<String, object>>();
 
-            foreach (var changeset in changesetService.GetLatestChangesets())
+            foreach (var changeset in changesets)
             {
-                IDictionary<String, object> keyValueMap = new Dictionary<String, object>();
-
                 var msg = (changeset.Message == "") ? NoMessageTag : changeset.Message;
-                keyValueMap.Add("Msg", msg);
-                keyValueMap.Add("Image", Resource.Drawable.DefaultPerson);
-                keyValueMap.Add("User", changeset.User);
-                keyValueMap.Add("Date", (DateTime.Now - changeset.Date).PrettyPrint());
-                
-                listItems.Add(keyValueMap);
+                listItems.Add(
+                    new Dictionary<string, object>()
+                        {
+                            {"Msg", msg},
+                            {"Image", Resource.Drawable.DefaultPerson},
+                            {"User", changeset.User},
+                            {"Date", (DateTime.Now - changeset.Date).PrettyPrint()}
+                        }
+                    );
             }
 
             return listItems;
@@ -68,6 +90,7 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
+            ContextSwitcher.Using((Activity) Context).InBackground(GetData).InUI(UpdateUI).Run();
         }
     }
 
@@ -95,7 +118,7 @@ namespace Smeedee.Android.Widgets
 
             return view;
         }
-}
+    }
 
     public class FakeChangesetService : IChangesetService
     {

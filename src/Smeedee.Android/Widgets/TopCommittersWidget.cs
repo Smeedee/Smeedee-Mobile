@@ -63,7 +63,7 @@ namespace Smeedee.Android.Widgets
         private void UpdateView()
         {
             var text = FindViewById<TextView>(Resource.Id.TopCommittersTimeText);
-            text.Text = TextFromNumberOfDays(model.Days);
+            text.Text = model.DaysText;
 
             list.Adapter = CreateAdapter();
         }
@@ -91,21 +91,6 @@ namespace Smeedee.Android.Widgets
             }
 
             return data;
-        }
-
-        private static string TextFromNumberOfDays(int days)
-        {
-            switch (days)
-            {
-                case 1:
-                    return "Showing number of commits for the past 24 hours";
-                case 7:
-                    return "Showing number of commits for the past week";
-                case 30:
-                    return "Showing number of commit for the past month";
-                default:
-                    return "Showing number of commits for the past " + days + " days";
-            }
         }
 
         public void Refresh()

@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Smeedee\Guard.cs">
+      <Link>Guard.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\BuildStatus.cs">
       <Link>Model\BuildStatus.cs</Link>
     </Compile>
@@ -134,23 +137,21 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
-      <Link>Utilities\BackgroundWorker.cs</Link>
+    <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
+      <Link>TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\Guard.cs">
-      <Link>Utilities\Guard.cs</Link>
+    <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
+      <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
       <Link>Utilities\IBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\TimeSpanPrettyPrintExtension.cs">
-      <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Screens\About.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
+    <Compile Include="Utilities\ContextSwitcher.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\Settings\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />

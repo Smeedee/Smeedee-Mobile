@@ -10,6 +10,10 @@ namespace Smeedee.UnitTests.Model
     [TestFixture]
     public class TopCommittersTests
     {
+        private Committer[] singleCommitter = {
+            new Committer("Lars", 17, "http://www.foo.com/img.png")
+        };
+
         [Test]
         public void Should_implement_IModel()
         {
@@ -20,7 +24,18 @@ namespace Smeedee.UnitTests.Model
         [ExpectedException(typeof(ArgumentNullException))]
         public void Should_throw_exception_on_null_argument()
         {
-            var topCommiters = new TopCommitters(null, 0);
+            new TopCommitters(null, 0);
+        }
+
+        [TestCase(1, "Top committers for the past 24 hours")]
+        [TestCase(2, "Top committers for the past 2 days")]
+        [TestCase(7, "Top committers for the past week")]
+        [TestCase(30, "Top committers for the past month")]
+        public void Should_return_string_description_of_time_period(int days, string expected)
+        {
+            var model = new TopCommitters(singleCommitter, days);
+
+            Assert.AreEqual(expected, model.DaysText);
         }
 
         [TestFixture]
@@ -36,12 +51,6 @@ namespace Smeedee.UnitTests.Model
                     new Committer("Dag Olav", 24, "http://www.foo.com/img.png"),
                     new Committer("Borge", 16, "http://www.foo.com/img.png")
                 }, 7);
-            }
-
-            [Test]
-            public void Should_contain_number_of_days()
-            {
-                Assert.AreEqual(7, model.Days);
             }
 
             [Test]

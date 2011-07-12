@@ -36,7 +36,7 @@ namespace Smeedee.Android.Widgets
             CreateGui();
             FindBuildListUi();
 
-            bgWorker.Invoke(RefreshBuildsFromServer);
+            Refresh();
         }
 
         private void CreateGui()
@@ -98,7 +98,7 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            RefreshUiBuildList();
+            bgWorker.Invoke(RefreshBuildsFromServer);
         }
     }
 
