@@ -151,7 +151,7 @@
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
-    <Compile Include="Widgets\LatestChangesetsSettings.cs" />
+    <Compile Include="Widgets\Settings\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
     <Compile Include="Widgets\Settings\BuildStatusSettings.cs" />
     <Compile Include="Widgets\Settings\TopCommittersSettings.cs" />
@@ -252,11 +252,17 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon_buildunknown.png" />
   </ItemGroup>
-  <ItemGroup>    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings.axml" />  </ItemGroup>  <ItemGroup>    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings_ListItem.axml" />  </ItemGroup>  <ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings_ListItem.axml" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\Values\Arrays.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\BuildStatusSettings.axml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusSettings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
