@@ -98,10 +98,7 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            //backgroundWorker.Invoke(GetDataAndUpdateUI);
-
-            //ContextSwitcher.Using((Activity)Context).
-            new ContextSwitcher((Activity)Context).InBackground(GetData).InUI(UpdateUI).Do();
+            ContextSwitcher.Using((Activity) Context).InBackground(GetData).InUI(UpdateUI).Run();
         }
     }
 
