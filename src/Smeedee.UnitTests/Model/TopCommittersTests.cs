@@ -10,6 +10,16 @@ namespace Smeedee.UnitTests.Model
     [TestFixture]
     public class TopCommittersTests
     {
+        private Committer[] singleCommitter = {
+            new Committer("Lars", 17, "http://www.foo.com/img.png")
+        };
+
+        private Committer[] multipleCommitters = {
+            new Committer("Lars", 17, "http://www.foo.com/img.png"),
+            new Committer("Dag Olav", 24, "http://www.foo.com/img.png"),
+            new Committer("Borge", 16, "http://www.foo.com/img.png")
+        };
+
         [Test]
         public void Should_implement_IModel()
         {
@@ -21,6 +31,14 @@ namespace Smeedee.UnitTests.Model
         public void Should_throw_exception_on_null_argument()
         {
             var topCommiters = new TopCommitters(null, 0);
+        }
+
+        [Test]
+        public void Should_return_string_description_of_time_period()
+        {
+            var model = new TopCommitters(singleCommitter, 1);
+
+            Assert.AreEqual("24 hours", model.DaysText);
         }
 
         [TestFixture]

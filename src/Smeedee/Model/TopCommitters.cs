@@ -22,5 +22,10 @@ namespace Smeedee.Model
             get;
             private set;
         }
+
+        public string DaysText
+        {
+            get { return "24 hours"; }
+        }
     }
 }
