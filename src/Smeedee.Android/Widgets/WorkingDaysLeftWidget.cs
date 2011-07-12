@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Utilities;
 
 namespace Smeedee.Android.Widgets
 {
@@ -14,12 +16,15 @@ namespace Smeedee.Android.Widgets
         private readonly IModelService<WorkingDaysLeft> modelService =
             SmeedeeApp.Instance.ServiceLocator.Get<IModelService<WorkingDaysLeft>>();
         
-        private WorkingDaysLeft _model;
+        private readonly IBackgroundWorker backgroundWorker = 
+            SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
+
+        private WorkingDaysLeft model;
 
         public WorkingDaysLeftWidget(Context context) : base(context)
         {
             InflateView();
-            InitializeModelAndUpdateView();
+            backgroundWorker.Invoke(LoadModelAndUpdateView);
         }
 
         private void InflateView()
@@ -34,12 +39,16 @@ namespace Smeedee.Android.Widgets
             }
         }
 
-        private void InitializeModelAndUpdateView()
+        private void LoadModelAndUpdateView()
         {
-            // TODO: This queued in a thread, modelService is synchronous
+            LoadModel();
+            ((Activity)Context).RunOnUiThread(UpdateView);
+        }
+
+        private void LoadModel()
+        {
             var args = new Dictionary<string, string>();
-            _model = modelService.GetSingle(args);
-            UpdateView();
+            model = modelService.GetSingle(args);
         }
 
         private void UpdateView()
@@ -47,8 +56,8 @@ namespace Smeedee.Android.Widgets
             var daysView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftNumber);
             var textView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftText);
             
-            var days = _model.DaysLeft.ToString();
-            var text = _model.DaysLeftText;
+            var days = model.DaysLeft.ToString();
+            var text = model.DaysLeftText;
 
             daysView.SetText(days, TextView.BufferType.Normal);
             textView.SetText(text, TextView.BufferType.Normal);
@@ -56,6 +65,7 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
+            LoadModelAndUpdateView();
         }
     }
 }
