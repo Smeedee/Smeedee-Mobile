@@ -12,7 +12,7 @@ namespace Smeedee.UnitTests.Model
         private WorkingDaysLeft model;
 
         [Test]
-        public void Should_get_the_correct_string_for_every_number_of_days()
+        public void Should_return_the_correct_suffix_for_positive_number_of_days()
         {
             var correctPairs = new[] {
                 Tuple.Create(0, "working days left"),
@@ -30,10 +30,19 @@ namespace Smeedee.UnitTests.Model
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Should_not_accept_negative_number_of_days_left()
+        public void Should_return_overtime_suffix_for_negative_number_of_days()
         {
-            new WorkingDaysLeft(-1);
+            var correctPairs = new[] {
+                Tuple.Create(-1, "day on overtime"),
+                Tuple.Create(-2, "days on overtime")
+            };
+
+            foreach (var pair in correctPairs)
+            {
+                model = new WorkingDaysLeft(pair.Item1);
+
+                Assert.AreEqual(pair.Item2, model.DaysLeftText);
+            }
         }
 
     }
