@@ -63,7 +63,7 @@ namespace Smeedee.Android.Widgets
         private void UpdateView()
         {
             var text = FindViewById<TextView>(Resource.Id.TopCommittersTimeText);
-            text.Text = TextFromNumberOfDays(model.Days);
+            text.Text = model.DaysText;
 
             list.Adapter = CreateAdapter();
         }
