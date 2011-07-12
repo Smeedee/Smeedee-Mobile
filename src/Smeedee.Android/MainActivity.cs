@@ -3,6 +3,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Preferences;
+using Android.Util;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
 using Smeedee.Android.Widgets;
@@ -12,6 +13,23 @@ using Smeedee.Utilities;
 
 namespace Smeedee.Android
 {
+    [Application]
+    public class SmeedeeApplication : Application
+    {
+        public SmeedeeApp App { get; private set; }
+
+        public SmeedeeApplication(IntPtr handle) : base(handle)
+        {
+            App = SmeedeeApp.Instance;
+        }
+
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            Log.Debug("TT", "Application is being run");
+        }
+    }
+
     [Activity(Label = "Smeedee Mobile", MainLauncher = true, Theme = "@android:style/Theme.NoTitleBar", Icon = "@drawable/icon_smeedee")]
     public class MainActivity : Activity
     {
@@ -24,10 +42,11 @@ namespace Smeedee.Android
             var activity = DetermineNextActivity();
             StartActivity(activity);
         }
-        
+
+       
         private void ConfigureDependencies()
         {
-            var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
+            var serviceLocator = ((SmeedeeApplication)Application).App.ServiceLocator;
 
             // Fill in global bindings here:
             serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
