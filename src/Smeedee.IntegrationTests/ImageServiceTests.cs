@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Services;
-using Smeedee.Utilities;
 
 namespace Smeedee.IntegrationTests
 {

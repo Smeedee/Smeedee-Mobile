@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using Smeedee.Services;
 using NUnit.Framework;
-using Smeedee.Utilities;
 
 namespace Smeedee.UnitTests.Services
 {

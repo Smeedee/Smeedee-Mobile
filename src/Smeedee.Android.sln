@@ -10,11 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smeedee.IntegrationTests", "Smeedee.IntegrationTests\Smeedee.IntegrationTests.csproj", "{5A6176F1-8CBE-4253-B4F2-C59FB3FE9514}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4F880E12-BA3C-4AE6-9342-BA0B9F5FB7C2}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		Smeedee.Android.vsmdi = Smeedee.Android.vsmdi
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

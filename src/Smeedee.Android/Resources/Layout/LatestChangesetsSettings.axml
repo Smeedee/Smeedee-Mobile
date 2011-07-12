@@ -7,7 +7,7 @@
     android:summaryOff="@string/LatestChangesetsSettingsHighlightEmptySummaryOff"
     android:defaultValue="false"/>
 
-  <smeedee.android.widgets.ColoredListPreference
+  <smeedee.android.widgets.settings.ColoredListPreference
     android:title="@string/LatestChangesetsSettingsHighlightColorTitle"
     android:key="lcs_customListPref"
     android:defaultValue="dc322f"
