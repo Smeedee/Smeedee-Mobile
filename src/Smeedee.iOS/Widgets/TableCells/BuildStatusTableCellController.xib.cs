@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.Model;
 
 namespace Smeedee.iOS
 {
@@ -18,12 +19,15 @@ namespace Smeedee.iOS
             get { return cell; }
         }
         
-        public void BindDataToCell(string projectName, DateTime buildTime, string status)
+        public void BindDataToCell(BuildStatus build)
         {
-            // TODO: pass in a single parameter: a BuildStatus object from the model
-            projectNameLabel.Text = projectName;
-            lastBuildTimeLabel.Text = "Last build was " + buildTime.ToString();
-            buildStatusLabel.Text = status;
+            projectNameLabel.Text = build.ProjectName;
+            lastBuildTimeLabel.Text = "Last build was " + build.BuildTime;
+            buildStatusLabel.Text = build.BuildSuccessState.ToString();
+            
+            buildStatusLabel.TextColor = (build.BuildSuccessState == BuildSuccessState.Failure)
+                ? UIColor.Red
+                : UIColor.Green;
         }
     }
 }

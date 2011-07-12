@@ -18,17 +18,33 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
             
-            TableView.Source = new BuildStatusTableSource();
+            var builds = GetFakeBuildStatuses();
+            TableView.Source = new BuildStatusTableSource(builds);
         }
         
         public void Refresh()
         {
+        }
+        
+        private IEnumerable<BuildStatus> GetFakeBuildStatuses()
+        {
+            return new [] {
+                new BuildStatus("Smeedee.Mobile", BuildSuccessState.Success, "AlexYork", DateTime.Now.AddHours(-3)),
+                new BuildStatus("Smeedee.Desktop", BuildSuccessState.Failure, "AlexYork", DateTime.Now.AddHours(-5)),
+                new BuildStatus("Smeedee.Web.Services", BuildSuccessState.Success, "AlexYork", DateTime.Now.AddHours(-7))
+            };
         }
     }
     
     public class BuildStatusTableSource : UITableViewSource
     {
         private TableCellFactory cellFactory = new TableCellFactory("BuildStatusTableCellController", typeof(BuildStatusTableCellController));
+        private IEnumerable<BuildStatus> builds;
+        
+        public BuildStatusTableSource(IEnumerable<BuildStatus> builds)
+        {
+            this.builds = builds;
+        }
         
         public override int NumberOfSections(UITableView tableView)
         {
@@ -37,13 +53,15 @@ namespace Smeedee.iOS
         
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return 4;
+            return builds.Count();
         }
         
         public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
         {
+            var build = builds.ElementAt(indexPath.Row);
+            
             var buildStatusCellController = cellFactory.NewTableCellController(tableView, indexPath) as BuildStatusTableCellController;
-            buildStatusCellController.BindDataToCell("Smeedee.Mobile", DateTime.Now, "Broked!!12!!1!!");
+            buildStatusCellController.BindDataToCell(build);
             return buildStatusCellController.TableViewCell;
         }
         
