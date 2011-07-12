@@ -14,6 +14,14 @@ namespace Smeedee.iPhone
         {
         }
         
+        #region IWidget members
+        
+        public void Refresh()
+        {
+        }
+
+        #endregion
+        
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
