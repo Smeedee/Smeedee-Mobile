@@ -6,20 +6,26 @@ namespace Smeedee.Model
     {
         public WorkingDaysLeft(int days)
         {
-            if (days < 0)
-            {
-                throw new ArgumentException("Days left must be a positive integer");
-            }
             DaysLeft = days;
         }
 
-        public int DaysLeft { get; private set; }
+        private int days;
+
+        public int DaysLeft
+        {
+            get { return Math.Abs(days); }
+            private set { days = value; }
+        }
 
         public string DaysLeftText
         {
             get
             {
-                return DaysLeft == 1 ? "working day left" : "working days left";
+                if (days < 0)
+                {
+                    return days == -1 ? "day on overtime" : "days on overtime";
+                }
+                return days == 1 ? "working day left" : "working days left";
             }
         }
     }
