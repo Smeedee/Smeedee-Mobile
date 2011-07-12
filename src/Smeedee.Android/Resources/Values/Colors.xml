@@ -5,4 +5,5 @@
   <color name="build_red">#ffff0000</color>
   <color name="build_orange">#fff25000</color>
   <color name="smeedee_darkgrey">#ff1d1d1d</color>
+  <color name="BuildStatusWidgetBuildStatusColor">#ff115511</color>
 </resources>

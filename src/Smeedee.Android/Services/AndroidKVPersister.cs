@@ -22,6 +22,10 @@ namespace Smeedee.Android.Services
         {
             return preferences.GetString(key, null);
         }
+        public bool GetBoolean(string key)
+        {
+            return preferences.GetBoolean(key, false);
+        }
     }
      
 

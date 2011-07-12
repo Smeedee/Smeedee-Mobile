@@ -2,7 +2,6 @@ using Android.App;
 using Android.OS;
 using Android.Preferences;
 
-
 namespace Smeedee.Android.Widgets.Settings
 {
     [Activity(Label = "Build Status Settings", Theme = "@android:style/Theme")]
