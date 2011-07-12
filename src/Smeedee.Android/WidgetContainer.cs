@@ -146,11 +146,16 @@ namespace Smeedee.Android
                 case Resource.Id.BtnWidgetSettings:
 
                     // TODO: Make dynamic or something :)
-                    if (GetWidgetAttribute("Name") == "Build Status")
+                    string widgetName = GetWidgetAttribute("Name");
+
+                    if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
 
-                    if (GetWidgetAttribute("Name") == "Top Committers")
+                    if (widgetName == "Top Committers")
                         StartActivity(new Intent(this, typeof(TopCommittersSettings)));
+
+                    if (widgetName == "Latest Changesets")
+                        StartActivity(new Intent(this, typeof(LatestChangesetsSettings)));
 
                     return true;
 
