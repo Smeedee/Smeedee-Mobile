@@ -14,7 +14,7 @@ namespace Smeedee.Services
             new Committer("Hans Hauk", 34, "http://www.foo.com/img.png"),
             new Committer("Jens Ulf", 21, "http://www.foo.com/img.png"),
             new Committer("Kari Irak", 0, "http://www.foo.com/img.png"),
-        });
+        }, 7);
 
         public IEnumerable<TopCommitters> Get(IDictionary<string, string> args)
         {
@@ -26,7 +26,7 @@ namespace Smeedee.Services
 			var count = (args.ContainsKey("count")) ? int.Parse(args["count"]) : 5;
 
             var filteredData = data.Committers.Take(count);
-            return new TopCommitters(filteredData.ToList());
+            return new TopCommitters(filteredData.ToList(), 7);
         }
     }
 }
