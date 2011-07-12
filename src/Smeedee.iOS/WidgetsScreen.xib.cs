@@ -88,7 +88,12 @@ namespace Smeedee.iOS
    
             if (pageControl.CurrentPage != pageIndex)
             {
-                titleLabel.Text = "Widget " + pageIndex;
+                var currentWidget = app.AvailableWidgets.ElementAt(pageIndex);
+                var attribute = (WidgetAttribute)currentWidget.Type.GetCustomAttributes(typeof(WidgetAttribute), true).First();
+                
+                titleLabel.Text = attribute.Name;
+                subTitleLabel.Text = attribute.DescriptionStatic;
+                
                 pageControl.CurrentPage = pageIndex;
             }
         }
