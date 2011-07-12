@@ -56,10 +56,11 @@ namespace Smeedee.Android
 
         private bool UserHasAValidUrlAndKey()
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            var database = new AndroidKVPersister(this);
 
-            var key = prefs.GetString("userPassword", "<unset>");
-            var url = prefs.GetString("serverUrl", "<unset>");
+            var url = database.Get("serverUrl");
+            var key = database.Get("userPassword");
+
             if (url == null || key == null) return false;
 
             var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();

@@ -16,8 +16,7 @@
       android:background="@drawable/navigation_button_left"
       android:layout_alignParentLeft="true"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text=""/>
+      android:layout_height="wrap_content" />
 
     <!-- START: Widget title and description-->
     <LinearLayout
@@ -33,15 +32,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textColor="@color/smeedee_orange"
-      android:textSize="20sp"
-      android:text="Widget name" />
+      android:textSize="20sp" />
 
     <TextView
       android:id="@+id/WidgetDynamicDescriptionInTopBanner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="12sp"
-      android:text="Widget name description" />
+      android:textSize="12sp" />
     </LinearLayout>
     <!-- END: Widget title and description-->
     
@@ -50,8 +47,7 @@
       android:background="@drawable/navigation_button_right"
       android:layout_alignParentRight="true"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="" />
+      android:layout_height="wrap_content" />
   </RelativeLayout>
   
   <ViewFlipper

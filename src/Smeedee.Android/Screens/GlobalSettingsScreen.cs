@@ -1,6 +1,7 @@
 using Android.App;
 using Android.OS;
 using Android.Preferences;
+using Smeedee.Android.Services;
 using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
@@ -43,13 +44,11 @@ namespace Smeedee.Android.Screens
         }
         private void LoadPreferences()
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            var serverUrlPreference = (EditTextPreference) FindPreference("serverUrl");
+            var userPasswordPreference = (EditTextPreference)FindPreference("userPassword");
 
-            var serverUrl = (EditTextPreference) FindPreference("serverUrl");
-            var userPassword = (EditTextPreference)FindPreference("userPassword");
-            
-            serverUrl.Summary = prefs.GetString("serverUrl", "Smeedee Server Url not set");
-            userPassword.Summary = prefs.GetString("userPassword", "User password not set");
+            serverUrlPreference.Summary = database.Get("serverUrl");
+            userPasswordPreference.Summary = database.Get("userPassword");
         }
     }
 }
