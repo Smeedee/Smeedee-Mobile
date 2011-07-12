@@ -18,6 +18,7 @@ namespace Smeedee.Android.Widgets
     {
         internal const string NoMessageTag = "(no message)";
         private IBackgroundWorker backgroundWorker;
+        private IEnumerable<Changeset> changesets;
 
         public LatestChangesetsWidget(Context context) :
             base(context)
@@ -38,10 +39,21 @@ namespace Smeedee.Android.Widgets
             Refresh();
         }
 
+        private void GetData()
+        {
+            var changesetService = SmeedeeApp.Instance.ServiceLocator.Get<IChangesetService>();
+            changesets = changesetService.GetLatestChangesets();
+        }
+
+        private void UpdateUI()
+        {
+            CreateListAdapter(changesets);
+        }
+
         private void GetDataAndUpdateUI()
         {
             var changesetService = SmeedeeApp.Instance.ServiceLocator.Get<IChangesetService>();
-            var changesets = changesetService.GetLatestChangesets();
+            changesets = changesetService.GetLatestChangesets();
             ((Activity)Context).RunOnUiThread(() => CreateListAdapter(changesets));
         } 
 
@@ -87,6 +99,10 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             backgroundWorker.Invoke(GetDataAndUpdateUI);
+
+            //ContextSwitcher.Using((Activity)Context).
+            //new ContextSwitcher((Activity)Context).InBackground(GetData).InUI(UpdateUI).Do();
+
         }
     }
 
