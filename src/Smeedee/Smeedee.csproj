@@ -59,7 +59,7 @@
     <Compile Include="Services\TopCommittersFakeService.cs" />
     <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
     <Compile Include="Utilities\BackgroundWorker.cs" />
-    <Compile Include="Utilities\Guard.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="Utilities\IBackgroundWorker.cs" />
     <Compile Include="Utilities\NoBackgroundWorker.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -82,7 +82,7 @@
     <Compile Include="Services\SmeedeeFakeService.cs" />
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Model\IWidget.cs" />
-    <Compile Include="Utilities\TimeSpanPrettyPrintExtension.cs" />
+    <Compile Include="TimeSpanPrettyPrintExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
