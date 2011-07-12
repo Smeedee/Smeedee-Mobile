@@ -235,6 +235,12 @@
     <Compile Include="Widgets\TopCommittersWidget.xib.designer.cs">
       <DependentUpon>TopCommittersWidget.xib</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\BuildStatusWidget.xib.cs">
+      <DependentUpon>BuildStatusWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\BuildStatusWidget.xib.designer.cs">
+      <DependentUpon>BuildStatusWidget.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -244,6 +250,7 @@
     <Page Include="Widgets\TestWidget.xib" />
     <Page Include="Widgets\TestWidget2.xib" />
     <Page Include="Widgets\TopCommittersWidget.xib" />
+    <Page Include="Widgets\BuildStatusWidget.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
