@@ -7,7 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS
 {
-    [Widget("TestWidget", 123, DescriptionStatic = "sadsa")]
+    [Widget("Foo Widget", 123, DescriptionStatic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit")]
     public partial class TestWidget : UIViewController, IWidget
     {
         #region Constructors

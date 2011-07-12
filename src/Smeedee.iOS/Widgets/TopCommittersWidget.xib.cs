@@ -8,7 +8,7 @@ using Smeedee.Services;
 
 namespace Smeedee.iOS
 {
-    [Widget("Top committers widget", 123, DescriptionStatic = "todo")]
+    [Widget("Top committers", 123, DescriptionStatic = "See which developer has committed the most code")]
     public partial class TopCommittersWidget : UITableViewController, IWidget
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
