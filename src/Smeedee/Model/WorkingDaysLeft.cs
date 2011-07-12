@@ -21,15 +21,11 @@ namespace Smeedee.Model
         {
             get
             {
-                if (days >= 0)
-                {
-                    return days == 1 ? "working day left" : "working days left";
-
-                }
-                else
+                if (days < 0)
                 {
                     return days == -1 ? "day on overtime" : "days on overtime";
                 }
+                return days == 1 ? "working day left" : "working days left";
             }
         }
     }

@@ -5,7 +5,7 @@ namespace Smeedee.Services
 {
     class WorkingDaysLeftFakeService : IModelService<WorkingDaysLeft>
     {
-        private WorkingDaysLeft model = new WorkingDaysLeft(1);
+        private WorkingDaysLeft model = new WorkingDaysLeft(-1);
 
         public IEnumerable<WorkingDaysLeft> Get(IDictionary<string, string> args)
         {
