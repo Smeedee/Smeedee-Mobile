@@ -4,25 +4,22 @@
   android:orientation="vertical"
   android:gravity="center"
   android:layout_width="fill_parent"
-  android:layout_height="wrap_content" >
+  android:layout_height="wrap_content" 
+  android:layout_centerVertical="true">
   <TextView
-    android:id="@+id/TeamMember1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Dag Olav Prestegarden" />
+    android:text="@string/AboutTeamMember1Name" />
   <TextView
-    android:id="@+id/TeamMember2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Lars Eidnes" />
+    android:text="@string/AboutTeamMember2Name" />
   <TextView
-    android:id="@+id/TeamMember3"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Lars Kirkholdt Melhus" />
+    android:text="@string/AboutTeamMember3Name" />
   <TextView
-    android:id="@+id/TeamMember4"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Børge Rødsjø" />
+    android:text="@string/AboutTeamMember4Name" />
 </LinearLayout>

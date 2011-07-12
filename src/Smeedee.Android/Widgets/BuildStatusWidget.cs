@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.Content;
-using Android.Preferences;
 using Android.Views;
 using Android.Widget;
-
+using Smeedee.Android.Services;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Utilities;
@@ -17,7 +16,7 @@ namespace Smeedee.Android.Widgets
     public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };
-        private readonly int[] listItemMappingTo = new[] {  Resource.Id.projectname, Resource.Id.username, Resource.Id.datetime, Resource.Id.buildstatus };
+        private readonly int[] listItemMappingTo = new[] { Resource.Id.BuildStatuswidget_projectname, Resource.Id.BuildStatuswidget_username, Resource.Id.BuildStatuswidget_datetime, Resource.Id.BuildStatuswidget_buildstatus };
         private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
@@ -33,7 +32,7 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             CreateGui();
-            buildList = FindViewById<ListView>(Resource.Id.build_list);
+            buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
 
             bgWorker.Invoke(RefreshBuildsFromServer);
         }
@@ -67,8 +66,8 @@ namespace Smeedee.Android.Widgets
 
         private IList<IDictionary<string, object>> GetListAdapterFromBuildModels()
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
-            var showTriggeredBy = prefs.GetBoolean("showTriggeredBy", true);
+            var database = new AndroidKVPersister(Context);
+            var showTriggeredBy = database.GetBoolean("showTriggeredBy");
 
             return builds.Select(build => new Dictionary<String, object>
                         {
@@ -81,11 +80,11 @@ namespace Smeedee.Android.Widgets
 
         private Dictionary<string, string> CreateServiceArgsDictionary()
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+            var database = new AndroidKVPersister(Context);
             var args = new Dictionary<string, string>();
 
-            args["sorting"] = prefs.GetString("buildSortOrdering", "buildtime");
-            args["brokenBuildsAtTop"] = prefs.GetBoolean("brokenBuildsAtTop", true).ToString();
+            args["sorting"] = database.Get("buildSortOrdering");
+            args["brokenBuildsAtTop"] = database.GetBoolean("brokenBuildsAtTop").ToString();
 
             return args;
         }
@@ -109,8 +108,8 @@ namespace Smeedee.Android.Widgets
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = base.GetView(position, convertView, parent);
-            var status = int.Parse(((TextView) view.FindViewById(Resource.Id.buildstatus)).Text);
-            var buildStatusView = view.FindViewById(Resource.Id.buildstatusdisplay) as ImageView;
+            var status = int.Parse(((TextView)view.FindViewById(Resource.Id.BuildStatuswidget_buildstatus)).Text);
+            var buildStatusView = view.FindViewById(Resource.Id.BuildStatuswidget_buildstatusdisplay) as ImageView;
             
             if (buildStatusView != null)
             {
@@ -120,7 +119,6 @@ namespace Smeedee.Android.Widgets
                     buildStatusView.SetImageResource(Resource.Drawable.icon_buildfailure);
                 if (status == (int)BuildSuccessState.Unknown)
                     buildStatusView.SetImageResource(Resource.Drawable.icon_buildunknown);
-                
             } 
             return view;
         }

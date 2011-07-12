@@ -1,38 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:a="http://schemas.android.com/apk/res/android"
+<RelativeLayout 
+  xmlns:a="http://schemas.android.com/apk/res/android"
   a:paddingBottom="5sp"
   a:paddingTop="5sp"
   a:layout_width="fill_parent"
   a:layout_height="fill_parent">
   
-  <TextView a:id="@+id/projectname"
+  <TextView 
+    a:id="@+id/BuildStatuswidget_projectname"
     a:text="projectname"
-    a:textColor="#FFFFFFFF"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
-    a:textSize="18sp"
-	  />
+    a:textSize="18sp" />
   
   <!-- Status color -->
-  <TextView a:id="@+id/username"
-    a:text="username"
-    a:layout_below="@id/projectname"
+  <TextView 
+    a:id="@+id/BuildStatuswidget_username"
+    a:layout_below="@id/BuildStatuswidget_projectname"
     a:layout_width="wrap_content"
-    a:layout_height="wrap_content"
-	  />
+    a:layout_height="wrap_content" />
   
   <!-- Timestamp -->
-  <TextView a:id="@+id/datetime"
-    a:text="datetime"
-    a:layout_below="@id/username"
+  <TextView 
+    a:id="@+id/BuildStatuswidget_datetime"
+    a:layout_below="@id/BuildStatuswidget_username"
     a:layout_width="wrap_content"
-    a:layout_height="wrap_content"
-	  />
+    a:layout_height="wrap_content" />
   
   <!-- This textview is sort of a hack so that we have
        a value we can convert to color in the widget -->
   <TextView
-    a:id="@+id/buildstatus"
+    a:id="@+id/BuildStatuswidget_buildstatus"
     a:visibility="invisible"
     a:background="#151"
     a:layout_marginRight="8dip"
@@ -41,9 +39,8 @@
     a:layout_width="5dip"
     a:layout_height="fill_parent"/>
 
-
   <ImageView
-    a:id="@+id/buildstatusdisplay"
+    a:id="@+id/BuildStatuswidget_buildstatusdisplay"
     a:layout_marginRight="8dip"
     a:layout_alignParentRight="true"
     a:layout_centerVertical="true"
