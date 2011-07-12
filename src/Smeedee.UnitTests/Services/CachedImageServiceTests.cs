@@ -9,7 +9,7 @@ using Smeedee.Utilities;
 namespace Smeedee.UnitTests.Services
 {
     [TestFixture]
-    class CachedImageServiceTests
+    public class CachedImageServiceTests
     {
         private FakeImageService imageService;
         private FakePersistenceService cache;

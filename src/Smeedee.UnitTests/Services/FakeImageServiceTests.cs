@@ -11,7 +11,7 @@ using Smeedee.Utilities;
 namespace Smeedee.UnitTests.Services
 {
     [TestFixture]
-    class FakeImageServiceTests
+    public class FakeImageServiceTests
     {
         [Test]
         public void Service_should_return_non_empty_byte_array_for_any_uri()
