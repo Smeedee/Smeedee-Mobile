@@ -17,7 +17,6 @@ namespace Smeedee.Android.Widgets
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";
-        private IBackgroundWorker backgroundWorker;
         private IEnumerable<Changeset> changesets;
 
         public LatestChangesetsWidget(Context context) :
@@ -34,7 +33,6 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            backgroundWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
             InflateLayout();
             Refresh();
         }
@@ -49,13 +47,6 @@ namespace Smeedee.Android.Widgets
         {
             CreateListAdapter(changesets);
         }
-
-        private void GetDataAndUpdateUI()
-        {
-            var changesetService = SmeedeeApp.Instance.ServiceLocator.Get<IChangesetService>();
-            changesets = changesetService.GetLatestChangesets();
-            ((Activity)Context).RunOnUiThread(() => CreateListAdapter(changesets));
-        } 
 
         private void CreateListAdapter(IEnumerable<Changeset> changesets)
         {
@@ -126,7 +117,7 @@ namespace Smeedee.Android.Widgets
 
             return view;
         }
-}
+    }
 
     public class FakeChangesetService : IChangesetService
     {
