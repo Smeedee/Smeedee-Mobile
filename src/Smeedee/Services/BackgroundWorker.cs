@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Smeedee.Utilities
+namespace Smeedee.Services
 {
     public class BackgroundWorker : IBackgroundWorker
     {

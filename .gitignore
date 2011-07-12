@@ -7,4 +7,6 @@ test-results
 *ReSharper*
 *.user
 *.resources
+*.vsmdi
+*.testsettings
 Resource.Designer.cs
