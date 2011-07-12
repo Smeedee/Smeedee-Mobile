@@ -56,10 +56,12 @@ namespace Smeedee.Android
 
         private bool UserHasAValidUrlAndKey()
         {
-            var database = new AndroidKVPersister(this);
 
-            var url = database.Get("serverUrl");
-            var key = database.Get("userPassword");
+            var pref = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            var url = pref.GetString("serverUrl", "url");
+            var key = pref.GetString("userPassword", "pass");
+
 
             if (url == null || key == null) return false;
 
