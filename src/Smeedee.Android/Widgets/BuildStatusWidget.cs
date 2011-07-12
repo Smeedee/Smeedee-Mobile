@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Android.App;
 using Android.Content;
+using Android.Preferences;
 using Android.Views;
 using Android.Widget;
-using Smeedee.Android.Services;
+
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Utilities;
@@ -32,11 +34,11 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             CreateGui();
-            buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
+            FindBuildListUi();
 
             bgWorker.Invoke(RefreshBuildsFromServer);
         }
-        
+
         private void CreateGui()
         {
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
@@ -47,6 +49,11 @@ namespace Smeedee.Android.Widgets
             {
                 throw new NullReferenceException("Failed to get inflater in Build status widget");
             }
+        }
+        
+        private void FindBuildListUi()
+        {
+            buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
         }
 
         private void RefreshBuildsFromServer()
@@ -66,8 +73,8 @@ namespace Smeedee.Android.Widgets
 
         private IList<IDictionary<string, object>> GetListAdapterFromBuildModels()
         {
-            var database = new AndroidKVPersister(Context);
-            var showTriggeredBy = database.GetBoolean("showTriggeredBy");
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+            var showTriggeredBy = prefs.GetBoolean("showTrigit stggeredBy", true);
 
             return builds.Select(build => new Dictionary<String, object>
                         {
@@ -80,11 +87,11 @@ namespace Smeedee.Android.Widgets
 
         private Dictionary<string, string> CreateServiceArgsDictionary()
         {
-            var database = new AndroidKVPersister(Context);
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
             var args = new Dictionary<string, string>();
 
-            args["sorting"] = database.Get("buildSortOrdering");
-            args["brokenBuildsAtTop"] = database.GetBoolean("brokenBuildsAtTop").ToString();
+            args["sorting"] = prefs.GetString("buildSortOrdering", "buildtime");
+            args["brokenBuildsAtTop"] = prefs.GetBoolean("brokenBuildsAtTop", true).ToString();
 
             return args;
         }
