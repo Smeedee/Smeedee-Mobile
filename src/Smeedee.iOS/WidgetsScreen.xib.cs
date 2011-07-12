@@ -37,6 +37,7 @@ namespace Smeedee.iOS
             
             AddWidgetsToScreen();
             AttachScrollEvent();
+            SetTitleLabels(0);
             
             pageControl.ValueChanged += delegate {
                 Console.WriteLine("page control value changed");
