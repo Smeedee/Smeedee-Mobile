@@ -7,19 +7,23 @@ using Smeedee.Model;
 
 namespace Smeedee.Utilities
 {
-    class ContextSwitcher
+    public class ContextSwitcher
     {
-        private List<Action> actions;
+        public static ContextSwitcher Using(Activity context)
+        {
+            return new ContextSwitcher(context);
+        }
+
+
+        private List<Action> actions = new List<Action>();
         private readonly Activity activity;
-        private IBackgroundWorker backgroundWorker;
+        private IBackgroundWorker backgroundWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
         private int current = 0;
         private bool hasStarted = false;
 
-        public ContextSwitcher(Activity activity)
+        private ContextSwitcher(Activity activity)
         {
             this.activity = activity;
-            this.actions = new List<Action>();
-            this.backgroundWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
         }
 
         public ContextSwitcher InBackground(Action fn)
@@ -37,13 +41,13 @@ namespace Smeedee.Utilities
         private Action AddCallback(Action fn)
         {
             return () =>
-                       {
-                           fn();
-                           Next();
-                       };
+                        {
+                            fn();
+                            Next();
+                        };
         }
 
-        public void Do()
+        public void Run()
         {
             if (hasStarted) throw new Exception("ContextSwitcher can only be run once");
             hasStarted = true;
