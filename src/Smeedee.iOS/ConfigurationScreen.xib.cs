@@ -45,6 +45,8 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
             
+            Title = "Configuration";
+            
             TableView.Source = new ConfigurationTableSource();
         }
     }
