@@ -69,7 +69,7 @@
 					<object class="IBUILabel" id="601844481">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 4}, {114, 21}}</string>
+						<string key="NSFrame">{{8, 4}, {147, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -77,9 +77,14 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">FooBar Widget</string>
-						<object class="NSColor" key="IBUITextColor" id="422998944">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAwIDAAA</bytes>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">17</double>
+							<int key="NSfFlags">16</int>
+						</object>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MSAwLjUzMzMzMzM2MTEgMC4wMjc0NTA5ODI0OAA</bytes>
 						</object>
 						<object class="NSColor" key="IBUIHighlightedColor" id="906823977">
 							<int key="NSColorSpace">3</int>
@@ -104,7 +109,10 @@
 							<double key="NSSize">12</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<reference key="IBUITextColor" ref="422998944"/>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MC43MDk4MDM5Mzg5IDAuNTc2NDcwNjEzNSAwAA</bytes>
+						</object>
 						<reference key="IBUIHighlightedColor" ref="906823977"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -114,7 +122,7 @@
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">2</int>
-					<bytes key="NSRGB">MSAwLjI5MDE5NjA5MDkgMC4xMTM3MjU0OTgzAA</bytes>
+					<bytes key="NSRGB">MC4wMDM5MjE1Njg4NTkgMCAwLjAxNTY4NjI3NTQ0AA</bytes>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
