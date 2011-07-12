@@ -6,7 +6,7 @@ using MonoTouch.UIKit;
 
 namespace Smeedee.iOS
 {
-    public partial class ConfigurationScreen : UITableViewController
+    public partial class ConfigurationScreen : UINavigationController
     {
         #region Constructors
 
@@ -24,6 +24,22 @@ namespace Smeedee.iOS
         }
 
         #endregion
+        
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            
+            var configTableController = new ConfigurationTableViewController();
+            PushViewController(configTableController, false);
+        }
+    }
+    
+    public class ConfigurationTableViewController : UITableViewController
+    {
+        public ConfigurationTableViewController()
+            : base(UITableViewStyle.Grouped)
+        {
+        }
         
         public override void ViewDidLoad()
         {
@@ -59,6 +75,11 @@ namespace Smeedee.iOS
             cell.DetailTextLabel.Text = "Section " + indexPath.Section;
             
             return cell;
+        }
+        
+        public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+        {
+            Console.WriteLine("Selected row " + indexPath.Section + " / " + indexPath.Row);
         }
     }
 }
