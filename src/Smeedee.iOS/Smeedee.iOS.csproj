@@ -95,10 +95,123 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegateIPhone.cs" />
     <Compile Include="AppDelegateIPad.cs" />
+    <Compile Include="..\Smeedee\Model\BuildStatus.cs">
+      <Link>Model\BuildStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\BuildSuccessState.cs">
+      <Link>Model\BuildSuccessState.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\Changeset.cs">
+      <Link>Model\Changeset.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\Committer.cs">
+      <Link>Model\Committer.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\IModel.cs">
+      <Link>Model\IModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\IWidget.cs">
+      <Link>Model\IWidget.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
+      <Link>Model\SmeedeeApp.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\TopCommitters.cs">
+      <Link>Model\TopCommitters.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetAttribute.cs">
+      <Link>Model\WidgetAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\WidgetModel.cs">
+      <Link>Model\WidgetModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
+      <Link>Model\WorkingDaysLeft.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\AsyncResult.cs">
+      <Link>Services\AsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\CachedImageService.cs">
+      <Link>Services\CachedImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
+      <Link>Services\FakeBuildStatusService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
+      <Link>Services\FakeLoginValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IChangesetService.cs">
+      <Link>Services\IChangesetService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IImageService.cs">
+      <Link>Services\IImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
+      <Link>Services\ILoginValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ImageService.cs">
+      <Link>Services\ImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
+      <Link>Services\IMobileKVPersister.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IModelService.cs">
+      <Link>Services\IModelService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
+      <Link>Services\IPersistenceService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
+      <Link>Services\ISmeedeeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ITopCommittersService.cs">
+      <Link>Services\ITopCommittersService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
+      <Link>Services\IWorkingDaysLeftService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\PersistenceService.cs">
+      <Link>Services\PersistenceService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
+      <Link>Services\ServiceLocator.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\SmeedeeFakeService.cs">
+      <Link>Services\SmeedeeFakeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
+      <Link>Services\SmeedeeHttpService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
+      <Link>Services\TopCommittersFakeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
+      <Link>Services\WorkingDaysLeftFakeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
+      <Link>Utilities\BackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Utilities\Guard.cs">
+      <Link>Utilities\Guard.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
+      <Link>Utilities\IBackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Utilities\NoBackgroundWorker.cs">
+      <Link>Utilities\NoBackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Utilities\TimeSpanPrettyPrintExtension.cs">
+      <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
     <Page Include="MainWindowIPad.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Services\" />
+    <Folder Include="Utilities\" />
+  </ItemGroup>
 </Project>
