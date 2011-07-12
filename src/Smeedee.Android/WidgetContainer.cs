@@ -206,13 +206,18 @@ namespace Smeedee.Android
             {
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type));
             }
-            
+
+            var current = _flipper.DisplayedChild;
             _flipper.RemoveAllViews();
 
             foreach (var newWidget in newWidgets)
             {
                 _flipper.AddView((View)newWidget);
             }
+
+          
+            _flipper.DisplayedChild = current;
+          
         }
 
         private bool WidgetIsEnabled(WidgetModel widget)
