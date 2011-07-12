@@ -20,8 +20,6 @@ namespace Smeedee.Android.Widgets.Settings
         {
             base.OnCreate(savedInstanceState);
             AddPreferencesFromResource(Resource.Layout.LatestChangesetsSettings);
-            var colorPref = (ColoredListPreference)FindPreference("lcs_customListPref");
-            //TODO: Deal with persisting the setting
         }
     }
 
