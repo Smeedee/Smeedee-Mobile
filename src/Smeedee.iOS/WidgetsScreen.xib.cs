@@ -37,6 +37,10 @@ namespace Smeedee.iOS
             
             AddWidgetsToScreen();
             AttachScrollEvent();
+            
+            pageControl.ValueChanged += delegate {
+                Console.WriteLine("page control value changed");
+            };
         }
         
         private void AddWidgetsToScreen()
@@ -80,9 +84,13 @@ namespace Smeedee.iOS
         
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
-            double page = Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
-
-            pageControl.CurrentPage = (int)page;
+            int page = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+   
+            if (pageControl.CurrentPage != page)
+            {
+                Console.WriteLine("Page changed");
+                pageControl.CurrentPage = page;
+            }
         }
     }
 }
