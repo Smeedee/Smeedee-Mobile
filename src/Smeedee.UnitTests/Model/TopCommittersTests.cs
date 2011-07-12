@@ -23,14 +23,6 @@ namespace Smeedee.UnitTests.Model
             var topCommiters = new TopCommitters(null, 0);
         }
 
-        [Test]
-        public void Should_contain_number_of_days()
-        {
-            var model = new TopCommitters(new[] {new Committer("Lars", 17, "http://www.foo.com/img.png")}, 7);
-
-            Assert.AreEqual(7, model.Days);
-        }
-
         [TestFixture]
         public class When_instanciating_top_committers_with_list_of_committers
         {
@@ -44,6 +36,12 @@ namespace Smeedee.UnitTests.Model
                     new Committer("Dag Olav", 24, "http://www.foo.com/img.png"),
                     new Committer("Borge", 16, "http://www.foo.com/img.png")
                 }, 7);
+            }
+
+            [Test]
+            public void Should_contain_number_of_days()
+            {
+                Assert.AreEqual(7, model.Days);
             }
 
             [Test]
