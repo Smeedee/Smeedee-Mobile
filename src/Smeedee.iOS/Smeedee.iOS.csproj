@@ -251,5 +251,9 @@
     <Folder Include="Services\" />
     <Folder Include="Widgets\" />
     <Folder Include="Lib\" />
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\logo.png" />
   </ItemGroup>
 </Project>
