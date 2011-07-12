@@ -5,6 +5,8 @@
   <!--LoginScreen-->
   <string name="LoginScreenErrorNotificationText">Authentication failed. Please check your url and password</string>
   <string name="LoginScreenBtnLogin">Login</string>
+  <string name="LoginScreenServerUrlHint">Server URL</string>
+  <string name="LoginScreenUserPasswordHint">User Password</string>
   
   <!-- Menu-->
   <string name="MenuBtnRefreshCurrentWidget">Refresh</string>
@@ -18,6 +20,12 @@
   <string name="GlobalSettingsScreenAvailableWidgetsTitle">Available widgets</string>
   <string name="GlobalSettingsScreenServerUrlTitle">Server URL</string>
   <string name="GlobalSettingsScreenUserPasswordTitle">User password</string>
+  
+  <!-- About -->
+  <string name="AboutTeamMember1Name">Dag Olav Prestegarden</string>
+  <string name="AboutTeamMember2Name">Lars Eidnes</string>
+  <string name="AboutTeamMember3Name">Lars Kirkholt Melhus</string>
+  <string name="AboutTeamMember4Name">Børge Rødsjø</string>
 
   <!--*** WIDGETS ***-->
   
@@ -25,13 +33,32 @@
   <string name="WorkingDaysLeft">working days left</string>
 
   <!--Start Page-->
-  <string name="StartPageWidget">smeedee mobile</string>
+  <string name="StartPageWidgetTitle">smeedee mobile</string>
 
   <!--Top Commiters-->
+  <string name="TopCommittersSettingsPreferenceCategory1">Committers</string>
+  <string name="TopCommittersSettingsPreferenceCategory2">Time</string>
+  <string name="TopCommittersSettingsNumberOfCommittersTitle">Number of committers</string>
+  <string name="TopCommittersSettingsNumberOfCommittersSummary">Currently showing top 5 committers</string>
+  <string name="TopCommittersSettingsTimePeriodTitle">Time period</string>
+  <string name="TopCommittersSettingsTimePeriodSummary">Showing top committers for the last 24 hours</string>
+  
 
   <!--Latest changeset-->
+  <string name="LatestChangesetsSettingsHighlightEmptyTitle">Highlight empty</string>
+  <string name="LatestChangesetsSettingsHighlightEmptySummaryOn">Highlight empty commit messages is on</string>
+  <string name="LatestChangesetsSettingsHighlightEmptySummaryOff">Highlight empty commit messages is off</string>
+  <string name="LatestChangesetsSettingsHighlightColorTitle">Highlight color</string>
 
   <!--Build status-->
-  <string name="BuildStatus">Build status ftw</string>
+  <string name="BuildStatusSettingsPreferenceCategory1">Sorting</string>
+  <string name="BuildStatusSettingsPreferenceCategory2">Display</string>
+  <string name="BuildStatusSettingsSortingTitle">Build ordering</string>
+  <string name="BuildStatusSettingsSortingSummary">Set how you want your list of builds ordered.</string>
+  <string name="BuildStatusSettingsSummaryOn">Broken builds are now shown first regardless of sorting order.</string>
+  <string name="BuildStatusSettingsSummaryOff">Broken builds are now shown like normal builds.</string>
+  <string name="BuildStatusSettingsShowUserNameTitle">Show username</string>
+  <string name="BuildStatusSettingShowUserNameOn">Who triggered a build is now shown.</string>
+  <string name="BuildStatusSettingShowUserNameOff">Who triggered a build is now hidden.</string>
   
 </resources>
