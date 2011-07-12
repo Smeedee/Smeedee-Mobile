@@ -89,11 +89,17 @@
     <Compile Include="..\Smeedee\Services\AsyncResult.cs">
       <Link>Services\AsyncResult.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
+      <Link>Services\BackgroundWorker.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
       <Link>Services\FakeBuildStatusService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
       <Link>Services\FakeLoginValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
+      <Link>Services\IBackgroundWorker.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IChangesetService.cs">
       <Link>Services\IChangesetService.cs</Link>
@@ -139,12 +145,6 @@
     </Compile>
     <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
       <Link>TimeSpanPrettyPrintExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
-      <Link>Services\BackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
-      <Link>Utilities\IBackgroundWorker.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Screens\About.cs" />

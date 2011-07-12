@@ -10,7 +10,6 @@ using Android.Widget;
 
 using Smeedee.Model;
 using Smeedee.Services;
-using Smeedee.Utilities;
 
 namespace Smeedee.Android.Widgets
 {
