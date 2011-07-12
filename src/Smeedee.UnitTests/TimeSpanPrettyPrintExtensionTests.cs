@@ -8,7 +8,7 @@ using Smeedee.Utilities;
 namespace Smeedee.UnitTests
 {
     [TestFixture]
-    class TimeSpanPrettyPrintExtensionTests
+    public class TimeSpanPrettyPrintExtensionTests
     {
         /* This class is taken from what StackOverflow uses, so we can presume that works.
          * What's new is the handling of negative time spans

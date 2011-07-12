@@ -8,7 +8,7 @@ using Smeedee.Model;
 namespace Smeedee.UnitTests.Model
 {
     [TestFixture]
-    internal class ChangesetTests
+    public class ChangesetTests
     {
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]

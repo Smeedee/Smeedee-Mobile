@@ -9,9 +9,11 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Java.Lang;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
+using Exception = System.Exception;
 
 namespace Smeedee.Android
 {
@@ -53,7 +55,13 @@ namespace Smeedee.Android
             var instances = new List<IWidget>();
             foreach (var widget in widgets)
             {
-                instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
+                try
+                {
+                    Log.Debug("Smeedee", "Instantiating widget of type: " + widget.Type.Name);
+                    instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
+                } catch (Exception e) {
+                    Log.Debug("Smeedee", Throwable.FromException(e), "Exception thrown when instatiating widget");
+                }
             }
             return instances;
         }
