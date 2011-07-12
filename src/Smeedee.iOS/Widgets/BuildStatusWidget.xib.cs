@@ -42,9 +42,9 @@ namespace Smeedee.iOS
         
         public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
         {
-            var cellController = cellFactory.NewTableCellController(tableView, indexPath) as BuildStatusTableCellController;
-            
-            return cellController.TableViewCell;
+            var buildStatusCellController = cellFactory.NewTableCellController(tableView, indexPath) as BuildStatusTableCellController;
+            buildStatusCellController.BindDataToCell("Smeedee.Mobile", DateTime.Now, "Broked!!12!!1!!");
+            return buildStatusCellController.TableViewCell;
         }
         
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)

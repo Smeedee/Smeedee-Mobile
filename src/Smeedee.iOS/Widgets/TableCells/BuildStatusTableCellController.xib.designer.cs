@@ -17,6 +17,12 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_cell;
 		
+		private MonoTouch.UIKit.UILabel __mt_buildStatusLabel;
+		
+		private MonoTouch.UIKit.UILabel __mt_lastBuildTimeLabel;
+		
+		private MonoTouch.UIKit.UILabel __mt_projectNameLabel;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("cell")]
 		private MonoTouch.UIKit.UITableViewCell cell {
@@ -27,6 +33,42 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_cell = value;
 				this.SetNativeField("cell", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("buildStatusLabel")]
+		private MonoTouch.UIKit.UILabel buildStatusLabel {
+			get {
+				this.__mt_buildStatusLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("buildStatusLabel")));
+				return this.__mt_buildStatusLabel;
+			}
+			set {
+				this.__mt_buildStatusLabel = value;
+				this.SetNativeField("buildStatusLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("lastBuildTimeLabel")]
+		private MonoTouch.UIKit.UILabel lastBuildTimeLabel {
+			get {
+				this.__mt_lastBuildTimeLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("lastBuildTimeLabel")));
+				return this.__mt_lastBuildTimeLabel;
+			}
+			set {
+				this.__mt_lastBuildTimeLabel = value;
+				this.SetNativeField("lastBuildTimeLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("projectNameLabel")]
+		private MonoTouch.UIKit.UILabel projectNameLabel {
+			get {
+				this.__mt_projectNameLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("projectNameLabel")));
+				return this.__mt_projectNameLabel;
+			}
+			set {
+				this.__mt_projectNameLabel = value;
+				this.SetNativeField("projectNameLabel", value);
 			}
 		}
 	}
