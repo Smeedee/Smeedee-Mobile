@@ -45,6 +45,13 @@ namespace Smeedee.UnitTests.Model
             }
         }
 
+        [Test]
+        public void Should_return_absolute_value_of_days()
+        {
+            model = new WorkingDaysLeft(-1);
+            Assert.AreEqual(1, model.DaysLeft);
+        }
+
     }
 
 }

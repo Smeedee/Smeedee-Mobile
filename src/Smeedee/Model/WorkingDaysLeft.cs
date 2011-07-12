@@ -10,20 +10,26 @@ namespace Smeedee.Model
             DaysLeft = days;
         }
 
-        public int DaysLeft { get; private set; }
+        private int days;
+
+        public int DaysLeft
+        {
+            get { return Math.Abs(days); }
+            private set { days = value; }
+        }
 
         public string DaysLeftText
         {
             get
             {
-                if (DaysLeft >= 0)
+                if (days >= 0)
                 {
-                    return DaysLeft == 1 ? "working day left" : "working days left";
+                    return days == 1 ? "working day left" : "working days left";
 
                 }
                 else
                 {
-                    return DaysLeft == -1 ? "day on overtime" : "days on overtime";
+                    return days == -1 ? "day on overtime" : "days on overtime";
                 }
             }
         }
