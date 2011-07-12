@@ -31,6 +31,7 @@
     <MtouchUseSGen>false</MtouchUseSGen>
     <MtouchUseThumb>false</MtouchUseThumb>
     <MtouchArch>ARMv6</MtouchArch>
+    <MtouchI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -203,10 +204,25 @@
     <Compile Include="..\Smeedee\Utilities\TimeSpanPrettyPrintExtension.cs">
       <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
+    <Compile Include="AppDelegateShared.cs" />
+    <Compile Include="WidgetsScreen.xib.cs">
+      <DependentUpon>WidgetsScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="WidgetsScreen.xib.designer.cs">
+      <DependentUpon>WidgetsScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationScreen.xib.cs">
+      <DependentUpon>ConfigurationScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationScreen.xib.designer.cs">
+      <DependentUpon>ConfigurationScreen.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
     <Page Include="MainWindowIPad.xib" />
+    <Page Include="WidgetsScreen.xib" />
+    <Page Include="ConfigurationScreen.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
