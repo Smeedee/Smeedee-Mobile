@@ -74,7 +74,7 @@ namespace Smeedee.Android.Widgets
         private IList<IDictionary<string, object>> GetListAdapterFromBuildModels()
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
-            var showTriggeredBy = prefs.GetBoolean("showTrigit stggeredBy", true);
+            var showTriggeredBy = prefs.GetBoolean("showTriggeredBy", true);
 
             return builds.Select(build => new Dictionary<String, object>
                         {
