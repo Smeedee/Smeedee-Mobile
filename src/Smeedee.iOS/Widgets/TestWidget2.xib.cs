@@ -10,22 +10,9 @@ namespace Smeedee.iOS
     [Widget("Bar Widget", 123, DescriptionStatic = "Sed ut perspiciatis unde omnis iste natus")]
     public partial class TestWidget2 : UIViewController, IWidget
     {
-        #region Constructors
-
-        public TestWidget2(IntPtr handle) : base(handle)
-        {
-        }
-
-        [Export ("initWithCoder:")]
-        public TestWidget2(NSCoder coder) : base(coder)
-        {
-        }
-
         public TestWidget2() : base("TestWidget2", null)
         {
         }
-
-        #endregion
         
         public void Refresh()
         {
