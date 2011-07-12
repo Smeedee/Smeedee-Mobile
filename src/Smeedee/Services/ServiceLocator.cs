@@ -23,7 +23,7 @@ namespace Smeedee.Services
             {
                 return (T)store[typeof(T)];
             }
-            throw new ArgumentException("Type not bound: "+typeof(T).Name);
+            throw new ArgumentException(string.Format("Type {0} not bound", typeof(T).Name));
         }
     }
 }
