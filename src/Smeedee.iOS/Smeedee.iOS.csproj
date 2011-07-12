@@ -229,6 +229,12 @@
     <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
       <Link>Lib\TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
+    <Compile Include="Widgets\TopCommittersWidget.xib.cs">
+      <DependentUpon>TopCommittersWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TopCommittersWidget.xib.designer.cs">
+      <DependentUpon>TopCommittersWidget.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -237,6 +243,7 @@
     <Page Include="ConfigurationScreen.xib" />
     <Page Include="Widgets\TestWidget.xib" />
     <Page Include="Widgets\TestWidget2.xib" />
+    <Page Include="Widgets\TopCommittersWidget.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
