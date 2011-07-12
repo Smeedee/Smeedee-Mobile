@@ -84,12 +84,12 @@ namespace Smeedee.iOS
         
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
-            int page = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+            int pageIndex = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
    
-            if (pageControl.CurrentPage != page)
+            if (pageControl.CurrentPage != pageIndex)
             {
-                Console.WriteLine("Page changed");
-                pageControl.CurrentPage = page;
+                titleLabel.Text = "Widget " + pageIndex;
+                pageControl.CurrentPage = pageIndex;
             }
         }
     }
