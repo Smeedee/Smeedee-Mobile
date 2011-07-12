@@ -13,7 +13,7 @@ namespace Smeedee.iOS
         {
             var sharedApp = new AppDelegateShared(window, tabBar);
             sharedApp.FinishedLaunching();
-
+   
             window.MakeKeyAndVisible();
             return true;
         }
