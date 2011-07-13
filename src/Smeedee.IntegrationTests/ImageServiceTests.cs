@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.IntegrationTests
 {

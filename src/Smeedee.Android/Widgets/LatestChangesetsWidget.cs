@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
-using Smeedee.Services;
+using Smeedee;
 using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
@@ -16,6 +18,7 @@ namespace Smeedee.Android.Widgets
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";
+        private const string DefaultRed = "dc322f";
         private IEnumerable<Changeset> changesets;
 
         public LatestChangesetsWidget(Context context) :
@@ -34,6 +37,14 @@ namespace Smeedee.Android.Widgets
         {
             InflateLayout();
             Refresh();
+        }
+        
+        private Color GetHighlightColor()
+        {
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+            var highlightColor = prefs.GetString("lcs_HighlightColor", DefaultRed);
+            var highlightEnabled = prefs.GetBoolean("lcs_HighlightEnabled", true);
+            return highlightEnabled ? ColorTools.FromHex(highlightColor) : Color.White;
         }
 
         private void GetData()
@@ -56,7 +67,7 @@ namespace Smeedee.Android.Widgets
 
             var listItems = CreateListItems();
 
-            var adapter = new TextColoringAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to);
+            var adapter = new TextColoringAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to, GetHighlightColor());
             commitList.Adapter = adapter;
         }
 
@@ -68,23 +79,12 @@ namespace Smeedee.Android.Widgets
 
         private IList<IDictionary<string, object>> CreateListItems()
         {
-            IList<IDictionary<String, object>> listItems = new List<IDictionary<String, object>>();
-
-            foreach (var changeset in changesets)
-            {
-                var msg = (changeset.Message == "") ? NoMessageTag : changeset.Message;
-                listItems.Add(
-                    new Dictionary<string, object>()
-                        {
-                            {"Msg", msg},
-                            {"Image", Resource.Drawable.DefaultPerson},
-                            {"User", changeset.User},
-                            {"Date", (DateTime.Now - changeset.Date).PrettyPrint()}
-                        }
-                    );
-            }
-
-            return listItems;
+            return (from changeset in changesets
+                    let msg = (changeset.Message == "") ? NoMessageTag : changeset.Message
+                    select new Dictionary<string, object>()
+                               {
+                                   {"Msg", msg}, {"Image", Resource.Drawable.DefaultPerson}, {"User", changeset.User}, {"Date", (DateTime.Now - changeset.Date).PrettyPrint()}
+                               }).Cast<IDictionary<string, object>>().ToList();
         }
 
         public void Refresh()
@@ -95,9 +95,12 @@ namespace Smeedee.Android.Widgets
 
     internal class TextColoringAdapter : SimpleAdapter 
     {
-        public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to) :
+        private readonly Color highlightColor;
+
+        public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color highlightColor) :
                                   base(context, items, resource, from, to)
         {
+            this.highlightColor = highlightColor;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -112,7 +115,9 @@ namespace Smeedee.Android.Widgets
             if (!(text is TextView)) return view;
             
             var textView = text as TextView;
-            var color = textView.Text == LatestChangesetsWidget.NoMessageTag ? Color.Red : Color.White;
+            var color = textView.Text == LatestChangesetsWidget.NoMessageTag
+                            ? highlightColor
+                            : Color.White;
             textView.SetTextColor(color);
 
             return view;

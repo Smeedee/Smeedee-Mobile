@@ -7,9 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Smeedee.Properties;
-using Smeedee.Services;
+using Smeedee;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public class FakeImageService : IImageService
     {

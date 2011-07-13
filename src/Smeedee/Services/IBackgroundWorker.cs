@@ -1,6 +1,6 @@
 using System;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public interface IBackgroundWorker
     {

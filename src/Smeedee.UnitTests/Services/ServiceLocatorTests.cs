@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.UnitTests.Services
 {

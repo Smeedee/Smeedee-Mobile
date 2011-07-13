@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Smeedee.Model;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public interface IModelService<T> where T : IModel
     {

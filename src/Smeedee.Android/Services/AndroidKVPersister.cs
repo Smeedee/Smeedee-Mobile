@@ -1,5 +1,5 @@
 ﻿using Android.Content;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.Android.Services
 {

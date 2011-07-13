@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Smeedee.Services;
+using Smeedee;
 using NUnit.Framework;
 
 namespace Smeedee.UnitTests.Services

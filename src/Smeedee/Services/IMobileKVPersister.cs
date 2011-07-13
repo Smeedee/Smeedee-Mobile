@@ -1,4 +1,4 @@
-﻿namespace Smeedee.Services
+﻿namespace Smeedee
 {
     public interface IMobileKVPersister
     {

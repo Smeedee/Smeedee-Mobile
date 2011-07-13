@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Smeedee.Model;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public class TopCommittersFakeService : IModelService<TopCommitters>
     {

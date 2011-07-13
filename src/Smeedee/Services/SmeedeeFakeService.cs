@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using Smeedee.Model;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public class SmeedeeFakeService : ISmeedeeService
     {

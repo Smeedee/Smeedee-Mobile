@@ -5,7 +5,7 @@ using System.Text;
 using Android.App;
 using Smeedee.Model;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public class ContextSwitcher
     {

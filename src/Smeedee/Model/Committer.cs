@@ -1,5 +1,5 @@
 using System;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.Model
 {

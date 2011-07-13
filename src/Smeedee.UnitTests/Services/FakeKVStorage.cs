@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.UnitTests.Services
 {

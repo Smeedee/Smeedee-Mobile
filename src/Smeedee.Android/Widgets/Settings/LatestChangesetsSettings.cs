@@ -70,18 +70,10 @@ namespace Smeedee.Android.Widgets.Settings
                                   {"colorValue", entryValues[i]}
                               });
             }
-            Func<int, Color> colorFn = position => HexToColor(entryValues[position]);
+            Func<int, Color> colorFn = position => ColorTools.FromHex(entryValues[position]);
             return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colorFn);
         }
-
-        private static Color HexToColor(string hex)
-        {
-            var r = Integer.ParseInt(hex.Substring(0, 2), 16);
-            var g = Integer.ParseInt(hex.Substring(2, 2), 16);
-            var b = Integer.ParseInt(hex.Substring(4, 2), 16);
-            return new Color(r, g, b);
-        }
-
+        
         internal class TextColoringAdapter : SimpleAdapter
         {
             private Func<int, Color> colorFn;
