@@ -49,6 +49,7 @@
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\FakeBuildStatusService.cs" />
+    <Compile Include="Services\FakeLatestChangesetsService.cs" />
     <Compile Include="Services\FakeLoginValidationService.cs" />
     <Compile Include="Services\ILoginValidationService.cs" />
     <Compile Include="Services\IModelService.cs" />

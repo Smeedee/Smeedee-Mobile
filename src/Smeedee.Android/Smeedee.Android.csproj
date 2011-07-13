@@ -92,6 +92,9 @@
     <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
       <Link>Services\FakeBuildStatusService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
+      <Link>Services\FakeLatestChangesetsService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
       <Link>Services\FakeLoginValidationService.cs</Link>
     </Compile>
