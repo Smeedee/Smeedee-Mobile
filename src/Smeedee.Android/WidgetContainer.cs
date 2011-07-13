@@ -281,11 +281,14 @@ namespace Smeedee.Android
                     currentView.Top, currentView.Right,
                     currentView.Bottom);
 
-                    //var nextView = flipper.GetChildAt(flipper.DisplayedChild - 1);
+                    var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
+                  
                     //var previousView = flipper.GetChildAt(flipper.DisplayedChild + 1);
 
-                    //nextView.Layout(currentView.Right, nextView.Top, nextView.Right, nextView.Bottom);
-                    //previousView.Layout(previousView.Right, previousView.Top, currentView.Left, previousView.Bottom);
+                    
+                    nextView.Layout(currentView.Right + (int)(touchEvent.GetX()-oldTouchValue), nextView.Top, nextView.Right, nextView.Bottom);
+                    nextView.Visibility = ViewStates.Visible;    
+                //previousView.Layout(previousView.Right, previousView.Top, currentView.Left, previousView.Bottom);
 
 
                     break;
