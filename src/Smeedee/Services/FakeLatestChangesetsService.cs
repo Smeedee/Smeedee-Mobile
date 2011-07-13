@@ -6,7 +6,7 @@ using Smeedee.Model;
 
 namespace Smeedee
 {
-    public class FakeChangesetService : IModelService<Changeset>
+    public class FakeLatestChangesetService : IModelService<Changeset>
     {
         public IEnumerable<Changeset> Get(IDictionary<string, string> args)
         {
