@@ -19,6 +19,7 @@ namespace Smeedee.Android.Widgets
             SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         private WorkingDaysLeft model;
+        private string _dynamicDescription;
 
         public WorkingDaysLeftWidget(Context context) : base(context)
         {
@@ -65,6 +66,11 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             LoadModelAndUpdateView();
+        }
+
+        public string GetDynamicDescription()
+        {
+            return _dynamicDescription;
         }
     }
 }

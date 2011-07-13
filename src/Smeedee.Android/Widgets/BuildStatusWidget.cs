@@ -13,7 +13,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Build Status", DescriptionStatic = "Shows build status for projects")]
+    [WidgetAttribute("Build Status", StaticDescription = "Shows build status for projects")]
     public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };
@@ -23,6 +23,7 @@ namespace Smeedee.Android.Widgets
 
         private ListView buildList;
         private IEnumerable<BuildStatus> builds;
+        private string _dynamicDescription;
 
         public BuildStatusWidget(Context context)
             : base(context)
@@ -98,6 +99,11 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             bgWorker.Invoke(RefreshBuildsFromServer);
+        }
+
+        public string GetDynamicDescription()
+        {
+            return _dynamicDescription;
         }
     }
 

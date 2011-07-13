@@ -69,16 +69,16 @@ namespace Smeedee.Android
         private void SetCorrectTopBannerWidgetTitle()
         {
             var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
-            widgetTitle.Text = GetWidgetAttribute("Name");
+            widgetTitle.Text = GetWidgetAttributeOfCurrentlyDisplayedWidget("Name");
         }
 
         private void SetCorrectTopBannerWidgetDescription()
         {
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
-            widgetDescriptionDynamic.Text = GetWidgetAttribute("DescriptionStatic");
+            widgetDescriptionDynamic.Text = GetWidgetAttributeOfCurrentlyDisplayedWidget("DescriptionStatic");
         }
 
-        private string GetWidgetAttribute(string attribute)
+        private string GetWidgetAttributeOfCurrentlyDisplayedWidget(string attribute)
         {
             var setAttribute = "not set";
             foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
@@ -88,7 +88,7 @@ namespace Smeedee.Android
                     var widgetAttributes =
                         (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof (WidgetAttribute), true);
                     if (attribute == "Name") setAttribute = widgetAttributes[0].Name;
-                    if (attribute == "DescriptionStatic") setAttribute = widgetAttributes[0].DescriptionStatic;
+                    if (attribute == "DescriptionStatic") setAttribute = widgetAttributes[0].StaticDescription;
                 }
             }
             return setAttribute;
@@ -152,10 +152,9 @@ namespace Smeedee.Android
                     return true;
 
                 case Resource.Id.BtnWidgetSettings:
-
-                    // TODO: Make dynamic or something :)
-                    string widgetName = GetWidgetAttribute("Name");
-
+                    
+                    string widgetName = GetWidgetAttributeOfCurrentlyDisplayedWidget("Name");
+                    
                     if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
 
@@ -214,8 +213,6 @@ namespace Smeedee.Android
             {
                 _flipper.AddView((View)newWidget);
             }
-
-          
             _flipper.DisplayedChild = current;
           
         }

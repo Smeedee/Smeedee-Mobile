@@ -6,7 +6,7 @@ namespace Smeedee.Model
     public class WidgetAttribute : Attribute
     {
         public string Name { get; private set; }
-        public string DescriptionStatic { get; set; }
+        public string StaticDescription { get; set; }
 
         public WidgetAttribute(string name)
         {

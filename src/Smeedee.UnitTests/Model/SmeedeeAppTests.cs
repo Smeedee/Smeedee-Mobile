@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
-using Smeedee.Services;
 
 namespace Smeedee.UnitTests.Model
 {
@@ -65,8 +62,8 @@ namespace Smeedee.UnitTests.Model
                 app.RegisterAvailableWidgets();
                 var widgets = app.AvailableWidgets;
 
-                Assert.Contains("description static 1", widgets.Select(m => m.DescriptionStatic).ToList());
-                Assert.Contains("description static 2", widgets.Select(m => m.DescriptionStatic).ToList());
+                Assert.Contains("description static 1", widgets.Select(m => m.StaticDescription).ToList());
+                Assert.Contains("description static 2", widgets.Select(m => m.StaticDescription).ToList());
             }
         }
         
@@ -82,19 +79,29 @@ namespace Smeedee.UnitTests.Model
             }
         }
         
-        [WidgetAttribute("Test Widget", DescriptionStatic = "description static 1")]
+        [WidgetAttribute("Test Widget", StaticDescription = "description static 1")]
         public class TestWidget : IWidget
         {
             public void Refresh()
             {
             }
+
+            public string GetDynamicDescription()
+            {
+                return "";
+            }
         }
 
-        [WidgetAttribute("Test Widget 2", DescriptionStatic = "description static 2")]
+        [WidgetAttribute("Test Widget 2", StaticDescription = "description static 2")]
         public class AnotherTestWidget : IWidget
         {
             public void Refresh()
             {
+            }
+
+            public string GetDynamicDescription()
+            {
+                return "";
             }
         }
         
