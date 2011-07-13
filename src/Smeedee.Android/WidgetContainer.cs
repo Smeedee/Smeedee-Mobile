@@ -84,29 +84,35 @@ namespace Smeedee.Android
         private void SetCorrectTopBannerWidgetTitle()
         {
             var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
-            widgetTitle.Text = GetWidgetAttributeOfCurrentlyDisplayedWidget("Name");
+            widgetTitle.Text = GetWidgetNameOfCurrentlyDisplayedWidget();
         }
 
         private void SetCorrectTopBannerWidgetDescription()
         {
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
-            widgetDescriptionDynamic.Text = GetWidgetAttributeOfCurrentlyDisplayedWidget("DescriptionStatic");
+            var currentWidget = _flipper.CurrentView as IWidget;
+
+            if (currentWidget != null)
+            {
+                currentWidget.Refresh();
+                widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
+            }
+            else
+            {
+                throw new NullReferenceException("Could not set the dynamic description because there " +
+                                                 "where no current widget in viewflipper"); 
+            }
         }
 
-        private string GetWidgetAttributeOfCurrentlyDisplayedWidget(string attribute)
+        private string GetWidgetNameOfCurrentlyDisplayedWidget()
         {
-            var setAttribute = "not set";
+            var name = "";
             foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
             {
                 if (_flipper.CurrentView.GetType() == widgetModel.Type)
-                {
-                    var widgetAttributes =
-                        (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof (WidgetAttribute), true);
-                    if (attribute == "Name") setAttribute = widgetAttributes[0].Name;
-                    if (attribute == "DescriptionStatic") setAttribute = widgetAttributes[0].StaticDescription;
-                }
+                    name = widgetModel.Name;
             }
-            return setAttribute;
+            return name;
         }
         
         private void BindEventsToNavigationButtons()
@@ -161,14 +167,14 @@ namespace Smeedee.Android
                         });
                     }
                     else
-                    {
-                        throw new NullReferenceException("No current widget in view flipper");
-                    }
+                        throw new NullReferenceException("Could not refresh the widget because there where" +
+                                                         "no current widget in viewflipper");
+                    
                     return true;
 
                 case Resource.Id.BtnWidgetSettings:
                     
-                    string widgetName = GetWidgetAttributeOfCurrentlyDisplayedWidget("Name");
+                    string widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
                     
                     if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));

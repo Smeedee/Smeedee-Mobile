@@ -4,13 +4,16 @@ namespace Smeedee.Model
 {
     public class WorkingDaysLeft : IModel
     {
-        public WorkingDaysLeft(int days)
-        {
-            DaysLeft = days;
-        }
-
         private int days;
 
+        public WorkingDaysLeft(int days, DateTime untillDate)
+        {
+            DaysLeft = days;
+            UntillDate = untillDate;
+        }
+
+        public DateTime UntillDate { get; private set; }
+        public bool IsOnOvertime { get; private set; }
         public int DaysLeft
         {
             get { return Math.Abs(days); }
@@ -23,6 +26,7 @@ namespace Smeedee.Model
             {
                 if (days < 0)
                 {
+                    IsOnOvertime = true;
                     return days == -1 ? "day on overtime" : "days on overtime";
                 }
                 return days == 1 ? "working day left" : "working days left";

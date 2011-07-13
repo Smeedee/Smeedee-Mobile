@@ -58,9 +58,16 @@ namespace Smeedee.Android.Widgets
             
             var days = model.DaysLeft.ToString();
             var text = model.DaysLeftText;
+            var untillDate = model.UntillDate;
 
-            daysView.SetText(days, TextView.BufferType.Normal);
-            textView.SetText(text, TextView.BufferType.Normal);
+            daysView.Text = days;
+            textView.Text = text;
+            if (model.IsOnOvertime)
+                _dynamicDescription = "You should have been finished by " + untillDate.DayOfWeek.ToString() + " " +
+                                      untillDate.Date.ToShortDateString();
+            
+            else
+                _dynamicDescription = "Working days left untill " + untillDate.DayOfWeek.ToString() + " "  + untillDate.Date.ToShortDateString();
         }
 
         public void Refresh()

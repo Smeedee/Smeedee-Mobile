@@ -57,7 +57,7 @@ namespace Smeedee.UnitTests.Model
 
 
             [Test]
-            public void Registered_widget_should_have_their_description_set_properly()
+            public void Registered_widget_should_have_their_static_description_set_properly()
             {
                 app.RegisterAvailableWidgets();
                 var widgets = app.AvailableWidgets;
