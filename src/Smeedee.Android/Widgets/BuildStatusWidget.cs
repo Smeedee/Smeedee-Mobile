@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Android.App;
 using Android.Content;
 using Android.Preferences;
 using Android.Views;
 using Android.Widget;
-
 using Smeedee.Model;
-using Smeedee;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Build Status", StaticDescription = "Shows build status for projects")]
+    [WidgetAttribute("Build Status", StaticDescription = "Shows build status for each project")]
     public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };

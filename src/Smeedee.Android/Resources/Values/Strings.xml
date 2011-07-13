@@ -53,6 +53,7 @@
   <!--Build status-->
   <string name="BuildStatusSettingsPreferenceCategory1">Sorting</string>
   <string name="BuildStatusSettingsPreferenceCategory2">Display</string>
+  <string name="BuildStatusSettingsBrokenBuildsOnTop">Broken builds at top</string>
   <string name="BuildStatusSettingsSortingTitle">Build ordering</string>
   <string name="BuildStatusSettingsSortingSummary">Set how you want your list of builds ordered.</string>
   <string name="BuildStatusSettingsSummaryOn">Broken builds are now shown first regardless of sorting order.</string>

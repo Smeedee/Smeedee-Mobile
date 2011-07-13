@@ -48,8 +48,8 @@
   
   <!-- Build Status Settings -->
     <string-array name="BuildStatusSortArray">
-      <item>Build Time</item>
-      <item>Project Name</item>
+      <item>Build time</item>
+      <item>Project name</item>
     </string-array>
 
   <string-array name="BuildStatusSortValues">

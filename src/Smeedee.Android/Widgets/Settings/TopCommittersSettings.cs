@@ -28,7 +28,7 @@ namespace Smeedee.Android.Widgets.Settings
 
         private void UpdateSummaryForCount()
         {
-            var countPreference = FindPreference("TopCommittersCountPref") as ListPreference;
+            var countPreference = (ListPreference)FindPreference("TopCommittersCountPref");
             var val = preferences.GetString("TopCommittersCountPref", "5");
 
             if (countPreference != null)
@@ -43,7 +43,7 @@ namespace Smeedee.Android.Widgets.Settings
 
         private void UpdateSummaryForTime()
         {
-            var timePreference = FindPreference("TopCommittersTimePref") as ListPreference;
+            var timePreference = (ListPreference)FindPreference("TopCommittersTimePref");
             var val = preferences.GetString("TopCommittersTimePref", "1");
 
             if (timePreference != null)
