@@ -58,18 +58,9 @@ namespace Smeedee.UnitTests.Model
                 Assert.Contains("Test Widget 2", widgets.Select(m => m.Name).ToList());
             }
 
-            [Test]
-            public void Registered_widget_should_have_their_icon_properly_set_in_the_model()
-            {
-                app.RegisterAvailableWidgets();
-                var widgets = app.AvailableWidgets;
-
-                Assert.Contains(1, widgets.Select(m => m.Icon).ToList());
-                Assert.Contains(2, widgets.Select(m => m.Icon).ToList());
-            }
 
             [Test]
-            public void Registered_widget_should_have_their_enabled_state_set_properly()
+            public void Registered_widget_should_have_their_description_set_properly()
             {
                 app.RegisterAvailableWidgets();
                 var widgets = app.AvailableWidgets;
@@ -91,7 +82,7 @@ namespace Smeedee.UnitTests.Model
             }
         }
         
-        [WidgetAttribute("Test Widget", 1, DescriptionStatic = "description static 1")]
+        [WidgetAttribute("Test Widget", DescriptionStatic = "description static 1")]
         public class TestWidget : IWidget
         {
             public void Refresh()
@@ -99,7 +90,7 @@ namespace Smeedee.UnitTests.Model
             }
         }
 
-        [WidgetAttribute("Test Widget 2", 2, DescriptionStatic = "description static 2")]
+        [WidgetAttribute("Test Widget 2", DescriptionStatic = "description static 2")]
         public class AnotherTestWidget : IWidget
         {
             public void Refresh()

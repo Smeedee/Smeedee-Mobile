@@ -13,7 +13,7 @@ using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Latest Changesets", Resource.Drawable.icon_smeedee, DescriptionStatic = "Shows latest commits")]
+    [WidgetAttribute("Latest Changesets", DescriptionStatic = "Shows latest commits")]
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";

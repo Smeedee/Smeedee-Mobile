@@ -9,17 +9,21 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textAppearance="@android:style/TextAppearance.Medium"
     android:text="@string/AboutTeamMember1Name" />
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textAppearance="@android:style/TextAppearance.Medium"
     android:text="@string/AboutTeamMember2Name" />
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textAppearance="@android:style/TextAppearance.Medium"
     android:text="@string/AboutTeamMember3Name" />
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textAppearance="@android:style/TextAppearance.Medium"
     android:text="@string/AboutTeamMember4Name" />
 </LinearLayout>

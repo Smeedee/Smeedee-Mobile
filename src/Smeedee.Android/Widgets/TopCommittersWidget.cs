@@ -12,7 +12,7 @@ using Smeedee.Utilities;
 
 namespace Smeedee.Android.Widgets
 {
-    [Widget("Top Committers", Resource.Drawable.icon_topcommitters, DescriptionStatic = "Shows developers and number of commits")]
+    [Widget("Top Committers", DescriptionStatic = "Shows developers and number of commits")]
     public class TopCommittersWidget : RelativeLayout, IWidget
     {
         private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
