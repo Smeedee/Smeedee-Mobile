@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
@@ -17,24 +18,25 @@ using Exception = System.Exception;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee Mobile", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(
+        Label = "Smeedee Mobile", 
+        Theme = "@android:style/Theme.NoTitleBar", 
+        ConfigurationChanges = ConfigChanges.KeyboardHidden|ConfigChanges.Orientation)]
     public class WidgetContainer : Activity
     {
-        private SmeedeeApp app = SmeedeeApp.Instance;
-        private ViewFlipper _flipper;
-
-        private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
-
+        private readonly SmeedeeApp app = SmeedeeApp.Instance;
+        private ViewFlipper flipper;
         private IEnumerable<IWidget> widgets;
-
-        private bool hasSettingsChange = false;
+        
+        private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
+        private bool hasSettingsChange;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+            flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
             
             AddWidgetsToFlipper();
             SetCorrectTopBannerWidgetTitle();
@@ -54,7 +56,7 @@ namespace Smeedee.Android
             widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                _flipper.AddView(widget as View);
+                flipper.AddView(widget as View);
             }
         }
 
@@ -62,9 +64,9 @@ namespace Smeedee.Android
         {
             app.RegisterAvailableWidgets();
 
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            var availableWidgets = SmeedeeApp.Instance.AvailableWidgets;
             var instances = new List<IWidget>();
-            foreach (var widget in widgets)
+            foreach (var widget in availableWidgets)
             {
                 try
                 {
@@ -86,7 +88,7 @@ namespace Smeedee.Android
         private void SetCorrectTopBannerWidgetDescription()
         {
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
-            var currentWidget = _flipper.CurrentView as IWidget;
+            var currentWidget = flipper.CurrentView as IWidget;
 
             if (currentWidget != null)
             {
@@ -105,7 +107,7 @@ namespace Smeedee.Android
             var name = "";
             foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
             {
-                if (_flipper.CurrentView.GetType() == widgetModel.Type)
+                if (flipper.CurrentView.GetType() == widgetModel.Type)
                     name = widgetModel.Name;
             }
             return name;
@@ -122,10 +124,10 @@ namespace Smeedee.Android
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
             btnPrev.Click += (obj, e) =>
                                  {
-                                     _flipper.ShowPrevious();
+                                     flipper.ShowPrevious();
                                      SetCorrectTopBannerWidgetTitle();
                                      SetCorrectTopBannerWidgetDescription();
-                                     _flipper.RefreshDrawableState();
+                                     flipper.RefreshDrawableState();
                                  };
         }
 
@@ -134,10 +136,10 @@ namespace Smeedee.Android
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
             btnNext.Click += (sender, args) =>
                                  {
-                                     _flipper.ShowNext();
+                                     flipper.ShowNext();
                                      SetCorrectTopBannerWidgetTitle();
                                      SetCorrectTopBannerWidgetDescription();
-                                     _flipper.RefreshDrawableState();
+                                     flipper.RefreshDrawableState();
                                  };
         }
 
@@ -152,12 +154,12 @@ namespace Smeedee.Android
             switch (item.ItemId)
             {
                 case Resource.Id.BtnRefreshCurrentWidget:
-                    var currentWidget = _flipper.CurrentView as IWidget;
+                    var currentWidget = flipper.CurrentView as IWidget;
                     if (currentWidget != null)
                     {
                         var dialog = ProgressDialog.Show(this, "Refreshing", "Updating data for current widget", true);
                         var handler = new ProgressHandler(dialog);
-                        ThreadPool.QueueUserWorkItem((arg) => {
+                        ThreadPool.QueueUserWorkItem(arg => {
                             currentWidget.Refresh();
                             handler.SendEmptyMessage(0);
                         });
@@ -229,15 +231,14 @@ namespace Smeedee.Android
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type));
             }
 
-            var current = _flipper.DisplayedChild;
-            _flipper.RemoveAllViews();
+            var current = flipper.DisplayedChild;
+            flipper.RemoveAllViews();
 
             foreach (var newWidget in newWidgets)
             {
-                _flipper.AddView((View)newWidget);
+                flipper.AddView((View)newWidget);
             }
-            _flipper.DisplayedChild = current;
-          
+            flipper.DisplayedChild = current;
         }
 
         private bool WidgetIsEnabled(WidgetModel widget)
@@ -250,7 +251,7 @@ namespace Smeedee.Android
 
     public class SharedPreferencesChangeListener : ISharedPreferencesOnSharedPreferenceChangeListener
     {
-        private Action callbackOnPreferencesChanged;
+        private readonly Action callbackOnPreferencesChanged;
         public SharedPreferencesChangeListener(Action callback)
         {
             callbackOnPreferencesChanged = callback;
@@ -269,7 +270,7 @@ namespace Smeedee.Android
 
     class ProgressHandler : Handler
     {
-        private ProgressDialog dialog;
+        private readonly ProgressDialog dialog;
         public ProgressHandler(ProgressDialog dialog)
         {
             this.dialog = dialog;
