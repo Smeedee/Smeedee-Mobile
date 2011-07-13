@@ -9,6 +9,7 @@ using Smeedee.Android.Services;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
 using Smeedee;
+using Smeedee.Services;
 
 namespace Smeedee.Android
 {
@@ -77,7 +78,6 @@ namespace Smeedee.Android
 
             var url = pref.GetString("serverUrl", "url");
             var key = pref.GetString("userPassword", "pass");
-
 
             if (url == null || key == null) return false;
 
