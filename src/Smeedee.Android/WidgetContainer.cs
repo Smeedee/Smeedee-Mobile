@@ -271,13 +271,16 @@ namespace Smeedee.Android
                     float currentX = touchEvent.GetX();
                     if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        Animation inFromLeft = new TranslateAnimation(-flipper.Width + xCoordinateDifference, 0, currentView.Top, currentView.Top)
+                        Animation inFromLeft = new TranslateAnimation(
+                            -flipper.Width + xCoordinateDifference, 
+                            0, 
+                            currentView.Top, currentView.Top)
                         {
                             Duration = 350,
                             Interpolator = new AccelerateInterpolator()
                         };
 
-                        Animation outToRight = new TranslateAnimation(0+xCoordinateDifference, flipper.Width, currentView.Top, currentView.Top)
+                        Animation outToRight = new TranslateAnimation(currentView.Right, flipper.Width, currentView.Top, currentView.Top)
                         {
                             Duration = 350,
                             Interpolator = new AccelerateInterpolator()
@@ -295,7 +298,7 @@ namespace Smeedee.Android
                             Interpolator = new AccelerateInterpolator()
                         };
                         
-                        Animation outToLeft = new TranslateAnimation(xCoordinateDifference, 0-flipper.Width, currentView.Top, currentView.Top)
+                        Animation outToLeft = new TranslateAnimation(currentView.Left, 0-flipper.Width, currentView.Top, currentView.Top)
                         {
                             Duration = 350, 
                             Interpolator = new AccelerateInterpolator()
@@ -307,7 +310,7 @@ namespace Smeedee.Android
                         flipper.ShowPrevious();
                     } else
                     {
-                        currentView.Layout(flipper.Left, flipper.Top, flipper.Width, flipper.Bottom);
+                        currentView.Layout(flipper.Left, currentView.Top, flipper.Width, currentView.Bottom);
                         nextView.Visibility = ViewStates.Invisible;
                         previousView.Visibility = ViewStates.Invisible;
                     }
