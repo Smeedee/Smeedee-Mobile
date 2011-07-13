@@ -6,7 +6,6 @@ using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
-using Smeedee;
 
 namespace Smeedee.Android.Widgets
 {
@@ -61,9 +60,7 @@ namespace Smeedee.Android.Widgets
 
         private void UpdateView()
         {
-            var text = FindViewById<TextView>(Resource.Id.TopCommittersTimeText);
-            text.Text = model.DaysText;
-
+            _dynamicDescription = model.DaysText;
             list.Adapter = CreateAdapter();
         }
 
@@ -88,7 +85,6 @@ namespace Smeedee.Android.Widgets
                     {commitsField, committer.Commits}
                 });
             }
-
             return data;
         }
 

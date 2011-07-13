@@ -46,11 +46,11 @@
       android:layout_height="55sp" />
   </RelativeLayout>
 
-  <ViewFlipper
+  <smeedee.android.NonCrashingViewFlipper
     android:id="@+id/Flipper"
     android:layout_below="@id/TopBanner"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-  </ViewFlipper>
+  </smeedee.android.NonCrashingViewFlipper>
 
 </RelativeLayout>

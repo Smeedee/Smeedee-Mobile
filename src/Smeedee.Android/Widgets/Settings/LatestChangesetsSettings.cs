@@ -8,18 +8,30 @@ using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
-
 
 namespace Smeedee.Android.Widgets.Settings
 {
-    [Activity(Label = "Latest Changesets Settings", Theme = "@android:style/Theme")]
+    [Activity(Label = "Latest Commits Settings", Theme = "@android:style/Theme")]
     public class LatestChangesetsSettings : PreferenceActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             AddPreferencesFromResource(Resource.Layout.LatestChangesetsSettings);
+            LoadPreferences();
+        }
+
+        private void LoadPreferences()
+        {
+            var numberOfCommitsDisplayed = (ListPreference) FindPreference("NumberOfCommitsDisplayed");
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            numberOfCommitsDisplayed.Summary = "Displaying latest "
+                + prefs.GetString("NumberOfCommitsDisplayed", "10") + " commits";
+        }
+        public override void OnWindowFocusChanged(bool hasFocus)
+        {
+            base.OnWindowFocusChanged(hasFocus);
+            LoadPreferences();
         }
     }
 

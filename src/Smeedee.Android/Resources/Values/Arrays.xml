@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- Latest Commits Settings Number of Changesets displayed-->
+  <string-array name="LatestCommitsSettingsCountArray">
+    <item>5</item>
+    <item>10</item>
+    <item>15</item>
+    <item>20</item>
+  </string-array>
+  <string-array name="LatestCommitsSettingsCountValues">
+    <item>5</item>
+    <item>10</item>
+    <item>15</item>
+    <item>20</item>
+  </string-array>
+  
   <!-- Latest Commits Settings colors (from the Solarized color scheme) -->
   <string-array name="colorNames">
     <item>Yellow</item>
@@ -48,8 +62,8 @@
   
   <!-- Build Status Settings -->
     <string-array name="BuildStatusSortArray">
-      <item>Build Time</item>
-      <item>Project Name</item>
+      <item>Build time</item>
+      <item>Project name</item>
     </string-array>
 
   <string-array name="BuildStatusSortValues">

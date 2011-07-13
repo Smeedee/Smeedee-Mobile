@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -9,23 +8,25 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
-using Smeedee;
 using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Latest Changesets", StaticDescription = "Shows latest commits")]
+    [WidgetAttribute("Latest Changesets", StaticDescription = "Displays latest commits")]
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";
         private const string DefaultRed = "dc322f";
-        private IEnumerable<Changeset> changesets;
         private string _dynamicDescription;
+
+        private LatestChangeset model;
+        private ISharedPreferences pref;
 
         public LatestChangesetsWidget(Context context) :
             base(context)
         {
             Initialize();
+            pref = PreferenceManager.GetDefaultSharedPreferences(context);
         }
 
         public LatestChangesetsWidget(Context context, IAttributeSet attrs) :
@@ -39,19 +40,35 @@ namespace Smeedee.Android.Widgets
             InflateLayout();
             Refresh();
         }
-        
-        private Color GetHighlightColor()
+
+        private void InflateLayout()
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
-            var highlightColor = prefs.GetString("lcs_HighlightColor", DefaultRed);
-            var highlightEnabled = prefs.GetBoolean("lcs_HighlightEnabled", true);
-            return highlightEnabled ? ColorTools.FromHex(highlightColor) : Color.White;
+            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+            if (inflater != null)
+            {
+                inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
+            }
+            else
+            {
+                throw new Exception("Unable to inflate view on Latest Changeset widget");
+            }
+        }
+
+        public void Refresh()
+        {
+            ContextSwitcher.Using((Activity)Context).InBackground(GetData).InUI(UpdateUI).Run();
+            RefreshDynamicDescription();
         }
 
         private void GetData()
         {
-            var changesetService = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<Changeset>>();
-            changesets = changesetService.Get(null);
+            var service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<LatestChangeset>>();
+            var args = new Dictionary<string, string>() 
+            {
+                {"count", pref.GetString("NumberOfCommitsDisplayed", "10")}
+            };
+
+            model = service.GetSingle(args);
         }
 
         private void UpdateUI()
@@ -63,7 +80,7 @@ namespace Smeedee.Android.Widgets
         {
             var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
 
-            var from = new[] {"Image", "User", "Msg", "Date"};
+            var from = new[] { "Image", "User", "Msg", "Date" };
             var to = new[] { Ids.LatestChangesetWidget_CommitterIcon, Ids.LatestChangesetWidget_ChangesetUser, Ids.LatestChangesetWidget_ChangesetText, Ids.LatestChangesetWidget_ChangesetDate };
 
             var listItems = CreateListItems();
@@ -72,25 +89,35 @@ namespace Smeedee.Android.Widgets
             commitList.Adapter = adapter;
         }
 
-        private void InflateLayout()
+        private void RefreshDynamicDescription()
         {
-            var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
+            //_dynamicDescription = "Displaying latest " + pref.GetString("NumberOfCommitsDisplayed", "10") + " commits";
+        }
+
+        private Color GetHighlightColor()
+        {
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+            var highlightColor = prefs.GetString("lcs_HighlightColor", DefaultRed);
+            var highlightEnabled = prefs.GetBoolean("lcs_HighlightEnabled", true);
+            return highlightEnabled ? ColorTools.FromHex(highlightColor) : Color.White;
         }
 
         private IList<IDictionary<string, object>> CreateListItems()
         {
-            return (from changeset in changesets
-                    let msg = (changeset.Message == "") ? NoMessageTag : changeset.Message
-                    select new Dictionary<string, object>()
-                               {
-                                   {"Msg", msg}, {"Image", Resource.Drawable.DefaultPerson}, {"User", changeset.User}, {"Date", (DateTime.Now - changeset.Date).PrettyPrint()}
-                               }).Cast<IDictionary<string, object>>().ToList();
-        }
+            var data = new List<IDictionary<string, object>>();
 
-        public void Refresh()
-        {
-            ContextSwitcher.Using((Activity) Context).InBackground(GetData).InUI(UpdateUI).Run();
+            foreach (var changeSet in model.Changesets)
+            {
+                var msg = (changeSet.Message == "") ? NoMessageTag : changeSet.Message;
+                data.Add(new Dictionary<string, object>
+                             {
+                                 {"Msg", msg},
+                                 {"Image", Resource.Drawable.DefaultPerson}, 
+                                 {"User", changeSet.User}, 
+                                 {"Date", (DateTime.Now - changeSet.Date).PrettyPrint()}
+                             });
+            }
+            return data;
         }
 
         public string GetDynamicDescription()

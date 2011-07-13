@@ -9,6 +9,7 @@ using Smeedee.Android.Services;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
 using Smeedee;
+using Smeedee.Services;
 
 namespace Smeedee.Android
 {
@@ -51,7 +52,7 @@ namespace Smeedee.Android
             serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
 
             serviceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
-            serviceLocator.Bind<IModelService<Changeset>>(new FakeChangesetService());
+            serviceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
             serviceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
             serviceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
             serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
@@ -77,7 +78,6 @@ namespace Smeedee.Android
 
             var url = pref.GetString("serverUrl", "url");
             var key = pref.GetString("userPassword", "pass");
-
 
             if (url == null || key == null) return false;
 

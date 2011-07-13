@@ -1,16 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-  <CheckBoxPreference
-    android:key="lcs_HighlightEnabled"
-    android:title="@string/LatestChangesetsSettingsHighlightEmptyTitle"
-    android:summaryOn="@string/LatestChangesetsSettingsHighlightEmptySummaryOn"
-    android:summaryOff="@string/LatestChangesetsSettingsHighlightEmptySummaryOff"
-    android:defaultValue="true"/>
+<PreferenceScreen 
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory
+    android:title="@string/LatestChangeSetSettingsPreferenceCategory1">
+    <ListPreference
+      android:key="NumberOfCommitsDisplayed"
+      android:title="@string/LatestChangesetsSettingsNumberOfCommitsTitle"
+      android:summary="@string/LatestChangesetsSettingsNumberOfCommitsSummary"
+      android:entries="@array/LatestCommitsSettingsCountArray"
+      android:entryValues="@array/LatestCommitsSettingsCountValues"
+      android:defaultValue="10" />
+  </PreferenceCategory>
 
-  <smeedee.android.widgets.settings.ColoredListPreference
-    android:title="@string/LatestChangesetsSettingsHighlightColorTitle"
-    android:key="lcs_HighlightColor"
-    android:defaultValue="dc322f"
-    android:entries="@array/colorNames"
-    android:entryValues="@array/colorValues" />
+  <PreferenceCategory
+    android:title="@string/LatestChangeSetSettingsPreferenceCategory2">
+    <CheckBoxPreference
+      android:key="lcs_HighlightEnabled"
+      android:title="@string/LatestChangesetsSettingsHighlightEmptyTitle"
+      android:summaryOn="@string/LatestChangesetsSettingsHighlightEmptySummaryOn"
+      android:summaryOff="@string/LatestChangesetsSettingsHighlightEmptySummaryOff"
+      android:defaultValue="true"/>
+
+    <smeedee.android.widgets.settings.ColoredListPreference
+      android:title="@string/LatestChangesetsSettingsHighlightColorTitle"
+      android:key="lcs_HighlightColor"
+      android:defaultValue="dc322f"
+      android:entries="@array/colorNames"
+      android:entryValues="@array/colorValues" />
+  </PreferenceCategory>
 </PreferenceScreen>

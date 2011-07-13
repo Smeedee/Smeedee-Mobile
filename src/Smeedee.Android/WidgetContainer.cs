@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using Android.OS;
 using Java.Lang;
@@ -17,25 +19,39 @@ using Exception = System.Exception;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee Mobile", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(
+        Label = "Smeedee Mobile",
+        Theme = "@android:style/Theme.NoTitleBar",
+        ConfigurationChanges = ConfigChanges.KeyboardHidden | ConfigChanges.Orientation)]
     public class WidgetContainer : Activity
     {
-        private SmeedeeApp app = SmeedeeApp.Instance;
-        private ViewFlipper _flipper;
-
+        private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
+        private readonly SmeedeeApp app = SmeedeeApp.Instance;
+        private ViewFlipper flipper;
         private IEnumerable<IWidget> widgets;
+
+        private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
+        private bool hasSettingsChange;
+        private double oldTouchValue;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            _flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-            
+            flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+
             AddWidgetsToFlipper();
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
             BindEventsToNavigationButtons();
+
+            preferenceChangeListener = new SharedPreferencesChangeListener(() =>
+                                                                               {
+                                                                                   hasSettingsChange = true;
+                                                                               });
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
         }
 
         private void AddWidgetsToFlipper()
@@ -43,7 +59,7 @@ namespace Smeedee.Android
             widgets = GetWidgets();
             foreach (var widget in widgets)
             {
-                _flipper.AddView(widget as View);
+                flipper.AddView(widget as View);
             }
         }
 
@@ -51,15 +67,17 @@ namespace Smeedee.Android
         {
             app.RegisterAvailableWidgets();
 
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
+            var availableWidgets = SmeedeeApp.Instance.AvailableWidgets;
             var instances = new List<IWidget>();
-            foreach (var widget in widgets)
+            foreach (var widget in availableWidgets)
             {
                 try
                 {
                     Log.Debug("Smeedee", "Instantiating widget of type: " + widget.Type.Name);
                     instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Log.Debug("Smeedee", Throwable.FromException(e), "Exception thrown when instatiating widget");
                 }
             }
@@ -69,46 +87,52 @@ namespace Smeedee.Android
         private void SetCorrectTopBannerWidgetTitle()
         {
             var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
-            widgetTitle.Text = GetWidgetAttributeOfCurrentlyDisplayedWidget("Name");
+            widgetTitle.Text = GetWidgetNameOfCurrentlyDisplayedWidget();
         }
 
         private void SetCorrectTopBannerWidgetDescription()
         {
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
-            widgetDescriptionDynamic.Text = GetWidgetAttributeOfCurrentlyDisplayedWidget("DescriptionStatic");
+            var currentWidget = flipper.CurrentView as IWidget;
+
+            if (currentWidget != null)
+            {
+                currentWidget.Refresh();
+                widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
+            }
+            else
+            {
+                throw new NullReferenceException("Could not set the dynamic description because there " +
+                                                 "where no current widget in viewflipper");
+            }
         }
 
-        private string GetWidgetAttributeOfCurrentlyDisplayedWidget(string attribute)
+        private string GetWidgetNameOfCurrentlyDisplayedWidget()
         {
-            var setAttribute = "not set";
+            var name = "";
             foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
             {
-                if (_flipper.CurrentView.GetType() == widgetModel.Type)
-                {
-                    var widgetAttributes =
-                        (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof (WidgetAttribute), true);
-                    if (attribute == "Name") setAttribute = widgetAttributes[0].Name;
-                    if (attribute == "DescriptionStatic") setAttribute = widgetAttributes[0].StaticDescription;
-                }
+                if (flipper.CurrentView.GetType() == widgetModel.Type)
+                    name = widgetModel.Name;
             }
-            return setAttribute;
+            return name;
         }
-        
+
         private void BindEventsToNavigationButtons()
         {
             BindPreviousButtonClickEvent();
             BindNextButtonClickEvent();
         }
-        
+
         private void BindPreviousButtonClickEvent()
         {
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
             btnPrev.Click += (obj, e) =>
                                  {
-                                     _flipper.ShowPrevious();
+                                     flipper.ShowPrevious();
                                      SetCorrectTopBannerWidgetTitle();
                                      SetCorrectTopBannerWidgetDescription();
-                                     _flipper.RefreshDrawableState();
+                                     flipper.RefreshDrawableState();
                                  };
         }
 
@@ -117,10 +141,10 @@ namespace Smeedee.Android
             var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
             btnNext.Click += (sender, args) =>
                                  {
-                                     _flipper.ShowNext();
+                                     flipper.ShowNext();
                                      SetCorrectTopBannerWidgetTitle();
                                      SetCorrectTopBannerWidgetDescription();
-                                     _flipper.RefreshDrawableState();
+                                     flipper.RefreshDrawableState();
                                  };
         }
 
@@ -135,26 +159,27 @@ namespace Smeedee.Android
             switch (item.ItemId)
             {
                 case Resource.Id.BtnRefreshCurrentWidget:
-                    var currentWidget = _flipper.CurrentView as IWidget;
+                    var currentWidget = flipper.CurrentView as IWidget;
                     if (currentWidget != null)
                     {
                         var dialog = ProgressDialog.Show(this, "Refreshing", "Updating data for current widget", true);
                         var handler = new ProgressHandler(dialog);
-                        ThreadPool.QueueUserWorkItem((arg) => {
+                        ThreadPool.QueueUserWorkItem(arg =>
+                        {
                             currentWidget.Refresh();
                             handler.SendEmptyMessage(0);
                         });
                     }
                     else
-                    {
-                        throw new NullReferenceException("No current widget in view flipper");
-                    }
+                        throw new NullReferenceException("Could not refresh the widget because there where" +
+                                                         "no current widget in viewflipper");
+
                     return true;
 
                 case Resource.Id.BtnWidgetSettings:
-                    
-                    string widgetName = GetWidgetAttributeOfCurrentlyDisplayedWidget("Name");
-                    
+
+                    string widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
+
                     if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
 
@@ -187,34 +212,40 @@ namespace Smeedee.Android
             base.OnResume();
             Log.Debug("TT", "[ REFRESHING WIDGETS ]");
 
-            CheckForEnabledAndDisabledWidgets();
-            SetCorrectTopBannerWidgetTitle();
-            SetCorrectTopBannerWidgetDescription();
+            if (hasSettingsChange)
+            {
+                CheckForEnabledAndDisabledWidgets();
+                SetCorrectTopBannerWidgetTitle();
+                SetCorrectTopBannerWidgetDescription();
+                Log.Debug("TT", "Just refreshed widget list after having changed settings.");
+                hasSettingsChange = false;
+            }
 
             foreach (var widget in widgets)
             {
                 widget.Refresh();
             }
         }
+
         private void CheckForEnabledAndDisabledWidgets()
         {
             var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
-            
+
             var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
             {
-                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type));
+                WidgetModel model = widgetModel;
+                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
             }
 
-            var current = _flipper.DisplayedChild;
-            _flipper.RemoveAllViews();
+            var current = flipper.DisplayedChild;
+            flipper.RemoveAllViews();
 
             foreach (var newWidget in newWidgets)
             {
-                _flipper.AddView((View)newWidget);
+                flipper.AddView((View)newWidget);
             }
-            _flipper.DisplayedChild = current;
-          
+            flipper.DisplayedChild = current;
         }
 
         private bool WidgetIsEnabled(WidgetModel widget)
@@ -222,11 +253,133 @@ namespace Smeedee.Android
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             return prefs.GetBoolean(widget.Name, true);
         }
+
+        public override bool OnTouchEvent(MotionEvent touchEvent)
+        {
+            var currentView = flipper.CurrentView;
+            var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
+            var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
+            var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
+
+            switch (touchEvent.Action)
+            {
+                case MotionEventActions.Down:
+                    oldTouchValue = touchEvent.GetX();
+                    break;
+
+                case MotionEventActions.Up:
+                    float currentX = touchEvent.GetX();
+                    if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
+                    {
+                        Animation inFromLeft = new TranslateAnimation(
+                            -flipper.Width + xCoordinateDifference, 
+                            0, 
+                            currentView.Top, currentView.Top)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+
+                        Animation outToRight = new TranslateAnimation(
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.RelativeToSelf, flipper.Width-xCoordinateDifference,
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.RelativeToSelf, 0)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+
+                        flipper.InAnimation = inFromLeft;
+                        flipper.OutAnimation = outToRight;
+
+                        flipper.ShowNext();
+                    } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
+                    {
+                        Animation inFromRight = new TranslateAnimation(
+                            (int)Dimension.RelativeToParent,  (flipper.Width + xCoordinateDifference * 1.0f) / flipper.Width,
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+                        
+                        Animation outToLeft = new TranslateAnimation(
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, (-(flipper.Width - xCoordinateDifference * 1.0f) / flipper.Width),
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+
+                        flipper.InAnimation = inFromRight;
+                        flipper.OutAnimation = outToLeft;
+
+                        flipper.ShowPrevious();
+                    } else
+                    {
+                        currentView.Layout(flipper.Left, currentView.Top, flipper.Width, currentView.Bottom);
+                        nextView.Visibility = ViewStates.Invisible;
+                        previousView.Visibility = ViewStates.Invisible;
+                    }
+                    break;
+
+                case MotionEventActions.Move:
+                    
+                    currentView.Layout(
+                        xCoordinateDifference,
+                        currentView.Top, 
+                        currentView.Right,
+                        currentView.Bottom);
+                    
+                    nextView.Layout(
+                        flipper.Width + xCoordinateDifference, 
+                        currentView.Top, 
+                        flipper.Width*2 + xCoordinateDifference, 
+                        currentView.Bottom);
+                    nextView.Visibility = ViewStates.Visible;    
+
+                    previousView.Layout(
+                        -flipper.Width + xCoordinateDifference, 
+                        currentView.Top, 
+                        0+xCoordinateDifference, 
+                        currentView.Bottom);
+                    previousView.Visibility = ViewStates.Visible;
+
+                    break;
+            }
+            return false; // True if the event was handled, false otherwise. Leave false to propagate event further?
+        }
+
     }
 
-	class ProgressHandler : Handler
+
+    public class SharedPreferencesChangeListener : ISharedPreferencesOnSharedPreferenceChangeListener
     {
-        private ProgressDialog dialog;
+        private readonly Action callbackOnPreferencesChanged;
+        public SharedPreferencesChangeListener(Action callback)
+        {
+            callbackOnPreferencesChanged = callback;
+        }
+        public IntPtr Handle
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
+        {
+            callbackOnPreferencesChanged();
+        }
+    }
+
+
+    class ProgressHandler : Handler
+    {
+        private readonly ProgressDialog dialog;
         public ProgressHandler(ProgressDialog dialog)
         {
             this.dialog = dialog;

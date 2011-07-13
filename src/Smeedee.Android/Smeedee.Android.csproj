@@ -71,6 +71,9 @@
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
+      <Link>Model\LatestChangeset.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
       <Link>Model\SmeedeeApp.cs</Link>
     </Compile>
@@ -136,6 +139,7 @@
     </Compile>
     <Compile Include="ColorTools.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="NonCrashingViewFlipper.cs" />
     <Compile Include="Screens\About.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
