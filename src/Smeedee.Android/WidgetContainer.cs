@@ -24,6 +24,7 @@ namespace Smeedee.Android
         ConfigurationChanges = ConfigChanges.KeyboardHidden | ConfigChanges.Orientation)]
     public class WidgetContainer : Activity
     {
+        private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private ViewFlipper flipper;
         private IEnumerable<IWidget> widgets;
@@ -261,17 +262,16 @@ namespace Smeedee.Android
 
                 case MotionEventActions.Up:
                     float currentX = touchEvent.GetX();
-                    if (oldTouchValue < currentX)
+                    if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        //flipper.setInAnimation(AnimationHelper.inFromLeftAnimation());
-                        //flipper.setOutAnimation(AnimationHelper.outToRightAnimation());
                         flipper.ShowNext();
-                    }
-                    if (oldTouchValue > currentX)
+                    } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        //flipper.setInAnimation(AnimationHelper.inFromRightAnimation());
-                        //flipper.setOutAnimation(AnimationHelper.outToLeftAnimation());
                         flipper.ShowPrevious();
+                    } else
+                    {
+                        var cur = flipper.CurrentView;
+                        cur.Layout(0, cur.Top, cur.Bottom, cur.Right);
                     }
                     break;
 
@@ -280,6 +280,14 @@ namespace Smeedee.Android
                     currentView.Layout((int)(touchEvent.GetX() - oldTouchValue),
                     currentView.Top, currentView.Right,
                     currentView.Bottom);
+
+                    //var nextView = flipper.GetChildAt(flipper.DisplayedChild - 1);
+                    //var previousView = flipper.GetChildAt(flipper.DisplayedChild + 1);
+
+                    //nextView.Layout(currentView.Right, nextView.Top, nextView.Right, nextView.Bottom);
+                    //previousView.Layout(previousView.Right, previousView.Top, currentView.Left, previousView.Bottom);
+
+
                     break;
             }
             return false; // True if the event was handled, false otherwise. Leave false to propagate event further?
