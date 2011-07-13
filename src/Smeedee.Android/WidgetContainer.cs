@@ -23,7 +23,11 @@ namespace Smeedee.Android
         private SmeedeeApp app = SmeedeeApp.Instance;
         private ViewFlipper _flipper;
 
+        private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
+
         private IEnumerable<IWidget> widgets;
+
+        private bool hasSettingsChange = false;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -36,6 +40,13 @@ namespace Smeedee.Android
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
             BindEventsToNavigationButtons();
+
+            preferenceChangeListener = new SharedPreferencesChangeListener(() =>
+                                                                               {
+                                                                                   hasSettingsChange = true;
+                                                                               });
+            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
         }
 
         private void AddWidgetsToFlipper()
@@ -187,15 +198,21 @@ namespace Smeedee.Android
             base.OnResume();
             Log.Debug("TT", "[ REFRESHING WIDGETS ]");
 
-            CheckForEnabledAndDisabledWidgets();
-            SetCorrectTopBannerWidgetTitle();
-            SetCorrectTopBannerWidgetDescription();
+            if (hasSettingsChange)
+            {
+                CheckForEnabledAndDisabledWidgets();
+                SetCorrectTopBannerWidgetTitle();
+                SetCorrectTopBannerWidgetDescription();
+                Log.Debug("TT", "Just refreshed widget list after having changed settings.");
+                hasSettingsChange = false;
+            }
 
             foreach (var widget in widgets)
             {
                 widget.Refresh();
             }
         }
+
         private void CheckForEnabledAndDisabledWidgets()
         {
             var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
@@ -224,7 +241,27 @@ namespace Smeedee.Android
         }
     }
 
-	class ProgressHandler : Handler
+
+    public class SharedPreferencesChangeListener : ISharedPreferencesOnSharedPreferenceChangeListener
+    {
+        private Action callbackOnPreferencesChanged;
+        public SharedPreferencesChangeListener(Action callback)
+        {
+            callbackOnPreferencesChanged = callback;
+        }
+        public IntPtr Handle
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
+        {
+            callbackOnPreferencesChanged();
+        }
+    }
+
+
+    class ProgressHandler : Handler
     {
         private ProgressDialog dialog;
         public ProgressHandler(ProgressDialog dialog)

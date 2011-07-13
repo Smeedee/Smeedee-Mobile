@@ -13,7 +13,7 @@ namespace Smeedee.Android
      *   http://code.google.com/p/android/issues/detail?id=6191
      * and
      *   http://stackoverflow.com/questions/3019606/why-does-keyboard-slide-crash-my-app/3026985#3026985
-     * for bug report and information.
+     * for issue report and information.
      */
     public class NonCrashingViewFlipper : ViewFlipper
     {
