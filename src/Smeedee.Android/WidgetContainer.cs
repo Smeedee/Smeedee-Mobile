@@ -8,6 +8,7 @@ using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using Android.OS;
 using Java.Lang;
@@ -258,6 +259,7 @@ namespace Smeedee.Android
             var currentView = flipper.CurrentView;
             var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
             var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
+            var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
 
             switch (touchEvent.Action)
             {
@@ -272,6 +274,21 @@ namespace Smeedee.Android
                         flipper.ShowNext();
                     } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
+                        Animation inFromRight = new TranslateAnimation(flipper.Width+xCoordinateDifference, 0, currentView.Top, currentView.Top)
+                        {
+                            Duration = 350, 
+                            Interpolator = new AccelerateInterpolator()
+                        };
+                        
+                        Animation outToLeft = new TranslateAnimation(currentView.Left, -1, currentView.Top, currentView.Top)
+                        {
+                            Duration = 350, 
+                            Interpolator = new AccelerateInterpolator()
+                        };
+
+                        flipper.InAnimation = inFromRight;
+                        flipper.OutAnimation = outToLeft;
+
                         flipper.ShowPrevious();
                     } else
                     {
@@ -282,7 +299,7 @@ namespace Smeedee.Android
                     break;
 
                 case MotionEventActions.Move:
-                    var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
+                    
                     currentView.Layout(
                         xCoordinateDifference,
                         currentView.Top, 
