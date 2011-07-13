@@ -277,13 +277,17 @@ namespace Smeedee.Android
                             currentView.Top, currentView.Top)
                         {
                             Duration = 350,
-                            Interpolator = new AccelerateInterpolator()
+                            Interpolator = new LinearInterpolator()
                         };
 
-                        Animation outToRight = new TranslateAnimation(currentView.Right, flipper.Width, currentView.Top, currentView.Top)
+                        Animation outToRight = new TranslateAnimation(
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.RelativeToSelf, flipper.Width-xCoordinateDifference,
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.RelativeToSelf, 0)
                         {
                             Duration = 350,
-                            Interpolator = new AccelerateInterpolator()
+                            Interpolator = new LinearInterpolator()
                         };
 
                         flipper.InAnimation = inFromLeft;
@@ -292,16 +296,24 @@ namespace Smeedee.Android
                         flipper.ShowNext();
                     } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        Animation inFromRight = new TranslateAnimation(flipper.Width+xCoordinateDifference, 0, currentView.Top, currentView.Top)
+                        Animation inFromRight = new TranslateAnimation(
+                            (int)Dimension.RelativeToParent,  (flipper.Width + xCoordinateDifference * 1.0f) / flipper.Width,
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0)
                         {
-                            Duration = 350, 
-                            Interpolator = new AccelerateInterpolator()
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
                         };
                         
-                        Animation outToLeft = new TranslateAnimation(currentView.Left, 0-flipper.Width, currentView.Top, currentView.Top)
+                        Animation outToLeft = new TranslateAnimation(
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, (-(flipper.Width - xCoordinateDifference * 1.0f) / flipper.Width),
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0)
                         {
-                            Duration = 350, 
-                            Interpolator = new AccelerateInterpolator()
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
                         };
 
                         flipper.InAnimation = inFromRight;
