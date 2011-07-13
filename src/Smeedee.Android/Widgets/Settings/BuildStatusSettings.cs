@@ -11,6 +11,22 @@ namespace Smeedee.Android.Widgets.Settings
         {
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.BuildStatusSettings);
+            LoadPreferences();
+        }
+        public override void OnWindowFocusChanged(bool hasFocus)
+        {
+            base.OnWindowFocusChanged(hasFocus);
+            LoadPreferences();
+        }
+        private void LoadPreferences()
+        {
+            var buildOrderPreference = (ListPreference)FindPreference("buildSortOrdering");
+            var pref = PreferenceManager.GetDefaultSharedPreferences(this);
+            var sortOn = pref.GetString("buildSortOrdering", "buildtime");
+            if (sortOn == "buildtime")
+                buildOrderPreference.Summary = "Order by build time";
+            if (sortOn == "projectname")
+                buildOrderPreference.Summary = "Order by project name";
         }
     }
 }

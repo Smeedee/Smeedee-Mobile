@@ -4,7 +4,6 @@
   <PreferenceCategory 
     a:title="@string/TopCommittersSettingsPreferenceCategory1">
     <ListPreference
-      a:id="@+id/TopCommittersCountPrefId"
       a:key="TopCommittersCountPref"
       a:title="@string/TopCommittersSettingsNumberOfCommittersTitle"
       a:summary="@string/TopCommittersSettingsNumberOfCommittersSummary"
@@ -16,7 +15,6 @@
   <PreferenceCategory
     a:title="@string/TopCommittersSettingsPreferenceCategory2">
     <ListPreference
-      a:id="@+id/TopCommittersTimePrefId"
       a:key="TopCommittersTimePref"
       a:title="@string/TopCommittersSettingsTimePeriodTitle"
       a:summary="@string/TopCommittersSettingsTimePeriodSummary"

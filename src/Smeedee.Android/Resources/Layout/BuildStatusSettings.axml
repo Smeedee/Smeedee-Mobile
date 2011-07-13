@@ -4,7 +4,7 @@
   <PreferenceCategory
     a:title="@string/BuildStatusSettingsPreferenceCategory1">
     <CheckBoxPreference
-        a:title="Broken builds at top"
+        a:title="@string/BuildStatusSettingsBrokenBuildsOnTop"
         a:defaultValue="true"
         a:key="brokenBuildsAtTop"
         a:summaryOn="@string/BuildStatusSettingsSummaryOn"
