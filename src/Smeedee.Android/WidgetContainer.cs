@@ -271,6 +271,21 @@ namespace Smeedee.Android
                     float currentX = touchEvent.GetX();
                     if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
                     {
+                        Animation inFromLeft = new TranslateAnimation(-flipper.Width + xCoordinateDifference, 0, currentView.Top, currentView.Top)
+                        {
+                            Duration = 350,
+                            Interpolator = new AccelerateInterpolator()
+                        };
+
+                        Animation outToRight = new TranslateAnimation(0+xCoordinateDifference, flipper.Width, currentView.Top, currentView.Top)
+                        {
+                            Duration = 350,
+                            Interpolator = new AccelerateInterpolator()
+                        };
+
+                        flipper.InAnimation = inFromLeft;
+                        flipper.OutAnimation = outToRight;
+
                         flipper.ShowNext();
                     } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
@@ -280,7 +295,7 @@ namespace Smeedee.Android
                             Interpolator = new AccelerateInterpolator()
                         };
                         
-                        Animation outToLeft = new TranslateAnimation(currentView.Left, -1, currentView.Top, currentView.Top)
+                        Animation outToLeft = new TranslateAnimation(xCoordinateDifference, 0-flipper.Width, currentView.Top, currentView.Top)
                         {
                             Duration = 350, 
                             Interpolator = new AccelerateInterpolator()
