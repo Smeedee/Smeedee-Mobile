@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
@@ -17,7 +18,10 @@ using Exception = System.Exception;
 
 namespace Smeedee.Android
 {
-    [Activity(Label = "Smeedee Mobile", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(
+        Label = "Smeedee Mobile", 
+        Theme = "@android:style/Theme.NoTitleBar", 
+        ConfigurationChanges = ConfigChanges.KeyboardHidden|ConfigChanges.Orientation)]
     public class WidgetContainer : Activity
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
@@ -231,7 +235,6 @@ namespace Smeedee.Android
                 _flipper.AddView((View)newWidget);
             }
             _flipper.DisplayedChild = current;
-          
         }
 
         private bool WidgetIsEnabled(WidgetModel widget)
