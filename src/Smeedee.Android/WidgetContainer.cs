@@ -19,17 +19,19 @@ using Exception = System.Exception;
 namespace Smeedee.Android
 {
     [Activity(
-        Label = "Smeedee Mobile", 
-        Theme = "@android:style/Theme.NoTitleBar", 
-        ConfigurationChanges = ConfigChanges.KeyboardHidden|ConfigChanges.Orientation)]
+        Label = "Smeedee Mobile",
+        Theme = "@android:style/Theme.NoTitleBar",
+        ConfigurationChanges = ConfigChanges.KeyboardHidden | ConfigChanges.Orientation)]
     public class WidgetContainer : Activity
     {
+        private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private ViewFlipper flipper;
         private IEnumerable<IWidget> widgets;
-        
+
         private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
         private bool hasSettingsChange;
+        private double oldTouchValue;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -37,7 +39,7 @@ namespace Smeedee.Android
             SetContentView(Resource.Layout.Main);
 
             flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-            
+
             AddWidgetsToFlipper();
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
@@ -72,7 +74,9 @@ namespace Smeedee.Android
                 {
                     Log.Debug("Smeedee", "Instantiating widget of type: " + widget.Type.Name);
                     instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Log.Debug("Smeedee", Throwable.FromException(e), "Exception thrown when instatiating widget");
                 }
             }
@@ -98,7 +102,7 @@ namespace Smeedee.Android
             else
             {
                 throw new NullReferenceException("Could not set the dynamic description because there " +
-                                                 "where no current widget in viewflipper"); 
+                                                 "where no current widget in viewflipper");
             }
         }
 
@@ -112,13 +116,13 @@ namespace Smeedee.Android
             }
             return name;
         }
-        
+
         private void BindEventsToNavigationButtons()
         {
             BindPreviousButtonClickEvent();
             BindNextButtonClickEvent();
         }
-        
+
         private void BindPreviousButtonClickEvent()
         {
             var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
@@ -159,7 +163,8 @@ namespace Smeedee.Android
                     {
                         var dialog = ProgressDialog.Show(this, "Refreshing", "Updating data for current widget", true);
                         var handler = new ProgressHandler(dialog);
-                        ThreadPool.QueueUserWorkItem(arg => {
+                        ThreadPool.QueueUserWorkItem(arg =>
+                        {
                             currentWidget.Refresh();
                             handler.SendEmptyMessage(0);
                         });
@@ -167,13 +172,13 @@ namespace Smeedee.Android
                     else
                         throw new NullReferenceException("Could not refresh the widget because there where" +
                                                          "no current widget in viewflipper");
-                    
+
                     return true;
 
                 case Resource.Id.BtnWidgetSettings:
-                    
+
                     string widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
-                    
+
                     if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
 
@@ -224,7 +229,7 @@ namespace Smeedee.Android
         private void CheckForEnabledAndDisabledWidgets()
         {
             var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
-            
+
             var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
             {
@@ -246,6 +251,48 @@ namespace Smeedee.Android
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             return prefs.GetBoolean(widget.Name, true);
         }
+
+        public override bool OnTouchEvent(MotionEvent touchEvent)
+        {
+            switch (touchEvent.Action)
+            {
+                case MotionEventActions.Down:
+                    oldTouchValue = touchEvent.GetX();
+                    break;
+
+                case MotionEventActions.Up:
+                    float currentX = touchEvent.GetX();
+                    if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
+                    {
+                        flipper.ShowNext();
+                    } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
+                    {
+                        flipper.ShowPrevious();
+                    } else
+                    {
+                        var cur = flipper.CurrentView;
+                        cur.Layout(0, cur.Top, cur.Bottom, cur.Right);
+                    }
+                    break;
+
+                case MotionEventActions.Move:
+                    var currentView = flipper.CurrentView;
+                    currentView.Layout((int)(touchEvent.GetX() - oldTouchValue),
+                    currentView.Top, currentView.Right,
+                    currentView.Bottom);
+
+                    //var nextView = flipper.GetChildAt(flipper.DisplayedChild - 1);
+                    //var previousView = flipper.GetChildAt(flipper.DisplayedChild + 1);
+
+                    //nextView.Layout(currentView.Right, nextView.Top, nextView.Right, nextView.Bottom);
+                    //previousView.Layout(previousView.Right, previousView.Top, currentView.Left, previousView.Bottom);
+
+
+                    break;
+            }
+            return false; // True if the event was handled, false otherwise. Leave false to propagate event further?
+        }
+
     }
 
 
