@@ -238,6 +238,12 @@
       <Link>Services\FakeLatestChangesetsService.cs</Link>
     </Compile>
     <Compile Include="StyleExtensions.cs" />
+    <Compile Include="Widgets\TableCells\CommitTableCellController.xib.cs">
+      <DependentUpon>CommitTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\CommitTableCellController.xib.designer.cs">
+      <DependentUpon>CommitTableCellController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -249,6 +255,7 @@
     <Page Include="Widgets\BuildStatusWidget.xib" />
     <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
     <Page Include="Widgets\LatestCommits.xib" />
+    <Page Include="Widgets\TableCells\CommitTableCellController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

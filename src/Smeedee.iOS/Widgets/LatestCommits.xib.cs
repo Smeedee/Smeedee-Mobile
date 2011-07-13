@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee;
+using System.Drawing;
 
 namespace Smeedee.iOS
 {
@@ -37,6 +38,7 @@ namespace Smeedee.iOS
 		{
 		}
 		
+		
 		#endregion
 		
 		private IModelService<Changeset> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<Changeset>>();
@@ -64,12 +66,26 @@ namespace Smeedee.iOS
 	
     public class LatestCommitsTableSource : UITableViewSource
     {
-        private IEnumerable<Changeset> changesets;
+		private TableCellFactory cellFactory = new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
+        private List<Changeset> changesets;
         
         public LatestCommitsTableSource(IEnumerable<Changeset> changesets)
         {
-            this.changesets = changesets;
+            this.changesets = changesets.ToList();
         }
+		
+		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		{
+			var cell = GetCell(tableView, indexPath);
+			var rowHeight = 0f;
+			foreach (var view in cell.ContentView.Subviews) {
+				if (view is UILabel || view is UITextView) {
+					var height = view.SizeThatFits(new SizeF(240, float.MaxValue)).Height;
+					rowHeight += height;
+				}
+			}
+			return rowHeight+20;
+		}
         
         public override int NumberOfSections(UITableView tableView)
         {
@@ -84,16 +100,13 @@ namespace Smeedee.iOS
 		private const string CELL_ID = "LatestCommitsCell";
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            var cell = tableView.DequeueReusableCell(CELL_ID) ??
-                       new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
+        {           
+            var changeset = changesets[indexPath.Row];
             
-            var changeset = changesets.ElementAt(indexPath.Row);
+            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
+            controller.BindDataToCell(changeset);
             
-            cell.TextLabel.Text = changeset.User;
-			cell.DetailTextLabel.Text = changeset.Message;
-            
-            return cell;
+            return controller.TableViewCell;
         }
     }
 }
