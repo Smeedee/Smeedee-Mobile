@@ -277,7 +277,8 @@ namespace Smeedee.Android
 
                 case MotionEventActions.Move:
                     var currentView = flipper.CurrentView;
-                    currentView.Layout((int)(touchEvent.GetX() - oldTouchValue),
+                    var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
+                    currentView.Layout(xCoordinateDifference,
                     currentView.Top, currentView.Right,
                     currentView.Bottom);
 
@@ -286,7 +287,7 @@ namespace Smeedee.Android
                     //var previousView = flipper.GetChildAt(flipper.DisplayedChild + 1);
 
                     
-                    nextView.Layout(currentView.Right + (int)(touchEvent.GetX()-oldTouchValue), nextView.Top, nextView.Right, nextView.Bottom);
+                    nextView.Layout(currentView.Right + xCoordinateDifference, nextView.Top, nextView.Right, nextView.Bottom);
                     nextView.Visibility = ViewStates.Visible;    
                 //previousView.Layout(previousView.Right, previousView.Top, currentView.Left, previousView.Bottom);
 
