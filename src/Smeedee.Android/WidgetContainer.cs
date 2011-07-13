@@ -255,6 +255,10 @@ namespace Smeedee.Android
 
         public override bool OnTouchEvent(MotionEvent touchEvent)
         {
+            var currentView = flipper.CurrentView;
+            var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
+            var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
+
             switch (touchEvent.Action)
             {
                 case MotionEventActions.Down:
@@ -271,30 +275,32 @@ namespace Smeedee.Android
                         flipper.ShowPrevious();
                     } else
                     {
-                        var cur = flipper.CurrentView;
-                        cur.Layout(0, cur.Top, cur.Bottom, cur.Right);
-                        var nextView2 = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
-                        var previousView2 = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
-                        nextView2.Visibility = ViewStates.Invisible;
-                        previousView2.Visibility = ViewStates.Invisible;
+                        currentView.Layout(flipper.Left, flipper.Top, flipper.Width, flipper.Bottom);
+                        nextView.Visibility = ViewStates.Invisible;
+                        previousView.Visibility = ViewStates.Invisible;
                     }
                     break;
 
                 case MotionEventActions.Move:
-                    var currentView = flipper.CurrentView;
                     var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
-                    currentView.Layout(xCoordinateDifference,
-                    currentView.Top, currentView.Right,
-                    currentView.Bottom);
-
-                    var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
-                    var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
-
+                    currentView.Layout(
+                        xCoordinateDifference,
+                        currentView.Top, 
+                        currentView.Right,
+                        currentView.Bottom);
                     
-                    nextView.Layout(flipper.Width + xCoordinateDifference, nextView.Top, flipper.Width*2 + xCoordinateDifference, nextView.Bottom);
+                    nextView.Layout(
+                        flipper.Width + xCoordinateDifference, 
+                        currentView.Top, 
+                        flipper.Width*2 + xCoordinateDifference, 
+                        currentView.Bottom);
                     nextView.Visibility = ViewStates.Visible;    
 
-                    previousView.Layout(-flipper.Width + xCoordinateDifference, previousView.Top, 0+xCoordinateDifference, previousView.Bottom);
+                    previousView.Layout(
+                        -flipper.Width + xCoordinateDifference, 
+                        currentView.Top, 
+                        0+xCoordinateDifference, 
+                        currentView.Bottom);
                     previousView.Visibility = ViewStates.Visible;
 
                     break;
