@@ -237,6 +237,7 @@
     <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
       <Link>Services\FakeLatestChangesetsService.cs</Link>
     </Compile>
+    <Compile Include="StyleExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
