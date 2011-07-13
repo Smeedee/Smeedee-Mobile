@@ -5,13 +5,12 @@ using Android.Content;
 using Android.Preferences;
 using Android.Views;
 using Android.Widget;
-using Smeedee.Android.Services;
 using Smeedee.Model;
 using Smeedee;
 
 namespace Smeedee.Android.Widgets
 {
-    [Widget("Top Committers", DescriptionStatic = "Shows developers and number of commits")]
+    [Widget("Top Committers", StaticDescription = "Shows developers and number of commits")]
     public class TopCommittersWidget : RelativeLayout, IWidget
     {
         private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
@@ -20,6 +19,7 @@ namespace Smeedee.Android.Widgets
         private ISharedPreferences preferences;
         private TopCommitters model;
         private ListView list;
+        private string _dynamicDescription;
 
         public TopCommittersWidget(Context context) : base(context)
         {
@@ -95,6 +95,11 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             LoadModelAndUpdateView();
+        }
+
+        public string GetDynamicDescription()
+        {
+            return _dynamicDescription;
         }
     }
 }

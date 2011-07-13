@@ -30,7 +30,7 @@ namespace Smeedee.Android.Screens
                                    {
                                        Checked = true,
                                        Title = widgetModel.Name,
-                                       Summary = widgetModel.DescriptionStatic,
+                                       Summary = widgetModel.StaticDescription,
                                        Key = widgetModel.Name
                                    };
 

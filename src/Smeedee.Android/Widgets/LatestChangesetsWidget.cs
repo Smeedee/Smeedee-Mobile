@@ -14,12 +14,13 @@ using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Latest Changesets", DescriptionStatic = "Shows latest commits")]
+    [WidgetAttribute("Latest Changesets", StaticDescription = "Shows latest commits")]
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";
         private const string DefaultRed = "dc322f";
         private IEnumerable<Changeset> changesets;
+        private string _dynamicDescription;
 
         public LatestChangesetsWidget(Context context) :
             base(context)
@@ -90,6 +91,11 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             ContextSwitcher.Using((Activity) Context).InBackground(GetData).InUI(UpdateUI).Run();
+        }
+
+        public string GetDynamicDescription()
+        {
+            return _dynamicDescription;
         }
     }
 
