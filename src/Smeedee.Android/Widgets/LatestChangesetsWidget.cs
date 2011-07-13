@@ -9,7 +9,6 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
-using Smeedee;
 using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
@@ -91,6 +90,12 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             ContextSwitcher.Using((Activity) Context).InBackground(GetData).InUI(UpdateUI).Run();
+            RefreshDynamicDescription();
+        }
+
+        private void RefreshDynamicDescription()
+        {
+            _dynamicDescription = "Shows latest 10 commits";
         }
 
         public string GetDynamicDescription()

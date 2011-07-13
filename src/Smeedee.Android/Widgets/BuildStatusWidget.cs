@@ -57,6 +57,42 @@ namespace Smeedee.Android.Widgets
         {
             builds = service.Get(CreateServiceArgsDictionary());
             RefreshUiBuildList();
+            RefreshDynamicDescription();
+        }
+
+        private void RefreshDynamicDescription()
+        {
+            var numberOfBuilds = builds.Count();
+
+            var numberOfSucessfullBuilds = 
+                builds.Where(build => build.BuildSuccessState == BuildSuccessState.Success).Count();
+            var numberOfFailureBuilds =
+                builds.Where(build => build.BuildSuccessState == BuildSuccessState.Failure).Count();
+            var numberOfUnknownBuilds =
+                builds.Where(build => build.BuildSuccessState == BuildSuccessState.Unknown).Count();
+            
+            
+            if (numberOfBuilds == 0)
+                _dynamicDescription = "No builds fetched from the Smeedee Server";
+            else
+            {
+                if (numberOfSucessfullBuilds == 0 && numberOfUnknownBuilds == 0)
+                    _dynamicDescription = "OMG! All builds are broken!";
+                else
+                {
+                    if (numberOfSucessfullBuilds > 0)
+                        _dynamicDescription = numberOfSucessfullBuilds + " working";
+                    if (numberOfFailureBuilds > 0)
+                        _dynamicDescription += ", " + numberOfFailureBuilds + " broken";
+                    if (numberOfUnknownBuilds > 0)
+                    {
+                        _dynamicDescription += ", " + numberOfUnknownBuilds + " unknown";
+                    }
+                        
+                    _dynamicDescription += " builds";
+                }
+            }
+            
         }
 
         private void RefreshUiBuildList()
