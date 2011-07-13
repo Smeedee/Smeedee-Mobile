@@ -25,8 +25,8 @@ namespace Smeedee.Android.Widgets
         public LatestChangesetsWidget(Context context) :
             base(context)
         {
-            Initialize();
             pref = PreferenceManager.GetDefaultSharedPreferences(context);
+            Initialize();
         }
 
         public LatestChangesetsWidget(Context context, IAttributeSet attrs) :
@@ -91,7 +91,7 @@ namespace Smeedee.Android.Widgets
 
         private void RefreshDynamicDescription()
         {
-            //_dynamicDescription = "Displaying latest " + pref.GetString("NumberOfCommitsDisplayed", "10") + " commits";
+            _dynamicDescription = "Displaying latest " + pref.GetString("NumberOfCommitsDisplayed", "10") + " commits";
         }
 
         private Color GetHighlightColor()
