@@ -6,7 +6,7 @@ using Smeedee;
 
 namespace Smeedee.Model
 {
-    public class Changeset
+    public class Changeset : IModel
     {
         public string Message { get; private set; }
         public DateTime Date { get; private set; }

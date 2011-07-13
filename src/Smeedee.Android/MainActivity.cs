@@ -49,14 +49,12 @@ namespace Smeedee.Android
 
             // Fill in global bindings here:
             serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-            
+
             serviceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
-            serviceLocator.Bind<ISmeedeeService>(new SmeedeeFakeService());
+            serviceLocator.Bind<IModelService<Changeset>>(new FakeLatestChangesetService());
             serviceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
             serviceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
             serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
-            serviceLocator.Bind<ISmeedeeService>(new SmeedeeHttpService());
-            serviceLocator.Bind<IChangesetService>(new FakeChangesetService());
 
             serviceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
             serviceLocator.Bind<IPersistenceService>(new PersistenceService(

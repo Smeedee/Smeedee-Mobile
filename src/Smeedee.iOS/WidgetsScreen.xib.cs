@@ -94,9 +94,8 @@ namespace Smeedee.iOS
         {
             var currentWidget = app.AvailableWidgets.ElementAt(widgetIndex);
             var attribute = (WidgetAttribute)currentWidget.Type.GetCustomAttributes(typeof(WidgetAttribute), true).First();
-            
             titleLabel.Text = attribute.Name;
-            subTitleLabel.Text = attribute.DescriptionStatic;
+            subTitleLabel.Text = attribute.StaticDescription;
         }
         
         private void SetCurrentPage(int page)
