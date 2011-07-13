@@ -4,11 +4,11 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.iOS
 {
-    [Widget("Top committers", 123, DescriptionStatic = "See which developer has committed the most code")]
+    [Widget("Top committers", DescriptionStatic = "See which developer has committed the most code")]
     public partial class TopCommittersWidget : UITableViewController, IWidget
     {
         private SmeedeeApp app = SmeedeeApp.Instance;

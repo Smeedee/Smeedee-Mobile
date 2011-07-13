@@ -14,7 +14,7 @@
     <MainNibFile>MainWindowIPhone.xib</MainNibFile>
     <AssemblyName>SmeedeeiOS</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
-    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -208,12 +208,6 @@
     <Compile Include="Widgets\TestWidget.xib.designer.cs">
       <DependentUpon>TestWidget.xib</DependentUpon>
     </Compile>
-    <Compile Include="Widgets\TestWidget2.xib.cs">
-      <DependentUpon>TestWidget2.xib</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\TestWidget2.xib.designer.cs">
-      <DependentUpon>TestWidget2.xib</DependentUpon>
-    </Compile>
     <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
       <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
@@ -249,6 +243,12 @@
     </Compile>
     <Compile Include="Lib\TableCellFactory.cs" />
     <Compile Include="Lib\TableViewCellController.cs" />
+    <Compile Include="Widgets\LatestCommits.xib.cs">
+      <DependentUpon>LatestCommits.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\LatestCommits.xib.designer.cs">
+      <DependentUpon>LatestCommits.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -256,10 +256,10 @@
     <Page Include="WidgetsScreen.xib" />
     <Page Include="ConfigurationScreen.xib" />
     <Page Include="Widgets\TestWidget.xib" />
-    <Page Include="Widgets\TestWidget2.xib" />
     <Page Include="Widgets\TopCommittersWidget.xib" />
     <Page Include="Widgets\BuildStatusWidget.xib" />
     <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
+    <Page Include="Widgets\LatestCommits.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -273,4 +273,9 @@
   <ItemGroup>
     <Content Include="Images\logo.png" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties InternalTargetFrameworkVersion="IPhone" />
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
