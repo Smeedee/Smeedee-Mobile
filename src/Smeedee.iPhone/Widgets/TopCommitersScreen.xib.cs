@@ -18,6 +18,14 @@ namespace Smeedee.iPhone
         
         private TopCommitters topCommitters;
         private IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
+        
+        #region IWidget members
+        
+        public void Refresh()
+        {
+        }
+
+        #endregion
 		
         public override void ViewDidLoad()
         {

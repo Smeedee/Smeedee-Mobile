@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Smeedee.Utilities
+namespace Smeedee.Services
 {
     public static class TimeSpanPrettyPrintExtension
     {

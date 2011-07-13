@@ -8,7 +8,6 @@ using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
 using Smeedee.Services;
-using Smeedee.Utilities;
 using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets

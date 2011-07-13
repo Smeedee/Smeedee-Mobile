@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Smeedee.Properties;
-using Smeedee.Utilities;
+using Smeedee.Services;
 
 namespace Smeedee.Services
 {

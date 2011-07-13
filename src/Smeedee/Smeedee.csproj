@@ -58,10 +58,10 @@
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\TopCommittersFakeService.cs" />
     <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
-    <Compile Include="Utilities\BackgroundWorker.cs" />
+    <Compile Include="Services\BackgroundWorker.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="Utilities\IBackgroundWorker.cs" />
-    <Compile Include="Utilities\NoBackgroundWorker.cs" />
+    <Compile Include="Services\IBackgroundWorker.cs" />
+    <Compile Include="Services\NoBackgroundWorker.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
