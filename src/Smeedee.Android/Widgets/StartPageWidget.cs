@@ -10,6 +10,8 @@ namespace Smeedee.Android.Widgets
     [WidgetAttribute("")]
     public class StartPageWidget : RelativeLayout, IWidget
     {
+        private string _dynamicDescription;
+
         public StartPageWidget(Context context) :
             base(context)
         {
@@ -35,6 +37,11 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
+        }
+
+        public string GetDynamicDescription()
+        {
+            return _dynamicDescription;
         }
     }
 }
