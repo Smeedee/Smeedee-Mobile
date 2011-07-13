@@ -32,7 +32,6 @@ namespace Smeedee.Android.Widgets
         {
             CreateGui();
             FindBuildListUi();
-
             Refresh();
         }
 
@@ -57,7 +56,6 @@ namespace Smeedee.Android.Widgets
         {
             builds = service.Get(CreateServiceArgsDictionary());
             RefreshUiBuildList();
-            RefreshDynamicDescription();
         }
 
         private void RefreshDynamicDescription()
@@ -132,6 +130,7 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             bgWorker.Invoke(RefreshBuildsFromServer);
+            RefreshDynamicDescription();
         }
 
         public string GetDynamicDescription()
