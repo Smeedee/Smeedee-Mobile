@@ -233,7 +233,8 @@ namespace Smeedee.Android
             var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
             {
-                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type));
+                WidgetModel model = widgetModel;
+                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
             }
 
             var current = flipper.DisplayedChild;
@@ -272,6 +273,10 @@ namespace Smeedee.Android
                     {
                         var cur = flipper.CurrentView;
                         cur.Layout(0, cur.Top, cur.Bottom, cur.Right);
+                        var nextView2 = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
+                        var previousView2 = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
+                        nextView2.Visibility = ViewStates.Invisible;
+                        previousView2.Visibility = ViewStates.Invisible;
                     }
                     break;
 
@@ -283,14 +288,14 @@ namespace Smeedee.Android
                     currentView.Bottom);
 
                     var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
-                  
-                    //var previousView = flipper.GetChildAt(flipper.DisplayedChild + 1);
+                    var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
 
                     
-                    nextView.Layout(currentView.Right + xCoordinateDifference, nextView.Top, nextView.Right, nextView.Bottom);
+                    nextView.Layout(flipper.Width + xCoordinateDifference, nextView.Top, flipper.Width*2 + xCoordinateDifference, nextView.Bottom);
                     nextView.Visibility = ViewStates.Visible;    
-                //previousView.Layout(previousView.Right, previousView.Top, currentView.Left, previousView.Bottom);
 
+                    previousView.Layout(-flipper.Width + xCoordinateDifference, previousView.Top, 0+xCoordinateDifference, previousView.Bottom);
+                    previousView.Visibility = ViewStates.Visible;
 
                     break;
             }
