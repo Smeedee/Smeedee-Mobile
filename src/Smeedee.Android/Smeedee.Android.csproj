@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="ColorTools.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="NonCrashingViewFlipper.cs" />
     <Compile Include="Screens\About.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
