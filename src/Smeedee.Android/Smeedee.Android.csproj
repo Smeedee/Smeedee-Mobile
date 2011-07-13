@@ -86,9 +86,6 @@
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\AsyncResult.cs">
-      <Link>Services\AsyncResult.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
       <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
@@ -100,9 +97,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IChangesetService.cs">
-      <Link>Services\IChangesetService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
       <Link>Services\ILoginValidationService.cs</Link>
@@ -116,9 +110,6 @@
     <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
       <Link>Services\IPersistenceService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
-      <Link>Services\ISmeedeeService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\ITopCommittersService.cs">
       <Link>Services\ITopCommittersService.cs</Link>
     </Compile>
@@ -130,12 +121,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\SmeedeeFakeService.cs">
-      <Link>Services\SmeedeeFakeService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
-      <Link>Services\SmeedeeHttpService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
       <Link>Services\TopCommittersFakeService.cs</Link>
