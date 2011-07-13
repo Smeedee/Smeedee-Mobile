@@ -76,28 +76,28 @@ namespace Smeedee.Android
         {
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
             var currentWidget = _flipper.CurrentView as IWidget;
-            
-            if (currentWidget != null) 
+
+            if (currentWidget != null)
+            {
+                currentWidget.Refresh();
                 widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
+            }
             else
+            {
                 throw new NullReferenceException("Could not set the dynamic description because there " +
-                                                 "where no current widget in viewflipper");
-            
+                                                 "where no current widget in viewflipper"); 
+            }
         }
 
         private string GetWidgetNameOfCurrentlyDisplayedWidget()
         {
-            var setAttribute = "not set";
+            var name = "";
             foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
             {
                 if (_flipper.CurrentView.GetType() == widgetModel.Type)
-                {
-                    var widgetAttributes =
-                        (WidgetAttribute[]) widgetModel.Type.GetCustomAttributes(typeof (WidgetAttribute), true);
-                    setAttribute = widgetAttributes[0].Name;
-                }
+                    name = widgetModel.Name;
             }
-            return setAttribute;
+            return name;
         }
         
         private void BindEventsToNavigationButtons()
