@@ -30,5 +30,19 @@ namespace Smeedee.Android
                 base.StopFlipping();
             }
         }
+
+        public int GetPreviousChildIndex()
+        {
+            if (DisplayedChild == ChildCount-1) 
+                return 0;
+            return DisplayedChild + 1;
+        }
+
+        public int GetNextChildIndex()
+        {
+            if (DisplayedChild == 0)
+                return ChildCount - 1;
+            return DisplayedChild - 1;
+        }
     }
 }

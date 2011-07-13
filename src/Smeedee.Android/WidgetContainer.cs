@@ -233,7 +233,8 @@ namespace Smeedee.Android
             var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
             {
-                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type));
+                WidgetModel model = widgetModel;
+                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
             }
 
             var current = flipper.DisplayedChild;
@@ -254,6 +255,10 @@ namespace Smeedee.Android
 
         public override bool OnTouchEvent(MotionEvent touchEvent)
         {
+            var currentView = flipper.CurrentView;
+            var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
+            var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
+
             switch (touchEvent.Action)
             {
                 case MotionEventActions.Down:
@@ -270,23 +275,33 @@ namespace Smeedee.Android
                         flipper.ShowPrevious();
                     } else
                     {
-                        var cur = flipper.CurrentView;
-                        cur.Layout(0, cur.Top, cur.Bottom, cur.Right);
+                        currentView.Layout(flipper.Left, flipper.Top, flipper.Width, flipper.Bottom);
+                        nextView.Visibility = ViewStates.Invisible;
+                        previousView.Visibility = ViewStates.Invisible;
                     }
                     break;
 
                 case MotionEventActions.Move:
-                    var currentView = flipper.CurrentView;
-                    currentView.Layout((int)(touchEvent.GetX() - oldTouchValue),
-                    currentView.Top, currentView.Right,
-                    currentView.Bottom);
+                    var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
+                    currentView.Layout(
+                        xCoordinateDifference,
+                        currentView.Top, 
+                        currentView.Right,
+                        currentView.Bottom);
+                    
+                    nextView.Layout(
+                        flipper.Width + xCoordinateDifference, 
+                        currentView.Top, 
+                        flipper.Width*2 + xCoordinateDifference, 
+                        currentView.Bottom);
+                    nextView.Visibility = ViewStates.Visible;    
 
-                    //var nextView = flipper.GetChildAt(flipper.DisplayedChild - 1);
-                    //var previousView = flipper.GetChildAt(flipper.DisplayedChild + 1);
-
-                    //nextView.Layout(currentView.Right, nextView.Top, nextView.Right, nextView.Bottom);
-                    //previousView.Layout(previousView.Right, previousView.Top, currentView.Left, previousView.Bottom);
-
+                    previousView.Layout(
+                        -flipper.Width + xCoordinateDifference, 
+                        currentView.Top, 
+                        0+xCoordinateDifference, 
+                        currentView.Bottom);
+                    previousView.Visibility = ViewStates.Visible;
 
                     break;
             }
