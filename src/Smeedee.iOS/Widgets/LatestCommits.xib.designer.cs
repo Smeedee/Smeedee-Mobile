@@ -15,13 +15,13 @@ namespace Smeedee.iOS {
 	[MonoTouch.Foundation.Register("LatestCommits")]
 	public partial class LatestCommits {
 		
-		private MonoTouch.UIKit.UIView __mt_view;
+		private MonoTouch.UIKit.UITableView __mt_view;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
-		private MonoTouch.UIKit.UIView view {
+		private MonoTouch.UIKit.UITableView view {
 			get {
-				this.__mt_view = ((MonoTouch.UIKit.UIView)(this.GetNativeField("view")));
+				this.__mt_view = ((MonoTouch.UIKit.UITableView)(this.GetNativeField("view")));
 				return this.__mt_view;
 			}
 			set {

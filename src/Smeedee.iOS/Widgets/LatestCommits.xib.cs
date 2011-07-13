@@ -9,7 +9,7 @@ using Smeedee;
 
 namespace Smeedee.iOS
 {
-    [Widget("Latest Commits", DescriptionStatic = "foo")]
+    [Widget("Latest Commits", DescriptionStatic = "List of latest commits from <source>")]
 	public partial class LatestCommits : UITableViewController, IWidget
 	{
 		#region Constructors
@@ -43,8 +43,9 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
             
-            //var builds = GetFakeBuildStatuses();
-            //TableView.Source = new LatestCommitsTableSource(builds);
+			var data = new[] { new Changeset("Changing something tricky", DateTime.Now, "larmel") };
+			TableView.Source = new LatestCommitsTableSource(data);
+			
         }
         
         public void Refresh()
@@ -53,15 +54,13 @@ namespace Smeedee.iOS
 	
 	}
 	
-	
     public class LatestCommitsTableSource : UITableViewSource
     {
-        //private TableCellFactory cellFactory = new TableCellFactory("LatestCommitsTableCellController", typeof(BuildStatusTableCellController));
-        private IEnumerable<Changeset> builds;
+        private IEnumerable<Changeset> changesets;
         
-        public LatestCommitsTableSource(IEnumerable<Changeset> builds)
+        public LatestCommitsTableSource(IEnumerable<Changeset> changesets)
         {
-            this.builds = builds;
+            this.changesets = changesets;
         }
         
         public override int NumberOfSections(UITableView tableView)
@@ -71,23 +70,22 @@ namespace Smeedee.iOS
         
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return builds.Count();
+            return changesets.Count();
         }
        
-        public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
-        { 
-			return null;
-			/*
-            var build = builds.ElementAt(indexPath.Row);
-            
-            var buildStatusCellController = cellFactory.NewTableCellController(tableView, indexPath) as BuildStatusTableCellController;
-            buildStatusCellController.BindDataToCell(build);
-            return buildStatusCellController.TableViewCell;*/
-        }
+		private const string CELL_ID = "LatestCommitsCell";
         
-        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            return 75;
+            var cell = tableView.DequeueReusableCell(CELL_ID) ??
+                       new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
+            
+            var changeset = changesets.ElementAt(indexPath.Row);
+            
+            cell.TextLabel.Text = changeset.User;
+			cell.DetailTextLabel.Text = changeset.Message;
+            
+            return cell;
         }
     }
 }
