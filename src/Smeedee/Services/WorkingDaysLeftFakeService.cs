@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Smeedee.Model;
 
 namespace Smeedee
 {
     class WorkingDaysLeftFakeService : IModelService<WorkingDaysLeft>
     {
-        private WorkingDaysLeft model = new WorkingDaysLeft(-1);
+        private WorkingDaysLeft model = new WorkingDaysLeft(4, new DateTime(2011, 7, 15));
 
         public IEnumerable<WorkingDaysLeft> Get(IDictionary<string, string> args)
         {
