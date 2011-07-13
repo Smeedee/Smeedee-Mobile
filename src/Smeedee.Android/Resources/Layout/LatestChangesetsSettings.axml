@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <CheckBoxPreference
-    android:key="lcs_checkboxPref"
+    android:key="lcs_HighlightEnabled"
     android:title="@string/LatestChangesetsSettingsHighlightEmptyTitle"
     android:summaryOn="@string/LatestChangesetsSettingsHighlightEmptySummaryOn"
     android:summaryOff="@string/LatestChangesetsSettingsHighlightEmptySummaryOff"
-    android:defaultValue="false"/>
+    android:defaultValue="true"/>
 
   <smeedee.android.widgets.settings.ColoredListPreference
     android:title="@string/LatestChangesetsSettingsHighlightColorTitle"
-    android:key="lcs_customListPref"
+    android:key="lcs_HighlightColor"
     android:defaultValue="dc322f"
     android:entries="@array/colorNames"
     android:entryValues="@array/colorValues" />

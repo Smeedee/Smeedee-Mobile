@@ -8,7 +8,7 @@ using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.Android
 {

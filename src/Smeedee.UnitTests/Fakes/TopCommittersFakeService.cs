@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Smeedee.Model;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.UnitTests
 {

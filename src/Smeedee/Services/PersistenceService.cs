@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public class PersistenceService : IPersistenceService
     {

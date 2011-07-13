@@ -5,7 +5,7 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.Android.Widgets
 {

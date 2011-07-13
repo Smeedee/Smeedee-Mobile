@@ -3,7 +3,7 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Smeedee.Services;
+using Smeedee;
 using Smeedee.Android.Services;
 
 namespace Smeedee.Android.Screens

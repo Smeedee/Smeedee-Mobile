@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
     public class CachedImageService : IImageService
     {

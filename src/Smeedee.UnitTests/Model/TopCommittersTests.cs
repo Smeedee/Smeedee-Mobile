@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
-using Smeedee.Services;
+using Smeedee;
 
 namespace Smeedee.UnitTests.Model
 {
