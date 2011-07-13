@@ -6,7 +6,6 @@ using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
-using Smeedee;
 
 namespace Smeedee.Android.Widgets
 {
@@ -86,7 +85,6 @@ namespace Smeedee.Android.Widgets
                     {commitsField, committer.Commits}
                 });
             }
-
             return data;
         }
 

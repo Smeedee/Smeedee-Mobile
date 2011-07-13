@@ -71,6 +71,9 @@
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
+      <Link>Model\LatestChangeset.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
       <Link>Model\SmeedeeApp.cs</Link>
     </Compile>

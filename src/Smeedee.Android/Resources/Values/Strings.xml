@@ -44,8 +44,12 @@
   <string name="TopCommittersSettingsTimePeriodSummary">Showing top committers for the last 24 hours</string>
   
 
-  <!--Latest changeset-->
-  <string name="LatestChangesetsSettingsHighlightEmptyTitle">Highlight empty</string>
+  <!--Latest commits-->
+  <string name="LatestChangeSetSettingsPreferenceCategory1">Commits</string>
+  <string name="LatestChangeSetSettingsPreferenceCategory2">Colors</string>
+  <string name="LatestChangesetsSettingsNumberOfCommitsTitle">Number of commits</string>
+  <string name="LatestChangesetsSettingsNumberOfCommitsSummary">Currently showing latest 10 commits</string>
+  <string name="LatestChangesetsSettingsHighlightEmptyTitle">Highlight empty commits</string>
   <string name="LatestChangesetsSettingsHighlightEmptySummaryOn">Highlight empty commit messages is on</string>
   <string name="LatestChangesetsSettingsHighlightEmptySummaryOff">Highlight empty commit messages is off</string>
   <string name="LatestChangesetsSettingsHighlightColorTitle">Highlight color</string>
