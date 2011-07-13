@@ -129,9 +129,6 @@
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\AsyncResult.cs">
-      <Link>Services\AsyncResult.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\CachedImageService.cs">
       <Link>Services\CachedImageService.cs</Link>
     </Compile>
@@ -140,9 +137,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
       <Link>Services\FakeLoginValidationService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IChangesetService.cs">
-      <Link>Services\IChangesetService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IImageService.cs">
       <Link>Services\IImageService.cs</Link>
@@ -162,9 +156,6 @@
     <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
       <Link>Services\IPersistenceService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\ISmeedeeService.cs">
-      <Link>Services\ISmeedeeService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\ITopCommittersService.cs">
       <Link>Services\ITopCommittersService.cs</Link>
     </Compile>
@@ -176,12 +167,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\SmeedeeFakeService.cs">
-      <Link>Services\SmeedeeFakeService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\SmeedeeHttpService.cs">
-      <Link>Services\SmeedeeHttpService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
       <Link>Services\TopCommittersFakeService.cs</Link>
@@ -248,6 +233,9 @@
     </Compile>
     <Compile Include="Widgets\LatestCommits.xib.designer.cs">
       <DependentUpon>LatestCommits.xib</DependentUpon>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
+      <Link>Services\FakeLatestChangesetsService.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

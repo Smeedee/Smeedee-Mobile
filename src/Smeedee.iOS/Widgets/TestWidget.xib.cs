@@ -17,6 +17,10 @@ namespace Smeedee.iOS
         public void Refresh()
         {
         }
+		
+		public string GetDynamicDescription() {
+			return "";	
+		}
     }
 }
 

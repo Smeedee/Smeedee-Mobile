@@ -9,7 +9,7 @@ using Smeedee;
 
 namespace Smeedee.iOS
 {
-    [Widget("Latest Commits", DescriptionStatic = "List of latest commits from <source>")]
+    [Widget("Latest Commits", StaticDescription = "List of latest commits from <source>")]
 	public partial class LatestCommits : UITableViewController, IWidget
 	{
 		#region Constructors
@@ -38,12 +38,15 @@ namespace Smeedee.iOS
 		}
 		
 		#endregion
-	
+		
+		private IModelService<Changeset> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<Changeset>>();
+		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             
-			var data = new[] { new Changeset("Changing something tricky", DateTime.Now, "larmel") };
+			var data = service.Get(null);
+				
 			TableView.Source = new LatestCommitsTableSource(data);
 			
         }
@@ -51,6 +54,11 @@ namespace Smeedee.iOS
         public void Refresh()
         {
         }
+		
+		public string GetDynamicDescription() 
+		{
+			return "";	
+		}
 	
 	}
 	

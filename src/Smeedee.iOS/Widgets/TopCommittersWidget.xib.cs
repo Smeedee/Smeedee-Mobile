@@ -8,7 +8,7 @@ using Smeedee;
 
 namespace Smeedee.iOS
 {
-    [Widget("Top committers", DescriptionStatic = "See which developer has committed the most code")]
+    [Widget("Top committers", StaticDescription = "See which developer has committed the most code")]
     public partial class TopCommittersWidget : UITableViewController, IWidget
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
@@ -22,6 +22,12 @@ namespace Smeedee.iOS
         public void Refresh()
         {
         }
+		
+		
+		public string GetDynamicDescription() 
+		{
+			return "";	
+		}
         
         public override void ViewDidLoad ()
         {
