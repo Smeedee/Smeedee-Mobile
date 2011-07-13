@@ -37,6 +37,7 @@ namespace Smeedee.iOS
             
             AddWidgetsToScreen();
             AttachScrollEvent();
+            SetTitleLabels(0);
         }
         
         private void AddWidgetsToScreen()
@@ -80,9 +81,27 @@ namespace Smeedee.iOS
         
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
-            double page = Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
-
-            pageControl.CurrentPage = (int)page;
+            int pageIndex = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+   
+            if (pageControl.CurrentPage != pageIndex)
+            {
+                SetTitleLabels(pageIndex);
+                SetCurrentPage(pageIndex);
+            }
+        }
+        
+        private void SetTitleLabels(int widgetIndex)
+        {
+            var currentWidget = app.AvailableWidgets.ElementAt(widgetIndex);
+            var attribute = (WidgetAttribute)currentWidget.Type.GetCustomAttributes(typeof(WidgetAttribute), true).First();
+            
+            titleLabel.Text = attribute.Name;
+            subTitleLabel.Text = attribute.DescriptionStatic;
+        }
+        
+        private void SetCurrentPage(int page)
+        {
+            pageControl.CurrentPage = page;
         }
     }
 }

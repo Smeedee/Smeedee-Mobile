@@ -21,6 +21,10 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIPageControl __mt_pageControl;
 		
+		private MonoTouch.UIKit.UILabel __mt_subTitleLabel;
+		
+		private MonoTouch.UIKit.UILabel __mt_titleLabel;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -55,6 +59,30 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_pageControl = value;
 				this.SetNativeField("pageControl", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("subTitleLabel")]
+		private MonoTouch.UIKit.UILabel subTitleLabel {
+			get {
+				this.__mt_subTitleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("subTitleLabel")));
+				return this.__mt_subTitleLabel;
+			}
+			set {
+				this.__mt_subTitleLabel = value;
+				this.SetNativeField("subTitleLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("titleLabel")]
+		private MonoTouch.UIKit.UILabel titleLabel {
+			get {
+				this.__mt_titleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("titleLabel")));
+				return this.__mt_titleLabel;
+			}
+			set {
+				this.__mt_titleLabel = value;
+				this.SetNativeField("titleLabel", value);
 			}
 		}
 	}

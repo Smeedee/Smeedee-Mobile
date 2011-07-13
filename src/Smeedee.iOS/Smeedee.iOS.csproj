@@ -189,21 +189,6 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
-      <Link>Utilities\BackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\Guard.cs">
-      <Link>Utilities\Guard.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
-      <Link>Utilities\IBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\NoBackgroundWorker.cs">
-      <Link>Utilities\NoBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\TimeSpanPrettyPrintExtension.cs">
-      <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
-    </Compile>
     <Compile Include="AppDelegateShared.cs" />
     <Compile Include="WidgetsScreen.xib.cs">
       <DependentUpon>WidgetsScreen.xib</DependentUpon>
@@ -229,6 +214,41 @@
     <Compile Include="Widgets\TestWidget2.xib.designer.cs">
       <DependentUpon>TestWidget2.xib</DependentUpon>
     </Compile>
+    <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
+      <Link>Services\BackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
+      <Link>Services\IBackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\NoBackgroundWorker.cs">
+      <Link>Services\NoBackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Guard.cs">
+      <Link>Lib\Guard.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
+      <Link>Lib\TimeSpanPrettyPrintExtension.cs</Link>
+    </Compile>
+    <Compile Include="Widgets\TopCommittersWidget.xib.cs">
+      <DependentUpon>TopCommittersWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TopCommittersWidget.xib.designer.cs">
+      <DependentUpon>TopCommittersWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\BuildStatusWidget.xib.cs">
+      <DependentUpon>BuildStatusWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\BuildStatusWidget.xib.designer.cs">
+      <DependentUpon>BuildStatusWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\BuildStatusTableCellController.xib.cs">
+      <DependentUpon>BuildStatusTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\BuildStatusTableCellController.xib.designer.cs">
+      <DependentUpon>BuildStatusTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\TableCellFactory.cs" />
+    <Compile Include="Lib\TableViewCellController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -237,12 +257,20 @@
     <Page Include="ConfigurationScreen.xib" />
     <Page Include="Widgets\TestWidget.xib" />
     <Page Include="Widgets\TestWidget2.xib" />
+    <Page Include="Widgets\TopCommittersWidget.xib" />
+    <Page Include="Widgets\BuildStatusWidget.xib" />
+    <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Services\" />
-    <Folder Include="Utilities\" />
     <Folder Include="Widgets\" />
+    <Folder Include="Lib\" />
+    <Folder Include="Images\" />
+    <Folder Include="Widgets\TableCells\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\logo.png" />
   </ItemGroup>
 </Project>

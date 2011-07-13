@@ -8,23 +8,22 @@ using Smeedee.Android.Services;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "Login Screen", Theme = "@android:style/Theme")]
+    [Activity(Label = "Please enter login information", Theme = "@android:style/Theme.Dialog")]
     public class LoginScreen : Activity
     {
-        private ILoginValidationService _loginValidator;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.LoginScreen);
 
-            _loginValidator = new FakeLoginValidationService();
+            var loginValidator = new FakeLoginValidationService();
 
             var submitButton = FindViewById<Button>(Resource.Id.BtnLogin);
             var urlInput = FindViewById<EditText>(Resource.Id.ServerUrlInput);
             var userPasswordInput = FindViewById<EditText>(Resource.Id.UserPasswordInput);
             submitButton.Click += delegate
                 {
-                    if (_loginValidator.IsValid(urlInput.Text, userPasswordInput.Text))
+                    if (loginValidator.IsValid(urlInput.Text, userPasswordInput.Text))
                     {
                         var database = new AndroidKVPersister(this);
                         database.Save("severUrl", urlInput.Text);

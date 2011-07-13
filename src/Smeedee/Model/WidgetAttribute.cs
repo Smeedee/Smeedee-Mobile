@@ -1,21 +1,18 @@
 ﻿using System;
 using Smeedee;
 
-
 namespace Smeedee.Model
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class WidgetAttribute : Attribute
     {
         public string Name { get; private set; }
-        public int Icon { get; private set; }
         public string DescriptionStatic { get; set; }
 
-        public WidgetAttribute(string name, int icon)
+        public WidgetAttribute(string name)
         {
-            Guard.NotNull(name, icon);
+            Guard.NotNull(name);
             Name = name;
-            Icon = icon;
         }
     }
 }

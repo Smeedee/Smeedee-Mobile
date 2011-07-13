@@ -12,7 +12,7 @@
     <MainNibFile>MainWindow.xib</MainNibFile>
     <AssemblyName>SmeedeeiPhone</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -217,20 +217,17 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\BackgroundWorker.cs">
-      <Link>Utilities\BackgroundWorker.cs</Link>
+    <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
+      <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\Guard.cs">
-      <Link>Utilities\Guard.cs</Link>
+    <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
+      <Link>Services\IBackgroundWorker.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\IBackgroundWorker.cs">
-      <Link>Utilities\IBackgroundWorker.cs</Link>
+    <Compile Include="..\Smeedee\Guard.cs">
+      <Link>Lib\Guard.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Utilities\NoBackgroundWorker.cs">
-      <Link>Utilities\NoBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Utilities\TimeSpanPrettyPrintExtension.cs">
-      <Link>Utilities\TimeSpanPrettyPrintExtension.cs</Link>
+    <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
+      <Link>Lib\TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -252,7 +249,7 @@
     <Folder Include="Services\" />
     <Folder Include="Widgets\Html\" />
     <Folder Include="Widgets\Html\Scripts\" />
-    <Folder Include="Utilities\" />
+    <Folder Include="Lib\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\TabIcons\configuration.png" />
@@ -262,9 +259,4 @@
     <Content Include="Widgets\Html\Scripts\jquery-1.5.min.js" />
     <Content Include="Widgets\Html\Test.html" />
   </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties InternalTargetFrameworkVersion="IPhone" />
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>

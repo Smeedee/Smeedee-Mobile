@@ -1,7 +1,7 @@
 using Android.App;
 using Android.OS;
 using Android.Preferences;
-using Smeedee.Android.Services;
+using Smeedee.Android.Widgets;
 using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
@@ -24,7 +24,7 @@ namespace Smeedee.Android.Screens
             var widgets = SmeedeeApp.Instance.AvailableWidgets;
             foreach (var widgetModel in widgets)
             {
-                if (widgetModel.Name == "Start Page") continue;
+                if (widgetModel.Type == typeof(StartPageWidget)) continue;
 
                 var checkBox = new CheckBoxPreference(this)
                                    {
@@ -47,10 +47,10 @@ namespace Smeedee.Android.Screens
             var serverUrlPreference = (EditTextPreference) FindPreference("serverUrl");
             var userPasswordPreference = (EditTextPreference)FindPreference("userPassword");
 
-            var database = new AndroidKVPersister(this);
+            var pref = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            serverUrlPreference.Summary = database.Get("serverUrl");
-            userPasswordPreference.Summary = database.Get("userPassword");
+            serverUrlPreference.Summary = pref.GetString("serverUrl", "url");
+            userPasswordPreference.Summary = pref.GetString("userPassword", "pass");
         }
     }
 }

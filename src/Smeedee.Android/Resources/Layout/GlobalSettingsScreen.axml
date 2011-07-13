@@ -16,13 +16,13 @@
       android:key="serverUrl"
       android:title="@string/GlobalSettingsScreenServerUrlTitle"
       android:inputType="textUri"
-      android:defaultValue="http://smeedee.trondheim.org"/>
+      android:defaultValue="url"/>
     <EditTextPreference
       android:id="@+id/userPassword"
       android:key="userPassword"
       android:title="@string/GlobalSettingsScreenUserPasswordTitle"
       android:inputType="textVisiblePassword"
-      android:defaultValue="GW#¤hs35SG"/>
+      android:defaultValue="pass"/>
   </PreferenceCategory>
   
 </PreferenceScreen>
