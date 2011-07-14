@@ -38,6 +38,7 @@ namespace Smeedee.iOS
 		private void UpdateUI()
 		{
             TableView.Source = new BuildStatusTableSource(model.Builds);
+			TableView.ReloadData();
 		}
         
         public void Refresh()

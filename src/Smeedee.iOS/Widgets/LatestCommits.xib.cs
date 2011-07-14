@@ -40,6 +40,7 @@ namespace Smeedee.iOS
 		private void UpdateUI()
 		{
 			TableView.Source = new LatestCommitsTableSource(model.Changesets);
+			TableView.ReloadData();
 		}
         
         public void Refresh()

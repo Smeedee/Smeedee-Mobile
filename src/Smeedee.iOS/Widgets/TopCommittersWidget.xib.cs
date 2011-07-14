@@ -37,6 +37,7 @@ namespace Smeedee.iOS
 		
 		private void UpdateUI() {
             TableView.Source = new TopCommitersTableSource(model);
+			TableView.ReloadData();
 		}
         
         public void Refresh()
