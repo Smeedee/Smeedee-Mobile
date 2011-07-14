@@ -11,14 +11,14 @@ namespace Smeedee.iOS
     public partial class BuildStatusWidget : UITableViewController, IWidget
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
-		private IModelService<BuildStatusBoard> service;
+		private IModelService<BuildStatus> service;
 		private IBackgroundWorker bgWorker;
 		
-		private BuildStatusBoard model;
+		private BuildStatus model;
 		
         public BuildStatusWidget() : base("BuildStatusWidget", null)
         {
-			service = app.ServiceLocator.Get<IModelService<BuildStatusBoard>>();
+			service = app.ServiceLocator.Get<IModelService<BuildStatus>>();
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
         
@@ -57,9 +57,9 @@ namespace Smeedee.iOS
     public class BuildStatusTableSource : UITableViewSource
     {   
 		private TableCellFactory cellFactory = new TableCellFactory("BuildStatusTableCellController", typeof(BuildStatusTableCellController));
-		private IEnumerable<BuildStatus> builds;
+		private IEnumerable<Build> builds;
 
-        public BuildStatusTableSource(IEnumerable<BuildStatus> builds)
+        public BuildStatusTableSource(IEnumerable<Build> builds)
         {
             this.builds = builds;
         }

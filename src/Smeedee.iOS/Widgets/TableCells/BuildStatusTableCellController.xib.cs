@@ -20,13 +20,13 @@ namespace Smeedee.iOS
             get { return cell; }
         }
         
-        public void BindDataToCell(BuildStatus build)
+        public void BindDataToCell(Build build)
         {
             projectNameLabel.Text = build.ProjectName;
             lastBuildTimeLabel.Text = "Last build was " + build.BuildTime;
             buildStatusLabel.Text = build.BuildSuccessState.ToString();
             
-            buildStatusLabel.TextColor = (build.BuildSuccessState == BuildSuccessState.Failure)
+            buildStatusLabel.TextColor = (build.BuildSuccessState == BuildState.Broken)
                 ? UIColor.Red
                 : UIColor.FromRGB(50, 200, 50);
         }
