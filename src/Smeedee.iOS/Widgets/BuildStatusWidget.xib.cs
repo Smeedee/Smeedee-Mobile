@@ -25,6 +25,8 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+			TableView.SeparatorColor = UIColor.DarkGray;
+			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 			Refresh();
         }
 		
@@ -53,10 +55,10 @@ namespace Smeedee.iOS
     }
     
     public class BuildStatusTableSource : UITableViewSource
-    {
-        private TableCellFactory cellFactory = new TableCellFactory("BuildStatusTableCellController", typeof(BuildStatusTableCellController));
-        private IEnumerable<BuildStatus> builds;
-        
+    {   
+		private TableCellFactory cellFactory = new TableCellFactory("BuildStatusTableCellController", typeof(BuildStatusTableCellController));
+		private IEnumerable<BuildStatus> builds;
+
         public BuildStatusTableSource(IEnumerable<BuildStatus> builds)
         {
             this.builds = builds;
@@ -71,7 +73,7 @@ namespace Smeedee.iOS
         {
             return builds.Count();
         }
-        
+		     
         public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
         {
             var build = builds.ElementAt(indexPath.Row);
@@ -83,7 +85,7 @@ namespace Smeedee.iOS
         
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return 75;
+            return 70;
         }
     }
 }

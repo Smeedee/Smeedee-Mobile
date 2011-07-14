@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">768</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
-		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -50,7 +50,7 @@
 							<object class="IBUILabel" id="1045503886">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 8}, {280, 21}}</string>
+								<string key="NSFrame">{{20, 5}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -58,21 +58,23 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Project: Smeedee.Mobile</string>
-								<object class="NSColor" key="IBUITextColor" id="1060951528">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAAA</bytes>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">17</double>
+									<int key="NSfFlags">16</int>
 								</object>
-								<object class="NSColor" key="IBUIHighlightedColor" id="985586555">
+								<object class="NSColor" key="IBUITextColor" id="985586555">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
+								<reference key="IBUIHighlightedColor" ref="985586555"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
 							</object>
 							<object class="IBUILabel" id="284202555">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 28}, {280, 21}}</string>
+								<string key="NSFrame">{{20, 25}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -85,7 +87,10 @@
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<reference key="IBUITextColor" ref="1060951528"/>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+								</object>
 								<reference key="IBUIHighlightedColor" ref="985586555"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
@@ -93,7 +98,7 @@
 							<object class="IBUILabel" id="610326066">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 47}, {280, 21}}</string>
+								<string key="NSFrame">{{20, 44}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -248,9 +253,9 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABCKAAAwoYAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABBoAAAwoQAAA</bytes>
 					</object>
-					<string>{{1916, 1321}, {320, 75}}</string>
+					<string>{{150, 610}, {320, 75}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>

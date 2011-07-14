@@ -25,6 +25,7 @@ namespace Smeedee.iOS
 		public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+			daysLabel.StyleAsHeadline();
 			Refresh();
         }
 		

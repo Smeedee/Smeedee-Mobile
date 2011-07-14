@@ -28,6 +28,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 			Refresh();
         }
 		

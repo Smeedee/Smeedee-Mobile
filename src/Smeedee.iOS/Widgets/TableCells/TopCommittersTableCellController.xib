@@ -52,11 +52,15 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{7, 10}, {50, 50}}</string>
 								<reference key="NSSuperview" ref="283776712"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="428561124">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAAA</bytes>
+								</object>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">images/logo.png</string>
+									<string key="NSResourceName">images/default_person.jpeg</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="973099813">
@@ -75,9 +79,9 @@
 									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<object class="NSColor" key="IBUITextColor" id="428561124">
+								<object class="NSColor" key="IBUITextColor" id="584349103">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAAA</bytes>
+									<bytes key="NSRGB">MSAxIDEAA</bytes>
 								</object>
 								<object class="NSColor" key="IBUIHighlightedColor" id="771566193">
 									<int key="NSColorSpace">3</int>
@@ -97,7 +101,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">39 commits</string>
-								<reference key="IBUITextColor" ref="428561124"/>
+								<reference key="IBUITextColor" ref="584349103"/>
 								<reference key="IBUIHighlightedColor" ref="771566193"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
@@ -118,13 +122,11 @@
 				</object>
 				<string key="NSFrameSize">{339, 70}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MSAxIDEAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="428561124"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISeparatorStyle">1</int>
 				<reference key="IBUIContentView" ref="283776712"/>
+				<reference key="IBUITextColor" ref="771566193"/>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -339,7 +341,7 @@
 		<nil key="IBDocument.LastKnownRelativeProjectPath"/>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">images/logo.png</string>
+			<string key="NS.key.0">images/default_person.jpeg</string>
 			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">132</string>

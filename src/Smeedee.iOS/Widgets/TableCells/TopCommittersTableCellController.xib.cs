@@ -23,6 +23,7 @@ namespace Smeedee.iOS
 		public void BindDataToCell(Committer committer)
         {
 			nameLabel.Text = committer.Name;
+			commitLabel.TextColor = UIColor.LightGray;
 			commitLabel.Text = committer.Commits.ToString();
 			commitLabel.Text += committer.Commits == 1 ? " commit" : " commits";
         }

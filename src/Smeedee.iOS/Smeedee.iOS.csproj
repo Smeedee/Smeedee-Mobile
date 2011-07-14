@@ -187,12 +187,6 @@
     <Compile Include="ConfigurationScreen.xib.designer.cs">
       <DependentUpon>ConfigurationScreen.xib</DependentUpon>
     </Compile>
-    <Compile Include="Widgets\TestWidget.xib.cs">
-      <DependentUpon>TestWidget.xib</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\TestWidget.xib.designer.cs">
-      <DependentUpon>TestWidget.xib</DependentUpon>
-    </Compile>
     <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
       <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
@@ -268,7 +262,6 @@
     <Page Include="MainWindowIPad.xib" />
     <Page Include="WidgetsScreen.xib" />
     <Page Include="ConfigurationScreen.xib" />
-    <Page Include="Widgets\TestWidget.xib" />
     <Page Include="Widgets\TopCommittersWidget.xib" />
     <Page Include="Widgets\BuildStatusWidget.xib" />
     <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
@@ -288,6 +281,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />
+    <Content Include="Images\default_person.jpeg" />
+    <Content Include="Images\SettingsIcon.png" />
+    <Content Include="Images\StarIcon.png" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

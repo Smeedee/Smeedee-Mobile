@@ -28,7 +28,7 @@ namespace Smeedee.iOS
             
             buildStatusLabel.TextColor = (build.BuildSuccessState == BuildSuccessState.Failure)
                 ? UIColor.Red
-                : UIColor.Green;
+                : UIColor.FromRGB(50, 200, 50);
         }
     }
 }
