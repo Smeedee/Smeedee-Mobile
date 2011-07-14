@@ -97,7 +97,7 @@ namespace Smeedee.Android
 
             if (currentWidget != null)
             {
-                currentWidget.Refresh();
+                currentWidget.Refresh(); // Some threading makes the description not finished for the first widget
                 widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
             }
             else
