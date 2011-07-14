@@ -10,7 +10,6 @@ namespace Smeedee.iOS
 {
     public partial class BuildStatusTableCellController : TableViewCellController
     {
-
         public BuildStatusTableCellController() : base("BuildStatusTableCellController", null)
         {
         }
