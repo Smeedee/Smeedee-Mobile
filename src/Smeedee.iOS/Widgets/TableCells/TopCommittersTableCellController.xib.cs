@@ -24,6 +24,8 @@ namespace Smeedee.iOS
 			commitLabel.TextColor = UIColor.LightGray;
 			commitLabel.Text = committer.Commits.ToString();
 			commitLabel.Text += committer.Commits == 1 ? " commit" : " commits";
+            
+            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 	}
 }

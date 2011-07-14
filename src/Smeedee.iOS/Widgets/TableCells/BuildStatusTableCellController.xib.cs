@@ -28,6 +28,8 @@ namespace Smeedee.iOS
             buildStatusLabel.TextColor = (build.BuildSuccessState == BuildState.Broken)
                 ? UIColor.Red
                 : UIColor.FromRGB(50, 200, 50);
+            
+            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
     }
 }
