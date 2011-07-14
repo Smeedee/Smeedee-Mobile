@@ -12,39 +12,51 @@ namespace Smeedee.iOS
     public partial class TopCommittersWidget : UITableViewController, IWidget
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
-        private IModelService<TopCommitters> service;
-            
+		private IModelService<TopCommitters> service;
+		private IBackgroundWorker bgWorker;
+		
+		private TopCommitters model;
+		
         public TopCommittersWidget() : base("TopCommittersWidget", null)
         {
             service = app.ServiceLocator.Get<IModelService<TopCommitters>>();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
+		
+        public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
+			TableView.SeparatorColor = UIColor.DarkGray;
+			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+            Refresh();
+        }
+		
+		private void GetData() {
+			model = service.Get();
+		}
+		
+		private void UpdateUI() {
+            TableView.Source = new TopCommitersTableSource(model);
+			TableView.ReloadData();
+		}
         
         public void Refresh()
         {
+			bgWorker.Invoke(() => {
+				GetData();
+				InvokeOnMainThread(UpdateUI);
+			});
         }
-		
 		
 		public string GetDynamicDescription() 
 		{
 			return "";	
 		}
-        
-        public override void ViewDidLoad ()
-        {
-            base.ViewDidLoad ();
-            
-            var args = new Dictionary<string, string>() {
-                {"count", "50"},
-                {"time", "50"},
-            };
-            var topCommitters = service.Get(args);
-            
-            TableView.Source = new TopCommitersTableSource(topCommitters);
-        }
     }
     
     public class TopCommitersTableSource : UITableViewSource
     {
+		private TableCellFactory cellFactory = new TableCellFactory("TopCommittersTableCellController", typeof(TopCommittersTableCellController));		
         private TopCommitters topCommitters;
         
         public TopCommitersTableSource(TopCommitters topCommitters)
@@ -56,6 +68,11 @@ namespace Smeedee.iOS
         {
             return 1;
         }
+		
+		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		{
+			return 70f;
+		}
         
         public override int RowsInSection (UITableView tableview, int section)
         {
@@ -66,14 +83,12 @@ namespace Smeedee.iOS
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var cell = tableView.DequeueReusableCell(CELL_ID) ??
-                       new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
+			var committer = topCommitters.Committers.ElementAt(indexPath.Row);
             
-            var committer = topCommitters.Committers.ElementAt(indexPath.Row);
-            
-            cell.TextLabel.Text = committer.Name;
-            
-            return cell;
+            var controller = cellFactory.NewTableCellController(tableView, indexPath) as TopCommittersTableCellController;
+            controller.BindDataToCell(committer);
+			            
+            return controller.TableViewCell;
         }
     }
 }

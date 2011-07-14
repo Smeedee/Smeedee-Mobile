@@ -10,58 +10,51 @@ using System.Drawing;
 
 namespace Smeedee.iOS
 {
-    [Widget("Latest Commits", StaticDescription = "List of latest commits from <source>")]
+    [Widget("Latest Commits", StaticDescription = "List of latest commits")]
 	public partial class LatestCommits : UITableViewController, IWidget
 	{
-		#region Constructors
-
-		// The IntPtr and initWithCoder constructors are required for items that need 
-		// to be able to be created from a xib rather than from managed code
-
-		public LatestCommits (IntPtr handle) : base(handle)
-		{
-			Initialize ();
-		}
-
-		[Export("initWithCoder:")]
-		public LatestCommits (NSCoder coder) : base(coder)
-		{
-			Initialize ();
-		}
-
+        private SmeedeeApp app = SmeedeeApp.Instance;
+		private IModelService<LatestChangeset> service;
+		private IBackgroundWorker bgWorker;
+		
+		private LatestChangeset model;
+		
 		public LatestCommits () : base("LatestCommits", null)
 		{
-			Initialize ();
+			service = app.ServiceLocator.Get<IModelService<LatestChangeset>>();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
 		}
-
-		void Initialize ()
-		{
-		}
-		
-		
-		#endregion
-		
-		private IModelService<LatestChangeset> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<LatestChangeset>>();
 		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
-			var model = service.Get();
-				
-			TableView.Source = new LatestCommitsTableSource(model.Changesets);
-			
+			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+			Refresh();
         }
+		
+		private void GetData() 
+		{
+			model = service.Get();
+		}
+		
+		private void UpdateUI()
+		{
+			TableView.Source = new LatestCommitsTableSource(model.Changesets);
+			TableView.ReloadData();
+		}
         
         public void Refresh()
         {
+			bgWorker.Invoke(() => {
+				GetData();
+				InvokeOnMainThread(UpdateUI);
+			});
         }
 		
 		public string GetDynamicDescription() 
 		{
-			return "";	
+			return "TODO";	
 		}
-	
 	}
 	
     public class LatestCommitsTableSource : UITableViewSource

@@ -99,9 +99,6 @@
     <Compile Include="..\Smeedee\Model\BuildStatus.cs">
       <Link>Model\BuildStatus.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\BuildSuccessState.cs">
-      <Link>Model\BuildSuccessState.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Model\Changeset.cs">
       <Link>Model\Changeset.cs</Link>
     </Compile>
@@ -187,12 +184,6 @@
     <Compile Include="ConfigurationScreen.xib.designer.cs">
       <DependentUpon>ConfigurationScreen.xib</DependentUpon>
     </Compile>
-    <Compile Include="Widgets\TestWidget.xib.cs">
-      <DependentUpon>TestWidget.xib</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\TestWidget.xib.designer.cs">
-      <DependentUpon>TestWidget.xib</DependentUpon>
-    </Compile>
     <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
       <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
@@ -244,9 +235,6 @@
     <Compile Include="Widgets\TableCells\CommitTableCellController.xib.designer.cs">
       <DependentUpon>CommitTableCellController.xib</DependentUpon>
     </Compile>
-    <Compile Include="..\Smeedee\Model\BuildStatusBoard.cs">
-      <Link>Model\BuildStatusBoard.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
       <Link>Model\LatestChangeset.cs</Link>
     </Compile>
@@ -256,19 +244,31 @@
     <Compile Include="Widgets\WorkingDaysLeftWidget.xib.designer.cs">
       <DependentUpon>WorkingDaysLeftWidget.xib</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\TableCells\TopCommittersTableCellController.xib.cs">
+      <DependentUpon>TopCommittersTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\TopCommittersTableCellController.xib.designer.cs">
+      <DependentUpon>TopCommittersTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\Build.cs">
+      <Link>Model\Build.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\BuildState.cs">
+      <Link>Model\BuildState.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
     <Page Include="MainWindowIPad.xib" />
     <Page Include="WidgetsScreen.xib" />
     <Page Include="ConfigurationScreen.xib" />
-    <Page Include="Widgets\TestWidget.xib" />
     <Page Include="Widgets\TopCommittersWidget.xib" />
     <Page Include="Widgets\BuildStatusWidget.xib" />
     <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
     <Page Include="Widgets\LatestCommits.xib" />
     <Page Include="Widgets\TableCells\CommitTableCellController.xib" />
     <Page Include="Widgets\WorkingDaysLeftWidget.xib" />
+    <Page Include="Widgets\TableCells\TopCommittersTableCellController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -281,6 +281,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />
+    <Content Include="Images\default_person.jpeg" />
+    <Content Include="Images\SettingsIcon.png" />
+    <Content Include="Images\StarIcon.png" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

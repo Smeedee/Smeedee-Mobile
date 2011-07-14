@@ -10,42 +10,57 @@ namespace Smeedee.iOS
     [Widget("Build Status", StaticDescription = "View the status of your builds")]
     public partial class BuildStatusWidget : UITableViewController, IWidget
     {
+        private SmeedeeApp app = SmeedeeApp.Instance;
+		private IModelService<BuildStatus> service;
+		private IBackgroundWorker bgWorker;
+		
+		private BuildStatus model;
+		
         public BuildStatusWidget() : base("BuildStatusWidget", null)
         {
+			service = app.ServiceLocator.Get<IModelService<BuildStatus>>();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
         
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
-            var builds = GetFakeBuildStatuses();
-            TableView.Source = new BuildStatusTableSource(builds);
+			TableView.SeparatorColor = UIColor.DarkGray;
+			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+			Refresh();
         }
+		
+		private void GetData()
+		{
+			model = service.Get();
+		}
+		
+		private void UpdateUI()
+		{
+            TableView.Source = new BuildStatusTableSource(model.Builds);
+			TableView.ReloadData();
+		}
         
         public void Refresh()
         {
+			bgWorker.Invoke(() => {
+				GetData();
+				InvokeOnMainThread(UpdateUI);
+			});
         }
         
 		public string GetDynamicDescription() 
 		{
 			return "";	
 		}
-        private IEnumerable<BuildStatus> GetFakeBuildStatuses()
-        {
-            return new [] {
-                new BuildStatus("Smeedee.Mobile", BuildSuccessState.Success, "AlexYork", DateTime.Now.AddHours(-3)),
-                new BuildStatus("Smeedee.Desktop", BuildSuccessState.Failure, "AlexYork", DateTime.Now.AddHours(-5)),
-                new BuildStatus("Smeedee.Web.Services", BuildSuccessState.Success, "AlexYork", DateTime.Now.AddHours(-7))
-            };
-        }
     }
     
     public class BuildStatusTableSource : UITableViewSource
-    {
-        private TableCellFactory cellFactory = new TableCellFactory("BuildStatusTableCellController", typeof(BuildStatusTableCellController));
-        private IEnumerable<BuildStatus> builds;
-        
-        public BuildStatusTableSource(IEnumerable<BuildStatus> builds)
+    {   
+		private TableCellFactory cellFactory = new TableCellFactory("BuildStatusTableCellController", typeof(BuildStatusTableCellController));
+		private IEnumerable<Build> builds;
+
+        public BuildStatusTableSource(IEnumerable<Build> builds)
         {
             this.builds = builds;
         }
@@ -59,7 +74,7 @@ namespace Smeedee.iOS
         {
             return builds.Count();
         }
-        
+		     
         public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
         {
             var build = builds.ElementAt(indexPath.Row);
@@ -71,7 +86,7 @@ namespace Smeedee.iOS
         
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return 75;
+            return 70;
         }
     }
 }

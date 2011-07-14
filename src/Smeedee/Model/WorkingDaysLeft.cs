@@ -13,7 +13,9 @@ namespace Smeedee.Model
         }
 
         public DateTime UntillDate { get; private set; }
-        public bool IsOnOvertime { get; private set; }
+		
+        public bool IsOnOvertime { get { return days < 0; } }
+		
         public int DaysLeft
         {
             get { return Math.Abs(days); }
@@ -26,7 +28,6 @@ namespace Smeedee.Model
             {
                 if (days < 0)
                 {
-                    IsOnOvertime = true;
                     return days == -1 ? "day on overtime" : "days on overtime";
                 }
                 return days == 1 ? "working day left" : "working days left";

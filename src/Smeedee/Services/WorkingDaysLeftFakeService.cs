@@ -8,7 +8,7 @@ namespace Smeedee
     {
         public WorkingDaysLeft Get()
         {
-            return new WorkingDaysLeft(4, new DateTime(2011, 7, 15));
+            return new WorkingDaysLeft(-1, new DateTime(2011, 7, 15));
         }
 		
         public WorkingDaysLeft Get(IDictionary<string, string> args)
