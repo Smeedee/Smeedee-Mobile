@@ -282,8 +282,8 @@ namespace Smeedee.Android
                         };
 
                         Animation outToRight = new TranslateAnimation(
-                            (int)Dimension.Absolute, xCoordinateDifference,
-                            (int)Dimension.Absolute, flipper.Width,
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.Absolute, flipper.Width-xCoordinateDifference,
                             (int)Dimension.Absolute, 0,
                             (int)Dimension.Absolute, 0)
                         {
@@ -308,8 +308,8 @@ namespace Smeedee.Android
                         };
                         
                         Animation outToLeft = new TranslateAnimation(
-                            (int)Dimension.Absolute, xCoordinateDifference,
-                            (int)Dimension.Absolute, -flipper.Width,
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.Absolute, -flipper.Width-xCoordinateDifference,
                             (int)Dimension.Absolute, 0,
                             (int)Dimension.Absolute, 0)
                         {
@@ -352,6 +352,7 @@ namespace Smeedee.Android
                     previousView.Visibility = ViewStates.Visible;
 
                     break;
+                    Log.Debug("TT", "Flipper width is now: " + flipper.Width);
             }
             return true;
         }
