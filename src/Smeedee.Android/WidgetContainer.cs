@@ -271,14 +271,14 @@ namespace Smeedee.Android
                     var currentX = touchEvent.GetX();
                     if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        flipper.InAnimation = AnimationHelper.GetInFromLeft(flipper, xCoordinateDifference);
-                        flipper.OutAnimation = AnimationHelper.GetOutToRight(flipper, xCoordinateDifference);
+                        flipper.InAnimation = AnimationHelper.GetInFromLeftAnimation(flipper, xCoordinateDifference);
+                        flipper.OutAnimation = AnimationHelper.GetOutToRightAnimation(flipper, xCoordinateDifference);
 
                         flipper.ShowNext();
                     } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        flipper.InAnimation = AnimationHelper.GetInFromRight(flipper, xCoordinateDifference);
-                        flipper.OutAnimation = AnimationHelper.GetOutToLeft(flipper, xCoordinateDifference);
+                        flipper.InAnimation = AnimationHelper.GetInFromRightAnimation(flipper, xCoordinateDifference);
+                        flipper.OutAnimation = AnimationHelper.GetOutToLeftAnimation(flipper, xCoordinateDifference);
 
                         flipper.ShowPrevious();
                     } else
@@ -319,7 +319,7 @@ namespace Smeedee.Android
 
     static class AnimationHelper
     {
-        public static Animation GetOutToLeft(View flipper, int xCoordinateDifference)
+        public static Animation GetOutToLeftAnimation(View flipper, int xCoordinateDifference)
         {
             if (flipper == null) throw new ArgumentNullException("flipper");
             return new TranslateAnimation(
@@ -333,7 +333,7 @@ namespace Smeedee.Android
             };
         }
 
-        public static Animation GetInFromRight(View flipper, int xCoordinateDifference)
+        public static Animation GetInFromRightAnimation(View flipper, int xCoordinateDifference)
         {
             if (flipper == null) throw new ArgumentNullException("flipper");
             return new TranslateAnimation(
@@ -347,7 +347,7 @@ namespace Smeedee.Android
             };
         }
 
-        public static Animation GetOutToRight(View flipper, int xCoordinateDifference)
+        public static Animation GetOutToRightAnimation(View flipper, int xCoordinateDifference)
         {
             if (flipper == null) throw new ArgumentNullException("flipper");
             return new TranslateAnimation(
@@ -361,7 +361,7 @@ namespace Smeedee.Android
             };
         }
 
-        public static Animation GetInFromLeft(View flipper, int xCoordinateDifference)
+        public static Animation GetInFromLeftAnimation(View flipper, int xCoordinateDifference)
         {
             if (flipper == null) throw new ArgumentNullException("flipper");
             return new TranslateAnimation(
