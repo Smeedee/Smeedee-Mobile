@@ -141,11 +141,13 @@ namespace Smeedee.Android.Widgets
 
     internal class BuildStatusAdapter : SimpleAdapter
     {
-        public BuildStatusAdapter(IntPtr doNotUse) : base(doNotUse)
+        public BuildStatusAdapter(IntPtr doNotUse) 
+            : base(doNotUse)
         {
         }
 
-        public BuildStatusAdapter(Context context, IList<IDictionary<string, object>> data, int resource, string[] from, int[] to) : base(context, data, resource, from, to)
+        public BuildStatusAdapter(Context context, IList<IDictionary<string, object>> data, int resource, string[] from, int[] to) 
+            : base(context, data, resource, from, to)
         {
         }
 

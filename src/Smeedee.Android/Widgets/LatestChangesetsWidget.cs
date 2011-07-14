@@ -99,7 +99,7 @@ namespace Smeedee.Android.Widgets
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
             var highlightColor = prefs.GetString("lcs_HighlightColor", DefaultRed);
             var highlightEnabled = prefs.GetBoolean("lcs_HighlightEnabled", true);
-            return highlightEnabled ? ColorTools.FromHex(highlightColor) : Color.White;
+            return highlightEnabled ? ColorTools.GetColorFromHex(highlightColor) : Color.White;
         }
 
         private IList<IDictionary<string, object>> CreateListItems()
