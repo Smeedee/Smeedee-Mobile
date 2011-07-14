@@ -71,7 +71,7 @@ namespace Smeedee.Android.Widgets
 
             var data = GetModelAsListData(from[0], from[1]);
 
-            return new SimpleAdapter(Context, data, Resource.Layout.TopCommittersWidget_ListItem, from, to);
+            return new TopCommittersAdapter(Context, data, Resource.Layout.TopCommittersWidget_ListItem, from, to);
         }
 
         private List<IDictionary<string, object>> GetModelAsListData(string nameField, string commitsField)
@@ -96,6 +96,19 @@ namespace Smeedee.Android.Widgets
         public string GetDynamicDescription()
         {
             return _dynamicDescription;
+        }
+    }
+
+    internal class TopCommittersAdapter : SimpleAdapter
+    {
+        public TopCommittersAdapter(Context context, List<IDictionary<string, object>> data, int resource, string[] @from, int[] to) : base(context, data, resource, from, to)
+        {
+                        
+        }
+
+        public override bool IsEnabled(int position)
+        {
+            return false;
         }
     }
 }
