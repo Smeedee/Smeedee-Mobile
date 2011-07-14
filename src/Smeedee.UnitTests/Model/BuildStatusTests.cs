@@ -16,7 +16,7 @@ namespace Smeedee.UnitTests.Model
             [Test]
             public void Should_implement_IModel()
             {
-                Assert.True(typeof (IModel).IsAssignableFrom(typeof (BuildStatus)));
+                Assert.True(typeof (IModel).IsAssignableFrom(typeof (Build)));
             }
         }
 
@@ -27,28 +27,28 @@ namespace Smeedee.UnitTests.Model
             [ExpectedException(typeof(ArgumentException))]
             public void Should_not_allow_null_in_project_name()
             {
-                var model = new BuildStatus(null, BuildSuccessState.Success, USER, DATE);
+                var model = new Build(null, BuildState.Working, USER, DATE);
             }
 
             [Test]
             [ExpectedException(typeof(ArgumentException))]
             public void Should_not_allow_empty_string_in_project_name()
             {
-                var model = new BuildStatus("", BuildSuccessState.Success, USER, DATE);
+                var model = new Build("", BuildState.Working, USER, DATE);
             }
 
             [Test]
             [ExpectedException(typeof(ArgumentException))]
             public void Should_not_allow_null_in_username()
             {
-                var model = new BuildStatus(PROJECT, BuildSuccessState.Success, null, DATE);
+                var model = new Build(PROJECT, BuildState.Working, null, DATE);
             }
 
             [Test]
             [ExpectedException(typeof(ArgumentException))]
             public void Should_not_allow_empty_string_in_username()
             {
-                var model = new BuildStatus(PROJECT, BuildSuccessState.Success, "", DATE);
+                var model = new Build(PROJECT, BuildState.Working, "", DATE);
             }
 
         }

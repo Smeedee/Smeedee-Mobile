@@ -53,14 +53,14 @@
     <Compile Include="..\Smeedee\Guard.cs">
       <Link>Guard.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\Build.cs">
+      <Link>Model\Build.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\BuildState.cs">
+      <Link>Model\BuildState.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\BuildStatus.cs">
       <Link>Model\BuildStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Model\BuildStatusBoard.cs">
-      <Link>Model\BuildStatusBoard.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Model\BuildSuccessState.cs">
-      <Link>Model\BuildSuccessState.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\Changeset.cs">
       <Link>Model\Changeset.cs</Link>
@@ -186,7 +186,6 @@
     <AndroidResource Include="Resources\Layout\TopCommittersWidget_ListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Drawable\navigation_button_left.xml" />
     <AndroidResource Include="Resources\Layout\TopCommittersSettings.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -221,28 +220,7 @@
     <AndroidResource Include="Resources\Drawable\icon_smeedee.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\icon_topcommitters.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\icon_workingdaysleft.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\Values\Colors.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_left_clicked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_right_clicked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\navigation_button_right.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon_buildfailure.png" />

@@ -15,12 +15,12 @@ namespace Smeedee.Android.Widgets
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };
         private readonly int[] listItemMappingTo = new[] { Resource.Id.BuildStatuswidget_projectname, Resource.Id.BuildStatuswidget_username, Resource.Id.BuildStatuswidget_datetime, Resource.Id.BuildStatuswidget_buildstatus };
-        private readonly IModelService<BuildStatusBoard> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatusBoard>>();
+        private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         private ListView buildList;
-        private IEnumerable<BuildStatus> builds;
-        private string _dynamicDescription;
+        private BuildStatus model;
+        private string _dynamicDescription = "";
 
         public BuildStatusWidget(Context context)
             : base(context)
@@ -31,7 +31,7 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             CreateGui();
-            FindBuildListUi();
+            buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
             Refresh();
         }
 
@@ -46,51 +46,40 @@ namespace Smeedee.Android.Widgets
                 throw new NullReferenceException("Failed to get inflater in Build status widget");
             }
         }
-        
-        private void FindBuildListUi()
-        {
-            buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
-        }
 
         private void RefreshBuildsFromServer()
         {
-            builds = service.Get(CreateServiceArgsDictionary()).Builds;
+            model = service.Get(CreateServiceArgsDictionary());
             RefreshUiBuildList();
         }
 
         private void RefreshDynamicDescription()
         {
-            var numberOfBuilds = builds.Count();
-
-            var numberOfSucessfullBuilds = 
-                builds.Where(build => build.BuildSuccessState == BuildSuccessState.Success).Count();
-            var numberOfFailureBuilds =
-                builds.Where(build => build.BuildSuccessState == BuildSuccessState.Failure).Count();
-            var numberOfUnknownBuilds =
-                builds.Where(build => build.BuildSuccessState == BuildSuccessState.Unknown).Count();
-            
+            var numberOfWorkingBuilds = model.GetNumberBuildsThatAre(BuildState.Working);
+            var numberOfBrokenBuilds = model.GetNumberBuildsThatAre(BuildState.Broken);
+            var numberOfUnknownBuilds = model.GetNumberBuildsThatAre(BuildState.Unknown);
+            var numberOfBuilds = model.Builds.Count();
             
             if (numberOfBuilds == 0)
                 _dynamicDescription = "No builds fetched from the Smeedee Server";
             else
             {
-                if (numberOfSucessfullBuilds == 0 && numberOfUnknownBuilds == 0)
+                if (numberOfWorkingBuilds == 0 && numberOfUnknownBuilds == 0)
                     _dynamicDescription = "OMG! All builds are broken!";
                 else
                 {
-                    if (numberOfSucessfullBuilds > 0)
-                        _dynamicDescription = numberOfSucessfullBuilds + " working";
-                    if (numberOfFailureBuilds > 0)
-                        _dynamicDescription += ", " + numberOfFailureBuilds + " broken";
+                    if (numberOfWorkingBuilds > 0)
+                        _dynamicDescription = numberOfWorkingBuilds + " working";
+                    if (numberOfBrokenBuilds > 0)
+                        _dynamicDescription += ", " + numberOfBrokenBuilds + " broken";
                     if (numberOfUnknownBuilds > 0)
                     {
                         _dynamicDescription += ", " + numberOfUnknownBuilds + " unknown";
                     }
-                        
+
                     _dynamicDescription += " builds";
                 }
             }
-            
         }
 
         private void RefreshUiBuildList()
@@ -99,6 +88,7 @@ namespace Smeedee.Android.Widgets
             {
                 var adapter = new BuildStatusAdapter(Context, GetListAdapterFromBuildModels(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
                 buildList.Adapter = adapter;
+                RefreshDynamicDescription();
             });
         }
 
@@ -107,7 +97,7 @@ namespace Smeedee.Android.Widgets
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
             var showTriggeredBy = prefs.GetBoolean("showTriggeredBy", true);
 
-            return builds.Select(build => new Dictionary<String, object>
+            return model.Builds.Select(build => new Dictionary<String, object>
                         {
                             {"project_name", build.ProjectName},
                             {"username", (showTriggeredBy) ? build.Username : ""},
@@ -130,7 +120,6 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             bgWorker.Invoke(RefreshBuildsFromServer);
-            RefreshDynamicDescription();
         }
 
         public string GetDynamicDescription()
@@ -159,14 +148,19 @@ namespace Smeedee.Android.Widgets
             
             if (buildStatusView != null)
             {
-                if (status == (int)BuildSuccessState.Success)
+                if (status == (int)BuildState.Working)
                     buildStatusView.SetImageResource(Resource.Drawable.icon_buildsuccess);
-                if (status == (int)BuildSuccessState.Failure)
+                if (status == (int)BuildState.Broken)
                     buildStatusView.SetImageResource(Resource.Drawable.icon_buildfailure);
-                if (status == (int)BuildSuccessState.Unknown)
+                if (status == (int)BuildState.Unknown)
                     buildStatusView.SetImageResource(Resource.Drawable.icon_buildunknown);
             } 
             return view;
+        }
+
+        public override bool IsEnabled(int position)
+        {
+            return false;
         }
     }
 }

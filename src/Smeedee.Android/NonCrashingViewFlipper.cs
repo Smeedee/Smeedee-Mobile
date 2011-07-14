@@ -16,7 +16,8 @@ namespace Smeedee.Android
      */
     public class NonCrashingViewFlipper : ViewFlipper
     {
-        public NonCrashingViewFlipper(Context context, IAttributeSet attrs) : base(context, attrs) { }
+        public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
+            : base(context, attrs) { }
 
         protected override void OnDetachedFromWindow()
         {
@@ -30,7 +31,6 @@ namespace Smeedee.Android
                 base.StopFlipping();
             }
         }
-
         public int GetPreviousChildIndex()
         {
             if (DisplayedChild == ChildCount-1) 

@@ -155,5 +155,10 @@ namespace Smeedee.Android.Widgets
 
             return view;
         }
+
+        public override bool IsEnabled(int position)
+        {
+            return false;
+        }
     }
 }

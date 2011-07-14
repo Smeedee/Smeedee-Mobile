@@ -8,10 +8,10 @@
   <LinearLayout 
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent">
-    <ListView 
+    <smeedee.android.VerticalScrollingListView 
       android:id="@+id/BuildStatusWidget_build_list"
 			android:layout_height="fill_parent"
 			android:layout_width="fill_parent">
-    </ListView>
+    </smeedee.android.VerticalScrollingListView >
   </LinearLayout>
 </LinearLayout>

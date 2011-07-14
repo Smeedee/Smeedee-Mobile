@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- Global Settings Slide Show interval-->
+  <string-array name="slideShowIntervalArray">
+    <item>10 seconds</item>
+    <item>20 seconds</item>
+    <item>30 seconds</item>
+    <item>1 minute</item>
+    <item>2 minutes</item>
+    <item>5 minutes</item>
+  </string-array>
+  <string-array name="slideShowIntervalValues">
+    <item>10000</item>
+    <item>20000</item>
+    <item>30000</item>
+    <item>60000</item>
+    <item>120000</item>
+    <item>300000</item>
+  </string-array>
+  
   <!-- Latest Commits Settings Number of Changesets displayed-->
   <string-array name="LatestCommitsSettingsCountArray">
     <item>5</item>
