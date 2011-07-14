@@ -56,6 +56,9 @@
     <Compile Include="..\Smeedee\Model\Build.cs">
       <Link>Model\Build.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\BuildOrder.cs">
+      <Link>Model\BuildOrder.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\BuildState.cs">
       <Link>Model\BuildState.cs</Link>
     </Compile>

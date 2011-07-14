@@ -29,7 +29,13 @@ namespace Smeedee
 		
         public BuildStatus Get(IDictionary<string, string> args)
         {
-            return new BuildStatus(builds);
+            var ordering = args.ContainsKey("ordering") ? args["ordering"] : "buildtime";
+            var brokenBuilds = args.ContainsKey("brokenBuildsAtTop") ? args["brokenBuildsAtTop"] : "true";
+
+            var order = ordering == "buildtime" ? BuildOrder.BuildTime : BuildOrder.BuildName;
+            var brokenBuildsAtTop = brokenBuilds == "true";
+
+            return new BuildStatus(builds, order, brokenBuildsAtTop);
         }
     }
 }

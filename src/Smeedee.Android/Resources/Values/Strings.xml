@@ -60,15 +60,15 @@
   <string name="LatestChangesetsSettingsHighlightColorTitle">Highlight color</string>
 
   <!--Build status-->
-  <string name="BuildStatusSettingsPreferenceCategory1">Sorting</string>
+  <string name="BuildStatusSettingsPreferenceCategory1">Ordering</string>
   <string name="BuildStatusSettingsPreferenceCategory2">Display</string>
   <string name="BuildStatusSettingsBrokenBuildsOnTop">Broken builds at top</string>
-  <string name="BuildStatusSettingsSortingTitle">Build ordering</string>
-  <string name="BuildStatusSettingsSortingSummary">Set how you want your list of builds ordered.</string>
-  <string name="BuildStatusSettingsSummaryOn">Broken builds are now shown first regardless of sorting order.</string>
-  <string name="BuildStatusSettingsSummaryOff">Broken builds are now shown like normal builds.</string>
+  <string name="BuildStatusSettingsSortingTitle">Build order</string>
+  <string name="BuildStatusSettingsSortingSummary">Set how you want your list of builds ordered</string>
+  <string name="BuildStatusSettingsSummaryOn">Broken builds are now shown first regardless of ordering</string>
+  <string name="BuildStatusSettingsSummaryOff">Broken builds are now shown like normal builds</string>
   <string name="BuildStatusSettingsShowUserNameTitle">Show username</string>
-  <string name="BuildStatusSettingShowUserNameOn">Who triggered a build is now shown.</string>
-  <string name="BuildStatusSettingShowUserNameOff">Who triggered a build is now hidden.</string>
+  <string name="BuildStatusSettingShowUserNameOn">Who triggered a build is now enabled</string>
+  <string name="BuildStatusSettingShowUserNameOff">Who triggered a build is now disabled</string>
   
 </resources>

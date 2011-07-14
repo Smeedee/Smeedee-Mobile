@@ -55,9 +55,9 @@ namespace Smeedee.Android.Widgets
 
         private void RefreshDynamicDescription()
         {
-            var numberOfWorkingBuilds = model.GetNumberBuildsThatAre(BuildState.Working);
-            var numberOfBrokenBuilds = model.GetNumberBuildsThatAre(BuildState.Broken);
-            var numberOfUnknownBuilds = model.GetNumberBuildsThatAre(BuildState.Unknown);
+            var numberOfWorkingBuilds = model.GetNumberOfBuildsThatHaveState(BuildState.Working);
+            var numberOfBrokenBuilds = model.GetNumberOfBuildsThatHaveState(BuildState.Broken);
+            var numberOfUnknownBuilds = model.GetNumberOfBuildsThatHaveState(BuildState.Unknown);
             var numberOfBuilds = model.Builds.Count();
             
             if (numberOfBuilds == 0)
@@ -111,7 +111,7 @@ namespace Smeedee.Android.Widgets
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
             var args = new Dictionary<string, string>();
 
-            args["sorting"] = prefs.GetString("buildSortOrdering", "buildtime");
+            args["ordering"] = prefs.GetString("buildSortOrdering", "buildtime");
             args["brokenBuildsAtTop"] = prefs.GetBoolean("brokenBuildsAtTop", true).ToString();
 
             return args;

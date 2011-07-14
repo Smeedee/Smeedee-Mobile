@@ -81,11 +81,11 @@
   <!-- Build Status Settings -->
     <string-array name="BuildStatusSortArray">
       <item>Build time</item>
-      <item>Project name</item>
+      <item>Build name</item>
     </string-array>
 
   <string-array name="BuildStatusSortValues">
     <item>buildtime</item>
-    <item>projectname</item>
+    <item>buildname</item>
   </string-array>
 </resources>
