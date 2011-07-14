@@ -272,19 +272,20 @@ namespace Smeedee.Android
                     if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
                     {
                         Animation inFromLeft = new TranslateAnimation(
-                            -flipper.Width + xCoordinateDifference, 
-                            0, 
-                            currentView.Top, currentView.Top)
+                            (int)Dimension.Absolute, -flipper.Width+xCoordinateDifference,
+                            (int)Dimension.Absolute, 0,
+                            (int)Dimension.Absolute, 0,
+                            (int)Dimension.Absolute, 0)
                         {
                             Duration = 350,
                             Interpolator = new LinearInterpolator()
                         };
 
                         Animation outToRight = new TranslateAnimation(
-                            (int)Dimension.RelativeToSelf, 0,
-                            (int)Dimension.RelativeToSelf, flipper.Width-xCoordinateDifference,
-                            (int)Dimension.RelativeToSelf, 0,
-                            (int)Dimension.RelativeToSelf, 0)
+                            (int)Dimension.Absolute, xCoordinateDifference,
+                            (int)Dimension.Absolute, flipper.Width,
+                            (int)Dimension.Absolute, 0,
+                            (int)Dimension.Absolute, 0)
                         {
                             Duration = 350,
                             Interpolator = new LinearInterpolator()
@@ -297,20 +298,20 @@ namespace Smeedee.Android
                     } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
                         Animation inFromRight = new TranslateAnimation(
-                            (int)Dimension.RelativeToParent,  (flipper.Width + xCoordinateDifference * 1.0f) / flipper.Width,
-                            (int)Dimension.RelativeToParent, 0,
-                            (int)Dimension.RelativeToParent, 0,
-                            (int)Dimension.RelativeToParent, 0)
+                            (int)Dimension.Absolute,  flipper.Width + xCoordinateDifference,
+                            (int)Dimension.Absolute, 0,
+                            (int)Dimension.Absolute, 0,
+                            (int)Dimension.Absolute, 0)
                         {
                             Duration = 350,
                             Interpolator = new LinearInterpolator()
                         };
                         
                         Animation outToLeft = new TranslateAnimation(
-                            (int)Dimension.RelativeToParent, 0,
-                            (int)Dimension.RelativeToParent, (-(flipper.Width - xCoordinateDifference * 1.0f) / flipper.Width),
-                            (int)Dimension.RelativeToParent, 0,
-                            (int)Dimension.RelativeToParent, 0)
+                            (int)Dimension.Absolute, xCoordinateDifference,
+                            (int)Dimension.Absolute, -flipper.Width,
+                            (int)Dimension.Absolute, 0,
+                            (int)Dimension.Absolute, 0)
                         {
                             Duration = 350,
                             Interpolator = new LinearInterpolator()
@@ -352,7 +353,7 @@ namespace Smeedee.Android
 
                     break;
             }
-            return false; // True if the event was handled, false otherwise. Leave false to propagate event further?
+            return true;
         }
 
     }
