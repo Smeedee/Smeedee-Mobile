@@ -8,6 +8,7 @@ using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using Android.OS;
 using Java.Lang;
@@ -258,6 +259,7 @@ namespace Smeedee.Android
             var currentView = flipper.CurrentView;
             var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
             var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
+            var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
 
             switch (touchEvent.Action)
             {
@@ -269,20 +271,65 @@ namespace Smeedee.Android
                     float currentX = touchEvent.GetX();
                     if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
                     {
+                        Animation inFromLeft = new TranslateAnimation(
+                            -flipper.Width + xCoordinateDifference, 
+                            0, 
+                            currentView.Top, currentView.Top)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+
+                        Animation outToRight = new TranslateAnimation(
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.RelativeToSelf, flipper.Width-xCoordinateDifference,
+                            (int)Dimension.RelativeToSelf, 0,
+                            (int)Dimension.RelativeToSelf, 0)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+
+                        flipper.InAnimation = inFromLeft;
+                        flipper.OutAnimation = outToRight;
+
                         flipper.ShowNext();
                     } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
+                        Animation inFromRight = new TranslateAnimation(
+                            (int)Dimension.RelativeToParent,  (flipper.Width + xCoordinateDifference * 1.0f) / flipper.Width,
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+                        
+                        Animation outToLeft = new TranslateAnimation(
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, (-(flipper.Width - xCoordinateDifference * 1.0f) / flipper.Width),
+                            (int)Dimension.RelativeToParent, 0,
+                            (int)Dimension.RelativeToParent, 0)
+                        {
+                            Duration = 350,
+                            Interpolator = new LinearInterpolator()
+                        };
+
+                        flipper.InAnimation = inFromRight;
+                        flipper.OutAnimation = outToLeft;
+
                         flipper.ShowPrevious();
                     } else
                     {
-                        currentView.Layout(flipper.Left, flipper.Top, flipper.Width, flipper.Bottom);
+                        currentView.Layout(flipper.Left, currentView.Top, flipper.Width, currentView.Bottom);
                         nextView.Visibility = ViewStates.Invisible;
                         previousView.Visibility = ViewStates.Invisible;
                     }
                     break;
 
                 case MotionEventActions.Move:
-                    var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
+                    
                     currentView.Layout(
                         xCoordinateDifference,
                         currentView.Top, 

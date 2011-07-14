@@ -30,16 +30,17 @@ namespace Smeedee.iOS
         private const int SCREEN_WIDTH = 320;
         
         private SmeedeeApp app = SmeedeeApp.Instance;
-        
+		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
+			titleLabel.StyleAsHeadline();
+			subTitleLabel.StyleAsDescription();
             AddWidgetsToScreen();
             AttachScrollEvent();
             SetTitleLabels(0);
         }
-        
+				        
         private void AddWidgetsToScreen()
         {
             var widgets = GetWidgets();

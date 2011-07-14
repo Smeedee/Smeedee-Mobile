@@ -6,16 +6,14 @@ namespace Smeedee
 {
     class WorkingDaysLeftFakeService : IModelService<WorkingDaysLeft>
     {
-        private WorkingDaysLeft model = new WorkingDaysLeft(4, new DateTime(2011, 7, 15));
-
-        public IEnumerable<WorkingDaysLeft> Get(IDictionary<string, string> args)
+        public WorkingDaysLeft Get()
         {
-            return new [] {model};
+            return new WorkingDaysLeft(4, new DateTime(2011, 7, 15));
         }
-
-        public WorkingDaysLeft GetSingle(IDictionary<string, string> args)
+		
+        public WorkingDaysLeft Get(IDictionary<string, string> args)
         {
-            return model;
+            return Get();
         }
     }
 }
