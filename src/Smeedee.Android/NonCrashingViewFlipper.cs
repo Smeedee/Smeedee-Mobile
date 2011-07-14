@@ -1,6 +1,8 @@
 using System;
 using Android.Content;
 using Android.Util;
+using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 
 namespace Smeedee.Android
@@ -16,8 +18,12 @@ namespace Smeedee.Android
      */
     public class NonCrashingViewFlipper : ViewFlipper
     {
+
+        private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
+        private MotionEvent downStart;
         public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
             : base(context, attrs) { }
+
 
         protected override void OnDetachedFromWindow()
         {
@@ -44,5 +50,143 @@ namespace Smeedee.Android
                 return ChildCount - 1;
             return DisplayedChild - 1;
         }
+
+        public override bool OnTouchEvent(MotionEvent touchEvent)
+        {
+            var currentView = CurrentView;
+            var nextView = GetChildAt(GetNextChildIndex());
+            var previousView = GetChildAt(GetPreviousChildIndex());
+            var xCoordinateDifference = (int)(touchEvent.GetX() - downStart.GetX());
+
+            switch (touchEvent.Action)
+            {
+                case MotionEventActions.Up:
+                    var currentX = touchEvent.GetX();
+                    if (downStart.GetX() < currentX - SCROLL_NEXT_VIEW_THRESHOLD)
+                    {
+                        InAnimation = AnimationHelper.GetInFromLeftAnimation(this, xCoordinateDifference);
+                        OutAnimation = AnimationHelper.GetOutToRightAnimation(this, xCoordinateDifference);
+
+                        ShowNext();
+                    }
+                    else if (downStart.GetX() > currentX + SCROLL_NEXT_VIEW_THRESHOLD)
+                    {
+                        InAnimation = AnimationHelper.GetInFromRightAnimation(this, xCoordinateDifference);
+                        OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, xCoordinateDifference);
+
+                        ShowPrevious();
+                    }
+                    else
+                    {
+                        currentView.Layout(Left, currentView.Top, Width, currentView.Bottom);
+                        nextView.Visibility = ViewStates.Invisible;
+                        previousView.Visibility = ViewStates.Invisible;
+                    }
+                    break;
+
+                case MotionEventActions.Move:
+
+                    currentView.Layout(
+                        xCoordinateDifference,
+                        currentView.Top,
+                        currentView.Right,
+                        currentView.Bottom);
+
+                    nextView.Layout(
+                        Width + xCoordinateDifference,
+                        currentView.Top,
+                        Width * 2 + xCoordinateDifference,
+                        currentView.Bottom);
+                    nextView.Visibility = ViewStates.Visible;
+
+                    previousView.Layout(
+                        -Width + xCoordinateDifference,
+                        currentView.Top,
+                        0 + xCoordinateDifference,
+                        currentView.Bottom);
+                    previousView.Visibility = ViewStates.Visible;
+
+                    break;
+            }
+            return true;
+        }
+
+        public override bool OnInterceptTouchEvent(MotionEvent e)
+        {
+            switch (e.Action)
+            {
+                case MotionEventActions.Down:
+                    downStart = MotionEvent.Obtain(e);
+                    break;
+                case MotionEventActions.Move:
+                    float deltaX = e.GetX() - downStart.GetX();
+                    if (Math.Abs(deltaX) > ViewConfiguration.TouchSlop * 2)
+                    {
+                        return true;
+                    }
+                    break;
+            }
+            return false;
+        }
     }
+
+    static class AnimationHelper
+    {
+        public static Animation GetOutToLeftAnimation(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.RelativeToSelf, 0,
+                (int)Dimension.Absolute, -flipper.Width - xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
+
+        public static Animation GetInFromRightAnimation(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.Absolute, flipper.Width + xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
+
+        public static Animation GetOutToRightAnimation(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.RelativeToSelf, 0,
+                (int)Dimension.Absolute, flipper.Width - xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
+
+        public static Animation GetInFromLeftAnimation(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.Absolute, -flipper.Width + xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
+    }
+
 }

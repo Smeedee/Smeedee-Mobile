@@ -11,16 +11,6 @@ namespace Smeedee.UnitTests.Model
         protected readonly DateTime DATE = DateTime.MinValue;
 
         [TestFixture]
-        public class In_general : BuildStatusTests
-        {
-            [Test]
-            public void Should_implement_IModel()
-            {
-                Assert.True(typeof (IModel).IsAssignableFrom(typeof (Build)));
-            }
-        }
-
-        [TestFixture]
         public class When_instantiating : BuildStatusTests
         {
             [Test]
