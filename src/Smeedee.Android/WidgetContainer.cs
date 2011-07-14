@@ -31,7 +31,8 @@ namespace Smeedee.Android
         private IEnumerable<IWidget> widgets;
 
         private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
-        private bool hasSettingsChange;
+        private ISharedPreferences prefs;
+        private bool hasSettingsChanged;
         private double oldTouchValue;
 
         protected override void OnCreate(Bundle bundle)
@@ -48,12 +49,11 @@ namespace Smeedee.Android
 
             preferenceChangeListener = new SharedPreferencesChangeListener(() =>
                                                                                {
-                                                                                   hasSettingsChange = true;
+                                                                                   hasSettingsChanged = true;
                                                                                });
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
         }
-
         private void AddWidgetsToFlipper()
         {
             widgets = GetWidgets();
@@ -212,19 +212,45 @@ namespace Smeedee.Android
             base.OnResume();
             Log.Debug("TT", "[ REFRESHING WIDGETS ]");
 
-            if (hasSettingsChange)
+            if (hasSettingsChanged)
             {
                 CheckForEnabledAndDisabledWidgets();
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
+                
+                if (CheckIfWidgetSlideShowIsEnabled())
+                    StartWidgetSlideShow();
+                else
+                    StopWidgetSlideShow();
+
                 Log.Debug("TT", "Just refreshed widget list after having changed settings.");
-                hasSettingsChange = false;
+                hasSettingsChanged = false;
             }
 
             foreach (var widget in widgets)
             {
                 widget.Refresh();
             }
+        }
+
+        private bool CheckIfWidgetSlideShowIsEnabled()
+        {
+            return prefs.GetBoolean("slideShowEnabled", false);
+        }
+
+        private void StartWidgetSlideShow()
+        {
+            if (!flipper.IsFlipping)
+            {
+                //var flipInterval = int.Parse(prefs.GetString("slideShowInterval", "20000"));
+                flipper.SetFlipInterval(2000);
+                flipper.StartFlipping();
+            }
+        }
+        private void StopWidgetSlideShow()
+        {
+            if (flipper.IsFlipping)
+                flipper.StopFlipping();
         }
 
         private void CheckForEnabledAndDisabledWidgets()

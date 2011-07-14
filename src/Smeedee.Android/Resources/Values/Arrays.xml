@@ -9,6 +9,14 @@
     <item>2 minutes</item>
     <item>5 minutes</item>
   </string-array>
+  <string-array name="slideShowIntervalValues">
+    <item>10000</item>
+    <item>20000</item>
+    <item>30000</item>
+    <item>60000</item>
+    <item>120000</item>
+    <item>300000</item>
+  </string-array>
   
   <!-- Latest Commits Settings Number of Changesets displayed-->
   <string-array name="LatestCommitsSettingsCountArray">

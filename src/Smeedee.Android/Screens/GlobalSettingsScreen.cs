@@ -50,7 +50,7 @@ namespace Smeedee.Android.Screens
 
             var pref = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            slideShowIntervalPref.Summary = pref.GetString("slideShowInterval", "20 seconds");
+            slideShowIntervalPref.Summary = pref.GetString("slideShowInterval", "20000") + " milliseconds";
             serverUrlSummaryPref.Summary = pref.GetString("serverUrl", "url");
             userPasswordSummaryPref.Summary = pref.GetString("userPassword", "pass");
         }

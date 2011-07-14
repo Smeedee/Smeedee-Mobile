@@ -50,7 +50,6 @@
     android:id="@+id/Flipper"
     android:layout_below="@id/TopBanner"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-  </smeedee.android.NonCrashingViewFlipper>
-
+    android:layout_height="wrap_content"
+    android:autoStart="false"/>
 </RelativeLayout>
