@@ -4,12 +4,11 @@ namespace Smeedee.Model
 {
     public class LatestChangeset : IModel
     {
-        public List<Changeset> Changesets { get; private set; }
+        public IEnumerable<Changeset> Changesets { get; private set; }
 
         public LatestChangeset(IEnumerable<Changeset> changesets)
         {
-            Changesets = new List<Changeset>(changesets);
+            Changesets = changesets;
         }
-
     }
 }
