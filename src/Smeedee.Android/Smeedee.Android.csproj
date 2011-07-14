@@ -148,7 +148,6 @@
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="ContextSwitcher.cs" />
-    <Compile Include="VerticalScrollingListView.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\Settings\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
