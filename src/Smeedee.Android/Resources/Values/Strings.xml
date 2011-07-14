@@ -15,9 +15,14 @@
   <string name="MenuBtnAbout">About</string>
 
   <!--GlobalSettings-->
-  <string name="GlobalSettingsScreenPreferenceCategory1">Available Widgets</string>
+  <string name="GlobalSettingsScreenPreferenceCategory1">Widgets</string>
   <string name="GlobalSettingsScreenPreferenceCategory2">Server and user settings</string>
-  <string name="GlobalSettingsScreenAvailableWidgetsTitle">Available widgets</string>
+  <string name="GlobalSettingsScreenAvailableWidgetsTitle">Widgets</string>
+  <string name="GlobalSettingsScreenSlideShowIntervalTitle">Slide show interval</string>
+  <string name="GlobalSettingsScreenSlideShowIntervalSummary">10 seconds</string>
+  <string name="GlobalSettingsScreenSlideShowCheckboxTitle">Slide show</string>
+  <string name="GlobalSettingsScreenSlideShowOn">Enabled</string>
+  <string name="GlobalSettingsScreenSlideShowOff">Disabled</string>
   <string name="GlobalSettingsScreenServerUrlTitle">Server URL</string>
   <string name="GlobalSettingsScreenUserPasswordTitle">User password</string>
   

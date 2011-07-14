@@ -148,7 +148,6 @@
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="ContextSwitcher.cs" />
-    <Compile Include="VerticalScrollingListView.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\Settings\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
@@ -187,7 +186,6 @@
     <AndroidResource Include="Resources\Layout\TopCommittersWidget_ListItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Drawable\navigation_button_left.xml" />
     <AndroidResource Include="Resources\Layout\TopCommittersSettings.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -222,28 +220,7 @@
     <AndroidResource Include="Resources\Drawable\icon_smeedee.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\icon_topcommitters.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\icon_workingdaysleft.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\Values\Colors.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_left_clicked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\btn_right_clicked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\navigation_button_right.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon_buildfailure.png" />
