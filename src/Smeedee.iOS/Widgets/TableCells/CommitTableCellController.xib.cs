@@ -1,18 +1,16 @@
-
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee;
 using Smeedee.Model;
-using System.Drawing;
 
 namespace Smeedee.iOS
 {
 	public partial class CommitTableCellController : TableViewCellController
 	{
-		
 		public CommitTableCellController() : base("CommitTableCellController", null)
         {
         }
@@ -35,4 +33,3 @@ namespace Smeedee.iOS
         }
 	}
 }
-
