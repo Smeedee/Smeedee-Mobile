@@ -2,7 +2,7 @@
 
 namespace Smeedee.Model
 {
-    public class Changeset : IModel
+    public class Changeset
     {
         public string Message { get; private set; }
         public DateTime Date { get; private set; }

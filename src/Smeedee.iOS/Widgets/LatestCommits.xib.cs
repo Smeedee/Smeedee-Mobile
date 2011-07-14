@@ -41,15 +41,15 @@ namespace Smeedee.iOS
 		
 		#endregion
 		
-		private IModelService<Changeset> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<Changeset>>();
+		private IModelService<LatestChangeset> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<LatestChangeset>>();
 		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             
-			var data = service.Get(null);
+			var model = service.Get();
 				
-			TableView.Source = new LatestCommitsTableSource(data);
+			TableView.Source = new LatestCommitsTableSource(model.Changesets);
 			
         }
         

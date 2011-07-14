@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Model\BuildStatus.cs" />
+    <Compile Include="Model\BuildStatusBoard.cs" />
     <Compile Include="Model\BuildSuccessState.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Changeset.cs" />

@@ -4,7 +4,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Services
 {
-    public class FakeBuildStatusService : IModelService<BuildStatus>
+    public class FakeBuildStatusService : IModelService<BuildStatusBoard>
     {
         private IList<BuildStatus> builds;
         public FakeBuildStatusService()
@@ -21,14 +21,15 @@ namespace Smeedee.Services
                              new BuildStatus("Alex Project", BuildSuccessState.Failure, "alex", DateTime.Now)
                          };
         }
-        public IEnumerable<BuildStatus> Get(IDictionary<string, string> args)
+		
+        public BuildStatusBoard Get()
         {
-            return builds;
+            return new BuildStatusBoard(builds);
         }
-
-        public BuildStatus GetSingle(IDictionary<string, string> args)
+		
+        public BuildStatusBoard Get(IDictionary<string, string> args)
         {
-            return builds[0];
+            return new BuildStatusBoard(builds);
         }
     }
 }

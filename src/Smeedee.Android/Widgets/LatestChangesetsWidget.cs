@@ -25,8 +25,8 @@ namespace Smeedee.Android.Widgets
         public LatestChangesetsWidget(Context context) :
             base(context)
         {
-            Initialize();
             pref = PreferenceManager.GetDefaultSharedPreferences(context);
+            Initialize();
         }
 
         public LatestChangesetsWidget(Context context, IAttributeSet attrs) :
@@ -68,7 +68,7 @@ namespace Smeedee.Android.Widgets
                 {"count", pref.GetString("NumberOfCommitsDisplayed", "10")}
             };
 
-            model = service.GetSingle(args);
+            model = service.Get(args);
         }
 
         private void UpdateUI()
@@ -91,7 +91,7 @@ namespace Smeedee.Android.Widgets
 
         private void RefreshDynamicDescription()
         {
-            //_dynamicDescription = "Displaying latest " + pref.GetString("NumberOfCommitsDisplayed", "10") + " commits";
+            _dynamicDescription = "Displaying latest " + pref.GetString("NumberOfCommitsDisplayed", "10") + " commits";
         }
 
         private Color GetHighlightColor()
@@ -99,7 +99,7 @@ namespace Smeedee.Android.Widgets
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
             var highlightColor = prefs.GetString("lcs_HighlightColor", DefaultRed);
             var highlightEnabled = prefs.GetBoolean("lcs_HighlightEnabled", true);
-            return highlightEnabled ? ColorTools.FromHex(highlightColor) : Color.White;
+            return highlightEnabled ? ColorTools.GetColorFromHex(highlightColor) : Color.White;
         }
 
         private IList<IDictionary<string, object>> CreateListItems()

@@ -27,6 +27,18 @@ namespace Smeedee.Android.Widgets.Settings
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             numberOfCommitsDisplayed.Summary = "Displaying latest "
                 + prefs.GetString("NumberOfCommitsDisplayed", "10") + " commits";
+
+            var highlightColorSummary = (ColoredListPreference)FindPreference("lcs_HighlightColor");
+            var chosenColorAsHex = prefs.GetString("lcs_HighlightColor", "dc322f");
+            
+            var colorNames = highlightColorSummary.GetEntries();
+            var colorValues = highlightColorSummary.GetEntryValues();
+            
+            for (int i = 0; i < colorValues.Length; i++)
+            {
+                if (colorValues[i] == chosenColorAsHex)
+                    highlightColorSummary.Summary = colorNames[i];
+            }
         }
         public override void OnWindowFocusChanged(bool hasFocus)
         {
@@ -71,9 +83,11 @@ namespace Smeedee.Android.Widgets.Settings
         {
             var entries = GetEntries();
             var entryValues = GetEntryValues();
-            var items = new List<IDictionary<string, object>>();
+
             var from = new[] { "colorName" };
             var to = new[] { Resource.Id.lcs_checkedtextview };
+            
+            var items = new List<IDictionary<string, object>>();
             for (var i = 0; i < entries.Length; ++i)
             {
                 items.Add(new Dictionary<string, object>()
@@ -82,18 +96,24 @@ namespace Smeedee.Android.Widgets.Settings
                                   {"colorValue", entryValues[i]}
                               });
             }
-            Func<int, Color> colorFn = position => ColorTools.FromHex(entryValues[position]);
-            return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colorFn);
+            var colors = new Dictionary<int, Color>();
+            var index = 0;
+            foreach (var colorValue in entryValues)
+            {
+                colors.Add(index, ColorTools.GetColorFromHex(colorValue));
+                index++;
+            }
+            return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colors);
         }
         
         internal class TextColoringAdapter : SimpleAdapter
         {
-            private Func<int, Color> colorFn;
+            private IDictionary<int, Color> colors;
 
-            public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Func<int, Color> colorFn) :
+            public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, IDictionary<int, Color> colors) :
                 base(context, items, resource, from, to)
             {
-                this.colorFn = colorFn;
+                this.colors = colors;
             }
 
             public override View GetView(int position, View convertView, ViewGroup parent)
@@ -102,7 +122,7 @@ namespace Smeedee.Android.Widgets.Settings
                 if (!(view is CheckedTextView)) return view;
 
                 var checkedTextView = (view as CheckedTextView);
-                checkedTextView.SetTextColor(colorFn(position));
+                checkedTextView.SetTextColor(colors[position]);
                 checkedTextView.SetBackgroundColor(Color.Black);
                 return view;
             }

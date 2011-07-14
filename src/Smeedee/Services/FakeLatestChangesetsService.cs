@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Smeedee.Model;
+using Smeedee;
 
 namespace Smeedee
 {
@@ -26,17 +27,18 @@ namespace Smeedee
             new Changeset("Merged", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
             new Changeset("This is number 16", new DateTime(2011, 7, 1, 2, 0, 0), "larmel")
                                        };
-        public IEnumerable<LatestChangeset> Get(IDictionary<string, string> args)
+        
+		public LatestChangeset Get()
         {
-            throw new NotImplementedException();
+            return new LatestChangeset(data);
         }
-
-        public LatestChangeset GetSingle(IDictionary<string, string> args)
+		
+		public LatestChangeset Get(IDictionary<string, string> args)
         {
             var count = (args.ContainsKey("count")) ? int.Parse(args["count"]) : 10;
 
             var filteredData = data.Take(count);
-            return new LatestChangeset(filteredData.ToList());
+            return new LatestChangeset(filteredData);
         }
     }
 }

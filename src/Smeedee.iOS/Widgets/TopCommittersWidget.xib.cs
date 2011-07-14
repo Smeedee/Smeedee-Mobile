@@ -37,7 +37,7 @@ namespace Smeedee.iOS
                 {"count", "50"},
                 {"time", "50"},
             };
-            var topCommitters = service.GetSingle(args);
+            var topCommitters = service.Get(args);
             
             TableView.Source = new TopCommitersTableSource(topCommitters);
         }
