@@ -2,34 +2,34 @@
 using System.Collections.Generic;
 using Smeedee.Model;
 
-namespace Smeedee.Services
+namespace Smeedee
 {
-    public class FakeBuildStatusService : IModelService<BuildStatusBoard>
+    public class FakeBuildStatusService : IModelService<BuildStatus>
     {
-        private IList<BuildStatus> builds;
+        private IList<Build> builds;
         public FakeBuildStatusService()
         {
-            builds = new List<BuildStatus>()
+            builds = new List<Build>()
                          {
-                             new BuildStatus("Smeedee-Mobile - Master", BuildSuccessState.Success, "dagolap", DateTime.Now),
-                             new BuildStatus("Smeedee-Mobile - Dev", BuildSuccessState.Failure, "dagolap", DateTime.Now),
-                             new BuildStatus("Smeedee - Master", BuildSuccessState.Success, "stavanger", DateTime.Now), 
-                             new BuildStatus("Smeedee - Dev", BuildSuccessState.Unknown, "stavanger", DateTime.Now),
-                             new BuildStatus("SharedMobileTest1", BuildSuccessState.Unknown, "trondheim", DateTime.Now),
-                             new BuildStatus("SharedMobileTest2", BuildSuccessState.Unknown, "trondheim", DateTime.Now),
-                             new BuildStatus("Smeedee Webpage", BuildSuccessState.Success, "stavanger", DateTime.Now),
-                             new BuildStatus("Alex Project", BuildSuccessState.Failure, "alex", DateTime.Now)
+                             new Build("Smeedee-Mobile - Master", BuildState.Working, "dagolap", DateTime.Now),
+                             new Build("Smeedee-Mobile - Dev", BuildState.Broken, "dagolap", DateTime.Now),
+                             new Build("Smeedee - Master", BuildState.Working, "stavanger", DateTime.Now), 
+                             new Build("Smeedee - Dev", BuildState.Unknown, "stavanger", DateTime.Now),
+                             new Build("SharedMobileTest1", BuildState.Unknown, "trondheim", DateTime.Now),
+                             new Build("SharedMobileTest2", BuildState.Unknown, "trondheim", DateTime.Now),
+                             new Build("Smeedee Webpage", BuildState.Working, "stavanger", DateTime.Now),
+                             new Build("Alex Project", BuildState.Broken, "alex", DateTime.Now)
                          };
         }
 		
-        public BuildStatusBoard Get()
+        public BuildStatus Get()
         {
-            return new BuildStatusBoard(builds);
+            return new BuildStatus(builds);
         }
 		
-        public BuildStatusBoard Get(IDictionary<string, string> args)
+        public BuildStatus Get(IDictionary<string, string> args)
         {
-            return new BuildStatusBoard(builds);
+            return new BuildStatus(builds);
         }
     }
 }

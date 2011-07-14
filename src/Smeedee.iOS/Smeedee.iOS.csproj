@@ -250,6 +250,12 @@
     <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
       <Link>Model\LatestChangeset.cs</Link>
     </Compile>
+    <Compile Include="Widgets\WorkingDaysLeftWidget.xib.cs">
+      <DependentUpon>WorkingDaysLeftWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\WorkingDaysLeftWidget.xib.designer.cs">
+      <DependentUpon>WorkingDaysLeftWidget.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -262,6 +268,7 @@
     <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
     <Page Include="Widgets\LatestCommits.xib" />
     <Page Include="Widgets\TableCells\CommitTableCellController.xib" />
+    <Page Include="Widgets\WorkingDaysLeftWidget.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

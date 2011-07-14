@@ -53,14 +53,14 @@
     <Compile Include="..\Smeedee\Guard.cs">
       <Link>Guard.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\Build.cs">
+      <Link>Model\Build.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\BuildState.cs">
+      <Link>Model\BuildState.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\BuildStatus.cs">
       <Link>Model\BuildStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Model\BuildStatusBoard.cs">
-      <Link>Model\BuildStatusBoard.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Model\BuildSuccessState.cs">
-      <Link>Model\BuildSuccessState.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\Changeset.cs">
       <Link>Model\Changeset.cs</Link>
