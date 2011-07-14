@@ -85,7 +85,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Images/logo.png</string>
+									<string key="NSResourceName">Images/default_person.jpeg</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="427353537">
@@ -413,7 +413,7 @@
 		<nil key="IBDocument.LastKnownRelativeProjectPath"/>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">Images/logo.png</string>
+			<string key="NS.key.0">Images/default_person.jpeg</string>
 			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">132</string>
