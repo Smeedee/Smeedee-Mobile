@@ -12,35 +12,43 @@ namespace Smeedee.iOS
     public partial class TopCommittersWidget : UITableViewController, IWidget
     {
         private SmeedeeApp app = SmeedeeApp.Instance;
-        private IModelService<TopCommitters> service;
-            
+		private IModelService<TopCommitters> service;
+		private IBackgroundWorker bgWorker;
+		
+		private TopCommitters model;
+		
         public TopCommittersWidget() : base("TopCommittersWidget", null)
         {
             service = app.ServiceLocator.Get<IModelService<TopCommitters>>();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
+		
+        public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
+            Refresh();
+        }
+		
+		private void GetData() {
+			model = service.Get();
+		}
+		
+		private void UpdateUI() {
+            TableView.Source = new TopCommitersTableSource(model);
+		}
         
         public void Refresh()
         {
+			bgWorker.Invoke(() => {
+				GetData();
+				InvokeOnMainThread(UpdateUI);
+			});
         }
-		
 		
 		public string GetDynamicDescription() 
 		{
 			return "";	
 		}
-        
-        public override void ViewDidLoad ()
-        {
-            base.ViewDidLoad ();
-            
-            var args = new Dictionary<string, string>() {
-                {"count", "50"},
-                {"time", "50"},
-            };
-            var topCommitters = service.Get(args);
-            
-            TableView.Source = new TopCommitersTableSource(topCommitters);
-        }
     }
     
     public class TopCommitersTableSource : UITableViewSource
