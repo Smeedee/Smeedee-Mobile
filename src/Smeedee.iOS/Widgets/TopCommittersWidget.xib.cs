@@ -53,6 +53,7 @@ namespace Smeedee.iOS
     
     public class TopCommitersTableSource : UITableViewSource
     {
+		private TableCellFactory cellFactory = new TableCellFactory("TopCommittersTableCellController", typeof(TopCommittersTableCellController));		
         private TopCommitters topCommitters;
         
         public TopCommitersTableSource(TopCommitters topCommitters)
@@ -64,6 +65,11 @@ namespace Smeedee.iOS
         {
             return 1;
         }
+		
+		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		{
+			return 70f;
+		}
         
         public override int RowsInSection (UITableView tableview, int section)
         {
@@ -74,14 +80,12 @@ namespace Smeedee.iOS
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var cell = tableView.DequeueReusableCell(CELL_ID) ??
-                       new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
+			var committer = topCommitters.Committers.ElementAt(indexPath.Row);
             
-            var committer = topCommitters.Committers.ElementAt(indexPath.Row);
-            
-            cell.TextLabel.Text = committer.Name;
-            
-            return cell;
+            var controller = cellFactory.NewTableCellController(tableView, indexPath) as TopCommittersTableCellController;
+            controller.BindDataToCell(committer);
+			            
+            return controller.TableViewCell;
         }
     }
 }
