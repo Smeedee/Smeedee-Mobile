@@ -1,12 +1,11 @@
-
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee;
-using System.Drawing;
 
 namespace Smeedee.iOS
 {
@@ -16,10 +15,9 @@ namespace Smeedee.iOS
         private SmeedeeApp app = SmeedeeApp.Instance;
 		private IModelService<LatestChangeset> service;
 		private IBackgroundWorker bgWorker;
-		
 		private LatestChangeset model;
 		
-		public LatestCommits () : base("LatestCommits", null)
+		public LatestCommits() : base("LatestCommits", null)
 		{
 			service = app.ServiceLocator.Get<IModelService<LatestChangeset>>();
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
@@ -62,22 +60,24 @@ namespace Smeedee.iOS
 		private TableCellFactory cellFactory = new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
         private List<Changeset> changesets;
         
+        private const float CELL_PADDING = 20f;
+        
         public LatestCommitsTableSource(IEnumerable<Changeset> changesets)
         {
             this.changesets = changesets.ToList();
         }
 		
-		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
 			var cell = GetCell(tableView, indexPath);
 			var rowHeight = 0f;
 			foreach (var view in cell.ContentView.Subviews) {
 				if (view is UILabel || view is UITextView) {
-					var height = view.SizeThatFits(new SizeF(240, float.MaxValue)).Height;
+					var height = view.SizeThatFits(new SizeF(240f, float.MaxValue)).Height;
 					rowHeight += height;
 				}
 			}
-			return rowHeight+20;
+			return rowHeight + CELL_PADDING;
 		}
         
         public override int NumberOfSections(UITableView tableView)
@@ -103,4 +103,3 @@ namespace Smeedee.iOS
         }
     }
 }
-
