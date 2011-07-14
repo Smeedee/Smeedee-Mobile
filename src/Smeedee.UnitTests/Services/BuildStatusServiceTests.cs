@@ -10,7 +10,7 @@ namespace Smeedee.UnitTests.Services
         [Test]
         public void Should_implement_IModelService()
         {
-            Assert.True(typeof(IModelService<BuildStatus>).IsAssignableFrom(typeof(FakeBuildStatusService)));
+            Assert.True(typeof(IModelService<BuildStatusBoard>).IsAssignableFrom(typeof(FakeBuildStatusService)));
         }
     }
 }

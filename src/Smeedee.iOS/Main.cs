@@ -19,7 +19,7 @@ namespace Smeedee.iOS
 		private static void ConfigureDependencies() 
 		{
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
-			serviceLocator.Bind<IModelService<Changeset>>(new FakeLatestChangesetService());
+			serviceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
 		}
     }
 }

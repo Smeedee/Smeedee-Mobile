@@ -6,7 +6,7 @@ using Smeedee;
 
 namespace Smeedee
 {
-    public class FakeLatestChangesetService : IModelService<Changeset>
+    public class FakeLatestChangesetService : IModelService<LatestChangeset>
     {
         private Changeset[] data = new[]
                                        {
@@ -28,18 +28,17 @@ namespace Smeedee
             new Changeset("This is number 16", new DateTime(2011, 7, 1, 2, 0, 0), "larmel")
                                        };
         
-		public IEnumerable<Changeset> Get(IDictionary<string, string> args)
+		public LatestChangeset Get()
         {
-            return data;
+            return new LatestChangeset(data);
         }
-
-        public Changeset GetSingle(IDictionary<string, string> args)
+		
+		public LatestChangeset Get(IDictionary<string, string> args)
         {
             var count = (args.ContainsKey("count")) ? int.Parse(args["count"]) : 10;
 
             var filteredData = data.Take(count);
-            //return new Changeset(filteredData.ToList());
-			return data.First();
+            return new LatestChangeset(filteredData);
         }
     }
 }

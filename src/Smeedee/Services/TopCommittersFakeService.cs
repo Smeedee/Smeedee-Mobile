@@ -16,13 +16,13 @@ namespace Smeedee
             new Committer("Jens Ulf", 21, "http://www.foo.com/img.png"),
             new Committer("Kari Irak", 0, "http://www.foo.com/img.png"),
         };
-
-        public IEnumerable<TopCommitters> Get(IDictionary<string, string> args)
+		
+        public TopCommitters Get()
         {
-            throw new NotImplementedException();
+            return new TopCommitters(data, 7);
         }
 
-        public TopCommitters GetSingle(IDictionary<string, string> args)
+        public TopCommitters Get(IDictionary<string, string> args)
         {
             var count = (args.ContainsKey("count")) ? int.Parse(args["count"]) : 5;
             var time = (args.ContainsKey("time")) ? int.Parse(args["time"]) : 1;

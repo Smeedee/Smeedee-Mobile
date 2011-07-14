@@ -244,6 +244,12 @@
     <Compile Include="Widgets\TableCells\CommitTableCellController.xib.designer.cs">
       <DependentUpon>CommitTableCellController.xib</DependentUpon>
     </Compile>
+    <Compile Include="..\Smeedee\Model\BuildStatusBoard.cs">
+      <Link>Model\BuildStatusBoard.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
+      <Link>Model\LatestChangeset.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
