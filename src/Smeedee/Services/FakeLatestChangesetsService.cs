@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Smeedee.Model;
+using Smeedee;
 
 namespace Smeedee
 {
-    public class FakeLatestChangesetService : IModelService<LatestChangeset>
+    public class FakeLatestChangesetService : IModelService<Changeset>
     {
         private Changeset[] data = new[]
                                        {
@@ -26,17 +27,19 @@ namespace Smeedee
             new Changeset("Merged", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
             new Changeset("This is number 16", new DateTime(2011, 7, 1, 2, 0, 0), "larmel")
                                        };
-        public IEnumerable<LatestChangeset> Get(IDictionary<string, string> args)
+        
+		public IEnumerable<Changeset> Get(IDictionary<string, string> args)
         {
-            throw new NotImplementedException();
+            return data;
         }
 
-        public LatestChangeset GetSingle(IDictionary<string, string> args)
+        public Changeset GetSingle(IDictionary<string, string> args)
         {
             var count = (args.ContainsKey("count")) ? int.Parse(args["count"]) : 10;
 
             var filteredData = data.Take(count);
-            return new LatestChangeset(filteredData.ToList());
+            //return new Changeset(filteredData.ToList());
+			return data.First();
         }
     }
 }
