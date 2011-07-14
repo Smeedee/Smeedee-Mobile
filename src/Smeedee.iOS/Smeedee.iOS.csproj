@@ -14,7 +14,7 @@
     <MainNibFile>MainWindowIPhone.xib</MainNibFile>
     <AssemblyName>SmeedeeiOS</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -165,9 +165,6 @@
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
-      <Link>Services\TopCommittersFakeService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
@@ -256,6 +253,12 @@
     <Compile Include="..\Smeedee\Model\BuildState.cs">
       <Link>Model\BuildState.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\BuildOrder.cs">
+      <Link>Model\BuildOrder.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
+      <Link>Services\TopCommittersFakeService.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -285,9 +288,4 @@
     <Content Include="Images\SettingsIcon.png" />
     <Content Include="Images\StarIcon.png" />
   </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties InternalTargetFrameworkVersion="IPhone" />
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>
