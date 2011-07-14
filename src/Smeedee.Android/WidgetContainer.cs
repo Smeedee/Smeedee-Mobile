@@ -268,57 +268,17 @@ namespace Smeedee.Android
                     break;
 
                 case MotionEventActions.Up:
-                    float currentX = touchEvent.GetX();
+                    var currentX = touchEvent.GetX();
                     if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        Animation inFromLeft = new TranslateAnimation(
-                            (int)Dimension.Absolute, -flipper.Width+xCoordinateDifference,
-                            (int)Dimension.Absolute, 0,
-                            (int)Dimension.Absolute, 0,
-                            (int)Dimension.Absolute, 0)
-                        {
-                            Duration = 350,
-                            Interpolator = new LinearInterpolator()
-                        };
-
-                        Animation outToRight = new TranslateAnimation(
-                            (int)Dimension.RelativeToSelf, 0,
-                            (int)Dimension.Absolute, flipper.Width-xCoordinateDifference,
-                            (int)Dimension.Absolute, 0,
-                            (int)Dimension.Absolute, 0)
-                        {
-                            Duration = 350,
-                            Interpolator = new LinearInterpolator()
-                        };
-
-                        flipper.InAnimation = inFromLeft;
-                        flipper.OutAnimation = outToRight;
+                        flipper.InAnimation = AnimationHelper.GetInFromLeft(flipper, xCoordinateDifference);
+                        flipper.OutAnimation = AnimationHelper.GetOutToRight(flipper, xCoordinateDifference);
 
                         flipper.ShowNext();
                     } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        Animation inFromRight = new TranslateAnimation(
-                            (int)Dimension.Absolute,  flipper.Width + xCoordinateDifference,
-                            (int)Dimension.Absolute, 0,
-                            (int)Dimension.Absolute, 0,
-                            (int)Dimension.Absolute, 0)
-                        {
-                            Duration = 350,
-                            Interpolator = new LinearInterpolator()
-                        };
-                        
-                        Animation outToLeft = new TranslateAnimation(
-                            (int)Dimension.RelativeToSelf, 0,
-                            (int)Dimension.Absolute, -flipper.Width-xCoordinateDifference,
-                            (int)Dimension.Absolute, 0,
-                            (int)Dimension.Absolute, 0)
-                        {
-                            Duration = 350,
-                            Interpolator = new LinearInterpolator()
-                        };
-
-                        flipper.InAnimation = inFromRight;
-                        flipper.OutAnimation = outToLeft;
+                        flipper.InAnimation = AnimationHelper.GetInFromRight(flipper, xCoordinateDifference);
+                        flipper.OutAnimation = AnimationHelper.GetOutToLeft(flipper, xCoordinateDifference);
 
                         flipper.ShowPrevious();
                     } else
@@ -352,14 +312,70 @@ namespace Smeedee.Android
                     previousView.Visibility = ViewStates.Visible;
 
                     break;
-                    Log.Debug("TT", "Flipper width is now: " + flipper.Width);
             }
             return true;
         }
-
     }
 
+    static class AnimationHelper
+    {
+        public static Animation GetOutToLeft(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.RelativeToSelf, 0,
+                (int)Dimension.Absolute, -flipper.Width - xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
 
+        public static Animation GetInFromRight(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.Absolute, flipper.Width + xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
+
+        public static Animation GetOutToRight(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.RelativeToSelf, 0,
+                (int)Dimension.Absolute, flipper.Width - xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
+
+        public static Animation GetInFromLeft(View flipper, int xCoordinateDifference)
+        {
+            if (flipper == null) throw new ArgumentNullException("flipper");
+            return new TranslateAnimation(
+                (int)Dimension.Absolute, -flipper.Width + xCoordinateDifference,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0,
+                (int)Dimension.Absolute, 0)
+            {
+                Duration = 350,
+                Interpolator = new LinearInterpolator()
+            };
+        }
+    }
+    
     public class SharedPreferencesChangeListener : ISharedPreferencesOnSharedPreferenceChangeListener
     {
         private readonly Action callbackOnPreferencesChanged;
@@ -377,7 +393,6 @@ namespace Smeedee.Android
             callbackOnPreferencesChanged();
         }
     }
-
 
     class ProgressHandler : Handler
     {
