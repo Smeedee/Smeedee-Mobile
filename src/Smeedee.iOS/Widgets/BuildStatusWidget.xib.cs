@@ -10,34 +10,46 @@ namespace Smeedee.iOS
     [Widget("Build Status", StaticDescription = "View the status of your builds")]
     public partial class BuildStatusWidget : UITableViewController, IWidget
     {
+        private SmeedeeApp app = SmeedeeApp.Instance;
+		private IModelService<BuildStatusBoard> service;
+		private IBackgroundWorker bgWorker;
+		
+		private BuildStatusBoard model;
+		
         public BuildStatusWidget() : base("BuildStatusWidget", null)
         {
+			service = app.ServiceLocator.Get<IModelService<BuildStatusBoard>>();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
         
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
-            var builds = GetFakeBuildStatuses();
-            TableView.Source = new BuildStatusTableSource(builds);
+			Refresh();
         }
+		
+		private void GetData()
+		{
+			model = service.Get();
+		}
+		
+		private void UpdateUI()
+		{
+            TableView.Source = new BuildStatusTableSource(model.Builds);
+		}
         
         public void Refresh()
         {
+			bgWorker.Invoke(() => {
+				GetData();
+				InvokeOnMainThread(UpdateUI);
+			});
         }
         
 		public string GetDynamicDescription() 
 		{
 			return "";	
 		}
-        private IEnumerable<BuildStatus> GetFakeBuildStatuses()
-        {
-            return new [] {
-                new BuildStatus("Smeedee.Mobile", BuildSuccessState.Success, "AlexYork", DateTime.Now.AddHours(-3)),
-                new BuildStatus("Smeedee.Desktop", BuildSuccessState.Failure, "AlexYork", DateTime.Now.AddHours(-5)),
-                new BuildStatus("Smeedee.Web.Services", BuildSuccessState.Success, "AlexYork", DateTime.Now.AddHours(-7))
-            };
-        }
     }
     
     public class BuildStatusTableSource : UITableViewSource
