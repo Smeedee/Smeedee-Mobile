@@ -1,8 +1,9 @@
 using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using Smeedee.Model;
 using Smeedee;
+using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee.iOS
 {
