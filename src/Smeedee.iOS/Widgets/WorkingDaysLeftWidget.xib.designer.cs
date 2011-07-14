@@ -17,6 +17,8 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
+		private MonoTouch.UIKit.UILabel __mt_daysLabel;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -27,6 +29,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_view = value;
 				this.SetNativeField("view", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("daysLabel")]
+		private MonoTouch.UIKit.UILabel daysLabel {
+			get {
+				this.__mt_daysLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("daysLabel")));
+				return this.__mt_daysLabel;
+			}
+			set {
+				this.__mt_daysLabel = value;
+				this.SetNativeField("daysLabel", value);
 			}
 		}
 	}
