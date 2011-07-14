@@ -25,7 +25,6 @@ namespace Smeedee.Android
         ConfigurationChanges = ConfigChanges.KeyboardHidden | ConfigChanges.Orientation)]
     public class WidgetContainer : Activity
     {
-        private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private ViewFlipper flipper;
         private IEnumerable<IWidget> widgets;
@@ -33,7 +32,6 @@ namespace Smeedee.Android
         private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
         private ISharedPreferences prefs;
         private bool hasSettingsChanged;
-        private double oldTouchValue;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -278,128 +276,6 @@ namespace Smeedee.Android
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             return prefs.GetBoolean(widget.Name, true);
-        }
-
-        public override bool OnTouchEvent(MotionEvent touchEvent)
-        {
-            var currentView = flipper.CurrentView;
-            var nextView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetNextChildIndex());
-            var previousView = flipper.GetChildAt(((NonCrashingViewFlipper)flipper).GetPreviousChildIndex());
-            var xCoordinateDifference = (int)(touchEvent.GetX()-oldTouchValue);
-
-            switch (touchEvent.Action)
-            {
-                case MotionEventActions.Down:
-                    oldTouchValue = touchEvent.GetX();
-
-                    break;
-
-                case MotionEventActions.Up:
-                    var currentX = touchEvent.GetX();
-                    if (oldTouchValue < currentX-SCROLL_NEXT_VIEW_THRESHOLD)
-                    {
-                        flipper.InAnimation = AnimationHelper.GetInFromLeftAnimation(flipper, xCoordinateDifference);
-                        flipper.OutAnimation = AnimationHelper.GetOutToRightAnimation(flipper, xCoordinateDifference);
-
-                        flipper.ShowNext();
-                    } else if (oldTouchValue > currentX+SCROLL_NEXT_VIEW_THRESHOLD)
-                    {
-                        flipper.InAnimation = AnimationHelper.GetInFromRightAnimation(flipper, xCoordinateDifference);
-                        flipper.OutAnimation = AnimationHelper.GetOutToLeftAnimation(flipper, xCoordinateDifference);
-
-                        flipper.ShowPrevious();
-                    } else
-                    {
-                        currentView.Layout(flipper.Left, currentView.Top, flipper.Width, currentView.Bottom);
-                        nextView.Visibility = ViewStates.Invisible;
-                        previousView.Visibility = ViewStates.Invisible;
-                    }
-                    break;
-
-                case MotionEventActions.Move:
-                    
-                    currentView.Layout(
-                        xCoordinateDifference,
-                        currentView.Top, 
-                        currentView.Right,
-                        currentView.Bottom);
-                    
-                    nextView.Layout(
-                        flipper.Width + xCoordinateDifference, 
-                        currentView.Top, 
-                        flipper.Width*2 + xCoordinateDifference, 
-                        currentView.Bottom);
-                    nextView.Visibility = ViewStates.Visible;    
-
-                    previousView.Layout(
-                        -flipper.Width + xCoordinateDifference, 
-                        currentView.Top, 
-                        0+xCoordinateDifference, 
-                        currentView.Bottom);
-                    previousView.Visibility = ViewStates.Visible;
-
-                    break;
-            }
-            return true;
-        }
-    }
-
-    static class AnimationHelper
-    {
-        public static Animation GetOutToLeftAnimation(View flipper, int xCoordinateDifference)
-        {
-            if (flipper == null) throw new ArgumentNullException("flipper");
-            return new TranslateAnimation(
-                (int)Dimension.RelativeToSelf, 0,
-                (int)Dimension.Absolute, -flipper.Width - xCoordinateDifference,
-                (int)Dimension.Absolute, 0,
-                (int)Dimension.Absolute, 0)
-            {
-                Duration = 350,
-                Interpolator = new LinearInterpolator()
-            };
-        }
-
-        public static Animation GetInFromRightAnimation(View flipper, int xCoordinateDifference)
-        {
-            if (flipper == null) throw new ArgumentNullException("flipper");
-            return new TranslateAnimation(
-                (int)Dimension.Absolute, flipper.Width + xCoordinateDifference,
-                (int)Dimension.Absolute, 0,
-                (int)Dimension.Absolute, 0,
-                (int)Dimension.Absolute, 0)
-            {
-                Duration = 350,
-                Interpolator = new LinearInterpolator()
-            };
-        }
-
-        public static Animation GetOutToRightAnimation(View flipper, int xCoordinateDifference)
-        {
-            if (flipper == null) throw new ArgumentNullException("flipper");
-            return new TranslateAnimation(
-                (int)Dimension.RelativeToSelf, 0,
-                (int)Dimension.Absolute, flipper.Width - xCoordinateDifference,
-                (int)Dimension.Absolute, 0,
-                (int)Dimension.Absolute, 0)
-            {
-                Duration = 350,
-                Interpolator = new LinearInterpolator()
-            };
-        }
-
-        public static Animation GetInFromLeftAnimation(View flipper, int xCoordinateDifference)
-        {
-            if (flipper == null) throw new ArgumentNullException("flipper");
-            return new TranslateAnimation(
-                (int)Dimension.Absolute, -flipper.Width + xCoordinateDifference,
-                (int)Dimension.Absolute, 0,
-                (int)Dimension.Absolute, 0,
-                (int)Dimension.Absolute, 0)
-            {
-                Duration = 350,
-                Interpolator = new LinearInterpolator()
-            };
         }
     }
     
