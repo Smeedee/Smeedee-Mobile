@@ -55,7 +55,7 @@ namespace Smeedee.Android.Widgets
                 {"count", preferences.GetString("TopCommittersCountPref", "5")},
                 {"time", preferences.GetString("TopCommittersTimePref", "1")},
             };
-            model = service.GetSingle(args);
+            model = service.Get(args);
         }
 
         private void UpdateView()

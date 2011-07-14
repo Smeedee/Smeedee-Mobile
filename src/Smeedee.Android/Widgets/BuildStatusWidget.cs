@@ -15,7 +15,7 @@ namespace Smeedee.Android.Widgets
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };
         private readonly int[] listItemMappingTo = new[] { Resource.Id.BuildStatuswidget_projectname, Resource.Id.BuildStatuswidget_username, Resource.Id.BuildStatuswidget_datetime, Resource.Id.BuildStatuswidget_buildstatus };
-        private readonly IModelService<BuildStatus> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatus>>();
+        private readonly IModelService<BuildStatusBoard> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<BuildStatusBoard>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         private ListView buildList;
@@ -54,7 +54,7 @@ namespace Smeedee.Android.Widgets
 
         private void RefreshBuildsFromServer()
         {
-            builds = service.Get(CreateServiceArgsDictionary());
+            builds = service.Get(CreateServiceArgsDictionary()).Builds;
             RefreshUiBuildList();
         }
 
@@ -141,11 +141,13 @@ namespace Smeedee.Android.Widgets
 
     internal class BuildStatusAdapter : SimpleAdapter
     {
-        public BuildStatusAdapter(IntPtr doNotUse) : base(doNotUse)
+        public BuildStatusAdapter(IntPtr doNotUse) 
+            : base(doNotUse)
         {
         }
 
-        public BuildStatusAdapter(Context context, IList<IDictionary<string, object>> data, int resource, string[] from, int[] to) : base(context, data, resource, from, to)
+        public BuildStatusAdapter(Context context, IList<IDictionary<string, object>> data, int resource, string[] from, int[] to) 
+            : base(context, data, resource, from, to)
         {
         }
 

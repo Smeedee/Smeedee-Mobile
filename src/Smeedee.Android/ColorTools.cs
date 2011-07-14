@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Android.Graphics;
 using Java.Lang;
 
@@ -8,7 +6,7 @@ namespace Smeedee.Android
 {
     public class ColorTools
     {
-        public static Color FromHex(string hex)
+        public static Color GetColorFromHex(string hex)
         {
             if (hex.Substring(0, 1) == "#") hex = hex.Substring(1);
             if (hex.Length == 3) hex = hex + hex;
