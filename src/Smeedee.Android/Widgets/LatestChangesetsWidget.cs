@@ -68,7 +68,7 @@ namespace Smeedee.Android.Widgets
                 {"count", pref.GetString("NumberOfCommitsDisplayed", "10")}
             };
 
-            model = service.GetSingle(args);
+            model = service.Get(args);
         }
 
         private void UpdateUI()

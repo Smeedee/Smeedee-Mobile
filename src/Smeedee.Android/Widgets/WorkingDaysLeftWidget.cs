@@ -46,8 +46,7 @@ namespace Smeedee.Android.Widgets
 
         private void LoadModel()
         {
-            var args = new Dictionary<string, string>();
-            model = modelService.GetSingle(args);
+            model = modelService.Get();
         }
 
         private void UpdateView()

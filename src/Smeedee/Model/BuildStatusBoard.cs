@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-using Smeedee.Model;
-
-namespace Smeedee
+namespace Smeedee.Model
 {
 	public class BuildStatusBoard : IModel
 	{

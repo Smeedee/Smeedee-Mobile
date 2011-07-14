@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Smeedee.Model;
 
-namespace Smeedee
+namespace Smeedee.Services
 {
     public class FakeBuildStatusService : IModelService<BuildStatusBoard>
     {
