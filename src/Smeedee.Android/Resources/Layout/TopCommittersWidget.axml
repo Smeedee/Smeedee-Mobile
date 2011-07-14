@@ -4,9 +4,9 @@
   a:layout_width="fill_parent"
   a:layout_height="fill_parent"
   a:orientation="vertical">
-  <ListView
+  <smeedee.android.VerticalScrollingListView
     a:id="@+id/TopCommittersList"
     a:layout_width="fill_parent"
     a:layout_height="wrap_content">
-  </ListView>
+  </smeedee.android.VerticalScrollingListView>
 </LinearLayout>

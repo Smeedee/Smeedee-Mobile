@@ -265,6 +265,7 @@ namespace Smeedee.Android
             {
                 case MotionEventActions.Down:
                     oldTouchValue = touchEvent.GetX();
+
                     break;
 
                 case MotionEventActions.Up:
