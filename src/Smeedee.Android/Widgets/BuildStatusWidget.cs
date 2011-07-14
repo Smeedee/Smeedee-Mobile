@@ -20,7 +20,7 @@ namespace Smeedee.Android.Widgets
 
         private ListView buildList;
         private BuildStatus model;
-        private string _dynamicDescription;
+        private string _dynamicDescription = "";
 
         public BuildStatusWidget(Context context)
             : base(context)
@@ -31,7 +31,7 @@ namespace Smeedee.Android.Widgets
         private void Initialize()
         {
             CreateGui();
-            FindBuildListUi();
+            buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
             Refresh();
         }
 
@@ -45,11 +45,6 @@ namespace Smeedee.Android.Widgets
             {
                 throw new NullReferenceException("Failed to get inflater in Build status widget");
             }
-        }
-        
-        private void FindBuildListUi()
-        {
-            buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
         }
 
         private void RefreshBuildsFromServer()
@@ -93,6 +88,7 @@ namespace Smeedee.Android.Widgets
             {
                 var adapter = new BuildStatusAdapter(Context, GetListAdapterFromBuildModels(), Resource.Layout.BuildStatusWidget_ListItem, listItemMappingFrom, listItemMappingTo);
                 buildList.Adapter = adapter;
+                RefreshDynamicDescription();
             });
         }
 
@@ -124,7 +120,6 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             bgWorker.Invoke(RefreshBuildsFromServer);
-            RefreshDynamicDescription();
         }
 
         public string GetDynamicDescription()

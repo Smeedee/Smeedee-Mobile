@@ -21,8 +21,9 @@ namespace Smeedee.Android
 
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
+        public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
+            : base(context, attrs) { }
 
-        public NonCrashingViewFlipper(Context context, IAttributeSet attrs) : base(context, attrs) { }
 
         protected override void OnDetachedFromWindow()
         {
@@ -36,7 +37,6 @@ namespace Smeedee.Android
                 base.StopFlipping();
             }
         }
-
         public int GetPreviousChildIndex()
         {
             if (DisplayedChild == ChildCount-1) 
