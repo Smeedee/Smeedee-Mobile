@@ -25,13 +25,19 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<IPersistenceService>(new PersistenceService(serviceLocator.Get<IMobileKVPersister>()));
 		}
 		
-		private static void AssureSettingsExist() {
-			var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-			var enabled = persistence.Get<Dictionary<string, bool>>("EnabledWidgets", null);
-			if (enabled == null) 
-				persistence.Save("EnabledWidgets", new Dictionary<string, bool>());
+		private static void AssureSettingsExist() 
+		{	
+			PutIfNull("Server.Url", "http://www.smeedee.com/app");
+			PutIfNull("Server.Key", "password");
+			PutIfNull("EnabledWidgets", new Dictionary<string, bool>());
 		}
 		
+		private static void PutIfNull<T>(string key, T val) where T : class {
+			var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+			var enabled = persistence.Get<T>(key, null);
+			if (enabled == null) 
+				persistence.Save(key, val);
+		}
     }
 	
 }

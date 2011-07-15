@@ -12,6 +12,7 @@ namespace Smeedee.iOS.Configuration
     {
 		private SmeedeeApp app = SmeedeeApp.Instance;
 		private UINavigationController controller;
+		protected IPersistenceService persister = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 		
 		public ConfigurationTableSource(UINavigationController controller) : base() {
 			this.controller = controller;
@@ -51,11 +52,17 @@ namespace Smeedee.iOS.Configuration
 					cell.TextLabel.Text = "Server";
 					
 					var textField = new UITextField(cell.Frame);
-					textField.Text = "http://www.smeedee.com/app";
+					textField.Text = persister.Get<string>("Server.Url", null);
 					
 					textField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
-					textField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
+					textField.LeftView = new UIView(new RectangleF(0, 0, 80, 31)); 
 					textField.LeftViewMode = UITextFieldViewMode.Always;
+					textField.ReturnKeyType = UIReturnKeyType.Done;
+					textField.ShouldReturn = delegate { 
+						persister.Save("Server.Url", textField.Text);
+						textField.ResignFirstResponder();
+						return true; 
+					};
 					
 					cell.AddSubview(textField);
 					return cell;
@@ -64,14 +71,20 @@ namespace Smeedee.iOS.Configuration
 					var cell = new UITableViewCell();
 					cell.TextLabel.Text = "Key";
 					
-					var textField = new UITextField(cell.Frame);
-					textField.Text = "smeedeepassword";
+					var keyField = new UITextField(cell.Frame);
+					keyField.Text = persister.Get<string>("Server.Key", null);
 					
-					textField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
-					textField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
-					textField.LeftViewMode = UITextFieldViewMode.Always;
+					keyField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
+					keyField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
+					keyField.LeftViewMode = UITextFieldViewMode.Always;
+					keyField.ReturnKeyType = UIReturnKeyType.Done;
+					keyField.ShouldReturn = delegate { 
+						persister.Save("Server.Key", keyField.Text);
+						keyField.ResignFirstResponder();
+						return true; 
+					};
 					
-					cell.AddSubview(textField);
+					cell.AddSubview(keyField);
 					return cell;
 				}
 			default:
