@@ -46,7 +46,7 @@
       android:layout_height="55sp" />
   </RelativeLayout>
 
-  <smeedee.android.NonCrashingViewFlipper
+  <smeedee.android.DraggableViewFlipper
     android:id="@+id/Flipper"
     android:layout_below="@id/TopBanner"
     android:layout_width="fill_parent"
