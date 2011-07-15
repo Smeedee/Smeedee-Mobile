@@ -25,12 +25,12 @@ namespace Smeedee.Android
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
         private IBackgroundWorker bgWorker;
-        private ViewVisibilityMessageHandler visibilityMessageHandler;
+        private ViewVisibilityMessageHandler visibilityHandler;
 
         public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
             : base(context, attrs)
         {
-            visibilityMessageHandler = new ViewVisibilityMessageHandler();
+            visibilityHandler = new ViewVisibilityMessageHandler();
             bgWorker = ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
         }
 
@@ -66,7 +66,7 @@ namespace Smeedee.Android
             var currentView = CurrentView;
             var nextView = GetChildAt(GetNextChildIndex());
             var previousView = GetChildAt(GetPreviousChildIndex());
-            var xCoordinateDifference = (int)(touchEvent.GetX() - downStart.GetX());
+            var deltaX = (int)(touchEvent.GetX() - downStart.GetX());
 
             switch (touchEvent.Action)
             {
@@ -76,19 +76,20 @@ namespace Smeedee.Android
                     nextView.Visibility = ViewStates.Invisible;
                     previousView.Visibility = ViewStates.Invisible;
                     break;
+
                 case MotionEventActions.Up:
                     var currentX = touchEvent.GetX();
                     if (downStart.GetX() < currentX - SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        InAnimation = AnimationHelper.GetInFromLeftAnimation(this, xCoordinateDifference);
-                        OutAnimation = AnimationHelper.GetOutToRightAnimation(this, xCoordinateDifference);
+                        InAnimation = AnimationHelper.GetInFromLeftAnimation(this, deltaX);
+                        OutAnimation = AnimationHelper.GetOutToRightAnimation(this, deltaX);
 
                         ShowNext();
                     }
                     else if (downStart.GetX() > currentX + SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        InAnimation = AnimationHelper.GetInFromRightAnimation(this, xCoordinateDifference);
-                        OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, xCoordinateDifference);
+                        InAnimation = AnimationHelper.GetInFromRightAnimation(this, deltaX);
+                        OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, deltaX);
 
                         ShowPrevious();
                     }
@@ -101,33 +102,38 @@ namespace Smeedee.Android
                     break;
 
                 case MotionEventActions.Move:
-                    currentView.Layout(
-                        xCoordinateDifference,
-                        currentView.Top,
-                        Width+xCoordinateDifference,
-                        currentView.Bottom);
-
-                    nextView.Layout(
-                        Width + xCoordinateDifference,
-                        currentView.Top,
-                        Width * 2 + xCoordinateDifference,
-                        currentView.Bottom);
-
-                    previousView.Layout(
-                        -Width + xCoordinateDifference,
-                        currentView.Top,
-                        xCoordinateDifference,
-                        currentView.Bottom);
+                    UpdateViewPositioning(deltaX, currentView, nextView, previousView);
 
                     if (nextView.Visibility != ViewStates.Visible || 
                         previousView.Visibility != ViewStates.Visible)
                     {
-                        visibilityMessageHandler.SendMessage(nextView, previousView, Message.Obtain(visibilityMessageHandler, 0));
+                        visibilityHandler.TellViewsToBecomeVisible(nextView, previousView, Message.Obtain(visibilityHandler, 0));
                     }
 
                     break;
             }
             return true;
+        }
+
+        private void UpdateViewPositioning(int xCoordinateDifference, View currentView, View nextView, View previousView)
+        {
+            currentView.Layout(
+                xCoordinateDifference,
+                currentView.Top,
+                Width+xCoordinateDifference,
+                currentView.Bottom);
+
+            nextView.Layout(
+                Width + xCoordinateDifference,
+                currentView.Top,
+                Width * 2 + xCoordinateDifference,
+                currentView.Bottom);
+
+            previousView.Layout(
+                -Width + xCoordinateDifference,
+                currentView.Top,
+                xCoordinateDifference,
+                currentView.Bottom);
         }
 
         public override bool OnInterceptTouchEvent(MotionEvent e)
@@ -222,7 +228,7 @@ namespace Smeedee.Android
         public View NextView { get; set; }
         public View PreviousView { get; set; }
 
-        public void SendMessage(View next, View previous, Message msg)
+        public void TellViewsToBecomeVisible(View next, View previous, Message msg)
         {
             Guard.NotNull(next, previous);
             next.Visibility = ViewStates.Visible;
