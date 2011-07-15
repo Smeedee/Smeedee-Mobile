@@ -13,6 +13,7 @@ namespace Smeedee.iOS
         static void Main (string[] args)
         {
 			ConfigureDependencies();
+			AssureSettingsExist();
             UIApplication.Main (args);
         }
 		
@@ -21,6 +22,16 @@ namespace Smeedee.iOS
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 			serviceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
 			serviceLocator.Bind<IMobileKVPersister>(new IphoneKVPersister());
+			serviceLocator.Bind<IPersistenceService>(new PersistenceService(serviceLocator.Get<IMobileKVPersister>()));
 		}
+		
+		private static void AssureSettingsExist() {
+			var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+			var enabled = persistence.Get<Dictionary<string, bool>>("EnabledWidgets", null);
+			if (enabled == null) 
+				persistence.Save("EnabledWidgets", new Dictionary<string, bool>());			
+		}
+		
     }
+	
 }

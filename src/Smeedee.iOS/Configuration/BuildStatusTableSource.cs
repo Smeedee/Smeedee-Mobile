@@ -13,7 +13,7 @@ namespace Smeedee.iOS.Configuration
 		// See http://stackoverflow.com/questions/6156165/why-does-my-uiswitch-crash-when-it-is-a-tableview-cell-accessoryview
 		//
 		private UISwitch enabledSwitch;
-		private IMobileKVPersister persister = SmeedeeApp.Instance.ServiceLocator.Get<IMobileKVPersister>();
+		private IPersistenceService persister = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 		
 		public BuildStatusTableSource () : base() { }
 		
@@ -23,13 +23,21 @@ namespace Smeedee.iOS.Configuration
 			{
 				var cell = new UITableViewCell(UITableViewCellStyle.Default, "ENABLE_WIDGET");
 				cell.TextLabel.Text = "Enabled";
+				var className = typeof(BuildStatusWidget).Name;
+				
+				var enabled = persister.Get<Dictionary<string, bool>>("EnabledWidgets", null);
 				
 				enabledSwitch = new UISwitch();
-				enabledSwitch.SetState(persister.Get("BuildStatus.Enabled") == "True", false);
+				var isEnabled = true;
+				enabled.TryGetValue(className, out isEnabled);
+				enabledSwitch.SetState(isEnabled, false);
 				
 				enabledSwitch.ValueChanged += delegate {
 					Console.WriteLine(string.Format("View switch value is {0}", enabledSwitch.On));
-					persister.Save("BuildStatus.Enabled", enabledSwitch.On.ToString());
+					
+					var enabledWidgets = persister.Get<Dictionary<string, bool>>("EnabledWidgets", null);
+					enabledWidgets[className] = enabledSwitch.On;
+					persister.Save("EnabledWidgets", enabledWidgets);
 				};
 				
 				cell.AccessoryView = enabledSwitch;
