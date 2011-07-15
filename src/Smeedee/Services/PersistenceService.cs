@@ -24,8 +24,14 @@ namespace Smeedee
             {
                 return Deserialize<T>(storage.Get(key));
             }
+			catch (ArgumentNullException)
+			{
+				//storage returned null, we want to return the default object
+				return defaultObject;
+			}
             catch (ArgumentException)
             {
+				//we could not deserialize the string, we want to know about this 
                 throw;
             }
             catch (Exception)
