@@ -1,5 +1,5 @@
 using System;
-using System.Threading;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
