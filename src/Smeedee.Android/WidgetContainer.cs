@@ -17,6 +17,7 @@ using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 using Exception = System.Exception;
 
+// TODO: In this class, get all widget title and description from the eventargs instead of polling in event handler
 namespace Smeedee.Android
 {
     [Activity(
@@ -39,6 +40,8 @@ namespace Smeedee.Android
             SetContentView(Resource.Layout.Main);
 
             flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
+            ((DraggableViewFlipper)flipper).WidgetChanged += WidgetContainer_WidgetChanged;
+            
 
             AddWidgetsToFlipper();
             SetCorrectTopBannerWidgetTitle();
@@ -51,6 +54,12 @@ namespace Smeedee.Android
                                                                                });
             prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
+        }
+
+        void WidgetContainer_WidgetChanged(object sender, EventArgs args)
+        {
+            SetCorrectTopBannerWidgetTitle();
+            SetCorrectTopBannerWidgetDescription();
         }
         private void AddWidgetsToFlipper()
         {

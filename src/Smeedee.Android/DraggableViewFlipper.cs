@@ -7,6 +7,7 @@ using Android.Util;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
+using Smeedee.Model;
 
 namespace Smeedee.Android
 {
@@ -26,6 +27,8 @@ namespace Smeedee.Android
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
         private readonly ViewVisibilityMessageHandler visibilityHandler;
+
+        public event EventHandler WidgetChanged;
 
         public DraggableViewFlipper(Context context, IAttributeSet attrs) 
             : base(context, attrs)
@@ -47,6 +50,7 @@ namespace Smeedee.Android
                 base.StopFlipping();
             }
         }
+
         public int GetPreviousChildIndex()
         {
             if (DisplayedChild == ChildCount-1) 
@@ -85,6 +89,7 @@ namespace Smeedee.Android
                         OutAnimation = AnimationHelper.GetOutToRightAnimation(this, deltaX);
 
                         ShowNext();
+                        OnWidgetChanged(new EventArgs());
                     }
                     else if (downStart.GetX() > currentX + SCROLL_NEXT_VIEW_THRESHOLD)
                     {
@@ -92,6 +97,7 @@ namespace Smeedee.Android
                         OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, deltaX);
 
                         ShowPrevious();
+                        OnWidgetChanged(new EventArgs());
                     }
                     else
                     {
@@ -161,6 +167,14 @@ namespace Smeedee.Android
                     break;
             }
             return false;
+        }
+
+        protected virtual void OnWidgetChanged(EventArgs e)
+        {
+            if (WidgetChanged != null)
+            {
+                WidgetChanged(this, e);   
+            }
         }
     }
 
