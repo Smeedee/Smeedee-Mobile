@@ -24,14 +24,13 @@ namespace Smeedee.Android
 
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
-        private IBackgroundWorker bgWorker;
-        private ViewVisibilityMessageHandler visibilityHandler;
+        private readonly ViewVisibilityMessageHandler visibilityHandler;
 
         public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
             : base(context, attrs)
         {
             visibilityHandler = new ViewVisibilityMessageHandler();
-            bgWorker = ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
+            ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
         }
 
 
