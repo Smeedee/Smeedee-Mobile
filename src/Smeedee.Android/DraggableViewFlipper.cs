@@ -1,5 +1,5 @@
 using System;
-
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -173,6 +173,7 @@ namespace Smeedee.Android
         {
             if (WidgetChanged != null)
             {
+                Thread.Sleep(100);
                 WidgetChanged(this, e);   
             }
         }
@@ -246,7 +247,7 @@ namespace Smeedee.Android
         {
             Guard.NotNull(next, previous);
             next.Visibility = ViewStates.Visible;
-            next.Visibility = ViewStates.Visible;
+            previous.Visibility = ViewStates.Visible;
         }
     }
 }
