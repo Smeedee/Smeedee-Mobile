@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Util;
 using Android.Views;
 using Android.Views.Animations;
@@ -24,10 +25,12 @@ namespace Smeedee.Android
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
         private IBackgroundWorker bgWorker;
+        private ViewVisibilityMessageHandler visibilityMessageHandler;
 
         public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
             : base(context, attrs)
         {
+            visibilityMessageHandler = new ViewVisibilityMessageHandler();
             bgWorker = ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
         }
 
@@ -92,8 +95,8 @@ namespace Smeedee.Android
                     else
                     {
                         currentView.Layout(Left, currentView.Top, Width, currentView.Bottom);
-                        nextView.Visibility = ViewStates.Invisible;
-                        previousView.Visibility = ViewStates.Invisible;
+                        nextView.Visibility = ViewStates.Gone;
+                        previousView.Visibility = ViewStates.Gone;
                     }
                     break;
 
@@ -101,7 +104,7 @@ namespace Smeedee.Android
                     currentView.Layout(
                         xCoordinateDifference,
                         currentView.Top,
-                        currentView.Right,
+                        Width+xCoordinateDifference,
                         currentView.Bottom);
 
                     nextView.Layout(
@@ -110,15 +113,17 @@ namespace Smeedee.Android
                         Width * 2 + xCoordinateDifference,
                         currentView.Bottom);
 
-
                     previousView.Layout(
                         -Width + xCoordinateDifference,
                         currentView.Top,
-                        0 + xCoordinateDifference,
+                        xCoordinateDifference,
                         currentView.Bottom);
-                    
-                    nextView.Visibility = ViewStates.Visible;
-                    previousView.Visibility = ViewStates.Visible;
+
+                    if (nextView.Visibility != ViewStates.Visible || 
+                        previousView.Visibility != ViewStates.Visible)
+                    {
+                        visibilityMessageHandler.SendMessage(nextView, previousView, Message.Obtain(visibilityMessageHandler, 0));
+                    }
 
                     break;
             }
@@ -138,7 +143,7 @@ namespace Smeedee.Android
                     previousView.Visibility = ViewStates.Invisible;
                     break;
                 case MotionEventActions.Move:
-                    float deltaX = e.GetX() - downStart.GetX();
+                    var deltaX = e.GetX() - downStart.GetX();
                     if (Math.Abs(deltaX) > ViewConfiguration.TouchSlop * 2)
                     {
                         return true;
@@ -212,32 +217,17 @@ namespace Smeedee.Android
         }
     }
 
-
-
-
-    public class CustomLinearLayout : LinearLayout
+    class ViewVisibilityMessageHandler : Handler
     {
-        public CustomLinearLayout(IntPtr doNotUse) : base(doNotUse)
-        {
-        }
+        public View NextView { get; set; }
+        public View PreviousView { get; set; }
 
-        public CustomLinearLayout(Context context) : base(context)
+        public void SendMessage(View next, View previous, Message msg)
         {
-        }
-
-        public CustomLinearLayout(Context context, IAttributeSet attrs) : base(context, attrs)
-        {
-        }
-
-        protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
-        {
-            base.OnLayout(changed, left, top, right, bottom);
-            if (left == 0)
-            {
-                throw new Exception();
-            }
+            Guard.NotNull(next, previous);
+            next.Visibility = ViewStates.Visible;
+            next.Visibility = ViewStates.Visible;
         }
     }
-
-
 }
+
