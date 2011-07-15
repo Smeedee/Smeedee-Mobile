@@ -20,6 +20,7 @@ namespace Smeedee.iOS
 		{
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 			serviceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
+			serviceLocator.Bind<IMobileKVPersister>(new IphoneKVPersister());
 		}
     }
 }

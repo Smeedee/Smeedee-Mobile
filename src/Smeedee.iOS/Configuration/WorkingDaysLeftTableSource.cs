@@ -7,16 +7,16 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS.Configuration
 {
-	public class TopComittersTableSource : UITableViewSource
+	public class WorkingDaysLeftTableSource : UITableViewSource
 	{
 		// Needs to be declared here to avoid GC issues
 		// See http://stackoverflow.com/questions/6156165/why-does-my-uiswitch-crash-when-it-is-a-tableview-cell-accessoryview
 		//
 		private UISwitch enabledSwitch;
 		
-		public TopComittersTableSource() : base() { }
+		public WorkingDaysLeftTableSource () : base() { }
 		
-		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			if (indexPath.Section == 0)
 			{
@@ -53,7 +53,6 @@ namespace Smeedee.iOS.Configuration
         {
 			return "General";
         }
-        
 	}
 }
 

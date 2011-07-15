@@ -92,8 +92,23 @@ namespace Smeedee.iOS.Configuration
         {
             Console.WriteLine("Selected row " + indexPath.Section + " / " + indexPath.Row);
 			
-			if (indexPath.Section != 0) {
-				controller.PushViewController(new ConfigurationTableViewController(new TopComittersTableSource(), "Top Committers"), true);
+			if (indexPath.Section != 1) return;
+			
+			var name = app.AvailableWidgets.ElementAt(indexPath.Row).Name;
+			
+			switch (name) {
+			case "Top committers":
+				controller.PushViewController(new ConfigurationTableViewController(new TopComittersTableSource(), name), true);
+				break;
+			case "Build Status":
+				controller.PushViewController(new ConfigurationTableViewController(new BuildStatusTableSource(), name), true);
+				break;
+			case "Latest Commits":
+				controller.PushViewController(new ConfigurationTableViewController(new LatestCommitsTableSource(), name), true);
+				break;
+			case "Working days left":
+				controller.PushViewController(new ConfigurationTableViewController(new WorkingDaysLeftTableSource(), name), true);
+				break;
 			}
         }
     }

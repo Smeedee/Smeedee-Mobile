@@ -7,16 +7,17 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS.Configuration
 {
-	public class TopComittersTableSource : UITableViewSource
+	public class BuildStatusTableSource : UITableViewSource
 	{
 		// Needs to be declared here to avoid GC issues
 		// See http://stackoverflow.com/questions/6156165/why-does-my-uiswitch-crash-when-it-is-a-tableview-cell-accessoryview
 		//
 		private UISwitch enabledSwitch;
+		private IMobileKVPersister persister = SmeedeeApp.Instance.ServiceLocator.Get<IMobileKVPersister>();
 		
-		public TopComittersTableSource() : base() { }
+		public BuildStatusTableSource () : base() { }
 		
-		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			if (indexPath.Section == 0)
 			{
@@ -24,8 +25,11 @@ namespace Smeedee.iOS.Configuration
 				cell.TextLabel.Text = "Enabled";
 				
 				enabledSwitch = new UISwitch();
+				enabledSwitch.SetState(persister.Get("BuildStatus.Enabled") == "True", false);
+				
 				enabledSwitch.ValueChanged += delegate {
 					Console.WriteLine(string.Format("View switch value is {0}", enabledSwitch.On));
+					persister.Save("BuildStatus.Enabled", enabledSwitch.On.ToString());
 				};
 				
 				cell.AccessoryView = enabledSwitch;
@@ -53,7 +57,6 @@ namespace Smeedee.iOS.Configuration
         {
 			return "General";
         }
-        
 	}
 }
 
