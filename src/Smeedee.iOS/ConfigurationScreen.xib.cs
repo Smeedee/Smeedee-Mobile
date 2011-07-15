@@ -31,34 +31,10 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
 			
-            var configTableController = new ConfigurationTableViewController(this);
+            var configTableController = new ConfigurationTableViewController(new ConfigurationTableSource(this), "Configuration");
             PushViewController(configTableController, false);
-			
         }
     }
-    
-	
-    public class ConfigurationTableViewController : UITableViewController
-    {
-		private UINavigationController navigation;
-		
-        public ConfigurationTableViewController(UINavigationController navigation)
-            : base(UITableViewStyle.Grouped)
-        {
-			this.navigation = navigation;
-        }
-        
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            
-            Title = "Configuration";
-            
-            TableView.Source = new ConfigurationTableSource(navigation);
-        }
-		
-    }
-    
 	
     public class ConfigurationTableSource : UITableViewSource
     {
