@@ -31,17 +31,21 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
 			
-            var configTableController = new ConfigurationTableViewController();
+            var configTableController = new ConfigurationTableViewController(this);
             PushViewController(configTableController, false);
+			
         }
     }
     
 	
     public class ConfigurationTableViewController : UITableViewController
     {
-        public ConfigurationTableViewController()
+		private UINavigationController navigation;
+		
+        public ConfigurationTableViewController(UINavigationController navigation)
             : base(UITableViewStyle.Grouped)
         {
+			this.navigation = navigation;
         }
         
         public override void ViewDidLoad()
@@ -50,14 +54,20 @@ namespace Smeedee.iOS
             
             Title = "Configuration";
             
-            TableView.Source = new ConfigurationTableSource();
+            TableView.Source = new ConfigurationTableSource(navigation);
         }
+		
     }
     
 	
     public class ConfigurationTableSource : UITableViewSource
     {
 		private SmeedeeApp app = SmeedeeApp.Instance;
+		private UINavigationController controller;
+		
+		public ConfigurationTableSource(UINavigationController controller) : base() {
+			this.controller = controller;
+		}
 		
         public override int NumberOfSections(UITableView tableView)
         {
@@ -114,14 +124,17 @@ namespace Smeedee.iOS
 	            
 	            cell.TextLabel.Text = widget.Name;
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
+            	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 	            
 	            return cell;
 			}
         }
-        
+		
         public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
         {
             Console.WriteLine("Selected row " + indexPath.Section + " / " + indexPath.Row);
+			
+			controller.PushViewController(new UITableViewController(), true);
         }
     }
 }
