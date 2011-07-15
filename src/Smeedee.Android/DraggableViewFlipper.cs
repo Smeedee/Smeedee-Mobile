@@ -1,7 +1,8 @@
 using System;
-using System.Threading;
+
 using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Util;
 using Android.Views;
 using Android.Views.Animations;
@@ -10,25 +11,27 @@ using Android.Widget;
 namespace Smeedee.Android
 {
     /**
-     * Custom ViewFlipper that suppresses known issue that will crash the application when rotating screen.
+     * Custom ViewFlipper that can swap between views using horisontal finger dragging.
      * 
+     * Also suppresses known issue that will crash the application when rotating screen:
      * See 
      *   http://code.google.com/p/android/issues/detail?id=6191
      * and
      *   http://stackoverflow.com/questions/3019606/why-does-keyboard-slide-crash-my-app/3026985#3026985
      * for issue report and information.
      */
-    public class NonCrashingViewFlipper : ViewFlipper
+    public class DraggableViewFlipper : ViewFlipper
     {
 
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
-        private IBackgroundWorker bgWorker;
+        private readonly ViewVisibilityMessageHandler visibilityHandler;
 
-        public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
+        public DraggableViewFlipper(Context context, IAttributeSet attrs) 
             : base(context, attrs)
         {
-            bgWorker = ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
+            visibilityHandler = new ViewVisibilityMessageHandler();
+            ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
         }
 
 
@@ -40,7 +43,7 @@ namespace Smeedee.Android
             }
             catch (Exception)
             {
-                Log.Debug("TT","NonCrashingViewFlipper Stopped a viewflipper crash");
+                Log.Debug("TT","DraggableViewFlipper Stopped a viewflipper crash");
                 base.StopFlipping();
             }
         }
@@ -63,7 +66,7 @@ namespace Smeedee.Android
             var currentView = CurrentView;
             var nextView = GetChildAt(GetNextChildIndex());
             var previousView = GetChildAt(GetPreviousChildIndex());
-            var xCoordinateDifference = (int)(touchEvent.GetX() - downStart.GetX());
+            var deltaX = (int)(touchEvent.GetX() - downStart.GetX());
 
             switch (touchEvent.Action)
             {
@@ -73,56 +76,64 @@ namespace Smeedee.Android
                     nextView.Visibility = ViewStates.Invisible;
                     previousView.Visibility = ViewStates.Invisible;
                     break;
+
                 case MotionEventActions.Up:
                     var currentX = touchEvent.GetX();
                     if (downStart.GetX() < currentX - SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        InAnimation = AnimationHelper.GetInFromLeftAnimation(this, xCoordinateDifference);
-                        OutAnimation = AnimationHelper.GetOutToRightAnimation(this, xCoordinateDifference);
+                        InAnimation = AnimationHelper.GetInFromLeftAnimation(this, deltaX);
+                        OutAnimation = AnimationHelper.GetOutToRightAnimation(this, deltaX);
 
                         ShowNext();
                     }
                     else if (downStart.GetX() > currentX + SCROLL_NEXT_VIEW_THRESHOLD)
                     {
-                        InAnimation = AnimationHelper.GetInFromRightAnimation(this, xCoordinateDifference);
-                        OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, xCoordinateDifference);
+                        InAnimation = AnimationHelper.GetInFromRightAnimation(this, deltaX);
+                        OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, deltaX);
 
                         ShowPrevious();
                     }
                     else
                     {
                         currentView.Layout(Left, currentView.Top, Width, currentView.Bottom);
-                        nextView.Visibility = ViewStates.Invisible;
-                        previousView.Visibility = ViewStates.Invisible;
+                        nextView.Visibility = ViewStates.Gone;
+                        previousView.Visibility = ViewStates.Gone;
                     }
                     break;
 
                 case MotionEventActions.Move:
-                    currentView.Layout(
-                        xCoordinateDifference,
-                        currentView.Top,
-                        currentView.Right,
-                        currentView.Bottom);
+                    UpdateViewPositioning(deltaX, currentView, nextView, previousView);
 
-                    nextView.Layout(
-                        Width + xCoordinateDifference,
-                        currentView.Top,
-                        Width * 2 + xCoordinateDifference,
-                        currentView.Bottom);
-
-
-                    previousView.Layout(
-                        -Width + xCoordinateDifference,
-                        currentView.Top,
-                        0 + xCoordinateDifference,
-                        currentView.Bottom);
-                    
-                    nextView.Visibility = ViewStates.Visible;
-                    previousView.Visibility = ViewStates.Visible;
+                    if (nextView.Visibility != ViewStates.Visible || 
+                        previousView.Visibility != ViewStates.Visible)
+                    {
+                        visibilityHandler.TellViewsToBecomeVisible(nextView, previousView, Message.Obtain(visibilityHandler, 0));
+                    }
 
                     break;
             }
             return true;
+        }
+
+        private void UpdateViewPositioning(int xCoordinateDifference, View currentView, View nextView, View previousView)
+        {
+            currentView.Layout(
+                xCoordinateDifference,
+                currentView.Top,
+                Width+xCoordinateDifference,
+                currentView.Bottom);
+
+            nextView.Layout(
+                Width + xCoordinateDifference,
+                currentView.Top,
+                Width * 2 + xCoordinateDifference,
+                currentView.Bottom);
+
+            previousView.Layout(
+                -Width + xCoordinateDifference,
+                currentView.Top,
+                xCoordinateDifference,
+                currentView.Bottom);
         }
 
         public override bool OnInterceptTouchEvent(MotionEvent e)
@@ -138,7 +149,7 @@ namespace Smeedee.Android
                     previousView.Visibility = ViewStates.Invisible;
                     break;
                 case MotionEventActions.Move:
-                    float deltaX = e.GetX() - downStart.GetX();
+                    var deltaX = e.GetX() - downStart.GetX();
                     if (Math.Abs(deltaX) > ViewConfiguration.TouchSlop * 2)
                     {
                         return true;
@@ -212,32 +223,17 @@ namespace Smeedee.Android
         }
     }
 
-
-
-
-    public class CustomLinearLayout : LinearLayout
+    class ViewVisibilityMessageHandler : Handler
     {
-        public CustomLinearLayout(IntPtr doNotUse) : base(doNotUse)
-        {
-        }
+        public View NextView { get; set; }
+        public View PreviousView { get; set; }
 
-        public CustomLinearLayout(Context context) : base(context)
+        public void TellViewsToBecomeVisible(View next, View previous, Message msg)
         {
-        }
-
-        public CustomLinearLayout(Context context, IAttributeSet attrs) : base(context, attrs)
-        {
-        }
-
-        protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
-        {
-            base.OnLayout(changed, left, top, right, bottom);
-            if (left == 0)
-            {
-                throw new Exception();
-            }
+            Guard.NotNull(next, previous);
+            next.Visibility = ViewStates.Visible;
+            next.Visibility = ViewStates.Visible;
         }
     }
-
-
 }
+
