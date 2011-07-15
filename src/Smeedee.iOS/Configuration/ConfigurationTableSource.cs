@@ -14,6 +14,9 @@ namespace Smeedee.iOS.Configuration
 		private UINavigationController controller;
 		protected IPersistenceService persister = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 		
+		private UITextField urlTextField;
+		private UITextField keyTextField;
+		
 		public ConfigurationTableSource(UINavigationController controller) : base() {
 			this.controller = controller;
 		}
@@ -51,40 +54,40 @@ namespace Smeedee.iOS.Configuration
 					var cell = new UITableViewCell();
 					cell.TextLabel.Text = "Server";
 					
-					var textField = new UITextField(cell.Frame);
-					textField.Text = persister.Get<string>("Server.Url", null);
+					urlTextField = new UITextField(cell.Frame);
+					urlTextField.Text = persister.Get<string>("Server.Url", null);
 					
-					textField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
-					textField.LeftView = new UIView(new RectangleF(0, 0, 80, 31)); 
-					textField.LeftViewMode = UITextFieldViewMode.Always;
-					textField.ReturnKeyType = UIReturnKeyType.Done;
-					textField.ShouldReturn = delegate { 
-						persister.Save("Server.Url", textField.Text);
-						textField.ResignFirstResponder();
+					urlTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
+					urlTextField.LeftView = new UIView(new RectangleF(0, 0, 80, 31)); 
+					urlTextField.LeftViewMode = UITextFieldViewMode.Always;
+					urlTextField.ReturnKeyType = UIReturnKeyType.Done;
+					urlTextField.ShouldReturn = delegate { 
+						persister.Save("Server.Url", urlTextField.Text);
+						urlTextField.ResignFirstResponder();
 						return true; 
 					};
 					
-					cell.AddSubview(textField);
+					cell.AddSubview(urlTextField);
 					return cell;
 				}
 				else {
 					var cell = new UITableViewCell();
 					cell.TextLabel.Text = "Key";
 					
-					var keyField = new UITextField(cell.Frame);
-					keyField.Text = persister.Get<string>("Server.Key", null);
+					keyTextField = new UITextField(cell.Frame);
+					keyTextField.Text = persister.Get<string>("Server.Key", null);
 					
-					keyField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
-					keyField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
-					keyField.LeftViewMode = UITextFieldViewMode.Always;
-					keyField.ReturnKeyType = UIReturnKeyType.Done;
-					keyField.ShouldReturn = delegate { 
-						persister.Save("Server.Key", keyField.Text);
-						keyField.ResignFirstResponder();
+					keyTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
+					keyTextField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
+					keyTextField.LeftViewMode = UITextFieldViewMode.Always;
+					keyTextField.ReturnKeyType = UIReturnKeyType.Done;
+					keyTextField.ShouldReturn = delegate { 
+						persister.Save("Server.Key", keyTextField.Text);
+						keyTextField.ResignFirstResponder();
 						return true; 
 					};
 					
-					cell.AddSubview(keyField);
+					cell.AddSubview(keyTextField);
 					return cell;
 				}
 			default:
