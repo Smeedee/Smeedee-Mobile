@@ -4,6 +4,8 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
+using Smeedee.Model;
+
 namespace Smeedee.iOS
 {
     public partial class ConfigurationScreen : UINavigationController
@@ -28,12 +30,13 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
+			
             var configTableController = new ConfigurationTableViewController();
             PushViewController(configTableController, false);
         }
     }
     
+	
     public class ConfigurationTableViewController : UITableViewController
     {
         public ConfigurationTableViewController()
@@ -51,8 +54,11 @@ namespace Smeedee.iOS
         }
     }
     
+	
     public class ConfigurationTableSource : UITableViewSource
     {
+		private SmeedeeApp app = SmeedeeApp.Instance;
+		
         public override int NumberOfSections(UITableView tableView)
         {
             return 2;
@@ -60,23 +66,57 @@ namespace Smeedee.iOS
         
         public override string TitleForHeader(UITableView tableView, int section)
         {
-            return "Section header " + section; 
+			switch (section) {
+			case 0:
+				return "Smeedee server";
+			default:
+				return "Widgets";
+			}
         }
         
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return 3;
+			switch (section) {
+			case 0:
+				return 2;
+			default:
+				return app.AvailableWidgets.Count();
+			}
         }
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var cell = tableView.DequeueReusableCell("CellID") ??
-                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
-            
-            cell.TextLabel.Text = "Row " + indexPath.Row;
-            cell.DetailTextLabel.Text = "Section " + indexPath.Section;
-            
-            return cell;
+			switch (indexPath.Section) {
+			case 0:
+				if (indexPath.Row == 0) {
+					var cell = new UITableViewCell();
+					var textCell = new UITextField();
+					textCell.Placeholder = "http://www.smeedee.com/app";
+					
+					cell.AddSubview(textCell);
+					
+					cell.TextLabel.Text = "Server URL";
+					return cell;
+				}
+				else {
+					var cell = new UITableViewCell();
+					var textCell = new UITextField();
+					cell.AddSubview(textCell);
+					
+					cell.TextLabel.Text = "Application key";
+					return cell;
+				}
+			default:
+				var widget = app.AvailableWidgets.ElementAt(indexPath.Row);
+				
+	            var cell = tableView.DequeueReusableCell("CellID") ??
+	                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
+	            
+	            cell.TextLabel.Text = widget.Name;
+	            cell.DetailTextLabel.Text = widget.StaticDescription;
+	            
+	            return cell;
+			}
         }
         
         public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
