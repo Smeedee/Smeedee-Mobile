@@ -47,12 +47,13 @@ namespace Smeedee.iOS.Configuration
 			case 0:
 				if (indexPath.Row == 0) {
 					var cell = new UITableViewCell();
-					var textCell = new UITextField();
-					textCell.Placeholder = "http://www.smeedee.com/app";
+					cell.TextLabel.Text = "Server";
 					
-					cell.AddSubview(textCell);
+					var textField = new UITextField(cell.Frame);
+					textField.Placeholder = "http://www.smeedee.com/app";
+					//textField.Bounds = cell.Bounds;
 					
-					cell.TextLabel.Text = "Server URL";
+					cell.AddSubview(textField);
 					return cell;
 				}
 				else {
@@ -60,7 +61,7 @@ namespace Smeedee.iOS.Configuration
 					var textCell = new UITextField();
 					cell.AddSubview(textCell);
 					
-					cell.TextLabel.Text = "Application key";
+					cell.TextLabel.Text = "Key";
 					return cell;
 				}
 			default:
@@ -81,7 +82,9 @@ namespace Smeedee.iOS.Configuration
         {
             Console.WriteLine("Selected row " + indexPath.Section + " / " + indexPath.Row);
 			
-			controller.PushViewController(new ConfigurationTableViewController(new TopComittersTableSource(), "Top Committers"), true);
+			if (indexPath.Section != 0) {
+				controller.PushViewController(new ConfigurationTableViewController(new TopComittersTableSource(), "Top Committers"), true);
+			}
         }
     }
 }
