@@ -260,6 +260,8 @@
       <Link>Services\TopCommittersFakeService.cs</Link>
     </Compile>
     <Compile Include="Configuration\ConfigurationTableViewController.cs" />
+    <Compile Include="Configuration\ConfigurationTableSource.cs" />
+    <Compile Include="Configuration\TopComittersTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

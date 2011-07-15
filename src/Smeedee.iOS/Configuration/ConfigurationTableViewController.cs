@@ -2,7 +2,7 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace Smeedee.iOS
+namespace Smeedee.iOS.Configuration
 {
     public class ConfigurationTableViewController : UITableViewController
     {
