@@ -32,7 +32,7 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
 			
-            var configTableController = new ConfigurationTableViewController(new ConfigurationTableSource(this), "Configuration");
+            var configTableController = new ConfigurationTableViewController(new ConfigurationTableSource(this), "Settings");
             PushViewController(configTableController, false);
         }
     }
