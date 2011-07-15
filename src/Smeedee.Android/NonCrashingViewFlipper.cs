@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Android.App;
 using Android.Content;
 using Android.Util;
 using Android.Views;
@@ -21,8 +23,13 @@ namespace Smeedee.Android
 
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
+        private IBackgroundWorker bgWorker;
+
         public NonCrashingViewFlipper(Context context, IAttributeSet attrs) 
-            : base(context, attrs) { }
+            : base(context, attrs)
+        {
+            bgWorker = ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
+        }
 
 
         protected override void OnDetachedFromWindow()
@@ -31,7 +38,7 @@ namespace Smeedee.Android
             {
                 base.OnDetachedFromWindow();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Log.Debug("TT","NonCrashingViewFlipper Stopped a viewflipper crash");
                 base.StopFlipping();
@@ -60,6 +67,12 @@ namespace Smeedee.Android
 
             switch (touchEvent.Action)
             {
+                case MotionEventActions.Down:
+                    downStart = MotionEvent.Obtain(touchEvent);
+
+                    nextView.Visibility = ViewStates.Invisible;
+                    previousView.Visibility = ViewStates.Invisible;
+                    break;
                 case MotionEventActions.Up:
                     var currentX = touchEvent.GetX();
                     if (downStart.GetX() < currentX - SCROLL_NEXT_VIEW_THRESHOLD)
@@ -85,7 +98,6 @@ namespace Smeedee.Android
                     break;
 
                 case MotionEventActions.Move:
-
                     currentView.Layout(
                         xCoordinateDifference,
                         currentView.Top,
@@ -97,13 +109,15 @@ namespace Smeedee.Android
                         currentView.Top,
                         Width * 2 + xCoordinateDifference,
                         currentView.Bottom);
-                    nextView.Visibility = ViewStates.Visible;
+
 
                     previousView.Layout(
                         -Width + xCoordinateDifference,
                         currentView.Top,
                         0 + xCoordinateDifference,
                         currentView.Bottom);
+                    
+                    nextView.Visibility = ViewStates.Visible;
                     previousView.Visibility = ViewStates.Visible;
 
                     break;
@@ -113,10 +127,15 @@ namespace Smeedee.Android
 
         public override bool OnInterceptTouchEvent(MotionEvent e)
         {
+            var nextView = GetChildAt(GetNextChildIndex());
+            var previousView = GetChildAt(GetPreviousChildIndex());
             switch (e.Action)
             {
                 case MotionEventActions.Down:
                     downStart = MotionEvent.Obtain(e);
+                    
+                    nextView.Visibility = ViewStates.Invisible;
+                    previousView.Visibility = ViewStates.Invisible;
                     break;
                 case MotionEventActions.Move:
                     float deltaX = e.GetX() - downStart.GetX();
@@ -124,6 +143,10 @@ namespace Smeedee.Android
                     {
                         return true;
                     }
+                    break;
+                case MotionEventActions.Up:
+                    nextView.Visibility = ViewStates.Gone;
+                    previousView.Visibility = ViewStates.Gone;
                     break;
             }
             return false;
@@ -188,5 +211,33 @@ namespace Smeedee.Android
             };
         }
     }
+
+
+
+
+    public class CustomLinearLayout : LinearLayout
+    {
+        public CustomLinearLayout(IntPtr doNotUse) : base(doNotUse)
+        {
+        }
+
+        public CustomLinearLayout(Context context) : base(context)
+        {
+        }
+
+        public CustomLinearLayout(Context context, IAttributeSet attrs) : base(context, attrs)
+        {
+        }
+
+        protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
+        {
+            base.OnLayout(changed, left, top, right, bottom);
+            if (left == 0)
+            {
+                throw new Exception();
+            }
+        }
+    }
+
 
 }
