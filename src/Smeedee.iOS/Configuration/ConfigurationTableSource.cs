@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
@@ -50,18 +51,27 @@ namespace Smeedee.iOS.Configuration
 					cell.TextLabel.Text = "Server";
 					
 					var textField = new UITextField(cell.Frame);
-					textField.Placeholder = "http://www.smeedee.com/app";
-					//textField.Bounds = cell.Bounds;
+					textField.Text = "http://www.smeedee.com/app";
+					
+					textField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
+					textField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
+					textField.LeftViewMode = UITextFieldViewMode.Always;
 					
 					cell.AddSubview(textField);
 					return cell;
 				}
 				else {
 					var cell = new UITableViewCell();
-					var textCell = new UITextField();
-					cell.AddSubview(textCell);
-					
 					cell.TextLabel.Text = "Key";
+					
+					var textField = new UITextField(cell.Frame);
+					textField.Text = "smeedeepassword";
+					
+					textField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
+					textField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
+					textField.LeftViewMode = UITextFieldViewMode.Always;
+					
+					cell.AddSubview(textField);
 					return cell;
 				}
 			default:
