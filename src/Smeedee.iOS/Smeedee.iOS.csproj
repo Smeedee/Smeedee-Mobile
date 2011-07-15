@@ -266,6 +266,7 @@
     <Compile Include="Configuration\LatestCommitsTableSource.cs" />
     <Compile Include="Configuration\WorkingDaysLeftTableSource.cs" />
     <Compile Include="Services\IphoneKVPersister.cs" />
+    <Compile Include="Configuration\WidgetSettingsTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

@@ -67,11 +67,17 @@ namespace Smeedee.iOS
         private IEnumerable<UIViewController> GetWidgets()
         {
             var widgets = app.AvailableWidgets;
-            
+            var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+			var enabledSettings = persistence.Get<Dictionary<string, bool>>("EnabledWidgets", null);
+			
             foreach (var widget in widgets)
             {
-                var widgetInstance = Activator.CreateInstance(widget.Type) as UIViewController;
-                yield return widgetInstance;
+				if (!enabledSettings.ContainsKey(widget.Type.Name)) 
+					enabledSettings[widget.Type.Name] = true;
+				if (enabledSettings[widget.Type.Name]) {
+                	var widgetInstance = Activator.CreateInstance(widget.Type) as UIViewController;
+                	yield return widgetInstance;
+				}
             }
         }
         
