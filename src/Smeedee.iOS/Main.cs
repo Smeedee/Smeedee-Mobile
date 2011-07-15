@@ -29,9 +29,7 @@ namespace Smeedee.iOS
 			var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 			var enabled = persistence.Get<Dictionary<string, bool>>("EnabledWidgets", null);
 			if (enabled == null) 
-				persistence.Save("EnabledWidgets", new Dictionary<string, bool>());		
-			
-			persistence.Save("EnabledWidgets", new Dictionary<string, bool>());		
+				persistence.Save("EnabledWidgets", new Dictionary<string, bool>());
 		}
 		
     }

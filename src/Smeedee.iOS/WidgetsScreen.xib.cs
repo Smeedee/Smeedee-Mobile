@@ -30,20 +30,27 @@ namespace Smeedee.iOS
         private const int SCREEN_WIDTH = 320;
         
         private SmeedeeApp app = SmeedeeApp.Instance;
+		private IEnumerable<WidgetModel> EnabledWidgetModels { 
+			get 
+			{
+	            var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+				var enabledSettings = persistence.Get<Dictionary<string, bool>>("EnabledWidgets", null);
+				return app.AvailableWidgets
+					.Where(w => !enabledSettings.ContainsKey(w.Type.Name) || enabledSettings[w.Type.Name]);
+			}}
 		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 			titleLabel.StyleAsHeadline();
 			subTitleLabel.StyleAsDescription();
-            AddWidgetsToScreen();
             AttachScrollEvent();
             SetTitleLabels(0);
         }
 				        
         private void AddWidgetsToScreen()
         {
-            var widgets = GetWidgets();
+            var widgets = GetEnabledWidgets();
             var count = widgets.Count();
             var scrollViewWidth = SCREEN_WIDTH * count;
             
@@ -63,21 +70,26 @@ namespace Smeedee.iOS
             
             pageControl.Pages = count;
         }
+		
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+			EmptyScrollView();
+            AddWidgetsToScreen();
+			SetTitleLabels(CurrentPageIndex());
+		}
         
-        private IEnumerable<UIViewController> GetWidgets()
+		private void EmptyScrollView() {
+			foreach (var view in scrollView.Subviews) 
+				view.RemoveFromSuperview();
+		}
+		
+        private IEnumerable<UIViewController> GetEnabledWidgets()
         {
-            var widgets = app.AvailableWidgets;
-            var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-			var enabledSettings = persistence.Get<Dictionary<string, bool>>("EnabledWidgets", null);
-			
-            foreach (var widget in widgets)
+            foreach (var widget in EnabledWidgetModels)
             {
-				if (!enabledSettings.ContainsKey(widget.Type.Name)) 
-					enabledSettings[widget.Type.Name] = true;
-				if (enabledSettings[widget.Type.Name]) {
-                	var widgetInstance = Activator.CreateInstance(widget.Type) as UIViewController;
-                	yield return widgetInstance;
-				}
+            	var widgetInstance = Activator.CreateInstance(widget.Type) as UIViewController;
+            	yield return widgetInstance;
             }
         }
         
@@ -86,10 +98,13 @@ namespace Smeedee.iOS
             scrollView.Scrolled += ScrollViewScrolled;
         }
         
+		private int CurrentPageIndex() {
+            return (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+		}
+		
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
-            int pageIndex = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
-   
+			var pageIndex = CurrentPageIndex();
             if (pageControl.CurrentPage != pageIndex)
             {
                 SetTitleLabels(pageIndex);
@@ -99,10 +114,15 @@ namespace Smeedee.iOS
         
         private void SetTitleLabels(int widgetIndex)
         {
-            var currentWidget = app.AvailableWidgets.ElementAt(widgetIndex);
-            var attribute = (WidgetAttribute)currentWidget.Type.GetCustomAttributes(typeof(WidgetAttribute), true).First();
-            titleLabel.Text = attribute.Name;
-            subTitleLabel.Text = attribute.StaticDescription;
+			if (EnabledWidgetModels.Count() == 0) {
+				titleLabel.Text = "No enabled widgets";
+	            subTitleLabel.Text = "Press configuration to enable";
+			} else {
+	            var currentWidget = EnabledWidgetModels.ElementAt(widgetIndex);			
+	            var attribute = (WidgetAttribute)currentWidget.Type.GetCustomAttributes(typeof(WidgetAttribute), true).First();
+	            titleLabel.Text = attribute.Name;
+	            subTitleLabel.Text = attribute.StaticDescription;
+			}
         }
         
         private void SetCurrentPage(int page)
