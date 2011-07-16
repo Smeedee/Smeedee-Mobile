@@ -7,6 +7,7 @@
       android:title="@string/GlobalSettingsScreenAvailableWidgetsTitle"
       android:summary="Enable and disable widgets">
     </PreferenceScreen>
+    <!--
     <CheckBoxPreference
       android:title="@string/GlobalSettingsScreenSlideShowCheckboxTitle"
       android:key="slideShowEnabled"
@@ -21,6 +22,7 @@
       android:entries="@array/slideShowIntervalArray"
       android:entryValues="@array/slideShowIntervalValues"
       android:defaultValue="20000" />
+    -->
   </PreferenceCategory>
   
   <PreferenceCategory 
