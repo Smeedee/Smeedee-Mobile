@@ -98,8 +98,15 @@ namespace Smeedee.iOS
             scrollView.Scrolled += ScrollViewScrolled;
         }
         
-		private int CurrentPageIndex() {
-            return (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+		private int CurrentPageIndex()
+        {
+            var index = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+            var max = (EnabledWidgetModels.Count() - 1);
+            
+            if (index < 0) return 0;
+            if (index > max) return max;
+            
+            return index;
 		}
 		
         private void ScrollViewScrolled(object sender, EventArgs e)
