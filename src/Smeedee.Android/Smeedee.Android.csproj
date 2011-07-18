@@ -146,11 +146,13 @@
     <Compile Include="ColorTools.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="DraggableViewFlipper.cs" />
+    <Compile Include="RealViewSwitcher.cs" />
     <Compile Include="Screens\About.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="ContextSwitcher.cs" />
+    <Compile Include="TestViewSwitcher.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\Settings\LatestChangesetsSettings.cs" />
     <Compile Include="Widgets\LatestChangesetsWidget.cs" />
@@ -196,6 +198,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BuildStatusSettings.axml" />
+    <AndroidResource Include="Resources\Layout\TestMain.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
@@ -251,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <Content Include="RealViewSwitcher.java" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

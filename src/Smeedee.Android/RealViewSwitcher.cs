@@ -1,6 +1,7 @@
 using System;
 
 using Android.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 
@@ -36,6 +37,16 @@ namespace Smeedee.Android
         }
 
         public RealViewSwitcher(Context context) : base(context)
+        {
+            Init();
+        }
+
+        public RealViewSwitcher(Context context, IAttributeSet attrs) : base(context, attrs)
+        {
+            Init();
+        }
+
+        public RealViewSwitcher(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
             Init();
         }
@@ -235,6 +246,23 @@ namespace Smeedee.Android
                 ScrollTo(_currentScreen * Width, 0);
                 Invalidate();
             }
+        }
+
+
+        // Our own stuff
+        public View CurrentView
+        {
+            get { return GetChildAt(_currentScreen); }
+        }
+
+        public void ShowPrevious()
+        {
+            CurrentScreen--;
+        }
+
+        public void ShowNext()
+        {
+            CurrentScreen++;
         }
     }
 }

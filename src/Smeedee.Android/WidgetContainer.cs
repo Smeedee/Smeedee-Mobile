@@ -27,7 +27,7 @@ namespace Smeedee.Android
     public class WidgetContainer : Activity
     {
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
-        private ViewFlipper flipper;
+        private RealViewSwitcher flipper;
         private IEnumerable<IWidget> widgets;
 
         private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
@@ -39,8 +39,8 @@ namespace Smeedee.Android
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-            ((DraggableViewFlipper)flipper).WidgetChanged += WidgetContainer_WidgetChanged;
+            flipper = FindViewById<RealViewSwitcher>(Resource.Id.Flipper);
+            //((RealViewSwitcher)flipper).WidgetChanged += WidgetContainer_WidgetChanged;
             
 
             AddWidgetsToFlipper();
@@ -127,33 +127,33 @@ namespace Smeedee.Android
 
         private void BindEventsToNavigationButtons()
         {
-            BindPreviousButtonClickEvent();
-            BindNextButtonClickEvent();
+            //BindPreviousButtonClickEvent();
+            //BindNextButtonClickEvent();
         }
 
-        private void BindPreviousButtonClickEvent()
-        {
-            var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-            btnPrev.Click += (obj, e) =>
-                                 {
-                                     flipper.ShowPrevious();
-                                     SetCorrectTopBannerWidgetTitle();
-                                     SetCorrectTopBannerWidgetDescription();
-                                     flipper.RefreshDrawableState();
-                                 };
-        }
+        //private void BindPreviousButtonClickEvent()
+        //{
+        //    var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
+        //    btnPrev.Click += (obj, e) =>
+        //                         {
+        //                             flipper.ShowPrevious();
+        //                             SetCorrectTopBannerWidgetTitle();
+        //                             SetCorrectTopBannerWidgetDescription();
+        //                             flipper.RefreshDrawableState();
+        //                         };
+        //}
 
-        private void BindNextButtonClickEvent()
-        {
-            var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-            btnNext.Click += (sender, args) =>
-                                 {
-                                     flipper.ShowNext();
-                                     SetCorrectTopBannerWidgetTitle();
-                                     SetCorrectTopBannerWidgetDescription();
-                                     flipper.RefreshDrawableState();
-                                 };
-        }
+        //private void BindNextButtonClickEvent()
+        //{
+        //    var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
+        //    btnNext.Click += (sender, args) =>
+        //                         {
+        //                             flipper.ShowNext();
+        //                             SetCorrectTopBannerWidgetTitle();
+        //                             SetCorrectTopBannerWidgetDescription();
+        //                             flipper.RefreshDrawableState();
+        //                         };
+        //}
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -225,10 +225,10 @@ namespace Smeedee.Android
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
                 
-                if (CheckIfWidgetSlideShowIsEnabled())
-                    StartWidgetSlideShow();
-                else
-                    StopWidgetSlideShow();
+                //if (CheckIfWidgetSlideShowIsEnabled())
+                //    StartWidgetSlideShow();
+                //else
+                //    StopWidgetSlideShow();
 
                 Log.Debug("TT", "Just refreshed widget list after having changed settings.");
                 hasSettingsChanged = false;
@@ -245,20 +245,20 @@ namespace Smeedee.Android
             return prefs.GetBoolean("slideShowEnabled", false);
         }
 
-        private void StartWidgetSlideShow()
-        {
-            if (!flipper.IsFlipping)
-            {
-                //var flipInterval = int.Parse(prefs.GetString("slideShowInterval", "20000"));
-                flipper.SetFlipInterval(2000);
-                flipper.StartFlipping();
-            }
-        }
-        private void StopWidgetSlideShow()
-        {
-            if (flipper.IsFlipping)
-                flipper.StopFlipping();
-        }
+        //private void StartWidgetSlideShow()
+        //{
+        //    if (!flipper.IsFlipping)
+        //    {
+        //        //var flipInterval = int.Parse(prefs.GetString("slideShowInterval", "20000"));
+        //        flipper.SetFlipInterval(2000);
+        //        flipper.StartFlipping();
+        //    }
+        //}
+        //private void StopWidgetSlideShow()
+        //{
+        //    if (flipper.IsFlipping)
+        //        flipper.StopFlipping();
+        //}
 
         private void CheckForEnabledAndDisabledWidgets()
         {
@@ -271,14 +271,13 @@ namespace Smeedee.Android
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
             }
 
-            var current = flipper.DisplayedChild;
             flipper.RemoveAllViews();
 
             foreach (var newWidget in newWidgets)
             {
                 flipper.AddView((View)newWidget);
             }
-            flipper.DisplayedChild = current;
+            flipper.CurrentScreen = 0;
         }
 
         private bool WidgetIsEnabled(WidgetModel widget)
