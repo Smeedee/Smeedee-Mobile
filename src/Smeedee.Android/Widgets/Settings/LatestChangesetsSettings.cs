@@ -9,6 +9,7 @@ using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Object = Java.Lang.Object;
 
 namespace Smeedee.Android.Widgets.Settings
 {
@@ -87,18 +88,19 @@ namespace Smeedee.Android.Widgets.Settings
             var items = GetEntries().Select(colorName => new Dictionary<string, object> {
                 {"colorName", colorName}
             }).Cast<IDictionary<string, object>>().ToList();
-            var colors = GetEntryValues().Select(ColorTools.GetColorFromHex);
+            var colors = GetEntryValues().Select(ColorTools.GetColorFromHex).ToArray();
             return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colors);
         }
         
         internal class TextColoringAdapter : SimpleAdapter
         {
-            private IDictionary<int, Color> colors;
+            private Color[] colors;
 
-            public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, IDictionary<int, Color> colors) :
+            public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color[] colors) :
                 base(context, items, resource, from, to)
             {
                 this.colors = colors;
+                this.ViewBinder = new CustomViewBinder();
             }
 
             public override View GetView(int position, View convertView, ViewGroup parent)
@@ -111,6 +113,22 @@ namespace Smeedee.Android.Widgets.Settings
                 checkedTextView.SetBackgroundColor(Color.Black);
                 return view;
             }
+        }
+    }
+
+    internal class CustomViewBinder : SimpleAdapter.IViewBinder
+    {
+        public IntPtr Handle
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool SetViewValue(View view, Object data, string textRepresentation)
+        {
+            if (!(view is CheckedTextView)) return false;
+            var checkedView = view as CheckedTextView;
+            checkedView.Checked = false;
+            return true;
         }
     }
 }
