@@ -264,5 +264,24 @@ namespace Smeedee.Android
         {
             CurrentScreen++;
         }
+
+
+        public override bool OnInterceptTouchEvent(MotionEvent e)
+        {
+            switch (e.Action)
+            {
+                case MotionEventActions.Down:
+                    _lastMotionX = e.GetX();
+                    break;
+                case MotionEventActions.Move:
+                    var deltaX = e.GetX() - _lastMotionX;
+                    if (Math.Abs(deltaX) > ViewConfiguration.TouchSlop * 2)
+                    {
+                        return true;
+                    }
+                    break;
+            }
+            return false;
+        }
     }
 }
