@@ -34,7 +34,6 @@ namespace Smeedee.Android
             : base(context, attrs)
         {
             visibilityHandler = new ViewVisibilityMessageHandler();
-            ((SmeedeeApplication)((Activity) Context).Application).App.ServiceLocator.Get<IBackgroundWorker>();
         }
 
 
@@ -89,7 +88,7 @@ namespace Smeedee.Android
                         OutAnimation = AnimationHelper.GetOutToRightAnimation(this, deltaX);
 
                         ShowNext();
-                        //OnWidgetChanged(new EventArgs());
+                        OnWidgetChanged(new EventArgs());
                     }
                     else if (downStart.GetX() > currentX + SCROLL_NEXT_VIEW_THRESHOLD)
                     {
@@ -97,7 +96,7 @@ namespace Smeedee.Android
                         OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, deltaX);
 
                         ShowPrevious();
-                        //OnWidgetChanged(new EventArgs());
+                        OnWidgetChanged(new EventArgs());
                     }
                     else
                     {
@@ -173,7 +172,6 @@ namespace Smeedee.Android
         {
             if (WidgetChanged != null)
             {
-                Thread.Sleep(100);
                 WidgetChanged(this, e);   
             }
         }
@@ -250,5 +248,7 @@ namespace Smeedee.Android
             previous.Visibility = ViewStates.Visible;
         }
     }
+
+    
 }
 
