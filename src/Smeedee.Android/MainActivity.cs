@@ -25,6 +25,20 @@ namespace Smeedee.Android
         {
             base.OnCreate();
             Log.Debug("TT", "Application is being run");
+
+            // Fill in global bindings here:
+            App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+
+            App.ServiceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
+            App.ServiceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
+            App.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
+            App.ServiceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
+            App.ServiceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
+
+            App.ServiceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
+            App.ServiceLocator.Bind<IPersistenceService>(new PersistenceService(
+                                                        App.ServiceLocator.Get<IMobileKVPersister>()
+                                                    ));
         }
     }
 
@@ -44,21 +58,7 @@ namespace Smeedee.Android
        
         private void ConfigureDependencies()
         {
-            var serviceLocator = ((SmeedeeApplication)Application).App.ServiceLocator;
-
-            // Fill in global bindings here:
-            serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-
-            serviceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
-            serviceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
-            serviceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
-            serviceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
-            serviceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
-
-            serviceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
-            serviceLocator.Bind<IPersistenceService>(new PersistenceService(
-                                                        serviceLocator.Get<IMobileKVPersister>()
-                                                    ));
+            // Now happens in SmeedeeApplication
         }
 
         private Intent DetermineNextActivity()

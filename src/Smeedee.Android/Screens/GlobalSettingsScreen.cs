@@ -52,13 +52,13 @@ namespace Smeedee.Android.Screens
         }
         private void LoadPreferences()
         {
-            var slideShowIntervalPref = (ListPreference) FindPreference("slideShowInterval");
+            //var slideShowIntervalPref = (ListPreference) FindPreference("slideShowInterval");
             var serverUrlSummaryPref = (EditTextPreference) FindPreference("serverUrl");
             var userPasswordSummaryPref = (EditTextPreference)FindPreference("userPassword");
             
             var pref = PreferenceManager.GetDefaultSharedPreferences(this);
            
-            slideShowIntervalPref.Summary = CalculateSlideShowIntervalSummaryText();
+            //slideShowIntervalPref.Summary = CalculateSlideShowIntervalSummaryText();
             serverUrlSummaryPref.Summary = pref.GetString("serverUrl", "url");
             userPasswordSummaryPref.Summary = pref.GetString("userPassword", "pass");
         }
