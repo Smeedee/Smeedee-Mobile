@@ -91,8 +91,8 @@ namespace Smeedee.Android.Widgets.Settings
             var colors = GetEntryValues().Select(ColorTools.GetColorFromHex).ToArray();
             return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colors);
         }
-        
-        internal class TextColoringAdapter : SimpleAdapter
+
+        private class TextColoringAdapter : SimpleAdapter
         {
             private Color[] colors;
 
@@ -114,21 +114,27 @@ namespace Smeedee.Android.Widgets.Settings
                 return view;
             }
         }
-    }
-
-    internal class CustomViewBinder : SimpleAdapter.IViewBinder
-    {
-        public IntPtr Handle
+        private class CustomViewBinder : SimpleAdapter.IViewBinder
         {
-            get { throw new NotImplementedException(); }
-        }
+            /* Android 2.1 crashes when binding the CheckedTextViews to text 
+             * (it tries to bind the Checked property, not the Text). So we have 
+             * to do that binding ourselves.
+             * 
+             * To see whats happening, compare the 2.1 implementation, line 189 here
+             * http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/2.1_r2/android/widget/SimpleAdapter.java#SimpleAdapter
+             * 
+             * With the 2.2 implementation, line 178 here:
+             * http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/2.2_r1.1/android/widget/SimpleAdapter.java#SimpleAdapter
+             */
+            public IntPtr Handle  { get { throw new NotImplementedException(); } }
 
-        public bool SetViewValue(View view, Object data, string textRepresentation)
-        {
-            if (!(view is CheckedTextView)) return false;
-            var checkedView = view as CheckedTextView;
-            checkedView.Checked = false;
-            return true;
+            public bool SetViewValue(View view, Object data, string textRepresentation)
+            {
+                if (!(view is CheckedTextView)) return false;
+                var checkedView = view as CheckedTextView;
+                checkedView.Text = data.ToString();
+                return true;
+            }
         }
     }
 }
