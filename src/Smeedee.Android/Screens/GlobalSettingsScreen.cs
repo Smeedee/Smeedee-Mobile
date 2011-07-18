@@ -26,6 +26,7 @@ namespace Smeedee.Android.Screens
             LoadPreferences();
             PopulateAvailableWidgetsList();
         }
+
         private void PopulateAvailableWidgetsList()
         {
             var availableWidgetsCategory = (PreferenceScreen)FindPreference("availableWidgets");
