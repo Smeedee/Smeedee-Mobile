@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 using Smeedee;
@@ -25,9 +26,10 @@ namespace Smeedee.Android.Screens
                 {
                     if (loginValidator.IsValid(urlInput.Text, userPasswordInput.Text))
                     {
-                        var database = new AndroidKVPersister(this);
-                        database.Save("severUrl", urlInput.Text);
-                        database.Save("userPassword", userPasswordInput.Text);
+                        var prefEditor = PreferenceManager.GetDefaultSharedPreferences(this).Edit();
+                        prefEditor.PutString("severUrl", urlInput.Text);
+                        prefEditor.PutString("userPassword", userPasswordInput.Text);
+                        prefEditor.Commit();
 
                         var widgetContainer = new Intent(this, typeof(WidgetContainer));
                         StartActivity(widgetContainer);
