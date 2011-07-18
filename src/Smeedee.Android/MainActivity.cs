@@ -71,14 +71,13 @@ namespace Smeedee.Android
 
         private bool UserHasAValidUrlAndKey()
         {
-
-            var pref = PreferenceManager.GetDefaultSharedPreferences(this);
-
-            var url = pref.GetString("serverUrl", "");
-            var key = pref.GetString("userPassword", "");
+            var persistance = ((SmeedeeApplication) Application).App.ServiceLocator.Get<IPersistenceService>();
+            var url = persistance.Get("serverUrl", "");
+            var key = persistance.Get("userPassword", "");
 
             if (url == null || key == null) return false;
 
+            Log.Debug("Smeedee", "url:"+url+" key:"+key);
             var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();
             return validator.IsValid(url, key);
         }
