@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -8,12 +9,14 @@ using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Object = Java.Lang.Object;
 
 namespace Smeedee.Android.Widgets.Settings
 {
     [Activity(Label = "Latest Commits Settings", Theme = "@android:style/Theme")]
     public class LatestChangesetsSettings : PreferenceActivity
     {
+        public const string DefaultRed = "dc322f";
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,18 +31,14 @@ namespace Smeedee.Android.Widgets.Settings
             numberOfCommitsDisplayed.Summary = "Displaying latest "
                 + prefs.GetString("NumberOfCommitsDisplayed", "10") + " commits";
 
-            var highlightColorSummary = (ColoredListPreference)FindPreference("lcs_HighlightColor");
-            var chosenColorAsHex = prefs.GetString("lcs_HighlightColor", "dc322f");
-            
-            var colorNames = highlightColorSummary.GetEntries();
-            var colorValues = highlightColorSummary.GetEntryValues();
-            
-            for (int i = 0; i < colorValues.Length; i++)
-            {
-                if (colorValues[i] == chosenColorAsHex)
-                    highlightColorSummary.Summary = colorNames[i];
-            }
+            var chosenColorAsHex = prefs.GetString("lcs_HighlightColor", DefaultRed);
+            var highlightColorPrefs = (ColoredListPreference)FindPreference("lcs_HighlightColor");
+            var colorNames = highlightColorPrefs.GetEntries();
+            var colorValues = highlightColorPrefs.GetEntryValues();
+
+            highlightColorPrefs.Summary = colorNames[Array.IndexOf(colorValues, chosenColorAsHex)];
         }
+
         public override void OnWindowFocusChanged(bool hasFocus)
         {
             base.OnWindowFocusChanged(hasFocus);
@@ -81,39 +80,25 @@ namespace Smeedee.Android.Widgets.Settings
 
         private TextColoringAdapter CreateAdapter()
         {
-            var entries = GetEntries();
-            var entryValues = GetEntryValues();
-
             var from = new[] { "colorName" };
             var to = new[] { Resource.Id.lcs_checkedtextview };
-            
-            var items = new List<IDictionary<string, object>>();
-            for (var i = 0; i < entries.Length; ++i)
-            {
-                items.Add(new Dictionary<string, object>()
-                              {
-                                  {"colorName", entries[i]},
-                                  {"colorValue", entryValues[i]}
-                              });
-            }
-            var colors = new Dictionary<int, Color>();
-            var index = 0;
-            foreach (var colorValue in entryValues)
-            {
-                colors.Add(index, ColorTools.GetColorFromHex(colorValue));
-                index++;
-            }
+            var items = GetEntries().Select(colorName => new Dictionary<string, object> {
+                {"colorName", colorName}
+            }).Cast<IDictionary<string, object>>().ToList();
+            var colors = GetEntryValues().Select(ColorTools.GetColorFromHex).ToArray();
+
             return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colors);
         }
-        
-        internal class TextColoringAdapter : SimpleAdapter
-        {
-            private IDictionary<int, Color> colors;
 
-            public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, IDictionary<int, Color> colors) :
+        private class TextColoringAdapter : SimpleAdapter
+        {
+            private Color[] colors;
+
+            public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color[] colors) :
                 base(context, items, resource, from, to)
             {
                 this.colors = colors;
+                ViewBinder = new CheckedTextViewTextBinder();
             }
 
             public override View GetView(int position, View convertView, ViewGroup parent)
@@ -125,6 +110,29 @@ namespace Smeedee.Android.Widgets.Settings
                 checkedTextView.SetTextColor(colors[position]);
                 checkedTextView.SetBackgroundColor(Color.Black);
                 return view;
+            }
+        }
+
+        private class CheckedTextViewTextBinder : SimpleAdapter.IViewBinder
+        {
+            /* Android 2.1 crashes when binding the CheckedTextViews to text 
+             * (it tries to bind the Checked property (a bool), not the Text). 
+             * So we have to do that binding ourselves.
+             * 
+             * To see whats happening, compare the 2.1 implementation, line 189 here
+             * http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/2.1_r2/android/widget/SimpleAdapter.java#SimpleAdapter
+             * 
+             * With the 2.2 implementation, line 178 here:
+             * http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/2.2_r1.1/android/widget/SimpleAdapter.java#SimpleAdapter
+             */
+            public IntPtr Handle  { get { throw new NotImplementedException(); } }
+
+            public bool SetViewValue(View view, Object data, string textRepresentation)
+            {
+                if (!(view is CheckedTextView)) return false;
+                var checkedView = view as CheckedTextView;
+                checkedView.Text = data.ToString();
+                return true;
             }
         }
     }

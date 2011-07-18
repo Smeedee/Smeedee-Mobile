@@ -7,6 +7,7 @@ using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 using Ids = Smeedee.Android.Resource.Id;
 
@@ -16,7 +17,6 @@ namespace Smeedee.Android.Widgets
     public class LatestChangesetsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";
-        private const string DefaultRed = "dc322f";
         private string _dynamicDescription;
 
         private LatestChangeset model;
@@ -97,7 +97,7 @@ namespace Smeedee.Android.Widgets
         private Color GetHighlightColor()
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
-            var highlightColor = prefs.GetString("lcs_HighlightColor", DefaultRed);
+            var highlightColor = prefs.GetString("lcs_HighlightColor", LatestChangesetsSettings.DefaultRed);
             var highlightEnabled = prefs.GetBoolean("lcs_HighlightEnabled", true);
             return highlightEnabled ? ColorTools.GetColorFromHex(highlightColor) : Color.White;
         }
