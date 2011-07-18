@@ -26,14 +26,12 @@ namespace Smeedee.Android
 
         private const int SCROLL_NEXT_VIEW_THRESHOLD = 100; // TODO: Make dynamic based on screen size?
         private MotionEvent downStart;
-        private readonly ViewVisibilityMessageHandler visibilityHandler;
 
         public event EventHandler WidgetChanged;
 
         public DraggableViewFlipper(Context context, IAttributeSet attrs) 
             : base(context, attrs)
         {
-            visibilityHandler = new ViewVisibilityMessageHandler();
         }
 
 
@@ -112,7 +110,8 @@ namespace Smeedee.Android
                     if (nextView.Visibility != ViewStates.Visible || 
                         previousView.Visibility != ViewStates.Visible)
                     {
-                        visibilityHandler.TellViewsToBecomeVisible(nextView, previousView, Message.Obtain(visibilityHandler, 0));
+                        var visibilityHandler = new ViewVisibilityMessageHandler(nextView, previousView);
+                        visibilityHandler.SendMessage(Message.Obtain(visibilityHandler, 0));
                     }
 
                     break;
@@ -241,11 +240,17 @@ namespace Smeedee.Android
         public View NextView { get; set; }
         public View PreviousView { get; set; }
 
-        public void TellViewsToBecomeVisible(View next, View previous, Message msg)
+        public ViewVisibilityMessageHandler(View next, View previous)
         {
-            Guard.NotNull(next, previous);
-            next.Visibility = ViewStates.Visible;
-            previous.Visibility = ViewStates.Visible;
+            NextView = next;
+            PreviousView = previous;
+        }
+
+        public override void HandleMessage(Message msg)
+        {
+            Guard.NotNull(NextView, PreviousView);
+            NextView.Visibility = ViewStates.Visible;
+            PreviousView.Visibility = ViewStates.Visible;
         }
     }
 
