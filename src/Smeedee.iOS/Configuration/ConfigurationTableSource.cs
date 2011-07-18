@@ -55,7 +55,7 @@ namespace Smeedee.iOS.Configuration
 					cell.TextLabel.Text = "Server";
 					
 					urlTextField = new UITextField(cell.Frame);
-					urlTextField.Text = persister.Get<string>("Server.Url", null);
+					//urlTextField.Text = persister.Get<string>("Server.Url", null);
 					
 					urlTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
 					urlTextField.LeftView = new UIView(new RectangleF(0, 0, 80, 31)); 
@@ -75,7 +75,7 @@ namespace Smeedee.iOS.Configuration
 					cell.TextLabel.Text = "Key";
 					
 					keyTextField = new UITextField(cell.Frame);
-					keyTextField.Text = persister.Get<string>("Server.Key", null);
+					//keyTextField.Text = persister.Get<string>("Server.Key", null);
 					
 					keyTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
 					keyTextField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
