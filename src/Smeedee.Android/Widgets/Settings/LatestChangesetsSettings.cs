@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -81,28 +82,12 @@ namespace Smeedee.Android.Widgets.Settings
 
         private TextColoringAdapter CreateAdapter()
         {
-            var entries = GetEntries();
-            var entryValues = GetEntryValues();
-
             var from = new[] { "colorName" };
             var to = new[] { Resource.Id.lcs_checkedtextview };
-            
-            var items = new List<IDictionary<string, object>>();
-            for (var i = 0; i < entries.Length; ++i)
-            {
-                items.Add(new Dictionary<string, object>()
-                              {
-                                  {"colorName", entries[i]},
-                                  {"colorValue", entryValues[i]}
-                              });
-            }
-            var colors = new Dictionary<int, Color>();
-            var index = 0;
-            foreach (var colorValue in entryValues)
-            {
-                colors.Add(index, ColorTools.GetColorFromHex(colorValue));
-                index++;
-            }
+            var items = GetEntries().Select(colorName => new Dictionary<string, object> {
+                {"colorName", colorName}
+            }).Cast<IDictionary<string, object>>().ToList();
+            var colors = GetEntryValues().Select(ColorTools.GetColorFromHex);
             return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colors);
         }
         
