@@ -77,7 +77,6 @@ namespace Smeedee.Android
 
             if (url == null || key == null) return false;
 
-            Log.Debug("Smeedee", "url:"+url+" key:"+key);
             var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();
             return validator.IsValid(url, key);
         }
