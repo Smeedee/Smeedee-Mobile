@@ -74,8 +74,8 @@ namespace Smeedee.Android
 
             var pref = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            var url = pref.GetString("serverUrl", "url");
-            var key = pref.GetString("userPassword", "pass");
+            var url = pref.GetString("serverUrl", "");
+            var key = pref.GetString("userPassword", "");
 
             if (url == null || key == null) return false;
 
