@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Android.App;
 using Android.Content;
@@ -96,14 +98,37 @@ namespace Smeedee.Android.Widgets
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
             var showTriggeredBy = prefs.GetBoolean("showTriggeredBy", true);
+            var brokenFirst = prefs.GetBoolean("brokenBuildsAtTop", true);
+            var orderBy = prefs.GetString("buildSortOrdering", "buildname");
 
-            return model.Builds.Select(build => new Dictionary<String, object>
+            var comparer = (orderBy == "buildname") ? (IComparer<Build>)new BuildNameComparer() : new BuildTimeComparer();
+
+            List<Build> orderedBuilds = brokenFirst ? GetOrderedBuildsWithBrokenFirst(comparer) : GetNormalOrderedBuilds(comparer);
+
+            return orderedBuilds.Select(build => new Dictionary<String, object>
                         {
                             {"project_name", build.ProjectName},
                             {"username", (showTriggeredBy) ? build.Username : ""},
                             {"datetime", (DateTime.Now - build.BuildTime).PrettyPrint() }, 
                             { "success_status", (int) build.BuildSuccessState}
                         }).Cast<IDictionary<string, object>>().ToList();
+        }
+
+        private List<Build> GetNormalOrderedBuilds(IComparer<Build> comparer)
+        {
+            return model.Builds.OrderBy(b => b, comparer).ToList();
+        }
+
+        private List<Build> GetOrderedBuildsWithBrokenFirst(IComparer<Build> comparer)
+        {
+            var brokenBuilds = model.Builds.Where(b => b.BuildSuccessState == BuildState.Broken).OrderBy(b => b, comparer);
+            var workingBuilds = model.Builds.Where(b => b.BuildSuccessState == BuildState.Working).OrderBy(b => b, comparer);
+            var unknownBuilds = model.Builds.Where(b => b.BuildSuccessState == BuildState.Unknown).OrderBy(b => b, comparer);
+
+            var orderedBuilds = brokenBuilds.ToList();
+            orderedBuilds.AddRange(workingBuilds);
+            orderedBuilds.AddRange(unknownBuilds);
+            return orderedBuilds;
         }
 
         private Dictionary<string, string> CreateServiceArgsDictionary()
@@ -142,7 +167,7 @@ namespace Smeedee.Android.Widgets
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var view = base.GetView(position, convertView, parent);
+            var view = convertView ?? base.GetView(position, convertView, parent);
             var status = int.Parse(((TextView)view.FindViewById(Resource.Id.BuildStatuswidget_buildstatus)).Text);
             var buildStatusView = view.FindViewById(Resource.Id.BuildStatuswidget_buildstatusdisplay) as ImageView;
             
@@ -161,6 +186,23 @@ namespace Smeedee.Android.Widgets
         public override bool IsEnabled(int position)
         {
             return false;
+        }
+    }
+
+
+    public class BuildTimeComparer : IComparer<Build>
+    {
+        public int Compare(Build x, Build y)
+        {
+            return x.BuildTime > y.BuildTime ? 1 : -1;
+        }
+    }
+
+    public class BuildNameComparer : IComparer<Build>
+    {
+        public int Compare(Build x, Build y)
+        {
+            return string.Compare(x.ProjectName, y.ProjectName);
         }
     }
 }

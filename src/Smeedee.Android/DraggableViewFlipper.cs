@@ -89,7 +89,7 @@ namespace Smeedee.Android
                         OutAnimation = AnimationHelper.GetOutToRightAnimation(this, deltaX);
 
                         ShowNext();
-                        OnWidgetChanged(new EventArgs());
+                        //OnWidgetChanged(new EventArgs());
                     }
                     else if (downStart.GetX() > currentX + SCROLL_NEXT_VIEW_THRESHOLD)
                     {
@@ -97,7 +97,7 @@ namespace Smeedee.Android
                         OutAnimation = AnimationHelper.GetOutToLeftAnimation(this, deltaX);
 
                         ShowPrevious();
-                        OnWidgetChanged(new EventArgs());
+                        //OnWidgetChanged(new EventArgs());
                     }
                     else
                     {
