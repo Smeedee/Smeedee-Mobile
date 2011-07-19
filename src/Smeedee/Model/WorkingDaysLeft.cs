@@ -2,7 +2,7 @@
 
 namespace Smeedee.Model
 {
-    public class WorkingDaysLeft : IModel
+    public class WorkingDaysLeft
     {
         private int days;
         private IWorkingDaysLeftService service;

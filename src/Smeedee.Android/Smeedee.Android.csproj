@@ -71,9 +71,6 @@
     <Compile Include="..\Smeedee\Model\Committer.cs">
       <Link>Model\Committer.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\IModel.cs">
-      <Link>Model\IModel.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
     </Compile>
@@ -121,9 +118,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
       <Link>Services\ILatestCommitsService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IModelService.cs">
-      <Link>Services\IModelService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
       <Link>Services\IPersistenceService.cs</Link>

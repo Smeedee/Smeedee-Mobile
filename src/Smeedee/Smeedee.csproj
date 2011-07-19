@@ -45,7 +45,6 @@
     <Compile Include="Model\BuildOrder.cs" />
     <Compile Include="Model\BuildStatus.cs" />
     <Compile Include="Model\BuildState.cs" />
-    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Commit.cs" />
     <Compile Include="Model\LatestCommits.cs" />
     <Compile Include="Model\Login.cs" />
@@ -57,7 +56,6 @@
     <Compile Include="Services\Fakes\LatestCommitsFakeService.cs" />
     <Compile Include="Services\IBuildStatusService.cs" />
     <Compile Include="Services\ILatestCommitsService.cs" />
-    <Compile Include="Services\IModelService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
