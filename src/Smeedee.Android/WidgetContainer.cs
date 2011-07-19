@@ -20,8 +20,7 @@ namespace Smeedee.Android
 {
     [Activity(
         Label = "Smeedee Mobile",
-        Theme = "@android:style/Theme.NoTitleBar",
-        ConfigurationChanges = ConfigChanges.KeyboardHidden | ConfigChanges.Orientation)]
+        Theme = "@android:style/Theme.NoTitleBar")]
     public class WidgetContainer : Activity
     {
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
@@ -50,6 +49,12 @@ namespace Smeedee.Android
                                                                                });
             prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
+
+            var previousSlide = LastNonConfigurationInstance;
+            if (previousSlide != null)
+            {
+                flipper.CurrentScreen = ((Integer)previousSlide).IntValue();
+            }
         }
 
         void HandleScreenChanged(object sender, EventArgs e)
@@ -101,7 +106,6 @@ namespace Smeedee.Android
 
             if (currentWidget != null)
             {
-                currentWidget.Refresh(); // Some threading makes the description not finished for the first widget
                 widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
             }
             else
@@ -251,6 +255,11 @@ namespace Smeedee.Android
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             return prefs.GetBoolean(widget.Name, true);
+        }
+
+        public override Java.Lang.Object OnRetainNonConfigurationInstance()
+        {
+            return flipper.CurrentScreen;
         }
     }
     

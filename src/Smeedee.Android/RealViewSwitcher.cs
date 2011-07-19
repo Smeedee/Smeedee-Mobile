@@ -1,3 +1,20 @@
+/*
+ * This file is based the work by Marc Reichfelt (Copyright 2010) found at:
+ * http://marcreichelt.blogspot.com/2010/09/android-use-realviewswitcher-to-switch.html with
+ * the original attributions:
+ * "
+ *    Work derived from Workspace.java of the Launcher application
+ *    see http://android.git.kernel.org/?p=platform/packages/apps/Launcher.git
+ * "
+ * 
+ * Changes have been made to port the file to Mono for Android, adding touch interception
+ * for horizontal scroll movements and using a .NET event to communicate changed slides.
+ * 
+ * Original work is licensed using the
+ * Apache 2 license found at http://www.apache.org/licenses/LICENSE-2.0. 
+ * This modification is licensed under the same terms as the rest of the Smeedee-Mobile project 
+ * found at http://github.com/Smeedee/Smeedee-Mobile
+ */
 using System;
 
 using Android.Content;
