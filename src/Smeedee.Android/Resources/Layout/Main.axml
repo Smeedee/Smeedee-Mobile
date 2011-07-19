@@ -8,7 +8,7 @@
     <TextView
       android:id="@+id/WidgetNameInTopBanner"
       android:layout_width="fill_parent"
-      android:layout_height="20sp"
+      android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_alignParentTop="true"
       android:textColor="@color/smeedee_orange"
@@ -19,8 +19,9 @@
       android:layout_below="@id/WidgetNameInTopBanner"
       android:layout_alignParentLeft="true"
       android:layout_width="fill_parent"
-      android:layout_height="10sp"
-      android:textAppearance="@android:style/TextAppearance.Small" />
+      android:layout_height="wrap_content"
+      android:textAppearance="@android:style/TextAppearance.Small"
+      android:paddingBottom="2sp"/>
     <!-- END: Widget title and description-->
 
 
