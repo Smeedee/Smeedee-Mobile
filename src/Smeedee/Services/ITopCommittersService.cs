@@ -6,6 +6,6 @@ namespace Smeedee.Services
 {
     public interface ITopCommittersService
     {
-        void LoadTopCommiters(TopCommitters.TimeInterval interval, Action<IEnumerable<Committer>> callback);
+        void LoadTopCommiters(TimePeriod time, Action<IEnumerable<Committer>> callback);
     }
 }
