@@ -43,12 +43,11 @@ namespace Smeedee.Model
         public void SetNumberOfCommitters(int n)
         {
             persistence.Save("TopCommitters.NumberOfCommitters", n.ToString());
-            _numberOfCommitters = n;
         }
 
-        private int GetNumberOfCommitters()
+        public int GetNumberOfCommitters()
         {
-            return _numberOfCommitters;
+            return int.Parse(persistence.Get("TopCommitters.NumberOfCommitters", "5"));
         }
 
         public TimeInterval GetTimeInterval()

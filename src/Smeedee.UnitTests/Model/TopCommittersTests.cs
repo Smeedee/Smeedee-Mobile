@@ -114,5 +114,13 @@ namespace Smeedee.UnitTests.Model
             Assert.AreEqual(1, (persistenceService as FakePersistenceService).SaveCalls);
         }
 
+        [Test]
+        public void Should_read_persistent_number_of_committers()
+        {
+            persistenceService.Save("TopCommitters.NumberOfCommitters", 42.ToString());
+
+            Assert.AreEqual(42, _model.GetNumberOfCommitters());
+        }
+
     }
 }
