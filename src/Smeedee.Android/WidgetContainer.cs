@@ -164,7 +164,6 @@ namespace Smeedee.Android
 
                     string widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
 
-                    Log.Debug("SMEEDEE", "Launching settings for: " + widgetName);
                     if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
 

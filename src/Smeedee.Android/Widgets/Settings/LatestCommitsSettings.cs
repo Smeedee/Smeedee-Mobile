@@ -16,19 +16,6 @@ namespace Smeedee.Android.Widgets.Settings
     [Activity(Label = "Latest Commits Settings", Theme = "@android:style/Theme")]
     public class LatestCommitsSettings : PreferenceActivity
     {
-
-        public LatestCommitsSettings() : base()
-        {
-            Log.Debug("SMEEDEE", "LatestCommitsSettings()");
-        }
-
-        public LatestCommitsSettings(IntPtr doNotUse)
-            : base(doNotUse)
-        {
-            Log.Debug("SMEEDEE", "LatestCommitsSettings(doNotUse)");
-        }
-
-
         public const string DefaultRed = "dc322f";
         protected override void OnCreate(Bundle savedInstanceState)
         {
