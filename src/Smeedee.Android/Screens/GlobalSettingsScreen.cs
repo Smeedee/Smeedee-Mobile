@@ -17,9 +17,12 @@ namespace Smeedee.Android.Screens
          * 
          * At the moment, this settings screen doesn't affect the app at all:(
          */
+        private IPersistenceService persistence;
+        private SmeedeeApp app = SmeedeeApp.Instance;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            persistence = app.ServiceLocator.Get<IPersistenceService>();
 
             AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
             
@@ -53,13 +56,9 @@ namespace Smeedee.Android.Screens
         }
         private void LoadPreferences()
         {
-            var serverUrlSummaryPref = (EditTextPreference) FindPreference("serverUrl");
-            var userPasswordSummaryPref = (EditTextPreference)FindPreference("userPassword");
-            
-            var pref = PreferenceManager.GetDefaultSharedPreferences(this);
-           
-            serverUrlSummaryPref.Summary = pref.GetString("serverUrl", "url");
-            userPasswordSummaryPref.Summary = pref.GetString("userPassword", "pass");
+            var login = new Login();
+            FindPreference("serverUrl").Summary = login.Url;
+            FindPreference("userPassword").Summary = login.Key;
         }
     }
 }
