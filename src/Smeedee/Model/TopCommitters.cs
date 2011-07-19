@@ -10,6 +10,7 @@ namespace Smeedee.Model
         private ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
         private IEnumerable<Committer> _committers;
+        private TimeInterval _timeInterval = TimeInterval.PastDay;
         private int _numberOfCommitters = 5;
         private int _days;
 
@@ -62,8 +63,14 @@ namespace Smeedee.Model
 
         public TimeInterval GetTimeInterval()
         {
-            return TimeInterval.PastDay;
+            return _timeInterval;
         }
+
+        public void SetTimeInterval(TimeInterval t)
+        {
+            _timeInterval = t;
+        }
+
 
 
 
@@ -71,6 +78,5 @@ namespace Smeedee.Model
         {
             PastDay = 1, PastWeek = 7, PastMonth = 30
         }
-
     }
 }

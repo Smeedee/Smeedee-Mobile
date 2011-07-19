@@ -60,12 +60,21 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(TopCommitters.TimeInterval.PastDay, interval);
         }
-
         /*
+        [Test]
+        public void Should_get_top_committer_with_42_commits_for_default_time_interval()
+        {
+            model.Load(() => { });
+
+            var committer = model.Committers.First();
+        }
+
         [Test]
         public void Should_get_different_results_for_different_time_interval()
         {
-            model.SetTimeInterval(TimeInterval.Week);
+            model.SetTimeInterval(TopCommitters.TimeInterval.PastWeek);
+
+            model.Load(() => { });
 
         }*/
         
