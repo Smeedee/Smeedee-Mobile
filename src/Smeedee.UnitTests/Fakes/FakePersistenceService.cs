@@ -21,7 +21,15 @@ namespace Smeedee.UnitTests.Fakes
             return cache.ContainsKey(key) ? cache[key] : defaultObject;
         }
 
-        public void Save(string key, bool value) { throw new NotImplementedException(); }
-        public bool Get(string key, bool defaultValue) { throw new NotImplementedException(); }
+        public void Save(string key, bool value)
+        {
+            SaveCalls += 1;
+            cache[key] = value.ToString();
+        }
+        public bool Get(string key, bool defaultValue)
+        {
+            GetCalls += 1;
+            return cache.ContainsKey(key) ? bool.Parse(cache[key]) : defaultValue;
+        }
     }
 }
