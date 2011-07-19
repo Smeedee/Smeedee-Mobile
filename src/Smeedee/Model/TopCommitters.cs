@@ -10,6 +10,7 @@ namespace Smeedee.Model
         private ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
         private IEnumerable<Committer> _committers;
+        private int _numberOfCommitters = 5;
         private int _days;
 
         public TopCommitters()
@@ -22,7 +23,7 @@ namespace Smeedee.Model
         }
 
         public IEnumerable<Committer> Committers {
-            get { return _committers.Take(5); }
+            get { return _committers.Take(GetNumberOfCommitters()); }
         }
 
         public void Load(Action callback)
@@ -47,6 +48,16 @@ namespace Smeedee.Model
                 else suffix = string.Format("{0} days", _days);
                 return string.Format("Top committers for the past {0}", suffix);
             }
+        }
+
+        public void SetNumberOfCommitters(int n)
+        {
+            _numberOfCommitters = n;
+        }
+
+        private int GetNumberOfCommitters()
+        {
+            return _numberOfCommitters;
         }
     }
 }

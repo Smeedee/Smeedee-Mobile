@@ -43,14 +43,15 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(5, model.Committers.Count());
         }
-        /*
+        
         [Test]
         public void Should_be_able_to_set_number_of_committers()
         {
+            model.Load(() => { });
             model.SetNumberOfCommitters(10);
 
             Assert.AreEqual(10, model.Committers.Count());
         }
-        */
+        
     }
 }
