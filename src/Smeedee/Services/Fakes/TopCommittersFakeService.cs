@@ -17,9 +17,9 @@ namespace Smeedee.Services.Fakes
             new Committer("Kari Irak", 0, "http://www.foo.com/img.png"),
         };
 		
-        public void LoadTopCommiters(TopCommitters.TimeInterval interval, Action<IEnumerable<Committer>> callback)
+        public void LoadTopCommiters(TimePeriod time, Action<IEnumerable<Committer>> callback)
         {
-            // Disregard interval for now
+            // Disregard time for now
 
             callback(data);
         }

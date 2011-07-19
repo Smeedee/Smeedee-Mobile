@@ -40,21 +40,21 @@ namespace Smeedee.UnitTests.Model
             public void Should_report_correct_amount_of_broken_builds()
             {
                 var model = new BuildStatus();
-                model.Load(() => Assert.AreEqual(2, model.GetNumberOfBuildsThatHaveState(BuildState.Broken)));
+                model.Load(() => Assert.AreEqual(2, model.GetNumberOfBuildsByState(BuildState.Broken)));
             }
 
             [Test]
             public void Should_report_correct_amount_of_working_builds()
             {
                 var model = new BuildStatus();
-                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsThatHaveState(BuildState.Working)));
+                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsByState(BuildState.Working)));
             }
 
             [Test]
             public void Should_report_correct_amount_of_unknown_builds()
             {
                 var model = new BuildStatus();
-                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsThatHaveState(BuildState.Unknown)));
+                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsByState(BuildState.Unknown)));
             }
         }
 
@@ -67,17 +67,9 @@ namespace Smeedee.UnitTests.Model
                 var model = GetNameSortedModel();
                 model.Load(() => Assert.AreEqual(model.Builds.OrderBy(b => b.ProjectName), model.Builds));
             }
-            
-            [Test]
-            [Ignore] // TODO: Why is this stopping?
-            public void Should_properly_order_builds_by_build_time()
-            {
-                var model = new BuildStatus {BrokenBuildsAtTop = false, Ordering = BuildOrder.BuildTime};
-                model.Load(() => Assert.AreEqual(model.Builds.OrderBy(b => b.BuildTime), model.Builds));
-            }
 
             [Test]
-            public void Should_properly_put_broken_builds_at_top()
+            public void Should_properly_put_broken_builds_at_top_when_sorting_by_name()
             {
                 var model = GetNameSortedModelWithBrokenAtTop();
                 model.Load(() => Assert.True(model.Builds.Take(2).Where(b => b.BuildSuccessState == BuildState.Broken).Count() == 2));
@@ -104,6 +96,42 @@ namespace Smeedee.UnitTests.Model
                 model.Load(() => Assert.AreEqual(model.Builds.Skip(5).Take(3).OrderBy(b => b.ProjectName), model.Builds.Skip(5).Take(3)));
             }
 
+            [Test]
+            public void Should_properly_order_builds_by_build_time()
+            {
+                BuildStatus model = GetTimeSortedModel();
+                model.Load(() => Assert.AreEqual(model.Builds.OrderBy(b => b.BuildTime), model.Builds));
+            }
+
+            [Test]
+            public void Should_properly_put_broken_builds_at_top_when_sorting_by_time()
+            {
+                BuildStatus model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.True(model.Builds.Take(2).Where(b => b.BuildSuccessState == BuildState.Broken).Count() == 2));
+            }
+
+            [Test]
+            public void Should_maintain_time_based_ordering_among_broken_builds_when_they_are_on_top()
+            {
+                var model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.AreEqual(model.Builds.Take(2).OrderBy(b => b.BuildTime), model.Builds.Take(2)));
+            }
+
+            [Test]
+            public void Should_maintain_time_based_ordering_among_working_builds_when_broken_builds_are_on_top()
+            {
+                var model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.AreEqual(model.Builds.Skip(2).Take(3).OrderBy(b => b.BuildTime), model.Builds.Skip(2).Take(3)));
+            }
+
+            [Test]
+            public void Should_maintain_time_based_ordering_among_unknown_builds_when_broken_builds_are_on_top()
+            {
+                var model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.AreEqual(model.Builds.Skip(5).Take(3).OrderBy(b => b.BuildTime), model.Builds.Skip(5).Take(3)));
+            }
+
+
             private static BuildStatus GetNameSortedModel()
             {
                 return new BuildStatus { BrokenBuildsAtTop = false, Ordering = BuildOrder.BuildName };
@@ -113,18 +141,35 @@ namespace Smeedee.UnitTests.Model
             {
                 return new BuildStatus { BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildName };
             }
+
+            private static BuildStatus GetTimeSortedModel()
+            {
+                return new BuildStatus { BrokenBuildsAtTop = false, Ordering = BuildOrder.BuildTime };
+            }
+
+            private static BuildStatus GetTimeSortedModelWithBrokenAtTop()
+            {
+                return new BuildStatus { BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildTime };
+            }
         }
 
         [TestFixture]
         public class When_saving_preferences : BuildStatusTests
         {
+            // NOTE: These constants are set to the same values as the keys used by the platforms.
+            // If you change the values in the model, you should also change the values in the
+            // platform specific code.
+            private const string PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING = "buildSortOrdering";
+            private const string PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY = "showTriggeredBy";
+            private const string PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP = "brokenBuildsAtTop";
+
             [Test]
             public void Should_persist_broken_first_preference_as_bool_with_correct_key()
             {
                 var model = new BuildStatus();
                 model.BrokenBuildsAtTop = true;
 
-                Assert.AreEqual(persister.Get("brokenBuildsAtTop", false), true);
+                Assert.AreEqual(persister.Get(PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP, false), true);
             }
 
             [Test]
@@ -133,34 +178,31 @@ namespace Smeedee.UnitTests.Model
                 var model = new BuildStatus();
                 model.Ordering = BuildOrder.BuildName;
 
-                Assert.AreNotEqual("foo", persister.Get("buildSortOrdering", "foo"));
+                Assert.AreNotEqual("foo", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
             public void Should_persist_sort_order_by_name_with_correct_value()
             {
-                var model = new BuildStatus();
-                model.Ordering = BuildOrder.BuildName;
+                new BuildStatus {Ordering = BuildOrder.BuildName};
 
-                Assert.AreEqual("buildname", persister.Get("buildSortOrdering", "foo"));
+                Assert.AreEqual("buildname", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
             public void Should_persist_sort_order_by_datetime_with_correct_valye()
             {
-                var model = new BuildStatus();
-                model.Ordering = BuildOrder.BuildTime;
+                new BuildStatus {Ordering = BuildOrder.BuildTime};
 
-                Assert.AreEqual("buildtime", persister.Get("buildSortOrdering", "foo"));
+                Assert.AreEqual("buildtime", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
             public void Should_persist_whether_name_should_be_shown_as_bool_with_correct_key()
             {
-                var model = new BuildStatus();
-                model.ShowTriggeredBy = true;
+                new BuildStatus {ShowTriggeredBy = true};
 
-                Assert.AreEqual(true, persister.Get("showTriggeredBy", false));
+                Assert.AreNotEqual(false, persister.Get(PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY, false));
             }
         }
     }

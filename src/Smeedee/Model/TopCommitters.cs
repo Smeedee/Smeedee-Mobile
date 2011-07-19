@@ -7,31 +7,26 @@ namespace Smeedee.Model
 {
     public class TopCommitters
     {
+        public const string TimePeriodPropertyKey = "TopCommitters.TimePeriod";
+        public const string NumberOfCommittersPropertyKey = "TopCommitters.NumberOfCommitters";
+
+        private const string DefaultNumberOfCommittersPropertyValue = "5";
+        private static readonly string DefaultTimePeriodPropertyValue = TimePeriod.PastDay.ToString();
+
+        private readonly IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
         private IEnumerable<Committer> _committers;
-        private TimeInterval _timeInterval;
-        private int _numberOfCommitters;
 
         public TopCommitters()
         {
             _committers = new List<Committer>();
-            _timeInterval = TimeInterval.PastDay;
-            _numberOfCommitters = 5;
-        }
-
-        public IEnumerable<Committer> Committers 
-        {
-            get 
-            {
-                return _committers.OrderByDescending(e => e.Commits).Take(GetNumberOfCommitters()); 
-            }
         }
 
         public void Load(Action callback)
         {
             service.LoadTopCommiters(
-                GetTimeInterval(),
+                TimePeriod,
                 (committers) => { 
                     _committers = committers;
                     callback();
@@ -39,39 +34,48 @@ namespace Smeedee.Model
             );
         }
 
-        public void SetNumberOfCommitters(int n)
+        public IEnumerable<Committer> Committers 
         {
-            _numberOfCommitters = n;
+            get { return _committers.OrderByDescending(e => e.Commits).Take(NumberOfCommitters); }
         }
 
-        private int GetNumberOfCommitters()
+        public int NumberOfCommitters
         {
-            return _numberOfCommitters;
+            get
+            {
+                var stored = persistence.Get(NumberOfCommittersPropertyKey, DefaultNumberOfCommittersPropertyValue);
+                return int.Parse(stored);
+            }
+            set { persistence.Save(NumberOfCommittersPropertyKey, value.ToString()); }
         }
 
-        public TimeInterval GetTimeInterval()
+        public TimePeriod TimePeriod
         {
-            return _timeInterval;
-        }
-
-        public void SetTimeInterval(TimeInterval t)
-        {
-            _timeInterval = t;
+            get
+            {
+                var stored = persistence.Get(TimePeriodPropertyKey, DefaultTimePeriodPropertyValue);
+                return (TimePeriod) Enum.Parse(typeof (TimePeriod), stored);
+            }
+            set { persistence.Save(TimePeriodPropertyKey, value.ToString()); }
         }
 
         public string Description
         {
-            get
-            {
-                var interval = GetTimeInterval();
-                var suffix = (interval == TimeInterval.PastDay) ? "24 hours" : (interval == TimeInterval.PastWeek) ? "week" : "month";
-                return string.Format("Top committers for the past {0}", suffix);
-            }
+            get { return string.Format("Top committers for the past {0}", TimePeriod.ToSuffix()); }
         }
+    }
 
-        public enum TimeInterval
+    // TODO: Better naming
+    public enum TimePeriod
+    {
+        PastDay = 1, PastWeek = 7, PastMonth = 30
+    }
+
+    public static class TimePeriodExtensions
+    {
+        public static string ToSuffix(this TimePeriod time)
         {
-            PastDay = 1, PastWeek = 7, PastMonth = 30
+            return (time == TimePeriod.PastDay) ? "24 hours" : (time == TimePeriod.PastWeek) ? "week" : "month";
         }
     }
 }
