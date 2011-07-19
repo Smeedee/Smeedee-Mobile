@@ -11,11 +11,19 @@ namespace Smeedee.UnitTests.Model
     {
         private TopCommitters _model;
 
+        private IPersistenceService persistenceService;
+        private ITopCommittersService topCommittersService;
+
         [SetUp]
         public void SetUp()
         {
             var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
-            serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+
+            persistenceService = new FakePersistenceService();
+            topCommittersService = new TopCommittersFakeService();
+
+            serviceLocator.Bind<IPersistenceService>(persistenceService);
+            serviceLocator.Bind<ITopCommittersService>(topCommittersService);
             
             _model = new TopCommitters();
         }
@@ -96,6 +104,14 @@ namespace Smeedee.UnitTests.Model
             _model.Load(() => { });
 
             Assert.AreEqual(expected, _model.Description);
+        }
+
+        [Test]
+        public void Should_save_number_of_committers()
+        {
+            _model.SetNumberOfCommitters(42);
+
+            Assert.AreEqual(1, (persistenceService as FakePersistenceService).SaveCalls);
         }
 
     }

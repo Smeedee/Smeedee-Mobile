@@ -7,6 +7,7 @@ namespace Smeedee.Model
 {
     public class TopCommitters
     {
+        private readonly IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
         private IEnumerable<Committer> _committers;
@@ -41,6 +42,7 @@ namespace Smeedee.Model
 
         public void SetNumberOfCommitters(int n)
         {
+            persistence.Save("TopCommitters.NumberOfCommitters", n.ToString());
             _numberOfCommitters = n;
         }
 
