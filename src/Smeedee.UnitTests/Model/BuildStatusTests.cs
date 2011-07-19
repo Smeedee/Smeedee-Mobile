@@ -40,21 +40,21 @@ namespace Smeedee.UnitTests.Model
             public void Should_report_correct_amount_of_broken_builds()
             {
                 var model = new BuildStatus();
-                model.Load(() => Assert.AreEqual(2, model.GetNumberOfBuildsThatHaveState(BuildState.Broken)));
+                model.Load(() => Assert.AreEqual(2, model.GetNumberOfBuildsByState(BuildState.Broken)));
             }
 
             [Test]
             public void Should_report_correct_amount_of_working_builds()
             {
                 var model = new BuildStatus();
-                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsThatHaveState(BuildState.Working)));
+                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsByState(BuildState.Working)));
             }
 
             [Test]
             public void Should_report_correct_amount_of_unknown_builds()
             {
                 var model = new BuildStatus();
-                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsThatHaveState(BuildState.Unknown)));
+                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsByState(BuildState.Unknown)));
             }
         }
 
@@ -156,13 +156,20 @@ namespace Smeedee.UnitTests.Model
         [TestFixture]
         public class When_saving_preferences : BuildStatusTests
         {
+            // NOTE: These constants are set to the same values as the keys used by the platforms.
+            // If you change the values in the model, you should also change the values in the
+            // platform specific code.
+            private const string PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING = "buildSortOrdering";
+            private const string PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY = "showTriggeredBy";
+            private const string PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP = "brokenBuildsAtTop";
+
             [Test]
             public void Should_persist_broken_first_preference_as_bool_with_correct_key()
             {
                 var model = new BuildStatus();
                 model.BrokenBuildsAtTop = true;
 
-                Assert.AreEqual(persister.Get("brokenBuildsAtTop", false), true);
+                Assert.AreEqual(persister.Get(PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP, false), true);
             }
 
             [Test]
@@ -171,34 +178,31 @@ namespace Smeedee.UnitTests.Model
                 var model = new BuildStatus();
                 model.Ordering = BuildOrder.BuildName;
 
-                Assert.AreNotEqual("foo", persister.Get("buildSortOrdering", "foo"));
+                Assert.AreNotEqual("foo", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
             public void Should_persist_sort_order_by_name_with_correct_value()
             {
-                var model = new BuildStatus();
-                model.Ordering = BuildOrder.BuildName;
+                new BuildStatus {Ordering = BuildOrder.BuildName};
 
-                Assert.AreEqual("buildname", persister.Get("buildSortOrdering", "foo"));
+                Assert.AreEqual("buildname", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
             public void Should_persist_sort_order_by_datetime_with_correct_valye()
             {
-                var model = new BuildStatus();
-                model.Ordering = BuildOrder.BuildTime;
+                new BuildStatus {Ordering = BuildOrder.BuildTime};
 
-                Assert.AreEqual("buildtime", persister.Get("buildSortOrdering", "foo"));
+                Assert.AreEqual("buildtime", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
             public void Should_persist_whether_name_should_be_shown_as_bool_with_correct_key()
             {
-                var model = new BuildStatus();
-                model.ShowTriggeredBy = true;
+                new BuildStatus {ShowTriggeredBy = true};
 
-                Assert.AreEqual(true, persister.Get("showTriggeredBy", false));
+                Assert.AreNotEqual(false, persister.Get(PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY, false));
             }
         }
     }

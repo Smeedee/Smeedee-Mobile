@@ -78,7 +78,7 @@ namespace Smeedee.Model
             } 
         }
 
-        public int GetNumberOfBuildsThatHaveState(BuildState successState)
+        public int GetNumberOfBuildsByState(BuildState successState)
 	    {
             return builds.Where(build => build.BuildSuccessState == successState).Count();
 	    }
