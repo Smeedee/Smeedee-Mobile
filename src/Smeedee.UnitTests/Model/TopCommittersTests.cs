@@ -35,15 +35,14 @@ namespace Smeedee.UnitTests.Model
 
             Assert.IsTrue(check);
         }
-        /*
+        
         [Test]
         public void Should_have_list_of_committers_after_load()
         {
-            var tc = new TopCommitters();
-            tc.Load(() => { });
+            model.Load(() => { });
 
-            Assert.AreEqual(2, tc.Committers.Count());
-        }*/
+            Assert.AreEqual(2, model.Committers.Count());
+        }
 
     }
 }

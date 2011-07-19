@@ -6,6 +6,8 @@ namespace Smeedee.Model
 {
     public class TopCommitters : IModel
     {
+        private ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
+
         private IEnumerable<Committer> _committers;
         private int _days;
 
@@ -24,7 +26,12 @@ namespace Smeedee.Model
 
         public void Load(Action callback)
         {
-            callback();
+            service.LoadTopCommiters(
+                (committers) => { 
+                    _committers = committers;
+                    callback();
+                }
+            );
         }
 
 
