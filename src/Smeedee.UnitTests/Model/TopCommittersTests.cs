@@ -72,25 +72,21 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(TopCommitters.TimeInterval.PastDay, interval);
         }
-        
-        [Test]
-        public void Should_get_top_committer_with_42_commits_for_default_time_interval()
-        {
-            model.Load(() => { });
-
-            var committer = model.Committers.First();
-            Assert.AreEqual(42, committer.Commits);
-        }
 
         [Test]
-        public void Should_get_top_committer_with_62_commits_for_time_interval_of_one_week()
+        public void Should_get_different_results_for_different_time_periods()
         {
-            model.SetTimeInterval(TopCommitters.TimeInterval.PastWeek);
-            model.Load(() => { });
+            var model1 = new TopCommitters();
+            var model2 = new TopCommitters();
+            model1.SetTimeInterval(TopCommitters.TimeInterval.PastDay);
+            model1.SetTimeInterval(TopCommitters.TimeInterval.PastWeek);
+            model1.Load(() => { });
+            model2.Load(() => { });
 
-            var committer = model.Committers.First();
+            var list1 = model1.Committers;
+            var list2 = model2.Committers;
 
-            Assert.AreEqual(62, committer.Commits);
+            CollectionAssert.AreNotEqual(list1, list2);
         }
 
         [TestCase(TopCommitters.TimeInterval.PastDay, "Top committers for the past 24 hours")]
