@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Smeedee.Model
 {
@@ -18,5 +19,22 @@ namespace Smeedee.Model
         public BuildState BuildSuccessState { get; private set; }
         public string ProjectName { get; private set; }
         public string Username { get; private set; }
+    }
+
+
+    public class BuildTimeComparer : IComparer<Build>
+    {
+        public int Compare(Build x, Build y)
+        {
+            return x.BuildTime > y.BuildTime ? 1 : -1;
+        }
+    }
+
+    public class BuildNameComparer : IComparer<Build>
+    {
+        public int Compare(Build x, Build y)
+        {
+            return string.Compare(x.ProjectName, y.ProjectName);
+        }
     }
 }

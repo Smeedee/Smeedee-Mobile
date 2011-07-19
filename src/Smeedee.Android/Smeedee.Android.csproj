@@ -95,6 +95,9 @@
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\AsyncResult.cs">
+      <Link>Services\AsyncResult.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
       <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
@@ -109,6 +112,9 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IBuildStatusService.cs">
+      <Link>Services\IBuildStatusService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
       <Link>Services\ILoginValidationService.cs</Link>

@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee
 {
-    public class FakeBuildStatusService : IModelService<BuildStatus>
+    public class FakeBuildStatusService : IBuildStatusService
     {
-        private IEnumerable<Build> builds;
-        public FakeBuildStatusService()
+        private readonly IEnumerable<Build> builds;
+        private readonly IBackgroundWorker bgWorker;
+        public FakeBuildStatusService(IBackgroundWorker bgWorker)
         {
+            this.bgWorker = bgWorker;
             builds = new List<Build>()
                          {
                             new Build("Smeedee-Mobile - Master", BuildState.Working, "dagolap", DateTime.Now),
@@ -21,21 +24,10 @@ namespace Smeedee
                             new Build("Alex Project", BuildState.Broken, "alex", DateTime.Now)
                          };
         }
-		
-        public BuildStatus Get()
-        {
-            return new BuildStatus(builds);
-        }
-		
-        public BuildStatus Get(IDictionary<string, string> args)
-        {
-            var ordering = args.ContainsKey("ordering") ? args["ordering"] : "buildtime";
-            var brokenBuilds = args.ContainsKey("brokenBuildsAtTop") ? args["brokenBuildsAtTop"] : "true";
 
-            var order = ordering == "buildtime" ? BuildOrder.BuildTime : BuildOrder.BuildName;
-            var brokenBuildsAtTop = brokenBuilds == "true";
-
-            return new BuildStatus(builds, order, brokenBuildsAtTop);
+        public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
+        {
+            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(builds)));
         }
     }
 }

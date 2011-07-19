@@ -28,17 +28,23 @@ namespace Smeedee.Android
 
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+            App.ServiceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
+            App.ServiceLocator.Bind<IPersistenceService>(new PersistenceService(
+                                                        App.ServiceLocator.Get<IMobileKVPersister>()
+                                                    ));
 
-            App.ServiceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
+
+            App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(
+                                                        App.ServiceLocator.Get<IBackgroundWorker>()));
+
+
+            // TODO: Old Interfaces and whatnot
             App.ServiceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
             App.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
             App.ServiceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
             App.ServiceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
 
-            App.ServiceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
-            App.ServiceLocator.Bind<IPersistenceService>(new PersistenceService(
-                                                        App.ServiceLocator.Get<IMobileKVPersister>()
-                                                    ));
+            
         }
     }
 
