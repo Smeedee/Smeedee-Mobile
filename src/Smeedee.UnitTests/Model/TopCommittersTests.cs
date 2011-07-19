@@ -10,6 +10,21 @@ namespace Smeedee.UnitTests.Model
     [TestFixture]
     public class TopCommittersTests
     {
+        [Test]
+        public void Should_run_callback_on_load()
+        {
+            var tc = new TopCommitters();
+            var check = false;
+            tc.Load(() => check = true);
+
+            Assert.IsTrue(check);
+        }
+
+
+
+
+        /*
+
         private Committer[] singleCommitter = {
             new Committer("Lars", 17, "http://www.foo.com/img.png")
         };
@@ -65,6 +80,6 @@ namespace Smeedee.UnitTests.Model
                 Assert.AreEqual(24, model.Committers.First().Commits);
                 Assert.AreEqual(17, model.Committers.ElementAt(1).Commits);
             }
-        }
+        }*/
     }
 }

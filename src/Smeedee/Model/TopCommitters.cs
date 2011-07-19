@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Smeedee.Model
@@ -6,19 +7,23 @@ namespace Smeedee.Model
     {
         private int _days;
 
-        public TopCommitters(IEnumerable<Committer> committers, int days)
+        public TopCommitters()
         {
-            _days = days;
-            Committers = new List<Committer>(committers);
-            Committers.Sort(
+            /*Committers.Sort(
                 (e1, e2) => e2.Commits.CompareTo(e1.Commits)
-            );
+            );*/
         }
 
         public List<Committer> Committers { 
             get;
             private set;
         }
+
+        public void Load(Action callback)
+        {
+            callback();
+        }
+
 
         public string DaysText
         {

@@ -18,7 +18,7 @@ namespace Smeedee.Services
 		
         public TopCommitters Get()
         {
-            return new TopCommitters(data, 7);
+            return new TopCommitters();
         }
 
         public TopCommitters Get(IDictionary<string, string> args)
@@ -27,7 +27,7 @@ namespace Smeedee.Services
             var time = (args.ContainsKey("time")) ? int.Parse(args["time"]) : 1;
 
             var filteredData = data.Take(count);
-            return new TopCommitters(filteredData.ToList(), time);
+            return new TopCommitters();
         }
     }
 }
