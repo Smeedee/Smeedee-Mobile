@@ -19,8 +19,6 @@ namespace Smeedee.Android.Widgets
         private ListView buildList;
         private BuildStatus model;
 
-        private const string DYNAMIC_DESCRIPTION = "Showing build status for your projects";
-
         public BuildStatusWidget(Context context) : base(context)
         {
             Initialize();
@@ -76,7 +74,7 @@ namespace Smeedee.Android.Widgets
 
         public string GetDynamicDescription()
         {
-            return DYNAMIC_DESCRIPTION;
+            return model.DynamicDescription;
         }
     }
 

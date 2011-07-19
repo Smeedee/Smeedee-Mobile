@@ -99,6 +99,35 @@ namespace Smeedee.Model
             orderedBuilds.AddRange(unknownBuilds);
             return orderedBuilds;
         }
+
+	    public string DynamicDescription 
+        { 
+            get
+	        {
+                var numberOfWorkingBuilds = GetNumberOfBuildsByState(BuildState.Working);
+                var numberOfBrokenBuilds = GetNumberOfBuildsByState(BuildState.Broken);
+                var numberOfUnknownBuilds = GetNumberOfBuildsByState(BuildState.Unknown);
+                var numberOfBuilds = builds.Count();
+
+                if (numberOfBuilds == 0)
+                    return "No builds fetched from the Smeedee Server";
+	            if (numberOfWorkingBuilds == 0 && numberOfUnknownBuilds == 0)
+	                return "OMG! All builds are broken!";
+	            
+                var description = "";
+	            if (numberOfWorkingBuilds > 0)
+	                description = numberOfWorkingBuilds + " working";
+	            if (numberOfBrokenBuilds > 0)
+	                description += ", " + numberOfBrokenBuilds + " broken";
+	            if (numberOfUnknownBuilds > 0)
+	            {
+	                description += ", " + numberOfUnknownBuilds + " unknown";
+	            }
+
+	            description += " builds";
+	            return description;
+	        } 
+        }
 	}
 }
 
