@@ -41,11 +41,14 @@ namespace Smeedee.Model
 
         public int NumberOfCommitters
         {
-            get { return int.Parse(persistence.Get(NumberOfCommittersPropertyKey, DefaultNumberOfCommittersPropertyValue)); }
+            get
+            {
+                var stored = persistence.Get(NumberOfCommittersPropertyKey, DefaultNumberOfCommittersPropertyValue);
+                return int.Parse(stored);
+            }
             set { persistence.Save(NumberOfCommittersPropertyKey, value.ToString()); }
         }
 
-        // TODO: Better naming
         public TimePeriod TimePeriod
         {
             get
@@ -58,17 +61,21 @@ namespace Smeedee.Model
 
         public string Description
         {
-            get
-            {
-                var time = TimePeriod;
-                var suffix = (time == TimePeriod.PastDay) ? "24 hours" : (time == TimePeriod.PastWeek) ? "week" : "month";
-                return string.Format("Top committers for the past {0}", suffix);
-            }
+            get { return string.Format("Top committers for the past {0}", TimePeriod.ToSuffix()); }
         }
     }
 
+    // TODO: Better naming
     public enum TimePeriod
     {
         PastDay = 1, PastWeek = 7, PastMonth = 30
+    }
+
+    public static class TimePeriodExtensions
+    {
+        public static string ToSuffix(this TimePeriod time)
+        {
+            return (time == TimePeriod.PastDay) ? "24 hours" : (time == TimePeriod.PastWeek) ? "week" : "month";
+        }
     }
 }

@@ -15,27 +15,15 @@ namespace Smeedee.Android.Widgets.Settings
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.TopCommittersSettings);
             _model = new TopCommitters();
-            UpdateSummaryForPreferences();
         }
 
         private void UpdateSummaryForPreferences()
         {
-            UpdateSummaryForCount();
-            UpdateSummaryForTime();
-        }
-
-        private void UpdateSummaryForCount()
-        {
             var countPreference = (ListPreference)FindPreference(TopCommitters.NumberOfCommittersPropertyKey);
-            countPreference.Summary = string.Format("Top {0} committers", _model.NumberOfCommitters);
-        }
-
-        private void UpdateSummaryForTime()
-        {
             var timePreference = (ListPreference)FindPreference(TopCommitters.TimePeriodPropertyKey);
-            var time = _model.TimePeriod;
-            var suffix = (time == TimePeriod.PastDay) ? "24 hours" : (time == TimePeriod.PastWeek) ? "week" : "month";
-            timePreference.Summary = string.Format("Past {0}", suffix);
+
+            countPreference.Summary = string.Format("Top {0} committers", _model.NumberOfCommitters);
+            timePreference.Summary = string.Format("Past {0}", _model.TimePeriod.ToSuffix());
         }
 
         public override void OnWindowFocusChanged(bool hasFocus)
