@@ -63,6 +63,7 @@
     <Compile Include="Fakes\NoBackgroundInvokation.cs" />
     <Compile Include="GuardTests.cs" />
     <Compile Include="Model\BuildStatusTests.cs" />
+    <Compile Include="Model\BuildTests.cs" />
     <Compile Include="Model\ChangesetTests.cs" />
     <Compile Include="Model\LoginTests.cs" />
     <Compile Include="Model\TopCommittersTests.cs" />

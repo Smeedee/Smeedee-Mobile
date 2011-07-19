@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
 using Smeedee.Services;
@@ -9,54 +8,33 @@ namespace Smeedee.UnitTests.Model
 {
     public class BuildStatusTests
     {
-        protected const string PROJECT = "test project";
-        protected const string USER = "test user";
-        protected readonly DateTime DATE = DateTime.MinValue;
         protected SmeedeeApp smeedeeApp = SmeedeeApp.Instance;
 
+        [SetUp]
+        public void SetUp()
+        {
+            smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvokation()));
+            smeedeeApp.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
+        }
+
         [TestFixture]
-        public class When_instantiating : BuildStatusTests
+        public class When_loading : BuildStatusTests
         {
             [Test]
-            [ExpectedException(typeof(ArgumentException))]
-            public void Should_not_allow_null_in_project_name()
+            public void Should_invoke_callback()
             {
-                var model = new Build(null, BuildState.Working, USER, DATE);
-            }
+                var model = new BuildStatus();
+                var hasBeenInvoked = false;
+               
+                model.Load(() => hasBeenInvoked = true);
 
-            [Test]
-            [ExpectedException(typeof(ArgumentException))]
-            public void Should_not_allow_empty_string_in_project_name()
-            {
-                var model = new Build("", BuildState.Working, USER, DATE);
+                Assert.True(hasBeenInvoked);
             }
-
-            [Test]
-            [ExpectedException(typeof(ArgumentException))]
-            public void Should_not_allow_null_in_username()
-            {
-                var model = new Build(PROJECT, BuildState.Working, null, DATE);
-            }
-
-            [Test]
-            [ExpectedException(typeof(ArgumentException))]
-            public void Should_not_allow_empty_string_in_username()
-            {
-                var model = new Build(PROJECT, BuildState.Working, "", DATE);
-            }
-
-        } 
+        }
 
         [TestFixture]
         public class When_asking_for_metainformation_about_builds : BuildStatusTests
         {
-            [SetUp]
-            public void SetUp()
-            {
-                smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvokation()));
-                smeedeeApp.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
-            }
-
             [Test]
             public void Should_report_correct_amount_of_broken_builds()
             {
@@ -82,13 +60,6 @@ namespace Smeedee.UnitTests.Model
         [TestFixture]
         public class When_asking_for_builds : BuildStatusTests
         {
-            [SetUp]
-            public void SetUp()
-            {
-                smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvokation()));
-                smeedeeApp.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
-            }
-
             [Test]
             public void Should_properly_order_builds_alphabetically()
             {
@@ -107,8 +78,29 @@ namespace Smeedee.UnitTests.Model
             [Test]
             public void Should_properly_put_broken_builds_at_top()
             {
-                var model = new BuildStatus() {BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildName};
+                var model = new BuildStatus {BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildName};
                 model.Load(() => Assert.True(model.Builds.Take(2).Where(b => b.BuildSuccessState == BuildState.Broken).Count() == 2));
+            }
+
+            [Test]
+            public void Should_maintain_alphabetical_ordering_among_broken_builds_when_they_are_on_top()
+            {
+                var model = new BuildStatus {BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildName};
+                model.Load(() => Assert.AreEqual(model.Builds.Take(2).OrderBy(b => b.ProjectName), model.Builds.Take(2)));
+            }
+
+            [Test]
+            public void Should_maintain_alphabetical_ordering_among_working_builds_when_broken_builds_are_on_top()
+            {
+                var model = new BuildStatus {BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildName};
+                model.Load(() => Assert.AreEqual(model.Builds.Skip(2).Take(3).OrderBy(b => b.ProjectName), model.Builds.Skip(2).Take(3)));
+            }
+
+            [Test]
+            public void Should_maintain_alphabetical_ordering_among_unknown_builds_when_broken_builds_are_on_top()
+            {
+                var model = new BuildStatus { BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildName };
+                model.Load(() => Assert.AreEqual(model.Builds.Skip(5).Take(3).OrderBy(b => b.ProjectName), model.Builds.Skip(5).Take(3)));
             }
         }
     }
