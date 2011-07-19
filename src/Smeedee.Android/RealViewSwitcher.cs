@@ -28,7 +28,7 @@ namespace Smeedee.Android
 
 	    private bool _firstLayout = true;
 
-        // TODO: OnScreenSwitchListener
+        public event EventHandler ScreenChanged;
 
 
         public RealViewSwitcher(IntPtr doNotUse) : base(doNotUse)
@@ -225,11 +225,7 @@ namespace Smeedee.Android
             {
                 _currentScreen = Math.Max(0, Math.Min(_nextScreen, ChildCount - 1));
 
-                // notify observer about screen change
-                //if (mOnScreenSwitchListener != null)
-                //    mOnScreenSwitchListener.onScreenSwitched(_currentScreen);
-                // TODO: FIre ScreenSwitchedEvent
-
+                OnScreenChanged(new EventArgs());
                 _nextScreen = INVALID_SCREEN;
             }
         }
@@ -282,6 +278,14 @@ namespace Smeedee.Android
                     break;
             }
             return false;
+        }
+
+        protected virtual void OnScreenChanged(EventArgs e)
+        {
+            if (ScreenChanged != null)
+            {
+                ScreenChanged(this, e);
+            }
         }
     }
 }
