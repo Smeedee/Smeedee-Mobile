@@ -60,7 +60,7 @@ namespace Smeedee.Android.Widgets
 
         private void UpdateView()
         {
-            _dynamicDescription = model.DaysText;
+            _dynamicDescription = model.Description;
             list.Adapter = CreateAdapter();
         }
 
