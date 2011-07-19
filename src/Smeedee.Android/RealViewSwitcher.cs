@@ -33,25 +33,25 @@ namespace Smeedee.Android
 
         public RealViewSwitcher(IntPtr doNotUse) : base(doNotUse)
         {
-            Init();
+            Initialize();
         }
 
         public RealViewSwitcher(Context context) : base(context)
         {
-            Init();
+            Initialize();
         }
 
         public RealViewSwitcher(Context context, IAttributeSet attrs) : base(context, attrs)
         {
-            Init();
+            Initialize();
         }
 
         public RealViewSwitcher(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
-            Init();
+            Initialize();
         }
 
-        private void Init()
+        private void Initialize()
         {
             _scroller = new Scroller(Context);
 
@@ -132,7 +132,7 @@ namespace Smeedee.Android
 		    case MotionEventActions.Move:
 			    var xDiff = (int) Math.Abs(x - _lastMotionX);
 
-			    bool xMoved = xDiff > _touchSlop;
+			    var xMoved = xDiff > _touchSlop;
 
 			    if (xMoved) {
 				    // Scroll if the user moved far enough along the X axis
@@ -202,7 +202,7 @@ namespace Smeedee.Android
         private void SnapToScreen(int whichScreen)
         {
             if (!_scroller.IsFinished)
-			return;
+			    return;
 
 		    whichScreen = Math.Max(0, Math.Min(whichScreen, ChildCount - 1));
 
@@ -245,7 +245,7 @@ namespace Smeedee.Android
         }
 
 
-        // Our own stuff
+        # region Custom Smeedee Functionality
         public View CurrentView
         {
             get { return GetChildAt(_currentScreen); }
@@ -261,7 +261,13 @@ namespace Smeedee.Android
             CurrentScreen++;
         }
 
-
+        /**
+         * Used to retrieve control over MotionEvents when
+         * the drag movement can be interpreted as horizontal.
+         * 
+         * This is used to "steal" control from internal listviews and
+         * similar views that normally handles control of MotionEvents.
+         */
         public override bool OnInterceptTouchEvent(MotionEvent e)
         {
             switch (e.Action)
@@ -287,5 +293,6 @@ namespace Smeedee.Android
                 ScreenChanged(this, e);
             }
         }
+        # endregion
     }
 }

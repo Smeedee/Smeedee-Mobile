@@ -207,10 +207,10 @@ namespace Smeedee.Android
             }
         }
 
-        private bool CheckIfWidgetSlideShowIsEnabled()
-        {
-            return prefs.GetBoolean("slideShowEnabled", false);
-        }
+        //private bool CheckIfWidgetSlideShowIsEnabled()
+        //{
+        //    return prefs.GetBoolean("slideShowEnabled", false);
+        //}
 
         //private void StartWidgetSlideShow()
         //{
