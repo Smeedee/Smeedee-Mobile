@@ -10,6 +10,16 @@ namespace Smeedee.UnitTests.Model
     [TestFixture]
     public class TopCommittersTests
     {
+
+        [Test]
+        public void Should_initially_have_empty_list_of_committers()
+        {
+            var tc = new TopCommitters();
+
+            Assert.AreEqual(0, tc.Committers.Count());
+        }
+
+
         [Test]
         public void Should_run_callback_on_load()
         {
