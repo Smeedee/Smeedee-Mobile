@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Smeedee.Services;
 
@@ -8,24 +7,25 @@ namespace Smeedee.Model
 {
     public class TopCommitters : IModel
     {
-        private ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
+        private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
         private IEnumerable<Committer> _committers;
-        private TimeInterval _timeInterval = TimeInterval.PastDay;
-        private int _numberOfCommitters = 5;
-        private int _days;
+        private TimeInterval _timeInterval;
+        private int _numberOfCommitters;
 
         public TopCommitters()
         {
             _committers = new List<Committer>();
-
-            /*Committers.Sort(
-                (e1, e2) => e2.Commits.CompareTo(e1.Commits)
-            );*/
+            _timeInterval = TimeInterval.PastDay;
+            _numberOfCommitters = 5;
         }
 
-        public IEnumerable<Committer> Committers {
-            get { return _committers.OrderByDescending(e => e.Commits).Take(GetNumberOfCommitters()); }
+        public IEnumerable<Committer> Committers 
+        {
+            get 
+            {
+                return _committers.OrderByDescending(e => e.Commits).Take(GetNumberOfCommitters()); 
+            }
         }
 
         public void Load(Action callback)
@@ -37,17 +37,6 @@ namespace Smeedee.Model
                     callback();
                 }
             );
-        }
-
-
-        public string Description
-        {
-            get
-            {
-                var interval = GetTimeInterval();
-                var suffix = (interval == TimeInterval.PastDay) ? "24 hours" : (interval == TimeInterval.PastWeek) ? "week" : "month";
-                return string.Format("Top committers for the past {0}", suffix);
-            }
         }
 
         public void SetNumberOfCommitters(int n)
@@ -70,8 +59,15 @@ namespace Smeedee.Model
             _timeInterval = t;
         }
 
-
-
+        public string Description
+        {
+            get
+            {
+                var interval = GetTimeInterval();
+                var suffix = (interval == TimeInterval.PastDay) ? "24 hours" : (interval == TimeInterval.PastWeek) ? "week" : "month";
+                return string.Format("Top committers for the past {0}", suffix);
+            }
+        }
 
         public enum TimeInterval
         {
