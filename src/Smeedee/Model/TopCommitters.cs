@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Smeedee.Model
 {
@@ -21,7 +22,7 @@ namespace Smeedee.Model
         }
 
         public IEnumerable<Committer> Committers {
-            get { return _committers; }
+            get { return _committers.Take(5); }
         }
 
         public void Load(Action callback)

@@ -37,12 +37,20 @@ namespace Smeedee.UnitTests.Model
         }
         
         [Test]
-        public void Should_have_list_of_committers_after_load()
+        public void Should_have_list_of_default_five_committers_after_load()
         {
             model.Load(() => { });
 
-            Assert.AreEqual(2, model.Committers.Count());
+            Assert.AreEqual(5, model.Committers.Count());
         }
+        /*
+        [Test]
+        public void Should_be_able_to_set_number_of_committers()
+        {
+            model.SetNumberOfCommitters(10);
 
+            Assert.AreEqual(10, model.Committers.Count());
+        }
+        */
     }
 }
