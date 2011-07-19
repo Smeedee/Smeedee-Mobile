@@ -9,7 +9,7 @@ namespace Smeedee.UnitTests.Model
     [TestFixture]
     public class TopCommittersTests
     {
-        private TopCommitters model;
+        private TopCommitters _model;
 
         [SetUp]
         public void SetUp()
@@ -17,20 +17,20 @@ namespace Smeedee.UnitTests.Model
             var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
             serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
             
-            model = new TopCommitters();
+            _model = new TopCommitters();
         }
 
         [Test]
         public void Should_initially_have_empty_list_of_committers()
         {
-            Assert.AreEqual(0, model.Committers.Count());
+            Assert.AreEqual(0, _model.Committers.Count());
         }
 
         [Test]
         public void Should_run_callback_on_load()
         {
             var check = false;
-            model.Load(() => check = true);
+            _model.Load(() => check = true);
 
             Assert.IsTrue(check);
         }
@@ -38,27 +38,27 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_have_list_of_default_five_committers_after_load()
         {
-            model.Load(() => { });
+            _model.Load(() => { });
 
-            Assert.AreEqual(5, model.Committers.Count());
+            Assert.AreEqual(5, _model.Committers.Count());
         }
         
         [Test]
         public void Should_be_able_to_set_number_of_committers()
         {
-            model.Load(() => { });
-            model.SetNumberOfCommitters(10);
+            _model.Load(() => { });
+            _model.SetNumberOfCommitters(10);
 
-            Assert.AreEqual(10, model.Committers.Count());
+            Assert.AreEqual(10, _model.Committers.Count());
         }
         
         [Test]
         public void Should_return_list_of_committers_in_sorted_order()
         {
-            model.Load(() => { });
+            _model.Load(() => { });
 
-            var committers = model.Committers;
-            var sorted = model.Committers.OrderByDescending(c => c.Commits);
+            var committers = _model.Committers;
+            var sorted = _model.Committers.OrderByDescending(c => c.Commits);
 
             CollectionAssert.AreEqual(sorted.ToList(), committers.ToList());
         }
@@ -66,7 +66,7 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_have_default_time_interval_of_one_day()
         {
-            var interval = model.GetTimeInterval();
+            var interval = _model.GetTimeInterval();
 
             Assert.AreEqual(TopCommitters.TimeInterval.PastDay, interval);
         }
@@ -92,10 +92,10 @@ namespace Smeedee.UnitTests.Model
         [TestCase(TopCommitters.TimeInterval.PastMonth, "Top committers for the past month")]
         public void Should_return_correct_description_for_time_period_after_load(TopCommitters.TimeInterval interval, string expected)
         {
-            model.SetTimeInterval(interval);
-            model.Load(() => { });
+            _model.SetTimeInterval(interval);
+            _model.Load(() => { });
 
-            Assert.AreEqual(expected, model.Description);
+            Assert.AreEqual(expected, _model.Description);
         }
 
     }
