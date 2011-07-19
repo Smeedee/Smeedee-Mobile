@@ -42,5 +42,11 @@ namespace Smeedee.UnitTests.Model
             }
 
         }
+
+        [TestFixture]
+        public class When_asking_for_ordered_builds : BuildStatusTests
+        {
+            
+        }
     }
 }
