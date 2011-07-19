@@ -52,6 +52,22 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(10, model.Committers.Count());
         }
+
+        [Test]
+        public void Should_have_default_time_interval_of_one_day()
+        {
+            var interval = model.GetTimeInterval();
+
+            Assert.AreEqual(TopCommitters.TimeInterval.PastDay, interval);
+        }
+
+        /*
+        [Test]
+        public void Should_get_different_results_for_different_time_interval()
+        {
+            model.SetTimeInterval(TimeInterval.Week);
+
+        }*/
         
     }
 }

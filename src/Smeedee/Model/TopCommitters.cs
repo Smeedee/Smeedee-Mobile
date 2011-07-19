@@ -59,5 +59,18 @@ namespace Smeedee.Model
         {
             return _numberOfCommitters;
         }
+
+        public TimeInterval GetTimeInterval()
+        {
+            return TimeInterval.PastDay;
+        }
+
+
+
+        public enum TimeInterval
+        {
+            PastDay = 1, PastWeek = 7, PastMonth = 30
+        }
+
     }
 }
