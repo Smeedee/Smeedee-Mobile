@@ -8,6 +8,7 @@ using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Services.Fakes;
 
 namespace Smeedee.Android
 {
@@ -33,6 +34,7 @@ namespace Smeedee.Android
                                                         App.ServiceLocator.Get<IMobileKVPersister>()
                                                     ));
 
+            App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
 
             App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(
                                                         App.ServiceLocator.Get<IBackgroundWorker>()));
@@ -43,8 +45,6 @@ namespace Smeedee.Android
             App.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
             App.ServiceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
             App.ServiceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
-
-            
         }
     }
 
@@ -54,6 +54,11 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+            Log.Debug("SMEEDEE", "In MainActivity");
+            Log.Debug("SMEEDEE", "URL: " + new Login().Url);
+            Log.Debug("SMEEDEE", "Key: " + new Login().Key);
+            Log.Debug("SMEEDEE", "Valid? "+ new Login().IsValid());
 
             ConfigureDependencies();
             
@@ -69,22 +74,10 @@ namespace Smeedee.Android
 
         private Intent DetermineNextActivity()
         {
-            Type nextActivity = UserHasAValidUrlAndKey()
+            Type nextActivity = new Login().IsValid()
                                     ? typeof (WidgetContainer)
                                     : typeof (LoginScreen);
             return new Intent(this, nextActivity);
-        }
-
-        private bool UserHasAValidUrlAndKey()
-        {
-            var persistance = ((SmeedeeApplication) Application).App.ServiceLocator.Get<IPersistenceService>();
-            var url = persistance.Get("serverUrl", "");
-            var key = persistance.Get("userPassword", "");
-
-            if (url == null || key == null) return false;
-
-            var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();
-            return validator.IsValid(url, key);
         }
     }
 }

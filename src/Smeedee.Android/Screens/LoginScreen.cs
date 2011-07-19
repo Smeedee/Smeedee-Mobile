@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Smeedee;
 using Smeedee.Android.Services;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
 {
@@ -18,19 +19,20 @@ namespace Smeedee.Android.Screens
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.LoginScreen);
 
-            var loginValidator = new FakeLoginValidationService();
-
             var submitButton = FindViewById<Button>(Resource.Id.BtnLogin);
             var urlInput = FindViewById<EditText>(Resource.Id.ServerUrlInput);
-            var userPasswordInput = FindViewById<EditText>(Resource.Id.UserPasswordInput);
+            var keyInput = FindViewById<EditText>(Resource.Id.UserPasswordInput);
+
+            var login = new Login();
+            urlInput.Text = login.Url;
+            keyInput.Text = login.Key;
+
             submitButton.Click += delegate
                 {
-                    if (loginValidator.IsValid(urlInput.Text, userPasswordInput.Text))
+                    login.Url = urlInput.Text;
+                    login.Key = keyInput.Text;
+                    if (login.IsValid())
                     {
-                        var persistance = ((SmeedeeApplication)Application).App.ServiceLocator.Get<IPersistenceService>();
-                        persistance.Save("serverUrl", urlInput.Text);
-                        persistance.Save("userPassword", userPasswordInput.Text);
-
                         var widgetContainer = new Intent(this, typeof(WidgetContainer));
                         StartActivity(widgetContainer);
                     } else

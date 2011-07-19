@@ -1,70 +1,102 @@
-using System;
-using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
-using Smeedee;
+using Smeedee.Services;
+using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Model
 {
     [TestFixture]
     public class TopCommittersTests
     {
-        private Committer[] singleCommitter = {
-            new Committer("Lars", 17, "http://www.foo.com/img.png")
-        };
+        private TopCommitters _model;
 
-        [Test]
-        public void Should_implement_IModel()
+        [SetUp]
+        public void SetUp()
         {
-            Assert.That(typeof(IModel).IsAssignableFrom(typeof(TopCommitters)));
+            var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
+            serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+            
+            _model = new TopCommitters();
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Should_throw_exception_on_null_argument()
+        public void Should_initially_have_empty_list_of_committers()
         {
-            new TopCommitters(null, 0);
+            Assert.AreEqual(0, _model.Committers.Count());
         }
 
-        [TestCase(1, "Top committers for the past 24 hours")]
-        [TestCase(2, "Top committers for the past 2 days")]
-        [TestCase(7, "Top committers for the past week")]
-        [TestCase(30, "Top committers for the past month")]
-        public void Should_return_string_description_of_time_period(int days, string expected)
+        [Test]
+        public void Should_run_callback_on_load()
         {
-            var model = new TopCommitters(singleCommitter, days);
+            var check = false;
+            _model.Load(() => check = true);
 
-            Assert.AreEqual(expected, model.DaysText);
+            Assert.IsTrue(check);
+        }
+        
+        [Test]
+        public void Should_have_list_of_default_five_committers_after_load()
+        {
+            _model.Load(() => { });
+
+            Assert.AreEqual(5, _model.Committers.Count());
+        }
+        
+        [Test]
+        public void Should_be_able_to_set_number_of_committers()
+        {
+            _model.Load(() => { });
+            _model.SetNumberOfCommitters(10);
+
+            Assert.AreEqual(10, _model.Committers.Count());
+        }
+        
+        [Test]
+        public void Should_return_list_of_committers_in_sorted_order()
+        {
+            _model.Load(() => { });
+
+            var committers = _model.Committers;
+            var sorted = _model.Committers.OrderByDescending(c => c.Commits);
+
+            CollectionAssert.AreEqual(sorted.ToList(), committers.ToList());
+        }
+        
+        [Test]
+        public void Should_have_default_time_interval_of_one_day()
+        {
+            var interval = _model.GetTimeInterval();
+
+            Assert.AreEqual(TopCommitters.TimeInterval.PastDay, interval);
         }
 
-        [TestFixture]
-        public class When_instanciating_top_committers_with_list_of_committers
+        [Test]
+        public void Should_get_different_results_for_different_time_periods()
         {
-            private TopCommitters model;
+            var model1 = new TopCommitters();
+            var model2 = new TopCommitters();
+            model1.SetTimeInterval(TopCommitters.TimeInterval.PastDay);
+            model1.SetTimeInterval(TopCommitters.TimeInterval.PastWeek);
+            model1.Load(() => { });
+            model2.Load(() => { });
 
-            [SetUp]
-            public void SetUp()
-            {
-                model = new TopCommitters(new[] {
-                    new Committer("Lars", 17, "http://www.foo.com/img.png"),
-                    new Committer("Dag Olav", 24, "http://www.foo.com/img.png"),
-                    new Committer("Borge", 16, "http://www.foo.com/img.png")
-                }, 7);
-            }
+            var list1 = model1.Committers;
+            var list2 = model2.Committers;
 
-            [Test]
-            public void Should_make_accessible_list_of_committers_provided()
-            {
-                Assert.AreEqual(3, model.Committers.Count());
-            }
-
-            [Test]
-            public void Should_return_list_in_sorted_order()
-            {
-                Assert.AreEqual(24, model.Committers.First().Commits);
-                Assert.AreEqual(17, model.Committers.ElementAt(1).Commits);
-            }
+            CollectionAssert.AreNotEqual(list1, list2);
         }
+
+        [TestCase(TopCommitters.TimeInterval.PastDay, "Top committers for the past 24 hours")]
+        [TestCase(TopCommitters.TimeInterval.PastWeek, "Top committers for the past week")]
+        [TestCase(TopCommitters.TimeInterval.PastMonth, "Top committers for the past month")]
+        public void Should_return_correct_description_for_time_period_after_load(TopCommitters.TimeInterval interval, string expected)
+        {
+            _model.SetTimeInterval(interval);
+            _model.Load(() => { });
+
+            Assert.AreEqual(expected, _model.Description);
+        }
+
     }
 }

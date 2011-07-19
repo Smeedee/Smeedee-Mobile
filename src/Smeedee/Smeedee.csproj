@@ -48,6 +48,7 @@
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Changeset.cs" />
     <Compile Include="Model\LatestChangeset.cs" />
+    <Compile Include="Model\Login.cs" />
     <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
@@ -55,13 +56,13 @@
     <Compile Include="Services\FakeBuildStatusService.cs" />
     <Compile Include="Services\FakeLatestChangesetsService.cs" />
     <Compile Include="Services\FakeLoginValidationService.cs" />
-    <Compile Include="Services\IBuildStatusService.cs" />
     <Compile Include="Services\ILoginValidationService.cs" />
+    <Compile Include="Services\FakeLoginValidationService.cs" />
     <Compile Include="Services\IModelService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
-    <Compile Include="Services\TopCommittersFakeService.cs" />
+    <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
     <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
     <Compile Include="Services\BackgroundWorker.cs" />
     <Compile Include="Guard.cs" />
@@ -76,10 +77,8 @@
     <Compile Include="Services\FakeImageService.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
-    <Compile Include="Services\IMobileKVPersister.cs" />
     <Compile Include="Services\IPersistenceService.cs" />
     <Compile Include="Model\SmeedeeApp.cs" />
-    <Compile Include="Services\PersistenceService.cs" />
     <Compile Include="Model\TopCommitters.cs" />
     <Compile Include="Model\Committer.cs" />
     <Compile Include="Model\IWidget.cs" />

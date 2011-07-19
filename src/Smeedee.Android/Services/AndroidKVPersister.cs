@@ -1,10 +1,12 @@
-﻿using Android.Content;
+﻿using System;
+using Android.Content;
 using Android.Preferences;
+using Java.Lang;
 using Smeedee;
 
 namespace Smeedee.Android.Services
 {
-    class AndroidKVPersister : IMobileKVPersister
+    public class AndroidKVPersister : IPersistenceService
     {
         private readonly ISharedPreferences preferences;
         public AndroidKVPersister(Context context)
@@ -19,13 +21,35 @@ namespace Smeedee.Android.Services
             editor.Commit();
         }
 
-        public string Get(string key)
+
+        public string Get(string key, string defaultValue)
         {
-            return preferences.GetString(key, null);
+            try
+            {
+                return preferences.GetString(key, defaultValue);
+            } catch (ClassCastException e)
+            {
+                return defaultValue;
+            }
         }
-        public bool GetBoolean(string key)
+
+        public void Save(string key, bool value)
         {
-            return preferences.GetBoolean(key, false);
+            var editor = preferences.Edit();
+            editor.PutBoolean(key, value);
+            editor.Commit();
+        }
+
+        public bool Get(string key, bool defaultValue)
+        {
+            try
+            {
+                return preferences.GetBoolean(key, defaultValue);
+            }
+            catch (ClassCastException e)
+            {
+                return defaultValue;
+            }
         }
     }
      

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Smeedee.Model;
 
-namespace Smeedee.Services
+namespace Smeedee.Services.Fakes
 {
-    public class TopCommittersFakeService : IModelService<TopCommitters>
+    public class TopCommittersFakeService : ITopCommittersService
     {
         private Committer[] data = new[] {
             new Committer("Lars Kirkholt Melhus", 17, "http://www.foo.com/img.png"),
@@ -16,18 +17,11 @@ namespace Smeedee.Services
             new Committer("Kari Irak", 0, "http://www.foo.com/img.png"),
         };
 		
-        public TopCommitters Get()
+        public void LoadTopCommiters(TopCommitters.TimeInterval interval, Action<IEnumerable<Committer>> callback)
         {
-            return new TopCommitters(data, 7);
-        }
+            // Disregard interval for now
 
-        public TopCommitters Get(IDictionary<string, string> args)
-        {
-            var count = (args.ContainsKey("count")) ? int.Parse(args["count"]) : 5;
-            var time = (args.ContainsKey("time")) ? int.Parse(args["time"]) : 1;
-
-            var filteredData = data.Take(count);
-            return new TopCommitters(filteredData.ToList(), time);
+            callback(data);
         }
     }
 }

@@ -3,7 +3,7 @@ using Smeedee;
 
 namespace Smeedee.UnitTests.Services
 {
-    public class FakeKVStorage : IMobileKVPersister
+    public class FakeKVStorage : IPersistenceService
     {
         public Dictionary<string, string> savedValues;
         public string retrievableContent { get; set; }
@@ -17,8 +17,8 @@ namespace Smeedee.UnitTests.Services
         {
             savedValues.Add(key, value);
         }
-
-        public string Get(string key)
+        
+        public string Get(string key, string defaultValue)
         {
             if (string.IsNullOrEmpty(retrievableContent))
                 return savedValues[key];

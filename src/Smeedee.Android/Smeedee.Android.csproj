@@ -80,6 +80,9 @@
     <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
       <Link>Model\LatestChangeset.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\Login.cs">
+      <Link>Model\Login.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
       <Link>Model\SmeedeeApp.cs</Link>
     </Compile>
@@ -107,20 +110,20 @@
     <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
       <Link>Services\FakeLatestChangesetsService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
-      <Link>Services\FakeLoginValidationService.cs</Link>
+    <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
+      <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IBuildStatusService.cs">
-      <Link>Services\IBuildStatusService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
       <Link>Services\ILoginValidationService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
       <Link>Services\IMobileKVPersister.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IBuildStatusService.cs">
+      <Link>Services\IBuildStatusService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IModelService.cs">
       <Link>Services\IModelService.cs</Link>
@@ -134,14 +137,8 @@
     <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
       <Link>Services\IWorkingDaysLeftService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\PersistenceService.cs">
-      <Link>Services\PersistenceService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
-      <Link>Services\TopCommittersFakeService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>
