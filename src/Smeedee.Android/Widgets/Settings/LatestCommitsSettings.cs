@@ -19,7 +19,6 @@ namespace Smeedee.Android.Widgets.Settings
         public const string DefaultRed = "dc322f";
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            Log.Debug("SMEEDEE", "LatestCommitsSettings created");
             base.OnCreate(savedInstanceState);
             AddPreferencesFromResource(Resource.Layout.LatestCommitsSettings);
             LoadPreferences();
