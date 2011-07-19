@@ -5,7 +5,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-    public class TopCommitters : IModel
+    public class TopCommitters
     {
         private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 

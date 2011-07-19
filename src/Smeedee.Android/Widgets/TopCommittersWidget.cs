@@ -12,13 +12,11 @@ namespace Smeedee.Android.Widgets
     [Widget("Top Committers", StaticDescription = "Shows developers and number of commits")]
     public class TopCommittersWidget : RelativeLayout, IWidget
     {
-        private readonly IModelService<TopCommitters> service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<TopCommitters>>();
         private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         private ISharedPreferences preferences;
         private TopCommitters model;
         private ListView list;
-        private string _dynamicDescription;
 
         public TopCommittersWidget(Context context) : base(context)
         {
@@ -27,7 +25,8 @@ namespace Smeedee.Android.Widgets
             list = FindViewById<ListView>(Resource.Id.TopCommittersList);
             preferences = PreferenceManager.GetDefaultSharedPreferences(context);
 
-            bgWorker.Invoke(LoadModelAndUpdateView);
+            model = new TopCommitters();
+            model.Load(() => ((Activity) Context).RunOnUiThread(UpdateView));
         }
 
         private void InflateView()
@@ -43,35 +42,14 @@ namespace Smeedee.Android.Widgets
             }
         }
 
-        private void LoadModelAndUpdateView()
-        {
-            LoadModel();
-            ((Activity) Context).RunOnUiThread(UpdateView);
-        }
-
-        private void LoadModel()
-        {
-            var args = new Dictionary<string, string>() {
-                {"count", preferences.GetString("TopCommittersCountPref", "5")},
-                {"time", preferences.GetString("TopCommittersTimePref", "1")},
-            };
-            model = service.Get(args);
-        }
-
         private void UpdateView()
-        {
-            _dynamicDescription = model.Description;
-            list.Adapter = CreateAdapter();
-        }
-
-        private SimpleAdapter CreateAdapter()
         {
             var from = new string[] { "name", "commits" };
             var to = new int[] { Resource.Id.TopCommittersWidget_committer_name, Resource.Id.TopCommittersWidget_number_of_commits };
 
             var data = GetModelAsListData(from[0], from[1]);
 
-            return new TopCommittersAdapter(Context, data, Resource.Layout.TopCommittersWidget_ListItem, from, to);
+            list.Adapter = new TopCommittersAdapter(Context, data, Resource.Layout.TopCommittersWidget_ListItem, from, to);
         }
 
         private List<IDictionary<string, object>> GetModelAsListData(string nameField, string commitsField)
@@ -90,12 +68,11 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            LoadModelAndUpdateView();
         }
 
         public string GetDynamicDescription()
         {
-            return _dynamicDescription;
+            return model.Description;
         }
     }
 
