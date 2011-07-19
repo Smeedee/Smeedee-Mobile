@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Preferences;
 using Smeedee;
 
 namespace Smeedee.Android.Services
@@ -8,7 +9,7 @@ namespace Smeedee.Android.Services
         private readonly ISharedPreferences preferences;
         public AndroidKVPersister(Context context)
         {
-            preferences = context.GetSharedPreferences("SmeedeePreferences", FileCreationMode.Private);
+            preferences = PreferenceManager.GetDefaultSharedPreferences(context);
         }
 
         public void Save(string key, string value)
