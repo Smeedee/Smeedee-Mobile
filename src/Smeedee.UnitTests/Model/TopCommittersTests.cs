@@ -60,7 +60,7 @@ namespace Smeedee.UnitTests.Model
             model.Load(() => { });
 
             var committers = model.Committers;
-            var sorted = model.Committers.OrderBy(c => c.Commits);
+            var sorted = model.Committers.OrderByDescending(c => c.Commits);
 
             CollectionAssert.AreEqual(sorted.ToList(), committers.ToList());
         }
@@ -79,15 +79,18 @@ namespace Smeedee.UnitTests.Model
             model.Load(() => { });
 
             var committer = model.Committers.First();
+            Assert.AreEqual(42, committer.Commits);
         }
 
         [Test]
-        public void Should_get_different_results_for_different_time_interval()
+        public void Should_get_top_committer_with_62_commits_for_time_interval_of_one_week()
         {
             model.SetTimeInterval(TopCommitters.TimeInterval.PastWeek);
-
             model.Load(() => { });
 
+            var committer = model.Committers.First();
+
+            Assert.AreEqual(62, committer.Commits);
         }*/
         
     }

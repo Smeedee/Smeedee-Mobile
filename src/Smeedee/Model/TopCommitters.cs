@@ -25,7 +25,7 @@ namespace Smeedee.Model
         }
 
         public IEnumerable<Committer> Committers {
-            get { return _committers.OrderBy(e => e.Commits).Take(GetNumberOfCommitters()); }
+            get { return _committers.OrderByDescending(e => e.Commits).Take(GetNumberOfCommitters()); }
         }
 
         public void Load(Action callback)
