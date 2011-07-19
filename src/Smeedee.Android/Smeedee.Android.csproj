@@ -107,6 +107,9 @@
     <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
       <Link>Services\FakeLatestChangesetsService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
+      <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
     </Compile>
@@ -124,9 +127,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
-      <Link>Services\TopCommittersFakeService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
       <Link>Services\WorkingDaysLeftFakeService.cs</Link>

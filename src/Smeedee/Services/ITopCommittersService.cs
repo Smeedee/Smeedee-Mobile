@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Smeedee.Model;
 
-namespace Smeedee
+namespace Smeedee.Services
 {
     public interface ITopCommittersService
     {
-        void LoadTopCommiters(Action<IEnumerable<Committer>> callback);
+        void LoadTopCommiters(TopCommitters.TimeInterval interval, Action<IEnumerable<Committer>> callback);
     }
 }

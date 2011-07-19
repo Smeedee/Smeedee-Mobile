@@ -1,36 +1,77 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-    public class TopCommitters : IModel
+    public class TopCommitters
     {
-        private int _days;
+        private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
-        public TopCommitters(IEnumerable<Committer> committers, int days)
+        private IEnumerable<Committer> _committers;
+        private TimeInterval _timeInterval;
+        private int _numberOfCommitters;
+
+        public TopCommitters()
         {
-            _days = days;
-            Committers = new List<Committer>(committers);
-            Committers.Sort(
-                (e1, e2) => e2.Commits.CompareTo(e1.Commits)
+            _committers = new List<Committer>();
+            _timeInterval = TimeInterval.PastDay;
+            _numberOfCommitters = 5;
+        }
+
+        public IEnumerable<Committer> Committers 
+        {
+            get 
+            {
+                return _committers.OrderByDescending(e => e.Commits).Take(GetNumberOfCommitters()); 
+            }
+        }
+
+        public void Load(Action callback)
+        {
+            service.LoadTopCommiters(
+                GetTimeInterval(),
+                (committers) => { 
+                    _committers = committers;
+                    callback();
+                }
             );
         }
 
-        public List<Committer> Committers { 
-            get;
-            private set;
+        public void SetNumberOfCommitters(int n)
+        {
+            _numberOfCommitters = n;
         }
 
-        public string DaysText
+        private int GetNumberOfCommitters()
+        {
+            return _numberOfCommitters;
+        }
+
+        public TimeInterval GetTimeInterval()
+        {
+            return _timeInterval;
+        }
+
+        public void SetTimeInterval(TimeInterval t)
+        {
+            _timeInterval = t;
+        }
+
+        public string Description
         {
             get
             {
-                string suffix;
-                if (_days == 1) suffix = "24 hours";
-                else if (_days == 7) suffix = "week";
-                else if (_days == 30) suffix = "month";
-                else suffix = string.Format("{0} days", _days);
+                var interval = GetTimeInterval();
+                var suffix = (interval == TimeInterval.PastDay) ? "24 hours" : (interval == TimeInterval.PastWeek) ? "week" : "month";
                 return string.Format("Top committers for the past {0}", suffix);
             }
+        }
+
+        public enum TimeInterval
+        {
+            PastDay = 1, PastWeek = 7, PastMonth = 30
         }
     }
 }
