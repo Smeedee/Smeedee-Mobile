@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Smeedee.Services;
 
 namespace Smeedee.Model
 {
@@ -30,6 +31,7 @@ namespace Smeedee.Model
         public void Load(Action callback)
         {
             service.LoadTopCommiters(
+                GetTimeInterval(),
                 (committers) => { 
                     _committers = committers;
                     callback();

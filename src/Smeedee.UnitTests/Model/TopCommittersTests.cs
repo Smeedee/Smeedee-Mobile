@@ -3,7 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
-using Smeedee;
+using Smeedee.Services;
+using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Model
 {
@@ -52,7 +53,18 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(10, model.Committers.Count());
         }
+        /*
+        [Test]
+        public void Should_return_list_of_committers_in_sorted_order()
+        {
+            model.Load(() => { });
 
+            var committers = model.Committers;
+            var sorted = model.Committers.OrderBy(c => c.Commits);
+
+            CollectionAssert.AreEqual(sorted.ToList(), committers.ToList());
+        }
+        */
         [Test]
         public void Should_have_default_time_interval_of_one_day()
         {
