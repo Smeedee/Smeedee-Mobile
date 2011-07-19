@@ -69,7 +69,6 @@ namespace Smeedee.UnitTests.Model
             }
             
             [Test]
-            [Ignore] // TODO: Why is this stopping?
             public void Should_properly_order_builds_by_build_time()
             {
                 var model = new BuildStatus {BrokenBuildsAtTop = false, Ordering = BuildOrder.BuildTime};
