@@ -57,8 +57,8 @@ namespace Smeedee.Android.Screens
         private void LoadPreferences()
         {
             var login = new Login();
-            FindPreference("serverUrl").Summary = login.Url;
-            FindPreference("userPassword").Summary = login.Key;
+            FindPreference(Login.LoginUrl).Summary = login.Url;
+            FindPreference(Login.LoginKey).Summary = login.Key;
         }
     }
 }

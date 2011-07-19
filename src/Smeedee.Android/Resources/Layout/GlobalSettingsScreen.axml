@@ -25,17 +25,18 @@
     -->
   </PreferenceCategory>
   
+  <!-- Keys here must correspond with keys in the Login model -->
   <PreferenceCategory 
     android:title="@string/GlobalSettingsScreenPreferenceCategory2">
     <EditTextPreference
       android:id="@+id/serverUrl"
-      android:key="serverUrl"
+      android:key="Login_Url"
       android:title="@string/GlobalSettingsScreenServerUrlTitle"
       android:inputType="textUri"
       android:defaultValue="url"/>
     <EditTextPreference
       android:id="@+id/userPassword"
-      android:key="userPassword"
+      android:key="Login_Key"
       android:title="@string/GlobalSettingsScreenUserPasswordTitle"
       android:inputType="textVisiblePassword"
       android:defaultValue="pass"/>

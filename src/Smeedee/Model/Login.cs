@@ -7,8 +7,8 @@ namespace Smeedee.Model
 {
     public class Login
     {
-        private const string LoginKey = "Login.Key";
-        private const string LoginUrl = "Login.Url";
+        public const string LoginKey = "Login_Key";
+        public const string LoginUrl = "Login_Url";
 
         private SmeedeeApp app = SmeedeeApp.Instance;
         private IPersistenceService persistence;
