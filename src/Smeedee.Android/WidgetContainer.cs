@@ -131,30 +131,6 @@ namespace Smeedee.Android
             //BindNextButtonClickEvent();
         }
 
-        //private void BindPreviousButtonClickEvent()
-        //{
-        //    var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-        //    btnPrev.Click += (obj, e) =>
-        //                         {
-        //                             flipper.ShowPrevious();
-        //                             SetCorrectTopBannerWidgetTitle();
-        //                             SetCorrectTopBannerWidgetDescription();
-        //                             flipper.RefreshDrawableState();
-        //                         };
-        //}
-
-        //private void BindNextButtonClickEvent()
-        //{
-        //    var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-        //    btnNext.Click += (sender, args) =>
-        //                         {
-        //                             flipper.ShowNext();
-        //                             SetCorrectTopBannerWidgetTitle();
-        //                             SetCorrectTopBannerWidgetDescription();
-        //                             flipper.RefreshDrawableState();
-        //                         };
-        //}
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
