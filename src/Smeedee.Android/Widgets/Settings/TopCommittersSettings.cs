@@ -1,22 +1,20 @@
-using System;
 using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Preferences;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets.Settings
 {
     [Activity(Label = "Top Committers Settings", Theme = "@android:style/Theme")]
     public class TopCommittersSettings : PreferenceActivity
     {
-        private ISharedPreferences preferences;
+        private TopCommitters _model;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.TopCommittersSettings);
-
-            preferences = PreferenceManager.GetDefaultSharedPreferences(this);
+            _model = new TopCommitters();
             UpdateSummaryForPreferences();
         }
 
@@ -28,43 +26,16 @@ namespace Smeedee.Android.Widgets.Settings
 
         private void UpdateSummaryForCount()
         {
-            var countPreference = (ListPreference)FindPreference("TopCommittersCountPref");
-            var val = preferences.GetString("TopCommittersCountPref", "5");
-
-            if (countPreference != null)
-            {
-                countPreference.Summary = "Top " + val + " committers";
-            }
-            else
-            {
-                throw new NullReferenceException("Could not find Top committers 'count' preference");
-            }
+            var countPreference = (ListPreference)FindPreference("TopCommitters.NumberOfCommitters");
+            countPreference.Summary = string.Format("Top {0} committers", _model.NumberOfCommitters);
         }
 
         private void UpdateSummaryForTime()
         {
-            var timePreference = (ListPreference)FindPreference("TopCommittersTimePref");
-            var val = preferences.GetString("TopCommittersTimePref", "1");
-
-            if (timePreference != null)
-            {
-                switch (val)
-                {
-                    case "1":
-                        timePreference.Summary = "The past 24 hours";
-                        break;
-                    case "7":
-                        timePreference.Summary = "The past week";
-                        break;
-                    case "30":
-                        timePreference.Summary = "The past month";
-                        break;
-                }
-            }
-            else
-            {
-                throw new NullReferenceException("Could not find Top committers 'count' preference");
-            }
+            var timePreference = (ListPreference)FindPreference("TopCommitters.TimePeriod");
+            var time = _model.TimePeriod;
+            var suffix = (time == TimePeriod.PastDay) ? "24 hours" : (time == TimePeriod.PastWeek) ? "week" : "month";
+            timePreference.Summary = string.Format("Past {0}", suffix);
         }
 
         public override void OnWindowFocusChanged(bool hasFocus)
