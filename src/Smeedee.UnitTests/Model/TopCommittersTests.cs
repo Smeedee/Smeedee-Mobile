@@ -130,5 +130,14 @@ namespace Smeedee.UnitTests.Model
             Assert.AreEqual(1, (persistenceService as FakePersistenceService).SaveCalls);
         }
 
+        [Test]
+        public void Should_read_persistent_time_period()
+        {
+            persistenceService.Save("TopCommitters.TimeInterval", TopCommitters.TimeInterval.PastMonth.ToString());
+
+            Assert.AreEqual(TopCommitters.TimeInterval.PastMonth, _model.GetTimeInterval());
+        }
+
+
     }
 }

@@ -52,7 +52,8 @@ namespace Smeedee.Model
 
         public TimeInterval GetTimeInterval()
         {
-            return _timeInterval;
+            var stored = persistence.Get("TopCommitters.TimeInterval", TimeInterval.PastDay.ToString());
+            return (TimeInterval) Enum.Parse(typeof (TimeInterval), stored);
         }
 
         public void SetTimeInterval(TimeInterval t)
