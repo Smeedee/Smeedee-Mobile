@@ -58,7 +58,9 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fakes\FakeBuildStatusService.cs" />
     <Compile Include="Fakes\FakePersistenceService.cs" />
+    <Compile Include="Fakes\NoBackgroundInvokation.cs" />
     <Compile Include="GuardTests.cs" />
     <Compile Include="Model\BuildStatusTests.cs" />
     <Compile Include="Model\ChangesetTests.cs" />

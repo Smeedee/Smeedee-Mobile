@@ -18,7 +18,7 @@ namespace Smeedee.UnitTests.Services
         [SetUp]
         public void SetUp()
         {
-            imageService = new FakeImageService(new NoBackgroundWorker());
+            imageService = new FakeImageService(new NoBackgroundInvokation());
             cache = new FakePersistenceService();
             cachedImageService = new CachedImageService(imageService, cache);
         }

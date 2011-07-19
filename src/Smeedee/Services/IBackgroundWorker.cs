@@ -4,6 +4,6 @@ namespace Smeedee
 {
     public interface IBackgroundWorker
     {
-        void Invoke(Action fn);
+        void Invoke(Action unitOfWork);
     }
 }

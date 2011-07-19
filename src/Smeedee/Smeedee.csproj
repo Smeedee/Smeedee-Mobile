@@ -65,7 +65,6 @@
     <Compile Include="Services\BackgroundWorker.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Services\IBackgroundWorker.cs" />
-    <Compile Include="Services\NoBackgroundWorker.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

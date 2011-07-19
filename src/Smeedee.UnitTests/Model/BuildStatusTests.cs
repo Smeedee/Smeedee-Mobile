@@ -1,6 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Smeedee.Model;
+using Smeedee.Services;
+using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Model
 {
@@ -9,6 +11,7 @@ namespace Smeedee.UnitTests.Model
         protected const string PROJECT = "test project";
         protected const string USER = "test user";
         protected readonly DateTime DATE = DateTime.MinValue;
+        protected SmeedeeApp smeedeeApp = SmeedeeApp.Instance;
 
         [TestFixture]
         public class When_instantiating : BuildStatusTests
@@ -46,7 +49,11 @@ namespace Smeedee.UnitTests.Model
         [TestFixture]
         public class When_asking_for_ordered_builds : BuildStatusTests
         {
-            
+            [SetUp]
+            public void SetUp()
+            {
+                smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvokation()));
+            }
         }
     }
 }
