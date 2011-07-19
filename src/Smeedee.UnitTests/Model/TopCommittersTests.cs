@@ -55,7 +55,7 @@ namespace Smeedee.UnitTests.Model
         public void Should_be_able_to_set_number_of_committers()
         {
             _model.Load(() => { });
-            _model.SetNumberOfCommitters(10);
+            _model.NumberOfCommitters = 10;
 
             Assert.AreEqual(10, _model.Committers.Count());
         }
@@ -74,9 +74,9 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_have_default_time_interval_of_one_day()
         {
-            var interval = _model.GetTimeInterval();
+            var interval = _model.TimePeriod;
 
-            Assert.AreEqual(TopCommitters.TimeInterval.PastDay, interval);
+            Assert.AreEqual(TimePeriod.PastDay, interval);
         }
 
         [Test]
@@ -84,8 +84,8 @@ namespace Smeedee.UnitTests.Model
         {
             var model1 = new TopCommitters();
             var model2 = new TopCommitters();
-            model1.SetTimeInterval(TopCommitters.TimeInterval.PastDay);
-            model1.SetTimeInterval(TopCommitters.TimeInterval.PastWeek);
+            model1.TimePeriod = TimePeriod.PastDay;
+            model1.TimePeriod = TimePeriod.PastWeek;
             model1.Load(() => { });
             model2.Load(() => { });
 
@@ -95,12 +95,12 @@ namespace Smeedee.UnitTests.Model
             CollectionAssert.AreNotEqual(list1, list2);
         }
 
-        [TestCase(TopCommitters.TimeInterval.PastDay, "Top committers for the past 24 hours")]
-        [TestCase(TopCommitters.TimeInterval.PastWeek, "Top committers for the past week")]
-        [TestCase(TopCommitters.TimeInterval.PastMonth, "Top committers for the past month")]
-        public void Should_return_correct_description_for_time_period_after_load(TopCommitters.TimeInterval interval, string expected)
+        [TestCase(TimePeriod.PastDay, "Top committers for the past 24 hours")]
+        [TestCase(TimePeriod.PastWeek, "Top committers for the past week")]
+        [TestCase(TimePeriod.PastMonth, "Top committers for the past month")]
+        public void Should_return_correct_description_for_time_period_after_load(TimePeriod time, string expected)
         {
-            _model.SetTimeInterval(interval);
+            _model.TimePeriod = time;
             _model.Load(() => { });
 
             Assert.AreEqual(expected, _model.Description);
@@ -109,7 +109,7 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_save_number_of_committers()
         {
-            _model.SetNumberOfCommitters(42);
+            _model.NumberOfCommitters = 42;
 
             Assert.AreEqual(1, (persistenceService as FakePersistenceService).SaveCalls);
         }
@@ -119,13 +119,13 @@ namespace Smeedee.UnitTests.Model
         {
             persistenceService.Save("TopCommitters.NumberOfCommitters", 42.ToString());
 
-            Assert.AreEqual(42, _model.GetNumberOfCommitters());
+            Assert.AreEqual(42, _model.NumberOfCommitters);
         }
 
         [Test]
         public void Should_save_time_period()
         {
-            _model.SetTimeInterval(TopCommitters.TimeInterval.PastMonth);
+            _model.TimePeriod = TimePeriod.PastMonth;
 
             Assert.AreEqual(1, (persistenceService as FakePersistenceService).SaveCalls);
         }
@@ -133,9 +133,9 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_read_persistent_time_period()
         {
-            persistenceService.Save("TopCommitters.TimeInterval", TopCommitters.TimeInterval.PastMonth.ToString());
+            persistenceService.Save("TopCommitters.TimePeriod", TimePeriod.PastMonth.ToString());
 
-            Assert.AreEqual(TopCommitters.TimeInterval.PastMonth, _model.GetTimeInterval());
+            Assert.AreEqual(TimePeriod.PastMonth, _model.TimePeriod);
         }
 
 

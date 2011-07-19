@@ -11,28 +11,16 @@ namespace Smeedee.Model
         private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
         private IEnumerable<Committer> _committers;
-        private TimeInterval _timeInterval;
-        private int _numberOfCommitters;
 
         public TopCommitters()
         {
             _committers = new List<Committer>();
-            _timeInterval = TimeInterval.PastDay;
-            _numberOfCommitters = 5;
-        }
-
-        public IEnumerable<Committer> Committers 
-        {
-            get 
-            {
-                return _committers.OrderByDescending(e => e.Commits).Take(GetNumberOfCommitters()); 
-            }
         }
 
         public void Load(Action callback)
         {
             service.LoadTopCommiters(
-                GetTimeInterval(),
+                TimePeriod,
                 (committers) => { 
                     _committers = committers;
                     callback();
@@ -40,41 +28,41 @@ namespace Smeedee.Model
             );
         }
 
-        public void SetNumberOfCommitters(int n)
+        public IEnumerable<Committer> Committers 
         {
-            persistence.Save("TopCommitters.NumberOfCommitters", n.ToString());
+            get { return _committers.OrderByDescending(e => e.Commits).Take(NumberOfCommitters); }
         }
 
-        public int GetNumberOfCommitters()
+        public int NumberOfCommitters
         {
-            return int.Parse(persistence.Get("TopCommitters.NumberOfCommitters", "5"));
+            get { return int.Parse(persistence.Get("TopCommitters.NumberOfCommitters", "5")); }
+            set { persistence.Save("TopCommitters.NumberOfCommitters", value.ToString()); }
         }
 
-        public TimeInterval GetTimeInterval()
+        // TODO: Better naming
+        public TimePeriod TimePeriod
         {
-            var stored = persistence.Get("TopCommitters.TimeInterval", TimeInterval.PastDay.ToString());
-            return (TimeInterval) Enum.Parse(typeof (TimeInterval), stored);
-        }
-
-        public void SetTimeInterval(TimeInterval t)
-        {
-            persistence.Save("TopCommitters.TimeInterval", t.ToString());
-            _timeInterval = t;
+            get
+            {
+                var stored = persistence.Get("TopCommitters.TimePeriod", TimePeriod.PastDay.ToString());
+                return (TimePeriod) Enum.Parse(typeof (TimePeriod), stored);
+            }
+            set { persistence.Save("TopCommitters.TimePeriod", value.ToString()); }
         }
 
         public string Description
         {
             get
             {
-                var interval = GetTimeInterval();
-                var suffix = (interval == TimeInterval.PastDay) ? "24 hours" : (interval == TimeInterval.PastWeek) ? "week" : "month";
+                var time = TimePeriod;
+                var suffix = (time == TimePeriod.PastDay) ? "24 hours" : (time == TimePeriod.PastWeek) ? "week" : "month";
                 return string.Format("Top committers for the past {0}", suffix);
             }
         }
+    }
 
-        public enum TimeInterval
-        {
-            PastDay = 1, PastWeek = 7, PastMonth = 30
-        }
+    public enum TimePeriod
+    {
+        PastDay = 1, PastWeek = 7, PastMonth = 30
     }
 }
