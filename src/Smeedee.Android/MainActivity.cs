@@ -34,10 +34,7 @@ namespace Smeedee.Android
             App.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
             App.ServiceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
 
-            App.ServiceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
-            App.ServiceLocator.Bind<IPersistenceService>(new PersistenceService(
-                                                        App.ServiceLocator.Get<IMobileKVPersister>()
-                                                    ));
+            App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
         }
     }
 
@@ -47,6 +44,11 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+            Log.Debug("SMEEDEE", "In MainActivity");
+            Log.Debug("SMEEDEE", "URL: " + new Login().Url);
+            Log.Debug("SMEEDEE", "Key: " + new Login().Key);
+            Log.Debug("SMEEDEE", "Valid? "+ new Login().IsValid());
 
             ConfigureDependencies();
             

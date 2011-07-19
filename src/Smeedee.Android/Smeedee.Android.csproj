@@ -110,9 +110,6 @@
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
-      <Link>Services\IMobileKVPersister.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\IModelService.cs">
       <Link>Services\IModelService.cs</Link>
     </Compile>
@@ -124,9 +121,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
       <Link>Services\IWorkingDaysLeftService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\PersistenceService.cs">
-      <Link>Services\PersistenceService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>

@@ -18,6 +18,9 @@ namespace Smeedee
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
+            throw new NotImplementedException();
+            //TODO: Get filename from persistance, and use regular disk access to get the image
+            /*
             var cacheKey = "image_cache." + uri;
             var cached = cache.Get<byte[]>(cacheKey, null);
             if (cached == null)
@@ -27,12 +30,16 @@ namespace Smeedee
             {
                 callback(cached);
             }
+             */
         }
 
         private void CacheAndCallback(byte[] bytes, string cacheKey, Action<byte[]> callback)
         {
+            throw new NotImplementedException(); 
+            //TODO: Save filenames to persistance, and use regular disk access to save the images
+            /*
             cache.Save(cacheKey, bytes);
-            callback(bytes);
+            callback(bytes);*/
         }
     }
 }

@@ -19,11 +19,14 @@ namespace Smeedee.Android.Screens
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.LoginScreen);
 
-            var login = new Login();
-
             var submitButton = FindViewById<Button>(Resource.Id.BtnLogin);
             var urlInput = FindViewById<EditText>(Resource.Id.ServerUrlInput);
             var keyInput = FindViewById<EditText>(Resource.Id.UserPasswordInput);
+
+            var login = new Login();
+            urlInput.Text = login.Url;
+            keyInput.Text = login.Key;
+
             submitButton.Click += delegate
                 {
                     login.Url = urlInput.Text;

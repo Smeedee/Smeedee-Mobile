@@ -43,6 +43,11 @@ namespace Smeedee.Android
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
 
+            Log.Debug("SMEEDEE", "In LoginScreen");
+            Log.Debug("SMEEDEE", "URL: " + new Login().Url);
+            Log.Debug("SMEEDEE", "Key: " + new Login().Key);
+            Log.Debug("SMEEDEE", "Valid? " + new Login().IsValid());
+
             preferenceChangeListener = new SharedPreferencesChangeListener(() =>
                                                                                {
                                                                                    hasSettingsChanged = true;

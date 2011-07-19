@@ -9,14 +9,6 @@ namespace Smeedee.Android.Screens
     [Activity(Label = "Smeedee settings", Theme = "@android:style/Theme")]
     public class GlobalSettings : PreferenceActivity
     {
-        /* TODO: 
-         * We can't rely on storing in DefaultSharedPreference here, because we
-         * appearantly can't access that from MainActivity and LoginScreen.
-         * Thus we need to push the values into the IPersistenceService global storage
-         * when they are changed here. 
-         * 
-         * At the moment, this settings screen doesn't affect the app at all:(
-         */
         private IPersistenceService persistence;
         private SmeedeeApp app = SmeedeeApp.Instance;
         protected override void OnCreate(Bundle bundle)

@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Smeedee
+﻿namespace Smeedee
 {
     public interface IPersistenceService
     {
-        void Save(string key, Object value);
-        T Get<T>(string key, T defaultObject);
+        void Save(string key, string value);
+        string Get(string key, string defaultValue);
     }
 }

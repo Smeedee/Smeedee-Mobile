@@ -77,7 +77,6 @@
       <DependentUpon>PersistenceServiceResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\FakeKVStorage.cs" />
-    <Compile Include="Services\PersistenceServiceTests.cs" />
     <Compile Include="Services\ServiceLocatorTests.cs" />
     <Compile Include="TimeSpanPrettyPrintExtensionTests.cs" />
   </ItemGroup>

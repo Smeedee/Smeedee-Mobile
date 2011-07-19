@@ -73,10 +73,8 @@
     <Compile Include="Services\FakeImageService.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
-    <Compile Include="Services\IMobileKVPersister.cs" />
     <Compile Include="Services\IPersistenceService.cs" />
     <Compile Include="Model\SmeedeeApp.cs" />
-    <Compile Include="Services\PersistenceService.cs" />
     <Compile Include="Model\TopCommitters.cs" />
     <Compile Include="Model\Committer.cs" />
     <Compile Include="Model\IWidget.cs" />
