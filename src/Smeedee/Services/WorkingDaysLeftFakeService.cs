@@ -4,16 +4,21 @@ using Smeedee.Model;
 
 namespace Smeedee
 {
-    class WorkingDaysLeftFakeService : IModelService<WorkingDaysLeft>
+    public class WorkingDaysLeftFakeService : IWorkingDaysLeftService
     {
-        public WorkingDaysLeft Get()
+        private readonly IBackgroundWorker bgWorker;
+        private SmeedeeApp app = SmeedeeApp.Instance;
+
+        public int DaysLeft = -1;
+        public DateTime UntilDate = new DateTime(2011, 7, 15);
+        public WorkingDaysLeftFakeService()
         {
-            return new WorkingDaysLeft(-1, new DateTime(2011, 7, 15));
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
-		
-        public WorkingDaysLeft Get(IDictionary<string, string> args)
+
+        public void Get(Action<int, DateTime> callback)
         {
-            return Get();
+            bgWorker.Invoke(() => callback(DaysLeft, UntilDate));
         }
     }
 }

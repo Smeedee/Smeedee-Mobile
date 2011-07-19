@@ -36,9 +36,7 @@ namespace Smeedee.Android
             App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
             App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(
                                                         App.ServiceLocator.Get<IBackgroundWorker>()));
-
-            // TODO: Old Interfaces and whatnot
-            App.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
+            App.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
         }
     }
 

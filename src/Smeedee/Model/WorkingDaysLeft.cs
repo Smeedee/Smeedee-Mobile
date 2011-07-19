@@ -5,13 +5,14 @@ namespace Smeedee.Model
     public class WorkingDaysLeft : IModel
     {
         private int days;
+        private IWorkingDaysLeftService service;
+        private SmeedeeApp app = SmeedeeApp.Instance;
 
-        public WorkingDaysLeft(int days, DateTime untillDate)
+        public WorkingDaysLeft()
         {
-            DaysLeft = days;
-            UntillDate = untillDate;
+            service = app.ServiceLocator.Get<IWorkingDaysLeftService>();
         }
-
+        
         public DateTime UntillDate { get; private set; }
 		
         public bool IsOnOvertime { get { return days < 0; } }
@@ -20,6 +21,16 @@ namespace Smeedee.Model
         {
             get { return Math.Abs(days); }
             private set { days = value; }
+        }
+
+        public void Load(Action callback)
+        {
+            service.Get((days, untilDate) =>
+            {
+                this.days = days;
+                this.UntillDate = untilDate;
+                callback();
+            });
         }
 
         public string DaysLeftText
