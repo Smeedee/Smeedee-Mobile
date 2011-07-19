@@ -9,7 +9,7 @@ namespace Smeedee.UnitTests.Model
     public class BuildStatusTests
     {
         protected SmeedeeApp smeedeeApp = SmeedeeApp.Instance;
-        private FakePersistenceService persister = new FakePersistenceService();
+        private readonly FakePersistenceService persister = new FakePersistenceService();
 
         [SetUp]
         public void SetUp()
@@ -152,6 +152,15 @@ namespace Smeedee.UnitTests.Model
                 model.Ordering = BuildOrder.BuildTime;
 
                 Assert.AreEqual("buildtime", persister.Get("buildSortOrdering", "foo"));
+            }
+
+            [Test]
+            public void Should_persist_whether_name_should_be_shown_as_bool_with_correct_key()
+            {
+                var model = new BuildStatus();
+                model.ShowTriggeredBy = true;
+
+                Assert.AreEqual(true, persister.Get("showTriggeredBy", false));
             }
         }
     }
