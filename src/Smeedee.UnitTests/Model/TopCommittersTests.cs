@@ -53,7 +53,7 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(10, model.Committers.Count());
         }
-        /*
+        
         [Test]
         public void Should_return_list_of_committers_in_sorted_order()
         {
@@ -64,7 +64,7 @@ namespace Smeedee.UnitTests.Model
 
             CollectionAssert.AreEqual(sorted.ToList(), committers.ToList());
         }
-        */
+        
         [Test]
         public void Should_have_default_time_interval_of_one_day()
         {
