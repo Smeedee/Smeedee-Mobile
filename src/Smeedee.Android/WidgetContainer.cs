@@ -170,7 +170,7 @@ namespace Smeedee.Android
                         StartActivity(new Intent(this, typeof(TopCommittersSettings)));
 
                     if (widgetName == "Latest Changesets")
-                        StartActivity(new Intent(this, typeof(LatestChangesetsSettings)));
+                        StartActivity(new Intent(this, typeof(LatestCommitsSettings)));
 
                     return true;
 

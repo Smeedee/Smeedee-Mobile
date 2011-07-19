@@ -13,23 +13,23 @@ using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Latest Changesets", StaticDescription = "Displays latest commits")]
-    public class LatestChangesetsWidget : RelativeLayout, IWidget
+    [WidgetAttribute("Latest Commits", StaticDescription = "Displays latest commits")]
+    public class LatestCommitsWidget : RelativeLayout, IWidget
     {
         internal const string NoMessageTag = "(no message)";
         private string _dynamicDescription;
 
-        private LatestChangesets latestCommits;
+        private LatestCommits latestCommits;
         private ISharedPreferences pref;
 
-        public LatestChangesetsWidget(Context context) :
+        public LatestCommitsWidget(Context context) :
             base(context)
         {
             pref = PreferenceManager.GetDefaultSharedPreferences(context);
             Initialize();
         }
 
-        public LatestChangesetsWidget(Context context, IAttributeSet attrs) :
+        public LatestCommitsWidget(Context context, IAttributeSet attrs) :
             base(context, attrs)
         {
             Initialize();
@@ -37,7 +37,7 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            latestCommits = new LatestChangesets();
+            latestCommits = new LatestCommits();
             InflateLayout();
             Refresh();
         }
@@ -47,7 +47,7 @@ namespace Smeedee.Android.Widgets
             var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             if (inflater != null)
             {
-                inflater.Inflate(Resource.Layout.LatestChangesetsWidget, this);
+                inflater.Inflate(Resource.Layout.LatestCommitsWidget, this);
             }
             else
             {
@@ -70,14 +70,14 @@ namespace Smeedee.Android.Widgets
 
         private void CreateListAdapter()
         {
-            var commitList = FindViewById<ListView>(Resource.Id.LatestChangesetsList);
+            var commitList = FindViewById<ListView>(Resource.Id.LatestCommitsList);
 
             var from = new[] { "Image", "User", "Msg", "Date" };
-            var to = new[] { Ids.LatestChangesetWidget_CommitterIcon, Ids.LatestChangesetWidget_ChangesetUser, Ids.LatestChangesetWidget_ChangesetText, Ids.LatestChangesetWidget_ChangesetDate };
+            var to = new[] { Ids.LatestCommitsWidget_CommitterIcon, Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
 
             var listItems = CreateListItems();
 
-            var adapter = new TextColoringAdapter(Context, listItems, Resource.Layout.LatestChangesetsWidget_ListItem, from, to, GetHighlightColor());
+            var adapter = new TextColoringAdapter(Context, listItems, Resource.Layout.LatestCommitsWidget_ListItem, from, to, GetHighlightColor());
             commitList.Adapter = adapter;
         }
 
@@ -89,7 +89,7 @@ namespace Smeedee.Android.Widgets
         private Color GetHighlightColor()
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
-            var highlightColor = prefs.GetString("lcs_HighlightColor", LatestChangesetsSettings.DefaultRed);
+            var highlightColor = prefs.GetString("lcs_HighlightColor", LatestCommitsSettings.DefaultRed);
             var highlightEnabled = prefs.GetBoolean("lcs_HighlightEnabled", true);
             return highlightEnabled ? ColorTools.GetColorFromHex(highlightColor) : Color.White;
         }
@@ -98,7 +98,7 @@ namespace Smeedee.Android.Widgets
         {
             var data = new List<IDictionary<string, object>>();
 
-            foreach (var changeSet in latestCommits.Changesets)
+            foreach (var changeSet in latestCommits.Commits)
             {
                 var msg = (changeSet.Message == "") ? NoMessageTag : changeSet.Message;
                 data.Add(new Dictionary<string, object>
@@ -140,7 +140,7 @@ namespace Smeedee.Android.Widgets
             if (!(text is TextView)) return view;
             
             var textView = text as TextView;
-            var color = textView.Text == LatestChangesetsWidget.NoMessageTag
+            var color = textView.Text == LatestCommitsWidget.NoMessageTag
                             ? highlightColor
                             : Color.White;
             textView.SetTextColor(color);

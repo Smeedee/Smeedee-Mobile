@@ -9,18 +9,18 @@ using Smeedee.UnitTests.Fakes;
 namespace Smeedee.UnitTests.Model
 {
     [TestFixture]
-    public class LatestChangesetsTests
+    public class LatestCommitsTests
     {
-        private LatestChangesets model;
-        private CallCountingLatestChangesetsService countingService;
+        private LatestCommits model;
+        private CallCountingLatestCommitsService countingService;
 
         [SetUp]
         public void SetUp()
         {
-            countingService = new CallCountingLatestChangesetsService();
+            countingService = new CallCountingLatestCommitsService();
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
-            SmeedeeApp.Instance.ServiceLocator.Bind<ILatestChangesetsService>(new FakeLatestChangesetsService());
-            model = new LatestChangesets();
+            SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
+            model = new LatestCommits();
         }
 
         [Test]
@@ -34,26 +34,26 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_call_service_on_load()
         {
-            SmeedeeApp.Instance.ServiceLocator.Bind<ILatestChangesetsService>(countingService);
-            new LatestChangesets().Load(() => { });
+            SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(countingService);
+            new LatestCommits().Load(() => { });
             Assert.AreEqual(1, countingService.GetCalls);
         }
 
         [Test]
         public void Should_have_an_emtpy_list_on_construction()
         {
-            Assert.NotNull(model.Changesets);
+            Assert.NotNull(model.Commits);
         }
         
-        private class CallCountingLatestChangesetsService : ILatestChangesetsService
+        private class CallCountingLatestCommitsService : ILatestCommitsService
         {
             public int GetCalls;
-            public void Get(Action<IEnumerable<Changeset>> callback)
+            public void Get(Action<IEnumerable<Commit>> callback)
             {
                 GetCalls++;
             }
 
-            public void Get(int count, Action<IEnumerable<Changeset>> callback)
+            public void Get(int count, Action<IEnumerable<Commit>> callback)
             {
                 GetCalls++;
             }
