@@ -6,7 +6,7 @@ namespace Smeedee.Model
 {
     public class LatestChangesets
     {
-        private IEnumerable<Changeset> changesets;
+        private IEnumerable<Changeset> changesets = new List<Changeset>();
         public IEnumerable<Changeset> Changesets
         {
             get { return changesets; }

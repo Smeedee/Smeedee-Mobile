@@ -39,6 +39,11 @@ namespace Smeedee.UnitTests.Model
             Assert.AreEqual(1, countingService.GetCalls);
         }
 
+        [Test]
+        public void Should_have_an_emtpy_list_on_construction()
+        {
+            Assert.NotNull(model.Changesets);
+        }
         
         private class CallCountingLatestChangesetsService : ILatestChangesetsService
         {
