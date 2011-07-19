@@ -45,6 +45,38 @@ namespace Smeedee.UnitTests.Model
                 var model = new Build(PROJECT, BuildState.Working, "", DATE);
             }
 
+        } 
+
+        [TestFixture]
+        public class When_asking_for_metainformation_about_builds : BuildStatusTests
+        {
+            [SetUp]
+            public void SetUp()
+            {
+                smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvokation()));
+                smeedeeApp.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
+            }
+
+            [Test]
+            public void Should_report_correct_amount_of_broken_builds()
+            {
+                var model = new BuildStatus();
+                model.Load(() => Assert.AreEqual(2, model.GetNumberOfBuildsThatHaveState(BuildState.Broken)));
+            }
+
+            [Test]
+            public void Should_report_correct_amount_of_working_builds()
+            {
+                var model = new BuildStatus();
+                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsThatHaveState(BuildState.Working)));
+            }
+
+            [Test]
+            public void Should_report_correct_amount_of_unknown_builds()
+            {
+                var model = new BuildStatus();
+                model.Load(() => Assert.AreEqual(3, model.GetNumberOfBuildsThatHaveState(BuildState.Unknown)));
+            }
         }
 
         [TestFixture]
