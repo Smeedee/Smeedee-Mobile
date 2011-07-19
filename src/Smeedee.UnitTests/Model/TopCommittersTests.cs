@@ -137,7 +137,5 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(TimePeriod.PastMonth, _model.TimePeriod);
         }
-
-
     }
 }

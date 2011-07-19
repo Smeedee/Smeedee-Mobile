@@ -7,10 +7,10 @@ namespace Smeedee.Model
 {
     public class TopCommitters
     {
-        public static readonly string TimePeriodPropertyKey = "TopCommitters.TimePeriod";
-        public static readonly string NumberOfCommittersPropertyKey = "TopCommitters.NumberOfCommitters";
+        public const string TimePeriodPropertyKey = "TopCommitters.TimePeriod";
+        public const string NumberOfCommittersPropertyKey = "TopCommitters.NumberOfCommitters";
 
-        private static readonly string DefaultNumberOfCommittersPropertyValue = "5";
+        private const string DefaultNumberOfCommittersPropertyValue = "5";
         private static readonly string DefaultTimePeriodPropertyValue = TimePeriod.PastDay.ToString();
 
         private readonly IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
