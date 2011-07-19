@@ -57,6 +57,7 @@ namespace Smeedee.Model
 
         public void SetTimeInterval(TimeInterval t)
         {
+            persistence.Save("TopCommitters.TimeInterval", t.ToString());
             _timeInterval = t;
         }
 

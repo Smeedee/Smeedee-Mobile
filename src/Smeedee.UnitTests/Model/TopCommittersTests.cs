@@ -122,5 +122,13 @@ namespace Smeedee.UnitTests.Model
             Assert.AreEqual(42, _model.GetNumberOfCommitters());
         }
 
+        [Test]
+        public void Should_save_time_period()
+        {
+            _model.SetTimeInterval(TopCommitters.TimeInterval.PastMonth);
+
+            Assert.AreEqual(1, (persistenceService as FakePersistenceService).SaveCalls);
+        }
+
     }
 }
