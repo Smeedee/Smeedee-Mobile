@@ -94,7 +94,7 @@ namespace Smeedee.Android.Widgets
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var view = convertView ?? base.GetView(position, convertView, parent);
+            var view = base.GetView(position, convertView, parent);
             var status = int.Parse(((TextView)view.FindViewById(Resource.Id.BuildStatuswidget_buildstatus)).Text);
             var buildStatusView = view.FindViewById(Resource.Id.BuildStatuswidget_buildstatusdisplay) as ImageView;
             
