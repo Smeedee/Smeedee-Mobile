@@ -107,8 +107,8 @@
     <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
       <Link>Services\FakeBuildStatusService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
-      <Link>Services\FakeLatestChangesetsService.cs</Link>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeLatestChangesetsService.cs">
+      <Link>Services\Fakes\FakeLatestChangesetsService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
       <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
@@ -118,6 +118,9 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\IBuildStatusService.cs">
       <Link>Services\IBuildStatusService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ILatestChangesetsService.cs">
+      <Link>Services\ILatestChangesetsService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IModelService.cs">
       <Link>Services\IModelService.cs</Link>

@@ -1,14 +1,24 @@
+using System;
 using System.Collections.Generic;
 
 namespace Smeedee.Model
 {
-    public class LatestChangeset : IModel
+    public class LatestChangesets
     {
-        public IEnumerable<Changeset> Changesets { get; private set; }
-
-        public LatestChangeset(IEnumerable<Changeset> changesets)
+        private IEnumerable<Changeset> changesets;
+        public IEnumerable<Changeset> Changesets
         {
-            Changesets = changesets;
+            get { return changesets; }
+            private set { changesets = value; }
+        }
+
+        public LatestChangesets()
+        {
+        }
+
+        public void Load(Action callback)
+        {
+            callback();
         }
     }
 }

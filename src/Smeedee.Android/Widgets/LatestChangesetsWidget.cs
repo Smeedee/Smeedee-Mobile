@@ -19,7 +19,7 @@ namespace Smeedee.Android.Widgets
         internal const string NoMessageTag = "(no message)";
         private string _dynamicDescription;
 
-        private LatestChangeset model;
+        private LatestChangesets latestCommits;
         private ISharedPreferences pref;
 
         public LatestChangesetsWidget(Context context) :
@@ -37,6 +37,7 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
+            latestCommits = new LatestChangesets();
             InflateLayout();
             Refresh();
         }
@@ -56,22 +57,13 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            ContextSwitcher.Using((Activity)Context).InBackground(GetData).InUI(UpdateUI).Run();
+            //TODO or not TODO?:
+            //var count = int.Parse(pref.GetString("NumberOfCommitsDisplayed", "10"));
+            latestCommits.Load(Redraw);
             RefreshDynamicDescription();
         }
 
-        private void GetData()
-        {
-            var service = SmeedeeApp.Instance.ServiceLocator.Get<IModelService<LatestChangeset>>();
-            var args = new Dictionary<string, string>() 
-            {
-                {"count", pref.GetString("NumberOfCommitsDisplayed", "10")}
-            };
-
-            model = service.Get(args);
-        }
-
-        private void UpdateUI()
+        public void Redraw()
         {
             CreateListAdapter();
         }
@@ -106,7 +98,7 @@ namespace Smeedee.Android.Widgets
         {
             var data = new List<IDictionary<string, object>>();
 
-            foreach (var changeSet in model.Changesets)
+            foreach (var changeSet in latestCommits.Changesets)
             {
                 var msg = (changeSet.Message == "") ? NoMessageTag : changeSet.Message;
                 data.Add(new Dictionary<string, object>
