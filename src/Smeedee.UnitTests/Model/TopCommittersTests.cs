@@ -72,7 +72,7 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(TopCommitters.TimeInterval.PastDay, interval);
         }
-        /*
+        
         [Test]
         public void Should_get_top_committer_with_42_commits_for_default_time_interval()
         {
@@ -91,7 +91,7 @@ namespace Smeedee.UnitTests.Model
             var committer = model.Committers.First();
 
             Assert.AreEqual(62, committer.Commits);
-        }*/
+        }
         
     }
 }
