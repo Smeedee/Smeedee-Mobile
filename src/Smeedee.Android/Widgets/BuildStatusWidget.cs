@@ -22,7 +22,7 @@ namespace Smeedee.Android.Widgets
 
         private ListView buildList;
         private BuildStatus model;
-        private string _dynamicDescription = "";
+        private string _dynamicDescription = "Showing build status for your projects";
 
         public BuildStatusWidget(Context context)
             : base(context)

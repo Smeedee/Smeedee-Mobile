@@ -8,7 +8,6 @@ using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
-using Android.Views.Animations;
 using Android.Widget;
 using Android.OS;
 using Java.Lang;
@@ -17,17 +16,15 @@ using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 using Exception = System.Exception;
 
-// TODO: In this class, get all widget title and description from the eventargs instead of polling in event handler
 namespace Smeedee.Android
 {
     [Activity(
         Label = "Smeedee Mobile",
-        Theme = "@android:style/Theme.NoTitleBar",
-        ConfigurationChanges = ConfigChanges.KeyboardHidden | ConfigChanges.Orientation)]
+        Theme = "@android:style/Theme.NoTitleBar")]
     public class WidgetContainer : Activity
     {
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
-        private ViewFlipper flipper;
+        private RealViewSwitcher flipper;
         private IEnumerable<IWidget> widgets;
 
         private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
@@ -39,14 +36,12 @@ namespace Smeedee.Android
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            flipper = FindViewById<ViewFlipper>(Resource.Id.Flipper);
-            ((DraggableViewFlipper)flipper).WidgetChanged += WidgetContainer_WidgetChanged;
-            
+            flipper = FindViewById<RealViewSwitcher>(Resource.Id.Flipper);
+            flipper.ScreenChanged += HandleScreenChanged;
 
             AddWidgetsToFlipper();
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
-            BindEventsToNavigationButtons();
 
             preferenceChangeListener = new SharedPreferencesChangeListener(() =>
                                                                                {
@@ -54,13 +49,20 @@ namespace Smeedee.Android
                                                                                });
             prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
+
+            var previousSlide = LastNonConfigurationInstance;
+            if (previousSlide != null)
+            {
+                flipper.CurrentScreen = ((Integer)previousSlide).IntValue();
+            }
         }
 
-        void WidgetContainer_WidgetChanged(object sender, EventArgs args)
+        void HandleScreenChanged(object sender, EventArgs e)
         {
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
         }
+
         private void AddWidgetsToFlipper()
         {
             widgets = GetWidgets();
@@ -104,7 +106,6 @@ namespace Smeedee.Android
 
             if (currentWidget != null)
             {
-                currentWidget.Refresh(); // Some threading makes the description not finished for the first widget
                 widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
             }
             else
@@ -123,36 +124,6 @@ namespace Smeedee.Android
                     name = widgetModel.Name;
             }
             return name;
-        }
-
-        private void BindEventsToNavigationButtons()
-        {
-            BindPreviousButtonClickEvent();
-            BindNextButtonClickEvent();
-        }
-
-        private void BindPreviousButtonClickEvent()
-        {
-            var btnPrev = FindViewById<Button>(Resource.Id.BtnPrev);
-            btnPrev.Click += (obj, e) =>
-                                 {
-                                     flipper.ShowPrevious();
-                                     SetCorrectTopBannerWidgetTitle();
-                                     SetCorrectTopBannerWidgetDescription();
-                                     flipper.RefreshDrawableState();
-                                 };
-        }
-
-        private void BindNextButtonClickEvent()
-        {
-            var btnNext = FindViewById<Button>(Resource.Id.BtnNext);
-            btnNext.Click += (sender, args) =>
-                                 {
-                                     flipper.ShowNext();
-                                     SetCorrectTopBannerWidgetTitle();
-                                     SetCorrectTopBannerWidgetDescription();
-                                     flipper.RefreshDrawableState();
-                                 };
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -225,10 +196,10 @@ namespace Smeedee.Android
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
                 
-                if (CheckIfWidgetSlideShowIsEnabled())
-                    StartWidgetSlideShow();
-                else
-                    StopWidgetSlideShow();
+                //if (CheckIfWidgetSlideShowIsEnabled())
+                //    StartWidgetSlideShow();
+                //else
+                //    StopWidgetSlideShow();
 
                 Log.Debug("TT", "Just refreshed widget list after having changed settings.");
                 hasSettingsChanged = false;
@@ -240,25 +211,25 @@ namespace Smeedee.Android
             }
         }
 
-        private bool CheckIfWidgetSlideShowIsEnabled()
-        {
-            return prefs.GetBoolean("slideShowEnabled", false);
-        }
+        //private bool CheckIfWidgetSlideShowIsEnabled()
+        //{
+        //    return prefs.GetBoolean("slideShowEnabled", false);
+        //}
 
-        private void StartWidgetSlideShow()
-        {
-            if (!flipper.IsFlipping)
-            {
-                //var flipInterval = int.Parse(prefs.GetString("slideShowInterval", "20000"));
-                flipper.SetFlipInterval(2000);
-                flipper.StartFlipping();
-            }
-        }
-        private void StopWidgetSlideShow()
-        {
-            if (flipper.IsFlipping)
-                flipper.StopFlipping();
-        }
+        //private void StartWidgetSlideShow()
+        //{
+        //    if (!flipper.IsFlipping)
+        //    {
+        //        //var flipInterval = int.Parse(prefs.GetString("slideShowInterval", "20000"));
+        //        flipper.SetFlipInterval(2000);
+        //        flipper.StartFlipping();
+        //    }
+        //}
+        //private void StopWidgetSlideShow()
+        //{
+        //    if (flipper.IsFlipping)
+        //        flipper.StopFlipping();
+        //}
 
         private void CheckForEnabledAndDisabledWidgets()
         {
@@ -271,20 +242,24 @@ namespace Smeedee.Android
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
             }
 
-            var current = flipper.DisplayedChild;
             flipper.RemoveAllViews();
 
             foreach (var newWidget in newWidgets)
             {
                 flipper.AddView((View)newWidget);
             }
-            flipper.DisplayedChild = current;
+            flipper.CurrentScreen = 0;
         }
 
         private bool WidgetIsEnabled(WidgetModel widget)
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             return prefs.GetBoolean(widget.Name, true);
+        }
+
+        public override Java.Lang.Object OnRetainNonConfigurationInstance()
+        {
+            return flipper.CurrentScreen;
         }
     }
     

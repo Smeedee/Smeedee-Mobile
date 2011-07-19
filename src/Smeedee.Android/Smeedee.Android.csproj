@@ -146,6 +146,7 @@
     <Compile Include="ColorTools.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="DraggableViewFlipper.cs" />
+    <Compile Include="RealViewSwitcher.cs" />
     <Compile Include="Screens\About.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
@@ -251,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <Content Include="RealViewSwitcher.java" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
