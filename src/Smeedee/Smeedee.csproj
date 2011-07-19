@@ -48,13 +48,12 @@
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Changeset.cs" />
     <Compile Include="Model\LatestChangeset.cs" />
+    <Compile Include="Model\Login.cs" />
     <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\FakeBuildStatusService.cs" />
     <Compile Include="Services\FakeLatestChangesetsService.cs" />
-    <Compile Include="Services\FakeLoginValidationService.cs" />
-    <Compile Include="Services\ILoginValidationService.cs" />
     <Compile Include="Services\IModelService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />

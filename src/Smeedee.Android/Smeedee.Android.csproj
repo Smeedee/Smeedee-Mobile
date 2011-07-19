@@ -80,6 +80,9 @@
     <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
       <Link>Model\LatestChangeset.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\Login.cs">
+      <Link>Model\Login.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
       <Link>Model\SmeedeeApp.cs</Link>
     </Compile>
@@ -104,14 +107,8 @@
     <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
       <Link>Services\FakeLatestChangesetsService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
-      <Link>Services\FakeLoginValidationService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
-      <Link>Services\ILoginValidationService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
       <Link>Services\IMobileKVPersister.cs</Link>

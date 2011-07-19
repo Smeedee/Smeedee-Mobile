@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Smeedee;
+using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Services
 {
@@ -60,23 +61,6 @@ namespace Smeedee.UnitTests.Services
         {
             callback(new byte[]{1,2,3});
             GetCalls += 1;
-        }
-    }
-
-    internal class FakePersistenceService : IPersistenceService
-    {
-        public int SaveCalls, GetCalls;
-        private Dictionary<string, object> cache = new Dictionary<string, object>();
-        public void Save(string key, object value)
-        {
-            SaveCalls += 1;
-            cache[key] = value;
-        }
-
-        public T Get<T>(string key, T defaultObject)
-        {
-            GetCalls += 1;
-            return cache.ContainsKey(key) ? (T)cache[key] : defaultObject;
         }
     }
 }

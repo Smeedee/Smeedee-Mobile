@@ -33,7 +33,6 @@ namespace Smeedee.Android
             App.ServiceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
             App.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
             App.ServiceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
-            App.ServiceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
 
             App.ServiceLocator.Bind<IMobileKVPersister>(new AndroidKVPersister(this));
             App.ServiceLocator.Bind<IPersistenceService>(new PersistenceService(
@@ -63,22 +62,10 @@ namespace Smeedee.Android
 
         private Intent DetermineNextActivity()
         {
-            Type nextActivity = UserHasAValidUrlAndKey()
+            Type nextActivity = new Login().IsValid()
                                     ? typeof (WidgetContainer)
                                     : typeof (LoginScreen);
             return new Intent(this, nextActivity);
-        }
-
-        private bool UserHasAValidUrlAndKey()
-        {
-            var persistance = ((SmeedeeApplication) Application).App.ServiceLocator.Get<IPersistenceService>();
-            var url = persistance.Get("serverUrl", "");
-            var key = persistance.Get("userPassword", "");
-
-            if (url == null || key == null) return false;
-
-            var validator = SmeedeeApp.Instance.ServiceLocator.Get<ILoginValidationService>();
-            return validator.IsValid(url, key);
         }
     }
 }
