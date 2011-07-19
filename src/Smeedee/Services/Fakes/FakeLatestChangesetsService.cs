@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Smeedee.Model;
 using Smeedee;
+using Smeedee.Services;
 
 namespace Smeedee
 {
@@ -27,15 +28,23 @@ namespace Smeedee
             new Changeset("Merged", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
             new Changeset("This is number 16", new DateTime(2011, 7, 1, 2, 0, 0), "larmel")
                                        };
-        
-		public List<Changeset> Get()
+
+        private IBackgroundWorker bgWorker;
+        private SmeedeeApp app = SmeedeeApp.Instance;
+
+        public FakeLatestChangesetsService()
         {
-            return data.ToList();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
 
-        public List<Changeset> Get(int count)
+        public void Get(Action<IEnumerable<Changeset>> callback)
         {
-            return data.Take(count).ToList();
+            bgWorker.Invoke(() => callback(data));
+        }
+
+        public void Get(int count, Action<IEnumerable<Changeset>> callback)
+        {
+            bgWorker.Invoke(() => callback(data.Take(count)));
         }
     }
 }

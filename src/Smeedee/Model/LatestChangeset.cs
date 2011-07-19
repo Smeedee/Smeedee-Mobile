@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Smeedee;
 
 namespace Smeedee.Model
 {
@@ -12,13 +13,21 @@ namespace Smeedee.Model
             private set { changesets = value; }
         }
 
+        private SmeedeeApp app = SmeedeeApp.Instance;
+        private ILatestChangesetsService service;
+
         public LatestChangesets()
         {
+            service = app.ServiceLocator.Get<ILatestChangesetsService>();
         }
 
         public void Load(Action callback)
         {
-            callback();
+            service.Get(changesets =>
+            {
+                this.changesets = changesets;
+                callback();
+            });
         }
     }
 }
