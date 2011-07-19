@@ -67,16 +67,9 @@ namespace Smeedee.UnitTests.Model
                 var model = GetNameSortedModel();
                 model.Load(() => Assert.AreEqual(model.Builds.OrderBy(b => b.ProjectName), model.Builds));
             }
-            
-            [Test]
-            public void Should_properly_order_builds_by_build_time()
-            {
-                var model = new BuildStatus {BrokenBuildsAtTop = false, Ordering = BuildOrder.BuildTime};
-                model.Load(() => Assert.AreEqual(model.Builds.OrderBy(b => b.BuildTime), model.Builds));
-            }
 
             [Test]
-            public void Should_properly_put_broken_builds_at_top()
+            public void Should_properly_put_broken_builds_at_top_when_sorting_by_name()
             {
                 var model = GetNameSortedModelWithBrokenAtTop();
                 model.Load(() => Assert.True(model.Builds.Take(2).Where(b => b.BuildSuccessState == BuildState.Broken).Count() == 2));
@@ -103,6 +96,42 @@ namespace Smeedee.UnitTests.Model
                 model.Load(() => Assert.AreEqual(model.Builds.Skip(5).Take(3).OrderBy(b => b.ProjectName), model.Builds.Skip(5).Take(3)));
             }
 
+            [Test]
+            public void Should_properly_order_builds_by_build_time()
+            {
+                BuildStatus model = GetTimeSortedModel();
+                model.Load(() => Assert.AreEqual(model.Builds.OrderBy(b => b.BuildTime), model.Builds));
+            }
+
+            [Test]
+            public void Should_properly_put_broken_builds_at_top_when_sorting_by_time()
+            {
+                BuildStatus model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.True(model.Builds.Take(2).Where(b => b.BuildSuccessState == BuildState.Broken).Count() == 2));
+            }
+
+            [Test]
+            public void Should_maintain_time_based_ordering_among_broken_builds_when_they_are_on_top()
+            {
+                var model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.AreEqual(model.Builds.Take(2).OrderBy(b => b.BuildTime), model.Builds.Take(2)));
+            }
+
+            [Test]
+            public void Should_maintain_time_based_ordering_among_working_builds_when_broken_builds_are_on_top()
+            {
+                var model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.AreEqual(model.Builds.Skip(2).Take(3).OrderBy(b => b.BuildTime), model.Builds.Skip(2).Take(3)));
+            }
+
+            [Test]
+            public void Should_maintain_time_based_ordering_among_unknown_builds_when_broken_builds_are_on_top()
+            {
+                var model = GetTimeSortedModelWithBrokenAtTop();
+                model.Load(() => Assert.AreEqual(model.Builds.Skip(5).Take(3).OrderBy(b => b.BuildTime), model.Builds.Skip(5).Take(3)));
+            }
+
+
             private static BuildStatus GetNameSortedModel()
             {
                 return new BuildStatus { BrokenBuildsAtTop = false, Ordering = BuildOrder.BuildName };
@@ -111,6 +140,16 @@ namespace Smeedee.UnitTests.Model
             private static BuildStatus GetNameSortedModelWithBrokenAtTop()
             {
                 return new BuildStatus { BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildName };
+            }
+
+            private static BuildStatus GetTimeSortedModel()
+            {
+                return new BuildStatus { BrokenBuildsAtTop = false, Ordering = BuildOrder.BuildTime };
+            }
+
+            private static BuildStatus GetTimeSortedModelWithBrokenAtTop()
+            {
+                return new BuildStatus { BrokenBuildsAtTop = true, Ordering = BuildOrder.BuildTime };
             }
         }
 
