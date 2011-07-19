@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Smeedee;
 
 namespace Smeedee.UnitTests.Services
@@ -23,6 +24,16 @@ namespace Smeedee.UnitTests.Services
             if (string.IsNullOrEmpty(retrievableContent))
                 return savedValues[key];
             return retrievableContent;
+        }
+
+        public void Save(string key, bool value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Get(string key, bool defaultValue)
+        {
+            throw new NotImplementedException();
         }
     }
 }

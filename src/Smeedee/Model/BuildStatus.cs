@@ -45,23 +45,23 @@ namespace Smeedee.Model
         public bool BrokenBuildsAtTop { 
             get 
             { 
-                var brokenAtTop = persistenceService.Get("brokenBuildsAtTop", "true");
-                return brokenAtTop == bool.TrueString;
+                var brokenAtTop = persistenceService.Get("brokenBuildsAtTop", true);
+                return brokenAtTop;
             } set
             {
-                persistenceService.Save("brokenBuildsAtTop", value.ToString());
+                persistenceService.Save("brokenBuildsAtTop", value);
             }
         }
 
         public bool ShowTriggeredBy {
             get
             {
-                var showTriggeredBy = persistenceService.Get("showTriggeredBy", "true");
-                return showTriggeredBy == bool.TrueString;
+                var showTriggeredBy = persistenceService.Get("showTriggeredBy", true);
+                return showTriggeredBy;
             }
             set
             {
-                persistenceService.Save("showTriggeredBy", value.ToString());
+                persistenceService.Save("showTriggeredBy", value);
             }
         }
 

@@ -55,6 +55,7 @@
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Services\FakeBuildStatusService.cs" />
     <Compile Include="Services\FakeLatestChangesetsService.cs" />
+    <Compile Include="Services\IBuildStatusService.cs" />
     <Compile Include="Services\IModelService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
