@@ -7,6 +7,12 @@ namespace Smeedee.Model
 {
     public class TopCommitters
     {
+        public static readonly string TimePeriodPropertyKey = "TopCommitters.TimePeriod";
+        public static readonly string NumberOfCommittersPropertyKey = "TopCommitters.NumberOfCommitters";
+
+        private static readonly string DefaultNumberOfCommittersPropertyValue = "5";
+        private static readonly string DefaultTimePeriodPropertyValue = TimePeriod.PastDay.ToString();
+
         private readonly IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
@@ -35,8 +41,8 @@ namespace Smeedee.Model
 
         public int NumberOfCommitters
         {
-            get { return int.Parse(persistence.Get("TopCommitters.NumberOfCommitters", "5")); }
-            set { persistence.Save("TopCommitters.NumberOfCommitters", value.ToString()); }
+            get { return int.Parse(persistence.Get(NumberOfCommittersPropertyKey, DefaultNumberOfCommittersPropertyValue)); }
+            set { persistence.Save(NumberOfCommittersPropertyKey, value.ToString()); }
         }
 
         // TODO: Better naming
@@ -44,10 +50,10 @@ namespace Smeedee.Model
         {
             get
             {
-                var stored = persistence.Get("TopCommitters.TimePeriod", TimePeriod.PastDay.ToString());
+                var stored = persistence.Get(TimePeriodPropertyKey, DefaultTimePeriodPropertyValue);
                 return (TimePeriod) Enum.Parse(typeof (TimePeriod), stored);
             }
-            set { persistence.Save("TopCommitters.TimePeriod", value.ToString()); }
+            set { persistence.Save(TimePeriodPropertyKey, value.ToString()); }
         }
 
         public string Description

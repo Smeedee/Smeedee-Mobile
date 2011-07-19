@@ -26,13 +26,13 @@ namespace Smeedee.Android.Widgets.Settings
 
         private void UpdateSummaryForCount()
         {
-            var countPreference = (ListPreference)FindPreference("TopCommitters.NumberOfCommitters");
+            var countPreference = (ListPreference)FindPreference(TopCommitters.NumberOfCommittersPropertyKey);
             countPreference.Summary = string.Format("Top {0} committers", _model.NumberOfCommitters);
         }
 
         private void UpdateSummaryForTime()
         {
-            var timePreference = (ListPreference)FindPreference("TopCommitters.TimePeriod");
+            var timePreference = (ListPreference)FindPreference(TopCommitters.TimePeriodPropertyKey);
             var time = _model.TimePeriod;
             var suffix = (time == TimePeriod.PastDay) ? "24 hours" : (time == TimePeriod.PastWeek) ? "week" : "month";
             timePreference.Summary = string.Format("Past {0}", suffix);
