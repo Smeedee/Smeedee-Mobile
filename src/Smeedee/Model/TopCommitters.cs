@@ -40,15 +40,12 @@ namespace Smeedee.Model
         }
 
 
-        public string DaysText
+        public string Description
         {
             get
             {
-                string suffix;
-                if (_days == 1) suffix = "24 hours";
-                else if (_days == 7) suffix = "week";
-                else if (_days == 30) suffix = "month";
-                else suffix = string.Format("{0} days", _days);
+                var interval = GetTimeInterval();
+                var suffix = (interval == TimeInterval.PastDay) ? "24 hours" : (interval == TimeInterval.PastWeek) ? "week" : "month";
                 return string.Format("Top committers for the past {0}", suffix);
             }
         }

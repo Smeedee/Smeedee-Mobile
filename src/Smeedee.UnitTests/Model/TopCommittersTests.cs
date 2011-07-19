@@ -92,6 +92,17 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(62, committer.Commits);
         }
-        
+
+        [TestCase(TopCommitters.TimeInterval.PastDay, "Top committers for the past 24 hours")]
+        [TestCase(TopCommitters.TimeInterval.PastWeek, "Top committers for the past week")]
+        [TestCase(TopCommitters.TimeInterval.PastMonth, "Top committers for the past month")]
+        public void Should_return_correct_description_for_time_period_after_load(TopCommitters.TimeInterval interval, string expected)
+        {
+            model.SetTimeInterval(interval);
+            model.Load(() => { });
+
+            Assert.AreEqual(expected, model.Description);
+        }
+
     }
 }
