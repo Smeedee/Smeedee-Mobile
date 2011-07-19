@@ -8,7 +8,6 @@ using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
-using Android.Views.Animations;
 using Android.Widget;
 using Android.OS;
 using Java.Lang;
@@ -17,7 +16,6 @@ using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 using Exception = System.Exception;
 
-// TODO: In this class, get all widget title and description from the eventargs instead of polling in event handler
 namespace Smeedee.Android
 {
     [Activity(
@@ -40,13 +38,11 @@ namespace Smeedee.Android
             SetContentView(Resource.Layout.Main);
 
             flipper = FindViewById<RealViewSwitcher>(Resource.Id.Flipper);
-            //((RealViewSwitcher)flipper).WidgetChanged += WidgetContainer_WidgetChanged;
-            
+            flipper.ScreenChanged += HandleScreenChanged;
 
             AddWidgetsToFlipper();
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
-            BindEventsToNavigationButtons();
 
             preferenceChangeListener = new SharedPreferencesChangeListener(() =>
                                                                                {
@@ -56,11 +52,12 @@ namespace Smeedee.Android
             prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
         }
 
-        void WidgetContainer_WidgetChanged(object sender, EventArgs args)
+        void HandleScreenChanged(object sender, EventArgs e)
         {
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
         }
+
         private void AddWidgetsToFlipper()
         {
             widgets = GetWidgets();
@@ -123,12 +120,6 @@ namespace Smeedee.Android
                     name = widgetModel.Name;
             }
             return name;
-        }
-
-        private void BindEventsToNavigationButtons()
-        {
-            //BindPreviousButtonClickEvent();
-            //BindNextButtonClickEvent();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
