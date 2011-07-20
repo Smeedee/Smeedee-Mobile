@@ -9,7 +9,7 @@ namespace Smeedee
 {
     public class FakeLatestCommitsService : ILatestCommitsService
     {
-        public List<Commit> data = new List<Commit>
+        private List<Commit> data = new List<Commit>
                                        {
             new Commit("Refactored HerpFactory.Derp()", new DateTime(2011, 7, 7, 12, 0, 0), "larmel"),
             new Commit("Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it? ", new DateTime(2011, 7, 7, 1, 10, 0), "larmel"),

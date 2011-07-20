@@ -13,14 +13,14 @@ namespace Smeedee.UnitTests.Model
     {
         private LatestCommits model;
         private CallCountingLatestCommitsService countingService;
-        private FakeLatestCommitsService fakeService;
+        private UnitTests.Fakes.FakeLatestCommitsService fakeService;
 
         [SetUp]
         public void SetUp()
         {
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
             countingService = new CallCountingLatestCommitsService();
-            fakeService = new FakeLatestCommitsService();
+            fakeService = new UnitTests.Fakes.FakeLatestCommitsService();
             SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(fakeService);
             model = new LatestCommits();
         }
