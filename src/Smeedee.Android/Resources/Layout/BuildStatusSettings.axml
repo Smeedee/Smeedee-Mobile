@@ -6,14 +6,14 @@
     <CheckBoxPreference
         a:title="@string/BuildStatusSettingsBrokenBuildsOnTop"
         a:defaultValue="true"
-        a:key="brokenBuildsAtTop"
+        a:key="BuildStatus.BrokenFirst"
         a:summaryOn="@string/BuildStatusSettingsSummaryOn"
         a:summaryOff="@string/BuildStatusSettingsSummaryOff"/>
 
     <ListPreference
         a:title="@string/BuildStatusSettingsSortingTitle"
         a:summary="@string/BuildStatusSettingsSortingSummary"
-        a:key="buildSortOrdering"
+        a:key="BuildStatus.Sorting"
         a:defaultValue="buildtime"
         a:entries="@array/BuildStatusSortArray"
         a:entryValues="@array/BuildStatusSortValues" />
@@ -24,7 +24,7 @@
     <CheckBoxPreference
         a:title="@string/BuildStatusSettingsShowUserNameTitle"
         a:defaultValue="true"
-        a:key="showTriggeredBy"
+        a:key="BuildStatus.ShowTriggeredBy"
         a:summaryOn="@string/BuildStatusSettingShowUserNameOn"
         a:summaryOff="@string/BuildStatusSettingShowUserNameOff"/>
   </PreferenceCategory>

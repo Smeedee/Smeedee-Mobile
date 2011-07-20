@@ -27,7 +27,7 @@ namespace Smeedee.Android.Services
             try
             {
                 return preferences.GetString(key, defaultValue);
-            } catch (ClassCastException e)
+            } catch (ClassCastException)
             {
                 return defaultValue;
             }
@@ -46,7 +46,7 @@ namespace Smeedee.Android.Services
             {
                 return preferences.GetBoolean(key, defaultValue);
             }
-            catch (ClassCastException e)
+            catch (ClassCastException)
             {
                 return defaultValue;
             }

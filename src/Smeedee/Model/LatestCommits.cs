@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Smeedee;
 
 namespace Smeedee.Model
 {
     public class LatestCommits
     {
-        private IEnumerable<Commit> commits = new List<Commit>();
-        public IEnumerable<Commit> Commits
+        private List<Commit> commits = new List<Commit>();
+        public List<Commit> Commits
         {
             get { return commits; }
             private set { commits = value; }
@@ -23,11 +24,30 @@ namespace Smeedee.Model
 
         public void Load(Action callback)
         {
-            service.Get(commits =>
+            service.Get10(0, commits =>
             {
-                this.commits = commits;
+                this.commits = commits.ToList();
                 callback();
             });
+        }
+
+        public void LoadMore(Action callback)
+        {
+            var fromIndex = Commits.Count();
+            service.Get10(fromIndex, loadedCommits =>
+            {
+                StoreNewCommits(loadedCommits);
+                callback();
+            });
+        }
+
+        private void StoreNewCommits(IEnumerable<Commit> newCommits)
+        {
+            //This has quadratic runtime, O(commits.Count * newlist.Count), 
+            //but thats ok as long as newlist.Count is limited to 10
+            foreach (var commit in newCommits)
+                if (!Enumerable.Contains(commits, commit))
+                    commits.Add(commit);
         }
     }
 }
