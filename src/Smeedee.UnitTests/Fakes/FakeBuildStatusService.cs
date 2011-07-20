@@ -7,12 +7,12 @@ namespace Smeedee.UnitTests.Fakes
 {
     class FakeBuildStatusService : IBuildStatusService
     {
-        private readonly IEnumerable<Build> builds;
+        public IEnumerable<Build> Builds;
         private readonly IBackgroundWorker bgWorker;
         public FakeBuildStatusService(IBackgroundWorker bgWorker)
         {
             this.bgWorker = bgWorker;
-            builds = new List<Build>()
+            Builds = new List<Build>()
                          {
                             new Build("Smeedee-Mobile - Master", BuildState.Working, "dagolap", DateTime.Now),
                             new Build("Smeedee-Mobile - Dev", BuildState.Broken, "dagolap", DateTime.Now),
@@ -27,7 +27,7 @@ namespace Smeedee.UnitTests.Fakes
 
         public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
         {
-            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(builds)));
+            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(Builds)));
         }
     }
 }
