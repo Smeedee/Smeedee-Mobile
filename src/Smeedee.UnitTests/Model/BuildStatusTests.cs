@@ -233,6 +233,17 @@ namespace Smeedee.UnitTests.Model
                 buildStatusService.Builds = new List<Build>() {new Build("foo", BuildState.Working, "fooname", DateTime.Now), new Build("bar", BuildState.Working, "barname", DateTime.Now)};
                 model.Load(() => Assert.AreEqual("2 working builds", model.DynamicDescription));
             }
+
+            [Test]
+            public void Should_correctly_present_all_builds_broken()
+            {
+                var model = new BuildStatus();
+                buildStatusService.Builds = new List<Build>()
+                                                {new Build("foo", BuildState.Broken, "fooname", DateTime.Now),
+                                                new Build("bar", BuildState.Broken, "barname", DateTime.Now)};
+                model.Load(() => Assert.AreEqual("OMG! All builds are broken!", model.DynamicDescription));
+
+            }
         }
     }
 }
