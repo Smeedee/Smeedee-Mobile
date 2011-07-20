@@ -44,6 +44,11 @@ namespace Smeedee.Android
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
 
+            foreach (var widget in widgets)
+            {
+                widget.DescriptionChanged += WidgetContainer_DescriptionChanged;
+            }
+
             Log.Debug("SMEEDEE", "In LoginScreen");
             Log.Debug("SMEEDEE", "URL: " + new Login().Url);
             Log.Debug("SMEEDEE", "Key: " + new Login().Key);
@@ -65,8 +70,15 @@ namespace Smeedee.Android
 
         void HandleScreenChanged(object sender, EventArgs e)
         {
+            
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
+        }
+
+        void WidgetContainer_DescriptionChanged(object sender, EventArgs e)
+        {
+            if (sender == flipper.CurrentView)
+                SetCorrectTopBannerWidgetDescription();
         }
 
         private void AddWidgetsToFlipper()
@@ -123,13 +135,9 @@ namespace Smeedee.Android
 
         private string GetWidgetNameOfCurrentlyDisplayedWidget()
         {
-            var name = "";
-            foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
-            {
-                if (flipper.CurrentView.GetType() == widgetModel.Type)
-                    name = widgetModel.Name;
-            }
-            return name;
+            return (from widget in SmeedeeApp.Instance.AvailableWidgets
+                    where widget.Type == flipper.CurrentView.GetType()
+                    select widget.Name).Single();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

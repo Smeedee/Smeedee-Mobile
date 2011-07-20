@@ -117,6 +117,13 @@ namespace Smeedee.Android.Widgets
         {
             return _dynamicDescription;
         }
+
+        public event EventHandler DescriptionChanged;
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
     }
 
     internal class TextColoringAdapter : SimpleAdapter 

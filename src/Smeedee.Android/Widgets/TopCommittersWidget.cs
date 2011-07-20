@@ -51,6 +51,13 @@ namespace Smeedee.Android.Widgets
         {
             return _model.Description;
         }
+
+        public event EventHandler DescriptionChanged;
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
     }
 
     internal class TopCommittersAdapter : SimpleAdapter
