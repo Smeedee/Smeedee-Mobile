@@ -6,7 +6,6 @@ namespace Smeedee
 {
     public interface ILatestCommitsService
     {
-        void Get(Action<IEnumerable<Commit>> callback);
-        void Get(int count, Action<IEnumerable<Commit>> callback);
+        void Get10(int fromIndex, Action<IEnumerable<Commit>> callback);
     }
 }
