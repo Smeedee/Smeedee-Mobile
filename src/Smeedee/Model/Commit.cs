@@ -24,5 +24,10 @@ namespace Smeedee.Model
                    otherCommit.Date.Equals(this.Date) &&
                    otherCommit.User == this.User;
         }
+
+        public override int GetHashCode()
+        {
+            return Message.GetHashCode()*Date.GetHashCode()*User.GetHashCode();
+        }
     }
 }
