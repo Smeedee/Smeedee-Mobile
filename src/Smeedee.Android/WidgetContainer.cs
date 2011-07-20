@@ -120,14 +120,7 @@ namespace Smeedee.Android
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
             var currentWidget = flipper.CurrentView as IWidget;
 
-            if (currentWidget != null)
-            {
-                widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
-            }
-            else
-            {
-                widgetDescriptionDynamic.Text = "No widget";
-            }
+            widgetDescriptionDynamic.Text = (currentWidget != null) ? currentWidget.GetDynamicDescription() : "No widget";
         }
 
         private string GetWidgetNameOfCurrentlyDisplayedWidget()
