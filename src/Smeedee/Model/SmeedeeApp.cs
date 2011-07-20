@@ -9,7 +9,6 @@ namespace Smeedee.Model
     {
         public readonly static SmeedeeApp Instance = new SmeedeeApp();
 
-        // This class is a singleton: private constructor; static instance variable.
         private SmeedeeApp()
         {
             ServiceLocator = new ServiceLocator();
@@ -19,15 +18,12 @@ namespace Smeedee.Model
         public ServiceLocator ServiceLocator { get; private set; }
 		
         public IList<WidgetModel> AvailableWidgets { get; private set; }
-		public IEnumerable<WidgetModel> EnabledWidgets 
+		public IList<WidgetModel> EnabledWidgets 
 		{ 
 			get
 			{
-				var persistence = ServiceLocator.Get<IPersistenceService>();
-				foreach (var model in AvailableWidgets) {
-					if (persistence.Get(model.Name, false))
-						yield return model;
-				}
+			    var persistence = ServiceLocator.Get<IPersistenceService>();
+			    return AvailableWidgets.Where(model => persistence.Get(model.Name, false)).ToList();
 			}
 		}
 
@@ -47,15 +43,10 @@ namespace Smeedee.Model
 
         private bool WidgetTypeIsAlreadyRegistered(Type widgetType)
         {
-            foreach (var registeredWidget in AvailableWidgets)
-            {
-                if (registeredWidget.Type.Name == widgetType.Name) return true;
-            }
-            
-            return false;
+            return AvailableWidgets.Any(registeredWidget => registeredWidget.Type.Name == widgetType.Name);
         }
 
-        private WidgetModel GetModelFromType(Type type)
+        private static WidgetModel GetModelFromType(Type type)
         {
             var widgetAttributes = type.GetCustomAttributes(typeof(WidgetAttribute), true);
             var typeHasAttributes = (widgetAttributes.Count() > 0 && widgetAttributes is WidgetAttribute[]);

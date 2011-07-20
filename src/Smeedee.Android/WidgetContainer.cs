@@ -194,41 +194,22 @@ namespace Smeedee.Android
                 CheckForEnabledAndDisabledWidgets();
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
-                
-                //if (CheckIfWidgetSlideShowIsEnabled())
-                //    StartWidgetSlideShow();
-                //else
-                //    StopWidgetSlideShow();
 
                 Log.Debug("TT", "Just refreshed widget list after having changed settings.");
                 hasSettingsChanged = false;
             }
 
-            foreach (var widget in widgets)
-            {
-                widget.Refresh();
-            }
+            RefreshAllCurrentlyEnabledWidgets();
         }
 
-        //private bool CheckIfWidgetSlideShowIsEnabled()
-        //{
-        //    return prefs.GetBoolean("slideShowEnabled", false);
-        //}
-
-        //private void StartWidgetSlideShow()
-        //{
-        //    if (!flipper.IsFlipping)
-        //    {
-        //        //var flipInterval = int.Parse(prefs.GetString("slideShowInterval", "20000"));
-        //        flipper.SetFlipInterval(2000);
-        //        flipper.StartFlipping();
-        //    }
-        //}
-        //private void StopWidgetSlideShow()
-        //{
-        //    if (flipper.IsFlipping)
-        //        flipper.StopFlipping();
-        //}
+        private void RefreshAllCurrentlyEnabledWidgets()
+        {
+            for (var i = 0; i < flipper.ChildCount; i++)
+            {
+                var widget = flipper.GetChildAt(i) as IWidget;
+                if (widget != null) widget.Refresh();
+            }
+        }
 
         private void CheckForEnabledAndDisabledWidgets()
         {
@@ -237,7 +218,7 @@ namespace Smeedee.Android
             var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
             {
-                WidgetModel model = widgetModel;
+                var model = widgetModel;
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
             }
 
