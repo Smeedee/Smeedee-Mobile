@@ -1,11 +1,27 @@
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
+using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Model
 {
     public class SmeedeeAppTests
     {
+        public class Shared
+        {
+            protected SmeedeeApp app;
+			protected IPersistenceService persistence = new FakePersistenceService();
+            
+            [SetUp]
+            public void SetUp()
+            {
+                app = SmeedeeApp.Instance;
+                app.AvailableWidgets.Clear();
+				
+				app.ServiceLocator.Bind<IPersistenceService>(persistence);
+            }
+        }
+		
         [TestFixture]
         public class When_registering_widgets_dynamically : Shared
         {
@@ -65,18 +81,21 @@ namespace Smeedee.UnitTests.Model
                 Assert.Contains("description static 1", widgets.Select(m => m.StaticDescription).ToList());
                 Assert.Contains("description static 2", widgets.Select(m => m.StaticDescription).ToList());
             }
-        }
-        
-        public class Shared
-        {
-            protected SmeedeeApp app;
-            
-            [SetUp]
-            public void SetUp()
-            {
-                app = SmeedeeApp.Instance;
-                app.AvailableWidgets.Clear();
-            }
+			/*
+			 * TODO in visual studio
+			[Test]
+			public void List_of_enabled_widgets_should_be_empty_when_no_preferences_are_saved()
+			{
+				CollectionAssert.IsEmpty(app.EnabledWidgets);
+			}
+			
+			[Test]
+			public void List_of_enabled_widgets_should_be_updated_when_configuration_changes() 
+			{
+				persistence.Save("Top Committers", true);
+				
+				Assert.AreEqual(1, app.AvailableWidgets.Count());
+			}*/
         }
         
         [WidgetAttribute("Test Widget", StaticDescription = "description static 1")]
