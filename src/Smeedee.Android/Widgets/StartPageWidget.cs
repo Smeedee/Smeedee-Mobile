@@ -8,10 +8,12 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("")]
+    [WidgetAttribute("Smeedee")]
     public class StartPageWidget : RelativeLayout, IWidget
     {
-        private const string DynamicDescription = "";
+        private const string DynamicDescription = "Flip left and right to see your data";
+
+        public event EventHandler DescriptionChanged;
 
         public StartPageWidget(Context context) :
             base(context)
@@ -45,7 +47,6 @@ namespace Smeedee.Android.Widgets
             return DynamicDescription;
         }
 
-        public event EventHandler DescriptionChanged;
         public void OnDescriptionChanged(EventArgs args)
         {
             if (DescriptionChanged != null)

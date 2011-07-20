@@ -8,5 +8,4 @@ namespace Smeedee.Model
         string GetDynamicDescription();
         event EventHandler DescriptionChanged;
     }
-
 }

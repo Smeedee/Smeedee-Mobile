@@ -23,6 +23,8 @@ namespace Smeedee.Android.Widgets
         private LatestCommits latestCommits;
         private ISharedPreferences pref;
 
+        public event EventHandler DescriptionChanged;
+
         public LatestCommitsWidget(Context context) :
             base(context)
         {
@@ -118,7 +120,6 @@ namespace Smeedee.Android.Widgets
             return _dynamicDescription;
         }
 
-        public event EventHandler DescriptionChanged;
         public void OnDescriptionChanged(EventArgs args)
         {
             if (DescriptionChanged != null)
