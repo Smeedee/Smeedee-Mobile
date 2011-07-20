@@ -194,11 +194,6 @@ namespace Smeedee.Android
                 CheckForEnabledAndDisabledWidgets();
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
-                
-                //if (CheckIfWidgetSlideShowIsEnabled())
-                //    StartWidgetSlideShow();
-                //else
-                //    StopWidgetSlideShow();
 
                 Log.Debug("TT", "Just refreshed widget list after having changed settings.");
                 hasSettingsChanged = false;
@@ -210,26 +205,6 @@ namespace Smeedee.Android
             }
         }
 
-        //private bool CheckIfWidgetSlideShowIsEnabled()
-        //{
-        //    return prefs.GetBoolean("slideShowEnabled", false);
-        //}
-
-        //private void StartWidgetSlideShow()
-        //{
-        //    if (!flipper.IsFlipping)
-        //    {
-        //        //var flipInterval = int.Parse(prefs.GetString("slideShowInterval", "20000"));
-        //        flipper.SetFlipInterval(2000);
-        //        flipper.StartFlipping();
-        //    }
-        //}
-        //private void StopWidgetSlideShow()
-        //{
-        //    if (flipper.IsFlipping)
-        //        flipper.StopFlipping();
-        //}
-
         private void CheckForEnabledAndDisabledWidgets()
         {
             var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
@@ -237,7 +212,7 @@ namespace Smeedee.Android
             var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
             {
-                WidgetModel model = widgetModel;
+                var model = widgetModel;
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
             }
 
