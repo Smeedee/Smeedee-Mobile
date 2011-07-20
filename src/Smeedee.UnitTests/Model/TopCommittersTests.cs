@@ -95,11 +95,12 @@ namespace Smeedee.UnitTests.Model
             CollectionAssert.AreNotEqual(list1, list2);
         }
 
-        [TestCase(TimePeriod.PastDay, "Top committers for the past 24 hours")]
-        [TestCase(TimePeriod.PastWeek, "Top committers for the past week")]
-        [TestCase(TimePeriod.PastMonth, "Top committers for the past month")]
-        public void Should_return_correct_description_for_time_period_after_load(TimePeriod time, string expected)
+        [TestCase(5, TimePeriod.PastDay, "Top 5 committers for the past 24 hours")]
+        [TestCase(10, TimePeriod.PastWeek, "Top 10 committers for the past week")]
+        [TestCase(15, TimePeriod.PastMonth, "Top 15 committers for the past month")]
+        public void Should_return_correct_description_after_load(int count, TimePeriod time, string expected)
         {
+            _model.NumberOfCommitters = count;
             _model.TimePeriod = time;
             _model.Load(() => { });
 
