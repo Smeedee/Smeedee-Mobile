@@ -152,9 +152,6 @@ namespace Smeedee.Android
                             handler.SendEmptyMessage(0);
                         });
                     }
-                    else
-                        throw new NullReferenceException("Could not refresh the widget because there where" +
-                                                         "no current widget in viewflipper");
 
                     return true;
 
