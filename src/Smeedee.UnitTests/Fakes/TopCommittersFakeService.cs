@@ -7,11 +7,11 @@ namespace Smeedee.UnitTests.Fakes
 {
     public class TopCommittersFakeService : ITopCommittersService
     {
-        public void LoadTopCommiters(TopCommitters.TimeInterval interval, Action<IEnumerable<Committer>> callback)
+        public void LoadTopCommiters(TimePeriod time, Action<IEnumerable<Committer>> callback)
         {
-            switch (interval)
+            switch (time)
             {
-                case TopCommitters.TimeInterval.PastDay:
+                case TimePeriod.PastDay:
                     callback(
                         new[]
                             {

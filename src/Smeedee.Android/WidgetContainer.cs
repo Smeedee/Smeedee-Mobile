@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.OS;
 using Java.Lang;
 using Smeedee.Android.Screens;
+using Smeedee.Android.Widgets;
 using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 using Exception = System.Exception;
@@ -169,9 +170,8 @@ namespace Smeedee.Android
                     if (widgetName == "Top Committers")
                         StartActivity(new Intent(this, typeof(TopCommittersSettings)));
 
-                    if (widgetName == "Latest Changesets")
-                        StartActivity(new Intent(this, typeof(LatestChangesetsSettings)));
-
+                    if (widgetName == LatestCommitsWidget.Name)
+                        StartActivity(new Intent(this, typeof(LatestCommitsSettings)));
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:

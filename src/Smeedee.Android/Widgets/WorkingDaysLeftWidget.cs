@@ -11,19 +11,14 @@ namespace Smeedee.Android.Widgets
     [WidgetAttribute("Working Days Left", StaticDescription = "Actually working days left")]
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
-        private readonly IModelService<WorkingDaysLeft> modelService =
-            SmeedeeApp.Instance.ServiceLocator.Get<IModelService<WorkingDaysLeft>>();
-        
-        private readonly IBackgroundWorker backgroundWorker = 
-            SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
-
         private WorkingDaysLeft model;
         private string _dynamicDescription;
 
         public WorkingDaysLeftWidget(Context context) : base(context)
         {
             InflateView();
-            backgroundWorker.Invoke(LoadModelAndUpdateView);
+            model = new WorkingDaysLeft();
+            Refresh();
         }
 
         private void InflateView()
@@ -37,23 +32,17 @@ namespace Smeedee.Android.Widgets
                 throw new Exception("Unable to inflate view on Working days left widget");
             }
         }
-
-        private void LoadModelAndUpdateView()
+        
+        public void Refresh()
         {
-            LoadModel();
-            ((Activity)Context).RunOnUiThread(UpdateView);
+            model.Load(Redraw);
         }
 
-        private void LoadModel()
-        {
-            model = modelService.Get();
-        }
-
-        private void UpdateView()
+        public void Redraw()
         {
             var daysView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftNumber);
             var textView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftText);
-            
+
             var days = model.DaysLeft.ToString();
             var text = model.DaysLeftText;
             var untillDate = model.UntillDate;
@@ -63,14 +52,10 @@ namespace Smeedee.Android.Widgets
             if (model.IsOnOvertime)
                 _dynamicDescription = "You should have been finished by " + untillDate.DayOfWeek.ToString() + " " +
                                       untillDate.Date.ToShortDateString();
-            
-            else
-                _dynamicDescription = "Working days left untill " + untillDate.DayOfWeek.ToString() + " "  + untillDate.Date.ToShortDateString();
-        }
 
-        public void Refresh()
-        {
-            LoadModelAndUpdateView();
+            else
+                _dynamicDescription = "Working days left untill " + untillDate.DayOfWeek.ToString() + " " + untillDate.Date.ToShortDateString();
+
         }
 
         public string GetDynamicDescription()

@@ -15,7 +15,7 @@ namespace Smeedee.IntegrationTests
     {
         private byte[] GetImageBytesFromDagbladet()
         {
-            var imageService = new ImageService(new NoBackgroundInvokation());
+            var imageService = new ImageService(new NoBackgroundInvocation());
             byte[] recievedBytes = null;
             imageService.GetImage(new Uri("http://www.dagbladet.no/favicon.ico"),
                                   bytes => recievedBytes = bytes);

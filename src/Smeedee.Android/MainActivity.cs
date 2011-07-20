@@ -6,6 +6,7 @@ using Android.Preferences;
 using Android.Util;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
+using Smeedee;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
@@ -29,17 +30,13 @@ namespace Smeedee.Android
 
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+
             App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-
             App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
-
+            App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
             App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(
                                                         App.ServiceLocator.Get<IBackgroundWorker>()));
-
-
-            // TODO: Old Interfaces and whatnot
-            App.ServiceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
-            App.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
+            App.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
         }
     }
 

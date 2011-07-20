@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
   <ImageView
-    android:id="@+id/LatestChangesetWidget_CommitterIcon"
+    android:id="@+id/LatestCommitsWidget_CommitterIcon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:maxHeight="70px"
@@ -22,19 +22,19 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
     <TextView
-      android:id="@+id/LatestChangesetWidget_ChangesetUser"
+      android:id="@+id/LatestCommitsWidget_ChangesetUser"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textStyle="bold"
       />
     <TextView
-      android:id="@+id/LatestChangesetWidget_ChangesetText"
+      android:id="@+id/LatestCommitsWidget_ChangesetText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textColor="#FFF"
       />
     <TextView
-      android:id="@+id/LatestChangesetWidget_ChangesetDate"
+      android:id="@+id/LatestCommitsWidget_ChangesetDate"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingBottom="4px"

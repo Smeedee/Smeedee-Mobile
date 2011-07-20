@@ -5,7 +5,7 @@ using Smeedee.Services;
 
 namespace Smeedee.Model
 {
-	public class BuildStatus : IModel
+	public class BuildStatus
 	{
         private readonly IBuildStatusService buildService = SmeedeeApp.Instance.ServiceLocator.Get<IBuildStatusService>();
 	    private readonly IPersistenceService persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();

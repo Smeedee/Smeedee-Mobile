@@ -4,6 +4,6 @@ namespace Smeedee
 {
     public interface IWorkingDaysLeftService
     {
-        void GetNumberOfWorkingDaysLeft(Action<int> callback);
+        void Get(Action<int, DateTime> action);
     }
 }

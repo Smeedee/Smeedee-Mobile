@@ -14,7 +14,7 @@ namespace Smeedee.UnitTests.Model
         [SetUp]
         public void SetUp()
         {
-            smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvokation()));
+            smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvocation()));
             smeedeeApp.ServiceLocator.Bind<IPersistenceService>(persister);
         }
 

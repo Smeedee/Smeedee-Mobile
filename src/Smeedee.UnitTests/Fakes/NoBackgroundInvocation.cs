@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Smeedee.UnitTests.Fakes
 {
-    class NoBackgroundInvokation : IBackgroundWorker
+    class NoBackgroundInvocation : IBackgroundWorker
     {
         public void Invoke(Action unitOfWork)
         {

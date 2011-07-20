@@ -8,20 +8,20 @@ using Smeedee.Model;
 namespace Smeedee.UnitTests.Model
 {
     [TestFixture]
-    public class ChangesetTests
+    public class CommitTests
     {
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void First_constructor_argument_can_not_be_null()
         {
-            new Changeset(null, DateTime.Now, "larspars");
+            new Commit(null, DateTime.Now, "larspars");
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Third_constructor_argument_can_not_be_null()
         {
-            new Changeset("msg", DateTime.Now, null);
+            new Commit("msg", DateTime.Now, null);
         }
     }
 }

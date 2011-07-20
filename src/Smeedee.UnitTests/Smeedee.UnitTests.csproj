@@ -60,11 +60,12 @@
   <ItemGroup>
     <Compile Include="Fakes\FakeBuildStatusService.cs" />
     <Compile Include="Fakes\FakePersistenceService.cs" />
-    <Compile Include="Fakes\NoBackgroundInvokation.cs" />
+    <Compile Include="Fakes\NoBackgroundInvocation.cs" />
     <Compile Include="GuardTests.cs" />
     <Compile Include="Model\BuildStatusTests.cs" />
     <Compile Include="Model\BuildTests.cs" />
-    <Compile Include="Model\ChangesetTests.cs" />
+    <Compile Include="Model\CommitTests.cs" />
+    <Compile Include="Model\LatestCommitsTests.cs" />
     <Compile Include="Model\LoginTests.cs" />
     <Compile Include="Model\TopCommittersTests.cs" />
     <Compile Include="Fakes\TopCommittersFakeService.cs" />

@@ -14,13 +14,13 @@ using Object = Java.Lang.Object;
 namespace Smeedee.Android.Widgets.Settings
 {
     [Activity(Label = "Latest Commits Settings", Theme = "@android:style/Theme")]
-    public class LatestChangesetsSettings : PreferenceActivity
+    public class LatestCommitsSettings : PreferenceActivity
     {
         public const string DefaultRed = "dc322f";
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            AddPreferencesFromResource(Resource.Layout.LatestChangesetsSettings);
+            AddPreferencesFromResource(Resource.Layout.LatestCommitsSettings);
             LoadPreferences();
         }
 
@@ -87,7 +87,7 @@ namespace Smeedee.Android.Widgets.Settings
             }).Cast<IDictionary<string, object>>().ToList();
             var colors = GetEntryValues().Select(ColorTools.GetColorFromHex).ToArray();
 
-            return new TextColoringAdapter(Context, items, Resource.Layout.LatestChangesetsSettings_ListItem, from, to, colors);
+            return new TextColoringAdapter(Context, items, Resource.Layout.LatestCommitsSettings_ListItem, from, to, colors);
         }
 
         private class TextColoringAdapter : SimpleAdapter

@@ -65,20 +65,17 @@
     <Compile Include="..\Smeedee\Model\BuildStatus.cs">
       <Link>Model\BuildStatus.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\Changeset.cs">
-      <Link>Model\Changeset.cs</Link>
+    <Compile Include="..\Smeedee\Model\Commit.cs">
+      <Link>Model\Commit.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\Committer.cs">
       <Link>Model\Committer.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\IModel.cs">
-      <Link>Model\IModel.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
-      <Link>Model\LatestChangeset.cs</Link>
+    <Compile Include="..\Smeedee\Model\LatestCommits.cs">
+      <Link>Model\LatestCommits.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\Login.cs">
       <Link>Model\Login.cs</Link>
@@ -107,8 +104,8 @@
     <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
       <Link>Services\FakeBuildStatusService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
-      <Link>Services\FakeLatestChangesetsService.cs</Link>
+    <Compile Include="..\Smeedee\Services\Fakes\LatestCommitsFakeService.cs">
+      <Link>Services\Fakes\LatestCommitsFakeService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
       <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
@@ -119,8 +116,8 @@
     <Compile Include="..\Smeedee\Services\IBuildStatusService.cs">
       <Link>Services\IBuildStatusService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\IModelService.cs">
-      <Link>Services\IModelService.cs</Link>
+    <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
+      <Link>Services\ILatestCommitsService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
       <Link>Services\IPersistenceService.cs</Link>
@@ -150,8 +147,8 @@
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="ContextSwitcher.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
-    <Compile Include="Widgets\Settings\LatestChangesetsSettings.cs" />
-    <Compile Include="Widgets\LatestChangesetsWidget.cs" />
+    <Compile Include="Widgets\Settings\LatestCommitsSettings.cs" />
+    <Compile Include="Widgets\LatestCommitsWidget.cs" />
     <Compile Include="Widgets\Settings\BuildStatusSettings.cs" />
     <Compile Include="Widgets\Settings\TopCommittersSettings.cs" />
     <Compile Include="Widgets\StartPageWidget.cs" />
@@ -175,10 +172,10 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
     <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
-    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget.axml">
+    <AndroidResource Include="Resources\Layout\LatestCommitsWidget.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\LatestChangesetsWidget_ListItem.axml">
+    <AndroidResource Include="Resources\Layout\LatestCommitsWidget_ListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\TopCommittersWidget.axml">
@@ -233,10 +230,10 @@
     <AndroidResource Include="Resources\Drawable\icon_buildunknown.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings.axml" />
+    <AndroidResource Include="Resources\Layout\LatestCommitsSettings.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\LatestChangesetsSettings_ListItem.axml" />
+    <AndroidResource Include="Resources\Layout\LatestCommitsSettings_ListItem.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Arrays.xml" />
