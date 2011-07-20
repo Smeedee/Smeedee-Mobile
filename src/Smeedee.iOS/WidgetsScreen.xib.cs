@@ -34,9 +34,7 @@ namespace Smeedee.iOS
 			get 
 			{
 	            var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-				var enabledSettings = persistence.Get<Dictionary<string, bool>>("EnabledWidgets", null);
-				return app.AvailableWidgets
-					.Where(w => !enabledSettings.ContainsKey(w.Type.Name) || enabledSettings[w.Type.Name]);
+				return app.AvailableWidgets.Where(w => persistence.Get(w.Type.Name, true));
 			}}
 		
         public override void ViewDidLoad()

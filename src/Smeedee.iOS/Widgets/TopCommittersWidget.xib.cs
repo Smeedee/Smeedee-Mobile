@@ -11,16 +11,11 @@ namespace Smeedee.iOS
     [Widget("Top committers", StaticDescription = "See which developer has committed the most code")]
     public partial class TopCommittersWidget : UITableViewController, IWidget
     {
-        private SmeedeeApp app = SmeedeeApp.Instance;
-		private IModelService<TopCommitters> service;
-		private IBackgroundWorker bgWorker;
-		
 		private TopCommitters model;
 		
         public TopCommittersWidget() : base("TopCommittersWidget", null)
         {
-            service = app.ServiceLocator.Get<IModelService<TopCommitters>>();
-            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+			model = new TopCommitters();
         }
 		
         public override void ViewDidLoad ()
@@ -31,37 +26,30 @@ namespace Smeedee.iOS
             Refresh();
         }
 		
-		private void GetData() {
-			model = service.Get();
-		}
+        public void Refresh()
+        {
+			model.Load(() => InvokeOnMainThread(UpdateUI));
+        }
 		
 		private void UpdateUI() {
-            TableView.Source = new TopCommitersTableSource(model);
+            TableView.Source = new TopCommitersTableSource(model.Committers);
 			TableView.ReloadData();
 		}
         
-        public void Refresh()
-        {
-			bgWorker.Invoke(() => {
-				GetData();
-				InvokeOnMainThread(UpdateUI);
-			});
-        }
-		
 		public string GetDynamicDescription() 
 		{
-			return "";	
+			return model.Description;	
 		}
     }
     
     public class TopCommitersTableSource : UITableViewSource
     {
 		private TableCellFactory cellFactory = new TableCellFactory("TopCommittersTableCellController", typeof(TopCommittersTableCellController));		
-        private TopCommitters topCommitters;
+        private IEnumerable<Committer> committers;
         
-        public TopCommitersTableSource(TopCommitters topCommitters)
+        public TopCommitersTableSource(IEnumerable<Committer> committers)
         {
-            this.topCommitters = topCommitters;
+            this.committers = committers;
         }
         
         public override int NumberOfSections (UITableView tableView)
@@ -76,18 +64,18 @@ namespace Smeedee.iOS
         
         public override int RowsInSection (UITableView tableview, int section)
         {
-            return topCommitters.Committers.Count();
+            return committers.Count();
         }
         
         private const string CELL_ID = "TopCommitterCell";
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-			var committer = topCommitters.Committers.ElementAt(indexPath.Row);
+			var committer = committers.ElementAt(indexPath.Row);
             
             var controller = cellFactory.NewTableCellController(tableView, indexPath) as TopCommittersTableCellController;
             controller.BindDataToCell(committer);
-			            
+			
             return controller.TableViewCell;
         }
     }
