@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
-using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
@@ -44,7 +43,7 @@ namespace Smeedee.Android
 
             foreach (var widget in widgets)
             {
-                widget.DescriptionChanged += WidgetContainer_DescriptionChanged;
+                widget.DescriptionChanged += WidgetDescriptionChanged;
             }
 
             Log.Debug("SMEEDEE", "In WidgetContainer");
@@ -72,7 +71,7 @@ namespace Smeedee.Android
             SetCorrectTopBannerWidgetDescription();
         }
 
-        void WidgetContainer_DescriptionChanged(object sender, EventArgs e)
+        void WidgetDescriptionChanged(object sender, EventArgs e)
         {
             if (sender != flipper.CurrentView) return;
             SetCorrectTopBannerWidgetDescription();
@@ -157,7 +156,7 @@ namespace Smeedee.Android
 
                 case Resource.Id.BtnWidgetSettings:
 
-                    string widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
+                    var widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
 
                     if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
@@ -253,8 +252,8 @@ namespace Smeedee.Android
 
         private bool WidgetIsEnabled(WidgetModel widget)
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            return prefs.GetBoolean(widget.Name, true);
+            var sharedPrefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            return sharedPrefs.GetBoolean(widget.Name, true);
         }
 
         public override Java.Lang.Object OnRetainNonConfigurationInstance()
