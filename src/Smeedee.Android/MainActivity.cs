@@ -51,17 +51,10 @@ namespace Smeedee.Android
             Log.Debug("SMEEDEE", "URL: " + new Login().Url);
             Log.Debug("SMEEDEE", "Key: " + new Login().Key);
             Log.Debug("SMEEDEE", "Valid? "+ new Login().IsValid());
-
-            ConfigureDependencies();
             
             var activity = DetermineNextActivity();
             StartActivity(activity);
-        }
-
-       
-        private void ConfigureDependencies()
-        {
-            // Now happens in SmeedeeApplication
+            Finish();
         }
 
         private Intent DetermineNextActivity()

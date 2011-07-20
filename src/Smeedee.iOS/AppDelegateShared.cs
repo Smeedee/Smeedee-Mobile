@@ -21,18 +21,8 @@ namespace Smeedee.iOS
         
         public void FinishedLaunching()
         {
-            ConfigureDependencies();
             RegisterAllSupportedWidgets();
             AddMainTabBarToMenu();
-        }
-        
-        private void ConfigureDependencies()
-        {
-            app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-            app.ServiceLocator.Bind<IModelService<BuildStatus>>(new FakeBuildStatusService());
-            app.ServiceLocator.Bind<IModelService<WorkingDaysLeft>>(new WorkingDaysLeftFakeService());
-            app.ServiceLocator.Bind<IModelService<TopCommitters>>(new TopCommittersFakeService());
-            app.ServiceLocator.Bind<ILoginValidationService>(new FakeLoginValidationService());
         }
         
         private void RegisterAllSupportedWidgets()

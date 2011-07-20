@@ -9,17 +9,12 @@ namespace Smeedee.iOS
 {
     [Widget("Build Status", StaticDescription = "View the status of your builds")]
     public partial class BuildStatusWidget : UITableViewController, IWidget
-    {
-        private SmeedeeApp app = SmeedeeApp.Instance;
-		private IModelService<BuildStatus> service;
-		private IBackgroundWorker bgWorker;
-		
+	{
 		private BuildStatus model;
 		
         public BuildStatusWidget() : base("BuildStatusWidget", null)
         {
-			service = app.ServiceLocator.Get<IModelService<BuildStatus>>();
-            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+			model = new BuildStatus();
         }
         
         public override void ViewDidLoad()
@@ -30,11 +25,6 @@ namespace Smeedee.iOS
 			Refresh();
         }
 		
-		private void GetData()
-		{
-			model = service.Get();
-		}
-		
 		private void UpdateUI()
 		{
             TableView.Source = new BuildStatusTableSource(model.Builds);
@@ -43,10 +33,7 @@ namespace Smeedee.iOS
         
         public void Refresh()
         {
-			bgWorker.Invoke(() => {
-				GetData();
-				InvokeOnMainThread(UpdateUI);
-			});
+			model.Load(() => InvokeOnMainThread(UpdateUI));
         }
         
 		public string GetDynamicDescription() 

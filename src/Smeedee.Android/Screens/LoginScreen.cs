@@ -35,6 +35,7 @@ namespace Smeedee.Android.Screens
                     {
                         var widgetContainer = new Intent(this, typeof(WidgetContainer));
                         StartActivity(widgetContainer);
+                        Finish();
                     } else
                     {
                         NotifyInvalidInput();

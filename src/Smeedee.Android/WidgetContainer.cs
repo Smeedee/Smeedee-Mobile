@@ -49,7 +49,7 @@ namespace Smeedee.Android
                 widget.DescriptionChanged += WidgetContainer_DescriptionChanged;
             }
 
-            Log.Debug("SMEEDEE", "In LoginScreen");
+            Log.Debug("SMEEDEE", "In WidgetContainer");
             Log.Debug("SMEEDEE", "URL: " + new Login().Url);
             Log.Debug("SMEEDEE", "Key: " + new Login().Key);
             Log.Debug("SMEEDEE", "Valid? " + new Login().IsValid());

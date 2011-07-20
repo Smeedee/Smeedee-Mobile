@@ -20,22 +20,16 @@ namespace Smeedee.iOS.Configuration
 		{
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, "ENABLE_WIDGET");
 			cell.TextLabel.Text = "Enabled";
-			var className = typeof(T).Name;
 			
-			var enabled = persister.Get<Dictionary<string, bool>>("EnabledWidgets", null);
+			// Very ugly, needs refactoring
+			var className = typeof(T).Name;
+			var isEnabled = persister.Get(className, true);
 			
 			enabledSwitch = new UISwitch();
-			if (!enabled.ContainsKey(className)) {
-				enabled[className] = true;
-				persister.Save("EnabledWidgets", enabled);
-			}
-			
-			enabledSwitch.SetState(enabled[className], false);
+			enabledSwitch.SetState(isEnabled, false);
 			
 			enabledSwitch.ValueChanged += delegate {
-				var enabledWidgets = persister.Get<Dictionary<string, bool>>("EnabledWidgets", null);
-				enabledWidgets[className] = enabledSwitch.On;
-				persister.Save("EnabledWidgets", enabledWidgets);
+				persister.Save(className, enabledSwitch.On);
 			};
 			
 			cell.AccessoryView = enabledSwitch;
