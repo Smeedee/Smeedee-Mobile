@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -60,7 +61,7 @@ namespace Smeedee.Android.Widgets
         {
             //TODO or not TODO?:
             //var count = int.Parse(pref.GetString("NumberOfCommitsDisplayed", "10"));
-            latestCommits.Load(Redraw);
+            latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
             RefreshDynamicDescription();
         }
 
@@ -78,7 +79,7 @@ namespace Smeedee.Android.Widgets
 
             var listItems = CreateListItems();
 
-            var adapter = new TextColoringAdapter(Context, listItems, Resource.Layout.LatestCommitsWidget_ListItem, from, to, GetHighlightColor());
+            var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, Resource.Layout.LatestCommitsWidget_ListItem, from, to, GetHighlightColor());
             commitList.Adapter = adapter;
         }
 
@@ -110,7 +111,6 @@ namespace Smeedee.Android.Widgets
                                  {"Date", (DateTime.Now - changeSet.Date).PrettyPrint()}
                              });
             }
-            data.Add(new Dictionary<string, object> {{"LoadMoreButton", true} });
             return data;
         }
 
@@ -120,30 +120,47 @@ namespace Smeedee.Android.Widgets
         }
     }
 
-    internal class TextColoringAdapter : SimpleAdapter 
+    internal class TextColoringAdapterWithLoadMoreButton : SimpleAdapter 
     {
         private readonly Color highlightColor;
         private readonly Context context;
-        public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color highlightColor) :
+        public TextColoringAdapterWithLoadMoreButton(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color highlightColor) :
                                   base(context, items, resource, from, to)
         {
+            InsertDummyEntryForButton(items);
             this.context = context;
             this.highlightColor = highlightColor;
         }
 
+        private static void InsertDummyEntryForButton(IList<IDictionary<string, object>> items)
+        {
+            items.Add(items.Last());
+        }
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            if (position == Count - 1) return MakeLoadMoreButton();
+            Log.Debug("SMEEDEE", "GetView called with (" + position + ", " + convertView + ", " + parent+")");
 
-	        var view = base.GetView(position, convertView, parent);
+            //Force convertView to be null when it's an instance of RelativeLayout. 
+            //This is our loadMoreButton, and the base isn't able to recycle it. 
+            convertView = convertView as LinearLayout; 
+            var view = base.GetView(position, convertView, parent);
+
+            if (position == Count - 1) return GetLoadMoreButton(); 
+
+            return FindTextViewAndSetColor(view);
+        }
+
+        private View FindTextViewAndSetColor(View view)
+        {
             if (!(view is LinearLayout)) return view;
 
             var linearLayout = (view as LinearLayout).GetChildAt(1);
             if (!(linearLayout is LinearLayout)) return view;
-            
+
             var text = (linearLayout as LinearLayout).GetChildAt(1);
             if (!(text is TextView)) return view;
-            
+
             var textView = text as TextView;
             var color = textView.Text == LatestCommitsWidget.NoMessageTag
                             ? highlightColor
@@ -153,14 +170,17 @@ namespace Smeedee.Android.Widgets
             return view;
         }
 
-        private View MakeLoadMoreButton()
+        private View loadMoreButton;
+        private View GetLoadMoreButton()
         {
-            var btn = new LinearLayout(context);
+            if (loadMoreButton != null) return loadMoreButton;
+            var btn = new RelativeLayout(context);
             var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             if (inflater != null)
             {
                 inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, btn);
             }
+            loadMoreButton = btn;
             return btn;
         }
 
