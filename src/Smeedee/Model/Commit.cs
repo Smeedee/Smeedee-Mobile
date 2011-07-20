@@ -15,5 +15,19 @@ namespace Smeedee.Model
             Date = date;
             Message = message;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Commit)) return false;
+            var otherCommit = obj as Commit;
+            return otherCommit.Message == this.Message &&
+                   otherCommit.Date.Equals(this.Date) &&
+                   otherCommit.User == this.User;
+        }
+
+        public override int GetHashCode()
+        {
+            return Message.GetHashCode()*Date.GetHashCode()*User.GetHashCode();
+        }
     }
 }

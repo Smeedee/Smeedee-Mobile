@@ -9,7 +9,7 @@ namespace Smeedee
 {
     public class FakeLatestCommitsService : ILatestCommitsService
     {
-        private Commit[] data = new[]
+        public List<Commit> data = new List<Commit>
                                        {
             new Commit("Refactored HerpFactory.Derp()", new DateTime(2011, 7, 7, 12, 0, 0), "larmel"),
             new Commit("Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it? ", new DateTime(2011, 7, 7, 1, 10, 0), "larmel"),
@@ -26,25 +26,30 @@ namespace Smeedee
             new Commit("Color changes", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
             new Commit("Don't know what to say", new DateTime(2011, 7, 1, 2, 0, 0), "larspars"),
             new Commit("Merged", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
-            new Commit("This is number 16", new DateTime(2011, 7, 1, 2, 0, 0), "larmel")
+            new Commit("This is number 16", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 17", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 18", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 19", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 20", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 21", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 22", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 23", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 24", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 25", new DateTime(2011, 7, 1, 2, 0, 0), "larmel"),
+            new Commit("This is number 26", new DateTime(2011, 7, 1, 2, 0, 0), "larmel")
                                        };
 
-        private IBackgroundWorker bgWorker;
-        private SmeedeeApp app = SmeedeeApp.Instance;
+        private readonly IBackgroundWorker bgWorker;
+        private readonly SmeedeeApp app = SmeedeeApp.Instance;
 
         public FakeLatestCommitsService()
         {
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
-
-        public void Get(Action<IEnumerable<Commit>> callback)
+        
+        public void Get10(int fromIndex, Action<IEnumerable<Commit>> callback)
         {
-            bgWorker.Invoke(() => callback(data));
-        }
-
-        public void Get(int count, Action<IEnumerable<Commit>> callback)
-        {
-            bgWorker.Invoke(() => callback(data.Take(count)));
+            bgWorker.Invoke(() => callback(data.Skip(fromIndex).Take(10)));
         }
     }
 }
