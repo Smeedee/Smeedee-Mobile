@@ -34,9 +34,9 @@ namespace Smeedee.Model
         public BuildOrder Ordering { 
             get
             {
-                var orderEnum = persistenceService.Get(SortingPropertyKey, "projectname");
-                if (orderEnum == "buildname") return BuildOrder.BuildName;
-                if (orderEnum == "buildtime") return BuildOrder.BuildTime;
+                var orderValue = persistenceService.Get(SortingPropertyKey, "buildname");
+                if (orderValue == "buildname") return BuildOrder.BuildName;
+                if (orderValue == "buildtime") return BuildOrder.BuildTime;
                 return BuildOrder.BuildTime;
             } 
             set
