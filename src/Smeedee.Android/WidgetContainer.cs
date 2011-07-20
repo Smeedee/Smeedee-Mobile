@@ -41,8 +41,6 @@ namespace Smeedee.Android
             flipper.ScreenChanged += HandleScreenChanged;
 
             AddWidgetsToFlipper();
-            SetCorrectTopBannerWidgetTitle();
-            SetCorrectTopBannerWidgetDescription();
 
             foreach (var widget in widgets)
             {
@@ -70,15 +68,15 @@ namespace Smeedee.Android
 
         void HandleScreenChanged(object sender, EventArgs e)
         {
-            
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
         }
 
         void WidgetContainer_DescriptionChanged(object sender, EventArgs e)
         {
-            if (sender == flipper.CurrentView)
-                SetCorrectTopBannerWidgetDescription();
+            if (sender != flipper.CurrentView) return;
+            SetCorrectTopBannerWidgetDescription();
+            SetCorrectTopBannerWidgetTitle();
         }
 
         private void AddWidgetsToFlipper()
@@ -128,8 +126,7 @@ namespace Smeedee.Android
             }
             else
             {
-                throw new NullReferenceException("Could not set the dynamic description because there " +
-                                                 "where no current widget in viewflipper");
+                widgetDescriptionDynamic.Text = "No widget";
             }
         }
 
