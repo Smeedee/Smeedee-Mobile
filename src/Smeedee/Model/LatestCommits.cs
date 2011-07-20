@@ -41,21 +41,13 @@ namespace Smeedee.Model
             });
         }
 
-        private void StoreNewCommits(IEnumerable<Commit> newList)
+        private void StoreNewCommits(IEnumerable<Commit> newCommits)
         {
             //This has quadratic runtime, O(commits.Count * newlist.Count), 
             //but thats ok as long as newlist.Count is limited to 10
-            foreach (var commit in newList)
-                if (!HaveStoredCommit(commit))
+            foreach (var commit in newCommits)
+                if (!Enumerable.Contains(commits, commit))
                     commits.Add(commit);
-        }
-
-        private bool HaveStoredCommit(Commit commit)
-        {
-            foreach (var storedCommit in commits)
-                if (storedCommit.Equals(commit))
-                    return true;
-            return false;
         }
     }
 }
