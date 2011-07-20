@@ -242,7 +242,18 @@ namespace Smeedee.UnitTests.Model
                                                 {new Build("foo", BuildState.Broken, "fooname", DateTime.Now),
                                                 new Build("bar", BuildState.Broken, "barname", DateTime.Now)};
                 model.Load(() => Assert.AreEqual("OMG! All builds are broken!", model.DynamicDescription));
+            }
 
+            [Test]
+            public void Should_correct_present_all_builds_unknown()
+            {
+                var model = new BuildStatus();
+                buildStatusService.Builds = new List<Build>()
+                                                {
+                                                    new Build("foo", BuildState.Unknown, "fooname", DateTime.Now),
+                                                    new Build("bar", BuildState.Unknown, "barname", DateTime.Now)
+                                                };
+                model.Load(() => Assert.AreEqual("2 unknown builds", model.DynamicDescription));
             }
         }
     }
