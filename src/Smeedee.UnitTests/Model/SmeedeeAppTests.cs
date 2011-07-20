@@ -82,21 +82,23 @@ namespace Smeedee.UnitTests.Model
                 Assert.Contains("description static 1", widgets.Select(m => m.StaticDescription).ToList());
                 Assert.Contains("description static 2", widgets.Select(m => m.StaticDescription).ToList());
             }
-			/*
-			 * TODO in visual studio
+
 			[Test]
 			public void List_of_enabled_widgets_should_be_empty_when_no_preferences_are_saved()
 			{
+			    app.RegisterAvailableWidgets();
 				CollectionAssert.IsEmpty(app.EnabledWidgets);
 			}
 			
 			[Test]
 			public void List_of_enabled_widgets_should_be_updated_when_configuration_changes() 
 			{
-				persistence.Save("Top Committers", true);
+                persistence.Save("Test Widget", true);
+
+                app.RegisterAvailableWidgets();
 				
-				Assert.AreEqual(1, app.AvailableWidgets.Count());
-			}*/
+				Assert.AreEqual(1, app.EnabledWidgets.Count());
+			}
         }
         
         [WidgetAttribute("Test Widget", StaticDescription = "description static 1")]
