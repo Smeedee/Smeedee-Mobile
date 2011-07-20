@@ -5,11 +5,12 @@ using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [Widget("Top Committers", StaticDescription = "A list of most active committers")]
+    [Widget("Top Committers", StaticDescription = "A list of most active committers", SettingsType = typeof(TopCommittersSettings))]
     public class TopCommittersWidget : RelativeLayout, IWidget
     {
         private readonly TopCommitters _model;

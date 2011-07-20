@@ -11,8 +11,6 @@ using Android.Widget;
 using Android.OS;
 using Java.Lang;
 using Smeedee.Android.Screens;
-using Smeedee.Android.Widgets;
-using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 using Exception = System.Exception;
 
@@ -157,15 +155,12 @@ namespace Smeedee.Android
                 case Resource.Id.BtnWidgetSettings:
 
                     var widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
+                    var widgetModel = SmeedeeApp.Instance.AvailableWidgets.Single(wm => wm.Name == widgetName);
 
-                    if (widgetName == "Build Status")
-                        StartActivity(new Intent(this, typeof(BuildStatusSettings)));
-
-                    if (widgetName == "Top Committers")
-                        StartActivity(new Intent(this, typeof(TopCommittersSettings)));
-
-                    if (widgetName == LatestCommitsWidget.Name)
-                        StartActivity(new Intent(this, typeof(LatestCommitsSettings)));
+                    if (widgetModel.SettingsType != null)
+                    {
+                        StartActivity(new Intent(this, widgetModel.Type));
+                    }
                     return true;
 
                 case Resource.Id.BtnGlobalSettings:

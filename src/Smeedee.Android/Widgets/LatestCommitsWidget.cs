@@ -13,7 +13,7 @@ using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute(Name, StaticDescription = "Displays latest commits")]
+    [WidgetAttribute(Name, StaticDescription = "Displays latest commits", SettingsType = typeof(LatestCommitsSettings))]
     public class LatestCommitsWidget : RelativeLayout, IWidget
     {
         public const string Name = "Latest commits";

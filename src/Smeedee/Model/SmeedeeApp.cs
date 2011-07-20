@@ -59,7 +59,7 @@ namespace Smeedee.Model
 
         private static WidgetModel ModelFromAttributes(WidgetAttribute attr, Type type)
         {
-            return new WidgetModel(attr.Name, attr.StaticDescription, type);
+            return new WidgetModel(attr.Name, attr.StaticDescription, type) {SettingsType = attr.SettingsType};
         }
     }
 }
