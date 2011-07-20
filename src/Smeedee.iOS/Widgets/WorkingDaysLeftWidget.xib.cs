@@ -43,6 +43,13 @@ namespace Smeedee.iOS
 			}
 			return "Static";
 		}
+		
+        public event EventHandler DescriptionChanged;
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
 	}
 }
 

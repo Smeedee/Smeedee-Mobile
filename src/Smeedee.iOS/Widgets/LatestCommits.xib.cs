@@ -42,6 +42,13 @@ namespace Smeedee.iOS
 		{
 			return "";	
 		}
+		
+        public event EventHandler DescriptionChanged;
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
 	}
 	
     public class LatestCommitsTableSource : UITableViewSource
