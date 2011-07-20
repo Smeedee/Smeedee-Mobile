@@ -14,6 +14,8 @@ namespace Smeedee.Android.Widgets
     {
         private readonly TopCommitters _model;
 
+        public event EventHandler DescriptionChanged;
+
         public TopCommittersWidget(Context context) : base(context)
         {
             InflateView();
@@ -52,7 +54,6 @@ namespace Smeedee.Android.Widgets
             return _model.Description;
         }
 
-        public event EventHandler DescriptionChanged;
         public void OnDescriptionChanged(EventArgs args)
         {
             if (DescriptionChanged != null)
