@@ -122,10 +122,10 @@ namespace Smeedee.Model
 	            if (numberOfWorkingBuilds > 0)
 	                description = numberOfWorkingBuilds + " working";
 	            if (numberOfBrokenBuilds > 0)
-	                description += ", " + numberOfBrokenBuilds + " broken";
+	                description += (description == "") ? numberOfBrokenBuilds + " broken" : ", " + numberOfBrokenBuilds + " broken";
 	            if (numberOfUnknownBuilds > 0)
 	            {
-	                description += ", " + numberOfUnknownBuilds + " unknown";
+	                description += (description == "") ? numberOfUnknownBuilds + " unknown" : ", " + numberOfUnknownBuilds + " unknown";
 	            }
 
 	            description += " builds";

@@ -216,6 +216,7 @@ namespace Smeedee.UnitTests.Model
             public void Should_correctly_identify_and_present_number_of_builds_for_each_status()
             {
                 var model = new BuildStatus();
+                buildStatusService.Builds = buildStatusService.DefaultBuilds;
                 model.Load(() => Assert.AreEqual("3 working, 2 broken, 3 unknown builds", model.DynamicDescription));
             }
 
