@@ -159,7 +159,7 @@ namespace Smeedee.Android
 
                     if (widgetModel.SettingsType != null)
                     {
-                        StartActivity(new Intent(this, widgetModel.Type));
+                        StartActivity(new Intent(this, widgetModel.SettingsType));
                     }
                     return true;
 
