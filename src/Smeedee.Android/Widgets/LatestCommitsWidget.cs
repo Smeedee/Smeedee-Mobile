@@ -60,7 +60,7 @@ namespace Smeedee.Android.Widgets
         {
             //TODO or not TODO?:
             //var count = int.Parse(pref.GetString("NumberOfCommitsDisplayed", "10"));
-            latestCommits.Load(Redraw);
+            latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
             RefreshDynamicDescription();
         }
 
