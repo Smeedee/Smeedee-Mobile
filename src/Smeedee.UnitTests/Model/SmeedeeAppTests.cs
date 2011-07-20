@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
@@ -109,6 +110,8 @@ namespace Smeedee.UnitTests.Model
             {
                 return "";
             }
+
+            public event EventHandler DescriptionChanged;
         }
 
         [WidgetAttribute("Test Widget 2", StaticDescription = "description static 2")]
@@ -122,6 +125,8 @@ namespace Smeedee.UnitTests.Model
             {
                 return "";
             }
+
+            public event EventHandler DescriptionChanged;
         }
         
         public interface IIntermediateWidget : IWidget

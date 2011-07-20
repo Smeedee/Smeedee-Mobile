@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
-using Android.Content.PM;
 using Android.Preferences;
 using Android.Util;
 using Android.Views;
@@ -41,8 +40,11 @@ namespace Smeedee.Android
             flipper.ScreenChanged += HandleScreenChanged;
 
             AddWidgetsToFlipper();
-            SetCorrectTopBannerWidgetTitle();
-            SetCorrectTopBannerWidgetDescription();
+
+            foreach (var widget in widgets)
+            {
+                widget.DescriptionChanged += WidgetDescriptionChanged;
+            }
 
             Log.Debug("SMEEDEE", "In WidgetContainer");
             Log.Debug("SMEEDEE", "URL: " + new Login().Url);
@@ -67,6 +69,13 @@ namespace Smeedee.Android
         {
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
+        }
+
+        void WidgetDescriptionChanged(object sender, EventArgs e)
+        {
+            if (sender != flipper.CurrentView) return;
+            SetCorrectTopBannerWidgetDescription();
+            SetCorrectTopBannerWidgetTitle();
         }
 
         private void AddWidgetsToFlipper()
@@ -110,26 +119,14 @@ namespace Smeedee.Android
             var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
             var currentWidget = flipper.CurrentView as IWidget;
 
-            if (currentWidget != null)
-            {
-                widgetDescriptionDynamic.Text = currentWidget.GetDynamicDescription();
-            }
-            else
-            {
-                throw new NullReferenceException("Could not set the dynamic description because there " +
-                                                 "where no current widget in viewflipper");
-            }
+            widgetDescriptionDynamic.Text = (currentWidget != null) ? currentWidget.GetDynamicDescription() : "No widget";
         }
 
         private string GetWidgetNameOfCurrentlyDisplayedWidget()
         {
-            var name = "";
-            foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
-            {
-                if (flipper.CurrentView.GetType() == widgetModel.Type)
-                    name = widgetModel.Name;
-            }
-            return name;
+            return (from widget in SmeedeeApp.Instance.AvailableWidgets
+                    where widget.Type == flipper.CurrentView.GetType()
+                    select widget.Name).Single();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -154,15 +151,12 @@ namespace Smeedee.Android
                             handler.SendEmptyMessage(0);
                         });
                     }
-                    else
-                        throw new NullReferenceException("Could not refresh the widget because there where" +
-                                                         "no current widget in viewflipper");
 
                     return true;
 
                 case Resource.Id.BtnWidgetSettings:
 
-                    string widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
+                    var widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
 
                     if (widgetName == "Build Status")
                         StartActivity(new Intent(this, typeof(BuildStatusSettings)));
@@ -258,8 +252,8 @@ namespace Smeedee.Android
 
         private bool WidgetIsEnabled(WidgetModel widget)
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            return prefs.GetBoolean(widget.Name, true);
+            var sharedPrefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            return sharedPrefs.GetBoolean(widget.Name, true);
         }
 
         public override Java.Lang.Object OnRetainNonConfigurationInstance()

@@ -19,6 +19,8 @@ namespace Smeedee.Android.Widgets
         private ListView buildList;
         private BuildStatus model;
 
+        public event EventHandler DescriptionChanged;
+
         public BuildStatusWidget(Context context) : base(context)
         {
             Initialize();
@@ -69,6 +71,7 @@ namespace Smeedee.Android.Widgets
                             Resource.Layout.BuildStatusWidget_ListItem,
                             listItemMappingFrom,
                             listItemMappingTo);
+                            OnDescriptionChanged(new EventArgs());
                         }));
         }
 
@@ -76,6 +79,14 @@ namespace Smeedee.Android.Widgets
         {
             return model.DynamicDescription;
         }
+
+        private void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
+
+        
     }
 
     internal class BuildStatusAdapter : SimpleAdapter

@@ -60,7 +60,7 @@ namespace Smeedee.Android.Widgets
         {
             //TODO or not TODO?:
             //var count = int.Parse(pref.GetString("NumberOfCommitsDisplayed", "10"));
-            latestCommits.Load(Redraw);
+            latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
             RefreshDynamicDescription();
         }
 
@@ -116,6 +116,13 @@ namespace Smeedee.Android.Widgets
         public string GetDynamicDescription()
         {
             return _dynamicDescription;
+        }
+
+        public event EventHandler DescriptionChanged;
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
         }
     }
 
