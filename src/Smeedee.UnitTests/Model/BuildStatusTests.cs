@@ -162,7 +162,7 @@ namespace Smeedee.UnitTests.Model
             // NOTE: These constants are set to the same values as the keys used by the platforms.
             // If you change the values in the model, you should also change the values in the
             // platform specific code.
-            private const string PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING = "BuildStatus.Sorting";
+            private const string PREFERENCE_IMPLEMENTATION_BUILD_SORT_ORDERING = "BuildStatus.Sorting";
             private const string PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY = "BuildStatus.ShowTriggeredBy";
             private const string PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP = "BuildStatus.BrokenFirst";
 
@@ -176,12 +176,30 @@ namespace Smeedee.UnitTests.Model
             }
 
             [Test]
+            public void Should_retrieve_broken_first_from_correct_key()
+            {
+                var model = new BuildStatus();
+                persister.Save(PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP, false);
+
+                Assert.AreEqual(false, model.BrokenBuildsAtTop);
+            }
+
+            [Test]
             public void Should_persist_sort_order_as_string_with_correct_key()
             {
                 var model = new BuildStatus();
                 model.Ordering = BuildOrder.BuildName;
 
-                Assert.AreNotEqual("foo", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
+                Assert.AreNotEqual("foo", persister.Get(PREFERENCE_IMPLEMENTATION_BUILD_SORT_ORDERING, "foo"));
+            }
+
+            [Test]
+            public void Should_retrieve_sort_order_from_correct_key()
+            {
+                var model = new BuildStatus();
+                persister.Save(PREFERENCE_IMPLEMENTATION_BUILD_SORT_ORDERING, "buildname");
+
+                Assert.AreEqual(BuildOrder.BuildName, model.Ordering);
             }
 
             [Test]
@@ -189,7 +207,7 @@ namespace Smeedee.UnitTests.Model
             {
                 new BuildStatus {Ordering = BuildOrder.BuildName};
 
-                Assert.AreEqual("buildname", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
+                Assert.AreEqual("buildname", persister.Get(PREFERENCE_IMPLEMENTATION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
@@ -197,7 +215,7 @@ namespace Smeedee.UnitTests.Model
             {
                 new BuildStatus {Ordering = BuildOrder.BuildTime};
 
-                Assert.AreEqual("buildtime", persister.Get(PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING, "foo"));
+                Assert.AreEqual("buildtime", persister.Get(PREFERENCE_IMPLEMENTATION_BUILD_SORT_ORDERING, "foo"));
             }
 
             [Test]
@@ -206,6 +224,15 @@ namespace Smeedee.UnitTests.Model
                 new BuildStatus {ShowTriggeredBy = true};
 
                 Assert.AreNotEqual(false, persister.Get(PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY, false));
+            }
+
+            [Test]
+            public void Should_retrieve_whether_name_should_be_shown_from_correct_key()
+            {
+                persister.Save(PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY, true);
+                var model = new BuildStatus();
+                
+                Assert.AreEqual(true, model.ShowTriggeredBy);
             }
         }
 
