@@ -110,6 +110,7 @@ namespace Smeedee.Android.Widgets
                                  {"Date", (DateTime.Now - changeSet.Date).PrettyPrint()}
                              });
             }
+            data.Add(new Dictionary<string, object> {{"LoadMoreButton", true} });
             return data;
         }
 
@@ -122,15 +123,18 @@ namespace Smeedee.Android.Widgets
     internal class TextColoringAdapter : SimpleAdapter 
     {
         private readonly Color highlightColor;
-
+        private readonly Context context;
         public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color highlightColor) :
                                   base(context, items, resource, from, to)
         {
+            this.context = context;
             this.highlightColor = highlightColor;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            if (position == Count - 1) return MakeLoadMoreButton();
+
 	        var view = base.GetView(position, convertView, parent);
             if (!(view is LinearLayout)) return view;
 
@@ -147,6 +151,17 @@ namespace Smeedee.Android.Widgets
             textView.SetTextColor(color);
 
             return view;
+        }
+
+        private View MakeLoadMoreButton()
+        {
+            var btn = new LinearLayout(context);
+            var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+            if (inflater != null)
+            {
+                inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, btn);
+            }
+            return btn;
         }
 
         public override bool IsEnabled(int position)
