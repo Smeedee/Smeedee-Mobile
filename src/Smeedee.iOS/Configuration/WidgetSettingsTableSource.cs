@@ -21,15 +21,16 @@ namespace Smeedee.iOS.Configuration
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, "ENABLE_WIDGET");
 			cell.TextLabel.Text = "Enabled";
 			
-			// Very ugly, needs refactoring
-			var className = typeof(T).Name;
-			var isEnabled = persister.Get(className, true);
+			// Not nice at all :(
+			var widgetAttributes = typeof(T).GetCustomAttributes(typeof(WidgetAttribute), true);
+			var enabledKey = (widgetAttributes.First() as WidgetAttribute).Name;
+			var isEnabled = persister.Get(enabledKey, false);
 			
 			enabledSwitch = new UISwitch();
 			enabledSwitch.SetState(isEnabled, false);
 			
 			enabledSwitch.ValueChanged += delegate {
-				persister.Save(className, enabledSwitch.On);
+				persister.Save(enabledKey, enabledSwitch.On);
 			};
 			
 			cell.AccessoryView = enabledSwitch;

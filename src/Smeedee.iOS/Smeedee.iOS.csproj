@@ -255,6 +255,9 @@
     <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
       <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\Login.cs">
+      <Link>Model\Login.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
