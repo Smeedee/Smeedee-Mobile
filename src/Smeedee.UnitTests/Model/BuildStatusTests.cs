@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
 using Smeedee.Services;
@@ -10,11 +12,12 @@ namespace Smeedee.UnitTests.Model
     {
         protected SmeedeeApp smeedeeApp = SmeedeeApp.Instance;
         private readonly FakePersistenceService persister = new FakePersistenceService();
+        private readonly Fakes.FakeBuildStatusService buildStatusService = new Fakes.FakeBuildStatusService(new NoBackgroundInvocation());
 
         [SetUp]
         public void SetUp()
         {
-            smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new NoBackgroundInvocation()));
+            smeedeeApp.ServiceLocator.Bind<IBuildStatusService>(buildStatusService);
             smeedeeApp.ServiceLocator.Bind<IPersistenceService>(persister);
         }
 
@@ -159,9 +162,9 @@ namespace Smeedee.UnitTests.Model
             // NOTE: These constants are set to the same values as the keys used by the platforms.
             // If you change the values in the model, you should also change the values in the
             // platform specific code.
-            private const string PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING = "buildSortOrdering";
-            private const string PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY = "showTriggeredBy";
-            private const string PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP = "brokenBuildsAtTop";
+            private const string PREFERENCE_IMPLEMENTATIION_BUILD_SORT_ORDERING = "BuildStatus.Sorting";
+            private const string PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY = "BuildStatus.ShowTriggeredBy";
+            private const string PREFERENCE_IMPLEMENTATION_BROKEN_BUILDS_AT_TOP = "BuildStatus.BrokenFirst";
 
             [Test]
             public void Should_persist_broken_first_preference_as_bool_with_correct_key()
@@ -203,6 +206,55 @@ namespace Smeedee.UnitTests.Model
                 new BuildStatus {ShowTriggeredBy = true};
 
                 Assert.AreNotEqual(false, persister.Get(PREFERENCE_IMPLEMENTATION_SHOW_TRIGGERED_BY, false));
+            }
+        }
+
+        [TestFixture]
+        public class When_retrieving_dynamic_description : BuildStatusTests
+        {
+            [Test]
+            public void Should_correctly_identify_and_present_number_of_builds_for_each_status()
+            {
+                var model = new BuildStatus();
+                buildStatusService.Builds = buildStatusService.DefaultBuilds;
+                model.Load(() => Assert.AreEqual("3 working, 2 broken, 3 unknown builds", model.DynamicDescription));
+            }
+
+            [Test]
+            public void Should_correctly_present_empty_build_list()
+            {
+                var model = new BuildStatus();
+                Assert.AreEqual("No builds fetched from the Smeedee Server", model.DynamicDescription);
+            }
+
+            [Test]
+            public void Should_correctly_present_all_builds_working()
+            {
+                var model = new BuildStatus();
+                buildStatusService.Builds = new List<Build>() {new Build("foo", BuildState.Working, "fooname", DateTime.Now), new Build("bar", BuildState.Working, "barname", DateTime.Now)};
+                model.Load(() => Assert.AreEqual("2 working builds", model.DynamicDescription));
+            }
+
+            [Test]
+            public void Should_correctly_present_all_builds_broken()
+            {
+                var model = new BuildStatus();
+                buildStatusService.Builds = new List<Build>()
+                                                {new Build("foo", BuildState.Broken, "fooname", DateTime.Now),
+                                                new Build("bar", BuildState.Broken, "barname", DateTime.Now)};
+                model.Load(() => Assert.AreEqual("OMG! All builds are broken!", model.DynamicDescription));
+            }
+
+            [Test]
+            public void Should_correct_present_all_builds_unknown()
+            {
+                var model = new BuildStatus();
+                buildStatusService.Builds = new List<Build>()
+                                                {
+                                                    new Build("foo", BuildState.Unknown, "fooname", DateTime.Now),
+                                                    new Build("bar", BuildState.Unknown, "barname", DateTime.Now)
+                                                };
+                model.Load(() => Assert.AreEqual("2 unknown builds", model.DynamicDescription));
             }
         }
     }

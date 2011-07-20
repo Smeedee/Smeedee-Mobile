@@ -7,6 +7,10 @@ namespace Smeedee.Model
 {
 	public class BuildStatus
 	{
+        public const string SortingPropertyKey = "BuildStatus.Sorting";
+        public const string BrokenFirstPropertyKey = "BuildStatus.BrokenFirst";
+	    public const string ShowTriggeredByPropertyKey = "BuildStatus.ShowTriggeredBy";
+
         private readonly IBuildStatusService buildService = SmeedeeApp.Instance.ServiceLocator.Get<IBuildStatusService>();
 	    private readonly IPersistenceService persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 
@@ -30,38 +34,38 @@ namespace Smeedee.Model
         public BuildOrder Ordering { 
             get
             {
-                var orderEnum = persistenceService.Get("buildSortOrdering", "projectname");
+                var orderEnum = persistenceService.Get(SortingPropertyKey, "projectname");
                 if (orderEnum == "buildname") return BuildOrder.BuildName;
                 if (orderEnum == "buildtime") return BuildOrder.BuildTime;
                 return BuildOrder.BuildTime;
             } 
             set
             {
-                if (value == BuildOrder.BuildName) persistenceService.Save("buildSortOrdering", "buildname");
-                else if (value == BuildOrder.BuildTime) persistenceService.Save("buildSortOrdering", "buildtime");
+                if (value == BuildOrder.BuildName) persistenceService.Save(SortingPropertyKey, "buildname");
+                else if (value == BuildOrder.BuildTime) persistenceService.Save(SortingPropertyKey, "buildtime");
             } 
         }
 
         public bool BrokenBuildsAtTop { 
             get 
             { 
-                var brokenAtTop = persistenceService.Get("brokenBuildsAtTop", true);
+                var brokenAtTop = persistenceService.Get(BrokenFirstPropertyKey, true);
                 return brokenAtTop;
             } set
             {
-                persistenceService.Save("brokenBuildsAtTop", value);
+                persistenceService.Save(BrokenFirstPropertyKey, value);
             }
         }
 
         public bool ShowTriggeredBy {
             get
             {
-                var showTriggeredBy = persistenceService.Get("showTriggeredBy", true);
+                var showTriggeredBy = persistenceService.Get(ShowTriggeredByPropertyKey, true);
                 return showTriggeredBy;
             }
             set
             {
-                persistenceService.Save("showTriggeredBy", value);
+                persistenceService.Save(ShowTriggeredByPropertyKey, value);
             }
         }
 
@@ -98,6 +102,35 @@ namespace Smeedee.Model
             orderedBuilds.AddRange(workingBuilds);
             orderedBuilds.AddRange(unknownBuilds);
             return orderedBuilds;
+        }
+
+	    public string DynamicDescription 
+        { 
+            get
+	        {
+                var numberOfWorkingBuilds = GetNumberOfBuildsByState(BuildState.Working);
+                var numberOfBrokenBuilds = GetNumberOfBuildsByState(BuildState.Broken);
+                var numberOfUnknownBuilds = GetNumberOfBuildsByState(BuildState.Unknown);
+                var numberOfBuilds = builds.Count();
+
+                if (numberOfBuilds == 0)
+                    return "No builds fetched from the Smeedee Server";
+	            if (numberOfWorkingBuilds == 0 && numberOfUnknownBuilds == 0)
+	                return "OMG! All builds are broken!";
+	            
+                var description = "";
+	            if (numberOfWorkingBuilds > 0)
+	                description = numberOfWorkingBuilds + " working";
+	            if (numberOfBrokenBuilds > 0)
+	                description += (description == "") ? numberOfBrokenBuilds + " broken" : ", " + numberOfBrokenBuilds + " broken";
+	            if (numberOfUnknownBuilds > 0)
+	            {
+	                description += (description == "") ? numberOfUnknownBuilds + " unknown" : ", " + numberOfUnknownBuilds + " unknown";
+	            }
+
+	            description += " builds";
+	            return description;
+	        } 
         }
 	}
 }

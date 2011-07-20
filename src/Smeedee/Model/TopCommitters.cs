@@ -61,11 +61,10 @@ namespace Smeedee.Model
 
         public string Description
         {
-            get { return string.Format("Top committers for the past {0}", TimePeriod.ToSuffix()); }
+            get { return string.Format("Top {0} committers for the past {1}", NumberOfCommitters, TimePeriod.ToSuffix()); }
         }
     }
 
-    // TODO: Better naming
     public enum TimePeriod
     {
         PastDay = 1, PastWeek = 7, PastMonth = 30

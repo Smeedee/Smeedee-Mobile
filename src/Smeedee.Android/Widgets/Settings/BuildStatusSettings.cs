@@ -1,6 +1,7 @@
 using Android.App;
 using Android.OS;
 using Android.Preferences;
+using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets.Settings
 {
@@ -20,9 +21,9 @@ namespace Smeedee.Android.Widgets.Settings
         }
         private void LoadPreferences()
         {
-            var buildOrderPreference = (ListPreference)FindPreference("buildSortOrdering");
+            var buildOrderPreference = (ListPreference)FindPreference(BuildStatus.SortingPropertyKey);
             var pref = PreferenceManager.GetDefaultSharedPreferences(this);
-            var sortOn = pref.GetString("buildSortOrdering", "buildtime");
+            var sortOn = pref.GetString(BuildStatus.SortingPropertyKey, "buildtime");
             if (sortOn == "buildtime")
                 buildOrderPreference.Summary = "Order by build time";
             if (sortOn == "projectname")
