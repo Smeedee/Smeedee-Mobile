@@ -12,12 +12,24 @@ namespace Smeedee.Model
         // This class is a singleton: private constructor; static instance variable.
         private SmeedeeApp()
         {
-            AvailableWidgets = new List<WidgetModel>();
             ServiceLocator = new ServiceLocator();
+            AvailableWidgets = new List<WidgetModel>();
         }
 
         public ServiceLocator ServiceLocator { get; private set; }
-        public List<WidgetModel> AvailableWidgets { get; private set; }
+		
+        public IList<WidgetModel> AvailableWidgets { get; private set; }
+		public IEnumerable<WidgetModel> EnabledWidgets 
+		{ 
+			get
+			{
+				var persistence = ServiceLocator.Get<IPersistenceService>();
+				foreach (var model in AvailableWidgets) {
+					if (persistence.Get(model.Name, false))
+						yield return model;
+				}
+			}
+		}
 
         public void RegisterAvailableWidgets()
         {
