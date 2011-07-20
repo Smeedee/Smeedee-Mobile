@@ -199,9 +199,15 @@ namespace Smeedee.Android
                 hasSettingsChanged = false;
             }
 
-            foreach (var widget in widgets)
+            RefreshAllCurrentlyEnabledWidgets();
+        }
+
+        private void RefreshAllCurrentlyEnabledWidgets()
+        {
+            for (var i = 0; i < flipper.ChildCount; i++)
             {
-                widget.Refresh();
+                var widget = flipper.GetChildAt(i) as IWidget;
+                if (widget != null) widget.Refresh();
             }
         }
 
