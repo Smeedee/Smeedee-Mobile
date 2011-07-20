@@ -12,11 +12,11 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
-		private IEnumerable<UIViewController> widgets;
+		private IList<IWidget> widgets;
 		
         public WidgetsScreen (IntPtr handle) : base (handle)
         {
-			widgets = new List<UIViewController>();
+			widgets = new List<IWidget>();
         }
 		
         public override void ViewDidLoad()
@@ -25,14 +25,16 @@ namespace Smeedee.iOS
 			titleLabel.StyleAsHeadline();
 			subTitleLabel.StyleAsDescription();
             scrollView.Scrolled += ScrollViewScrolled;
-            SetTitleLabels(0);
         }
 		
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+			
 			EmptyScrollView();
-            AddWidgetsToScreen();
+            InstantiateEnabledWidgets();
+			AddWidgetsToScrollView();
+			
 			SetTitleLabels(CurrentPageIndex());
 		}
         
@@ -41,9 +43,17 @@ namespace Smeedee.iOS
 				view.RemoveFromSuperview();
 		}
 		
-        private void AddWidgetsToScreen()
+		private void InstantiateEnabledWidgets()
+		{
+			widgets.Clear();
+			foreach (var widgetModel in SmeedeeApp.Instance.EnabledWidgets) {
+				var instance = Activator.CreateInstance(widgetModel.Type);
+				widgets.Add(instance as IWidget);
+			}
+		}
+		
+        private void AddWidgetsToScrollView()
         {
-            widgets = GetEnabledWidgets();
             var count = widgets.Count();
             var scrollViewWidth = SCREEN_WIDTH * count;
             
@@ -52,7 +62,7 @@ namespace Smeedee.iOS
             
             for (int i = 0; i < count; i++)
             {
-                var widget = widgets.ElementAt(i).View;
+                var widget = (widgets.ElementAt(i) as UIViewController).View;
                 
                 var frame = scrollView.Frame;
                 frame.Location = new PointF(SCREEN_WIDTH * i, 0);
@@ -88,17 +98,6 @@ namespace Smeedee.iOS
 			}
         }
 		
-        private IEnumerable<UIViewController> GetEnabledWidgets()
-        {
-			var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-			
-            foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
-            {
-				if (persistence.Get(widgetModel.Type.Name, true))
-            		yield return Activator.CreateInstance(widgetModel.Type) as UIViewController;
-            }
-        }
-        
 		private int CurrentPageIndex()
         {
             var index = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
