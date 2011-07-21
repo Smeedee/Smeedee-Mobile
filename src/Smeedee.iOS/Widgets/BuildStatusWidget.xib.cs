@@ -7,7 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS
 {
-    [Widget("Build Status", StaticDescription = "View the status of your builds")]
+    [Widget("Build Status", StaticDescription = "View the status of your builds", SettingsType = typeof(BuildStatusConfigTableViewController))]
     public partial class BuildStatusWidget : UITableViewController, IWidget
 	{
 		private BuildStatus model;

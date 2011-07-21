@@ -12,8 +12,8 @@ namespace Smeedee.iOS {
 	
 	
 	// Base type probably should be MonoTouch.UIKit.UIViewController or subclass
-	[MonoTouch.Foundation.Register("TopCommittersWidget")]
-	public partial class TopCommittersWidget {
+	[MonoTouch.Foundation.Register("LatestCommitsWidget")]
+	public partial class LatestCommitsWidget {
 		
 		private MonoTouch.UIKit.UITableView __mt_view;
 		

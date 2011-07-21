@@ -14,7 +14,7 @@
     <MainNibFile>MainWindowIPhone.xib</MainNibFile>
     <AssemblyName>SmeedeeiOS</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -192,12 +192,6 @@
     </Compile>
     <Compile Include="Lib\TableCellFactory.cs" />
     <Compile Include="Lib\TableViewCellController.cs" />
-    <Compile Include="Widgets\LatestCommits.xib.cs">
-      <DependentUpon>LatestCommits.xib</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\LatestCommits.xib.designer.cs">
-      <DependentUpon>LatestCommits.xib</DependentUpon>
-    </Compile>
     <Compile Include="StyleExtensions.cs" />
     <Compile Include="Widgets\TableCells\CommitTableCellController.xib.cs">
       <DependentUpon>CommitTableCellController.xib</DependentUpon>
@@ -226,14 +220,7 @@
     <Compile Include="..\Smeedee\Model\BuildOrder.cs">
       <Link>Model\BuildOrder.cs</Link>
     </Compile>
-    <Compile Include="Configuration\ConfigurationTableViewController.cs" />
-    <Compile Include="Configuration\ConfigurationTableSource.cs" />
-    <Compile Include="Configuration\TopComittersTableSource.cs" />
-    <Compile Include="Configuration\BuildStatusTableSource.cs" />
-    <Compile Include="Configuration\LatestCommitsTableSource.cs" />
-    <Compile Include="Configuration\WorkingDaysLeftTableSource.cs" />
     <Compile Include="Services\IphoneKVPersister.cs" />
-    <Compile Include="Configuration\WidgetSettingsTableSource.cs" />
     <Compile Include="..\Smeedee\Model\Commit.cs">
       <Link>Model\Commit.cs</Link>
     </Compile>
@@ -258,6 +245,49 @@
     <Compile Include="..\Smeedee\Model\Login.cs">
       <Link>Model\Login.cs</Link>
     </Compile>
+    <Compile Include="Config\MainConfigTableViewController.xib.cs">
+      <DependentUpon>MainConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\MainConfigTableViewController.xib.designer.cs">
+      <DependentUpon>MainConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib.cs">
+      <DependentUpon>WorkingDaysLeftConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib.designer.cs">
+      <DependentUpon>WorkingDaysLeftConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\TopCommittersConfigTableViewController.xib.cs">
+      <DependentUpon>TopCommittersConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\TopCommittersConfigTableViewController.xib.designer.cs">
+      <DependentUpon>TopCommittersConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\BuildStatusConfigTableViewController.xib.cs">
+      <DependentUpon>BuildStatusConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\BuildStatusConfigTableViewController.xib.designer.cs">
+      <DependentUpon>BuildStatusConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\LatestCommitsConfigTableViewController.xib.cs">
+      <DependentUpon>LatestCommitsConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\LatestCommitsConfigTableViewController.xib.designer.cs">
+      <DependentUpon>LatestCommitsConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\WidgetConfigTableViewSource.cs" />
+    <Compile Include="Widgets\LatestCommitsWidget.xib.cs">
+      <DependentUpon>LatestCommitsWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\LatestCommitsWidget.xib.designer.cs">
+      <DependentUpon>LatestCommitsWidget.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\TableCells\LabelTextInputTableCellController.xib.cs">
+      <DependentUpon>LabelTextInputTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\TableCells\LabelTextInputTableCellController.xib.designer.cs">
+      <DependentUpon>LabelTextInputTableCellController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -270,7 +300,13 @@
     <Page Include="Widgets\TableCells\CommitTableCellController.xib" />
     <Page Include="Widgets\WorkingDaysLeftWidget.xib" />
     <Page Include="Widgets\TableCells\TopCommittersTableCellController.xib" />
-    <Page Include="Widgets\LatestCommits.xib" />
+    <Page Include="Config\MainConfigTableViewController.xib" />
+    <Page Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib" />
+    <Page Include="Config\Widgets\TopCommittersConfigTableViewController.xib" />
+    <Page Include="Config\Widgets\BuildStatusConfigTableViewController.xib" />
+    <Page Include="Config\Widgets\LatestCommitsConfigTableViewController.xib" />
+    <Page Include="Widgets\LatestCommitsWidget.xib" />
+    <Page Include="Config\TableCells\LabelTextInputTableCellController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -280,8 +316,10 @@
     <Folder Include="Lib\" />
     <Folder Include="Images\" />
     <Folder Include="Widgets\TableCells\" />
-    <Folder Include="Configuration\" />
     <Folder Include="Services\Fakes\" />
+    <Folder Include="Config\" />
+    <Folder Include="Config\Widgets\" />
+    <Folder Include="Config\TableCells\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />
@@ -289,9 +327,4 @@
     <Content Include="Images\SettingsIcon.png" />
     <Content Include="Images\StarIcon.png" />
   </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties InternalTargetFrameworkVersion="IPhone" />
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>

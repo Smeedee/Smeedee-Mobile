@@ -129,6 +129,19 @@ namespace Smeedee.Android
             return true;
         }
 
+        public override bool OnPrepareOptionsMenu(IMenu menu)
+        {
+            base.OnPrepareOptionsMenu(menu);
+
+            var configMenuItem = menu.FindItem(Resource.Id.BtnWidgetSettings);
+            var attribs = (WidgetAttribute)(flipper.CurrentView.GetType().GetCustomAttributes(typeof(WidgetAttribute), true)[0]);
+
+            if (configMenuItem != null)
+                configMenuItem.SetEnabled(attribs.SettingsType != null);
+            
+            return true;
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -208,7 +221,7 @@ namespace Smeedee.Android
             var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
 
             var newWidgets = new List<IWidget>();
-            foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
+            foreach (var widgetModel in widgetModels.Where(w => w.Enabled))
             {
                 var model = widgetModel;
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
@@ -221,12 +234,6 @@ namespace Smeedee.Android
                 flipper.AddView((View)newWidget);
             }
             flipper.CurrentScreen = 0;
-        }
-
-        private bool WidgetIsEnabled(WidgetModel widget)
-        {
-            var sharedPrefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            return sharedPrefs.GetBoolean(widget.Name, true);
         }
 
         protected override void OnPause()

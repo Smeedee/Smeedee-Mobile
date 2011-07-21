@@ -8,7 +8,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS
 {
-	[Widget("Working days left", StaticDescription = "Actual working days left of project")]
+	[Widget("Working days left", StaticDescription = "Actual working days left of project", SettingsType = typeof(WorkingDaysLeftConfigTableViewController))]
 	public partial class WorkingDaysLeftWidget : UIViewController, IWidget
 	{
 		private WorkingDaysLeft model;
