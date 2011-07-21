@@ -20,6 +20,7 @@ namespace Smeedee.Android.Widgets
             InflateView();
             model = new WorkingDaysLeft();
             Refresh();
+            var list = new ListView(context);
         }
 
         private void InflateView()

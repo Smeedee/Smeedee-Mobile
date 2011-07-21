@@ -22,14 +22,13 @@ namespace Smeedee.Android.Widgets
         private string _dynamicDescription;
 
         private LatestCommits latestCommits;
-        private ISharedPreferences pref;
+        private bool scrollDown = false;
 
         public event EventHandler DescriptionChanged;
 
         public LatestCommitsWidget(Context context) :
             base(context)
         {
-            pref = PreferenceManager.GetDefaultSharedPreferences(context);
             Initialize();
         }
 
@@ -61,17 +60,29 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
+            scrollDown = false;
             latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
             RefreshDynamicDescription();
         }
 
         public void Redraw()
         {
+            var listView = FindViewById<ListView>(Resource.Id.LatestCommitsList);
+            var lastItemBeforeExpansion = Math.Max(0, listView.Count - 1);
+
             var adapter = CreateListAdapter();
-            FindViewById<ListView>(Resource.Id.LatestCommitsList).Adapter = adapter;
+            listView.Adapter = adapter;
+
+            if (scrollDown)
+            {
+                var xScroll = lastItemBeforeExpansion == 0
+                                  ? 0
+                                  : Height - 70;
+                listView.SetSelectionFromTop(lastItemBeforeExpansion, xScroll);
+            }
         }
 
-        private SimpleAdapter CreateListAdapter()
+        private TextColoringAdapterWithLoadMoreButton CreateListAdapter()
         {
             var from = new[] { "Image", "User", "Msg", "Date" };
             var to = new[] { Ids.LatestCommitsWidget_CommitterIcon, Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
@@ -81,7 +92,7 @@ namespace Smeedee.Android.Widgets
             var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, layout, from, to, GetHighlightColor());
             adapter.LoadMoreClick += (o, e) =>
                                          {
-                                             Log.Debug("SMEEDEE", "LoadMoreClick fired");
+                                             scrollDown = true;
                                              latestCommits.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
                                          };
             return adapter;
