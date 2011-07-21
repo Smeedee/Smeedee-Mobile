@@ -264,12 +264,6 @@
     <Compile Include="Config\MainConfigTableViewController.xib.designer.cs">
       <DependentUpon>MainConfigTableViewController.xib</DependentUpon>
     </Compile>
-    <Compile Include="Config\Widgets\TopCommittersWidgetTableViewController.xib.cs">
-      <DependentUpon>TopCommittersWidgetTableViewController.xib</DependentUpon>
-    </Compile>
-    <Compile Include="Config\Widgets\TopCommittersWidgetTableViewController.xib.designer.cs">
-      <DependentUpon>TopCommittersWidgetTableViewController.xib</DependentUpon>
-    </Compile>
     <Compile Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib.cs">
       <DependentUpon>WorkingDaysLeftConfigTableViewController.xib</DependentUpon>
     </Compile>
@@ -277,6 +271,12 @@
       <DependentUpon>WorkingDaysLeftConfigTableViewController.xib</DependentUpon>
     </Compile>
     <Compile Include="Config\Widgets\WidgetConfigTableSource.cs" />
+    <Compile Include="Config\Widgets\TopCommittersConfigTableViewController.xib.cs">
+      <DependentUpon>TopCommittersConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\TopCommittersConfigTableViewController.xib.designer.cs">
+      <DependentUpon>TopCommittersConfigTableViewController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -291,8 +291,8 @@
     <Page Include="Widgets\TableCells\TopCommittersTableCellController.xib" />
     <Page Include="Widgets\LatestCommits.xib" />
     <Page Include="Config\MainConfigTableViewController.xib" />
-    <Page Include="Config\Widgets\TopCommittersWidgetTableViewController.xib" />
     <Page Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib" />
+    <Page Include="Config\Widgets\TopCommittersConfigTableViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

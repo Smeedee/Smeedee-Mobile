@@ -8,7 +8,7 @@ using Smeedee;
 
 namespace Smeedee.iOS
 {
-    [Widget("Top committers", StaticDescription = "See which developer has committed the most code", SettingsType = typeof(TopCommittersWidgetTableViewController))]
+    [Widget("Top committers", StaticDescription = "See which developer has committed the most code", SettingsType = typeof(TopCommittersConfigTableViewController))]
     public partial class TopCommittersWidget : UITableViewController, IWidget
     {
 		private TopCommitters model;
