@@ -50,10 +50,6 @@
   
 
   <!--Latest commits-->
-  <string name="LatestCommitsSettingsPreferenceCategory1">Commits</string>
-  <string name="LatestCommitsSettingsPreferenceCategory2">Colors</string>
-  <string name="LatestCommitsSettingsNumberOfCommitsTitle">Number of commits</string>
-  <string name="LatestCommitsSettingsNumberOfCommitsSummary">Currently showing latest 10 commits</string>
   <string name="LatestCommitsSettingsHighlightEmptyTitle">Highlight empty commits</string>
   <string name="LatestCommitsSettingsHighlightEmptySummaryOn">Highlight empty commit messages is on</string>
   <string name="LatestCommitsSettingsHighlightEmptySummaryOff">Highlight empty commit messages is off</string>

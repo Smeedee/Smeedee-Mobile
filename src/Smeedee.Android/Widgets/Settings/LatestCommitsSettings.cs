@@ -26,10 +26,7 @@ namespace Smeedee.Android.Widgets.Settings
 
         private void LoadPreferences()
         {
-            var numberOfCommitsDisplayed = (ListPreference) FindPreference("NumberOfCommitsDisplayed");
             var prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            numberOfCommitsDisplayed.Summary = "Displaying latest "
-                + prefs.GetString("NumberOfCommitsDisplayed", "10") + " commits";
 
             var chosenColorAsHex = prefs.GetString("lcs_HighlightColor", DefaultRed);
             var highlightColorPrefs = (ColoredListPreference)FindPreference("lcs_HighlightColor");
@@ -92,7 +89,7 @@ namespace Smeedee.Android.Widgets.Settings
 
         private class TextColoringAdapter : SimpleAdapter
         {
-            private Color[] colors;
+            private readonly Color[] colors;
 
             public TextColoringAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color[] colors) :
                 base(context, items, resource, from, to)

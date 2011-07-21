@@ -81,7 +81,6 @@ namespace Smeedee.Android.Widgets
                                          {
                                              Log.Debug("SMEEDEE", "LoadMoreClick fired");
                                              latestCommits.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
-
                                          };
             return adapter;
         }
@@ -179,11 +178,8 @@ namespace Smeedee.Android.Widgets
                 loadMoreButton = new RelativeLayout(context);
                 var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
                 inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreButton);
-                loadMoreButton.Clickable = true;
-                Log.Debug("SMEEDEE", "child0: "+loadMoreButton.GetChildAt(0));
-                var button = loadMoreButton.GetChildAt(0) as Button; //TODO: <-- its a linearlayout
-                if (button == null) throw new Java.Lang.Exception("Fucked up");
-                button.Click += (o, e) => Log.Debug("SMEEDEE", "Click fired");
+
+                var button = loadMoreButton.GetChildAt(0) as Button;
                 button.Click += LoadMoreClick;
             }
             return loadMoreButton;

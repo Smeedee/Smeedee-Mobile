@@ -1,31 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen 
   xmlns:android="http://schemas.android.com/apk/res/android">
-  <PreferenceCategory
-    android:title="@string/LatestCommitsSettingsPreferenceCategory1">
-    <ListPreference
-      android:key="NumberOfCommitsDisplayed"
-      android:title="@string/LatestCommitsSettingsNumberOfCommitsTitle"
-      android:summary="@string/LatestCommitsSettingsNumberOfCommitsSummary"
-      android:entries="@array/LatestCommitsSettingsCountArray"
-      android:entryValues="@array/LatestCommitsSettingsCountValues"
-      android:defaultValue="10" />
-  </PreferenceCategory>
+  <CheckBoxPreference
+    android:key="lcs_HighlightEnabled"
+    android:title="@string/LatestCommitsSettingsHighlightEmptyTitle"
+    android:summaryOn="@string/LatestCommitsSettingsHighlightEmptySummaryOn"
+    android:summaryOff="@string/LatestCommitsSettingsHighlightEmptySummaryOff"
+    android:defaultValue="true"/>
 
-  <PreferenceCategory
-    android:title="@string/LatestCommitsSettingsPreferenceCategory2">
-    <CheckBoxPreference
-      android:key="lcs_HighlightEnabled"
-      android:title="@string/LatestCommitsSettingsHighlightEmptyTitle"
-      android:summaryOn="@string/LatestCommitsSettingsHighlightEmptySummaryOn"
-      android:summaryOff="@string/LatestCommitsSettingsHighlightEmptySummaryOff"
-      android:defaultValue="true"/>
-
-    <smeedee.android.widgets.settings.ColoredListPreference
-      android:title="@string/LatestCommitsSettingsHighlightColorTitle"
-      android:key="lcs_HighlightColor"
-      android:defaultValue="dc322f"
-      android:entries="@array/colorNames"
-      android:entryValues="@array/colorValues" />
-  </PreferenceCategory>
+  <smeedee.android.widgets.settings.ColoredListPreference
+    android:title="@string/LatestCommitsSettingsHighlightColorTitle"
+    android:key="lcs_HighlightColor"
+    android:defaultValue="dc322f"
+    android:entries="@array/colorNames"
+    android:entryValues="@array/colorValues" />
 </PreferenceScreen>
