@@ -7,11 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS
 {
-	/*
-	 * Intended base class intended for all widget configuration table sources.
-	 * Contains a UISwitch to toggle between enabled and disabled.
-	 */
-	public class WidgetTableSource : UITableViewSource
+	public class WidgetConfigTableSource : UITableViewSource
 	{
 		// Needs to be declared here to avoid GC issues
 		// See http://stackoverflow.com/questions/6156165/why-does-my-uiswitch-crash-when-it-is-a-tableview-cell-accessoryview
@@ -19,7 +15,7 @@ namespace Smeedee.iOS
 		
 		protected WidgetModel widgetModel;
 		
-		public WidgetTableSource(WidgetModel model)
+		public WidgetConfigTableSource(WidgetModel model)
 		{
 			widgetModel = model;
 		}

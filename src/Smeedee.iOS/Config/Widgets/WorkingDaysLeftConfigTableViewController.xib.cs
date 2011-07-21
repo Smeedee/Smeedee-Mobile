@@ -16,7 +16,7 @@ namespace Smeedee.iOS
 			var widgetModel = SmeedeeApp.Instance.AvailableWidgets
 								.Where(e => e.SettingsType == typeof(WorkingDaysLeftConfigTableViewController)).First();
 			
-			TableView.Source = new WidgetTableSource(widgetModel);
+			TableView.Source = new WidgetConfigTableSource(widgetModel);
 		}
 	}
 }

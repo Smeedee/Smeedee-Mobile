@@ -17,7 +17,7 @@ namespace Smeedee.iOS
 		}
 	}
 	
-	public class TopCommittersWidgetTableSource : WidgetTableSource
+	public class TopCommittersWidgetTableSource : WidgetConfigTableSource
 	{
 		private TopCommittersWidgetTableViewController controller;
 		
