@@ -258,6 +258,19 @@
     <Compile Include="..\Smeedee\Model\Login.cs">
       <Link>Model\Login.cs</Link>
     </Compile>
+    <Compile Include="Config\MainConfigTableViewController.xib.cs">
+      <DependentUpon>MainConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\MainConfigTableViewController.xib.designer.cs">
+      <DependentUpon>MainConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\TopCommittersWidgetTableViewController.xib.cs">
+      <DependentUpon>TopCommittersWidgetTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\TopCommittersWidgetTableViewController.xib.designer.cs">
+      <DependentUpon>TopCommittersWidgetTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\WidgetTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -271,6 +284,8 @@
     <Page Include="Widgets\WorkingDaysLeftWidget.xib" />
     <Page Include="Widgets\TableCells\TopCommittersTableCellController.xib" />
     <Page Include="Widgets\LatestCommits.xib" />
+    <Page Include="Config\MainConfigTableViewController.xib" />
+    <Page Include="Config\Widgets\TopCommittersWidgetTableViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -282,6 +297,8 @@
     <Folder Include="Widgets\TableCells\" />
     <Folder Include="Configuration\" />
     <Folder Include="Services\Fakes\" />
+    <Folder Include="Config\" />
+    <Folder Include="Config\Widgets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />
