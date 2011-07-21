@@ -22,15 +22,13 @@ namespace Smeedee.Android.Widgets
         private string _dynamicDescription;
 
         private LatestCommits latestCommits;
-        private ISharedPreferences pref;
-        private int scrollToY;
+        private bool scrollDown = false;
 
         public event EventHandler DescriptionChanged;
 
         public LatestCommitsWidget(Context context) :
             base(context)
         {
-            pref = PreferenceManager.GetDefaultSharedPreferences(context);
             Initialize();
         }
 
@@ -62,6 +60,7 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
+            scrollDown = false;
             latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
             RefreshDynamicDescription();
         }
@@ -69,14 +68,18 @@ namespace Smeedee.Android.Widgets
         public void Redraw()
         {
             var listView = FindViewById<ListView>(Resource.Id.LatestCommitsList);
-
             var lastItemBeforeExpansion = Math.Max(0, listView.Count - 1);
+
             var adapter = CreateListAdapter();
             listView.Adapter = adapter;
-            var xScroll = lastItemBeforeExpansion == 0
-                              ? 0
-                              : Height - 70;
-            listView.SetSelectionFromTop(lastItemBeforeExpansion, xScroll);
+
+            if (scrollDown)
+            {
+                var xScroll = lastItemBeforeExpansion == 0
+                                  ? 0
+                                  : Height - 70;
+                listView.SetSelectionFromTop(lastItemBeforeExpansion, xScroll);
+            }
         }
 
         private TextColoringAdapterWithLoadMoreButton CreateListAdapter()
@@ -89,8 +92,7 @@ namespace Smeedee.Android.Widgets
             var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, layout, from, to, GetHighlightColor());
             adapter.LoadMoreClick += (o, e) =>
                                          {
-                                             var list = FindViewById<ListView>(Resource.Id.LatestCommitsList);
-                                             scrollToY = list.ScrollY;
+                                             scrollDown = true;
                                              latestCommits.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
                                          };
             return adapter;
@@ -188,7 +190,6 @@ namespace Smeedee.Android.Widgets
         }
 
         private RelativeLayout loadMoreButton;
-        public Button LoadMoreButton;
         private View GetLoadMoreButton()
         {
             if (loadMoreButton == null)
@@ -197,8 +198,8 @@ namespace Smeedee.Android.Widgets
                 var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
                 inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreButton);
 
-                LoadMoreButton = loadMoreButton.GetChildAt(0) as Button;
-                LoadMoreButton.Click += LoadMoreClick;
+                var button = loadMoreButton.GetChildAt(0) as Button;
+                button.Click += LoadMoreClick;
             }
             return loadMoreButton;
         }
