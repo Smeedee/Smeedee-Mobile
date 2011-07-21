@@ -220,14 +220,7 @@
     <Compile Include="..\Smeedee\Model\BuildOrder.cs">
       <Link>Model\BuildOrder.cs</Link>
     </Compile>
-    <Compile Include="Configuration\ConfigurationTableViewController.cs" />
-    <Compile Include="Configuration\ConfigurationTableSource.cs" />
-    <Compile Include="Configuration\TopComittersTableSource.cs" />
-    <Compile Include="Configuration\BuildStatusTableSource.cs" />
-    <Compile Include="Configuration\LatestCommitsTableSource.cs" />
-    <Compile Include="Configuration\WorkingDaysLeftTableSource.cs" />
     <Compile Include="Services\IphoneKVPersister.cs" />
-    <Compile Include="Configuration\WidgetSettingsTableSource.cs" />
     <Compile Include="..\Smeedee\Model\Commit.cs">
       <Link>Model\Commit.cs</Link>
     </Compile>
@@ -316,7 +309,6 @@
     <Folder Include="Lib\" />
     <Folder Include="Images\" />
     <Folder Include="Widgets\TableCells\" />
-    <Folder Include="Configuration\" />
     <Folder Include="Services\Fakes\" />
     <Folder Include="Config\" />
     <Folder Include="Config\Widgets\" />
