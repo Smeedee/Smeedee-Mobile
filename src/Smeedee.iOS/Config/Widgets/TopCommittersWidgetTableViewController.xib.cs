@@ -10,7 +10,7 @@ namespace Smeedee.iOS
 	// TODO: Rename to TopCommittersConfigTableViewController
 	public partial class TopCommittersWidgetTableViewController : UITableViewController
 	{
-		public TopCommittersWidgetTableViewController () : base("TopCommittersWidgetTableViewController", null)
+		public TopCommittersWidgetTableViewController() : base("TopCommittersWidgetTableViewController", null)
 		{
 			this.Title = "Top Committers";
 			this.TableView.Source = new TopCommittersWidgetTableSource(this);
@@ -22,7 +22,7 @@ namespace Smeedee.iOS
 		private TopCommittersWidgetTableViewController controller;
 		
 		public TopCommittersWidgetTableSource(TopCommittersWidgetTableViewController controller) 
-			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.Name == "Top committers").First())
+			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(TopCommittersWidgetTableViewController)).First())
 		{
 			this.controller = controller;
 		}
