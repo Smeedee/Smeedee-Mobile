@@ -3,37 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.Model;
 
 namespace Smeedee.iOS
 {
-	public partial class BuildStatusConfigTableViewController : UIViewController
+	public partial class BuildStatusConfigTableViewController : UITableViewController
 	{
-		#region Constructors
-
-		// The IntPtr and initWithCoder constructors are required for items that need 
-		// to be able to be created from a xib rather than from managed code
-
-		public BuildStatusConfigTableViewController (IntPtr handle) : base (handle)
+		public BuildStatusConfigTableViewController() : base ("BuildStatusConfigTableViewController", null)
 		{
-			Initialize ();
+			this.Title = "Build status";
+			this.TableView.Source = new BuildStatusConfigTableSource();
 		}
-
-		[Export ("initWithCoder:")]
-		public BuildStatusConfigTableViewController (NSCoder coder) : base (coder)
+	}
+	
+	public class BuildStatusConfigTableSource : WidgetConfigTableSource
+	{
+		public BuildStatusConfigTableSource() 
+			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(BuildStatusConfigTableViewController)).First())
 		{
-			Initialize ();
+			
 		}
-
-		public BuildStatusConfigTableViewController () : base ("BuildStatusConfigTableViewController", null)
-		{
-			Initialize ();
-		}
-
-		void Initialize ()
-		{
-		}
-
-		#endregion
 	}
 }
 
