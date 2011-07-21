@@ -1,4 +1,5 @@
 using System;
+using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -35,7 +36,7 @@ namespace Smeedee.Android.Widgets
         
         public void Refresh()
         {
-            model.Load(Redraw);
+            model.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
         }
 
         public void Redraw()
