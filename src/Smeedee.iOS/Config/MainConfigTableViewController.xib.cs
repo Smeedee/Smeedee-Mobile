@@ -123,29 +123,13 @@ namespace Smeedee.iOS
 			
 			if (indexPath.Section != 1) return;
 			
-			var name = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row).Name;
-			
-			// TODO: Want to instantiate a class of type found in the WidgetModel
-			
-			controller.NavigationController.PushViewController(new TopCommittersWidgetTableViewController(), true);
-			
-			/*
-			switch (name) {
-			case "Top committers":
-				controller.NavigationController.PushViewController(new ConfigurationTableViewController(new TopComittersTableSource(), name), true);
-				break;
-			case "Build Status":
-				controller.NavigationController.PushViewController(new ConfigurationTableViewController(new BuildStatusTableSource(), name), true);
-				break;
-			case "Latest Commits":
-				controller.NavigationController.PushViewController(new ConfigurationTableViewController(new LatestCommitsTableSource(), name), true);
-				break;
-			case "Working days left":
-				controller.NavigationController.PushViewController(new ConfigurationTableViewController(new WorkingDaysLeftTableSource(), name), true);
-				break;
-			}*/
+			var widgetModel = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
+			if (widgetModel.SettingsType != null) 
+			{
+				var settingsControllerInstance = Activator.CreateInstance(widgetModel.SettingsType) as UIViewController;
+				controller.NavigationController.PushViewController(settingsControllerInstance, true);
+			}
         }
-		
 	}
 }
 
