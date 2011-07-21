@@ -283,6 +283,12 @@
     <Compile Include="Config\Widgets\BuildStatusConfigTableViewController.xib.designer.cs">
       <DependentUpon>BuildStatusConfigTableViewController.xib</DependentUpon>
     </Compile>
+    <Compile Include="Config\Widgets\LatestCommitsConfigTableViewController.xib.cs">
+      <DependentUpon>LatestCommitsConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\LatestCommitsConfigTableViewController.xib.designer.cs">
+      <DependentUpon>LatestCommitsConfigTableViewController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -300,6 +306,7 @@
     <Page Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib" />
     <Page Include="Config\Widgets\TopCommittersConfigTableViewController.xib" />
     <Page Include="Config\Widgets\BuildStatusConfigTableViewController.xib" />
+    <Page Include="Config\Widgets\LatestCommitsConfigTableViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

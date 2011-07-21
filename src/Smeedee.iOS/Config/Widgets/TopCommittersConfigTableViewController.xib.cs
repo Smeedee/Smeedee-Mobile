@@ -9,7 +9,7 @@ namespace Smeedee.iOS
 {
 	public partial class TopCommittersConfigTableViewController : UITableViewController
 	{
-		public TopCommittersConfigTableViewController() : base("TopCommittersWidgetTableViewController", null)
+		public TopCommittersConfigTableViewController() : base("TopCommittersConfigTableViewController", null)
 		{
 			this.Title = "Top Committers";
 			this.TableView.Source = new TopCommittersConfigTableSource();
