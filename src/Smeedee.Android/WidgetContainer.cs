@@ -33,6 +33,7 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
             SetContentView(Resource.Layout.Main);
 
             flipper = FindViewById<RealViewSwitcher>(Resource.Id.Flipper);

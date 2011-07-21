@@ -58,6 +58,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CsvTests.cs" />
     <Compile Include="Fakes\FakeBuildStatusService.cs" />
     <Compile Include="Fakes\FakePersistenceService.cs" />
     <Compile Include="Fakes\LatestCommitsFakeService.cs" />

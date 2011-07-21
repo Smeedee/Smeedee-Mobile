@@ -1,6 +1,7 @@
 using System;
 using Android.App;
 using Android.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
@@ -20,7 +21,6 @@ namespace Smeedee.Android.Widgets
             InflateView();
             model = new WorkingDaysLeft();
             Refresh();
-            var list = new ListView(context);
         }
 
         private void InflateView()

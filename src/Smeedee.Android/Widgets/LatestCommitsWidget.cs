@@ -19,7 +19,7 @@ namespace Smeedee.Android.Widgets
     {
         public const string Name = "Latest commits";
         internal const string NoMessageTag = "(no message)";
-        private string _dynamicDescription;
+        private string _dynamicDescription = "Displaying latest commits";
 
         private LatestCommits latestCommits;
         private bool scrollDown = false;
@@ -62,7 +62,6 @@ namespace Smeedee.Android.Widgets
         {
             scrollDown = false;
             latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
-            RefreshDynamicDescription();
         }
 
         public void Redraw()
@@ -97,12 +96,7 @@ namespace Smeedee.Android.Widgets
                                          };
             return adapter;
         }
-
-        private void RefreshDynamicDescription()
-        {
-            _dynamicDescription = "Displaying latest commits";
-        }
-
+        
         private Color GetHighlightColor()
         {
             var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
