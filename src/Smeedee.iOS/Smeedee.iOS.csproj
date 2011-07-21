@@ -99,14 +99,8 @@
     <Compile Include="..\Smeedee\Model\BuildStatus.cs">
       <Link>Model\BuildStatus.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Model\Changeset.cs">
-      <Link>Model\Changeset.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Model\Committer.cs">
       <Link>Model\Committer.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Model\IModel.cs">
-      <Link>Model\IModel.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Model\IWidget.cs">
       <Link>Model\IWidget.cs</Link>
@@ -132,23 +126,11 @@
     <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
       <Link>Services\FakeBuildStatusService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeLoginValidationService.cs">
-      <Link>Services\FakeLoginValidationService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\IImageService.cs">
       <Link>Services\IImageService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\ILoginValidationService.cs">
-      <Link>Services\ILoginValidationService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\ImageService.cs">
       <Link>Services\ImageService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IMobileKVPersister.cs">
-      <Link>Services\IMobileKVPersister.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\IModelService.cs">
-      <Link>Services\IModelService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
       <Link>Services\IPersistenceService.cs</Link>
@@ -158,9 +140,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
       <Link>Services\IWorkingDaysLeftService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\PersistenceService.cs">
-      <Link>Services\PersistenceService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
@@ -186,9 +165,6 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\NoBackgroundWorker.cs">
-      <Link>Services\NoBackgroundWorker.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Guard.cs">
       <Link>Lib\Guard.cs</Link>
@@ -222,18 +198,12 @@
     <Compile Include="Widgets\LatestCommits.xib.designer.cs">
       <DependentUpon>LatestCommits.xib</DependentUpon>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeLatestChangesetsService.cs">
-      <Link>Services\FakeLatestChangesetsService.cs</Link>
-    </Compile>
     <Compile Include="StyleExtensions.cs" />
     <Compile Include="Widgets\TableCells\CommitTableCellController.xib.cs">
       <DependentUpon>CommitTableCellController.xib</DependentUpon>
     </Compile>
     <Compile Include="Widgets\TableCells\CommitTableCellController.xib.designer.cs">
       <DependentUpon>CommitTableCellController.xib</DependentUpon>
-    </Compile>
-    <Compile Include="..\Smeedee\Model\LatestChangeset.cs">
-      <Link>Model\LatestChangeset.cs</Link>
     </Compile>
     <Compile Include="Widgets\WorkingDaysLeftWidget.xib.cs">
       <DependentUpon>WorkingDaysLeftWidget.xib</DependentUpon>
@@ -256,9 +226,6 @@
     <Compile Include="..\Smeedee\Model\BuildOrder.cs">
       <Link>Model\BuildOrder.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\TopCommittersFakeService.cs">
-      <Link>Services\TopCommittersFakeService.cs</Link>
-    </Compile>
     <Compile Include="Configuration\ConfigurationTableViewController.cs" />
     <Compile Include="Configuration\ConfigurationTableSource.cs" />
     <Compile Include="Configuration\TopComittersTableSource.cs" />
@@ -267,6 +234,30 @@
     <Compile Include="Configuration\WorkingDaysLeftTableSource.cs" />
     <Compile Include="Services\IphoneKVPersister.cs" />
     <Compile Include="Configuration\WidgetSettingsTableSource.cs" />
+    <Compile Include="..\Smeedee\Model\Commit.cs">
+      <Link>Model\Commit.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\LatestCommits.cs">
+      <Link>Model\LatestCommits.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IBuildStatusService.cs">
+      <Link>Services\IBuildStatusService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\AsyncResult.cs">
+      <Link>Services\AsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
+      <Link>Services\ILatestCommitsService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\LatestCommitsFakeService.cs">
+      <Link>Services\Fakes\LatestCommitsFakeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
+      <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\Login.cs">
+      <Link>Model\Login.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -276,10 +267,10 @@
     <Page Include="Widgets\TopCommittersWidget.xib" />
     <Page Include="Widgets\BuildStatusWidget.xib" />
     <Page Include="Widgets\TableCells\BuildStatusTableCellController.xib" />
-    <Page Include="Widgets\LatestCommits.xib" />
     <Page Include="Widgets\TableCells\CommitTableCellController.xib" />
     <Page Include="Widgets\WorkingDaysLeftWidget.xib" />
     <Page Include="Widgets\TableCells\TopCommittersTableCellController.xib" />
+    <Page Include="Widgets\LatestCommits.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -290,6 +281,7 @@
     <Folder Include="Images\" />
     <Folder Include="Widgets\TableCells\" />
     <Folder Include="Configuration\" />
+    <Folder Include="Services\Fakes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />

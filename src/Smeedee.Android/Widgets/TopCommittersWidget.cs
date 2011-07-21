@@ -5,14 +5,17 @@ using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [Widget("Top Committers", StaticDescription = "A list of most active committers")]
+    [Widget("Top Committers", StaticDescription = "A list of most active committers", SettingsType = typeof(TopCommittersSettings))]
     public class TopCommittersWidget : RelativeLayout, IWidget
     {
         private readonly TopCommitters _model;
+
+        public event EventHandler DescriptionChanged;
 
         public TopCommittersWidget(Context context) : base(context)
         {
@@ -50,6 +53,12 @@ namespace Smeedee.Android.Widgets
         public string GetDynamicDescription()
         {
             return _model.Description;
+        }
+
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
         }
     }
 

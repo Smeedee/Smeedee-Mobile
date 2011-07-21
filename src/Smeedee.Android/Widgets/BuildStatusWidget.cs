@@ -6,11 +6,12 @@ using Android.Content;
 using Android.Preferences;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Build Status", StaticDescription = "Shows build status for each project")]
+    [WidgetAttribute("Build Status", StaticDescription = "Shows build status for each project", SettingsType = typeof(BuildStatusSettings))]
     public class BuildStatusWidget : RelativeLayout, IWidget
     {
         private readonly string[] listItemMappingFrom = new[] { "project_name", "username", "datetime", "success_status" };
@@ -18,6 +19,8 @@ namespace Smeedee.Android.Widgets
 
         private ListView buildList;
         private BuildStatus model;
+
+        public event EventHandler DescriptionChanged;
 
         public BuildStatusWidget(Context context) : base(context)
         {
@@ -69,6 +72,7 @@ namespace Smeedee.Android.Widgets
                             Resource.Layout.BuildStatusWidget_ListItem,
                             listItemMappingFrom,
                             listItemMappingTo);
+                            OnDescriptionChanged(new EventArgs());
                         }));
         }
 
@@ -76,6 +80,14 @@ namespace Smeedee.Android.Widgets
         {
             return model.DynamicDescription;
         }
+
+        private void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
+
+        
     }
 
     internal class BuildStatusAdapter : SimpleAdapter

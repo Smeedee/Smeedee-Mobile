@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -13,6 +11,8 @@ namespace Smeedee.Android.Widgets
     {
         private WorkingDaysLeft model;
         private string _dynamicDescription;
+
+        public event EventHandler DescriptionChanged;
 
         public WorkingDaysLeftWidget(Context context) : base(context)
         {
@@ -61,6 +61,12 @@ namespace Smeedee.Android.Widgets
         public string GetDynamicDescription()
         {
             return _dynamicDescription;
+        }
+
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
         }
     }
 }

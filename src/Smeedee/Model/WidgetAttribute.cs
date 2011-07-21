@@ -8,6 +8,7 @@ namespace Smeedee.Model
     {
         public string Name { get; private set; }
         public string StaticDescription { get; set; }
+        public Type SettingsType { get; set; }
 
         public WidgetAttribute(string name)
         {

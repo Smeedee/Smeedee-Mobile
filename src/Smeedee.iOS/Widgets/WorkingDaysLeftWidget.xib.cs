@@ -11,15 +11,11 @@ namespace Smeedee.iOS
 	[Widget("Working days left", StaticDescription = "Actual working days left of project")]
 	public partial class WorkingDaysLeftWidget : UIViewController, IWidget
 	{
-        private SmeedeeApp app = SmeedeeApp.Instance;
-        private IModelService<WorkingDaysLeft> service;
-		private IBackgroundWorker bgWorker;
 		private WorkingDaysLeft model;
 		
 		public WorkingDaysLeftWidget () : base("WorkingDaysLeftWidget", null)
 		{
-            service = app.ServiceLocator.Get<IModelService<WorkingDaysLeft>>();
-            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+            model = new WorkingDaysLeft();
 		}
 		
 		public override void ViewDidLoad()
@@ -29,11 +25,6 @@ namespace Smeedee.iOS
 			Refresh();
         }
 		
-		private void GetData() 
-		{
-			model = service.Get();
-		}
-		
 		private void UpdateUI() 
 		{
 			daysLabel.Text = model.DaysLeft.ToString();
@@ -42,10 +33,7 @@ namespace Smeedee.iOS
 		
 		public void Refresh() 
 		{
-			bgWorker.Invoke(() => {
-				GetData();
-				InvokeOnMainThread(UpdateUI);
-			});
+			model.Load(() => InvokeOnMainThread(UpdateUI));
 		}
 		
 		public string GetDynamicDescription() 
@@ -56,7 +44,12 @@ namespace Smeedee.iOS
 			return "Static";
 		}
 		
-		
+        public event EventHandler DescriptionChanged;
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
 	}
 }
 

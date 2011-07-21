@@ -12,15 +12,11 @@ namespace Smeedee.iOS
     [Widget("Latest Commits", StaticDescription = "List of latest commits")]
 	public partial class LatestCommits : UITableViewController, IWidget
 	{
-        private SmeedeeApp app = SmeedeeApp.Instance;
-		private IModelService<LatestChangeset> service;
-		private IBackgroundWorker bgWorker;
-		private LatestChangeset model;
+		private Smeedee.Model.LatestCommits model;
 		
 		public LatestCommits() : base("LatestCommits", null)
 		{
-			service = app.ServiceLocator.Get<IModelService<LatestChangeset>>();
-            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+			model = new Smeedee.Model.LatestCommits();
 		}
 		
         public override void ViewDidLoad()
@@ -31,41 +27,40 @@ namespace Smeedee.iOS
 			Refresh();
         }
 		
-		private void GetData() 
-		{
-			model = service.Get();
-		}
-		
 		private void UpdateUI()
 		{
-			TableView.Source = new LatestCommitsTableSource(model.Changesets);
+			TableView.Source = new LatestCommitsTableSource(model.Commits);
 			TableView.ReloadData();
 		}
         
         public void Refresh()
         {
-			bgWorker.Invoke(() => {
-				GetData();
-				InvokeOnMainThread(UpdateUI);
-			});
+			model.Load(() => InvokeOnMainThread(UpdateUI));
         }
 		
 		public string GetDynamicDescription() 
 		{
-			return "TODO";	
+			return "";	
 		}
+		
+        public event EventHandler DescriptionChanged;
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
+        }
 	}
 	
     public class LatestCommitsTableSource : UITableViewSource
     {
 		private TableCellFactory cellFactory = new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
-        private List<Changeset> changesets;
+        private List<Commit> commits;
         
         private const float CELL_PADDING = 20f;
         
-        public LatestCommitsTableSource(IEnumerable<Changeset> changesets)
+        public LatestCommitsTableSource(IEnumerable<Commit> commits)
         {
-            this.changesets = changesets.ToList();
+            this.commits = commits.ToList();
         }
 		
 		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -88,17 +83,17 @@ namespace Smeedee.iOS
         
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return changesets.Count();
+            return commits.Count();
         }
        
 		private const string CELL_ID = "LatestCommitsCell";
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {           
-            var changeset = changesets[indexPath.Row];
+            var commit = commits[indexPath.Row];
             
             var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
-            controller.BindDataToCell(changeset);
+            controller.BindDataToCell(commit);
             
             return controller.TableViewCell;
         }

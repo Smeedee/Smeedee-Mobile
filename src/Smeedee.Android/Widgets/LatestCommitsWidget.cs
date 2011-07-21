@@ -14,7 +14,7 @@ using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute(Name, StaticDescription = "Displays latest commits")]
+    [WidgetAttribute(Name, StaticDescription = "Displays latest commits", SettingsType = typeof(LatestCommitsSettings))]
     public class LatestCommitsWidget : RelativeLayout, IWidget
     {
         public const string Name = "Latest commits";
@@ -23,6 +23,8 @@ namespace Smeedee.Android.Widgets
 
         private LatestCommits latestCommits;
         private ISharedPreferences pref;
+
+        public event EventHandler DescriptionChanged;
 
         public LatestCommitsWidget(Context context) :
             base(context)
@@ -119,6 +121,12 @@ namespace Smeedee.Android.Widgets
         public string GetDynamicDescription()
         {
             return _dynamicDescription;
+        }
+
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
         }
     }
 

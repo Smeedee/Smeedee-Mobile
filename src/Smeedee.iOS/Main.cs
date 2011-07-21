@@ -4,6 +4,8 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.Services;
+using Smeedee.Services.Fakes;
 using Smeedee;
 
 namespace Smeedee.iOS
@@ -20,22 +22,28 @@ namespace Smeedee.iOS
 		private static void ConfigureDependencies() 
 		{
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
-			serviceLocator.Bind<IModelService<LatestChangeset>>(new FakeLatestChangesetService());
-			serviceLocator.Bind<IMobileKVPersister>(new IphoneKVPersister());
-			serviceLocator.Bind<IPersistenceService>(new PersistenceService(serviceLocator.Get<IMobileKVPersister>()));
+			
+			serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
+			
+			serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+			serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
+			serviceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(serviceLocator.Get<IBackgroundWorker>()));
+			serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
 		}
 		
 		private static void AssureSettingsExist() 
 		{	
 			PutIfNull("Server.Url", "http://www.smeedee.com/app");
 			PutIfNull("Server.Key", "password");
-			PutIfNull("EnabledWidgets", new Dictionary<string, bool>());
+			
+			// All widgets are enabled by default in WidgetsScreen
 		}
 		
-		private static void PutIfNull<T>(string key, T val) where T : class {
+		private static void PutIfNull(string key, string val) {
 			var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-			var enabled = persistence.Get<T>(key, null);
-			if (enabled == null) 
+			var currentValue = persistence.Get(key, "");
+			if (currentValue == "") 
 				persistence.Save(key, val);
 		}
     }

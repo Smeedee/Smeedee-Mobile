@@ -20,7 +20,7 @@ namespace Smeedee.iOS
             get { return cell; }
         }
         
-        public void BindDataToCell(Changeset commit)
+        public void BindDataToCell(Commit commit)
         {
 			username.Text = commit.User;
 			message.Text = commit.Message;

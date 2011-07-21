@@ -9,15 +9,23 @@ namespace Smeedee.Model
     {
         public readonly static SmeedeeApp Instance = new SmeedeeApp();
 
-        // This class is a singleton: private constructor; static instance variable.
         private SmeedeeApp()
         {
-            AvailableWidgets = new List<WidgetModel>();
             ServiceLocator = new ServiceLocator();
+            AvailableWidgets = new List<WidgetModel>();
         }
 
         public ServiceLocator ServiceLocator { get; private set; }
-        public List<WidgetModel> AvailableWidgets { get; private set; }
+		
+        public IList<WidgetModel> AvailableWidgets { get; private set; }
+		public IList<WidgetModel> EnabledWidgets 
+		{ 
+			get
+			{
+			    var persistence = ServiceLocator.Get<IPersistenceService>();
+			    return AvailableWidgets.Where(model => persistence.Get(model.Name, false)).ToList();
+			}
+		}
 
         public void RegisterAvailableWidgets()
         {
@@ -35,15 +43,10 @@ namespace Smeedee.Model
 
         private bool WidgetTypeIsAlreadyRegistered(Type widgetType)
         {
-            foreach (var registeredWidget in AvailableWidgets)
-            {
-                if (registeredWidget.Type.Name == widgetType.Name) return true;
-            }
-            
-            return false;
+            return AvailableWidgets.Any(registeredWidget => registeredWidget.Type.Name == widgetType.Name);
         }
 
-        private WidgetModel GetModelFromType(Type type)
+        private static WidgetModel GetModelFromType(Type type)
         {
             var widgetAttributes = type.GetCustomAttributes(typeof(WidgetAttribute), true);
             var typeHasAttributes = (widgetAttributes.Count() > 0 && widgetAttributes is WidgetAttribute[]);
@@ -56,7 +59,7 @@ namespace Smeedee.Model
 
         private static WidgetModel ModelFromAttributes(WidgetAttribute attr, Type type)
         {
-            return new WidgetModel(attr.Name, attr.StaticDescription, type);
+            return new WidgetModel(attr.Name, attr.StaticDescription, type) {SettingsType = attr.SettingsType};
         }
     }
 }
