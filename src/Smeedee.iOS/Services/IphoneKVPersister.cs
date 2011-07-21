@@ -23,6 +23,16 @@ namespace Smeedee.iOS
         public bool Get(string key, bool defaultValue) {
 			return NSUserDefaults.StandardUserDefaults.BoolForKey(key);
 		}
+		
+		public void Save(string key, int val) {
+			//NSUserDefaults.StandardUserDefaults.SetBool(val, key);
+			//NSUserDefaults.StandardUserDefaults.Synchronize();
+		}
+		
+        public int Get(string key, int defaultValue) {
+			//return NSUserDefaults.StandardUserDefaults.BoolForKey(key);
+			return 0;
+		}
 	}
 }
 
