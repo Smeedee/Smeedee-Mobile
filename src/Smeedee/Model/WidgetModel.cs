@@ -10,7 +10,7 @@ namespace Smeedee.Model
         public Type Type { get; private set; }
         public Type SettingsType { get; set; }
 		
-		private IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+		private readonly IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 
         public WidgetModel(string name, string staticDescription, Type type)
         {
@@ -22,7 +22,7 @@ namespace Smeedee.Model
 		
 		public bool Enabled
 		{
-			get { return persistence.Get(Name, false); }
+			get { return persistence.Get(Name, true); }
 			set { persistence.Save(Name, value); }
 		}
     }

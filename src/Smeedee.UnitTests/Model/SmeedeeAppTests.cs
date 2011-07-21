@@ -85,16 +85,17 @@ namespace Smeedee.UnitTests.Model
             }
 
 			[Test]
-			public void List_of_enabled_widgets_should_be_empty_when_no_preferences_are_saved()
+			public void List_of_enabled_widgets_should_contain_all_widgets_when_no_preferences_are_saved()
 			{
 			    app.RegisterAvailableWidgets();
-				CollectionAssert.IsEmpty(app.EnabledWidgets);
+				Assert.AreEqual(2, app.EnabledWidgets.Count());
 			}
 			
 			[Test]
 			public void List_of_enabled_widgets_should_be_updated_when_configuration_changes() 
 			{
                 persistence.Save("Test Widget", true);
+                persistence.Save("Test Widget 2", false);
 
                 app.RegisterAvailableWidgets();
 				
@@ -107,7 +108,7 @@ namespace Smeedee.UnitTests.Model
 				app.RegisterAvailableWidgets();
 				
 				var widgetModels = app.AvailableWidgets;
-				widgetModels.First().Enabled = true;
+				widgetModels.First().Enabled = false;
 				
 				Assert.AreEqual(1, app.EnabledWidgets.Count);
 			}
