@@ -19,9 +19,17 @@ namespace Smeedee
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
         
+        private string GetDataFromHttp()
+        {
+            var data = new [] { new [] {DaysLeft.ToString(), UntilDate.ToString()}};
+            return Csv.ToCsv(data);
+        }
+
         private void GetSync(Action<int, DateTime> callback)
         {
-            callback(DaysLeft, UntilDate);
+            var httpData = GetDataFromHttp();
+            var data = Csv.FromCsv(httpData).First();
+            callback(int.Parse(data[0]), DateTime.Parse(data[1]));
         }
 
         public void Get(Action<int, DateTime> callback)

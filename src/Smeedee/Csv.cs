@@ -9,7 +9,7 @@ namespace Smeedee
     {
         private const char lineSeparator = '\a'; //unprintable character alert
         private const char columnSeparator = '\f'; //unprintable character form feed
-
+        
         public static IEnumerable<string[]> FromCsv(string str)
         {
             return str.Split(lineSeparator).Select(s => s.Split(columnSeparator));

@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Smeedee\Csv.cs">
+      <Link>Csv.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Guard.cs">
       <Link>Guard.cs</Link>
     </Compile>
