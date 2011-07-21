@@ -54,13 +54,7 @@ namespace Smeedee.Android
                                                                                    hasSettingsChanged = true;
                                                                                });
             prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);
-
-            var previousSlide = LastNonConfigurationInstance;
-            if (previousSlide != null)
-            {
-                flipper.CurrentScreen = ((Integer)previousSlide).IntValue();
-            }
+            prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);   
         }
 
         void HandleScreenChanged(object sender, EventArgs e)
@@ -187,6 +181,7 @@ namespace Smeedee.Android
             if (hasSettingsChanged)
             {
                 CheckForEnabledAndDisabledWidgets();
+                flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get("WidgetContainer.CurrentScreen", 0);
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
 
@@ -232,9 +227,10 @@ namespace Smeedee.Android
             return sharedPrefs.GetBoolean(widget.Name, true);
         }
 
-        public override Java.Lang.Object OnRetainNonConfigurationInstance()
+        protected override void OnPause()
         {
-            return flipper.CurrentScreen;
+            base.OnPause();
+            app.ServiceLocator.Get<IPersistenceService>().Save("WidgetContainer.CurrentScreen", flipper.CurrentScreen);
         }
     }
     

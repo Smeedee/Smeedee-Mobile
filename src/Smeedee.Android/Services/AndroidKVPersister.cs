@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Preferences;
 using Java.Lang;
 using Smeedee;
+using Exception = System.Exception;
 
 namespace Smeedee.Android.Services
 {
@@ -48,6 +49,26 @@ namespace Smeedee.Android.Services
             }
             catch (ClassCastException)
             {
+                return defaultValue;
+            }
+        }
+
+        public void Save(string key, int value)
+        {
+            var editor = preferences.Edit();
+            editor.PutInt(key, value);
+            editor.Commit();
+        }
+
+        public int Get(string key, int defaultValue)
+        {
+            try
+            {
+                return preferences.GetInt(key, defaultValue);
+            }
+            catch (ClassCastException)
+            {
+
                 return defaultValue;
             }
         }

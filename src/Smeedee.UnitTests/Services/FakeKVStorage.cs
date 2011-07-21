@@ -35,5 +35,15 @@ namespace Smeedee.UnitTests.Services
         {
             throw new NotImplementedException();
         }
+
+        public void Save(string key, int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Get(string key, int defaultValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
