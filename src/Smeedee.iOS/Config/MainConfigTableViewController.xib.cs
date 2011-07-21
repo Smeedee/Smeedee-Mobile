@@ -11,49 +11,33 @@ namespace Smeedee.iOS
 {
 	public partial class MainConfigTableViewController : UITableViewController
 	{
-		private Login loginModel;
-		
 		public MainConfigTableViewController() : base("MainConfigTableViewController", null) 
 		{ 
-			loginModel = new Login();
 			this.Title = "Settings";
 			this.TableView.Source = new MainConfigTableSource(this);
-		}
-		
-		public string UrlSetting
-		{
-			get { return loginModel.Url; }
-			set { loginModel.Url = value; }
-		}
-		
-		public string KeySetting
-		{
-			get { return loginModel.Key; }
-			set { loginModel.Key = value; }
 		}
 	}
 	
 	public class MainConfigTableSource : UITableViewSource
     {
 		private MainConfigTableViewController controller;
+		private Login loginModel;
 		
 		private UITextField urlTextField;
 		private UITextField keyTextField;
 		
 		public MainConfigTableSource(MainConfigTableViewController controller) : base() {
 			this.controller = controller;
+			loginModel = new Login();
 		}
 		
-        public override int NumberOfSections(UITableView tableView)
-        {
-            return 2;
-        }
-        
+        public override int NumberOfSections(UITableView tableView) { return 2; }
+		
         public override string TitleForHeader(UITableView tableView, int section)
         {
 			return (section == 0) ? "Smeedee server" : "Widgets";
         }
-        
+		
         public override int RowsInSection(UITableView tableview, int section)
         {
 			return (section == 0) ? 2 : SmeedeeApp.Instance.AvailableWidgets.Count;
@@ -68,14 +52,14 @@ namespace Smeedee.iOS
 					cell.TextLabel.Text = "Server";
 					
 					urlTextField = new UITextField(cell.Frame);
-					urlTextField.Text = controller.UrlSetting;
+					urlTextField.Text = loginModel.Url;
 					
 					urlTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
 					urlTextField.LeftView = new UIView(new RectangleF(0, 0, 80, 31)); 
 					urlTextField.LeftViewMode = UITextFieldViewMode.Always;
 					urlTextField.ReturnKeyType = UIReturnKeyType.Done;
 					urlTextField.ShouldReturn = delegate { 
-						controller.UrlSetting = urlTextField.Text;
+						loginModel.Url = urlTextField.Text;
 						urlTextField.ResignFirstResponder();
 						return true; 
 					};
@@ -88,14 +72,14 @@ namespace Smeedee.iOS
 					cell.TextLabel.Text = "Key";
 					
 					keyTextField = new UITextField(cell.Frame);
-					keyTextField.Text = controller.KeySetting;
+					keyTextField.Text = loginModel.Key;
 					
 					keyTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
 					keyTextField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
 					keyTextField.LeftViewMode = UITextFieldViewMode.Always;
 					keyTextField.ReturnKeyType = UIReturnKeyType.Done;
 					keyTextField.ShouldReturn = delegate { 
-						controller.KeySetting = keyTextField.Text;
+						loginModel.Key = keyTextField.Text;
 						keyTextField.ResignFirstResponder();
 						return true; 
 					};
