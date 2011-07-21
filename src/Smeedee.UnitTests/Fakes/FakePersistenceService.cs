@@ -26,10 +26,23 @@ namespace Smeedee.UnitTests.Fakes
             SaveCalls += 1;
             cache[key] = value.ToString();
         }
+
         public bool Get(string key, bool defaultValue)
         {
             GetCalls += 1;
             return cache.ContainsKey(key) ? bool.Parse(cache[key]) : defaultValue;
+        }
+
+        public void Save(string key, int value)
+        {
+            SaveCalls += 1;
+            cache[key] = value.ToString();
+        }
+
+        public int Get(string key, int defaultValue)
+        {
+            GetCalls += 1;
+            return cache.ContainsKey(key) ? int.Parse(cache[key]) : defaultValue;
         }
     }
 }
