@@ -23,6 +23,7 @@ namespace Smeedee.Android.Widgets
 
         private LatestCommits latestCommits;
         private ISharedPreferences pref;
+        private int scrollToY;
 
         public event EventHandler DescriptionChanged;
 
@@ -67,11 +68,18 @@ namespace Smeedee.Android.Widgets
 
         public void Redraw()
         {
+            var listView = FindViewById<ListView>(Resource.Id.LatestCommitsList);
+
+            var lastItemBeforeExpansion = Math.Max(0, listView.Count - 1);
             var adapter = CreateListAdapter();
-            FindViewById<ListView>(Resource.Id.LatestCommitsList).Adapter = adapter;
+            listView.Adapter = adapter;
+            var xScroll = lastItemBeforeExpansion == 0
+                              ? 0
+                              : Height - 70;
+            listView.SetSelectionFromTop(lastItemBeforeExpansion, xScroll);
         }
 
-        private SimpleAdapter CreateListAdapter()
+        private TextColoringAdapterWithLoadMoreButton CreateListAdapter()
         {
             var from = new[] { "Image", "User", "Msg", "Date" };
             var to = new[] { Ids.LatestCommitsWidget_CommitterIcon, Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
@@ -81,7 +89,8 @@ namespace Smeedee.Android.Widgets
             var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, layout, from, to, GetHighlightColor());
             adapter.LoadMoreClick += (o, e) =>
                                          {
-                                             Log.Debug("SMEEDEE", "LoadMoreClick fired");
+                                             var list = FindViewById<ListView>(Resource.Id.LatestCommitsList);
+                                             scrollToY = list.ScrollY;
                                              latestCommits.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
                                          };
             return adapter;
@@ -179,6 +188,7 @@ namespace Smeedee.Android.Widgets
         }
 
         private RelativeLayout loadMoreButton;
+        public Button LoadMoreButton;
         private View GetLoadMoreButton()
         {
             if (loadMoreButton == null)
@@ -187,8 +197,8 @@ namespace Smeedee.Android.Widgets
                 var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
                 inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreButton);
 
-                var button = loadMoreButton.GetChildAt(0) as Button;
-                button.Click += LoadMoreClick;
+                LoadMoreButton = loadMoreButton.GetChildAt(0) as Button;
+                LoadMoreButton.Click += LoadMoreClick;
             }
             return loadMoreButton;
         }
