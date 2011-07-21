@@ -22,8 +22,7 @@ namespace Smeedee.Model
 		{ 
 			get
 			{
-			    var persistence = ServiceLocator.Get<IPersistenceService>();
-			    return AvailableWidgets.Where(model => persistence.Get(model.Name, false)).ToList();
+			    return AvailableWidgets.Where(model => model.Enabled).ToList();
 			}
 		}
 

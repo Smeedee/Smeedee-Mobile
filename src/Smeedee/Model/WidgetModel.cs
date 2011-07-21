@@ -9,6 +9,8 @@ namespace Smeedee.Model
         public string StaticDescription { get; private set; }
         public Type Type { get; private set; }
         public Type SettingsType { get; set; }
+		
+		private IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 
         public WidgetModel(string name, string staticDescription, Type type)
         {
@@ -17,5 +19,11 @@ namespace Smeedee.Model
             StaticDescription = staticDescription;
             Type = type;
         }
+		
+		public bool Enabled
+		{
+			get { return persistence.Get(Name, false); }
+			set { persistence.Save(Name, value); }
+		}
     }
 }

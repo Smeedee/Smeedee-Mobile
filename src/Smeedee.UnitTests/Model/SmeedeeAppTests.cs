@@ -11,7 +11,7 @@ namespace Smeedee.UnitTests.Model
         public class Shared
         {
             protected SmeedeeApp app;
-			protected IPersistenceService persistence = new FakePersistenceService();
+			protected IPersistenceService persistence;
             
             [SetUp]
             public void SetUp()
@@ -19,6 +19,7 @@ namespace Smeedee.UnitTests.Model
                 app = SmeedeeApp.Instance;
                 app.AvailableWidgets.Clear();
 				
+				persistence = new FakePersistenceService();
 				app.ServiceLocator.Bind<IPersistenceService>(persistence);
             }
         }
@@ -98,6 +99,17 @@ namespace Smeedee.UnitTests.Model
                 app.RegisterAvailableWidgets();
 				
 				Assert.AreEqual(1, app.EnabledWidgets.Count());
+			}
+			
+			[Test]
+			public void Enabled_configuration_should_be_possible_to_change_through_widget_model()
+			{
+				app.RegisterAvailableWidgets();
+				
+				var widgetModels = app.AvailableWidgets;
+				widgetModels.First().Enabled = true;
+				
+				Assert.AreEqual(1, app.EnabledWidgets.Count);
 			}
         }
         
