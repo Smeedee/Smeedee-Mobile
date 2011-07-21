@@ -134,9 +134,10 @@ namespace Smeedee.Android
 
             var configMenuItem = menu.FindItem(Resource.Id.BtnWidgetSettings);
             var attribs = (WidgetAttribute)(flipper.CurrentView.GetType().GetCustomAttributes(typeof(WidgetAttribute), true)[0]);
-           
-            configMenuItem.SetEnabled(attribs.SettingsType != null);
 
+            if (configMenuItem != null)
+                configMenuItem.SetEnabled(attribs.SettingsType != null);
+            
             return true;
         }
 
