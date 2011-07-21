@@ -58,7 +58,7 @@
   <string name="LatestCommitsSettingsHighlightEmptySummaryOn">Highlight empty commit messages is on</string>
   <string name="LatestCommitsSettingsHighlightEmptySummaryOff">Highlight empty commit messages is off</string>
   <string name="LatestCommitsSettingsHighlightColorTitle">Highlight color</string>
-  <string name="LatestCommitsLoadMore">Load more</string>
+  <string name="LatestCommitsWidgetLoadMore">Load more</string>
 
   <!--Build status-->
   <string name="BuildStatusSettingsPreferenceCategory1">Ordering</string>

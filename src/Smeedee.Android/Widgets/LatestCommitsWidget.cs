@@ -59,33 +59,36 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            //TODO or not TODO?:
-            //var count = int.Parse(pref.GetString("NumberOfCommitsDisplayed", "10"));
             latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
             RefreshDynamicDescription();
         }
 
         public void Redraw()
         {
-            CreateListAdapter();
+            var adapter = CreateListAdapter();
+            FindViewById<ListView>(Resource.Id.LatestCommitsList).Adapter = adapter;
         }
 
-        private void CreateListAdapter()
+        private SimpleAdapter CreateListAdapter()
         {
-            var commitList = FindViewById<ListView>(Resource.Id.LatestCommitsList);
-
             var from = new[] { "Image", "User", "Msg", "Date" };
             var to = new[] { Ids.LatestCommitsWidget_CommitterIcon, Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
-
             var listItems = CreateListItems();
+            var layout = Resource.Layout.LatestCommitsWidget_ListItem;
 
-            var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, Resource.Layout.LatestCommitsWidget_ListItem, from, to, GetHighlightColor());
-            commitList.Adapter = adapter;
+            var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, layout, from, to, GetHighlightColor());
+            adapter.LoadMoreClick += (o, e) =>
+                                         {
+                                             Log.Debug("SMEEDEE", "LoadMoreClick fired");
+                                             latestCommits.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
+
+                                         };
+            return adapter;
         }
 
         private void RefreshDynamicDescription()
         {
-            _dynamicDescription = "Displaying latest " + pref.GetString("NumberOfCommitsDisplayed", "10") + " commits";
+            _dynamicDescription = "Displaying latest commits";
         }
 
         private Color GetHighlightColor()
@@ -139,8 +142,6 @@ namespace Smeedee.Android.Widgets
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            Log.Debug("SMEEDEE", "GetView called with (" + position + ", " + convertView + ", " + parent+")");
-
             //Force convertView to be null when it's an instance of RelativeLayout. 
             //This is our loadMoreButton, and the base isn't able to recycle it. 
             convertView = convertView as LinearLayout; 
@@ -170,23 +171,29 @@ namespace Smeedee.Android.Widgets
             return view;
         }
 
-        private View loadMoreButton;
+        private RelativeLayout loadMoreButton;
         private View GetLoadMoreButton()
         {
-            if (loadMoreButton != null) return loadMoreButton;
-            var btn = new RelativeLayout(context);
-            var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-            if (inflater != null)
+            if (loadMoreButton == null)
             {
-                inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, btn);
+                loadMoreButton = new RelativeLayout(context);
+                var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+                inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreButton);
+                loadMoreButton.Clickable = true;
+                Log.Debug("SMEEDEE", "child0: "+loadMoreButton.GetChildAt(0));
+                var button = loadMoreButton.GetChildAt(0) as Button; //TODO: <-- its a linearlayout
+                if (button == null) throw new Java.Lang.Exception("Fucked up");
+                button.Click += (o, e) => Log.Debug("SMEEDEE", "Click fired");
+                button.Click += LoadMoreClick;
             }
-            loadMoreButton = btn;
-            return btn;
+            return loadMoreButton;
         }
+
+        public event EventHandler LoadMoreClick;
 
         public override bool IsEnabled(int position)
         {
-            return false;
+            return (position == Count - 1);
         }
     }
 }
