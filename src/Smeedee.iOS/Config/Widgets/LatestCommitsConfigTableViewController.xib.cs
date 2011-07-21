@@ -16,7 +16,7 @@ namespace Smeedee.iOS
 		}
 	}
 	
-	public class LatestCommitsConfigTableViewSource : WidgetConfigTableSource
+	public class LatestCommitsConfigTableViewSource : WidgetConfigTableViewSource
 	{
 		public LatestCommitsConfigTableViewSource() 
 			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(LatestCommitsConfigTableViewController)).First())

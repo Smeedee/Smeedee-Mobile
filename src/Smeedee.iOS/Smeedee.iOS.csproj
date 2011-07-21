@@ -270,7 +270,6 @@
     <Compile Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib.designer.cs">
       <DependentUpon>WorkingDaysLeftConfigTableViewController.xib</DependentUpon>
     </Compile>
-    <Compile Include="Config\Widgets\WidgetConfigTableSource.cs" />
     <Compile Include="Config\Widgets\TopCommittersConfigTableViewController.xib.cs">
       <DependentUpon>TopCommittersConfigTableViewController.xib</DependentUpon>
     </Compile>
@@ -289,6 +288,7 @@
     <Compile Include="Config\Widgets\LatestCommitsConfigTableViewController.xib.designer.cs">
       <DependentUpon>LatestCommitsConfigTableViewController.xib</DependentUpon>
     </Compile>
+    <Compile Include="Config\Widgets\WidgetConfigTableViewSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

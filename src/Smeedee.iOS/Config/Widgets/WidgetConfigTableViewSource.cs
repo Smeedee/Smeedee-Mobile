@@ -7,7 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS
 {
-	public class WidgetConfigTableSource : UITableViewSource
+	public class WidgetConfigTableViewSource : UITableViewSource
 	{
 		// Needs to be declared here to avoid GC issues
 		// See http://stackoverflow.com/questions/6156165/why-does-my-uiswitch-crash-when-it-is-a-tableview-cell-accessoryview
@@ -15,7 +15,7 @@ namespace Smeedee.iOS
 		
 		protected WidgetModel widgetModel;
 		
-		public WidgetConfigTableSource(WidgetModel model)
+		public WidgetConfigTableViewSource(WidgetModel model)
 		{
 			widgetModel = model;
 		}

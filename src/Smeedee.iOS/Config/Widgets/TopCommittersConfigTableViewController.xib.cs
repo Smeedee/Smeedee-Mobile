@@ -16,7 +16,7 @@ namespace Smeedee.iOS
 		}
 	}
 	
-	public class TopCommittersConfigTableSource : WidgetConfigTableSource
+	public class TopCommittersConfigTableSource : WidgetConfigTableViewSource
 	{
 		public TopCommittersConfigTableSource() 
 			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(TopCommittersConfigTableViewController)).First())

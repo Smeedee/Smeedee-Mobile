@@ -16,7 +16,7 @@ namespace Smeedee.iOS
 		}
 	}
 	
-	public class BuildStatusConfigTableSource : WidgetConfigTableSource
+	public class BuildStatusConfigTableSource : WidgetConfigTableViewSource
 	{
 		public BuildStatusConfigTableSource() 
 			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(BuildStatusConfigTableViewController)).First())
