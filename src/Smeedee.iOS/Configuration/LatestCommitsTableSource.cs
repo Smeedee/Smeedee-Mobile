@@ -7,7 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.iOS.Configuration
 {
-	public class LatestCommitsTableSource : WidgetSettingsTableSource<LatestCommits>
+	public class LatestCommitsTableSource : WidgetSettingsTableSource<LatestCommitsWidget>
 	{
 		//TODO
 	}
