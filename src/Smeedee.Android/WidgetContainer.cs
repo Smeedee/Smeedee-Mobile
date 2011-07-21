@@ -207,7 +207,7 @@ namespace Smeedee.Android
             var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
 
             var newWidgets = new List<IWidget>();
-            foreach (var widgetModel in widgetModels.Where(WidgetIsEnabled))
+            foreach (var widgetModel in widgetModels.Where(w => w.Enabled))
             {
                 var model = widgetModel;
                 newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
@@ -220,12 +220,6 @@ namespace Smeedee.Android
                 flipper.AddView((View)newWidget);
             }
             flipper.CurrentScreen = 0;
-        }
-
-        private bool WidgetIsEnabled(WidgetModel widget)
-        {
-            var sharedPrefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            return sharedPrefs.GetBoolean(widget.Name, true);
         }
 
         protected override void OnPause()
