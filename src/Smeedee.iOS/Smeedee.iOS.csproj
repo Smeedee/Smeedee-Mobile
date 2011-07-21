@@ -282,6 +282,12 @@
     <Compile Include="Widgets\LatestCommitsWidget.xib.designer.cs">
       <DependentUpon>LatestCommitsWidget.xib</DependentUpon>
     </Compile>
+    <Compile Include="Config\TableCells\LabelTextInputTableCellController.xib.cs">
+      <DependentUpon>LabelTextInputTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\TableCells\LabelTextInputTableCellController.xib.designer.cs">
+      <DependentUpon>LabelTextInputTableCellController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -300,6 +306,7 @@
     <Page Include="Config\Widgets\BuildStatusConfigTableViewController.xib" />
     <Page Include="Config\Widgets\LatestCommitsConfigTableViewController.xib" />
     <Page Include="Widgets\LatestCommitsWidget.xib" />
+    <Page Include="Config\TableCells\LabelTextInputTableCellController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -312,6 +319,7 @@
     <Folder Include="Services\Fakes\" />
     <Folder Include="Config\" />
     <Folder Include="Config\Widgets\" />
+    <Folder Include="Config\TableCells\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />

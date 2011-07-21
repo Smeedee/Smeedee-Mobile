@@ -20,6 +20,8 @@ namespace Smeedee.iOS
 	
 	public class MainConfigTableSource : UITableViewSource
     {
+		private TableCellFactory cellFactory = new TableCellFactory("LabelTextInputTableCellController", typeof(LabelTextInputTableCellController));
+		
 		private MainConfigTableViewController controller;
 		private Login loginModel;
 		
@@ -47,46 +49,18 @@ namespace Smeedee.iOS
         {
 			switch (indexPath.Section) {
 			case 0:
+				var cellController = cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
 				if (indexPath.Row == 0) {
-					var cell = new UITableViewCell();
-					cell.TextLabel.Text = "Server";
-					
-					urlTextField = new UITextField(cell.Frame);
-					urlTextField.Text = loginModel.Url;
-					
-					urlTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
-					urlTextField.LeftView = new UIView(new RectangleF(0, 0, 80, 31)); 
-					urlTextField.LeftViewMode = UITextFieldViewMode.Always;
-					urlTextField.ReturnKeyType = UIReturnKeyType.Done;
-					urlTextField.ShouldReturn = delegate { 
-						loginModel.Url = urlTextField.Text;
-						urlTextField.ResignFirstResponder();
-						return true; 
-					};
-					
-					cell.AddSubview(urlTextField);
-					return cell;
+					cellController.BindDataToCell("Server");
+					/*cellController.BindTextChangedAction((newText) => {
+						loginModel.Url = newText;
+						//urlTextField.ResignFirstResponder();
+					});*/
 				}
 				else {
-					var cell = new UITableViewCell();
-					cell.TextLabel.Text = "Key";
-					
-					keyTextField = new UITextField(cell.Frame);
-					keyTextField.Text = loginModel.Key;
-					
-					keyTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center; 
-					keyTextField.LeftView = new UIView(new RectangleF(0,0, 80, 31)); 
-					keyTextField.LeftViewMode = UITextFieldViewMode.Always;
-					keyTextField.ReturnKeyType = UIReturnKeyType.Done;
-					keyTextField.ShouldReturn = delegate { 
-						loginModel.Key = keyTextField.Text;
-						keyTextField.ResignFirstResponder();
-						return true; 
-					};
-					
-					cell.AddSubview(keyTextField);
-					return cell;
+					cellController.BindDataToCell("Key");
 				}
+				return cellController.TableViewCell;
 			default:
 				var widget = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
 				
