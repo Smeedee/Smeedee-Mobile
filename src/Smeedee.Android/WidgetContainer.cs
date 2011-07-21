@@ -21,6 +21,7 @@ namespace Smeedee.Android
         Theme = "@android:style/Theme.NoTitleBar")]
     public class WidgetContainer : Activity
     {
+        private const string CURRENT_SCREEN_PERSISTENCE_KEY = "WidgetContainer.CurrentScreen";
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private RealViewSwitcher flipper;
         private IEnumerable<IWidget> widgets;
@@ -181,7 +182,7 @@ namespace Smeedee.Android
             if (hasSettingsChanged)
             {
                 CheckForEnabledAndDisabledWidgets();
-                flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get("WidgetContainer.CurrentScreen", 0);
+                flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
 
@@ -230,7 +231,7 @@ namespace Smeedee.Android
         protected override void OnPause()
         {
             base.OnPause();
-            app.ServiceLocator.Get<IPersistenceService>().Save("WidgetContainer.CurrentScreen", flipper.CurrentScreen);
+            app.ServiceLocator.Get<IPersistenceService>().Save(CURRENT_SCREEN_PERSISTENCE_KEY, flipper.CurrentScreen);
         }
     }
     
