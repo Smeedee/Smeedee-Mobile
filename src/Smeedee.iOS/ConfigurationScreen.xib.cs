@@ -11,6 +11,7 @@ namespace Smeedee.iOS
 {
     public partial class ConfigurationScreen : UINavigationController
     {
+		
         #region Constructors
 
         public ConfigurationScreen(IntPtr handle) : base(handle)
@@ -32,8 +33,11 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
 			
-            var configTableController = new ConfigurationTableViewController(new ConfigurationTableSource(this), "Settings");
-            PushViewController(configTableController, false);
+			var controller = new MainConfigTableViewController();
+			PushViewController(controller, false);
+			
+            //var configTableController = new ConfigurationTableViewController(new ConfigurationTableSource(this), "Settings");
+            //PushViewController(configTableController, false);
         }
     }
 	
