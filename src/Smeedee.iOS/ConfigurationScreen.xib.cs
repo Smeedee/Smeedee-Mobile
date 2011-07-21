@@ -35,9 +35,6 @@ namespace Smeedee.iOS
 			
 			var controller = new MainConfigTableViewController();
 			PushViewController(controller, false);
-			
-            //var configTableController = new ConfigurationTableViewController(new ConfigurationTableSource(this), "Settings");
-            //PushViewController(configTableController, false);
         }
     }
 	
