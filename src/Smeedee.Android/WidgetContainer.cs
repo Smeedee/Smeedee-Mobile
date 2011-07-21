@@ -128,6 +128,18 @@ namespace Smeedee.Android
             return true;
         }
 
+        public override bool OnPrepareOptionsMenu(IMenu menu)
+        {
+            base.OnPrepareOptionsMenu(menu);
+
+            var configMenuItem = menu.FindItem(Resource.Id.BtnWidgetSettings);
+            var attribs = (WidgetAttribute)(flipper.CurrentView.GetType().GetCustomAttributes(typeof(WidgetAttribute), true)[0]);
+           
+            configMenuItem.SetEnabled(attribs.SettingsType != null);
+
+            return true;
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
