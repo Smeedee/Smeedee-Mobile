@@ -8,7 +8,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
 {
-    [WidgetAttribute("Working Days Left", StaticDescription = "Actually working days left")]
+    [WidgetAttribute("Working Days Left", StaticDescription = "Actual working days left")]
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
         private WorkingDaysLeft model;
