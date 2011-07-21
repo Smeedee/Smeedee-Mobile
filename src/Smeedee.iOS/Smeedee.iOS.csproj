@@ -14,7 +14,7 @@
     <MainNibFile>MainWindowIPhone.xib</MainNibFile>
     <AssemblyName>SmeedeeiOS</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -271,6 +271,12 @@
       <DependentUpon>TopCommittersWidgetTableViewController.xib</DependentUpon>
     </Compile>
     <Compile Include="Config\Widgets\WidgetTableSource.cs" />
+    <Compile Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib.cs">
+      <DependentUpon>WorkingDaysLeftConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib.designer.cs">
+      <DependentUpon>WorkingDaysLeftConfigTableViewController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -286,6 +292,7 @@
     <Page Include="Widgets\LatestCommits.xib" />
     <Page Include="Config\MainConfigTableViewController.xib" />
     <Page Include="Config\Widgets\TopCommittersWidgetTableViewController.xib" />
+    <Page Include="Config\Widgets\WorkingDaysLeftConfigTableViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -306,9 +313,4 @@
     <Content Include="Images\SettingsIcon.png" />
     <Content Include="Images\StarIcon.png" />
   </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties InternalTargetFrameworkVersion="IPhone" />
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>
