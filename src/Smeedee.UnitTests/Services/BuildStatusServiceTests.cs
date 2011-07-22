@@ -28,7 +28,7 @@ namespace Smeedee.UnitTests.Services
         public void Should_correctly_parse_build_name()
         {
             downloader.SetHtmlString("TestProject\fTestUser\fWorking\f20110722112921");
-            service.Load((r) => Assert.AreEqual("TestProject", r.Result.First().ProjectName));
+            service.Load(r => Assert.AreEqual("TestProject", r.Result.First().ProjectName));
         }
 
         [Test]
@@ -85,6 +85,15 @@ namespace Smeedee.UnitTests.Services
         {
             downloader.SetHtmlString("TestProject\fTestUser\fWorking\f20110722112921\afoo\fmalformed\fbar\aTestProject2\fTestUser2\fWorking\f20110722112921");
             service.Load(r => Assert.AreEqual(2, r.Result.Count()));
+        }
+
+        [Test]
+        public void Should_ask_http_downloader_to_download_from_the_correct_url()
+        {
+            downloader.SetHtmlString("");
+            service.Load(r => { });
+
+            Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/BuildStatus/", downloader.UrlAskedFor);
         }
     }
 }

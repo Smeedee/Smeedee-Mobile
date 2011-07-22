@@ -144,6 +144,9 @@
     <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
       <Link>Services\IWorkingDaysLeftService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\LatestCommitsService.cs">
+      <Link>Services\LatestCommitsService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>

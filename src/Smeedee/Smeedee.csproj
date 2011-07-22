@@ -66,6 +66,7 @@
     <Compile Include="Services\ILatestCommitsService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
+    <Compile Include="Services\LatestCommitsService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
     <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
