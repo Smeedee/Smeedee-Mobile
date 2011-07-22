@@ -76,14 +76,14 @@
     <Compile Include="Model\WorkingDaysLeftTests.cs" />
     <Compile Include="Services\BuildStatusServiceTests.cs" />
     <Compile Include="Services\CachedImageServiceTests.cs" />
-    <Compile Include="Services\FakeHtmlFetcher.cs" />
+    <Compile Include="Fakes\FakeHtmlFetcher.cs" />
     <Compile Include="Services\FakeImageServiceTests.cs" />
     <Compile Include="Resources\PersistenceServiceResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PersistenceServiceResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\FakeKVStorage.cs" />
+    <Compile Include="Fakes\FakeKVStorage.cs" />
     <Compile Include="Services\ServiceLocatorTests.cs" />
     <Compile Include="TimeSpanPrettyPrintExtensionTests.cs" />
   </ItemGroup>
