@@ -10,7 +10,13 @@ namespace Smeedee.Model
             Guard.NotNull(name);
             Name = name;
             Commits = commits;
-            ImageUri = new Uri(url);
+            try
+            {
+                ImageUri = new Uri(url);
+            } catch (Exception e)
+            {
+                ImageUri = new Uri("http://www.foo.com/img.png"); //TODO! <- dont do this
+            }
         }
         
         public string Name {

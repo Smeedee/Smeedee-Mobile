@@ -11,19 +11,21 @@ namespace Smeedee.Services
     {
         private readonly IBackgroundWorker bgWorker;
         private readonly IPersistenceService persistence;
+        private readonly IFetchHttp http;
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
 
         public TopCommittersService()
         {
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
             persistence = app.ServiceLocator.Get<IPersistenceService>();
+            http = app.ServiceLocator.Get<IFetchHttp>();
         }
 
         private string GetDataFromHttp(TimePeriod time)
         {
             var login = new Login();
             var url = login.Url + "/MobileServices/TopCommitters.aspx";
-            return new WebClient().DownloadString(url);
+            return http.DownloadString(url);
         }
 
         private IEnumerable<Committer> Deserialize(string data)
