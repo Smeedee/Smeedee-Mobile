@@ -55,7 +55,7 @@ namespace Smeedee.UnitTests.Model
 
             Assert.AreEqual(1, model.DaysLeft);
         }
-
+        
         [TestCase(-1, true)]
         [TestCase(-42, true)]
         public void Should_set_IsOnOvertime_bool_to_true_if_negative_number_of_days(int days, bool expected)
