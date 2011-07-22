@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Smeedee.Model;
 
@@ -30,7 +31,12 @@ namespace Smeedee.Services
 
         private static IEnumerable<Build> ParseCsv(string downloadString)
         {
-            return Csv.FromCsv(downloadString).Select(s => new Build(s[0], (BuildState)Enum.Parse(typeof(BuildState), s[2]), s[1], DateTime.Parse(s[3])));
+            return Csv.FromCsv(downloadString).Select(s => new Build(
+                s[0], 
+                (BuildState)Enum.Parse(typeof(BuildState), s[2]), 
+                s[1],
+                DateTime.ParseExact(s[3], "yyyyMMddHHmmss", CultureInfo.InvariantCulture)));
+
         }
     }
 }
