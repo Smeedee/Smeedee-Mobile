@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -9,9 +8,10 @@ namespace Smeedee.Services
     public class BuildStatusService : IBuildStatusService
     {
         private const int INDEX_BUILD_NAME = 0;
-        private const int INDEX_BUILD_STATUS = 2;
         private const int INDEX_BUILD_TRIGGER_USERNAME = 1;
+        private const int INDEX_BUILD_STATUS = 2;
         private const int INDEX_BUILD_DATETIME = 3;
+
         private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
         private readonly IPersistenceService persistenceService;
@@ -27,8 +27,7 @@ namespace Smeedee.Services
         {
             bgWorker.Invoke(() =>
                                 {
-                                    var url = persistenceService.Get(Login.LoginUrl,
-                                                                     "http://services.smeedee.org/smeedee/");
+                                    var url = persistenceService.Get(Login.LoginUrl, "http://services.smeedee.org/smeedee/");
                                     callback(new AsyncResult<IEnumerable<Build>>(ParseCsv(downloader.DownloadString(url + "/MobileServices/BuildStatus.aspx"))));
                                 });
         }
@@ -41,17 +40,13 @@ namespace Smeedee.Services
             {
                 try
                 {
-                    results.Add(
-                        new Build(
+                    results.Add(new Build(
                             line[INDEX_BUILD_NAME],
                             (BuildState) Enum.Parse(typeof (BuildState), line[INDEX_BUILD_STATUS]),
                             line[INDEX_BUILD_TRIGGER_USERNAME],
-                            DateTime.ParseExact(line[INDEX_BUILD_DATETIME], "yyyyMMddHHmmss", CultureInfo.InvariantCulture))
-                    );
+                            DateTime.ParseExact(line[INDEX_BUILD_DATETIME], "yyyyMMddHHmmss", CultureInfo.InvariantCulture)));
                 }
-                catch
-                {
-                }
+                catch { }
             }
             return results;
         }
