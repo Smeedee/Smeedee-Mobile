@@ -126,8 +126,8 @@
     <Compile Include="..\Smeedee\Services\IBuildStatusService.cs">
       <Link>Services\IBuildStatusService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\IFetchHtml.cs">
-      <Link>Services\IFetchHtml.cs</Link>
+    <Compile Include="..\Smeedee\Services\IFetchHttp.cs">
+      <Link>Services\IFetchHttp.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
       <Link>Services\ILatestCommitsService.cs</Link>

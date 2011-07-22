@@ -36,7 +36,6 @@ namespace Smeedee.Services
                 (BuildState)Enum.Parse(typeof(BuildState), s[2]), 
                 s[1],
                 DateTime.ParseExact(s[3], "yyyyMMddHHmmss", CultureInfo.InvariantCulture)));
-
         }
     }
 }
