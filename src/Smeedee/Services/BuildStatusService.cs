@@ -10,11 +10,13 @@ namespace Smeedee.Services
     {
         private IFetchHtml downloader;
         private IBackgroundWorker bgWorker;
+        private IPersistenceService persistenceService;
 
-        public BuildStatusService(IFetchHtml webDownloader, IBackgroundWorker backgroundWorker)
+        public BuildStatusService()
         {
-            downloader = webDownloader;
-            bgWorker = backgroundWorker;
+            downloader = SmeedeeApp.Instance.ServiceLocator.Get<IFetchHtml>();
+            bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
+            persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         }
 
         public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
