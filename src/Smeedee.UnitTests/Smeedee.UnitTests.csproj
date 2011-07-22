@@ -76,6 +76,7 @@
     <Compile Include="Model\WorkingDaysLeftTests.cs" />
     <Compile Include="Services\BuildStatusServiceTests.cs" />
     <Compile Include="Services\CachedImageServiceTests.cs" />
+    <Compile Include="Services\FakeHtmlFetcher.cs" />
     <Compile Include="Services\FakeImageServiceTests.cs" />
     <Compile Include="Resources\PersistenceServiceResources.Designer.cs">
       <AutoGen>True</AutoGen>

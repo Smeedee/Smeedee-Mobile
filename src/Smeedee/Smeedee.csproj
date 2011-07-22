@@ -53,9 +53,11 @@
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\AsyncResult.cs" />
+    <Compile Include="Services\BuildStatusService.cs" />
     <Compile Include="Services\FakeBuildStatusService.cs" />
     <Compile Include="Services\Fakes\LatestCommitsFakeService.cs" />
     <Compile Include="Services\IBuildStatusService.cs" />
+    <Compile Include="Services\IFetchHtml.cs" />
     <Compile Include="Services\ILatestCommitsService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
