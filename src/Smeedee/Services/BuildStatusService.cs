@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Android.Util;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -21,11 +22,17 @@ namespace Smeedee.Services
 
         public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
         {
-            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(ParseCsv(downloader.DownloadString("TODO")))));
+            bgWorker.Invoke(() =>
+                                {
+                                    var url = persistenceService.Get("Login_Url",
+                                                                     "http://services.smeedee.org/smeedee/");
+                                    callback(new AsyncResult<IEnumerable<Build>>(ParseCsv(downloader.DownloadString(url + "/MobileServices/BuildStatus.aspx"))));
+                                });
         }
 
         private static IEnumerable<Build> ParseCsv(string downloadString)
         {
+            Log.Debug("TT", Csv.FromCsv(downloadString).Select(s => s[3]).First());
             return Csv.FromCsv(downloadString).Select(s => new Build(s[0], (BuildState)Enum.Parse(typeof(BuildState), s[2]), s[1], DateTime.Parse(s[3])));
         }
     }
