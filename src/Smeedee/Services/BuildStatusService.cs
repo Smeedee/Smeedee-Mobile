@@ -23,7 +23,7 @@ namespace Smeedee.Services
         {
             bgWorker.Invoke(() =>
                                 {
-                                    var url = persistenceService.Get("Login_Url",
+                                    var url = persistenceService.Get(Login.LoginUrl,
                                                                      "http://services.smeedee.org/smeedee/");
                                     callback(new AsyncResult<IEnumerable<Build>>(ParseCsv(downloader.DownloadString(url + "/MobileServices/BuildStatus.aspx"))));
                                 });
