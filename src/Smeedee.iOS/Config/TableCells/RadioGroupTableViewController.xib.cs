@@ -15,7 +15,6 @@ namespace Smeedee.iOS
 		public RadioGroupTableViewController(string headline, IList<string> labels, int selected) : base ("RadioGroupTableViewController", null)
 		{
 			RowSelected = (n) => { };
-			
 			TableView.Source = new RadioGroupTableViewSource(this, headline, labels, selected);
 		}
 	}
