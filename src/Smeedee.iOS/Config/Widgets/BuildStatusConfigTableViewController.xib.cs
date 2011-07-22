@@ -119,10 +119,10 @@ namespace Smeedee.iOS
 			if (section == 1)
 			{
 				if (row == 1) {
-					BuildOrder[] values = { BuildOrder.BuildName, BuildOrder.BuildTime };
+					var values = new List<BuildOrder>() { BuildOrder.BuildName, BuildOrder.BuildTime };
 					
 					var groupController = 
-						new RadioGroupTableViewController("Build ordering", new [] {"Build name", "Build time"});
+						new RadioGroupTableViewController("Build ordering", new [] {"Build name", "Build time"}, values.IndexOf(model.Ordering));
 					
 					groupController.RowSelected = delegate(int n) {
 						model.Ordering = values[n];

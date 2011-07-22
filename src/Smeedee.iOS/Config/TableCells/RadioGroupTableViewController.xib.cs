@@ -8,16 +8,15 @@ namespace Smeedee.iOS
 {
 	public partial class RadioGroupTableViewController : UITableViewController
 	{
-		public string Headline { get; private set; }
 		public int Selected { get; set; }
 		
 		public Action<int> RowSelected { get; set; }
 		
-		public RadioGroupTableViewController(string headline, IList<string> labels) : base ("RadioGroupTableViewController", null)
+		public RadioGroupTableViewController(string headline, IList<string> labels, int selected) : base ("RadioGroupTableViewController", null)
 		{
 			RowSelected = (n) => { };
 			
-			TableView.Source = new RadioGroupTableViewSource(this, headline, labels);
+			TableView.Source = new RadioGroupTableViewSource(this, headline, labels, selected);
 		}
 	}
 	
@@ -25,13 +24,18 @@ namespace Smeedee.iOS
 	{
 		private RadioGroupTableViewController controller;
 		
-		private IList<string> labels;
-		private string headline;
+		private UITableViewCell[] cell;
+		private int selected;
 		
-		public RadioGroupTableViewSource(RadioGroupTableViewController controller, string headline, IList<string> labels) 
+		private string headline;
+		private IList<string> labels;
+		
+		public RadioGroupTableViewSource(RadioGroupTableViewController controller, string headline, IList<string> labels, int selected) 
 		{
+			this.cell = new UITableViewCell[labels.Count];
 			this.controller = controller;
 			this.headline = headline;
+			this.selected = selected;
 			this.labels = labels;
 		}
 		
@@ -41,26 +45,32 @@ namespace Smeedee.iOS
 		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			var section = indexPath.Section;
 			var row = indexPath.Row;
 			
-			var cell = new UITableViewCell(UITableViewCellStyle.Default, "DefaultCell") {
+			cell[row] = new UITableViewCell(UITableViewCellStyle.Default, "DefaultCheckmarkCell") {
 				Accessory = UITableViewCellAccessory.None
 			};
 			
-			cell.TextLabel.Text = labels[row]; //string.Format("Cell {0}, value {1}", row, controller.Values[row]);
-		
-			return cell;
+			if (row == selected)
+				cell[row].Accessory = UITableViewCellAccessory.Checkmark;
+			
+			cell[row].TextLabel.Text = labels[row];
+			
+			return cell[row];
 		}
 		
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
-			var section = indexPath.Section;
 			var row = indexPath.Row;
+			
+			cell[selected].Accessory = UITableViewCellAccessory.None;
+			cell[row].Accessory = UITableViewCellAccessory.Checkmark;
+			selected = row;
 			
 			Console.WriteLine("Row selected: " + row);
 			controller.RowSelected(row);
 			
+			cell[row].SetSelected(false, true);
 		}
 	}
 }
