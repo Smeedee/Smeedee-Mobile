@@ -84,6 +84,9 @@
     <Compile Include="..\Smeedee\Model\Login.cs">
       <Link>Model\Login.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Model\ServiceConstants.cs">
+      <Link>Model\ServiceConstants.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\SmeedeeApp.cs">
       <Link>Model\SmeedeeApp.cs</Link>
     </Compile>
