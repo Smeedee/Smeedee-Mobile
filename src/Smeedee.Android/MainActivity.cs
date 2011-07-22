@@ -32,7 +32,7 @@ namespace Smeedee.Android
             App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
 
             App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-            App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+            App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
             App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
             App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(
                                                         App.ServiceLocator.Get<IBackgroundWorker>()));

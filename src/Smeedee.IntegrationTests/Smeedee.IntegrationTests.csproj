@@ -52,6 +52,7 @@
     <Compile Include="..\Smeedee.UnitTests\Fakes\NoBackgroundInvocation.cs">
       <Link>Fakes\NoBackgroundInvocation.cs</Link>
     </Compile>
+    <Compile Include="LatestCommitsServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ImageServiceTests.cs" />
   </ItemGroup>

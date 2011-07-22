@@ -61,7 +61,7 @@
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
-    <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
+    <Compile Include="Services\Fakes\WorkingDaysLeftFakeService.cs" />
     <Compile Include="Services\BackgroundWorker.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Services\IBackgroundWorker.cs" />
@@ -79,6 +79,7 @@
     <Compile Include="Model\TopCommitters.cs" />
     <Compile Include="Model\Committer.cs" />
     <Compile Include="Model\IWidget.cs" />
+    <Compile Include="Services\TopCommittersService.cs" />
     <Compile Include="TimeSpanPrettyPrintExtension.cs" />
   </ItemGroup>
   <ItemGroup>
