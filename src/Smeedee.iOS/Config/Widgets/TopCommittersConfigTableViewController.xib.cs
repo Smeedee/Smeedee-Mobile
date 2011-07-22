@@ -21,11 +21,13 @@ namespace Smeedee.iOS
 		private TopCommitters model;
 		private UITableViewController controller;
 		
-		// Here is actually where we decide possible values. 
-		// Can differentiate from Android. Only common is that default 5 is stored in model.
-		private IList<int> committerCountValues = new[] { 5, 10, 15 };
-		private int committerCountSelected;
-		private IList<UITableViewCell> committerCountCells = new List<UITableViewCell>();
+		private IList<UITableViewCell> countCells = new List<UITableViewCell>(3);
+		private IList<int> countValues = new[] { 5, 10, 15 };
+		private int countSelected;
+		
+		private IList<UITableViewCell> timeCells = new List<UITableViewCell>(3);
+		private IList<TimePeriod> timeValues = new[] { TimePeriod.PastDay, TimePeriod.PastWeek, TimePeriod.PastMonth };
+		private int timeSelected;
 		
 		public TopCommittersConfigTableSource(UITableViewController controller) 
 			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(TopCommittersConfigTableViewController)).First())
@@ -33,53 +35,89 @@ namespace Smeedee.iOS
 			this.controller = controller;
 			model = new TopCommitters();
 			Console.WriteLine("Created source");
-			committerCountSelected = committerCountValues.IndexOf(model.NumberOfCommitters);
+			countSelected = countValues.IndexOf(model.NumberOfCommitters);
+			timeSelected = timeValues.IndexOf(model.TimePeriod);
 		}
 		
-		public override int NumberOfSections (UITableView tableView)
-		{
-			return 2;
-		}
+		private bool IsNumberOfCommitters(int section) { return section == 1; }
+		private bool IsTimePeriod(int section) { return section == 2; }
 		
-		public override int RowsInSection (UITableView tableview, int section)
+		public override int NumberOfSections (UITableView tableView) { return 3; }
+		
+		public override int RowsInSection(UITableView tableView, int section)
 		{
-			return (section == 0) ? 1 : 3;
+			if (IsNumberOfCommitters(section)) 
+				return countValues.Count;
+			if (IsTimePeriod(section)) 
+				return timeValues.Count;
+			return base.RowsInSection(tableView, section);
 		}
 		
 		public override string TitleForHeader (UITableView tableView, int section)
 		{
-			return (section == 0) ? base.TitleForHeader(tableView, section) : "Number of committers";
+			if (IsNumberOfCommitters(section)) 
+				return "Number of committers";
+			if (IsTimePeriod(section)) 
+				return "Time period";
+			return base.TitleForHeader(tableView, section);
 		}
 		
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
-			if (indexPath.Section == 0) return base.GetCell(tableView, indexPath);
+			if (indexPath.Section == 0) 
+				return base.GetCell(tableView, indexPath);
 			
 			Console.WriteLine("Getting row at index " + indexPath.Row);
 			
-			var cell = new UITableViewCell(UITableViewCellStyle.Default, "RadioButtonTableCell") {
+			var cell = new UITableViewCell(UITableViewCellStyle.Default, string.Format("RadioButtonTableCell{0}{1}", indexPath.Section, indexPath.Row)) {
 				Accessory = UITableViewCellAccessory.None
 			};
 			
-			if (indexPath.Row == committerCountSelected) 
-				cell.Accessory = UITableViewCellAccessory.Checkmark;
+			if (IsNumberOfCommitters(indexPath.Section)) 
+			{
+				if (indexPath.Row == countSelected) 
+					cell.Accessory = UITableViewCellAccessory.Checkmark;
+				cell.TextLabel.Text = string.Format("Top {0} committers", countValues[indexPath.Row]);
+				countCells.Insert(indexPath.Row, cell);
+			}
 			
-			cell.TextLabel.Text = string.Format("Top {0} committers", committerCountValues[indexPath.Row]);
-			committerCountCells.Add(cell);
+			if (IsTimePeriod(indexPath.Section))
+			{
+				if (indexPath.Row == timeSelected) 
+					cell.Accessory = UITableViewCellAccessory.Checkmark;
+				cell.TextLabel.Text = string.Format("Past {0}", timeValues[indexPath.Row].ToSuffix());
+				timeCells.Insert(indexPath.Row, cell);
+			}
+			
 			return cell;
 		}
 		
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
-			committerCountCells[committerCountSelected].Accessory = UITableViewCellAccessory.None;
+			if (IsNumberOfCommitters(indexPath.Section)) 
+			{
+				countCells[countSelected].Accessory = UITableViewCellAccessory.None;
+				countCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
+				countSelected = indexPath.Row;
+				
+				model.NumberOfCommitters = countValues[countSelected];
+				Console.WriteLine("Selecting row " + indexPath.Row);
+				
+				countCells[countSelected].SetSelected(false, true);
+			}
 			
-			committerCountSelected = indexPath.Row;
-			
-			committerCountCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
-			
-			model.NumberOfCommitters = committerCountValues[indexPath.Row];
-			Console.WriteLine("Selecting row " + indexPath.Row);
-			
+			if (IsTimePeriod(indexPath.Section)) 
+			{
+				Console.WriteLine("Selecting " + indexPath.Row + ", deselecting " + timeSelected);
+				timeCells[timeSelected].Accessory = UITableViewCellAccessory.None;
+				timeCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
+				timeSelected = indexPath.Row;
+				
+				model.TimePeriod = timeValues[timeSelected];
+				Console.WriteLine("Selecting row " + indexPath.Row);
+				
+				timeCells[timeSelected].SetSelected(false, true);
+			}
 		}
 	}
 }
