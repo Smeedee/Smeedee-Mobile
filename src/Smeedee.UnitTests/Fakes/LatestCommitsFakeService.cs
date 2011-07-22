@@ -51,5 +51,4 @@ namespace Smeedee.UnitTests.Fakes
             bgWorker.Invoke(() => callback(data.Skip(fromIndex).Take(10)));
         }
     }
-
 }

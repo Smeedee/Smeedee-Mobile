@@ -34,6 +34,9 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\MonoAndroid\v2.1\Mono.Android.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
@@ -52,13 +55,18 @@
     <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
+    <Compile Include="Model\ServiceConstants.cs" />
     <Compile Include="Services\AsyncResult.cs" />
-    <Compile Include="Services\FakeBuildStatusService.cs" />
+    <Compile Include="Services\BuildStatusService.cs" />
+    <Compile Include="Services\Fakes\FakeBuildStatusService.cs" />
     <Compile Include="Services\Fakes\LatestCommitsFakeService.cs" />
+    <Compile Include="Services\HttpFetcher.cs" />
     <Compile Include="Services\IBuildStatusService.cs" />
+    <Compile Include="Services\IFetchHttp.cs" />
     <Compile Include="Services\ILatestCommitsService.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
+    <Compile Include="Services\LatestCommitsService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
     <Compile Include="Services\WorkingDaysLeftFakeService.cs" />
@@ -71,7 +79,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\CachedImageService.cs" />
-    <Compile Include="Services\FakeImageService.cs" />
+    <Compile Include="Services\Fakes\FakeImageService.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\IPersistenceService.cs" />

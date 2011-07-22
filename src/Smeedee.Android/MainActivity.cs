@@ -30,12 +30,15 @@ namespace Smeedee.Android
 
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-
             App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+            App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+
+
+            App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+            App.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
+
+            // Fake implementations
             App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
-            App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
-            App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(
-                                                        App.ServiceLocator.Get<IBackgroundWorker>()));
             App.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
         }
     }
