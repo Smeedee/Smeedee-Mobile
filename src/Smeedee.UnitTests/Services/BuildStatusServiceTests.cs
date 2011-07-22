@@ -79,5 +79,12 @@ namespace Smeedee.UnitTests.Services
             downloader.SetHtmlString("TestProject\fTestUser\fWorking\f20110722112921\aTestProject2\fTestUser2\fWorking\f20110722112921");
             service.Load(r => Assert.AreEqual("TestProject2", r.Result.Skip(1).First().ProjectName));
         }
+
+        [Test]
+        public void Should_gracefully_handle_malformed_http_results_by_returning_only_the_well_formed_lines_of_the_result()
+        {
+            downloader.SetHtmlString("TestProject\fTestUser\fWorking\f20110722112921\afoo\fmalformed\fbar\aTestProject2\fTestUser2\fWorking\f20110722112921");
+            service.Load(r => Assert.AreEqual(2, r.Result.Count()));
+        }
     }
 }

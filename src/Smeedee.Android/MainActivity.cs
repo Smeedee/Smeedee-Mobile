@@ -34,7 +34,7 @@ namespace Smeedee.Android
             App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
 
 
-            App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(new BackgroundWorker()));
+            App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
 
             // Fake implementations
             App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
