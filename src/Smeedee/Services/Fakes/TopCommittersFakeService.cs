@@ -16,12 +16,30 @@ namespace Smeedee.Services.Fakes
             new Committer("Jens Ulf", 21, "http://www.foo.com/img.png"),
             new Committer("Kari Irak", 0, "http://www.foo.com/img.png"),
         };
+
+        private readonly IBackgroundWorker bgWorker;
+        private readonly SmeedeeApp app = SmeedeeApp.Instance;
+
+        public TopCommittersFakeService()
+        {
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+        }
+
+        private string PretendToGetDataFromHttp(TimePeriod time)
+        {
+            //In the real implementation, use the TimePeriod in the http call
+            var asStrings = data.Select(committer => new[] { committer.Name, committer.Commits.ToString(), committer.ImageUri.ToString() });
+            return Csv.ToCsv(asStrings);
+        }
+
+        private IEnumerable<Committer> Deserialize(string data)
+        {
+            return Csv.FromCsv(data).Select(s => new Committer(s[0], int.Parse(s[1]), s[2]));
+        }
 		
         public void LoadTopCommiters(TimePeriod time, Action<IEnumerable<Committer>> callback)
         {
-            // Disregard time for now
-
-            callback(data);
+            bgWorker.Invoke(() => callback(Deserialize(PretendToGetDataFromHttp(time))));
         }
     }
 }
