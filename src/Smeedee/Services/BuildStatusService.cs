@@ -32,7 +32,6 @@ namespace Smeedee.Services
 
         private static IEnumerable<Build> ParseCsv(string downloadString)
         {
-            Log.Debug("TT", Csv.FromCsv(downloadString).Select(s => s[3]).First());
             return Csv.FromCsv(downloadString).Select(s => new Build(s[0], (BuildState)Enum.Parse(typeof(BuildState), s[2]), s[1], DateTime.Parse(s[3])));
         }
     }
