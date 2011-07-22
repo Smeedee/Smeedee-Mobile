@@ -13,6 +13,8 @@ namespace Smeedee.iOS
 		{
 			Title = "Latest commits";
 			TableView.Source = new LatestCommitsConfigTableViewSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	

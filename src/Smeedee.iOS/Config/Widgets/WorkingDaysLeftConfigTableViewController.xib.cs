@@ -17,6 +17,8 @@ namespace Smeedee.iOS
 								.Where(e => e.SettingsType == typeof(WorkingDaysLeftConfigTableViewController)).First();
 			
 			TableView.Source = new WidgetConfigTableViewSource(widgetModel);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 }

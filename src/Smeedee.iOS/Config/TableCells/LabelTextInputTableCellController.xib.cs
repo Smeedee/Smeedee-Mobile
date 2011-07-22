@@ -27,6 +27,8 @@ namespace Smeedee.iOS
 			this.label.Text = labelText;
 			this.textInput.Text = currentValue;
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+			
+			cell.StyleAsSettingsTableCell();
         }
 		
 		public void BindActionToReturn(Action<UITextField> action)

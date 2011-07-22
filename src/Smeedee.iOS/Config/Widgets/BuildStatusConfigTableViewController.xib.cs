@@ -13,6 +13,8 @@ namespace Smeedee.iOS
 		{
 			this.Title = "Build status";
 			this.TableView.Source = new BuildStatusConfigTableSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	

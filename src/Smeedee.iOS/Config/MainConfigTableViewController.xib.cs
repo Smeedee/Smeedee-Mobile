@@ -15,6 +15,8 @@ namespace Smeedee.iOS
 		{ 
 			this.Title = "Settings";
 			this.TableView.Source = new MainConfigTableSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	

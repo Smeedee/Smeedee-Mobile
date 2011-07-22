@@ -13,6 +13,8 @@ namespace Smeedee.iOS
 		{
 			this.Title = "Top Committers";
 			this.TableView.Source = new TopCommittersConfigTableSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	
