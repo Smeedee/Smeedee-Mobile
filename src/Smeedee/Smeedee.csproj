@@ -55,6 +55,7 @@
     <Compile Include="Model\WidgetAttribute.cs" />
     <Compile Include="Model\WidgetModel.cs" />
     <Compile Include="Model\WorkingDaysLeft.cs" />
+    <Compile Include="Model\ServiceConstants.cs" />
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Services\BuildStatusService.cs" />
     <Compile Include="Services\Fakes\FakeBuildStatusService.cs" />
