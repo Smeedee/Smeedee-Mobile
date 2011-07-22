@@ -1,6 +1,6 @@
 ﻿namespace Smeedee.Services
 {
-    public interface IFetchHtml
+    public interface IFetchHttp
     {
         string DownloadString(string url);
     }

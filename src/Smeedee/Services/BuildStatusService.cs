@@ -8,9 +8,9 @@ namespace Smeedee.Services
 {
     public class BuildStatusService : IBuildStatusService
     {
-        private IFetchHtml downloader;
-        private IBackgroundWorker bgWorker;
-        private IPersistenceService persistenceService;
+        private readonly IFetchHtml downloader;
+        private readonly IBackgroundWorker bgWorker;
+        private readonly IPersistenceService persistenceService;
 
         public BuildStatusService()
         {
