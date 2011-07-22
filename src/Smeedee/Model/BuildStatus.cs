@@ -16,9 +16,6 @@ namespace Smeedee.Model
 
         public BuildStatus()
         {
-            ShowTriggeredBy = true;
-            Ordering = BuildOrder.BuildTime;
-            BrokenBuildsAtTop = true;
             builds = new List<Build>();
         }
 

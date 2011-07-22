@@ -93,7 +93,7 @@ namespace Smeedee.iOS
 			else
 			{
 				nameSwitch = new UISwitch();
-				nameSwitch.SetState(model.BrokenBuildsAtTop, false);
+				nameSwitch.SetState(model.ShowTriggeredBy, false);
 				nameSwitch.ValueChanged += delegate {
 					model.ShowTriggeredBy = nameSwitch.On;
 				};
