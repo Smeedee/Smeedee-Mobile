@@ -51,7 +51,7 @@ namespace Smeedee.iOS
 					cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
 				
 				if (indexPath.Row == 0) {
-					cellController.BindDataToCell("Server", loginModel.Url);
+					cellController.BindDataToCell("Url", loginModel.Url);
 					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
 				}
 				else
