@@ -25,13 +25,12 @@ namespace Smeedee.iOS
 		}
 		
 		public void Save(string key, int val) {
-			//NSUserDefaults.StandardUserDefaults.SetBool(val, key);
-			//NSUserDefaults.StandardUserDefaults.Synchronize();
+			NSUserDefaults.StandardUserDefaults.SetInt(val, key);
+			NSUserDefaults.StandardUserDefaults.Synchronize();
 		}
 		
         public int Get(string key, int defaultValue) {
-			//return NSUserDefaults.StandardUserDefaults.BoolForKey(key);
-			return 0;
+			return NSUserDefaults.StandardUserDefaults.IntForKey(key);
 		}
 	}
 }
