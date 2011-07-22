@@ -2,11 +2,11 @@
 
 namespace Smeedee.UnitTests.Services
 {
-    public class FakeHtmlFetcher : IFetchHtml
+    public class FakeHttpFetcher : IFetchHttp
     {
         private string htmlString;
 
-        public FakeHtmlFetcher(string html)
+        public FakeHttpFetcher(string html)
         {
             htmlString = html;
         }

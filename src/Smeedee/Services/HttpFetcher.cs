@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Smeedee.Services
 {
-    class HttpFetcher : IFetchHtml
+    class HttpFetcher : IFetchHttp
     {
         public string DownloadString(string url)
         {

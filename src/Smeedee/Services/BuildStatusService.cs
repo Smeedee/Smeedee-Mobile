@@ -8,13 +8,13 @@ namespace Smeedee.Services
 {
     public class BuildStatusService : IBuildStatusService
     {
-        private readonly IFetchHtml downloader;
+        private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
         private readonly IPersistenceService persistenceService;
 
         public BuildStatusService()
         {
-            downloader = SmeedeeApp.Instance.ServiceLocator.Get<IFetchHtml>();
+            downloader = SmeedeeApp.Instance.ServiceLocator.Get<IFetchHttp>();
             bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
             persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         }

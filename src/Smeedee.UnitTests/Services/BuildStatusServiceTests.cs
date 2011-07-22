@@ -11,14 +11,14 @@ namespace Smeedee.UnitTests.Services
     [TestFixture]
     public class BuildStatusServiceTests
     {
-        protected FakeHtmlFetcher downloader;
+        protected FakeHttpFetcher downloader;
         protected IBuildStatusService service;
 
         [SetUp]
         public void SetUp()
         {
-            downloader = new FakeHtmlFetcher("foo");
-            SmeedeeApp.Instance.ServiceLocator.Bind<IFetchHtml>(downloader);
+            downloader = new FakeHttpFetcher("foo");
+            SmeedeeApp.Instance.ServiceLocator.Bind<IFetchHttp>(downloader);
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
             SmeedeeApp.Instance.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
             service = new BuildStatusService();
