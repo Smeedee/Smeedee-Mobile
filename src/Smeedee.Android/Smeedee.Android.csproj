@@ -105,8 +105,8 @@
     <Compile Include="..\Smeedee\Services\BackgroundWorker.cs">
       <Link>Services\BackgroundWorker.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
-      <Link>Services\FakeBuildStatusService.cs</Link>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeBuildStatusService.cs">
+      <Link>Services\Fakes\FakeBuildStatusService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\LatestCommitsFakeService.cs">
       <Link>Services\Fakes\LatestCommitsFakeService.cs</Link>

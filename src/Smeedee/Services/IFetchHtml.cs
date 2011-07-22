@@ -2,6 +2,6 @@
 {
     public interface IFetchHtml
     {
-        string DownloadString();
+        string DownloadString(string url);
     }
 }

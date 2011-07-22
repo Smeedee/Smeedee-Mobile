@@ -16,7 +16,7 @@ namespace Smeedee.UnitTests.Services
             htmlString = html;
         }
 
-        public string DownloadString()
+        public string DownloadString(string url)
         {
             return htmlString;
         }

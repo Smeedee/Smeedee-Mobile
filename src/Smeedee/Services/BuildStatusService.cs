@@ -19,7 +19,7 @@ namespace Smeedee.Services
 
         public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
         {
-            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(ParseCsv(downloader.DownloadString()))));
+            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(ParseCsv(downloader.DownloadString("TODO")))));
         }
 
         private static IEnumerable<Build> ParseCsv(string downloadString)
