@@ -18,7 +18,7 @@ namespace Smeedee.Model
         public DateTime BuildTime { get; private set; }
         public BuildState BuildSuccessState { get; private set; }
         public string ProjectName { get; private set; }
-        public string Username { get; private set; }
+        public string Username { get; set; }
     }
 
 
