@@ -120,7 +120,16 @@ namespace Smeedee.iOS
 			{
 				if (row == 1) {
 					Console.WriteLine("Pushing view");
-					//controller.NavigationController.PushViewController(settingsControllerInstance, true);
+					BuildOrder[] values = { BuildOrder.BuildName, BuildOrder.BuildTime };
+					int[] intvals = { (int)BuildOrder.BuildName, (int)BuildOrder.BuildTime };
+					
+					var groupController = new RadioGroupTableViewController("Blah", intvals, 1);
+					groupController.RowSelected = delegate(int n) {
+						model.Ordering = values[n];
+						Console.WriteLine("Changed ordering to " + values[n]);
+					};
+					
+					controller.NavigationController.PushViewController(groupController, true);
 				}
 			}
 		}

@@ -288,6 +288,12 @@
     <Compile Include="Config\TableCells\LabelTextInputTableCellController.xib.designer.cs">
       <DependentUpon>LabelTextInputTableCellController.xib</DependentUpon>
     </Compile>
+    <Compile Include="Config\TableCells\RadioGroupTableViewController.xib.cs">
+      <DependentUpon>RadioGroupTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\TableCells\RadioGroupTableViewController.xib.designer.cs">
+      <DependentUpon>RadioGroupTableViewController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -307,6 +313,7 @@
     <Page Include="Config\Widgets\LatestCommitsConfigTableViewController.xib" />
     <Page Include="Widgets\LatestCommitsWidget.xib" />
     <Page Include="Config\TableCells\LabelTextInputTableCellController.xib" />
+    <Page Include="Config\TableCells\RadioGroupTableViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
