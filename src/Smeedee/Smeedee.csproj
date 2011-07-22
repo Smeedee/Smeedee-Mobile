@@ -54,7 +54,7 @@
     <Compile Include="Model\WorkingDaysLeft.cs" />
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Services\BuildStatusService.cs" />
-    <Compile Include="Services\FakeBuildStatusService.cs" />
+    <Compile Include="Services\Fakes\FakeBuildStatusService.cs" />
     <Compile Include="Services\Fakes\LatestCommitsFakeService.cs" />
     <Compile Include="Services\IBuildStatusService.cs" />
     <Compile Include="Services\IFetchHtml.cs" />
@@ -73,7 +73,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\CachedImageService.cs" />
-    <Compile Include="Services\FakeImageService.cs" />
+    <Compile Include="Services\Fakes\FakeImageService.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\IPersistenceService.cs" />
