@@ -51,14 +51,13 @@ namespace Smeedee.iOS
 			case 0:
 				var cellController = cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
 				if (indexPath.Row == 0) {
-					cellController.BindDataToCell("Server");
-					/*cellController.BindTextChangedAction((newText) => {
-						loginModel.Url = newText;
-						//urlTextField.ResignFirstResponder();
-					});*/
+					cellController.BindDataToCell("Server", loginModel.Url);
+					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
 				}
-				else {
-					cellController.BindDataToCell("Key");
+				else
+				{
+					cellController.BindDataToCell("Key", loginModel.Key);
+					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
 				}
 				return cellController.TableViewCell;
 			default:
@@ -77,8 +76,6 @@ namespace Smeedee.iOS
 		
         public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
         {
-            Console.WriteLine("Selected row " + indexPath.Section + " / " + indexPath.Row);
-			
 			if (indexPath.Section != 1) return;
 			
 			var widgetModel = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);

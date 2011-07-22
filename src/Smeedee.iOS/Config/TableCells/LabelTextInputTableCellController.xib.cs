@@ -16,20 +16,25 @@ namespace Smeedee.iOS
         {
             get { return cell; }
         }
+		
+		public UITextField TextField
+		{
+			get { return textInput; }
+		}
         
-        public void BindDataToCell(string text)
+        public void BindDataToCell(string labelText, string currentValue)
         {
-			this.label.Text = text;
+			this.label.Text = labelText;
+			this.textInput.Text = currentValue;
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 		
-		public void BindTextChangedAction(Action<string> callback) {
-			
-			// TODO: Make this work somehow
-			textInput.EditingDidEnd += delegate {
-				callback(textInput.Text);
-				
-				
+		public void BindActionToReturn(Action<UITextField> action)
+		{
+			textInput.ShouldReturn = delegate(UITextField textField) {
+				action(textField);
+				textField.ResignFirstResponder();
+				return true;
 			};
 		}
 	}
