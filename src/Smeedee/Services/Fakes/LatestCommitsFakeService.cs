@@ -46,10 +46,22 @@ namespace Smeedee
         {
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
+
+        private string PretendToGetDataFromHttp(int fromIndex)
+        {
+            var subset = data.Skip(fromIndex).Take(10);
+            var asStrings = subset.Select(commit => new [] {commit.Message, commit.Date.ToString(), commit.User});
+            return Csv.ToCsv(asStrings);
+        }
+
+        private IEnumerable<Commit> Deserialize(string data)
+        {
+            return Csv.FromCsv(data).Select(s => new Commit(s[0], DateTime.Parse(s[1]), s[2]));
+        }
         
         public void Get10(int fromIndex, Action<IEnumerable<Commit>> callback)
         {
-            bgWorker.Invoke(() => callback(data.Skip(fromIndex).Take(10)));
+            bgWorker.Invoke(() => callback(Deserialize(PretendToGetDataFromHttp(fromIndex))));
         }
     }
 }
