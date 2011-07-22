@@ -82,11 +82,11 @@ namespace Smeedee.iOS
 				}
 				else
 				{
-					var cell = new UITableViewCell(UITableViewCellStyle.Subtitle, "SubtitleDisclosureCell") {
+					var cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell") {
 						Accessory = UITableViewCellAccessory.DisclosureIndicator
 					};
 					cell.TextLabel.Text = "Build order";
-					cell.DetailTextLabel.Text = model.Ordering.ToString();
+					// TODO: Gray text to the right of what is currently selected
 					return cell;
 				}
 			}
@@ -119,11 +119,11 @@ namespace Smeedee.iOS
 			if (section == 1)
 			{
 				if (row == 1) {
-					Console.WriteLine("Pushing view");
 					BuildOrder[] values = { BuildOrder.BuildName, BuildOrder.BuildTime };
-					int[] intvals = { (int)BuildOrder.BuildName, (int)BuildOrder.BuildTime };
 					
-					var groupController = new RadioGroupTableViewController("Blah", intvals, 1);
+					var groupController = 
+						new RadioGroupTableViewController("Build ordering", new [] {"Build name", "Build time"});
+					
 					groupController.RowSelected = delegate(int n) {
 						model.Ordering = values[n];
 						Console.WriteLine("Changed ordering to " + values[n]);
