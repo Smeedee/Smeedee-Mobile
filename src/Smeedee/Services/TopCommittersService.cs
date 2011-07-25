@@ -10,22 +10,22 @@ namespace Smeedee.Services
 {
     public class TopCommittersService : ITopCommittersService
     {
-        private readonly IBackgroundWorker bgWorker;
-        private readonly IPersistenceService persistence;
-        private readonly IFetchHttp http;
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
+        private readonly IBackgroundWorker bgWorker;
+        private readonly IFetchHttp http;
 
         public TopCommittersService()
         {
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
-            persistence = app.ServiceLocator.Get<IPersistenceService>();
             http = app.ServiceLocator.Get<IFetchHttp>();
         }
 
         private string GetDataFromHttp(TimePeriod time)
         {
             var login = new Login();
-            var url = login.Url + "/MobileServices/TopCommitters.aspx";
+            var url = login.Url +
+                      ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
+                      ServiceConstants.TOP_COMMITTERS_SERVICE_URL;
             return http.DownloadString(url);
         }
 
