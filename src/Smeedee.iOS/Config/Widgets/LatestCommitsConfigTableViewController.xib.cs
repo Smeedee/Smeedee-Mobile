@@ -40,13 +40,6 @@ namespace Smeedee.iOS
 			return 2;
 		}
 		
-		public override string TitleForHeader (UITableView tableView, int section)
-		{
-			if (section == 0) 
-				return base.TitleForHeader(tableView, section);
-			return "Style";
-		}
-		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			var section = indexPath.Section;
@@ -93,7 +86,17 @@ namespace Smeedee.iOS
 			if (row == 1)
 			{
 				var groupController = new RadioGroupTableViewController("Color", new [] {"Red", "Green", "Blue"}, 1);
-				controller.NavigationController.PushViewController(groupController, true);	
+				controller.NavigationController.PushViewController(groupController, true);
+				// ConfigTableHeader here?
+			}
+		}
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{	
+			switch (section) {
+			case 0:
+				return base.GetViewForHeader(tableView, section);
+			default:
+				return new ConfigTableHeader("Highlight color");
 			}
 		}
 	}

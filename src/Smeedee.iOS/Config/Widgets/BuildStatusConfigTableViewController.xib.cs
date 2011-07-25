@@ -47,14 +47,7 @@ namespace Smeedee.iOS
 			return 1;
 		}
 		
-		public override string TitleForHeader(UITableView tableView, int section)
-		{
-			if (section == 1) 
-				return "Ordering";
-			if (section == 2) 
-				return "Display";
-			return base.TitleForHeader(tableView, section);
-		}
+		
 		
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
@@ -139,6 +132,19 @@ namespace Smeedee.iOS
 				}
 			}
 		}
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{	
+			switch (section) {
+			case 0:
+				return base.GetViewForHeader(tableView, section);
+			case 1:
+				return new ConfigTableHeader("Ordering");
+			default:
+				return new ConfigTableHeader("Display");
+			}
+		}
+
+		
 	}
 }
 

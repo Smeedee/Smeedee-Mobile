@@ -74,6 +74,17 @@ namespace Smeedee.iOS
 			
 			cell[row].SetSelected(false, true);
 		}
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{	
+		
+			return new ConfigTableHeader(headline);
+			
+		}
+		
+		public override float GetHeightForHeader (UITableView tableView, int section)
+		{
+			return (float)ConfigTableHeader.Height;
+		}
 	}
 }
 

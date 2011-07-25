@@ -55,15 +55,6 @@ namespace Smeedee.iOS
 			return base.RowsInSection(tableView, section);
 		}
 		
-		public override string TitleForHeader (UITableView tableView, int section)
-		{
-			if (IsNumberOfCommitters(section)) 
-				return "Number of committers";
-			if (IsTimePeriod(section)) 
-				return "Time period";
-			return base.TitleForHeader(tableView, section);
-		}
-		
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
 			if (indexPath.Section == 0) 
@@ -132,6 +123,17 @@ namespace Smeedee.iOS
 				Console.WriteLine("Selecting row " + indexPath.Row);
 				
 				timeCells[timeSelected].SetSelected(false, true);
+			}
+		}
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{	
+			switch (section) {
+			case 0:
+				return base.GetViewForHeader(tableView, section);
+			case 1:
+				return new ConfigTableHeader("Committers");
+			default:
+				return new ConfigTableHeader("Time");
 			}
 		}
 	}

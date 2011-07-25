@@ -7,11 +7,32 @@ using System.Drawing;
 
 namespace Smeedee.iOS
 {
-	public class ConfigTableHeader : UILabel
+	public class ConfigTableHeader : UIView
 	{
+		private static int padding = 15;
+		public static int Height = 35;
+		
+		private UILabel label;
+		
 		public ConfigTableHeader(string header) : base() {
-			this.Text = header;
-			this.TextColor = UIColor.Red;
+			this.Frame = new RectangleF(padding, 0, 320 - 2*padding, Height);
+			
+			label = new UILabel(this.Frame);
+			this.AddSubview(label);
+			
+			StyleContainer();
+			StyleLabel(header);
+		}
+		
+		private void StyleContainer() {
+			this.BackgroundColor = StyleExtensions.transparent;
+		}
+		
+		private void StyleLabel(string header) {
+			label.Text = header;
+			label.BackgroundColor = StyleExtensions.transparent;
+			label.Font = UIFont.BoldSystemFontOfSize(17);
+			label.TextColor = StyleExtensions.darkGrayHeadline;
 		}
 	}
 }

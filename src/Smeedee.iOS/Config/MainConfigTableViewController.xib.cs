@@ -101,6 +101,11 @@ namespace Smeedee.iOS
 			
 			return new ConfigTableHeader("Widgets");
 		}
+		
+		public override float GetHeightForHeader (UITableView tableView, int section)
+		{
+			return (float)ConfigTableHeader.Height;
+		}
 	}
 }
 

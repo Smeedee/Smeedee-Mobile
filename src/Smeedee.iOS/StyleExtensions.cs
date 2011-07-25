@@ -15,7 +15,7 @@ namespace Smeedee.iOS
 		public static readonly UIColor lightGrayText = UIColor.FromRGB(218, 218, 218);
 		public static readonly UIColor darkGrayText = UIColor.FromRGB(121, 121, 121);
 		
-		public static readonly UIColor darkGrayHeadline = UIColor.FromWhiteAlpha(0.4f, 0.5f);
+		public static readonly UIColor darkGrayHeadline = UIColor.FromWhiteAlpha(0.5f, 0.5f);
 		
 		public static readonly UIColor tableSeparator = UIColor.FromWhiteAlpha(0.5f, 0.8f);
 		
