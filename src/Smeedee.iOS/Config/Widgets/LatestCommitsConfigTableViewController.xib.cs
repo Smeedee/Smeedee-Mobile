@@ -69,6 +69,7 @@ namespace Smeedee.iOS
 				};
 				
 				cell.TextLabel.Text = "Highlight empty commits";
+				cell.StyleAsSettingsTableCell();
 				return cell;
 			}
 			else
@@ -78,6 +79,7 @@ namespace Smeedee.iOS
 				};
 				cell.TextLabel.Text = "Highlight color";
 				// TODO: Gray text to the right of what is currently selected
+				cell.StyleAsSettingsTableCell();
 				return cell;
 			}
 		}

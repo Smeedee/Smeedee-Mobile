@@ -91,6 +91,8 @@ namespace Smeedee.iOS
 				timeCells.Insert(indexPath.Row, cell);
 			}
 			
+			cell.StyleAsSettingsTableCell();
+			
 			return cell;
 		}
 		

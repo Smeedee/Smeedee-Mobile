@@ -10,7 +10,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			PushViewController(new MainConfigTableViewController(), false);
+			PushViewController( new MainConfigTableViewController(), false);
         }
     }
 }

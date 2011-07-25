@@ -33,6 +33,7 @@ namespace Smeedee.iOS
 				SelectionStyle = UITableViewCellSelectionStyle.None
 			};
 			cell.TextLabel.Text = "Enabled";
+			cell.StyleAsSettingsTableCell();
 			
 			return cell;
 		}
