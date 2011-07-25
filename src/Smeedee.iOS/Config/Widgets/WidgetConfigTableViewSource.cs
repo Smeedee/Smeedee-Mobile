@@ -30,18 +30,27 @@ namespace Smeedee.iOS
 			
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, "EnableWidgetUISwitch") {
 				AccessoryView = enabledSwitch, 
-				SelectionStyle = UITableViewCellSelectionStyle.None
 			};
 			cell.TextLabel.Text = "Enabled";
+			cell.StyleAsSettingsTableCell();
+			cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 			
 			return cell;
 		}
+		
 		
         public override int NumberOfSections(UITableView tableView) { return 1; }
 		
         public override int RowsInSection(UITableView tableview, int section) { return 1; }
         
-        public override string TitleForHeader(UITableView tableView, int section) { return "General"; }
+        public override UIView GetViewForHeader(UITableView tableView, int section) 
+		{ 
+			return new ConfigTableHeader("General");
+		}
+		public override float GetHeightForHeader (UITableView tableView, int section)
+		{
+			return (float)ConfigTableHeader.Height;
+		}
 	}
 }
 

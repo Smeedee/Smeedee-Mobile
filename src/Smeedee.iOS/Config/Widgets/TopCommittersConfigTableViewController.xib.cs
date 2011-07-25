@@ -13,6 +13,8 @@ namespace Smeedee.iOS
 		{
 			this.Title = "Top Committers";
 			this.TableView.Source = new TopCommittersConfigTableSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	
@@ -53,15 +55,6 @@ namespace Smeedee.iOS
 			return base.RowsInSection(tableView, section);
 		}
 		
-		public override string TitleForHeader (UITableView tableView, int section)
-		{
-			if (IsNumberOfCommitters(section)) 
-				return "Number of committers";
-			if (IsTimePeriod(section)) 
-				return "Time period";
-			return base.TitleForHeader(tableView, section);
-		}
-		
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
 			if (indexPath.Section == 0) 
@@ -89,6 +82,8 @@ namespace Smeedee.iOS
 				timeCells.Insert(indexPath.Row, cell);
 			}
 			
+			cell.StyleAsSettingsTableCell();
+			
 			return cell;
 		}
 		
@@ -96,6 +91,11 @@ namespace Smeedee.iOS
 		{
 			if (IsNumberOfCommitters(indexPath.Section)) 
 			{
+				// Ugly fix for nullpointer, happens when you click a cell that is not yet created by GetCell
+				if (countCells[countSelected] == null) {
+					Console.WriteLine("Avoided exception");
+					return;
+				}
 				countCells[countSelected].Accessory = UITableViewCellAccessory.None;
 				countCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
 				countSelected = indexPath.Row;
@@ -109,6 +109,12 @@ namespace Smeedee.iOS
 			if (IsTimePeriod(indexPath.Section)) 
 			{
 				Console.WriteLine("Selecting " + indexPath.Row + ", deselecting " + timeSelected);
+				
+				// Ugly fix for nullpointer, happens when you click a cell that is not yet created by GetCell
+				if (timeCells[timeSelected] == null) {
+					Console.WriteLine("Avoided exception");
+					return;
+				}
 				timeCells[timeSelected].Accessory = UITableViewCellAccessory.None;
 				timeCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
 				timeSelected = indexPath.Row;
@@ -117,6 +123,17 @@ namespace Smeedee.iOS
 				Console.WriteLine("Selecting row " + indexPath.Row);
 				
 				timeCells[timeSelected].SetSelected(false, true);
+			}
+		}
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{	
+			switch (section) {
+			case 0:
+				return base.GetViewForHeader(tableView, section);
+			case 1:
+				return new ConfigTableHeader("Committers");
+			default:
+				return new ConfigTableHeader("Time");
 			}
 		}
 	}

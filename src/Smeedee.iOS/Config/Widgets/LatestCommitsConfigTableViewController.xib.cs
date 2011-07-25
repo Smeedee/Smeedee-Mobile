@@ -13,6 +13,8 @@ namespace Smeedee.iOS
 		{
 			Title = "Latest commits";
 			TableView.Source = new LatestCommitsConfigTableViewSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	
@@ -38,13 +40,6 @@ namespace Smeedee.iOS
 			return 2;
 		}
 		
-		public override string TitleForHeader (UITableView tableView, int section)
-		{
-			if (section == 0) 
-				return base.TitleForHeader(tableView, section);
-			return "Style";
-		}
-		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			var section = indexPath.Section;
@@ -67,6 +62,8 @@ namespace Smeedee.iOS
 				};
 				
 				cell.TextLabel.Text = "Highlight empty commits";
+				cell.StyleAsSettingsTableCell();
+				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				return cell;
 			}
 			else
@@ -76,6 +73,7 @@ namespace Smeedee.iOS
 				};
 				cell.TextLabel.Text = "Highlight color";
 				// TODO: Gray text to the right of what is currently selected
+				cell.StyleAsSettingsTableCell();
 				return cell;
 			}
 		}
@@ -85,15 +83,20 @@ namespace Smeedee.iOS
 			var section = indexPath.Section;
 			var row = indexPath.Row;
 			
-			if (section == 0) {
-				base.RowSelected(tableView, indexPath);
-				return;
-			}
-			
 			if (row == 1)
 			{
 				var groupController = new RadioGroupTableViewController("Color", new [] {"Red", "Green", "Blue"}, 1);
-				controller.NavigationController.PushViewController(groupController, true);	
+				controller.NavigationController.PushViewController(groupController, true);
+				// ConfigTableHeader here?
+			}
+		}
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{	
+			switch (section) {
+			case 0:
+				return base.GetViewForHeader(tableView, section);
+			default:
+				return new ConfigTableHeader("Highlight color");
 			}
 		}
 	}

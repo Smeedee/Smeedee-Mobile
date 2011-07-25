@@ -17,8 +17,6 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_view;
 		
-		private MonoTouch.UIKit.UILabel __mt_label;
-		
 		private MonoTouch.UIKit.UITextField __mt_textInput;
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_cell;
@@ -33,18 +31,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_view = value;
 				this.SetNativeField("view", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("label")]
-		private MonoTouch.UIKit.UILabel label {
-			get {
-				this.__mt_label = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("label")));
-				return this.__mt_label;
-			}
-			set {
-				this.__mt_label = value;
-				this.SetNativeField("label", value);
 			}
 		}
 		

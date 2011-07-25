@@ -141,9 +141,6 @@
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
-      <Link>Services\WorkingDaysLeftFakeService.cs</Link>
-    </Compile>
     <Compile Include="AppDelegateShared.cs" />
     <Compile Include="WidgetsScreen.xib.cs">
       <DependentUpon>WidgetsScreen.xib</DependentUpon>
@@ -306,6 +303,10 @@
     <Compile Include="..\Smeedee\Model\ServiceConstants.cs">
       <Link>Model\ServiceConstants.cs</Link>
     </Compile>
+    <Compile Include="Config\Views\ConfigTableHeader.cs" />
+    <Compile Include="..\Smeedee\Services\Fakes\WorkingDaysLeftFakeService.cs">
+      <Link>Services\Fakes\WorkingDaysLeftFakeService.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -339,6 +340,7 @@
     <Folder Include="Config\" />
     <Folder Include="Config\Widgets\" />
     <Folder Include="Config\TableCells\" />
+    <Folder Include="Config\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />

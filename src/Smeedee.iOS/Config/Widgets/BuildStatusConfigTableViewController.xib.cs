@@ -13,6 +13,8 @@ namespace Smeedee.iOS
 		{
 			this.Title = "Build status";
 			this.TableView.Source = new BuildStatusConfigTableSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	
@@ -45,14 +47,7 @@ namespace Smeedee.iOS
 			return 1;
 		}
 		
-		public override string TitleForHeader(UITableView tableView, int section)
-		{
-			if (section == 1) 
-				return "Ordering";
-			if (section == 2) 
-				return "Display";
-			return base.TitleForHeader(tableView, section);
-		}
+		
 		
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
@@ -78,6 +73,8 @@ namespace Smeedee.iOS
 					};
 					cell.TextLabel.Text = "Broken builds first";
 					
+					cell.StyleAsSettingsTableCell();
+					cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 					return cell;
 				}
 				else
@@ -86,7 +83,9 @@ namespace Smeedee.iOS
 						Accessory = UITableViewCellAccessory.DisclosureIndicator
 					};
 					cell.TextLabel.Text = "Build order";
+					
 					// TODO: Gray text to the right of what is currently selected
+					cell.StyleAsSettingsTableCell();
 					return cell;
 				}
 			}
@@ -104,11 +103,11 @@ namespace Smeedee.iOS
 				};
 				cell.TextLabel.Text = "Show username";
 				
+				cell.StyleAsSettingsTableCell();
+				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				return cell;
 			}
 			
-			
-			return new UITableViewCell(UITableViewCellStyle.Default, "WAT");
 		}
 		
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
@@ -133,6 +132,19 @@ namespace Smeedee.iOS
 				}
 			}
 		}
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{	
+			switch (section) {
+			case 0:
+				return base.GetViewForHeader(tableView, section);
+			case 1:
+				return new ConfigTableHeader("Ordering");
+			default:
+				return new ConfigTableHeader("Display");
+			}
+		}
+
+		
 	}
 }
 

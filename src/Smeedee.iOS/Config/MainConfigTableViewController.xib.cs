@@ -15,6 +15,8 @@ namespace Smeedee.iOS
 		{ 
 			this.Title = "Settings";
 			this.TableView.Source = new MainConfigTableSource(this);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	
@@ -51,12 +53,12 @@ namespace Smeedee.iOS
 					cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
 				
 				if (indexPath.Row == 0) {
-					cellController.BindDataToCell("Url", loginModel.Url);
+					cellController.BindDataToCell(loginModel.Url);
 					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
 				}
 				else
 				{
-					cellController.BindDataToCell("Key", loginModel.Key);
+					cellController.BindDataToCell(loginModel.Key);
 					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
 				}
 				return cellController.TableViewCell;
@@ -70,7 +72,8 @@ namespace Smeedee.iOS
 	            cell.TextLabel.Text = widget.Name;
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
             	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
-	            
+	            cell.StyleAsSettingsTableCell();
+				
 	            return cell;
 			}
         }
@@ -86,6 +89,23 @@ namespace Smeedee.iOS
 				controller.NavigationController.PushViewController(settingsControllerInstance, true);
 			}
         }
+		
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{
+			// TODO: Create label in UI designer and instantiate somehow
+			//var views = NSBundle.MainBundle.LoadNib("ConfigTableHeaderView", this , null);
+			//return new ConfigTableHeaderView(views.ValueAt(0));
+			
+			if (section == 0)
+				return new ConfigTableHeader("Smeedee server");
+			
+			return new ConfigTableHeader("Widgets");
+		}
+		
+		public override float GetHeightForHeader (UITableView tableView, int section)
+		{
+			return (float)ConfigTableHeader.Height;
+		}
 	}
 }
 
