@@ -31,16 +31,27 @@ namespace Smeedee.Services
             return http.DownloadString(url);
         }
 
-        private void GetSync(Action<int, DateTime> callback)
+        private void GetSync(Action<int, DateTime> callback, Action failureCallback)
         {
             var httpData = GetDataFromHttp();
-            var data = Csv.FromCsv(httpData).First();
-            callback(int.Parse(data[0]), DateTime.Parse(data[1]));
+            var data = Csv.FromCsv(httpData).FirstOrDefault();
+            if (data == null || data.Count() != 2)
+            {
+                failureCallback();
+                return;
+            }
+            try
+            {
+                callback(int.Parse(data[0]), DateTime.Parse(data[1]));
+            } catch (FormatException)
+            {
+                failureCallback();
+            }
         }
 
-        public void Get(Action<int, DateTime> callback)
+        public void Get(Action<int, DateTime> callback, Action failureCallback)
         {
-            bgWorker.Invoke(() => GetSync(callback));
+            bgWorker.Invoke(() => GetSync(callback, failureCallback));
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Smeedee.Model
         {
             service = app.ServiceLocator.Get<IWorkingDaysLeftService>();
         }
+
+        public bool LoadError { get; private set; }
         
         public DateTime UntillDate { get; private set; }
 		
@@ -26,12 +28,19 @@ namespace Smeedee.Model
 
         public void Load(Action callback)
         {
-            service.Get((days, untilDate) =>
+            Action handleFailure = () =>
             {
+                LoadError = true;
+                callback();
+            };
+            Action<int, DateTime> updateModel = (days, untilDate) =>
+            {
+                LoadError = false;
                 this.days = days;
                 this.UntillDate = untilDate;
                 callback();
-            });
+            };
+            service.Get(updateModel, handleFailure);
         }
 
         public string DaysLeftText
