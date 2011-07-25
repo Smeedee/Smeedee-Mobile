@@ -149,7 +149,7 @@ namespace Smeedee.Android.Widgets
 
         private static void InsertDummyEntryForButton(IList<IDictionary<string, object>> items)
         {
-            items.Add(items.Last());
+            items.Add(new Dictionary<string, object>());
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)

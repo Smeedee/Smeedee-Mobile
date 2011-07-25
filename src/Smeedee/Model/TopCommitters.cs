@@ -61,7 +61,13 @@ namespace Smeedee.Model
 
         public string Description
         {
-            get { return string.Format("Top {0} committers for the past {1}", NumberOfCommitters, TimePeriod.ToSuffix()); }
+            get
+            {
+                if (_committers.Count() > 0)
+                    return string.Format("Top {0} committers for the past {1}", NumberOfCommitters, TimePeriod.ToSuffix());
+                else
+                    return string.Format("No commits found for the past {0}", TimePeriod.ToSuffix());
+            }
         }
     }
 

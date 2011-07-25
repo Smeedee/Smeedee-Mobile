@@ -120,7 +120,7 @@
     <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
       <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\HttpFetcher.cs">
+    <Compile Include="..\Smeedee\Services\Fakes\WorkingDaysLeftFakeService.cs">      <Link>Services\Fakes\WorkingDaysLeftFakeService.cs</Link>    </Compile>    <Compile Include="..\Smeedee\Services\HttpFetcher.cs">
       <Link>Services\HttpFetcher.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
@@ -150,8 +150,8 @@
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\WorkingDaysLeftFakeService.cs">
-      <Link>Services\WorkingDaysLeftFakeService.cs</Link>
+    <Compile Include="..\Smeedee\Services\TopCommittersService.cs">
+      <Link>Services\TopCommittersService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
       <Link>TimeSpanPrettyPrintExtension.cs</Link>
