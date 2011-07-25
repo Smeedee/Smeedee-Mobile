@@ -5,12 +5,11 @@
         public const string LoginKey = "Login_Key";
         public const string LoginUrl = "Login_Url";
 
-        private SmeedeeApp app = SmeedeeApp.Instance;
         private IPersistenceService persistence;
 
         public Login()
         {
-            persistence = app.ServiceLocator.Get<IPersistenceService>();
+            persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         }
         public bool IsValid()
         {
