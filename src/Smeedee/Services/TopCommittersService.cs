@@ -24,7 +24,9 @@ namespace Smeedee.Services
             var login = new Login();
             var url = login.Url +
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
-                      ServiceConstants.TOP_COMMITTERS_SERVICE_URL;
+                      ServiceConstants.TOP_COMMITTERS_SERVICE_URL +
+                      "?days=" + (int)time +
+                      "&key=" + login.Key;
             return http.DownloadString(url);
         }
 
