@@ -14,7 +14,7 @@ namespace Smeedee.Services
         
         public int DaysLeft = -1;
         public DateTime UntilDate = new DateTime(2011, 7, 15);
-        
+
         public WorkingDaysLeftService()
         {
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();

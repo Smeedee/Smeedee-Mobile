@@ -77,5 +77,13 @@ namespace Smeedee.UnitTests.Model
             string notUsed = model.DaysLeftText;
             Assert.AreEqual(expected, model.IsOnOvertime);
         }
+
+        [Test]
+        public void Should_set_LoadError_flag_on_error()
+        {
+            fakeService.ShouldFail = true;
+            model.Load(() => { });
+            Assert.IsTrue(model.LoadError);
+        }
     }
 }

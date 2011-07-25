@@ -13,6 +13,8 @@ namespace Smeedee
         
         public int DaysLeft = -1;
         public DateTime UntilDate = new DateTime(2011, 7, 15);
+
+        public bool ShouldFail = false;
         
         public WorkingDaysLeftFakeService()
         {
@@ -27,6 +29,11 @@ namespace Smeedee
 
         private void GetSync(Action<int, DateTime> callback, Action failureCallback)
         {
+            if (ShouldFail)
+            {
+                failureCallback();
+                return;
+            }
             var httpData = GetDataFromHttp();
             var data = Csv.FromCsv(httpData).First();
             callback(int.Parse(data[0]), DateTime.Parse(data[1]));
