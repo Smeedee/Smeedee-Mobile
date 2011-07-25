@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Smeedee.Model
+﻿namespace Smeedee.Model
 {
     public static class ServiceConstants
     {
