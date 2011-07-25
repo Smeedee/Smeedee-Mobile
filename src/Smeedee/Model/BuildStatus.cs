@@ -16,9 +16,6 @@ namespace Smeedee.Model
 
         public BuildStatus()
         {
-            ShowTriggeredBy = true;
-            Ordering = BuildOrder.BuildTime;
-            BrokenBuildsAtTop = true;
             builds = new List<Build>();
         }
 
@@ -74,7 +71,7 @@ namespace Smeedee.Model
             get
             {
                 var comparer = (Ordering == BuildOrder.BuildName) ? (IComparer<Build>)new BuildNameComparer() : new BuildTimeComparer();
-                return BrokenBuildsAtTop ? GetOrderedBuildsWithBrokenFirst(comparer) : GetOrderedBuilds(comparer);
+                return RemoveNamesIfAnonymousDisplayChosen(BrokenBuildsAtTop ? GetOrderedBuildsWithBrokenFirst(comparer) : GetOrderedBuilds(comparer));
             } 
             private set
             {
@@ -82,7 +79,19 @@ namespace Smeedee.Model
             } 
         }
 
-        public int GetNumberOfBuildsByState(BuildState successState)
+	    private List<Build> RemoveNamesIfAnonymousDisplayChosen(List<Build> buildList)
+	    {
+            if (ShowTriggeredBy)
+                return buildList;
+
+	        foreach (var build in buildList)
+	        {
+	            build.Username = "";
+	        }
+	        return buildList;
+	    }
+
+	    public int GetNumberOfBuildsByState(BuildState successState)
 	    {
             return builds.Where(build => build.BuildSuccessState == successState).Count();
 	    }

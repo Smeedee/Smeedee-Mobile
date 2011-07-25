@@ -35,10 +35,10 @@ namespace Smeedee.Android
 
 
             App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+            App.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
 
             // Fake implementations
             App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
-            App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
             App.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
         }
     }

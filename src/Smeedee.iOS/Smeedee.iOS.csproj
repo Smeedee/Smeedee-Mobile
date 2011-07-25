@@ -123,9 +123,6 @@
     <Compile Include="..\Smeedee\Services\CachedImageService.cs">
       <Link>Services\CachedImageService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\FakeBuildStatusService.cs">
-      <Link>Services\FakeBuildStatusService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\IImageService.cs">
       <Link>Services\IImageService.cs</Link>
     </Compile>
@@ -288,6 +285,27 @@
     <Compile Include="Config\TableCells\LabelTextInputTableCellController.xib.designer.cs">
       <DependentUpon>LabelTextInputTableCellController.xib</DependentUpon>
     </Compile>
+    <Compile Include="Config\TableCells\RadioGroupTableViewController.xib.cs">
+      <DependentUpon>RadioGroupTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\TableCells\RadioGroupTableViewController.xib.designer.cs">
+      <DependentUpon>RadioGroupTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\BuildStatusService.cs">
+      <Link>Services\BuildStatusService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeBuildStatusService.cs">
+      <Link>Services\Fakes\FakeBuildStatusService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IFetchHttp.cs">
+      <Link>Services\IFetchHttp.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Csv.cs">
+      <Link>Lib\Csv.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Model\ServiceConstants.cs">
+      <Link>Model\ServiceConstants.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -307,6 +325,7 @@
     <Page Include="Config\Widgets\LatestCommitsConfigTableViewController.xib" />
     <Page Include="Widgets\LatestCommitsWidget.xib" />
     <Page Include="Config\TableCells\LabelTextInputTableCellController.xib" />
+    <Page Include="Config\TableCells\RadioGroupTableViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -20,13 +20,10 @@ namespace Smeedee.iOS
 	
 	public class MainConfigTableSource : UITableViewSource
     {
-		private TableCellFactory cellFactory = new TableCellFactory("LabelTextInputTableCellController", typeof(LabelTextInputTableCellController));
-		
 		private MainConfigTableViewController controller;
 		private Login loginModel;
-		
-		private UITextField urlTextField;
-		private UITextField keyTextField;
+		private TableCellFactory cellFactory = 
+			new TableCellFactory("LabelTextInputTableCellController", typeof(LabelTextInputTableCellController));
 		
 		public MainConfigTableSource(MainConfigTableViewController controller) : base() {
 			this.controller = controller;
@@ -47,20 +44,23 @@ namespace Smeedee.iOS
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-			switch (indexPath.Section) {
+			switch (indexPath.Section) 
+			{
 			case 0:
-				var cellController = cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
+				var cellController = 
+					cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
+				
 				if (indexPath.Row == 0) {
-					cellController.BindDataToCell("Server");
-					/*cellController.BindTextChangedAction((newText) => {
-						loginModel.Url = newText;
-						//urlTextField.ResignFirstResponder();
-					});*/
+					cellController.BindDataToCell("Url", loginModel.Url);
+					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
 				}
-				else {
-					cellController.BindDataToCell("Key");
+				else
+				{
+					cellController.BindDataToCell("Key", loginModel.Key);
+					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
 				}
 				return cellController.TableViewCell;
+			
 			default:
 				var widget = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
 				
@@ -77,8 +77,6 @@ namespace Smeedee.iOS
 		
         public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
         {
-            Console.WriteLine("Selected row " + indexPath.Section + " / " + indexPath.Row);
-			
 			if (indexPath.Section != 1) return;
 			
 			var widgetModel = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);

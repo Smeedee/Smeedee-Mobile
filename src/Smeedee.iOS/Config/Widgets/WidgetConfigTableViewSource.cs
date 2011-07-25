@@ -28,9 +28,12 @@ namespace Smeedee.iOS
 				widgetModel.Enabled = enabledSwitch.On;
 			};
 			
-			var cell = new UITableViewCell(UITableViewCellStyle.Default, "EnableWidgetUISwitch");
-			cell.AccessoryView = enabledSwitch;
+			var cell = new UITableViewCell(UITableViewCellStyle.Default, "EnableWidgetUISwitch") {
+				AccessoryView = enabledSwitch, 
+				SelectionStyle = UITableViewCellSelectionStyle.None
+			};
 			cell.TextLabel.Text = "Enabled";
+			
 			return cell;
 		}
 		

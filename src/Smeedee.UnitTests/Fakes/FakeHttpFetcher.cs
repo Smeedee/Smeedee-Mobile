@@ -5,6 +5,7 @@ namespace Smeedee.UnitTests.Services
     public class FakeHttpFetcher : IFetchHttp
     {
         private string htmlString;
+        public string UrlAskedFor;
 
         public FakeHttpFetcher(string html)
         {
@@ -18,6 +19,7 @@ namespace Smeedee.UnitTests.Services
 
         public string DownloadString(string url)
         {
+            UrlAskedFor = url;
             return htmlString;
         }
     }
