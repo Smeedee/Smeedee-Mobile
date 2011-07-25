@@ -89,6 +89,18 @@ namespace Smeedee.iOS
 				controller.NavigationController.PushViewController(settingsControllerInstance, true);
 			}
         }
+		
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{
+			// TODO: Create label in UI designer and instantiate somehow
+			//var views = NSBundle.MainBundle.LoadNib("ConfigTableHeaderView", this , null);
+			//return new ConfigTableHeaderView(views.ValueAt(0));
+			
+			if (section == 0)
+				return new ConfigTableHeader("Smeedee server");
+			
+			return new ConfigTableHeader("Widgets");
+		}
 	}
 }
 
