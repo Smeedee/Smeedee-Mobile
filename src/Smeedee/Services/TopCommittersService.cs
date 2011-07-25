@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using Android.Util;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -30,7 +31,8 @@ namespace Smeedee.Services
 
         private IEnumerable<Committer> Deserialize(string data)
         {
-            return Csv.FromCsv(data).Select(s => new Committer(s[0], int.Parse(s[1]), s[2]));
+            var csv = Csv.FromCsv(data);
+            return csv.Where(s => s.Length == 3).Select(s => new Committer(s[0], int.Parse(s[1]), s[2]));
         }
 		
         public void LoadTopCommiters(TimePeriod time, Action<IEnumerable<Committer>> callback)
