@@ -10,6 +10,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+			this.NavigationBar.BarStyle = UIBarStyle.Black;
 			PushViewController( new MainConfigTableViewController(), false);
         }
     }

@@ -17,18 +17,11 @@ namespace Smeedee.iOS
             get { return cell; }
         }
 		
-		public UITextField TextField
-		{
-			get { return textInput; }
-		}
-		
-        public void BindDataToCell(string labelText, string currentValue)
+        public void BindDataToCell(string currentValue)
         {
-			this.label.Text = labelText;
 			this.textInput.Text = currentValue;
 			
 			cell.StyleAsSettingsTableCell();
-			this.label.TextColor = StyleExtensions.lightGrayText;
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 		
