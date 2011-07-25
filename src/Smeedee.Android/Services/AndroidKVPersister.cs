@@ -1,9 +1,6 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Android.Preferences;
 using Java.Lang;
-using Smeedee;
-using Exception = System.Exception;
 
 namespace Smeedee.Android.Services
 {
