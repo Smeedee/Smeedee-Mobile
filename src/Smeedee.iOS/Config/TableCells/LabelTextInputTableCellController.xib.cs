@@ -21,14 +21,15 @@ namespace Smeedee.iOS
 		{
 			get { return textInput; }
 		}
-        
+		
         public void BindDataToCell(string labelText, string currentValue)
         {
 			this.label.Text = labelText;
 			this.textInput.Text = currentValue;
-            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 			
 			cell.StyleAsSettingsTableCell();
+			this.label.TextColor = StyleExtensions.lightGrayText;
+            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 		
 		public void BindActionToReturn(Action<UITextField> action)

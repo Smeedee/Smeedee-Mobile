@@ -72,7 +72,8 @@ namespace Smeedee.iOS
 	            cell.TextLabel.Text = widget.Name;
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
             	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
-	            
+	            cell.StyleAsSettingsTableCell();
+				
 	            return cell;
 			}
         }
