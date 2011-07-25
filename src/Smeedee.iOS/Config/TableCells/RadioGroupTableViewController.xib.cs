@@ -16,6 +16,8 @@ namespace Smeedee.iOS
 		{
 			RowSelected = (n) => { };
 			TableView.Source = new RadioGroupTableViewSource(this, headline, labels, selected);
+			
+			TableView.StyleAsSettingsTable();
 		}
 	}
 	
@@ -54,6 +56,7 @@ namespace Smeedee.iOS
 				cell[row].Accessory = UITableViewCellAccessory.Checkmark;
 			
 			cell[row].TextLabel.Text = labels[row];
+			cell[row].StyleAsSettingsTableCell();
 			
 			return cell[row];
 		}

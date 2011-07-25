@@ -64,8 +64,6 @@ namespace Smeedee.iOS
 			if (section == 0) 
 				return base.GetCell(tableView, indexPath);
 			
-			UITableViewCell cell;
-			
 			if (section == 1)
 			{
 				if (row == 0)
@@ -76,21 +74,25 @@ namespace Smeedee.iOS
 						model.BrokenBuildsAtTop = topSwitch.On;
 					};
 					
-					cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
+					var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
 						AccessoryView = topSwitch, 
 						SelectionStyle = UITableViewCellSelectionStyle.None
 					};
 					cell.TextLabel.Text = "Broken builds first";
+					
+					cell.StyleAsSettingsTableCell();
+					cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+					return cell;
 				}
 				else
 				{
-					cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell") {
+					var cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell") {
 						Accessory = UITableViewCellAccessory.DisclosureIndicator
 					};
 					cell.TextLabel.Text = "Build order";
+					
 					// TODO: Gray text to the right of what is currently selected
 					cell.StyleAsSettingsTableCell();
-					
 					return cell;
 				}
 			}
@@ -102,15 +104,17 @@ namespace Smeedee.iOS
 					model.ShowTriggeredBy = nameSwitch.On;
 				};
 				
-				cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
+				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
 					AccessoryView = nameSwitch, 
 					SelectionStyle = UITableViewCellSelectionStyle.None
 				};
 				cell.TextLabel.Text = "Show username";
+				
+				cell.StyleAsSettingsTableCell();
+				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				return cell;
 			}
 			
-			cell.StyleAsSettingsTableCell();
-			return cell;
 		}
 		
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)

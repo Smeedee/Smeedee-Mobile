@@ -30,10 +30,10 @@ namespace Smeedee.iOS
 			
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, "EnableWidgetUISwitch") {
 				AccessoryView = enabledSwitch, 
-				SelectionStyle = UITableViewCellSelectionStyle.None
 			};
 			cell.TextLabel.Text = "Enabled";
 			cell.StyleAsSettingsTableCell();
+			cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 			
 			return cell;
 		}

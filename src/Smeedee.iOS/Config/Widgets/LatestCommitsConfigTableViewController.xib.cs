@@ -70,6 +70,7 @@ namespace Smeedee.iOS
 				
 				cell.TextLabel.Text = "Highlight empty commits";
 				cell.StyleAsSettingsTableCell();
+				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				return cell;
 			}
 			else
@@ -88,11 +89,6 @@ namespace Smeedee.iOS
 		{
 			var section = indexPath.Section;
 			var row = indexPath.Row;
-			
-			if (section == 0) {
-				base.RowSelected(tableView, indexPath);
-				return;
-			}
 			
 			if (row == 1)
 			{

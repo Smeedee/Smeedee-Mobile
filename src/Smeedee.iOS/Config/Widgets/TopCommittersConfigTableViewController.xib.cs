@@ -100,6 +100,11 @@ namespace Smeedee.iOS
 		{
 			if (IsNumberOfCommitters(indexPath.Section)) 
 			{
+				// Ugly fix for nullpointer, happens when you click a cell that is not yet created by GetCell
+				if (countCells[countSelected] == null) {
+					Console.WriteLine("Avoided exception");
+					return;
+				}
 				countCells[countSelected].Accessory = UITableViewCellAccessory.None;
 				countCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
 				countSelected = indexPath.Row;
@@ -113,6 +118,12 @@ namespace Smeedee.iOS
 			if (IsTimePeriod(indexPath.Section)) 
 			{
 				Console.WriteLine("Selecting " + indexPath.Row + ", deselecting " + timeSelected);
+				
+				// Ugly fix for nullpointer, happens when you click a cell that is not yet created by GetCell
+				if (timeCells[timeSelected] == null) {
+					Console.WriteLine("Avoided exception");
+					return;
+				}
 				timeCells[timeSelected].Accessory = UITableViewCellAccessory.None;
 				timeCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
 				timeSelected = indexPath.Row;
