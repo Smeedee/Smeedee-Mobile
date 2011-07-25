@@ -19,10 +19,10 @@ namespace Smeedee.UnitTests.Model
             }
 
             [Test]
-            [ExpectedException(typeof(ArgumentNullException))]
-            public void Then_assure_the_image_url_is_validated()
+            public void Then_assure_a_default_image_url_is_inserted_for_null_images()
             {
-                new Committer("John Doe", 42, null);
+                var committer = new Committer("John Doe", 42, null);
+                Assert.IsNotNull(committer.ImageUri);
             }
 
             [Test]

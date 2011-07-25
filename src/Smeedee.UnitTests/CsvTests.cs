@@ -38,6 +38,16 @@ namespace Smeedee.UnitTests
         }
 
         [Test]
+        public void Should_handle_singleline_serialization()
+        {
+            var result = Csv.ToCsv(new List<string[]>
+                               {
+                                   new [] { "1", "2", "3" }
+                               });
+            Assert.AreEqual("1\f2\f3", result);
+        }
+
+        [Test]
         public void Should_handle_multiline_serialization()
         {
             var result = Csv.ToCsv(new List<string[]>

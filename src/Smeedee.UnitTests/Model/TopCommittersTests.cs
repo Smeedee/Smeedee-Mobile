@@ -12,7 +12,7 @@ namespace Smeedee.UnitTests.Model
         private TopCommitters _model;
 
         private IPersistenceService persistenceService;
-        private ITopCommittersService topCommittersService;
+        private TopCommittersFakeService topCommittersService;
 
         [SetUp]
         public void SetUp()
@@ -83,14 +83,13 @@ namespace Smeedee.UnitTests.Model
         public void Should_get_different_results_for_different_time_periods()
         {
             var model1 = new TopCommitters();
-            var model2 = new TopCommitters();
             model1.TimePeriod = TimePeriod.PastDay;
+            model1.Load(() => { });
+            var list1 = model1.Committers;
+
             model1.TimePeriod = TimePeriod.PastWeek;
             model1.Load(() => { });
-            model2.Load(() => { });
-
-            var list1 = model1.Committers;
-            var list2 = model2.Committers;
+            var list2 = model1.Committers;
 
             CollectionAssert.AreNotEqual(list1, list2);
         }
@@ -105,6 +104,13 @@ namespace Smeedee.UnitTests.Model
             _model.Load(() => { });
 
             Assert.AreEqual(expected, _model.Description);
+        }
+
+        [Test]
+        public void Should_have_special_notification_for_when_there_are_no_committers_to_show()
+        {
+            topCommittersService.PastDayData = new Committer[] {};
+            Assert.AreEqual("No commits found for the past 24 hours", _model.Description);
         }
 
         [Test]
