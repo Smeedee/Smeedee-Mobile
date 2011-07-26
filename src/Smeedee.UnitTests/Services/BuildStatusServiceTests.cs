@@ -90,7 +90,6 @@ namespace Smeedee.UnitTests.Services
         [Test]
         public void Should_ask_http_downloader_to_download_from_the_correct_url()
         {
-
             new Login().Url = "http://services.smeedee.org/smeedee/";
             downloader.SetHtmlString("");
             service.Load(r => { });
