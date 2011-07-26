@@ -15,23 +15,17 @@ namespace Smeedee.Services
 
         private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
-        private readonly IPersistenceService persistenceService;
 
         public LatestCommitsService()
         {
             downloader = SmeedeeApp.Instance.ServiceLocator.Get<IFetchHttp>();
             bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
-            persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         }
 
         public void Get10(int fromIndex, Action<IEnumerable<Commit>> callback)
         {
-            bgWorker.Invoke(() =>
-            {
-                var url = persistenceService.Get(Login.LoginUrl, "http://services.smeedee.org/smeedee/");
-                if (!url.EndsWith("/")) url += "/";
-                callback(ParseCsv(downloader.DownloadString(url + ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH + ServiceConstants.LATEST_COMMITS_SERVICE_URL + "?fromRevision=" + fromIndex)));
-            });
+            bgWorker.Invoke(() => 
+                callback(ParseCsv(downloader.DownloadString(new Login().Url + ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH + ServiceConstants.LATEST_COMMITS_SERVICE_URL + "?fromRevision=" + fromIndex))));
         }
 
         private static IEnumerable<Commit> ParseCsv(string csvData)

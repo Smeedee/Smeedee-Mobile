@@ -19,9 +19,8 @@ namespace Smeedee.Android.Widgets
     {
         public const string Name = "Latest commits";
         internal const string NoMessageTag = "(no message)";
-        private string _dynamicDescription = "Displaying latest commits";
 
-        private LatestCommits latestCommits;
+        private LatestCommits model;
         private bool scrollDown = false;
 
         public event EventHandler DescriptionChanged;
@@ -40,7 +39,7 @@ namespace Smeedee.Android.Widgets
 
         private void Initialize()
         {
-            latestCommits = new LatestCommits();
+            model = new LatestCommits();
             InflateLayout();
             Refresh();
         }
@@ -61,7 +60,23 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             scrollDown = false;
-            latestCommits.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
+            model.Load(() => 
+                ((Activity)Context).RunOnUiThread(() =>
+                    {
+                        Redraw();
+                        OnDescriptionChanged(new EventArgs());
+                    }));
+        }
+
+        public string GetDynamicDescription()
+        {
+            return model.DynamicDescription;
+        }
+
+        public void OnDescriptionChanged(EventArgs args)
+        {
+            if (DescriptionChanged != null)
+                DescriptionChanged(this, args);
         }
 
         public void Redraw()
@@ -92,7 +107,7 @@ namespace Smeedee.Android.Widgets
             adapter.LoadMoreClick += (o, e) =>
                                          {
                                              scrollDown = true;
-                                             latestCommits.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
+                                             model.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
                                          };
             return adapter;
         }
@@ -109,7 +124,7 @@ namespace Smeedee.Android.Widgets
         {
             var data = new List<IDictionary<string, object>>();
 
-            foreach (var changeSet in latestCommits.Commits)
+            foreach (var changeSet in model.Commits)
             {
                 var msg = (changeSet.Message == "") ? NoMessageTag : changeSet.Message;
                 data.Add(new Dictionary<string, object>
@@ -121,17 +136,6 @@ namespace Smeedee.Android.Widgets
                              });
             }
             return data;
-        }
-
-        public string GetDynamicDescription()
-        {
-            return _dynamicDescription;
-        }
-
-        public void OnDescriptionChanged(EventArgs args)
-        {
-            if (DescriptionChanged != null)
-                DescriptionChanged(this, args);
         }
     }
 
