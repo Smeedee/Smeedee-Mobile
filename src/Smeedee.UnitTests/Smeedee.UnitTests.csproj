@@ -87,6 +87,7 @@
     <Compile Include="Services\HttpFetcherTests.cs" />
     <Compile Include="Services\LatestCommitsServiceTests.cs" />
     <Compile Include="Services\ServiceLocatorTests.cs" />
+    <Compile Include="Services\WorkingDaysLeftServiceTests.cs" />
     <Compile Include="TimeSpanPrettyPrintExtensionTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

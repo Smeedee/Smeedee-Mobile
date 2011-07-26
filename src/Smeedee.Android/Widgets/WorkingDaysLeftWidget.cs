@@ -12,7 +12,20 @@ namespace Smeedee.Android.Widgets
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
         private WorkingDaysLeft model;
-        private string _dynamicDescription;
+
+        private string dynamicDescription;
+        private string DynamicDescription
+        {
+            get { return dynamicDescription; }
+            set
+            {
+                if (value != dynamicDescription)
+                {
+                    dynamicDescription = value;
+                    if (DescriptionChanged != null) DescriptionChanged(this, null);
+                }
+            }
+        }
 
         public event EventHandler DescriptionChanged;
 
@@ -51,18 +64,26 @@ namespace Smeedee.Android.Widgets
 
             daysView.Text = days;
             textView.Text = text;
+            if (model.LoadError)
+            {
+                DynamicDescription = "Failed to load project info from server";
+                daysView.Visibility = ViewStates.Invisible;
+                textView.Visibility = ViewStates.Invisible;
+                return;
+            }
+            daysView.Visibility = ViewStates.Visible;
+            textView.Visibility = ViewStates.Visible;
+            
             if (model.IsOnOvertime)
-                _dynamicDescription = "You should have been finished by " + untillDate.DayOfWeek.ToString() + " " +
+                DynamicDescription = "You should have been finished by " + untillDate.DayOfWeek.ToString() + " " +
                                       untillDate.Date.ToShortDateString();
-
             else
-                _dynamicDescription = "Working days left untill " + untillDate.DayOfWeek.ToString() + " " + untillDate.Date.ToShortDateString();
-
+                DynamicDescription = "Working days left untill " + untillDate.DayOfWeek.ToString() + " " + untillDate.Date.ToShortDateString();
         }
 
         public string GetDynamicDescription()
         {
-            return _dynamicDescription;
+            return DynamicDescription;
         }
 
         public void OnDescriptionChanged(EventArgs args)

@@ -13,6 +13,8 @@ namespace Smeedee
         
         public int DaysLeft = -1;
         public DateTime UntilDate = new DateTime(2011, 7, 15);
+
+        public bool ShouldFail = false;
         
         public WorkingDaysLeftFakeService()
         {
@@ -25,16 +27,21 @@ namespace Smeedee
             return Csv.ToCsv(data);
         }
 
-        private void GetSync(Action<int, DateTime> callback)
+        private void GetSync(Action<int, DateTime> callback, Action failureCallback)
         {
+            if (ShouldFail)
+            {
+                failureCallback();
+                return;
+            }
             var httpData = GetDataFromHttp();
             var data = Csv.FromCsv(httpData).First();
             callback(int.Parse(data[0]), DateTime.Parse(data[1]));
         }
 
-        public void Get(Action<int, DateTime> callback)
+        public void Get(Action<int, DateTime> callback, Action failureCallback)
         {
-            bgWorker.Invoke(() => GetSync(callback));
+            bgWorker.Invoke(() => GetSync(callback, failureCallback));
         }
     }
 }
