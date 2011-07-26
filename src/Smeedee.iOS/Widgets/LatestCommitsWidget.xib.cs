@@ -53,8 +53,9 @@ namespace Smeedee.iOS
 	
     public class LatestCommitsTableSource : UITableViewSource
     {
-		private TableCellFactory cellFactory = new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
-        private List<Commit> commits;
+		private TableCellFactory cellFactory =	new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
+        private TableCellFactory buttonCellFactory = new TableCellFactory("LatestCommitsLoadMoreTableCellController", typeof(LatestCommitsLoadMoreTableCellController));
+		private List<Commit> commits;
         
         private const float CELL_PADDING = 20f;
         
@@ -65,37 +66,43 @@ namespace Smeedee.iOS
 		
 		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
-			var cell = GetCell(tableView, indexPath);
-			var rowHeight = 0f;
-			foreach (var view in cell.ContentView.Subviews) {
-				if (view is UILabel || view is UITextView) {
-					var height = view.SizeThatFits(new SizeF(240f, float.MaxValue)).Height;
-					rowHeight += height;
+			var row = indexPath.Row;
+			if (row < commits.Count) {
+				var cell = GetCell(tableView, indexPath);
+				var rowHeight = 0f;
+				foreach (var view in cell.ContentView.Subviews) {
+					if (view is UILabel || view is UITextView) {
+						var height = view.SizeThatFits(new SizeF(240f, float.MaxValue)).Height;
+						rowHeight += height;
+					}
 				}
+				return rowHeight + CELL_PADDING;
 			}
-			return rowHeight + CELL_PADDING;
+			return 50;
 		}
         
-        public override int NumberOfSections(UITableView tableView)
-        {
-            return 1;
-        }
-        
-        public override int RowsInSection(UITableView tableview, int section)
-        {
-            return commits.Count();
-        }
+        public override int NumberOfSections(UITableView tableView) { return 1; }
+        public override int RowsInSection(UITableView tableview, int section) { return commits.Count() + 1; }
        
 		private const string CELL_ID = "LatestCommitsCell";
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {           
-            var commit = commits[indexPath.Row];
-            
-            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
-            controller.BindDataToCell(commit);
-            
-            return controller.TableViewCell;
+        {
+			var row = indexPath.Row;
+			if (row < commits.Count()) {
+	            var commit = commits[indexPath.Row];
+	            
+	            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
+	            controller.BindDataToCell(commit);
+	            
+	            return controller.TableViewCell;
+			}
+			else
+			{
+				var buttonController = buttonCellFactory.NewTableCellController(tableView, indexPath) as LatestCommitsLoadMoreTableCellController;
+
+				return buttonController.TableViewCell;
+			}
         }
     }
 }

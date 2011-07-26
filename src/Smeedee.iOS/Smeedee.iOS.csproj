@@ -307,6 +307,12 @@
     <Compile Include="..\Smeedee\Services\Fakes\WorkingDaysLeftFakeService.cs">
       <Link>Services\Fakes\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
+    <Compile Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib.cs">
+      <DependentUpon>LatestCommitsLoadMoreTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib.designer.cs">
+      <DependentUpon>LatestCommitsLoadMoreTableCellController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -327,6 +333,7 @@
     <Page Include="Widgets\LatestCommitsWidget.xib" />
     <Page Include="Config\TableCells\LabelTextInputTableCellController.xib" />
     <Page Include="Config\TableCells\RadioGroupTableViewController.xib" />
+    <Page Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
