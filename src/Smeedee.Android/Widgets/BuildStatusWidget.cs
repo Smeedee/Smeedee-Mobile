@@ -72,6 +72,7 @@ namespace Smeedee.Android.Widgets
                             Resource.Layout.BuildStatusWidget_ListItem,
                             listItemMappingFrom,
                             listItemMappingTo);
+
                             OnDescriptionChanged(new EventArgs());
                         }));
         }
@@ -86,8 +87,6 @@ namespace Smeedee.Android.Widgets
             if (DescriptionChanged != null)
                 DescriptionChanged(this, args);
         }
-
-        
     }
 
     internal class BuildStatusAdapter : SimpleAdapter

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Smeedee;
 
 namespace Smeedee.Model
 {
@@ -13,22 +12,28 @@ namespace Smeedee.Model
             get { return commits; }
             private set { commits = value; }
         }
+        public string DynamicDescription
+        {
+            get
+            {
+                return "Latest " + Commits.Count() + " commits";
+            }
+        }
 
-        private SmeedeeApp app = SmeedeeApp.Instance;
         private ILatestCommitsService service;
 
         public LatestCommits()
         {
-            service = app.ServiceLocator.Get<ILatestCommitsService>();
+            service = SmeedeeApp.Instance.ServiceLocator.Get<ILatestCommitsService>();
         }
 
         public void Load(Action callback)
         {
             service.Get10(0, commits =>
-            {
-                this.commits = commits.ToList();
-                callback();
-            });
+                {
+                    this.commits = commits.ToList();
+                    callback();
+                });
         }
 
         public void LoadMore(Action callback)
