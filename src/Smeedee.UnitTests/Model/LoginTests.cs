@@ -113,20 +113,18 @@ namespace Smeedee.UnitTests.Model
 		[Test]
 		public void Should_return_sucess_when_correct_validation_against_server()
 		{
-
 			string s = "";
 			login.StoreAndValidate("http://www.example.com/", "1234", (str) => s = str);
 			
-			Assert.AreEqual("Success", s);
+			Assert.AreEqual(Login.ValidationSuccess, s);
 		}
 		[Test]
 		public void Should_return_failed_when_wrong_validation_against_server()
 		{
-
 			string s = "";
 			login.StoreAndValidate("http://www.example.com/", "failkey", (str) => s = str);
 			
-			Assert.AreEqual("Failed", s);
+			Assert.AreEqual(Login.ValidationFailed, s);
 		}
 		
     }

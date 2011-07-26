@@ -322,6 +322,9 @@
     <Compile Include="..\Smeedee\Services\IValidationService.cs">
       <Link>Services\IValidationService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeValidationService.cs">
+      <Link>Services\Fakes\FakeValidationService.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

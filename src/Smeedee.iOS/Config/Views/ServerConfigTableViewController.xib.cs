@@ -11,20 +11,28 @@ namespace Smeedee.iOS
 	{
 		public ServerConfigTableViewController() : base ("ServerConfigTableViewController", null)
 		{
-		
 		}
 		
 		public override void ViewDidLoad ()
 		{
-			this.Title = "Server";
+			this.Title = " Smeedee Server";
 			this.table.Source = new ServerConfigTableSource();
 			this.table.ScrollEnabled = false;
 			this.button.TitleLabel.Text = "Connect";
+			
 			button.TouchUpInside += delegate {
 				var serverUrl = ((ServerConfigTableSource)table.Source).GetServerUrl();
 				var userKey = ((ServerConfigTableSource)table.Source).GetUserKey();
 				
-				//var success = new Login().SetServer(serverUrl, userKey, (str) => button.TitleLabel.Text = str);
+				new Login().StoreAndValidate(serverUrl, userKey, (str) => 
+				{
+					InvokeOnMainThread(() => 
+					{
+						if (str == Login.ValidationSuccess) button.SetTitleColor(UIColor.Green, UIControlState.Normal);
+						else button.SetTitleColor(UIColor.Red, UIControlState.Normal);
+						button.SetTitle(str, UIControlState.Normal);
+					});
+				});
 			};
 		}
 		
@@ -32,8 +40,8 @@ namespace Smeedee.iOS
 	public class ServerConfigTableSource : UITableViewSource
     {
 		private Login loginModel;
-		private TableViewCellController serverUrl;
-		private TableViewCellController userKey;
+		private LabelTextInputTableCellController serverUrl;
+		private LabelTextInputTableCellController userKey;
 		private TableCellFactory cellFactory = 
 			new TableCellFactory("LabelTextInputTableCellController", typeof(LabelTextInputTableCellController));
 		
@@ -52,21 +60,24 @@ namespace Smeedee.iOS
 			if (indexPath.Row == 0) {
 				cellController.BindDataToCell(loginModel.Url);
 				cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
+				cellController.TextInput.Placeholder = "http://smeedee.someurl.com";
 				serverUrl = cellController;
+				
 			}
 			else
 			{
 				cellController.BindDataToCell(loginModel.Key);
 				cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
+				cellController.TextInput.Placeholder = "password";
 				userKey = cellController;
 			}
 			return cellController.TableViewCell;
         }
 		public string GetServerUrl() {
-			return serverUrl.TableViewCell.TextLabel.Text;
+			return serverUrl.TextInput.Text;
 		}
 		public string GetUserKey() {
-			return userKey.TableViewCell.TextLabel.Text;
+			return userKey.TextInput.Text;
 		}
 	}
 }

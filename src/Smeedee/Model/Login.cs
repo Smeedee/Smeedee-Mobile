@@ -7,6 +7,8 @@ namespace Smeedee.Model
     {
         public const string LoginKey = "Login_Key";
         public const string LoginUrl = "Login_Url";
+		public const string ValidationSuccess = "Success!";
+		public const string ValidationFailed = "Failed!";
 
         private IPersistenceService persistence;
 		private IValidationService validation;
@@ -22,9 +24,10 @@ namespace Smeedee.Model
 			Key = key;
 			Url = url;
 			
-			validation.Validate(url, key, (validationSuccess) => {
-				if (validationSuccess) callback("Success");
-				else callback("Failed");
+			validation.Validate(url, key, (validationSuccess) => 
+			{
+				if (validationSuccess) callback(ValidationSuccess);
+				else callback(ValidationFailed);
 			});
 		}
 		

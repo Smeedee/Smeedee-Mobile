@@ -11,6 +11,10 @@ namespace Smeedee.iOS
 		public LabelTextInputTableCellController() : base("LabelTextInputTableCellController", null)
         {
         }
+		public UITextField TextInput 
+		{	
+			get { return this.textInput;}
+		}
         
         public override UITableViewCell TableViewCell
         {
