@@ -24,7 +24,7 @@ namespace Smeedee.iOS
 		private BuildStatus model;
 		
 		private UISwitch topSwitch;
-		private UISwitch nameSwitch;
+		//private UISwitch nameSwitch;
 		
 		public BuildStatusConfigTableSource(UITableViewController controller) 
 			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(BuildStatusConfigTableViewController)).First())
@@ -35,19 +35,15 @@ namespace Smeedee.iOS
 		
 		public override int NumberOfSections (UITableView tableView) 
 		{ 
-			return base.NumberOfSections(tableView) + 2; 
+			return 2; 
 		}
 		
 		public override int RowsInSection(UITableView tableView, int section)
 		{
 			if (section == 0) 
 				return base.RowsInSection(tableView, section);
-			if (section == 1) 
-				return 2;
-			return 1;
+			return 2;
 		}
-		
-		
 		
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
@@ -57,57 +53,35 @@ namespace Smeedee.iOS
 			if (section == 0) 
 				return base.GetCell(tableView, indexPath);
 			
-			if (section == 1)
+			if (row == 0)
 			{
-				if (row == 0)
-				{
-					topSwitch = new UISwitch();
-					topSwitch.SetState(model.BrokenBuildsAtTop, false);
-					topSwitch.ValueChanged += delegate {
-						model.BrokenBuildsAtTop = topSwitch.On;
-					};
-					
-					var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
-						AccessoryView = topSwitch, 
-						SelectionStyle = UITableViewCellSelectionStyle.None
-					};
-					cell.TextLabel.Text = "Broken builds first";
-					
-					cell.StyleAsSettingsTableCell();
-					cell.SelectionStyle = UITableViewCellSelectionStyle.None;
-					return cell;
-				}
-				else
-				{
-					var cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell") {
-						Accessory = UITableViewCellAccessory.DisclosureIndicator
-					};
-					cell.TextLabel.Text = "Build order";
-					
-					// TODO: Gray text to the right of what is currently selected
-					cell.StyleAsSettingsTableCell();
-					return cell;
-				}
-			}
-			else
-			{
-				nameSwitch = new UISwitch();
-				nameSwitch.SetState(model.ShowTriggeredBy, false);
-				nameSwitch.ValueChanged += delegate {
-					model.ShowTriggeredBy = nameSwitch.On;
+				topSwitch = new UISwitch();
+				topSwitch.SetState(model.BrokenBuildsAtTop, false);
+				topSwitch.ValueChanged += delegate {
+					model.BrokenBuildsAtTop = topSwitch.On;
 				};
 				
 				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
-					AccessoryView = nameSwitch, 
+					AccessoryView = topSwitch, 
 					SelectionStyle = UITableViewCellSelectionStyle.None
 				};
-				cell.TextLabel.Text = "Show username";
+				cell.TextLabel.Text = "Broken builds first";
 				
 				cell.StyleAsSettingsTableCell();
 				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				return cell;
 			}
-			
+			else
+			{
+				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell") {
+					Accessory = UITableViewCellAccessory.DisclosureIndicator
+				};
+				cell.TextLabel.Text = "Build order";
+				
+				// TODO: Gray text to the right of what is currently selected
+				cell.StyleAsSettingsTableCell();
+				return cell;
+			}
 		}
 		
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)

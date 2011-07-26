@@ -19,9 +19,11 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UILabel __mt_buildStatusLabel;
 		
-		private MonoTouch.UIKit.UILabel __mt_lastBuildTimeLabel;
-		
 		private MonoTouch.UIKit.UILabel __mt_projectNameLabel;
+		
+		private MonoTouch.UIKit.UILabel __mt_usernameLabel;
+		
+		private MonoTouch.UIKit.UILabel __mt_lastBuildTimeLabel;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("cell")]
@@ -48,18 +50,6 @@ namespace Smeedee.iOS {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("lastBuildTimeLabel")]
-		private MonoTouch.UIKit.UILabel lastBuildTimeLabel {
-			get {
-				this.__mt_lastBuildTimeLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("lastBuildTimeLabel")));
-				return this.__mt_lastBuildTimeLabel;
-			}
-			set {
-				this.__mt_lastBuildTimeLabel = value;
-				this.SetNativeField("lastBuildTimeLabel", value);
-			}
-		}
-		
 		[MonoTouch.Foundation.Connect("projectNameLabel")]
 		private MonoTouch.UIKit.UILabel projectNameLabel {
 			get {
@@ -69,6 +59,30 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_projectNameLabel = value;
 				this.SetNativeField("projectNameLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("usernameLabel")]
+		private MonoTouch.UIKit.UILabel usernameLabel {
+			get {
+				this.__mt_usernameLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("usernameLabel")));
+				return this.__mt_usernameLabel;
+			}
+			set {
+				this.__mt_usernameLabel = value;
+				this.SetNativeField("usernameLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("lastBuildTimeLabel")]
+		private MonoTouch.UIKit.UILabel lastBuildTimeLabel {
+			get {
+				this.__mt_lastBuildTimeLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("lastBuildTimeLabel")));
+				return this.__mt_lastBuildTimeLabel;
+			}
+			set {
+				this.__mt_lastBuildTimeLabel = value;
+				this.SetNativeField("lastBuildTimeLabel", value);
 			}
 		}
 	}

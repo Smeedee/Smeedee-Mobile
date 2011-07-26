@@ -22,7 +22,7 @@ namespace Smeedee.iOS
         public void BindDataToCell(Build build)
         {
             projectNameLabel.Text = build.ProjectName;
-            lastBuildTimeLabel.Text = "Last build was " + build.BuildTime;
+			usernameLabel.Text = build.Username;
             buildStatusLabel.Text = build.BuildSuccessState.ToString();
             
             buildStatusLabel.TextColor = (build.BuildSuccessState == BuildState.Broken)

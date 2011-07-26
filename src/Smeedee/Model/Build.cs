@@ -28,7 +28,7 @@ namespace Smeedee.Model
         {
             if (x.BuildTime == y.BuildTime) return 0;
 
-            return x.BuildTime > y.BuildTime ? 1 : -1;
+            return x.BuildTime < y.BuildTime ? 1 : -1;
         }
     }
 
