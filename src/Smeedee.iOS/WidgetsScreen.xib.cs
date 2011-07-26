@@ -22,8 +22,8 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			titleLabel.StyleAsHeadline();
-			subTitleLabel.StyleAsDescription();
+			//titleLabel.StyleAsHeadline();
+			//subTitleLabel.StyleAsDescription();
             scrollView.Scrolled += ScrollViewScrolled;
         }
 		
@@ -102,14 +102,14 @@ namespace Smeedee.iOS
         private void SetTitleLabels(int widgetIndex)
         {
 			if (widgets.Count() == 0) {
-				titleLabel.Text = "No enabled widgets";
-	            subTitleLabel.Text = "Press configuration to enable";
+				//titleLabel.Text = "No enabled widgets";
+	            //subTitleLabel.Text = "Press configuration to enable";
 			} else {
 				var currentWidget = widgets.ElementAt(CurrentPageIndex());
 	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
 	            
-				titleLabel.Text = attribute.Name;
-	            subTitleLabel.Text = currentWidget.GetDynamicDescription();
+				//titleLabel.Text = attribute.Name;
+	            //subTitleLabel.Text = currentWidget.GetDynamicDescription();
 			}
         }
 		

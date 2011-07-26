@@ -15,29 +15,15 @@ namespace Smeedee.iOS {
 	[MonoTouch.Foundation.Register("WidgetsScreen")]
 	public partial class WidgetsScreen {
 		
-		private MonoTouch.UIKit.UIView __mt_view;
-		
 		private MonoTouch.UIKit.UIScrollView __mt_scrollView;
 		
 		private MonoTouch.UIKit.UIPageControl __mt_pageControl;
 		
-		private MonoTouch.UIKit.UILabel __mt_subTitleLabel;
+		private MonoTouch.UIKit.UIToolbar __mt_toolbar;
 		
-		private MonoTouch.UIKit.UILabel __mt_titleLabel;
+		private MonoTouch.UIKit.UIView __mt_view;
 		
 		#pragma warning disable 0169
-		[MonoTouch.Foundation.Connect("view")]
-		private MonoTouch.UIKit.UIView view {
-			get {
-				this.__mt_view = ((MonoTouch.UIKit.UIView)(this.GetNativeField("view")));
-				return this.__mt_view;
-			}
-			set {
-				this.__mt_view = value;
-				this.SetNativeField("view", value);
-			}
-		}
-		
 		[MonoTouch.Foundation.Connect("scrollView")]
 		private MonoTouch.UIKit.UIScrollView scrollView {
 			get {
@@ -62,27 +48,27 @@ namespace Smeedee.iOS {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("subTitleLabel")]
-		private MonoTouch.UIKit.UILabel subTitleLabel {
+		[MonoTouch.Foundation.Connect("toolbar")]
+		private MonoTouch.UIKit.UIToolbar toolbar {
 			get {
-				this.__mt_subTitleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("subTitleLabel")));
-				return this.__mt_subTitleLabel;
+				this.__mt_toolbar = ((MonoTouch.UIKit.UIToolbar)(this.GetNativeField("toolbar")));
+				return this.__mt_toolbar;
 			}
 			set {
-				this.__mt_subTitleLabel = value;
-				this.SetNativeField("subTitleLabel", value);
+				this.__mt_toolbar = value;
+				this.SetNativeField("toolbar", value);
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("titleLabel")]
-		private MonoTouch.UIKit.UILabel titleLabel {
+		[MonoTouch.Foundation.Connect("view")]
+		private MonoTouch.UIKit.UIView view {
 			get {
-				this.__mt_titleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("titleLabel")));
-				return this.__mt_titleLabel;
+				this.__mt_view = ((MonoTouch.UIKit.UIView)(this.GetNativeField("view")));
+				return this.__mt_view;
 			}
 			set {
-				this.__mt_titleLabel = value;
-				this.SetNativeField("titleLabel", value);
+				this.__mt_view = value;
+				this.SetNativeField("view", value);
 			}
 		}
 	}
