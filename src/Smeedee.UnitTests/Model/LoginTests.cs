@@ -100,5 +100,12 @@ namespace Smeedee.UnitTests.Model
 			Assert.AreEqual("key", login.Key);
 		}
 		
+		[Test]
+		public void Callback_should_be_run_when_changing_server() 
+		{
+			var shouldBeTrue = false;
+			login.StoreAndValidate("", "", (str) => shouldBeTrue = true);
+			Assert.IsTrue(shouldBeTrue);
+		}
     }
 }
