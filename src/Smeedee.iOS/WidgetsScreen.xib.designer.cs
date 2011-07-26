@@ -23,6 +23,10 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
+		private MonoTouch.UIKit.UILabel __mt_subTitleLabel;
+		
+		private MonoTouch.UIKit.UILabel __mt_titleLabel;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("scrollView")]
 		private MonoTouch.UIKit.UIScrollView scrollView {
@@ -69,6 +73,30 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_view = value;
 				this.SetNativeField("view", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("subTitleLabel")]
+		private MonoTouch.UIKit.UILabel subTitleLabel {
+			get {
+				this.__mt_subTitleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("subTitleLabel")));
+				return this.__mt_subTitleLabel;
+			}
+			set {
+				this.__mt_subTitleLabel = value;
+				this.SetNativeField("subTitleLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("titleLabel")]
+		private MonoTouch.UIKit.UILabel titleLabel {
+			get {
+				this.__mt_titleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("titleLabel")));
+				return this.__mt_titleLabel;
+			}
+			set {
+				this.__mt_titleLabel = value;
+				this.SetNativeField("titleLabel", value);
 			}
 		}
 	}
