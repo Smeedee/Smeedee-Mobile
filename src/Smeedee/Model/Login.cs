@@ -20,6 +20,7 @@ namespace Smeedee.Model
 			Key = key;
 			Url = url;
 			
+			
 		}
 		
 		

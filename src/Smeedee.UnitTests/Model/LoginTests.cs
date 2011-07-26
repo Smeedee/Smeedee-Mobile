@@ -88,9 +88,16 @@ namespace Smeedee.UnitTests.Model
 		[Test]
 		public void Should_store_url_when_changing_server()
 		{
-			login.StoreAndValidate("new url", "", (str) => {});
+			login.StoreAndValidate("https://www.example.com/", "", (str) => {});
 			
-			Assert.AreEqual("new url", login.Url);
+			Assert.AreEqual("https://www.example.com/", login.Url);
+		}
+		[Test]
+		public void Should_store_key_when_changing_server()
+		{
+			login.StoreAndValidate("", "key", (str) => {});
+			
+			Assert.AreEqual("key", login.Key);
 		}
 		
     }
