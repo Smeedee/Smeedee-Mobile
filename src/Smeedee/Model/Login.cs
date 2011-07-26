@@ -10,7 +10,16 @@
         public Login()
         {
             persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-        }
+		}
+		/*
+		public void StoreAndValidate(string url, string key, Action<string> callback)
+		{
+			Key = key;
+			Url = url;
+			
+		}*/
+		
+		
         public bool IsValid()
         {
             //TODO: Connect with a login service, and do actual validation
