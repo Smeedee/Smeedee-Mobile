@@ -303,7 +303,6 @@
     <Compile Include="..\Smeedee\Model\ServiceConstants.cs">
       <Link>Model\ServiceConstants.cs</Link>
     </Compile>
-    <Compile Include="Config\Views\ConfigTableHeader.cs" />
     <Compile Include="..\Smeedee\Services\Fakes\WorkingDaysLeftFakeService.cs">
       <Link>Services\Fakes\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
@@ -313,6 +312,7 @@
     <Compile Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib.designer.cs">
       <DependentUpon>LatestCommitsLoadMoreTableCellController.xib</DependentUpon>
     </Compile>
+    <Compile Include="Config\Views\ConfigTableSectionHeader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

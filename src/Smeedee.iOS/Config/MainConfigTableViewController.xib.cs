@@ -97,14 +97,14 @@ namespace Smeedee.iOS
 			//return new ConfigTableHeaderView(views.ValueAt(0));
 			
 			if (section == 0)
-				return new ConfigTableHeader("Smeedee server");
+				return new ConfigTableSectionHeader("Smeedee server");
 			
-			return new ConfigTableHeader("Widgets");
+			return new ConfigTableSectionHeader("Widgets");
 		}
 		
 		public override float GetHeightForHeader (UITableView tableView, int section)
 		{
-			return (float)ConfigTableHeader.Height;
+			return (float)ConfigTableSectionHeader.Height;
 		}
 	}
 }

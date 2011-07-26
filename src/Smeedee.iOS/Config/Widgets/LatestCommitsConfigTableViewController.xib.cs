@@ -96,7 +96,7 @@ namespace Smeedee.iOS
 			case 0:
 				return base.GetViewForHeader(tableView, section);
 			default:
-				return new ConfigTableHeader("Highlight color");
+				return new ConfigTableSectionHeader("Highlight color");
 			}
 		}
 	}

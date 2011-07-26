@@ -112,9 +112,9 @@ namespace Smeedee.iOS
 			case 0:
 				return base.GetViewForHeader(tableView, section);
 			case 1:
-				return new ConfigTableHeader("Ordering");
+				return new ConfigTableSectionHeader("Ordering");
 			default:
-				return new ConfigTableHeader("Display");
+				return new ConfigTableSectionHeader("Display");
 			}
 		}
 

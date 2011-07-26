@@ -131,9 +131,9 @@ namespace Smeedee.iOS
 			case 0:
 				return base.GetViewForHeader(tableView, section);
 			case 1:
-				return new ConfigTableHeader("Committers");
+				return new ConfigTableSectionHeader("Committers");
 			default:
-				return new ConfigTableHeader("Time");
+				return new ConfigTableSectionHeader("Time");
 			}
 		}
 	}
