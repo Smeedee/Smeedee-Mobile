@@ -1,4 +1,6 @@
-﻿namespace Smeedee.Model
+﻿using System;
+
+namespace Smeedee.Model
 {
     public class Login
     {
@@ -11,13 +13,14 @@
         {
             persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
 		}
-		/*
+		
+		
 		public void StoreAndValidate(string url, string key, Action<string> callback)
 		{
 			Key = key;
 			Url = url;
 			
-		}*/
+		}
 		
 		
         public bool IsValid()

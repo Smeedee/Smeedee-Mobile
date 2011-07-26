@@ -63,5 +63,14 @@ namespace Smeedee.UnitTests.Model
             var url = login.Url;
             Assert.AreEqual(2, fakePersistenceService.GetCalls);
         }
+		
+		[Test]
+		public void Should_store_url_when_changing_server()
+		{
+			login.StoreAndValidate("new url", "", (str) => {});
+			
+			Assert.AreEqual("new url", login.Url);
+		}
+		
     }
 }
