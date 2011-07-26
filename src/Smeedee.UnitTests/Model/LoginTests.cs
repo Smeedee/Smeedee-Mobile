@@ -42,10 +42,31 @@ namespace Smeedee.UnitTests.Model
         }
 
         [Test]
-        public void Get_and_set_should_correspond_for_url()
+        public void Should_keep_urls()
         {
-            login.Url = "newkey";
-            Assert.AreEqual("newkey", login.Url);
+            login.Url = "http://www.example.com/";
+            Assert.AreEqual("http://www.example.com/", login.Url);
+        }
+
+        [Test]
+        public void Should_add_a_slash_to_the_end_of_urls()
+        {
+            login.Url = "http://www.example.com";
+            Assert.AreEqual("http://www.example.com/", login.Url);
+        }
+
+        [Test]
+        public void Should_add_http_to_the_beginning_of_urls_without_specified_protocol()
+        {
+            login.Url = "www.example.com";
+            Assert.AreEqual("http://www.example.com/", login.Url);
+        }
+
+        [Test]
+        public void Should_not_alter_specficied_protocols()
+        {
+            login.Url = "https://www.example.com";
+            Assert.AreEqual("https://www.example.com/", login.Url);
         }
 
         [Test]

@@ -103,7 +103,7 @@ namespace Smeedee.UnitTests.Model
             public void Should_properly_order_builds_by_build_time()
             {
                 BuildStatus model = GetTimeSortedModel();
-                model.Load(() => Assert.AreEqual(model.Builds.OrderBy(b => b.BuildTime), model.Builds));
+                model.Load(() => Assert.AreEqual(model.Builds.OrderByDescending(b => b.BuildTime), model.Builds));
             }
 
             [Test]
@@ -117,23 +117,36 @@ namespace Smeedee.UnitTests.Model
             public void Should_maintain_time_based_ordering_among_broken_builds_when_they_are_on_top()
             {
                 var model = GetTimeSortedModelWithBrokenAtTop();
-                model.Load(() => Assert.AreEqual(model.Builds.Take(2).OrderBy(b => b.BuildTime), model.Builds.Take(2)));
+                model.Load(() => CollectionAssert.AreEqual(model.Builds.Take(2).OrderByDescending(b => b.BuildTime), model.Builds.Take(2)));
             }
 
             [Test]
             public void Should_maintain_time_based_ordering_among_working_builds_when_broken_builds_are_on_top()
             {
                 var model = GetTimeSortedModelWithBrokenAtTop();
-                model.Load(() => Assert.AreEqual(model.Builds.Skip(2).Take(3).OrderBy(b => b.BuildTime), model.Builds.Skip(2).Take(3)));
+                model.Load(() => AssertEqualContent(model.Builds.Skip(2).Take(3).OrderByDescending(b => b.BuildTime), model.Builds.Skip(2).Take(3)));
             }
 
             [Test]
             public void Should_maintain_time_based_ordering_among_unknown_builds_when_broken_builds_are_on_top()
             {
                 var model = GetTimeSortedModelWithBrokenAtTop();
-                model.Load(() => Assert.AreEqual(model.Builds.Skip(5).Take(3).OrderBy(b => b.BuildTime), model.Builds.Skip(5).Take(3)));
+                model.Load(() => { });
+                var expected = model.Builds.Skip(5).Take(3).OrderByDescending(b => b.BuildTime);
+                var result = model.Builds.Skip(5).Take(3);
+                CollectionAssert.AreEqual(expected, result);
             }
 
+            private void AssertEqualContent<T>(IEnumerable<T> a, IEnumerable<T> b)
+            {
+                var listA = a.ToList();
+                var listB = b.ToList();
+                Assert.AreEqual(listA.Count, listB.Count);
+                for (var i = 0; i < listA.Count; ++i)
+                {
+                    Assert.AreEqual(listA[i], listB[i]);
+                }
+            }
 
             private static BuildStatus GetNameSortedModel()
             {
