@@ -12,8 +12,8 @@ namespace Smeedee.Services
         private readonly IFetchHttp http;
         private SmeedeeApp app = SmeedeeApp.Instance;
         
-        public int DaysLeft = -1;
-        public DateTime UntilDate = new DateTime(2011, 7, 15);
+        public int DaysLeft;
+        public DateTime UntilDate;
 
         public WorkingDaysLeftService()
         {
@@ -27,7 +27,7 @@ namespace Smeedee.Services
             var url = login.Url +
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.WORKING_DAYS_LEFT_SERVICE_URL +
-                      "?key=" + login.Key;
+                      "&key=" + login.Key;
             return http.DownloadString(url);
         }
 

@@ -29,7 +29,7 @@ namespace Smeedee.Model
 
         public void Load(Action callback)
         {
-            service.Get10(0, commits =>
+            service.Get10Latest(commits =>
                 {
                     this.commits = commits.ToList();
                     callback();
@@ -38,8 +38,8 @@ namespace Smeedee.Model
 
         public void LoadMore(Action callback)
         {
-            var fromIndex = Commits.Count();
-            service.Get10(fromIndex, loadedCommits =>
+            var fromRevision = Commits.Last().Revision;
+            service.Get10FromRevision(fromRevision, loadedCommits =>
             {
                 StoreNewCommits(loadedCommits);
                 callback();

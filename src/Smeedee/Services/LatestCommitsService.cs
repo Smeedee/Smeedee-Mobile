@@ -12,6 +12,7 @@ namespace Smeedee.Services
         private const int INDEX_COMMIT_MESSAGE = 0;
         private const int INDEX_COMMIT_DATETIME = 1;
         private const int INDEX_COMMIT_USER = 2;
+        private const int INDEX_COMMIT_REVISION = 3;
 
         private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
@@ -22,10 +23,26 @@ namespace Smeedee.Services
             bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
         }
 
-        public void Get10(int fromIndex, Action<IEnumerable<Commit>> callback)
+        public string GetFromHttp(int revision)
         {
-            bgWorker.Invoke(() => 
-                callback(ParseCsv(downloader.DownloadString(new Login().Url + ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH + ServiceConstants.LATEST_COMMITS_SERVICE_URL + "?fromRevision=" + fromIndex))));
+            var parameter = (revision == -1 ? "" : "?revision=" + revision);
+            var url = new Login().Url + 
+                      ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
+                      ServiceConstants.LATEST_COMMITS_SERVICE_URL +
+                      parameter;
+            return downloader.DownloadString(url);
+        }
+
+        public void Get10FromRevision(int fromRevision, Action<IEnumerable<Commit>> callback)
+        {
+            bgWorker.Invoke(() =>
+                callback(ParseCsv(GetFromHttp(fromRevision))));
+        }
+
+        public void Get10Latest(Action<IEnumerable<Commit>> callback)
+        {
+            bgWorker.Invoke(() =>
+                callback(ParseCsv(GetFromHttp(-1))));
         }
 
         private static IEnumerable<Commit> ParseCsv(string csvData)
@@ -38,10 +55,12 @@ namespace Smeedee.Services
                 {
                     results.Add(new Commit(
                                     line[INDEX_COMMIT_MESSAGE],
-                                    DateTime.ParseExact(line[INDEX_COMMIT_DATETIME], ServiceConstants.DATETIME_STRING_FORMAT, CultureInfo.InvariantCulture),
-                                    line[INDEX_COMMIT_USER]));
+                                    DateTime.Parse(line[INDEX_COMMIT_DATETIME]),
+                                    line[INDEX_COMMIT_USER],
+                                    int.Parse(line[INDEX_COMMIT_REVISION])));
                 }
-                catch { }
+                catch (FormatException) { }
+                catch (IndexOutOfRangeException) { }
             }
             return results;
         }
