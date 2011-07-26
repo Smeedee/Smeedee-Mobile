@@ -33,6 +33,7 @@ namespace Smeedee.iOS
 			
 			EmptyScrollView();
             InstantiateEnabledWidgets();
+			AttachEventHandler();
 			AddWidgetsToScrollView();
 			
 			SetTitleLabels(CurrentPageIndex());
@@ -49,6 +50,14 @@ namespace Smeedee.iOS
 			foreach (var widgetModel in SmeedeeApp.Instance.EnabledWidgets) {
 				var instance = Activator.CreateInstance(widgetModel.Type);
 				widgets.Add(instance as IWidget);
+			}
+		}
+		
+		private void AttachEventHandler()
+		{
+			foreach (var widget in widgets)
+			{
+				widget.DescriptionChanged += WidgetDescriptionChanged;
 			}
 		}
 		
@@ -84,6 +93,12 @@ namespace Smeedee.iOS
             }
         }
 		
+		void WidgetDescriptionChanged(object sender, EventArgs e)
+		{
+			Console.WriteLine("Event catched");
+			SetTitleLabels(CurrentPageIndex());	
+		}
+		
         private void SetTitleLabels(int widgetIndex)
         {
 			if (widgets.Count() == 0) {
@@ -94,7 +109,7 @@ namespace Smeedee.iOS
 	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
 	            
 				titleLabel.Text = attribute.Name;
-	            subTitleLabel.Text = attribute.StaticDescription;
+	            subTitleLabel.Text = currentWidget.GetDynamicDescription();
 			}
         }
 		

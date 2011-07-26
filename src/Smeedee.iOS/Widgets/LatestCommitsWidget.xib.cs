@@ -31,6 +31,7 @@ namespace Smeedee.iOS
 		{
 			TableView.Source = new LatestCommitsTableSource(this, model.Commits);
 			TableView.ReloadData();
+			OnDescriptionChanged(new EventArgs());
 		}
         
         public void Refresh()
@@ -45,7 +46,7 @@ namespace Smeedee.iOS
 		
 		public string GetDynamicDescription() 
 		{
-			return "";	
+			return "TODO";	
 		}
 		
         public event EventHandler DescriptionChanged;
