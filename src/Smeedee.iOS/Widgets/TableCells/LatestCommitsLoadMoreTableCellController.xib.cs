@@ -18,6 +18,13 @@ namespace Smeedee.iOS
 		{
 			
 		}
+		
+		public void BindAction(Action callback)
+		{
+			button.TouchUpInside += delegate {
+				callback();
+			};	
+		}
 	}
 }
 

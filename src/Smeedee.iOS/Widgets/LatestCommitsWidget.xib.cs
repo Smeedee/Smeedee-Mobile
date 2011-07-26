@@ -12,11 +12,11 @@ namespace Smeedee.iOS
     [Widget("Latest Commits", StaticDescription = "List of latest commits", SettingsType = typeof(LatestCommitsConfigTableViewController))]
 	public partial class LatestCommitsWidget : UITableViewController, IWidget
 	{
-		private Smeedee.Model.LatestCommits model;
+		private LatestCommits model;
 		
 		public LatestCommitsWidget() : base("LatestCommits", null)
 		{
-			model = new Smeedee.Model.LatestCommits();
+			model = new LatestCommits();
 		}
 		
         public override void ViewDidLoad()
@@ -29,7 +29,7 @@ namespace Smeedee.iOS
 		
 		private void UpdateUI()
 		{
-			TableView.Source = new LatestCommitsTableSource(model.Commits);
+			TableView.Source = new LatestCommitsTableSource(this, model.Commits);
 			TableView.ReloadData();
 		}
         
@@ -37,6 +37,11 @@ namespace Smeedee.iOS
         {
 			model.Load(() => InvokeOnMainThread(UpdateUI));
         }
+		
+		public void LoadMore()
+		{
+			model.LoadMore(() => InvokeOnMainThread(UpdateUI));	
+		}
 		
 		public string GetDynamicDescription() 
 		{
@@ -55,13 +60,16 @@ namespace Smeedee.iOS
     {
 		private TableCellFactory cellFactory =	new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
         private TableCellFactory buttonCellFactory = new TableCellFactory("LatestCommitsLoadMoreTableCellController", typeof(LatestCommitsLoadMoreTableCellController));
+		
 		private List<Commit> commits;
+		private LatestCommitsWidget controller;
         
         private const float CELL_PADDING = 20f;
         
-        public LatestCommitsTableSource(IEnumerable<Commit> commits)
+        public LatestCommitsTableSource(LatestCommitsWidget controller, IEnumerable<Commit> commits)
         {
             this.commits = commits.ToList();
+			this.controller = controller;
         }
 		
 		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -84,8 +92,6 @@ namespace Smeedee.iOS
         public override int NumberOfSections(UITableView tableView) { return 1; }
         public override int RowsInSection(UITableView tableview, int section) { return commits.Count() + 1; }
        
-		private const string CELL_ID = "LatestCommitsCell";
-        
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
 			var row = indexPath.Row;
@@ -100,7 +106,9 @@ namespace Smeedee.iOS
 			else
 			{
 				var buttonController = buttonCellFactory.NewTableCellController(tableView, indexPath) as LatestCommitsLoadMoreTableCellController;
-
+				
+				buttonController.BindAction(() => controller.LoadMore());
+				
 				return buttonController.TableViewCell;
 			}
         }
