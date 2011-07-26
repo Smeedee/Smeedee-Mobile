@@ -25,8 +25,15 @@
 
         public string Url
         {
-            get { return persistence.Get(LoginUrl, ""); }
+            get { return NormalizeUrl(persistence.Get(LoginUrl, "")); }
             set { persistence.Save(LoginUrl, value); }
+        }
+
+        private string NormalizeUrl(string url)
+        {
+            if (!url.EndsWith("/")) url += "/";
+            if (!url.StartsWith("http")) url = "http://" + url;
+            return url;
         }
     }
 }
