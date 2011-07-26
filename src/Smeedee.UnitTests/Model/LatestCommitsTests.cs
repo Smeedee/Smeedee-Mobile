@@ -67,7 +67,7 @@ namespace Smeedee.UnitTests.Model
         {
             model.Load(() => { });
 
-            var newData = new List<Commit> {new Commit("Commit msg", DateTime.Now, "larspars")};
+            var newData = new List<Commit> {new Commit("Commit msg", DateTime.Now, "larspars", 1)};
             newData.AddRange(fakeService.data);
             fakeService.data = newData;
 
@@ -86,7 +86,12 @@ namespace Smeedee.UnitTests.Model
         {
             public int GetCalls;
 
-            public void Get10(int fromIndex, Action<IEnumerable<Commit>> callback)
+            public void Get10FromRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
+            {
+                GetCalls++;
+            }
+
+            public void Get10Latest(Action<IEnumerable<Commit>> callback)
             {
                 GetCalls++;
             }
