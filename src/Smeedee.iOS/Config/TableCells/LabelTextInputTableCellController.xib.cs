@@ -22,6 +22,7 @@ namespace Smeedee.iOS
 			this.textInput.Text = currentValue;
 			
 			cell.StyleAsSettingsTableCell();
+			cell.BackgroundColor = UIColor.White;
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 		

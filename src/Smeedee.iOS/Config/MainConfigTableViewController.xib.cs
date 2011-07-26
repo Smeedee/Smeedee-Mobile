@@ -24,8 +24,6 @@ namespace Smeedee.iOS
     {
 		private MainConfigTableViewController controller;
 		private Login loginModel;
-		private TableCellFactory cellFactory = 
-			new TableCellFactory("LabelTextInputTableCellController", typeof(LabelTextInputTableCellController));
 		
 		public MainConfigTableSource(MainConfigTableViewController controller) : base() {
 			this.controller = controller;
@@ -41,32 +39,29 @@ namespace Smeedee.iOS
 		
         public override int RowsInSection(UITableView tableview, int section)
         {
-			return (section == 0) ? 2 : SmeedeeApp.Instance.AvailableWidgets.Count;
+			return (section == 0) ? 1 : SmeedeeApp.Instance.AvailableWidgets.Count;
         }
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
+			UITableViewCell cell;
 			switch (indexPath.Section) 
 			{
 			case 0:
-				var cellController = 
-					cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
+	            cell = tableView.DequeueReusableCell("CellID") ??
+	                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
+	            
+	            cell.TextLabel.Text = "Smeedee server";
+	            cell.DetailTextLabel.Text = "Configure login url and password";
+            	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+	            cell.StyleAsSettingsTableCell();
 				
-				if (indexPath.Row == 0) {
-					cellController.BindDataToCell(loginModel.Url);
-					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
-				}
-				else
-				{
-					cellController.BindDataToCell(loginModel.Key);
-					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
-				}
-				return cellController.TableViewCell;
-			
+	            return cell;
+				
 			default:
 				var widget = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
 				
-	            var cell = tableView.DequeueReusableCell("CellID") ??
+	            cell = tableView.DequeueReusableCell("CellID") ??
 	                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
 	            
 	            cell.TextLabel.Text = widget.Name;
@@ -80,13 +75,18 @@ namespace Smeedee.iOS
 		
         public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
         {
-			if (indexPath.Section != 1) return;
-			
-			var widgetModel = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
-			if (widgetModel.SettingsType != null) 
+			if (indexPath.Section == 0) {
+				var instance = new ServerConfigTableViewController();
+				controller.NavigationController.PushViewController(instance, true);
+			}
+			else
 			{
-				var settingsControllerInstance = Activator.CreateInstance(widgetModel.SettingsType) as UIViewController;
-				controller.NavigationController.PushViewController(settingsControllerInstance, true);
+				var widgetModel = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
+				if (widgetModel.SettingsType != null) 
+				{
+					var settingsControllerInstance = Activator.CreateInstance(widgetModel.SettingsType) as UIViewController;
+					controller.NavigationController.PushViewController(settingsControllerInstance, true);
+				}
 			}
         }
 		

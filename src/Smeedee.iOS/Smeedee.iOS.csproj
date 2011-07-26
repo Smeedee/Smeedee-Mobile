@@ -313,6 +313,12 @@
       <DependentUpon>LatestCommitsLoadMoreTableCellController.xib</DependentUpon>
     </Compile>
     <Compile Include="Config\Views\ConfigTableSectionHeader.cs" />
+    <Compile Include="Config\Views\ServerConfigTableViewController.xib.cs">
+      <DependentUpon>ServerConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Views\ServerConfigTableViewController.xib.designer.cs">
+      <DependentUpon>ServerConfigTableViewController.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -334,6 +340,7 @@
     <Page Include="Config\TableCells\LabelTextInputTableCellController.xib" />
     <Page Include="Config\TableCells\RadioGroupTableViewController.xib" />
     <Page Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib" />
+    <Page Include="Config\Views\ServerConfigTableViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
