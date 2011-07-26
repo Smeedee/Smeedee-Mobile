@@ -37,11 +37,11 @@ namespace Smeedee
 
         public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
         {
-            if (buildListSwitch)
+            //if (buildListSwitch)
                 bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(builds)));
-            else
+            /*else
                 bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(builds2)));
-
+			 */
             buildListSwitch = !buildListSwitch;
         }
     }

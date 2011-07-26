@@ -9,7 +9,6 @@ namespace Smeedee.Model
 	{
         public const string SortingPropertyKey = "BuildStatus.Sorting";
         public const string BrokenFirstPropertyKey = "BuildStatus.BrokenFirst";
-	    public const string ShowTriggeredByPropertyKey = "BuildStatus.ShowTriggeredBy";
 
         private readonly IBuildStatusService buildService = SmeedeeApp.Instance.ServiceLocator.Get<IBuildStatusService>();
 	    private readonly IPersistenceService persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
@@ -54,42 +53,18 @@ namespace Smeedee.Model
             }
         }
 
-        public bool ShowTriggeredBy {
-            get
-            {
-                var showTriggeredBy = persistenceService.Get(ShowTriggeredByPropertyKey, true);
-                return showTriggeredBy;
-            }
-            set
-            {
-                persistenceService.Save(ShowTriggeredByPropertyKey, value);
-            }
-        }
-
 	    private List<Build> builds;
         public List<Build> Builds { 
             get
             {
                 var comparer = (Ordering == BuildOrder.BuildName) ? (IComparer<Build>)new BuildNameComparer() : new BuildTimeComparer();
-                return RemoveNamesIfAnonymousDisplayChosen(BrokenBuildsAtTop ? GetOrderedBuildsWithBrokenFirst(comparer) : GetOrderedBuilds(comparer));
+                return BrokenBuildsAtTop ? GetOrderedBuildsWithBrokenFirst(comparer) : GetOrderedBuilds(comparer);
             } 
             private set
             {
                 builds = value;
             } 
         }
-
-	    private List<Build> RemoveNamesIfAnonymousDisplayChosen(List<Build> buildList)
-	    {
-            if (ShowTriggeredBy)
-                return buildList;
-
-	        foreach (var build in buildList)
-	        {
-	            build.Username = "";
-	        }
-	        return buildList;
-	    }
 
 	    public int GetNumberOfBuildsByState(BuildState successState)
 	    {

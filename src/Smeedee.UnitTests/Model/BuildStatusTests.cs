@@ -217,7 +217,7 @@ namespace Smeedee.UnitTests.Model
 
                 Assert.AreEqual("buildtime", persister.Get(PREFERENCE_IMPLEMENTATION_BUILD_SORT_ORDERING, "foo"));
             }
-
+			/*
             [Test]
             public void Should_persist_whether_name_should_be_shown_as_bool_with_correct_key()
             {
@@ -233,7 +233,7 @@ namespace Smeedee.UnitTests.Model
                 var model = new BuildStatus();
                 
                 Assert.AreEqual(true, model.ShowTriggeredBy);
-            }
+            }*/
         }
 
         [TestFixture]
