@@ -1,4 +1,5 @@
 ﻿using System;
+using Smeedee.Services;
 
 namespace Smeedee.Model
 {
@@ -8,21 +9,24 @@ namespace Smeedee.Model
         public const string LoginUrl = "Login_Url";
 
         private IPersistenceService persistence;
+		private IValidationService validation;
 
         public Login()
         {
             persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+			validation = SmeedeeApp.Instance.ServiceLocator.Get<IValidationService>();
 		}
-		
 		
 		public void StoreAndValidate(string url, string key, Action<string> callback)
 		{
 			Key = key;
 			Url = url;
 			
-			callback("lolo");
+			validation.Validate(url, key, (validationSuccess) => {
+				if (validationSuccess) callback("Success");
+				else callback("Failed");
+			});
 		}
-		
 		
         public bool IsValid()
         {

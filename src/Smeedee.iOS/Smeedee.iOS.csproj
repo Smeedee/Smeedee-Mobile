@@ -319,6 +319,9 @@
     <Compile Include="Config\Views\ServerConfigTableViewController.xib.designer.cs">
       <DependentUpon>ServerConfigTableViewController.xib</DependentUpon>
     </Compile>
+    <Compile Include="..\Smeedee\Services\IValidationService.cs">
+      <Link>Services\IValidationService.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

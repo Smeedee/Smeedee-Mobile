@@ -25,6 +25,7 @@ namespace Smeedee.iOS
 			
 			serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
+			//serviceLocator.Bind<IValidationService>(new FakeValidationService());
 			
 			serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
 			serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
