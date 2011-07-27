@@ -46,7 +46,7 @@ namespace Smeedee.iOS
 		
 		public string GetDynamicDescription() 
 		{
-			return "TODO";	
+			return model.DynamicDescription;	
 		}
 		
         public event EventHandler DescriptionChanged;
