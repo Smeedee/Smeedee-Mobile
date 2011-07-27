@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Smeedee.Model;
+using Smeedee.Services;
 using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Model
@@ -14,14 +15,19 @@ namespace Smeedee.UnitTests.Model
         private LatestCommits model;
         private CallCountingLatestCommitsService countingService;
         private UnitTests.Fakes.FakeLatestCommitsService fakeService;
+		private FakePersistenceService fakePersistence;
 
         [SetUp]
         public void SetUp()
         {
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
-            countingService = new CallCountingLatestCommitsService();
+			
             fakeService = new UnitTests.Fakes.FakeLatestCommitsService();
+            countingService = new CallCountingLatestCommitsService();
+			fakePersistence = new FakePersistenceService();
+			
             SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(fakeService);
+			
             model = new LatestCommits();
         }
 
@@ -81,6 +87,14 @@ namespace Smeedee.UnitTests.Model
             Assert.IsFalse(hasDuplicates);
             Assert.AreEqual(19, model.Commits.Count());
         }
+		
+		public void Should_save_toggle_highlight_to_persistence()
+		{
+			model.HighlightEmpty = true;
+			
+			Assert.AreEqual(1, fakePersistence.SaveCalls);
+		}
+		
 
         private class CallCountingLatestCommitsService : ILatestCommitsService
         {

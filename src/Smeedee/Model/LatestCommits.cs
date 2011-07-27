@@ -1,30 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Smeedee.Services;
 
 namespace Smeedee.Model
 {
     public class LatestCommits
     {
+        public const string HighlightEmptyPropertyKey = "LatestCommits.HighlightEmpty";
+		
         private List<Commit> commits = new List<Commit>();
         public List<Commit> Commits
         {
             get { return commits; }
             private set { commits = value; }
         }
+		
         public string DynamicDescription
         {
-            get
-            {
-                return "Latest " + Commits.Count() + " commits";
-            }
+            get { return "Latest " + Commits.Count() + " commits"; }
         }
 
         private ILatestCommitsService service;
+		private IPersistenceService persistence;
 
         public LatestCommits()
         {
             service = SmeedeeApp.Instance.ServiceLocator.Get<ILatestCommitsService>();
+			persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         }
 
         public void Load(Action callback)
@@ -54,5 +57,11 @@ namespace Smeedee.Model
                 if (!Enumerable.Contains(commits, commit))
                     commits.Add(commit);
         }
+		
+		public bool HighlightEmpty
+		{
+			get { return true; }
+			set { persistence.Save(HighlightEmptyPropertyKey, value); }
+		}
     }
 }
