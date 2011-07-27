@@ -27,6 +27,7 @@ namespace Smeedee.UnitTests.Model
 			fakePersistence = new FakePersistenceService();
 			
             SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(fakeService);
+            SmeedeeApp.Instance.ServiceLocator.Bind<IPersistenceService>(fakePersistence);
 			
             model = new LatestCommits();
         }
@@ -88,13 +89,32 @@ namespace Smeedee.UnitTests.Model
             Assert.AreEqual(19, model.Commits.Count());
         }
 		
-		public void Should_save_toggle_highlight_to_persistence()
+		[Test]
+		public void Should_save_highlight_empty_to_persistence()
 		{
 			model.HighlightEmpty = true;
 			
 			Assert.AreEqual(1, fakePersistence.SaveCalls);
 		}
 		
+		[Test]
+		public void Default_value_for_highlight_empty_should_be_false()
+		{
+			var val = model.HighlightEmpty;
+			
+			Assert.IsFalse(val);
+		}
+		
+		[Test]
+		public void Should_read_highlight_empty_from_persistence()
+		{
+			fakePersistence.Save("LatestCommits.HighlightEmpty", true);
+			
+			var val = model.HighlightEmpty;
+			
+			Assert.IsTrue(val);
+			Assert.AreEqual(1, fakePersistence.GetCalls);
+		}
 
         private class CallCountingLatestCommitsService : ILatestCommitsService
         {

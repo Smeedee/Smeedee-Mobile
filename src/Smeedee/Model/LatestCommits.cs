@@ -60,7 +60,7 @@ namespace Smeedee.Model
 		
 		public bool HighlightEmpty
 		{
-			get { return true; }
+			get { return persistence.Get(HighlightEmptyPropertyKey, false); }
 			set { persistence.Save(HighlightEmptyPropertyKey, value); }
 		}
     }
