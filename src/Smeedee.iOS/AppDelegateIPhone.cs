@@ -12,7 +12,7 @@ namespace Smeedee.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 			
-            var sharedApp = new AppDelegateShared(window, tabBar);
+            var sharedApp = new AppDelegateShared(window, tabBar, loginHeader, login);
             sharedApp.FinishedLaunching();
 
             window.MakeKeyAndVisible();

@@ -2,11 +2,9 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Preferences;
 using Android.Util;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
-using Smeedee;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
@@ -31,6 +29,7 @@ namespace Smeedee.Android
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
             App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+            App.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
             App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
 
             App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());

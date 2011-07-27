@@ -90,15 +90,6 @@ namespace Smeedee.iOS
 				// ConfigTableHeader here?
 			}
 		}
-		public override UIView GetViewForHeader (UITableView tableView, int section)
-		{	
-			switch (section) {
-			case 0:
-				return base.GetViewForHeader(tableView, section);
-			default:
-				return new ConfigTableHeader("Highlight color");
-			}
-		}
 	}
 }
 

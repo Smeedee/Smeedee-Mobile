@@ -114,6 +114,9 @@
     <Compile Include="..\Smeedee\Services\Fakes\FakeBuildStatusService.cs">
       <Link>Services\Fakes\FakeBuildStatusService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeValidationService.cs">
+      <Link>Services\Fakes\FakeValidationService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\LatestCommitsFakeService.cs">
       <Link>Services\Fakes\LatestCommitsFakeService.cs</Link>
     </Compile>
@@ -143,6 +146,9 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\ITopCommittersService.cs">
       <Link>Services\ITopCommittersService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IValidationService.cs">
+      <Link>Services\IValidationService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\IWorkingDaysLeftService.cs">
       <Link>Services\IWorkingDaysLeftService.cs</Link>

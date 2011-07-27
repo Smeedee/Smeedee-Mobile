@@ -77,13 +77,13 @@ namespace Smeedee.iOS
 		public override UIView GetViewForHeader (UITableView tableView, int section)
 		{	
 		
-			return new ConfigTableHeader(headline);
+			return new ConfigTableSectionHeader(headline);
 			
 		}
 		
 		public override float GetHeightForHeader (UITableView tableView, int section)
 		{
-			return (float)ConfigTableHeader.Height;
+			return (float)ConfigTableSectionHeader.Height;
 		}
 	}
 }

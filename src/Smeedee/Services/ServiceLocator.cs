@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Smeedee
+namespace Smeedee.Services
 {
     public class ServiceLocator
     {

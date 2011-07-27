@@ -11,6 +11,10 @@ namespace Smeedee.iOS
 		public LabelTextInputTableCellController() : base("LabelTextInputTableCellController", null)
         {
         }
+		public UITextField TextInput 
+		{	
+			get { return this.textInput;}
+		}
         
         public override UITableViewCell TableViewCell
         {
@@ -22,6 +26,7 @@ namespace Smeedee.iOS
 			this.textInput.Text = currentValue;
 			
 			cell.StyleAsSettingsTableCell();
+			cell.BackgroundColor = UIColor.White;
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 		

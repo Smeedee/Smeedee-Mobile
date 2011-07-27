@@ -303,9 +303,39 @@
     <Compile Include="..\Smeedee\Model\ServiceConstants.cs">
       <Link>Model\ServiceConstants.cs</Link>
     </Compile>
-    <Compile Include="Config\Views\ConfigTableHeader.cs" />
     <Compile Include="..\Smeedee\Services\Fakes\WorkingDaysLeftFakeService.cs">
       <Link>Services\Fakes\WorkingDaysLeftFakeService.cs</Link>
+    </Compile>
+    <Compile Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib.cs">
+      <DependentUpon>LatestCommitsLoadMoreTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib.designer.cs">
+      <DependentUpon>LatestCommitsLoadMoreTableCellController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Views\ConfigTableSectionHeader.cs" />
+    <Compile Include="Config\Views\ServerConfigTableViewController.xib.cs">
+      <DependentUpon>ServerConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Views\ServerConfigTableViewController.xib.designer.cs">
+      <DependentUpon>ServerConfigTableViewController.xib</DependentUpon>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\IValidationService.cs">
+      <Link>Services\IValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeValidationService.cs">
+      <Link>Services\Fakes\FakeValidationService.cs</Link>
+    </Compile>
+    <Compile Include="LoginScreen.xib.cs">
+      <DependentUpon>LoginScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="LoginScreen.xib.designer.cs">
+      <DependentUpon>LoginScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\LatestCommitsService.cs">
+      <Link>Services\LatestCommitsService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\HttpFetcher.cs">
+      <Link>Services\HttpFetcher.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +357,9 @@
     <Page Include="Widgets\LatestCommitsWidget.xib" />
     <Page Include="Config\TableCells\LabelTextInputTableCellController.xib" />
     <Page Include="Config\TableCells\RadioGroupTableViewController.xib" />
+    <Page Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib" />
+    <Page Include="Config\Views\ServerConfigTableViewController.xib" />
+    <Page Include="LoginScreen.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

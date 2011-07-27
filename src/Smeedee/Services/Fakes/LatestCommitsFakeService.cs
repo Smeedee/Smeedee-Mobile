@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Smeedee.Model;
-using Smeedee;
-using Smeedee.Services;
 
-namespace Smeedee
+namespace Smeedee.Services.Fakes
 {
     public class FakeLatestCommitsService : ILatestCommitsService
     {
         private List<Commit> data = new List<Commit>
-                                       {
+            {
             new Commit("Refactored HerpFactory.Derp()", new DateTime(2011, 7, 7, 12, 0, 0), "larmel", 1),
             new Commit("Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it? ", new DateTime(2011, 7, 7, 1, 10, 0), "larmel", 2),
             new Commit("", new DateTime(2011, 7, 6, 2, 0, 0), "larspars", 3),
@@ -37,20 +35,19 @@ namespace Smeedee
             new Commit("This is number 24", new DateTime(2011, 7, 1, 2, 0, 0), "larmel", 24),
             new Commit("This is number 25", new DateTime(2011, 7, 1, 2, 0, 0), "larmel", 25),
             new Commit("This is number 26", new DateTime(2011, 7, 1, 2, 0, 0), "larmel", 26)
-                                       };
+            };
 
         private readonly IBackgroundWorker bgWorker;
-        private readonly SmeedeeApp app = SmeedeeApp.Instance;
 
         public FakeLatestCommitsService()
         {
-            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+            bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
         }
 
         private string PretendToGetDataFromHttp(int fromIndex)
         {
             var subset = data.Skip(fromIndex).Take(10);
-            var asStrings = subset.Select(commit => new [] {commit.Message, commit.Date.ToString(), commit.User});
+            var asStrings = subset.Select(commit => new [] {commit.Message, commit.Date.ToString(), commit.User, commit.Revision.ToString()});
             return Csv.ToCsv(asStrings);
         }
 

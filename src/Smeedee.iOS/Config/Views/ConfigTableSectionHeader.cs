@@ -7,14 +7,14 @@ using System.Drawing;
 
 namespace Smeedee.iOS
 {
-	public class ConfigTableHeader : UIView
+	public class ConfigTableSectionHeader : UIView
 	{
 		private static int padding = 15;
 		public static int Height = 35;
 		
 		private UILabel label;
 		
-		public ConfigTableHeader(string header) : base() {
+		public ConfigTableSectionHeader(string header) : base() {
 			this.Frame = new RectangleF(padding, 0, 320 - 2*padding, Height);
 			
 			label = new UILabel(this.Frame);

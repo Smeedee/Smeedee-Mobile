@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
 using Smeedee.Services;
+using Smeedee.Services.Fakes;
 using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Services
@@ -21,6 +22,7 @@ namespace Smeedee.UnitTests.Services
             SmeedeeApp.Instance.ServiceLocator.Bind<IFetchHttp>(downloader);
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
             SmeedeeApp.Instance.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
+            SmeedeeApp.Instance.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
             service = new BuildStatusService();
         }
 

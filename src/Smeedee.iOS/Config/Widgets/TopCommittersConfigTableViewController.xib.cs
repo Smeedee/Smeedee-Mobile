@@ -125,16 +125,5 @@ namespace Smeedee.iOS
 				timeCells[timeSelected].SetSelected(false, true);
 			}
 		}
-		public override UIView GetViewForHeader (UITableView tableView, int section)
-		{	
-			switch (section) {
-			case 0:
-				return base.GetViewForHeader(tableView, section);
-			case 1:
-				return new ConfigTableHeader("Committers");
-			default:
-				return new ConfigTableHeader("Time");
-			}
-		}
 	}
 }

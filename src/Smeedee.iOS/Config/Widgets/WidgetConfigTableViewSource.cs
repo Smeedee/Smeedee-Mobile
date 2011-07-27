@@ -38,19 +38,8 @@ namespace Smeedee.iOS
 			return cell;
 		}
 		
-		
         public override int NumberOfSections(UITableView tableView) { return 1; }
-		
         public override int RowsInSection(UITableView tableview, int section) { return 1; }
-        
-        public override UIView GetViewForHeader(UITableView tableView, int section) 
-		{ 
-			return new ConfigTableHeader("General");
-		}
-		public override float GetHeightForHeader (UITableView tableView, int section)
-		{
-			return (float)ConfigTableHeader.Height;
-		}
 	}
 }
 

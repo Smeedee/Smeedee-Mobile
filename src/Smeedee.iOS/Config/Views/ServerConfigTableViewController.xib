@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="8"/>
+			<integer value="14"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -37,68 +37,36 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
-			<object class="IBUITableViewCell" id="184127751">
+			<object class="IBUIView" id="431609144">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="814568">
-						<reference key="NSNextResponder" ref="184127751"/>
-						<int key="NSvFlags">256</int>
-						<object class="NSMutableArray" key="NSSubviews">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUITextField" id="142444201">
-								<reference key="NSNextResponder" ref="814568"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 0}, {280, 44}}</string>
-								<reference key="NSSuperview" ref="814568"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="682734125">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MCAwAA</bytes>
-								</object>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUIText"/>
-								<string key="IBUIPlaceholder">http://www.somedomain/domepath</string>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-								</object>
-								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica</string>
-									<double key="NSSize">13</double>
-									<int key="NSfFlags">16</int>
-								</object>
-								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
-								<float key="IBUIMinimumFontSize">13</float>
-								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
-									<int key="IBUIAutocorrectionType">1</int>
-									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								</object>
-								<int key="IBUIClearButtonMode">3</int>
-							</object>
+					<object class="IBUITableView" id="540321770">
+						<reference key="NSNextResponder" ref="431609144"/>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrameSize">{320, 460}</string>
+						<reference key="NSSuperview" ref="431609144"/>
+						<object class="NSColor" key="IBUIBackgroundColor" id="539529618">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MAA</bytes>
 						</object>
-						<string key="NSFrameSize">{320, 44}</string>
-						<reference key="NSSuperview" ref="184127751"/>
-						<reference key="IBUIBackgroundColor" ref="682734125"/>
-						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">4</int>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIAlwaysBounceVertical">YES</bool>
+						<int key="IBUIStyle">1</int>
+						<int key="IBUISeparatorStyle">2</int>
+						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
+						<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
+						<float key="IBUIRowHeight">44</float>
+						<float key="IBUISectionHeaderHeight">10</float>
+						<float key="IBUISectionFooterHeight">10</float>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 44}</string>
+				<string key="NSFrameSize">{320, 460}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MSAxIDEAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="539529618"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-				<int key="IBUISeparatorStyle">1</int>
-				<reference key="IBUIContentView" ref="814568"/>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -106,27 +74,19 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">table</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="540321770"/>
+					</object>
+					<int key="connectionID">16</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="184127751"/>
+						<reference key="destination" ref="431609144"/>
 					</object>
-					<int key="connectionID">9</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">textInput</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="142444201"/>
-					</object>
-					<int key="connectionID">13</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">cell</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="184127751"/>
-					</object>
-					<int key="connectionID">14</int>
+					<int key="connectionID">19</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -150,18 +110,21 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">8</int>
-						<reference key="object" ref="184127751"/>
+						<int key="objectID">14</int>
+						<reference key="object" ref="431609144"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="142444201"/>
+							<reference ref="540321770"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">11</int>
-						<reference key="object" ref="142444201"/>
-						<reference key="parent" ref="184127751"/>
+						<int key="objectID">8</int>
+						<reference key="object" ref="540321770"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
+						<reference key="parent" ref="431609144"/>
 					</object>
 				</object>
 			</object>
@@ -171,21 +134,27 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
-					<string>11.IBPluginDependency</string>
-					<string>11.IBViewBoundsToFrameTransform</string>
+					<string>14.IBEditorWindowLastContentRect</string>
+					<string>14.IBPluginDependency</string>
+					<string>14.IBViewBoundsToFrameTransform</string>
 					<string>8.IBEditorWindowLastContentRect</string>
 					<string>8.IBPluginDependency</string>
+					<string>8.IBViewBoundsToFrameTransform</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>LabelTextInputTableCellController</string>
+					<string>ServerConfigTableViewController</string>
 					<string>UIResponder</string>
+					<string>{{312, 203}, {320, 460}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABCHAAAwgwAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABC6AAAxCbAAA</bytes>
 					</object>
-					<string>{{268, 583}, {320, 44}}</string>
+					<string>{{197, 602}, {320, 141}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw5mAAA</bytes>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -204,26 +173,22 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">14</int>
+			<int key="maxID">21</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">LabelTextInputTableCellController</string>
+					<string key="className">ServerConfigTableViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>cell</string>
-							<string>label</string>
-							<string>textInput</string>
+							<string>table</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -232,23 +197,13 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>cell</string>
-							<string>label</string>
-							<string>textInput</string>
+							<string>table</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
-								<string key="name">cell</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">label</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">textInput</string>
+								<string key="name">table</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
