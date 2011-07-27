@@ -4,7 +4,6 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Preferences;
-using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -16,23 +15,12 @@ namespace Smeedee.Android.Screens
     [Activity(Label = "Smeedee settings", Theme = "@android:style/Theme")]
     public class GlobalSettings : PreferenceActivity
     {
-        private IPersistenceService persistence;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-            
             AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
             
-            LoadPreferences();
             PopulateAvailableWidgetsList();
-        }
-        private void LoadPreferences()
-        {
-            var login = new Login();
-            FindPreference(Login.LoginUrl).Summary = login.Url;
-            FindPreference(Login.LoginKey).Summary = login.Key;
         }
 
         private void PopulateAvailableWidgetsList()
@@ -54,11 +42,6 @@ namespace Smeedee.Android.Screens
                 availableWidgetsCategory.AddPreference(checkBox);
             }
         }
-        public override void OnWindowFocusChanged(bool hasFocus)
-        {
-            base.OnWindowFocusChanged(hasFocus);
-            LoadPreferences();
-        }
     }
     public class ServerSettingsPreference : DialogPreference
     {
@@ -67,6 +50,8 @@ namespace Smeedee.Android.Screens
         private EditText _serverUrlBox;
         private EditText _userKeyBox;
         private readonly Context _context;
+
+        private IPersistenceService _persistence;
 
         public ServerSettingsPreference(IntPtr doNotUse) 
             : base(doNotUse)
@@ -77,12 +62,19 @@ namespace Smeedee.Android.Screens
             : base(context, attrs, defStyle)
         {
             _context = context;
+            _persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         }
 
         public ServerSettingsPreference(Context context, IAttributeSet attrs) 
             : base(context, attrs)
         {
             _context = context;
+            _persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+        }
+        protected override void OnBindDialogView(View view)
+        {
+            _serverUrlBox.Text = _persistence.Get(Login.LoginUrl, "http://folk.ntnu.no/dagolap/s/");
+            _userKeyBox.Text = _persistence.Get(Login.LoginKey, "pass");
         }
         protected override View OnCreateDialogView()
         {
@@ -90,31 +82,40 @@ namespace Smeedee.Android.Screens
             layout.SetPadding(10, 10, 10, 10);
             layout.SetBackgroundColor(Color.Black);
 
-            _serverUrl = new TextView(_context) {Text = "Server url:"};
+            _serverUrl = new TextView(_context) {Text = "Server Url"};
             _serverUrl.SetTextColor(Color.White);
             _serverUrl.SetPadding(0, 8, 0, 3);
 
             _serverUrlBox = new EditText(_context);
             _serverUrlBox.SetSingleLine(true);
-            _serverUrlBox.SetSelectAllOnFocus(true);
 
-            _userKey = new TextView(_context) {Text = "Key:"};
+            _userKey = new TextView(_context) {Text = "User key"};
             _userKey.SetTextColor(Color.White);
 
             _userKeyBox = new EditText(_context);
             _userKeyBox.SetSingleLine(true);
-            _userKeyBox.SetSelectAllOnFocus(true);
 
             layout.AddView(_serverUrl);
-           layout.AddView(_serverUrlBox);
-           layout.AddView(_userKey);
-           layout.AddView(_userKeyBox);
+            layout.AddView(_serverUrlBox);
+            layout.AddView(_userKey);
+            layout.AddView(_userKeyBox);
 
             return layout; 
         }
         protected override void OnDialogClosed(bool positiveResult)
         {
-            Toast.MakeText(_context, "Result from dialog: " + positiveResult.ToString(), ToastLength.Short).Show();
+            if (!positiveResult) return;
+
+            var successText = Login.ValidationFailed;
+            new Login().StoreAndValidate(_serverUrlBox.Text, _userKeyBox.Text, (str) => successText = str);
+
+            if (successText == Login.ValidationSuccess)
+                Toast.MakeText(_context, "Successfully connected to " + _serverUrlBox.Text, ToastLength.Long).Show();
+            else
+            {
+                Toast.MakeText(_context, "Connection failed. Please try again", ToastLength.Long).Show();
+                ShowDialog(null);
+            }
         }
     }
 }

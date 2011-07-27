@@ -5,7 +5,7 @@
     <PreferenceScreen
       android:key="availableWidgets"
       android:title="@string/GlobalSettingsScreenAvailableWidgetsTitle"
-      android:summary="Enable and disable widgets">
+      android:summary="@string/GlobalSettingsScreenAvailableWidgetsSummary">
     </PreferenceScreen>
     <!--
     <CheckBoxPreference
@@ -25,26 +25,14 @@
     -->
   </PreferenceCategory>
   
-  <!-- Keys here must correspond with keys in the Login model -->
   <PreferenceCategory 
     android:title="@string/GlobalSettingsScreenPreferenceCategory2">
     <smeedee.android.screens.ServerSettingsPreference
       android:key="ServerSettingsPreference"
-      android:title="Server Settings"
-      android:negativeButtonText="Cancel"
-      android:positiveButtonText="Save" />
-    <EditTextPreference
-      android:id="@+id/serverUrl"
-      android:key="Login_Url"
-      android:title="@string/GlobalSettingsScreenServerUrlTitle"
-      android:inputType="textUri"
-      android:defaultValue="url"/>
-    <EditTextPreference
-      android:id="@+id/userPassword"
-      android:key="Login_Key"
-      android:title="@string/GlobalSettingsScreenUserPasswordTitle"
-      android:inputType="textVisiblePassword"
-      android:defaultValue="pass"/>
+      android:title="@string/GlobalSettingsScreenServerSettingsTitle"
+      android:summary="@string/GlobalSettingsScreenServerSettingsSummary"
+      android:positiveButtonText="@string/GlobalSettingsScreenServerSettingsPositiveButton"
+      android:negativeButtonText="@string/GlobalSettingsScreenServerSettingsNegativeButton" />
   </PreferenceCategory>
   
 </PreferenceScreen>

@@ -16,15 +16,20 @@
 
   <!--GlobalSettings-->
   <string name="GlobalSettingsScreenPreferenceCategory1">Widgets</string>
-  <string name="GlobalSettingsScreenPreferenceCategory2">Server and user settings</string>
+  <string name="GlobalSettingsScreenPreferenceCategory2">Server Settings</string>
   <string name="GlobalSettingsScreenAvailableWidgetsTitle">Widgets</string>
+  <string name="GlobalSettingsScreenAvailableWidgetsSummary">Enable and disable widgets</string>
+  
   <string name="GlobalSettingsScreenSlideShowIntervalTitle">Slide show interval</string>
   <string name="GlobalSettingsScreenSlideShowIntervalSummary">10 seconds</string>
   <string name="GlobalSettingsScreenSlideShowCheckboxTitle">Slide show</string>
   <string name="GlobalSettingsScreenSlideShowOn">Enabled</string>
   <string name="GlobalSettingsScreenSlideShowOff">Disabled</string>
-  <string name="GlobalSettingsScreenServerUrlTitle">Server URL</string>
-  <string name="GlobalSettingsScreenUserPasswordTitle">User password</string>
+  
+  <string name="GlobalSettingsScreenServerSettingsTitle">Server Settings</string>
+  <string name="GlobalSettingsScreenServerSettingsSummary">Change server url and user key</string>
+  <string name="GlobalSettingsScreenServerSettingsPositiveButton">Connect</string>
+  <string name="GlobalSettingsScreenServerSettingsNegativeButton">Cancel</string>
   
   <!-- About -->
   <string name="AboutTeamMember1Name">Dag Olav Prestegarden</string>

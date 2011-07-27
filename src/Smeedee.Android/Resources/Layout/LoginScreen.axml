@@ -19,18 +19,23 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:inputType="textUri"
+      android:text="http://folk.ntnu.no/dagolap/s/"
       android:hint="@string/LoginScreenServerUrlHint" />
     <EditText
       android:id="@+id/UserPasswordInput"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:inputType="textVisiblePassword"
+      android:text="pass"
       android:hint="@string/LoginScreenUserPasswordHint" />
     <TextView
       android:id="@+id/ErrorNotificationText"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:text="@string/LoginScreenErrorNotificationText"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
+      android:textSize="14px"
       android:visibility="invisible"
       android:textColor="#F33" />
     <Button

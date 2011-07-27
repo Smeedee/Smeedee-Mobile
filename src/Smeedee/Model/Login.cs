@@ -12,6 +12,18 @@ namespace Smeedee.Model
 
         private IPersistenceService persistence;
 		private IValidationService validation;
+        
+        public string Key
+        {
+            get { return persistence.Get(LoginKey, ""); }
+            set { persistence.Save(LoginKey, value); }
+        }
+
+        public string Url
+        {
+            get { return NormalizeUrl(persistence.Get(LoginUrl, "")); }
+            set { persistence.Save(LoginUrl, value); }
+        }
 
         public Login()
         {
@@ -23,7 +35,7 @@ namespace Smeedee.Model
 		{
 			Key = key;
 			Url = url;
-			
+
 			validation.Validate(url, key, (validationSuccess) => 
 			{
 				if (validationSuccess) callback(ValidationSuccess);
@@ -33,26 +45,15 @@ namespace Smeedee.Model
 		
         public bool IsValid()
         {
-            //TODO: Connect with a login service, and do actual validation
-            return Key != "" && Url != "";
-        }
-
-        public string Key
-        {
-            get { return persistence.Get(LoginKey, ""); } 
-            set { persistence.Save(LoginKey, value); }
-        }
-
-        public string Url
-        {
-            get { return NormalizeUrl(persistence.Get(LoginUrl, "")); }
-            set { persistence.Save(LoginUrl, value); }
+            var validationResult = false;
+            validation.Validate(Url, Key, (result) => validationResult = result);
+            return validationResult;
         }
 
         private string NormalizeUrl(string url)
         {
-            if (!url.EndsWith("/")) url += "/";
             if (!url.StartsWith("http")) url = "http://" + url;
+            if (!url.EndsWith("/")) url += "/";
             return url;
         }
     }
