@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Android.Util;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -29,14 +28,12 @@ namespace Smeedee.Services
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.WORKING_DAYS_LEFT_SERVICE_URL +
                       "?key=" + login.Key;
-            Log.Debug("Smeedee", "WDL url: '" + url + "'");
             return http.DownloadString(url);
         }
 
         private void GetSync(Action<int, DateTime> callback, Action failureCallback)
         {
             var httpData = GetDataFromHttp();
-            Log.Debug("Smeedee", "WDL httpData: '" + httpData + "'");
             var data = Csv.FromCsv(httpData).FirstOrDefault();
             if (data == null || data.Count() != 2)
             {

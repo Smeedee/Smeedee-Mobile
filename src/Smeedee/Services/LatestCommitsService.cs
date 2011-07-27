@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Android.Util;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -64,7 +63,6 @@ namespace Smeedee.Services
                 catch (FormatException) { }
                 catch (IndexOutOfRangeException) { }
             }
-            Log.Debug("Smeedee", "Latest commits count: " + /*People matter, */results.Count());
             return results;
         }
     }
