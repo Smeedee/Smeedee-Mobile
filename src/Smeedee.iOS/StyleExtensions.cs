@@ -50,10 +50,10 @@ namespace Smeedee.iOS
 			}
 			self.SelectionStyle = UITableViewCellSelectionStyle.Gray;
 		}
+		
 		public static void StyleAsGreyButton(this UIButton self) 
 		{
-			self.BackgroundColor = grayTableCell;
-			self.SetTitleColor(lightGrayText, UIControlState.Normal);
+			
 		}
 	}
 }
