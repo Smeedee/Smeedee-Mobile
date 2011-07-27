@@ -56,7 +56,7 @@ namespace Smeedee.Services.Fakes
             return Csv.FromCsv(data).Select(s => new Commit(s[0], DateTime.Parse(s[1]), s[2], int.Parse(s[3])));
         }
         
-        public void Get10FromRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
+        public void Get10AfterRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
         {
             bgWorker.Invoke(() => callback(Deserialize(PretendToGetDataFromHttp(fromIndex))));
         }

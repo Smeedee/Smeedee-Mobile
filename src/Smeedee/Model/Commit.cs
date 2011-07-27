@@ -22,9 +22,10 @@ namespace Smeedee.Model
         {
             if (!(obj is Commit)) return false;
             var otherCommit = obj as Commit;
-            return otherCommit.Message == this.Message &&
-                   otherCommit.Date.Equals(this.Date) &&
-                   otherCommit.User == this.User;
+            return otherCommit.Message == Message &&
+                   otherCommit.Date.Equals(Date) &&
+                   otherCommit.User == User &&
+                   otherCommit.Revision == Revision;
         }
 
         public override int GetHashCode()
