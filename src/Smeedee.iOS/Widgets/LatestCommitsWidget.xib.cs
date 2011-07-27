@@ -75,28 +75,26 @@ namespace Smeedee.iOS
 		
 		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
-			var row = indexPath.Row;
-			if (row < commits.Count) {
+			var section = indexPath.Section;
+			if (section == 0) {
 				var cell = GetCell(tableView, indexPath);
-				var rowHeight = 0f;
-				foreach (var view in cell.ContentView.Subviews) {
-					if (view is UILabel || view is UITextView) {
-						var height = view.SizeThatFits(new SizeF(240f, float.MaxValue)).Height;
-						rowHeight += height;
-					}
-				}
-				return rowHeight + CELL_PADDING;
+				
+				var message = cell.ContentView.Subviews.ElementAt(3);
+				var height = 50 + Math.Max(message.SizeThatFits(new SizeF(240, float.MaxValue)).Height - 20, 0);
+				
+				return height + CELL_PADDING;
 			}
 			return 50;
 		}
         
-        public override int NumberOfSections(UITableView tableView) { return 1; }
-        public override int RowsInSection(UITableView tableview, int section) { return commits.Count() + 1; }
+        public override int NumberOfSections(UITableView tableView) { return 2; }
+        public override int RowsInSection(UITableView tableview, int section) { return (section == 0) ? commits.Count() : 1; }
        
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
+			var section = indexPath.Section;
 			var row = indexPath.Row;
-			if (row < commits.Count()) {
+			if (section == 0) {
 	            var commit = commits[indexPath.Row];
 	            
 	            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;

@@ -17,13 +17,13 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UILabel __mt_username;
 		
-		private MonoTouch.UIKit.UILabel __mt_timestamp;
-		
 		private MonoTouch.UIKit.UIImageView __mt_image;
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_cell;
 		
 		private MonoTouch.UIKit.UILabel __mt_message;
+		
+		private MonoTouch.UIKit.UILabel __mt_timestamp;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("username")]
@@ -35,18 +35,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_username = value;
 				this.SetNativeField("username", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("timestamp")]
-		private MonoTouch.UIKit.UILabel timestamp {
-			get {
-				this.__mt_timestamp = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("timestamp")));
-				return this.__mt_timestamp;
-			}
-			set {
-				this.__mt_timestamp = value;
-				this.SetNativeField("timestamp", value);
 			}
 		}
 		
@@ -83,6 +71,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_message = value;
 				this.SetNativeField("message", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("timestamp")]
+		private MonoTouch.UIKit.UILabel timestamp {
+			get {
+				this.__mt_timestamp = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("timestamp")));
+				return this.__mt_timestamp;
+			}
+			set {
+				this.__mt_timestamp = value;
+				this.SetNativeField("timestamp", value);
 			}
 		}
 	}
