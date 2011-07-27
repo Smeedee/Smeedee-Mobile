@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Smeedee.Services;
 
 namespace Smeedee.Model
 {

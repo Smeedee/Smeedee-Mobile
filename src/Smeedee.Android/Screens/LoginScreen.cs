@@ -1,12 +1,8 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Preferences;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Smeedee;
-using Smeedee.Android.Services;
 using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
