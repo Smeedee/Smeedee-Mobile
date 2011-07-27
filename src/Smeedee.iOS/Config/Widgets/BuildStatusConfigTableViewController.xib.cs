@@ -106,19 +106,6 @@ namespace Smeedee.iOS
 				}
 			}
 		}
-		public override UIView GetViewForHeader (UITableView tableView, int section)
-		{	
-			switch (section) {
-			case 0:
-				return base.GetViewForHeader(tableView, section);
-			case 1:
-				return new ConfigTableSectionHeader("Ordering");
-			default:
-				return new ConfigTableSectionHeader("Display");
-			}
-		}
-
-		
 	}
 }
 
