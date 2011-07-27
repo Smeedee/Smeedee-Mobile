@@ -331,7 +331,6 @@
     <Compile Include="LoginScreen.xib.designer.cs">
       <DependentUpon>LoginScreen.xib</DependentUpon>
     </Compile>
-    <Compile Include="LoginScreenDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

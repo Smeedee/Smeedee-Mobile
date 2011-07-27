@@ -27,14 +27,14 @@ namespace Smeedee.iOS
         
         public void FinishedLaunching()
         {
-			/*loginHeaderController.View.Frame = new RectangleF(0, 0, 320, 200);
-			loginController.View.Frame = new RectangleF(0, 200, 320, 260);
+			loginHeaderController.View.Frame = new RectangleF(0, 0, 320, 200);
+			loginController.View.Frame = new RectangleF(0, 200, 320, 460);
 			window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
-			*/
+			
 			
 			
             RegisterAllSupportedWidgets();
-			AddMainTabBarToMenu();
+			//AddMainTabBarToMenu();
         }
         private void AddLoginScreen() 
 		{
