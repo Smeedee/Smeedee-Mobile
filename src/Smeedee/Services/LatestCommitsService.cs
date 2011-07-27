@@ -16,11 +16,14 @@ namespace Smeedee.Services
 
         private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
+        private SmeedeeApp app = SmeedeeApp.Instance;
+        private ILog log;
 
         public LatestCommitsService()
         {
-            downloader = SmeedeeApp.Instance.ServiceLocator.Get<IFetchHttp>();
-            bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
+            downloader = app.ServiceLocator.Get<IFetchHttp>();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+            log = app.ServiceLocator.Get<ILog>();
         }
 
         public string GetFromHttp(int revision)
@@ -33,7 +36,7 @@ namespace Smeedee.Services
             return downloader.DownloadString(url);
         }
 
-        public void Get10FromRevision(int fromRevision, Action<IEnumerable<Commit>> callback)
+        public void Get10AfterRevision(int fromRevision, Action<IEnumerable<Commit>> callback)
         {
             bgWorker.Invoke(() =>
                 callback(ParseCsv(GetFromHttp(fromRevision))));
@@ -45,7 +48,7 @@ namespace Smeedee.Services
                 callback(ParseCsv(GetFromHttp(-1))));
         }
 
-        private static IEnumerable<Commit> ParseCsv(string csvData)
+        private IEnumerable<Commit> ParseCsv(string csvData)
         {
             var csvStringLines = Csv.FromCsv(csvData);
             var results = new List<Commit>();
@@ -62,6 +65,7 @@ namespace Smeedee.Services
                 catch (FormatException) { }
                 catch (IndexOutOfRangeException) { }
             }
+            log.Debug("Latest commits count: " + /*People matter, */results.Count());
             return results;
         }
     }

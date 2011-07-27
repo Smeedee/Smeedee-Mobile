@@ -46,7 +46,7 @@ namespace Smeedee.UnitTests.Fakes
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
 
-        public void Get10FromRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
+        public void Get10AfterRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
         {
             bgWorker.Invoke(() => callback(data.Skip(fromIndex).Take(10)));
         }

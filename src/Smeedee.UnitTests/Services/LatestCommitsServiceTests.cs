@@ -83,7 +83,7 @@ namespace Smeedee.UnitTests.Services
         {
             new Login().Url = "http://services.smeedee.org/smeedee";
             downloader.SetHtmlString("");
-            service.Get10FromRevision(10, r => { });
+            service.Get10AfterRevision(10, r => { });
 
             Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/LatestCommits/?revision=10", downloader.UrlAskedFor);
         }

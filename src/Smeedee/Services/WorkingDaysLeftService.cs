@@ -15,11 +15,13 @@ namespace Smeedee.Services
         
         public int DaysLeft;
         public DateTime UntilDate;
+        private ILog log;
 
         public WorkingDaysLeftService()
         {
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
             http = app.ServiceLocator.Get<IFetchHttp>();
+            log = app.ServiceLocator.Get<ILog>();
         }
         
         private string GetDataFromHttp()
@@ -28,13 +30,15 @@ namespace Smeedee.Services
             var url = login.Url +
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.WORKING_DAYS_LEFT_SERVICE_URL +
-                      "&key=" + login.Key;
+                      "?key=" + login.Key;
+            log.Debug("WDL url: '" + url + "'");
             return http.DownloadString(url);
         }
 
         private void GetSync(Action<int, DateTime> callback, Action failureCallback)
         {
             var httpData = GetDataFromHttp();
+            log.Debug("WDL httpData: '" + httpData + "'");
             var data = Csv.FromCsv(httpData).FirstOrDefault();
             if (data == null || data.Count() != 2)
             {

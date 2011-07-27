@@ -21,10 +21,13 @@ namespace Smeedee.Model
         }
 
         private ILatestCommitsService service;
+        private SmeedeeApp app = SmeedeeApp.Instance;
+        private ILog log;
 
         public LatestCommits()
         {
-            service = SmeedeeApp.Instance.ServiceLocator.Get<ILatestCommitsService>();
+            service = app.ServiceLocator.Get<ILatestCommitsService>();
+            log = app.ServiceLocator.Get<ILog>();
         }
 
         public void Load(Action callback)
@@ -39,7 +42,7 @@ namespace Smeedee.Model
         public void LoadMore(Action callback)
         {
             var fromRevision = Commits.Last().Revision;
-            service.Get10FromRevision(fromRevision, loadedCommits =>
+            service.Get10AfterRevision(fromRevision, loadedCommits =>
             {
                 StoreNewCommits(loadedCommits);
                 callback();
@@ -53,6 +56,10 @@ namespace Smeedee.Model
             foreach (var commit in newCommits)
                 if (!Enumerable.Contains(commits, commit))
                     commits.Add(commit);
+                else
+                    log.Debug("Found duplicate: " + commit);
+
+            log.Debug("Total commits in model: " + commits.Count());
         }
     }
 }

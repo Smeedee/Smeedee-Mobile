@@ -86,7 +86,7 @@ namespace Smeedee.UnitTests.Model
         {
             public int GetCalls;
 
-            public void Get10FromRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
+            public void Get10AfterRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
             {
                 GetCalls++;
             }
