@@ -34,6 +34,7 @@ namespace Smeedee.Model
             service.Get10Latest(commits =>
                 {
                     this.commits = commits.ToList();
+                    Log.Debug("Smeedee", "Total commits in model: " + commits.Count());
                     callback();
                 });
         }

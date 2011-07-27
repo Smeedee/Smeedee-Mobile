@@ -135,7 +135,13 @@ namespace Smeedee.Android.Widgets
                                  {"Date", (DateTime.Now - changeSet.Date).PrettyPrint()}
                              });
             }
+            InsertDummyEntryForButton(data);
             return data;
+        }
+
+        private static void InsertDummyEntryForButton(List<IDictionary<string, object>> list)
+        {
+            list.Add(new Dictionary<string, object>());
         }
     }
 
@@ -146,18 +152,13 @@ namespace Smeedee.Android.Widgets
         public TextColoringAdapterWithLoadMoreButton(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color highlightColor) :
                                   base(context, items, resource, from, to)
         {
-            InsertDummyEntryForButton(items);
             this.context = context;
             this.highlightColor = highlightColor;
         }
 
-        private static void InsertDummyEntryForButton(IList<IDictionary<string, object>> items)
-        {
-            items.Add(new Dictionary<string, object>());
-        }
-
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            Log.Debug("Smeedee", "Count is " + Count);
             //Force convertView to be null when it's an instance of RelativeLayout. 
             //This is our loadMoreButton, and the base isn't able to recycle it. 
             convertView = convertView as LinearLayout; 
