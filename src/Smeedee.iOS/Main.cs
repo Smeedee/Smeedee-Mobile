@@ -29,7 +29,7 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
 			
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
-			serviceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
+			serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
 			
 			serviceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(serviceLocator.Get<IBackgroundWorker>()));
 			serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());

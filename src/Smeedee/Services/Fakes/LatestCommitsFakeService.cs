@@ -47,7 +47,7 @@ namespace Smeedee.Services.Fakes
         private string PretendToGetDataFromHttp(int fromIndex)
         {
             var subset = data.Skip(fromIndex).Take(10);
-            var asStrings = subset.Select(commit => new [] {commit.Message, commit.Date.ToString(), commit.User});
+            var asStrings = subset.Select(commit => new [] {commit.Message, commit.Date.ToString(), commit.User, commit.Revision.ToString()});
             return Csv.ToCsv(asStrings);
         }
 
