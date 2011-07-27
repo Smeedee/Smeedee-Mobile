@@ -57,6 +57,9 @@
     <Compile Include="..\Smeedee\Guard.cs">
       <Link>Guard.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\ILog.cs">
+      <Link>ILog.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Model\Build.cs">
       <Link>Model\Build.cs</Link>
     </Compile>
@@ -163,6 +166,7 @@
       <Link>TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
     <Compile Include="ColorTools.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RealViewSwitcher.cs" />
     <Compile Include="Screens\About.cs" />

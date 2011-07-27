@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Csv.cs" />
+    <Compile Include="ILog.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\BuildOrder.cs" />
     <Compile Include="Model\BuildStatus.cs" />
