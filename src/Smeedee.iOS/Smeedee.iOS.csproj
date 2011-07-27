@@ -331,6 +331,12 @@
     <Compile Include="LoginScreen.xib.designer.cs">
       <DependentUpon>LoginScreen.xib</DependentUpon>
     </Compile>
+    <Compile Include="..\Smeedee\Services\LatestCommitsService.cs">
+      <Link>Services\LatestCommitsService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\HttpFetcher.cs">
+      <Link>Services\HttpFetcher.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
