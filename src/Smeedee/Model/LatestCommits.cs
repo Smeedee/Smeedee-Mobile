@@ -6,6 +6,7 @@ namespace Smeedee.Model
 {
     public class LatestCommits
     {
+        private const int MAX_LOADED_COMMITS = 40; //Restrict in order to not blow up memory
         private ILatestCommitsService service;
         private SmeedeeApp app = SmeedeeApp.Instance;
 
@@ -39,9 +40,10 @@ namespace Smeedee.Model
         }
         
         public void LoadMore(Action callback)
-        {           
-            if (!HasMore || Commits.Count == 0)
+        {
+            if (!HasMore || Commits.Count == 0 || Commits.Count >= MAX_LOADED_COMMITS)
             {
+                HasMore = false;
                 callback();
                 return;
             }

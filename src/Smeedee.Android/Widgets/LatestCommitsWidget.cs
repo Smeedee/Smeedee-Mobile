@@ -22,6 +22,7 @@ namespace Smeedee.Android.Widgets
 
         private LatestCommits model;
         private bool scrollDown = false;
+        private TextColoringAdapterWithLoadMoreButton listAdapter;
 
         public event EventHandler DescriptionChanged;
 
@@ -84,8 +85,15 @@ namespace Smeedee.Android.Widgets
             var listView = FindViewById<ListView>(Resource.Id.LatestCommitsList);
             var lastItemBeforeExpansion = Math.Max(0, listView.Count - 1);
 
-            var adapter = CreateListAdapter();
-            listView.Adapter = adapter;
+            Log.Debug("Smeedee", "LC Redraw()");
+            if (ShouldRecreateListAdapter())
+            {
+                listAdapter = CreateListAdapter();
+            }
+
+            Log.Debug("Smeedee", "model.HasMore: " + model.HasMore);
+            listAdapter.ButtonEnabled = model.HasMore;
+            listView.Adapter = listAdapter;
 
             if (scrollDown)
             {
@@ -98,14 +106,13 @@ namespace Smeedee.Android.Widgets
 
         private TextColoringAdapterWithLoadMoreButton CreateListAdapter()
         {
+            Log.Debug("Smeedee", "LC CreateListAdapter()");
             var from = new[] { "Image", "User", "Msg", "Date" };
             var to = new[] { Ids.LatestCommitsWidget_CommitterIcon, Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
             var listItems = CreateListItems();
             var layout = Resource.Layout.LatestCommitsWidget_ListItem;
 
             var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, layout, from, to, GetHighlightColor());
-            adapter.ButtonEnabled = model.HasMore;
-            Log.Debug("Smeedee", "Button.enabled set to: " + model.HasMore);
             adapter.LoadMoreClick += (o, e) =>
                                          {
                                              scrollDown = true;
@@ -143,7 +150,21 @@ namespace Smeedee.Android.Widgets
 
         private static void InsertDummyEntryForButton(List<IDictionary<string, object>> list)
         {
-            list.Add(new Dictionary<string, object>());
+            list.Add(new Dictionary<string, object>  {
+                                 {"Msg", ""},
+                                 {"Image", Resource.Drawable.DefaultPerson}, 
+                                 {"User", ""}, 
+                                 {"Date", ""}
+                             });
+        }
+
+        private int commitCountBeforeLoad = -1;
+        private bool ShouldRecreateListAdapter()
+        {
+            if (listAdapter == null) return true;
+            var modelWasChanged = commitCountBeforeLoad != model.Commits.Count();
+            commitCountBeforeLoad = model.Commits.Count();
+            return modelWasChanged;
         }
     }
 
@@ -160,7 +181,6 @@ namespace Smeedee.Android.Widgets
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            Log.Debug("Smeedee", "Count is " + Count);
             //Force convertView to be null when it's an instance of RelativeLayout. 
             //This is our loadMoreLayout, and the base isn't able to recycle it. 
             convertView = convertView as LinearLayout; 
