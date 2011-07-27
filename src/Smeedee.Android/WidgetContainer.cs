@@ -91,12 +91,12 @@ namespace Smeedee.Android
             {
                 try
                 {
-                    Log.Debug("Smeedee", "Instantiating widget of type: " + widget.Type.Name);
+                    Log.Debug("SMEEDEE", "Instantiating widget of type: " + widget.Type.Name);
                     instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
                 }
                 catch (Exception e)
                 {
-                    Log.Debug("Smeedee", Throwable.FromException(e), "Exception thrown when instatiating widget");
+                    Log.Debug("SMEEDEE", Throwable.FromException(e), "Exception thrown when instatiating widget");
                 }
             }
             return instances;
@@ -156,6 +156,8 @@ namespace Smeedee.Android
                         {
                             currentWidget.Refresh();
                             handler.SendEmptyMessage(0);
+                            //TODO: Update the refresh text by calling widget.LastRefreshTime() and get a DateTime and use
+                            // TimePrettyPrint.PrettyPrint(DateTime.Now - widget.LastRefreshTime())
                         });
                     }
 
@@ -212,7 +214,12 @@ namespace Smeedee.Android
             for (var i = 0; i < flipper.ChildCount; i++)
             {
                 var widget = flipper.GetChildAt(i) as IWidget;
-                if (widget != null) widget.Refresh();
+                if (widget != null)
+                {
+                    widget.Refresh();
+                    //TODO: Update the refresh text by calling widget.LastRefreshTime() and get a DateTime and use
+                    // TimePrettyPrint.PrettyPrint(DateTime.Now - widget.LastRefreshTime())
+                }
             }
         }
 

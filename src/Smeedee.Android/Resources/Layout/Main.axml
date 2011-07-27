@@ -4,30 +4,45 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
   
-    <!-- START: Widget title and description-->
-    <TextView
-      android:id="@+id/WidgetNameInTopBanner"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentTop="true"
-      android:textColor="@color/smeedee_orange"
-      android:textAppearance="@android:style/TextAppearance.Large" />
-
-    <TextView
-      android:id="@+id/WidgetDynamicDescriptionInTopBanner"
-      android:layout_below="@id/WidgetNameInTopBanner"
-      android:layout_alignParentLeft="true"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:textAppearance="@android:style/TextAppearance.Small"
-      android:paddingBottom="2sp"/>
-    <!-- END: Widget title and description-->
-
-
-  <smeedee.android.RealViewSwitcher
-    android:id="@+id/Flipper"
-    android:layout_below="@id/WidgetDynamicDescriptionInTopBanner"
+  <TextView
+    android:id="@+id/WidgetNameInTopBanner"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"/>
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:textColor="@color/smeedee_orange"
+    android:textAppearance="@android:style/TextAppearance.Large" />
+
+  <TextView
+    android:id="@+id/WidgetDynamicDescriptionInTopBanner"
+    android:layout_below="@id/WidgetNameInTopBanner"
+    android:layout_alignParentLeft="true"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@android:style/TextAppearance.Small"
+    android:paddingBottom="2sp"/>
+  
+  <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@id/WidgetDynamicDescriptionInTopBanner">
+    
+    <smeedee.android.RealViewSwitcher
+      android:id="@+id/Flipper"
+      android:layout_above="@+id/RefreshText"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"/>
+    <TextView
+      android:id="@+id/RefreshText"
+      android:gravity="bottom"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentLeft="true"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="5 minutes since last refresh"
+      android:background="@color/smeedee_darkgrey"
+      android:textAppearance="@android:style/TextAppearance.Small"
+      android:visibility="invisible" />
+    </RelativeLayout>
 </RelativeLayout>
