@@ -55,7 +55,7 @@ namespace Smeedee.Services
                 try
                 {
                     results.Add(new Commit(
-                                    line[INDEX_COMMIT_MESSAGE],
+                                    line[INDEX_COMMIT_MESSAGE].Trim(),
                                     DateTime.Parse(line[INDEX_COMMIT_DATETIME]),
                                     line[INDEX_COMMIT_USER],
                                     int.Parse(line[INDEX_COMMIT_REVISION])));

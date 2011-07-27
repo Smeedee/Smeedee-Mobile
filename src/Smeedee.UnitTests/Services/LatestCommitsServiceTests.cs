@@ -88,5 +88,14 @@ namespace Smeedee.UnitTests.Services
 
             Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/LatestCommits/?revision=10", downloader.UrlAskedFor);
         }
+
+        [Test]
+        public void Should_strip_newlines_from_the_end_of_commit_messages()
+        {
+            downloader.SetHtmlString("TestMessage\n\f" + DateTime.Now + "\fTestUser\f1\aTestMessage2\f" + DateTime.Now + "\fTestUser2\f2");
+            var msg = "";
+            service.Get10Latest(r => msg = r.First().Message);
+            Assert.AreEqual("TestMessage", msg);
+        }
     }
 }
