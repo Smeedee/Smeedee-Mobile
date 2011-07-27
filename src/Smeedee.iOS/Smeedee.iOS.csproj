@@ -325,6 +325,13 @@
     <Compile Include="..\Smeedee\Services\Fakes\FakeValidationService.cs">
       <Link>Services\Fakes\FakeValidationService.cs</Link>
     </Compile>
+    <Compile Include="LoginScreen.xib.cs">
+      <DependentUpon>LoginScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="LoginScreen.xib.designer.cs">
+      <DependentUpon>LoginScreen.xib</DependentUpon>
+    </Compile>
+    <Compile Include="LoginScreenDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -347,6 +354,7 @@
     <Page Include="Config\TableCells\RadioGroupTableViewController.xib" />
     <Page Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib" />
     <Page Include="Config\Views\ServerConfigTableViewController.xib" />
+    <Page Include="LoginScreen.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

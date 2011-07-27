@@ -23,6 +23,7 @@ namespace Smeedee.iOS
         {
             projectNameLabel.Text = build.ProjectName;
 			usernameLabel.Text = build.Username;
+			lastBuildTimeLabel.Text = TimeSpanPrettyPrintExtension.PrettyPrint(DateTime.Now - build.BuildTime);
             buildStatusLabel.Text = build.BuildSuccessState.ToString();
             
             buildStatusLabel.TextColor = (build.BuildSuccessState == BuildState.Broken)

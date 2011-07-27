@@ -32,7 +32,6 @@ namespace Smeedee.iOS
 		
 		private void UpdateUI()
 		{
-			Console.WriteLine("Updating UI");
             TableView.Source = new BuildStatusTableSource(model);
 			TableView.ReloadData();
 		}

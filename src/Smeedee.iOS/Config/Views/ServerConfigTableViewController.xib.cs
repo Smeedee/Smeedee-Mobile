@@ -9,16 +9,21 @@ namespace Smeedee.iOS
 {
 	public partial class ServerConfigTableViewController : UIViewController
 	{
+		// Needed for instantiation in AppDelegateIPhone
+		public ServerConfigTableViewController(IntPtr handle) : base (handle) { }
+		
 		public ServerConfigTableViewController() : base ("ServerConfigTableViewController", null)
 		{
 		}
 		
 		public override void ViewDidLoad ()
 		{
-			this.Title = " Smeedee Server";
-			this.table.Source = new ServerConfigTableSource();
-			this.table.ScrollEnabled = false;
-			this.button.TitleLabel.Text = "Connect";
+			Title = " Smeedee Server";
+			table.Source = new ServerConfigTableSource();
+			table.ScrollEnabled = false;
+			
+			button.TitleLabel.Text = "Connect";
+			button.StyleAsGreyButton();
 			
 			button.TouchUpInside += delegate {
 				var serverUrl = ((ServerConfigTableSource)table.Source).GetServerUrl();
