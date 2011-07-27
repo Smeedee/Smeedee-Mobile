@@ -33,62 +33,28 @@ namespace Smeedee.iOS
 		}
 		
 		public override int NumberOfSections (UITableView tableView) { return 2; }
-		public override int RowsInSection (UITableView tableView, int section)
-		{
-			if (section == 0) 
-				return base.RowsInSection(tableView, section);
-			return 2;
-		}
+		public override int RowsInSection (UITableView tableView, int section) { return 1; }
 		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			var section = indexPath.Section;
-			var row = indexPath.Row;
-			
-			if (section == 0) 
+			if (indexPath.Section == 0) 
 				return base.GetCell(tableView, indexPath);
 			
-			if (row == 0)
-			{
-				emptySwitch = new UISwitch();
-				emptySwitch.SetState(true, false); // TODO
-				emptySwitch.ValueChanged += delegate {
-					//model.WAT = emptySwitch.On;
-				};
-				
-				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
-					AccessoryView = emptySwitch, 
-					SelectionStyle = UITableViewCellSelectionStyle.None
-				};
-				
-				cell.TextLabel.Text = "Highlight empty commits";
-				cell.StyleAsSettingsTableCell();
-				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				return cell;
-			}
-			else
-			{
-				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell") {
-					Accessory = UITableViewCellAccessory.DisclosureIndicator
-				};
-				cell.TextLabel.Text = "Highlight color";
-				// TODO: Gray text to the right of what is currently selected
-				cell.StyleAsSettingsTableCell();
-				return cell;
-			}
-		}
-		
-		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-		{
-			var section = indexPath.Section;
-			var row = indexPath.Row;
+			emptySwitch = new UISwitch();
+			emptySwitch.SetState(true, false); // TODO
+			emptySwitch.ValueChanged += delegate {
+				//model.WAT = emptySwitch.On;
+			};
 			
-			if (row == 1)
-			{
-				var groupController = new RadioGroupTableViewController("Color", new [] {"Red", "Green", "Blue"}, 1);
-				controller.NavigationController.PushViewController(groupController, true);
-				// ConfigTableHeader here?
-			}
+			var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
+				AccessoryView = emptySwitch, 
+				SelectionStyle = UITableViewCellSelectionStyle.None
+			};
+			
+			cell.TextLabel.Text = "Highlight empty commits";
+			cell.StyleAsSettingsTableCell();
+			cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+			return cell;
 		}
 	}
 }
