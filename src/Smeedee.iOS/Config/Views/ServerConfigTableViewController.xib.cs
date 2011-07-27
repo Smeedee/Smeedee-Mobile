@@ -10,90 +10,90 @@ namespace Smeedee.iOS
 	public partial class ServerConfigTableViewController : UIViewController
 	{
 		// Needed for instantiation in AppDelegateIPhone
-		public ServerConfigTableViewController(IntPtr handle) : base (handle) { 
-			LoginAction = (str) => { };
-		}
-		
-		public ServerConfigTableViewController() : base ("ServerConfigTableViewController", null)
-		{ 
-			LoginAction = (str) => { };
-		}
+		public ServerConfigTableViewController(IntPtr handle) : base (handle) { }
+		public ServerConfigTableViewController() : base ("ServerConfigTableViewController", null) { }
 		
 		public override void ViewDidLoad ()
 		{
-			Title = " Smeedee Server";
-			table.Source = new ServerConfigTableSource();
-			table.ScrollEnabled = false;
+			LoginAction = (str) => { };
+			Title = "Smeedee Server";
 			
-			button.TitleLabel.Text = "Connect";
-			button.StyleAsGreyButton();
-			
-			button.TouchUpInside += delegate {
-				var serverUrl = ((ServerConfigTableSource)table.Source).GetServerUrl();
-				var userKey = ((ServerConfigTableSource)table.Source).GetUserKey();
-				
-				new Login().StoreAndValidate(serverUrl, userKey, (str) => 
-				{
-					InvokeOnMainThread(() => 
-					{
-						if (str == Login.ValidationSuccess) button.SetTitleColor(UIColor.Green, UIControlState.Normal);
-						else button.SetTitleColor(UIColor.Red, UIControlState.Normal);
-						button.SetTitle(str, UIControlState.Normal);
-					});
-					
-					LoginAction(str);
-				});
-			};
+			table.Source = new ServerConfigTableSource(this);
+			//table.ScrollEnabled = false;
 		}
 		
 		public Action<string> LoginAction
 		{
-			private get;
-			set;
+			get; set;
 		}
 	}
 	
 	public class ServerConfigTableSource : UITableViewSource
     {
 		private Login loginModel;
+		private ServerConfigTableViewController controller;
 		private LabelTextInputTableCellController serverUrl;
 		private LabelTextInputTableCellController userKey;
+		
 		private TableCellFactory cellFactory = 
 			new TableCellFactory("LabelTextInputTableCellController", typeof(LabelTextInputTableCellController));
 		
-		public ServerConfigTableSource() : base() {
+		private UITableViewCell buttonCell;
+		
+		public ServerConfigTableSource(ServerConfigTableViewController controller) : base() 
+		{
+			this.controller = controller;
 			loginModel = new Login();
 		}
 		
-        public override int NumberOfSections(UITableView tableView) { return 1; }
-        public override int RowsInSection(UITableView tableview, int section) { return 2; }
+        public override int NumberOfSections(UITableView tableView) { return 2; }
+        public override int RowsInSection(UITableView tableview, int section) { return 2 - section; }
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
 			var cellController = 
 				cellFactory.NewTableCellController(tableView, indexPath) as LabelTextInputTableCellController;
 			
-			if (indexPath.Row == 0) {
-				cellController.BindDataToCell(loginModel.Url);
-				cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
-				cellController.TextInput.Placeholder = "http://smeedee.someurl.com";
-				serverUrl = cellController;
-				
+			switch (indexPath.Section) {
+			case 0:
+				if (indexPath.Row == 0) {
+					cellController.BindDataToCell(loginModel.Url);
+					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
+					cellController.TextInput.Placeholder = "http://smeedee.someurl.com";
+					serverUrl = cellController;
+				}
+				else
+				{
+					cellController.BindDataToCell(loginModel.Key);
+					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
+					cellController.TextInput.Placeholder = "password";
+					userKey = cellController;
+				}
+				return cellController.TableViewCell;
+			default:
+				buttonCell = new UITableViewCell();
+				buttonCell.TextLabel.Text = "Connect";
+				buttonCell.TextLabel.TextAlignment = UITextAlignment.Center;
+				return buttonCell;
 			}
-			else
-			{
-				cellController.BindDataToCell(loginModel.Key);
-				cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
-				cellController.TextInput.Placeholder = "password";
-				userKey = cellController;
-			}
-			return cellController.TableViewCell;
         }
-		public string GetServerUrl() {
-			return serverUrl.TextInput.Text;
-		}
-		public string GetUserKey() {
-			return userKey.TextInput.Text;
+		
+		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+		{
+			if (indexPath.Section == 0) return;
+			
+			var url = serverUrl.TextInput.Text;
+			var key = userKey.TextInput.Text;
+			
+			new Login().StoreAndValidate(url, key, (str) => {
+				
+				buttonCell.TextLabel.Text = str;
+				buttonCell.TextLabel.TextColor = (str == Login.ValidationSuccess) ? UIColor.FromRGB(50, 150, 50) : UIColor.FromRGB(150, 50, 50);
+				
+				buttonCell.SetSelected(false, true);
+				
+				controller.LoginAction(str);
+			});
 		}
 	}
 }

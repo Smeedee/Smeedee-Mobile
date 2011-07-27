@@ -45,50 +45,12 @@
 					<object class="IBUITableView" id="540321770">
 						<reference key="NSNextResponder" ref="431609144"/>
 						<int key="NSvFlags">274</int>
-						<object class="NSMutableArray" key="NSSubviews">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIButton" id="768415311">
-								<reference key="NSNextResponder" ref="540321770"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 165}, {320, 44}}</string>
-								<reference key="NSSuperview" ref="540321770"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="539529618">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-								</object>
-								<bool key="IBUIOpaque">NO</bool>
-								<int key="IBUIContentMode">4</int>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">15</double>
-									<int key="NSfFlags">16</int>
-								</object>
-								<int key="IBUIButtonType">1</int>
-								<double key="IBUIContentEdgeInsets.top">0.0</double>
-								<double key="IBUIContentEdgeInsets.bottom">0.0</double>
-								<double key="IBUIContentEdgeInsets.left">-1</double>
-								<double key="IBUIContentEdgeInsets.right">0.0</double>
-								<string key="IBUINormalTitle">Connect</string>
-								<object class="NSColor" key="IBUIHighlightedTitleColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-								</object>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
-								</object>
-								<object class="NSColor" key="IBUINormalTitleShadowColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC41AA</bytes>
-								</object>
-							</object>
-						</object>
-						<string key="NSFrameSize">{320, 209}</string>
+						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="431609144"/>
-						<reference key="IBUIBackgroundColor" ref="539529618"/>
+						<object class="NSColor" key="IBUIBackgroundColor" id="539529618">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MAA</bytes>
+						</object>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
@@ -99,7 +61,6 @@
 						<float key="IBUIRowHeight">44</float>
 						<float key="IBUISectionHeaderHeight">10</float>
 						<float key="IBUISectionFooterHeight">10</float>
-						<reference key="IBUITableFooterView" ref="768415311"/>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 460}</string>
@@ -118,14 +79,6 @@
 						<reference key="destination" ref="540321770"/>
 					</object>
 					<int key="connectionID">16</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">button</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="768415311"/>
-					</object>
-					<int key="connectionID">17</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -170,14 +123,8 @@
 						<reference key="object" ref="540321770"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="768415311"/>
 						</object>
 						<reference key="parent" ref="431609144"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">10</int>
-						<reference key="object" ref="768415311"/>
-						<reference key="parent" ref="540321770"/>
 					</object>
 				</object>
 			</object>
@@ -187,9 +134,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
-					<string>10.IBEditorWindowLastContentRect</string>
-					<string>10.IBPluginDependency</string>
-					<string>10.IBViewBoundsToFrameTransform</string>
 					<string>14.IBEditorWindowLastContentRect</string>
 					<string>14.IBPluginDependency</string>
 					<string>14.IBViewBoundsToFrameTransform</string>
@@ -201,12 +145,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>ServerConfigTableViewController</string>
 					<string>UIResponder</string>
-					<string>{{510, 663}, {320, 44}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABBIAAAwy4AAA</bytes>
-					</object>
-					<string>{{673, 139}, {320, 460}}</string>
+					<string>{{312, 203}, {320, 460}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABC6AAAxCbAAA</bytes>
@@ -245,13 +184,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>button</string>
 							<string>table</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -260,16 +197,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>button</string>
 							<string>table</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">button</string>
-								<string key="candidateClassName">id</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">table</string>
 								<string key="candidateClassName">id</string>
