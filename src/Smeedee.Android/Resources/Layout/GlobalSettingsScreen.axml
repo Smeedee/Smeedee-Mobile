@@ -28,6 +28,11 @@
   <!-- Keys here must correspond with keys in the Login model -->
   <PreferenceCategory 
     android:title="@string/GlobalSettingsScreenPreferenceCategory2">
+    <smeedee.android.screens.ServerSettingsPreference
+      android:key="ServerSettingsPreference"
+      android:title="Server Settings"
+      android:negativeButtonText="Cancel"
+      android:positiveButtonText="Save" />
     <EditTextPreference
       android:id="@+id/serverUrl"
       android:key="Login_Url"
