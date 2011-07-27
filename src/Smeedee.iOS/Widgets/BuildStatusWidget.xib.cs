@@ -20,7 +20,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			TableView.SeparatorColor = UIColor.DarkGray;
+			TableView.SeparatorColor = UIColor.FromRGB(40, 40, 40);
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 			Refresh();
         }
@@ -59,12 +59,12 @@ namespace Smeedee.iOS
             this.model = model;
         }
         
-        public override int NumberOfSections(UITableView tableView) { return 1; }
-        public override int RowsInSection(UITableView tableview, int section) { return model.Builds.Count(); }
+        public override int NumberOfSections(UITableView tableView) { return model.Builds.Count(); }
+        public override int RowsInSection(UITableView tableview, int section) { return 1; }
 		     
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var build = model.Builds.ElementAt(indexPath.Row);
+            var build = model.Builds.ElementAt(indexPath.Section);
             
             var buildStatusCellController = cellFactory.NewTableCellController(tableView, indexPath) as BuildStatusTableCellController;
             buildStatusCellController.BindDataToCell(build);
