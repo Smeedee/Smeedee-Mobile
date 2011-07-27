@@ -10,7 +10,7 @@ using Smeedee;
 namespace Smeedee.iOS
 {
     [Widget("Latest Commits", StaticDescription = "List of latest commits", SettingsType = typeof(LatestCommitsConfigTableViewController))]
-	public partial class LatestCommitsWidget : UITableViewController
+	public partial class LatestCommitsWidget : UITableViewController, IWidget
 	{
 		private LatestCommits model;
 		

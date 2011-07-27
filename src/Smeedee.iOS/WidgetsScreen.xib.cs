@@ -25,7 +25,7 @@ namespace Smeedee.iOS
 			titleLabel.StyleAsHeadline();
 			subTitleLabel.StyleAsDescription();
             scrollView.Scrolled += ScrollViewScrolled;
-			toolbar.Items[1].Clicked += delegate {
+			refresh.Clicked += delegate {
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
 			};
         }

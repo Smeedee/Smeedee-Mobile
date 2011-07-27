@@ -17,8 +17,6 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UITableView __mt_table;
 		
-		private MonoTouch.UIKit.UIButton __mt_button;
-		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
 		#pragma warning disable 0169
@@ -31,18 +29,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_table = value;
 				this.SetNativeField("table", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("button")]
-		private MonoTouch.UIKit.UIButton button {
-			get {
-				this.__mt_button = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("button")));
-				return this.__mt_button;
-			}
-			set {
-				this.__mt_button = value;
-				this.SetNativeField("button", value);
 			}
 		}
 		

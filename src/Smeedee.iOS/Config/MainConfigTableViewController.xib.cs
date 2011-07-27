@@ -31,12 +31,6 @@ namespace Smeedee.iOS
 		}
 		
         public override int NumberOfSections(UITableView tableView) { return 2; }
-		
-        public override string TitleForHeader(UITableView tableView, int section)
-        {
-			return (section == 0) ? "Smeedee server" : "Widgets";
-        }
-		
         public override int RowsInSection(UITableView tableview, int section)
         {
 			return (section == 0) ? 1 : SmeedeeApp.Instance.AvailableWidgets.Count;
@@ -89,23 +83,6 @@ namespace Smeedee.iOS
 				}
 			}
         }
-		
-		public override UIView GetViewForHeader (UITableView tableView, int section)
-		{
-			// TODO: Create label in UI designer and instantiate somehow
-			//var views = NSBundle.MainBundle.LoadNib("ConfigTableHeaderView", this , null);
-			//return new ConfigTableHeaderView(views.ValueAt(0));
-			
-			if (section == 0)
-				return new ConfigTableSectionHeader("Smeedee server");
-			
-			return new ConfigTableSectionHeader("Widgets");
-		}
-		
-		public override float GetHeightForHeader (UITableView tableView, int section)
-		{
-			return (float)ConfigTableSectionHeader.Height;
-		}
 	}
 }
 
