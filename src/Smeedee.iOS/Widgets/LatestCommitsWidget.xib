@@ -54,7 +54,6 @@
 				<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 				<float key="IBUIRowHeight">44</float>
 				<float key="IBUISectionHeaderHeight">22</float>
-				<float key="IBUISectionFooterHeight">50</float>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">

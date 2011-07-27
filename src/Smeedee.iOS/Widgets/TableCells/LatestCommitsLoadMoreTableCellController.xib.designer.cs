@@ -17,8 +17,6 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_cell;
 		
-		private MonoTouch.UIKit.UIButton __mt_button;
-		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("cell")]
 		private MonoTouch.UIKit.UITableViewCell cell {
@@ -29,18 +27,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_cell = value;
 				this.SetNativeField("cell", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("button")]
-		private MonoTouch.UIKit.UIButton button {
-			get {
-				this.__mt_button = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("button")));
-				return this.__mt_button;
-			}
-			set {
-				this.__mt_button = value;
-				this.SetNativeField("button", value);
 			}
 		}
 	}

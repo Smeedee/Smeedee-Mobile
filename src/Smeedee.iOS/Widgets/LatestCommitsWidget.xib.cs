@@ -84,9 +84,14 @@ namespace Smeedee.iOS
 				
 				return height + CELL_PADDING;
 			}
-			return 50;
+			return 60;
 		}
-        
+		
+		public override float GetHeightForFooter (UITableView tableView, int section)
+		{
+			return 0;
+		}
+		
         public override int NumberOfSections(UITableView tableView) { return 2; }
         public override int RowsInSection(UITableView tableview, int section) { return (section == 0) ? commits.Count() : 1; }
        
@@ -105,11 +110,18 @@ namespace Smeedee.iOS
 			else
 			{
 				var buttonController = buttonCellFactory.NewTableCellController(tableView, indexPath) as LatestCommitsLoadMoreTableCellController;
-				
-				buttonController.BindAction(() => controller.LoadMore());
+				buttonController.TableViewCell.BackgroundColor = UIColor.DarkGray;
 				
 				return buttonController.TableViewCell;
 			}
         }
+		
+		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+		{
+			if (indexPath.Section == 1)
+			{
+				controller.LoadMore();	
+			}
+		}
     }
 }
