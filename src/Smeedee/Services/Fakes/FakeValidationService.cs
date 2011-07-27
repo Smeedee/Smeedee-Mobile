@@ -9,7 +9,7 @@ namespace Smeedee.Services.Fakes
 		}
 		public void Validate(string url, string key, Action<bool> callback) 
 		{
-			callback( true /*(url == "http://folk.ntnu.no/dagolap/s/" && key == "pass")*/);
+			callback(url == "http://folk.ntnu.no/dagolap/s/" && key == "pass");
 		}
 		
 	}
