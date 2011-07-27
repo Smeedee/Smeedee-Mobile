@@ -20,11 +20,17 @@ namespace Smeedee.iOS
             get { return cell; }
         }
         
-        public void BindDataToCell(Commit commit)
+        public void BindDataToCell(Commit commit, bool highlightEmpty)
         {
 			username.Text = commit.User;
 			message.Text = commit.Message;
 			timestamp.Text = (DateTime.Now-commit.Date).PrettyPrint();
+			
+			if (commit.Message == "" && highlightEmpty)
+			{
+				message.Text = "No commit message";
+				message.TextColor = UIColor.Red;
+			}
 			
 			message.SizeToFit();
 			var bounds = timestamp.Frame;

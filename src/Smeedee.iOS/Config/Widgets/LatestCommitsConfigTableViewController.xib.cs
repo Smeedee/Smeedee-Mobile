@@ -41,9 +41,10 @@ namespace Smeedee.iOS
 				return base.GetCell(tableView, indexPath);
 			
 			emptySwitch = new UISwitch();
-			emptySwitch.SetState(true, false); // TODO
+			emptySwitch.SetState(model.HighlightEmpty, false);
 			emptySwitch.ValueChanged += delegate {
-				//model.WAT = emptySwitch.On;
+				Console.WriteLine("Setting state to " + emptySwitch.On);
+				model.HighlightEmpty = emptySwitch.On;
 			};
 			
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {

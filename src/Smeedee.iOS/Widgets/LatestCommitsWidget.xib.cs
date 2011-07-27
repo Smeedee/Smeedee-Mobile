@@ -29,7 +29,7 @@ namespace Smeedee.iOS
 		
 		private void UpdateUI()
 		{
-			TableView.Source = new LatestCommitsTableSource(this, model.Commits);
+			TableView.Source = new LatestCommitsTableSource(this, model);
 			TableView.ReloadData();
 			OnDescriptionChanged(new EventArgs());
 		}
@@ -41,7 +41,7 @@ namespace Smeedee.iOS
 		
 		public void LoadMore()
 		{
-			model.LoadMore(() => InvokeOnMainThread(UpdateUI));	
+			InvokeOnMainThread(UpdateUI);
 		}
 		
 		public string GetDynamicDescription() 
@@ -62,14 +62,14 @@ namespace Smeedee.iOS
 		private TableCellFactory cellFactory =	new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
         private TableCellFactory buttonCellFactory = new TableCellFactory("LatestCommitsLoadMoreTableCellController", typeof(LatestCommitsLoadMoreTableCellController));
 		
-		private List<Commit> commits;
+		private LatestCommits model;
 		private LatestCommitsWidget controller;
         
         private const float CELL_PADDING = 20f;
         
-        public LatestCommitsTableSource(LatestCommitsWidget controller, IEnumerable<Commit> commits)
+        public LatestCommitsTableSource(LatestCommitsWidget controller, LatestCommits model)
         {
-            this.commits = commits.ToList();
+            this.model = model;
 			this.controller = controller;
         }
 		
@@ -87,23 +87,20 @@ namespace Smeedee.iOS
 			return 60;
 		}
 		
-		public override float GetHeightForFooter (UITableView tableView, int section)
-		{
-			return 0;
-		}
+		public override float GetHeightForFooter (UITableView tableView, int section) {	return 0; }
 		
         public override int NumberOfSections(UITableView tableView) { return 2; }
-        public override int RowsInSection(UITableView tableview, int section) { return (section == 0) ? commits.Count() : 1; }
+        public override int RowsInSection(UITableView tableview, int section) { return (section == 0) ? model.Commits.Count() : 1; }
        
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
 			var section = indexPath.Section;
 			var row = indexPath.Row;
 			if (section == 0) {
-	            var commit = commits[indexPath.Row];
+	            var commit = model.Commits.ElementAt(indexPath.Row);
 	            
 	            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
-	            controller.BindDataToCell(commit);
+	            controller.BindDataToCell(commit, model.HighlightEmpty);
 	            
 	            return controller.TableViewCell;
 			}
@@ -120,7 +117,7 @@ namespace Smeedee.iOS
 		{
 			if (indexPath.Section == 1)
 			{
-				controller.LoadMore();	
+				model.LoadMore(() => controller.LoadMore());	
 			}
 		}
     }
