@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android.Util;
 
 namespace Smeedee.Model
 {
@@ -22,12 +23,10 @@ namespace Smeedee.Model
 
         private ILatestCommitsService service;
         private SmeedeeApp app = SmeedeeApp.Instance;
-        private ILog log;
 
         public LatestCommits()
         {
             service = app.ServiceLocator.Get<ILatestCommitsService>();
-            log = app.ServiceLocator.Get<ILog>();
         }
 
         public void Load(Action callback)
@@ -57,9 +56,9 @@ namespace Smeedee.Model
                 if (!Enumerable.Contains(commits, commit))
                     commits.Add(commit);
                 else
-                    log.Debug("Found duplicate: " + commit);
+                    Log.Debug("Smeedee", "Found duplicate: " + commit);
 
-            log.Debug("Total commits in model: " + commits.Count());
+            Log.Debug("Smeedee", "Total commits in model: " + commits.Count());
         }
     }
 }

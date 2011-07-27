@@ -14,14 +14,15 @@ namespace Smeedee.UnitTests.Model
         private LatestCommits model;
         private CallCountingLatestCommitsService countingService;
         private UnitTests.Fakes.FakeLatestCommitsService fakeService;
+        private SmeedeeApp app = SmeedeeApp.Instance;
 
         [SetUp]
         public void SetUp()
         {
-            SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
+            app.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
             countingService = new CallCountingLatestCommitsService();
             fakeService = new UnitTests.Fakes.FakeLatestCommitsService();
-            SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(fakeService);
+            app.ServiceLocator.Bind<ILatestCommitsService>(fakeService);
             model = new LatestCommits();
         }
 
@@ -36,7 +37,7 @@ namespace Smeedee.UnitTests.Model
         [Test]
         public void Should_call_service_on_load()
         {
-            SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(countingService);
+            app.ServiceLocator.Bind<ILatestCommitsService>(countingService);
             new LatestCommits().Load(() => { });
             Assert.AreEqual(1, countingService.GetCalls);
         }

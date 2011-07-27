@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Android.Util;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -17,13 +18,11 @@ namespace Smeedee.Services
         private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
         private SmeedeeApp app = SmeedeeApp.Instance;
-        private ILog log;
 
         public LatestCommitsService()
         {
             downloader = app.ServiceLocator.Get<IFetchHttp>();
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
-            log = app.ServiceLocator.Get<ILog>();
         }
 
         public string GetFromHttp(int revision)
@@ -65,7 +64,7 @@ namespace Smeedee.Services
                 catch (FormatException) { }
                 catch (IndexOutOfRangeException) { }
             }
-            log.Debug("Latest commits count: " + /*People matter, */results.Count());
+            Log.Debug("Smeedee", "Latest commits count: " + /*People matter, */results.Count());
             return results;
         }
     }

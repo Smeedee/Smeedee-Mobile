@@ -14,14 +14,15 @@ namespace Smeedee.UnitTests.Services
     {
         protected FakeHttpFetcher downloader;
         protected ILatestCommitsService service;
+        private SmeedeeApp app = SmeedeeApp.Instance;
 
         [SetUp]
         public void SetUp()
         {
             downloader = new FakeHttpFetcher("foo");
-            SmeedeeApp.Instance.ServiceLocator.Bind<IFetchHttp>(downloader);
-            SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
-            SmeedeeApp.Instance.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
+            app.ServiceLocator.Bind<IFetchHttp>(downloader);
+            app.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
+            app.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
             service = new LatestCommitsService();
         }
 
