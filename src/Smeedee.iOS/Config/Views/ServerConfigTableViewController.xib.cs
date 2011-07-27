@@ -10,10 +10,13 @@ namespace Smeedee.iOS
 	public partial class ServerConfigTableViewController : UIViewController
 	{
 		// Needed for instantiation in AppDelegateIPhone
-		public ServerConfigTableViewController(IntPtr handle) : base (handle) { }
+		public ServerConfigTableViewController(IntPtr handle) : base (handle) { 
+			LoginAction = (str) => { };
+		}
 		
 		public ServerConfigTableViewController() : base ("ServerConfigTableViewController", null)
-		{
+		{ 
+			LoginAction = (str) => { };
 		}
 		
 		public override void ViewDidLoad ()
@@ -37,11 +40,19 @@ namespace Smeedee.iOS
 						else button.SetTitleColor(UIColor.Red, UIControlState.Normal);
 						button.SetTitle(str, UIControlState.Normal);
 					});
+					
+					LoginAction(str);
 				});
 			};
 		}
 		
+		public Action<string> LoginAction
+		{
+			private get;
+			set;
+		}
 	}
+	
 	public class ServerConfigTableSource : UITableViewSource
     {
 		private Login loginModel;

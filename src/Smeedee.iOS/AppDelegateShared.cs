@@ -29,18 +29,18 @@ namespace Smeedee.iOS
         {
 			loginHeaderController.View.Frame = new RectangleF(0, 0, 320, 150);
 			loginController.View.Frame = new RectangleF(0, 150, 320, 460);
+			
 			window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
 			
-			
-			
-            RegisterAllSupportedWidgets();
-			//AddMainTabBarToMenu();
+			(loginController as ServerConfigTableViewController).LoginAction = delegate(string str) {
+				if (str == Login.ValidationSuccess) {
+	            	RegisterAllSupportedWidgets();
+					window.InvokeOnMainThread( () => {
+						AddMainTabBarToMenu();
+					});
+				}
+			};
         }
-		
-        private void AddLoginScreen() 
-		{
-			window.AddSubview(new UILabel() {Text = "hallo", TextColor = UIColor.White});
-		}
 		
         private void RegisterAllSupportedWidgets()
         {
