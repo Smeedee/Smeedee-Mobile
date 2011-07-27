@@ -104,6 +104,8 @@ namespace Smeedee.Android.Widgets
             var layout = Resource.Layout.LatestCommitsWidget_ListItem;
 
             var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, layout, from, to, GetHighlightColor());
+            adapter.ButtonEnabled = model.HasMore;
+            Log.Debug("Smeedee", "Button.enabled set to: " + model.HasMore);
             adapter.LoadMoreClick += (o, e) =>
                                          {
                                              scrollDown = true;
@@ -160,7 +162,7 @@ namespace Smeedee.Android.Widgets
         {
             Log.Debug("Smeedee", "Count is " + Count);
             //Force convertView to be null when it's an instance of RelativeLayout. 
-            //This is our loadMoreButton, and the base isn't able to recycle it. 
+            //This is our loadMoreLayout, and the base isn't able to recycle it. 
             convertView = convertView as LinearLayout; 
             var view = base.GetView(position, convertView, parent);
 
@@ -188,19 +190,21 @@ namespace Smeedee.Android.Widgets
             return view;
         }
 
-        private RelativeLayout loadMoreButton;
+        private RelativeLayout loadMoreLayout;
+        private Button loadMoreButton;
         private View GetLoadMoreButton()
         {
-            if (loadMoreButton == null)
+            if (loadMoreLayout == null)
             {
-                loadMoreButton = new RelativeLayout(context);
+                loadMoreLayout = new RelativeLayout(context);
                 var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-                inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreButton);
+                inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreLayout);
 
-                var button = loadMoreButton.GetChildAt(0) as Button;
-                button.Click += LoadMoreClick;
+                loadMoreButton = loadMoreLayout.GetChildAt(0) as Button;
+                loadMoreButton.Click += LoadMoreClick;
+                loadMoreButton.Enabled = buttonEnabled;
             }
-            return loadMoreButton;
+            return loadMoreLayout;
         }
 
         public event EventHandler LoadMoreClick;
@@ -208,6 +212,22 @@ namespace Smeedee.Android.Widgets
         public override bool IsEnabled(int position)
         {
             return (position == Count - 1);
+        }
+
+        private bool buttonEnabled = true;
+        public bool ButtonEnabled
+        {   //Map directly to loadMoreLayout.Enabled when its instantiated,
+            //and map to a backing field while it's not.
+            get
+            {
+                if (false) return true;
+                return loadMoreButton == null ? buttonEnabled : loadMoreButton.Enabled;
+            }
+            set
+            {
+                if (loadMoreButton == null) buttonEnabled = value;
+                else loadMoreButton.Enabled = value;
+            }
         }
     }
 }

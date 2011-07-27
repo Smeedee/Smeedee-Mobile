@@ -83,6 +83,45 @@ namespace Smeedee.UnitTests.Model
             Assert.AreEqual(19, model.Commits.Count());
         }
 
+        [Test]
+        public void Should_call_callback_if_LoadMore_is_called_before_Load()
+        {
+            var wasCalled = false;
+            model.LoadMore(() => wasCalled = true);
+            Assert.True(wasCalled);
+        }
+
+        [Test]
+        public void Should_have_an_empty_list_if_LoadMore_is_called_before_Load()
+        {
+            model.LoadMore(() => { });
+            Assert.IsEmpty(model.Commits);
+        }
+
+        [Test]
+        public void HasMore_property_should_be_true_initially()
+        {
+            Assert.True(model.HasMore);
+        }
+
+        [Test]
+        public void HasMore_property_should_be_true_when_the_model_has_more()
+        {
+            model.Load(() => { });
+            model.LoadMore(() => { });
+            Assert.True(model.HasMore);
+        }
+
+        [Test]
+        public void Should_set_HasMore_property_to_false_if_the_service_runs_out_of_commits()
+        {
+            model.Load(() => { });
+            model.LoadMore(() => { });
+            model.LoadMore(() => { });
+            model.LoadMore(() => { });
+            Assert.False(model.HasMore);
+        }
+
         private class CallCountingLatestCommitsService : ILatestCommitsService
         {
             public int GetCalls;
