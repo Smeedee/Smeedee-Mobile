@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Smeedee.Model;
@@ -35,15 +36,18 @@ namespace Smeedee.Services
         {
             var httpData = GetDataFromHttp();
             var data = Csv.FromCsv(httpData).FirstOrDefault();
+			
             if (data == null || data.Count() != 2)
             {
                 failureCallback();
                 return;
             }
+			
             try
             {
-                callback(int.Parse(data[0]), DateTime.Parse(data[1]));
-            } catch (FormatException)
+                callback(int.Parse(data[0]), DateTime.ParseExact(data[1], "yyyyMMddHHmmss", CultureInfo.InvariantCulture));
+            } 
+			catch (FormatException)
             {
                 failureCallback();
             }
