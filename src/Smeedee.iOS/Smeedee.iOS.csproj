@@ -338,6 +338,15 @@
       <Link>Services\HttpFetcher.cs</Link>
     </Compile>
     <Compile Include="Lib\UIImageLoader.cs" />
+    <Compile Include="..\Smeedee\Services\ValidationService.cs">
+      <Link>Services\ValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\TopCommittersService.cs">
+      <Link>Services\TopCommittersService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\WorkingDaysLeftService.cs">
+      <Link>Services\WorkingDaysLeftService.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -381,5 +390,8 @@
     <Content Include="Images\default_person.jpeg" />
     <Content Include="Images\SettingsIcon.png" />
     <Content Include="Images\StarIcon.png" />
+    <Content Include="Images\icon_buildfailure.png" />
+    <Content Include="Images\icon_buildsuccess.png" />
+    <Content Include="Images\icon_buildunknown.png" />
   </ItemGroup>
 </Project>

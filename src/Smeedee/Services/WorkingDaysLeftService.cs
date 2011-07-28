@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Smeedee.Model;
@@ -28,22 +29,25 @@ namespace Smeedee.Services
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.WORKING_DAYS_LEFT_SERVICE_URL +
                       "?apiKey=" + login.Key;
-            return http.DownloadString(url);
+			return http.DownloadString(url);
         }
 
         private void GetSync(Action<int, DateTime> callback, Action failureCallback)
         {
             var httpData = GetDataFromHttp();
             var data = Csv.FromCsv(httpData).FirstOrDefault();
+			
             if (data == null || data.Count() != 2)
             {
                 failureCallback();
                 return;
             }
+			
             try
             {
-                callback(int.Parse(data[0]), DateTime.Parse(data[1]));
-            } catch (FormatException)
+                callback(int.Parse(data[0]), DateTime.ParseExact(data[1], "yyyyMMddHHmmss", CultureInfo.InvariantCulture));
+            } 
+			catch (FormatException)
             {
                 failureCallback();
             }

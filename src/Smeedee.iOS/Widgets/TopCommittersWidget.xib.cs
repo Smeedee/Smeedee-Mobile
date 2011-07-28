@@ -21,7 +21,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-			TableView.SeparatorColor = UIColor.DarkGray;
+			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
             Refresh();
         }
@@ -39,6 +39,11 @@ namespace Smeedee.iOS
 		public string GetDynamicDescription() 
 		{
 			return model.Description;	
+		}
+		
+		public DateTime LastRefreshTime()
+		{
+			return DateTime.Now;	
 		}
 		
         public event EventHandler DescriptionChanged;
@@ -66,7 +71,7 @@ namespace Smeedee.iOS
 		
 		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 		{
-			return 70f;
+			return 60f;
 		}
         
         public override int RowsInSection (UITableView tableview, int section)
