@@ -36,7 +36,7 @@ namespace Smeedee.Model
         {
             service.Get10Latest(loadedCommits =>
             {
-                if (loadedCommits.Count() < 10) HasMore = false;
+                HasMore = loadedCommits.Count() == 10;
                 Commits = loadedCommits.ToList();
                 callback();
             });
