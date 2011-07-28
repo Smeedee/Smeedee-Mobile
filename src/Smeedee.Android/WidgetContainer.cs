@@ -176,6 +176,7 @@ namespace Smeedee.Android
                             currentWidget.Refresh();
                             handler.SendEmptyMessage(0);
                         });
+                        HideTheRefreshText();
                     }
 
                     return true;
@@ -207,6 +208,12 @@ namespace Smeedee.Android
             }
         }
 
+        private void HideTheRefreshText()
+        {
+            var refreshText = FindViewById<TextView>(Resource.Id.RefreshText);
+            refreshText.Visibility = ViewStates.Invisible;
+        }
+
         protected override void OnResume()
         {
             base.OnResume();
@@ -224,6 +231,7 @@ namespace Smeedee.Android
             }
 
             RefreshAllCurrentlyEnabledWidgets();
+            HideTheRefreshText();
         }
 
         private void RefreshAllCurrentlyEnabledWidgets()
