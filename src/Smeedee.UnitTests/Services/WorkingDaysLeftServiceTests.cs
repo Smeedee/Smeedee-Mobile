@@ -21,7 +21,7 @@ namespace Smeedee.UnitTests.Services
 
         private void SetData(int daysLeft, DateTime deadline)
         {
-            var data = new List<string[]> {new[] {daysLeft.ToString(), deadline.ToString()}};
+            var data = new List<string[]> {new[] {daysLeft.ToString(), deadline.ToString("yyyyMMddHHmmss")}};
             app.ServiceLocator.Bind<IFetchHttp>(new FakeHttpFetcher(Csv.ToCsv(data)));
         }
 

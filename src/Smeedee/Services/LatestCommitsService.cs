@@ -57,11 +57,19 @@ namespace Smeedee.Services
             {
                 try
                 {
+                    Uri uri;
+                    try
+                    {
+                        uri = new Uri(line[INDEX_COMMIT_IMAGE_URI]);
+                    } catch (FormatException)
+                    {
+                        uri = new Uri(CachedImageService.DEFAULT_URI);
+                    }
                     results.Add(new Commit(
                                     line[INDEX_COMMIT_MESSAGE].Trim(),
                                     DateTime.ParseExact(line[INDEX_COMMIT_DATETIME], "yyyyMMddHHmmss", CultureInfo.InvariantCulture),
                                     line[INDEX_COMMIT_USER],
-									new Uri(line[INDEX_COMMIT_IMAGE_URI]),
+                                    uri,
                                     int.Parse(line[INDEX_COMMIT_REVISION])));
                 }
                 catch (FormatException) { }
