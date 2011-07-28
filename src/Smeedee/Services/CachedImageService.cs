@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Smeedee
+namespace Smeedee.Services
 {
     public class CachedImageService : IImageService
     {

@@ -27,8 +27,16 @@ namespace Smeedee.iOS
 		
 		private void UpdateUI() 
 		{
-			daysLabel.Text = model.DaysLeft.ToString();
-			overtimeLabel.Hidden = !model.IsOnOvertime;
+			if (model.LoadError)
+			{
+				daysLabel.Text = "0";
+				overtimeLabel.Text = "Error loading data";
+			}
+			else
+			{
+				daysLabel.Text = model.DaysLeft.ToString();
+				overtimeLabel.Hidden = !model.IsOnOvertime;
+			}
 		}
 		
 		public void Refresh() 
@@ -38,10 +46,12 @@ namespace Smeedee.iOS
 		
 		public string GetDynamicDescription() 
 		{
-			if (model != null) {
-				return string.Format("Actual working days left until {0}", model.UntillDate.ToLongDateString());
-			}
-			return "Static";
+			return (!model.LoadError) ? string.Format("Actual working days left until {0}", model.UntillDate.ToLongDateString()) : "Actual working days left of project";
+		}
+		
+		public DateTime LastRefreshTime()
+		{
+			return DateTime.Now;	
 		}
 		
         public event EventHandler DescriptionChanged;

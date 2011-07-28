@@ -41,6 +41,11 @@ namespace Smeedee.iOS
 			return model.DynamicDescription;	
 		}
 		
+		public DateTime LastRefreshTime()
+		{
+			return DateTime.Now;	
+		}
+		
         public event EventHandler DescriptionChanged;
         public void OnDescriptionChanged(EventArgs args)
         {
@@ -71,6 +76,6 @@ namespace Smeedee.iOS
             return buildStatusCellController.TableViewCell;
         }
         
-        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath) { return 70f; }
+        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath) { return 60f; }
     }
 }

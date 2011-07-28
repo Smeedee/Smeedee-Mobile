@@ -14,6 +14,7 @@ namespace Smeedee.Android.Widgets
         private const string DynamicDescription = "Flip left and right to see your data";
 
         public event EventHandler DescriptionChanged;
+        private DateTime _lastRefreshTime;
 
         public StartPageWidget(Context context) :
             base(context)
@@ -40,6 +41,12 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
+            _lastRefreshTime = DateTime.Now;
+        }
+
+        public DateTime LastRefreshTime()
+        {
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()

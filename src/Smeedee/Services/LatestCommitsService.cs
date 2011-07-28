@@ -67,7 +67,7 @@ namespace Smeedee.Services
                     }
                     results.Add(new Commit(
                                     line[INDEX_COMMIT_MESSAGE].Trim(),
-                                    DateTime.Parse(line[INDEX_COMMIT_DATETIME]),
+                                    DateTime.ParseExact(line[INDEX_COMMIT_DATETIME], "yyyyMMddHHmmss", CultureInfo.InvariantCulture),
                                     line[INDEX_COMMIT_USER],
                                     uri,
                                     int.Parse(line[INDEX_COMMIT_REVISION])));
