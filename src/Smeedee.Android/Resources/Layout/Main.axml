@@ -33,16 +33,13 @@
       android:layout_above="@+id/RefreshText"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"/>
-    <TextView
-      android:id="@+id/RefreshText"
+    <Button
+      android:id="@+id/BtnBottomRefresh"
       android:gravity="bottom"
       android:layout_alignParentBottom="true"
       android:layout_alignParentLeft="true"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:text="5 minutes since last refresh"
-      android:background="@color/smeedee_darkgrey"
-      android:textAppearance="@android:style/TextAppearance.Small"
       android:visibility="invisible" />
     </RelativeLayout>
 </RelativeLayout>

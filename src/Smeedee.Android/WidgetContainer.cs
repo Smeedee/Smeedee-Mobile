@@ -22,8 +22,7 @@ namespace Smeedee.Android
     public class WidgetContainer : Activity
     {
         private const string CURRENT_SCREEN_PERSISTENCE_KEY = "WidgetContainer.CurrentScreen";
-        //TODO: Change the variable below to 10 minutes. Use: new DateTime(0, 0, 0, 0, 10, ).Minute
-        private readonly TimeSpan REFRESH_TEXT_TO_BE_SHOWN_LIMIT = new TimeSpan(0, 0, 5);
+        private readonly TimeSpan REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES = new TimeSpan(0, 5, 0);
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private RealViewSwitcher flipper;
         private IEnumerable<IWidget> widgets;
@@ -31,6 +30,8 @@ namespace Smeedee.Android
         private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
         private ISharedPreferences prefs;
         private bool hasSettingsChanged;
+        private Button _bottomRefreshButton;
+        private Timer _timer;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -40,6 +41,12 @@ namespace Smeedee.Android
 
             flipper = FindViewById<RealViewSwitcher>(Resource.Id.Flipper);
             flipper.ScreenChanged += HandleScreenChanged;
+
+            _bottomRefreshButton = FindViewById<Button>(Resource.Id.BtnBottomRefresh);
+            _bottomRefreshButton.Click += delegate
+                                       {
+                                           RefreshCurrentWidget();
+                                       };
 
             AddWidgetsToFlipper();
 
@@ -65,21 +72,25 @@ namespace Smeedee.Android
         {
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
-
-            ShowRefreshTextAtBottomOrNot();
+            ShowRefreshButtonAtBottom(null);
         }
 
-        private void ShowRefreshTextAtBottomOrNot()
+        private void ShowRefreshButtonAtBottom(System.Object timer)
         {
+            if (timer != null)
+            {
+                var t = (Timer) timer;
+                t.Dispose();
+            }
             var currentWidget = flipper.CurrentView as IWidget;
             if (currentWidget != null)
             {
-                if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_TEXT_TO_BE_SHOWN_LIMIT)
+                if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES)
                 {
-                    var refreshText = FindViewById<TextView>(Resource.Id.RefreshText);
-                    refreshText.Text =
-                        (DateTime.Now - currentWidget.LastRefreshTime()).PrettyPrint() + " since last refresh";
-                    refreshText.Visibility = ViewStates.Visible;
+                    _bottomRefreshButton.Text =
+                        (DateTime.Now - currentWidget.LastRefreshTime()).PrettyPrint() + " since last refresh. Click to refresh";
+                    _bottomRefreshButton.Visibility = ViewStates.Visible;
+                    
                 }
             }
         }
@@ -166,19 +177,7 @@ namespace Smeedee.Android
             switch (item.ItemId)
             {
                 case Resource.Id.BtnRefreshCurrentWidget:
-                    var currentWidget = flipper.CurrentView as IWidget;
-                    if (currentWidget != null)
-                    {
-                        var dialog = ProgressDialog.Show(this, "Refreshing", "Updating data for current widget", true);
-                        var handler = new ProgressHandler(dialog);
-                        ThreadPool.QueueUserWorkItem(arg =>
-                        {
-                            currentWidget.Refresh();
-                            handler.SendEmptyMessage(0);
-                        });
-                        HideTheRefreshText();
-                    }
-
+                    RefreshCurrentWidget();
                     return true;
 
                 case Resource.Id.BtnWidgetSettings:
@@ -208,10 +207,26 @@ namespace Smeedee.Android
             }
         }
 
-        private void HideTheRefreshText()
+        private void RefreshCurrentWidget()
         {
-            var refreshText = FindViewById<TextView>(Resource.Id.RefreshText);
-            refreshText.Visibility = ViewStates.Invisible;
+            var currentWidget = flipper.CurrentView as IWidget;
+            if (currentWidget != null)
+            {
+                var dialog = ProgressDialog.Show(this, "Refreshing", "Updating data for widget", true);
+                var handler = new ProgressHandler(dialog);
+                ThreadPool.QueueUserWorkItem(arg =>
+                                                 {
+                                                     currentWidget.Refresh();
+                                                     handler.SendEmptyMessage(0);
+                                                 });
+                HideTheBottomRefreshButton();
+                StartRefreshTimer();
+            }
+        }
+
+        private void HideTheBottomRefreshButton()
+        {
+            _bottomRefreshButton.Visibility = ViewStates.Invisible;
         }
 
         protected override void OnResume()
@@ -231,7 +246,15 @@ namespace Smeedee.Android
             }
 
             RefreshAllCurrentlyEnabledWidgets();
-            HideTheRefreshText();
+            HideTheBottomRefreshButton();
+
+            StartRefreshTimer();
+        }
+
+        private void StartRefreshTimer()
+        {
+            _timer = new Timer(ShowRefreshButtonAtBottom);
+            _timer.Change(REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES.Milliseconds, 0);
         }
 
         private void RefreshAllCurrentlyEnabledWidgets()
