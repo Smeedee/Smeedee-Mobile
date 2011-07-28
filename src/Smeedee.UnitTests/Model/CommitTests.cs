@@ -15,7 +15,7 @@ namespace Smeedee.UnitTests.Model
 		
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void First_constructor_argument_can_not_be_null()
+        public void Message_constructor_argument_can_not_be_null()
         {
             new Commit(null, DateTime.Now, "larspars", uri, 1);
         }
@@ -26,6 +26,13 @@ namespace Smeedee.UnitTests.Model
         {
             new Commit("msg", DateTime.Now, null, uri, 1);
         }
+		
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void Uri_constructor_argument_cannot_be_null()
+		{
+			new Commit("msg", DateTime.Now, "larmel", null, 1);	
+		}
 
         [Test]
         public void Equals_methods_should_not_be_based_on_referential_equality_but_on_values()

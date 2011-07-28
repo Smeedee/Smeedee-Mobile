@@ -12,7 +12,7 @@ namespace Smeedee.Model
 
         public Commit(string message, DateTime date, string user, Uri uri, int revision)
         {
-            Guard.NotNull(message, date, user);
+            Guard.NotNull(message, date, user, uri);
             User = user;
             Date = date;
             Message = message;
