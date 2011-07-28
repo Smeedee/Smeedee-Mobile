@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/BtnRefreshCurrentWidget"
+  <item android:id="@+id/MenuBtnRefreshCurrentWidget"
         android:icon="@android:drawable/ic_menu_rotate"
         android:title="@string/MenuBtnRefreshCurrentWidget" />
-  <item android:id="@+id/BtnWidgetSettings"
+  <item android:id="@+id/MenuBtnWidgetSettings"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/MenuBtnWidgetSettings" />
-  <item android:id="@+id/BtnGlobalSettings"
+  <item android:id="@+id/MenuBtnGlobalSettings"
         android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/MenuBtnGlobalSettings" />
-  <item android:id="@+id/BtnAbout"
+  <item android:id="@+id/MenuBtnAbout"
         android:icon="@drawable/icon_smeedee_blackwhite"
         android:title="@string/MenuBtnAbout" />
 </menu>

@@ -5,7 +5,7 @@
   android:layout_height="fill_parent">
   
   <TextView
-    android:id="@+id/WidgetNameInTopBanner"
+    android:id="@+id/WidgetContainerWidgetNameInTopBanner"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
@@ -14,8 +14,8 @@
     android:textAppearance="@android:style/TextAppearance.Large" />
 
   <TextView
-    android:id="@+id/WidgetDynamicDescriptionInTopBanner"
-    android:layout_below="@id/WidgetNameInTopBanner"
+    android:id="@+id/WidgetContainerWidgetDynamicDescriptionInTopBanner"
+    android:layout_below="@id/WidgetContainerWidgetNameInTopBanner"
     android:layout_alignParentLeft="true"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -26,15 +26,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_below="@id/WidgetDynamicDescriptionInTopBanner">
+    android:layout_below="@id/WidgetContainerWidgetDynamicDescriptionInTopBanner">
     
     <smeedee.android.RealViewSwitcher
-      android:id="@+id/Flipper"
-      android:layout_above="@+id/RefreshText"
+      android:id="@+id/WidgetContainerFlipper"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"/>
     <Button
-      android:id="@+id/BtnBottomRefresh"
+      android:id="@+id/WidgetContainerBtnBottomRefresh"
       android:gravity="bottom"
       android:layout_alignParentBottom="true"
       android:layout_alignParentLeft="true"
