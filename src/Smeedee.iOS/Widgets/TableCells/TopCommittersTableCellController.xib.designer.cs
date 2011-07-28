@@ -23,6 +23,8 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_cell;
 		
+		private MonoTouch.UIKit.UIView __mt_graph;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("imageView")]
 		private MonoTouch.UIKit.UIImageView imageView {
@@ -69,6 +71,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_cell = value;
 				this.SetNativeField("cell", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("graph")]
+		private MonoTouch.UIKit.UIView graph {
+			get {
+				this.__mt_graph = ((MonoTouch.UIKit.UIView)(this.GetNativeField("graph")));
+				return this.__mt_graph;
+			}
+			set {
+				this.__mt_graph = value;
+				this.SetNativeField("graph", value);
 			}
 		}
 	}
