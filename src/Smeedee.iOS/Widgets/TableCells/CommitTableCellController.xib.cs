@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.iOS.Lib;
 using Smeedee;
 using Smeedee.Model;
 
@@ -11,9 +12,7 @@ namespace Smeedee.iOS
 {
 	public partial class CommitTableCellController : TableViewCellController
 	{
-		public CommitTableCellController() : base("CommitTableCellController", null)
-        {
-        }
+		public CommitTableCellController() : base("CommitTableCellController", null) { }
         
         public override UITableViewCell TableViewCell
         {
@@ -31,6 +30,10 @@ namespace Smeedee.iOS
 				message.Text = "No commit message";
 				message.TextColor = UIColor.Red;
 			}
+			/*
+			new UIImageLoader().LoadImageFromUri(commit.ImageUri, (img) => {
+				image.Image = img;
+			});*/
 			
 			message.SizeToFit();
 			var bounds = timestamp.Frame;
