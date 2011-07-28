@@ -85,13 +85,11 @@ namespace Smeedee.Android.Widgets
             var listView = FindViewById<ListView>(Resource.Id.LatestCommitsList);
             var lastItemBeforeExpansion = Math.Max(0, listView.Count - 1);
 
-            Log.Debug("Smeedee", "LC Redraw()");
             if (ShouldRecreateListAdapter())
             {
                 listAdapter = CreateListAdapter();
             }
 
-            Log.Debug("Smeedee", "model.HasMore: " + model.HasMore);
             listAdapter.ButtonEnabled = model.HasMore;
             listView.Adapter = listAdapter;
 
@@ -106,7 +104,6 @@ namespace Smeedee.Android.Widgets
 
         private TextColoringAdapterWithLoadMoreButton CreateListAdapter()
         {
-            Log.Debug("Smeedee", "LC CreateListAdapter()");
             var from = new[] { "Image", "User", "Msg", "Date" };
             var to = new[] { Ids.LatestCommitsWidget_CommitterIcon, Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
             var listItems = CreateListItems();
