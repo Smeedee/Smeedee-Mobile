@@ -81,7 +81,7 @@ namespace Smeedee.iOS
 			var committer = committers.ElementAt(indexPath.Row);
             
             var controller = cellFactory.NewTableCellController(tableView, indexPath) as TopCommittersTableCellController;
-            controller.BindDataToCell(committer);
+            controller.BindDataToCell(committer, committer.Commits / (float)committers.First().Commits);
 			
             return controller.TableViewCell;
         }
