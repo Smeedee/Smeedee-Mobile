@@ -26,10 +26,12 @@ namespace Smeedee.Services
 
         public string GetFromHttp(int revision)
         {
-            var parameter = (revision == -1 ? "" : "?revision=" + revision);
-            var url = new Login().Url + 
+            var login = new Login();
+            var parameter = (revision == -1 ? "" : "&revision=" + revision);
+            var url = login.Url + 
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.LATEST_COMMITS_SERVICE_URL +
+                      "?apiKey=" + login.Key+
                       parameter;
             return downloader.DownloadString(url);
         }

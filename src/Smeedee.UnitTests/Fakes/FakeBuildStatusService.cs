@@ -28,9 +28,9 @@ namespace Smeedee.UnitTests.Fakes
             Builds = DefaultBuilds;
         }
 
-        public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
+        public void Load(Action<IEnumerable<Build>> callback)
         {
-            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(Builds)));
+            bgWorker.Invoke(() => callback(Builds));
         }
     }
 }

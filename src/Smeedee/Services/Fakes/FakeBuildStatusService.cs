@@ -35,12 +35,12 @@ namespace Smeedee
                          };
         }
 
-        public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
+        public void Load(Action<IEnumerable<Build>> callback)
         {
             //if (buildListSwitch)
-                bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(builds)));
+                bgWorker.Invoke(() => callback(builds));
             /*else
-                bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(builds2)));
+                bgWorker.Invoke(() => callback(builds2));
 			 */
             buildListSwitch = !buildListSwitch;
         }
