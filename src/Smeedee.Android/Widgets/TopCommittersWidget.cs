@@ -35,7 +35,7 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            _model.Load(() => ContextSwitcher.Using(Context as Activity).InUI(UpdateListView).Run());
+            _model.Load(() => ((Activity)Context).RunOnUiThread(UpdateListView));
             _lastRefreshTime = DateTime.Now;
         }
 

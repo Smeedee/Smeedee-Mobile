@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Smeedee.Model;
+using Smeedee.Services;
 using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Model
@@ -14,14 +15,20 @@ namespace Smeedee.UnitTests.Model
         private LatestCommits model;
         private CallCountingLatestCommitsService countingService;
         private UnitTests.Fakes.FakeLatestCommitsService fakeService;
+		private FakePersistenceService fakePersistence;
 
         [SetUp]
         public void SetUp()
         {
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
-            countingService = new CallCountingLatestCommitsService();
+			
             fakeService = new UnitTests.Fakes.FakeLatestCommitsService();
+            countingService = new CallCountingLatestCommitsService();
+			fakePersistence = new FakePersistenceService();
+			
             SmeedeeApp.Instance.ServiceLocator.Bind<ILatestCommitsService>(fakeService);
+            SmeedeeApp.Instance.ServiceLocator.Bind<IPersistenceService>(fakePersistence);
+			
             model = new LatestCommits();
         }
 
@@ -66,8 +73,9 @@ namespace Smeedee.UnitTests.Model
         public void Should_not_duplicate_commits_when_new_commits_are_added_between_Load_and_LoadMore()
         {
             model.Load(() => { });
+		    var uri = new Uri("http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png");
 
-            var newData = new List<Commit> {new Commit("Commit msg", DateTime.Now, "larspars", 1)};
+            var newData = new List<Commit> {new Commit("Commit msg", DateTime.Now, "larspars", uri, 1)};
             newData.AddRange(fakeService.data);
             fakeService.data = newData;
 
@@ -81,12 +89,78 @@ namespace Smeedee.UnitTests.Model
             Assert.IsFalse(hasDuplicates);
             Assert.AreEqual(19, model.Commits.Count());
         }
+		
+		[Test]
+		public void Should_save_highlight_empty_to_persistence()
+		{
+			model.HighlightEmpty = true;
+			
+			Assert.AreEqual(1, fakePersistence.SaveCalls);
+		}
+		
+		[Test]
+		public void Default_value_for_highlight_empty_should_be_false()
+		{
+			var val = model.HighlightEmpty;
+			
+			Assert.IsFalse(val);
+		}
+		
+		[Test]
+		public void Should_read_highlight_empty_from_persistence()
+		{
+			fakePersistence.Save("LatestCommits.HighlightEmpty", true);
+			
+			var val = model.HighlightEmpty;
+			
+			Assert.IsTrue(val);
+			Assert.AreEqual(1, fakePersistence.GetCalls);
+		}
+
+        [Test]
+        public void Should_call_callback_if_LoadMore_is_called_before_Load()
+        {
+            var wasCalled = false;
+            model.LoadMore(() => wasCalled = true);
+            Assert.True(wasCalled);
+        }
+
+        [Test]
+        public void Should_have_an_empty_list_if_LoadMore_is_called_before_Load()
+        {
+            model.LoadMore(() => { });
+            Assert.IsEmpty(model.Commits);
+        }
+
+        [Test]
+        public void HasMore_property_should_be_true_initially()
+        {
+            Assert.True(model.HasMore);
+        }
+
+        [Test]
+        public void HasMore_property_should_be_true_when_the_model_has_more()
+        {
+            model.Load(() => { });
+            model.LoadMore(() => { });
+            Assert.True(model.HasMore);
+        }
+
+        [Test]
+        public void Should_set_HasMore_property_to_false_if_the_service_runs_out_of_commits()
+        {
+            model.Load(() => { });
+            model.LoadMore(() => { });
+            model.LoadMore(() => { });
+            model.LoadMore(() => { });
+            Assert.False(model.HasMore);
+        }
 
         private class CallCountingLatestCommitsService : ILatestCommitsService
         {
             public int GetCalls;
 
-            public void Get10FromRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
+            public void Get10AfterRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
             {
                 GetCalls++;
             }

@@ -29,7 +29,7 @@ namespace Smeedee.iOS
 		
 		private void UpdateUI()
 		{
-			TableView.Source = new LatestCommitsTableSource(this, model.Commits);
+			TableView.Source = new LatestCommitsTableSource(this, model);
 			TableView.ReloadData();
 			OnDescriptionChanged(new EventArgs());
 		}
@@ -41,12 +41,12 @@ namespace Smeedee.iOS
 		
 		public void LoadMore()
 		{
-			model.LoadMore(() => InvokeOnMainThread(UpdateUI));	
+			InvokeOnMainThread(UpdateUI);
 		}
 		
 		public string GetDynamicDescription() 
 		{
-			return "TODO";	
+			return model.DynamicDescription;	
 		}
 		
         public event EventHandler DescriptionChanged;
@@ -62,56 +62,63 @@ namespace Smeedee.iOS
 		private TableCellFactory cellFactory =	new TableCellFactory("CommitTableCellController", typeof(CommitTableCellController));
         private TableCellFactory buttonCellFactory = new TableCellFactory("LatestCommitsLoadMoreTableCellController", typeof(LatestCommitsLoadMoreTableCellController));
 		
-		private List<Commit> commits;
+		private LatestCommits model;
 		private LatestCommitsWidget controller;
         
         private const float CELL_PADDING = 20f;
         
-        public LatestCommitsTableSource(LatestCommitsWidget controller, IEnumerable<Commit> commits)
+        public LatestCommitsTableSource(LatestCommitsWidget controller, LatestCommits model)
         {
-            this.commits = commits.ToList();
+            this.model = model;
 			this.controller = controller;
         }
 		
 		public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
-			var row = indexPath.Row;
-			if (row < commits.Count) {
+			var section = indexPath.Section;
+			if (section == 0) {
 				var cell = GetCell(tableView, indexPath);
-				var rowHeight = 0f;
-				foreach (var view in cell.ContentView.Subviews) {
-					if (view is UILabel || view is UITextView) {
-						var height = view.SizeThatFits(new SizeF(240f, float.MaxValue)).Height;
-						rowHeight += height;
-					}
-				}
-				return rowHeight + CELL_PADDING;
+				
+				var message = cell.ContentView.Subviews.ElementAt(3);
+				var height = 50 + Math.Max(message.SizeThatFits(new SizeF(240, float.MaxValue)).Height - 20, 0);
+				
+				return height + CELL_PADDING;
 			}
-			return 50;
+			return 60;
 		}
-        
-        public override int NumberOfSections(UITableView tableView) { return 1; }
-        public override int RowsInSection(UITableView tableview, int section) { return commits.Count() + 1; }
+		
+		public override float GetHeightForFooter (UITableView tableView, int section) {	return 0; }
+		
+        public override int NumberOfSections(UITableView tableView) { return 2; }
+        public override int RowsInSection(UITableView tableview, int section) { return (section == 0) ? model.Commits.Count() : 1; }
        
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
+			var section = indexPath.Section;
 			var row = indexPath.Row;
-			if (row < commits.Count()) {
-	            var commit = commits[indexPath.Row];
+			if (section == 0) {
+	            var commit = model.Commits.ElementAt(indexPath.Row);
 	            
 	            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
-	            controller.BindDataToCell(commit);
+	            controller.BindDataToCell(commit, model.HighlightEmpty);
 	            
 	            return controller.TableViewCell;
 			}
 			else
 			{
 				var buttonController = buttonCellFactory.NewTableCellController(tableView, indexPath) as LatestCommitsLoadMoreTableCellController;
-				
-				buttonController.BindAction(() => controller.LoadMore());
+				buttonController.TableViewCell.BackgroundColor = UIColor.DarkGray;
 				
 				return buttonController.TableViewCell;
 			}
         }
+		
+		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+		{
+			if (indexPath.Section == 1)
+			{
+				model.LoadMore(() => controller.LoadMore());	
+			}
+		}
     }
 }

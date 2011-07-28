@@ -13,27 +13,31 @@ namespace Smeedee.Services
         private const int INDEX_COMMIT_DATETIME = 1;
         private const int INDEX_COMMIT_USER = 2;
         private const int INDEX_COMMIT_REVISION = 3;
+        private const int INDEX_COMMIT_IMAGE_URI = 4;
 
         private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
+        private SmeedeeApp app = SmeedeeApp.Instance;
 
         public LatestCommitsService()
         {
-            downloader = SmeedeeApp.Instance.ServiceLocator.Get<IFetchHttp>();
-            bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
+            downloader = app.ServiceLocator.Get<IFetchHttp>();
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
 
         public string GetFromHttp(int revision)
         {
-            var parameter = (revision == -1 ? "" : "?revision=" + revision);
-            var url = new Login().Url + 
+            var login = new Login();
+            var parameter = (revision == -1 ? "" : "&revision=" + revision);
+            var url = login.Url + 
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.LATEST_COMMITS_SERVICE_URL +
+                      "?apiKey=" + login.Key+
                       parameter;
             return downloader.DownloadString(url);
         }
 
-        public void Get10FromRevision(int fromRevision, Action<IEnumerable<Commit>> callback)
+        public void Get10AfterRevision(int fromRevision, Action<IEnumerable<Commit>> callback)
         {
             bgWorker.Invoke(() =>
                 callback(ParseCsv(GetFromHttp(fromRevision))));
@@ -45,7 +49,7 @@ namespace Smeedee.Services
                 callback(ParseCsv(GetFromHttp(-1))));
         }
 
-        private static IEnumerable<Commit> ParseCsv(string csvData)
+        private IEnumerable<Commit> ParseCsv(string csvData)
         {
             var csvStringLines = Csv.FromCsv(csvData);
             var results = new List<Commit>();
@@ -54,9 +58,10 @@ namespace Smeedee.Services
                 try
                 {
                     results.Add(new Commit(
-                                    line[INDEX_COMMIT_MESSAGE],
+                                    line[INDEX_COMMIT_MESSAGE].Trim(),
                                     DateTime.Parse(line[INDEX_COMMIT_DATETIME]),
                                     line[INDEX_COMMIT_USER],
+									new Uri(line[INDEX_COMMIT_IMAGE_URI]),
                                     int.Parse(line[INDEX_COMMIT_REVISION])));
                 }
                 catch (FormatException) { }

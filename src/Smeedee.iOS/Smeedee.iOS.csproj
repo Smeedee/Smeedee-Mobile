@@ -337,6 +337,7 @@
     <Compile Include="..\Smeedee\Services\HttpFetcher.cs">
       <Link>Services\HttpFetcher.cs</Link>
     </Compile>
+    <Compile Include="Lib\UIImageLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

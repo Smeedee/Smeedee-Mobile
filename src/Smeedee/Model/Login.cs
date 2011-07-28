@@ -11,8 +11,8 @@ namespace Smeedee.Model
 		public const string ValidationFailed = "Failed!";
 
         private IPersistenceService persistence;
-		private IValidationService validation;
-        
+        private SmeedeeApp app = SmeedeeApp.Instance;
+
         public string Key
         {
             get { return persistence.Get(LoginKey, ""); }
@@ -27,27 +27,24 @@ namespace Smeedee.Model
 
         public Login()
         {
-            persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-			validation = SmeedeeApp.Instance.ServiceLocator.Get<IValidationService>();
+            persistence = app.ServiceLocator.Get<IPersistenceService>();
 		}
 		
 		public void StoreAndValidate(string url, string key, Action<string> callback)
-		{
+        {
 			Key = key;
 			Url = url;
-
-			validation.Validate(url, key, (validationSuccess) => 
+			IsValid(validationSuccess => 
 			{
 				if (validationSuccess) callback(ValidationSuccess);
 				else callback(ValidationFailed);
 			});
 		}
-		
-        public bool IsValid()
+
+        public void IsValid(Action<bool> callback)
         {
-            var validationResult = false;
-            validation.Validate(Url, Key, (result) => validationResult = result);
-            return validationResult;
+            var validation = app.ServiceLocator.Get<IValidationService>();
+            validation.Validate(Url, Key, callback);
         }
 
         private string NormalizeUrl(string url)

@@ -21,9 +21,17 @@ namespace Smeedee.Services
             bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
         }
 
-        public void Load(Action<AsyncResult<IEnumerable<Build>>> callback)
+        public void Load(Action<IEnumerable<Build>> callback)
         {
-            bgWorker.Invoke(() => callback(new AsyncResult<IEnumerable<Build>>(ParseCsv(downloader.DownloadString(new Login().Url + ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH + ServiceConstants.BUILD_STATUS_SERVICE_URL)))));
+            bgWorker.Invoke(() => callback(ParseCsv(GetFromHttp())));
+        }
+
+        private string GetFromHttp()
+        {
+            var login = new Login();
+            var url = login.Url + ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
+                      ServiceConstants.BUILD_STATUS_SERVICE_URL + "?apiKey=" + login.Key;
+            return downloader.DownloadString(url);
         }
 
         private static IEnumerable<Build> ParseCsv(string csvData)

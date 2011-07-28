@@ -26,7 +26,7 @@ namespace Smeedee.Services
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.TOP_COMMITTERS_SERVICE_URL +
                       "?days=" + (int)time +
-                      "&key=" + login.Key;
+                      "&apiKey=" + login.Key;
             return http.DownloadString(url);
         }
 

@@ -28,6 +28,7 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<IValidationService>(new FakeValidationService());
 			serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
 			
+			serviceLocator.Bind<IImageService>(new ImageService(serviceLocator.Get<IBackgroundWorker>()));
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
 			serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
 			

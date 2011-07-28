@@ -55,11 +55,6 @@ namespace Smeedee.Android
                 widget.DescriptionChanged += WidgetDescriptionChanged;
             }
 
-            Log.Debug("SMEEDEE", "In WidgetContainer");
-            Log.Debug("SMEEDEE", "URL: " + new Login().Url);
-            Log.Debug("SMEEDEE", "Key: " + new Login().Key);
-            Log.Debug("SMEEDEE", "Valid? " + new Login().IsValid());
-
             preferenceChangeListener = new SharedPreferencesChangeListener(() =>
                                                                                {
                                                                                    hasSettingsChanged = true;

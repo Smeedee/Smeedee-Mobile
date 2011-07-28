@@ -22,7 +22,7 @@ namespace Smeedee.Model
         {
             buildService.Load(args =>
             {
-                Builds = args.Result.ToList();
+                Builds = args.ToList();
                 callback();
             });
         }

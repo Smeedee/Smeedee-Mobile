@@ -9,9 +9,8 @@ namespace Smeedee.Services.Fakes
 		}
 		public void Validate(string url, string key, Action<bool> callback) 
 		{
-			callback(url == "http://folk.ntnu.no/dagolap/s/");
+			callback(url != "" && key != "");
 		}
-		
 	}
 }
 

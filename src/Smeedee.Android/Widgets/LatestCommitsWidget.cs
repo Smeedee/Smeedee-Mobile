@@ -22,7 +22,7 @@ namespace Smeedee.Android.Widgets
 
         private LatestCommits model;
         private bool scrollDown = false;
-        private DateTime _lastRefreshTime;
+		private DateTime _lastRefreshTime;        private TextColoringAdapterWithLoadMoreButton listAdapter;
 
         public event EventHandler DescriptionChanged;
 
@@ -91,8 +91,13 @@ namespace Smeedee.Android.Widgets
             var listView = FindViewById<ListView>(Resource.Id.LatestCommitsList);
             var lastItemBeforeExpansion = Math.Max(0, listView.Count - 1);
 
-            var adapter = CreateListAdapter();
-            listView.Adapter = adapter;
+            if (ShouldRecreateListAdapter())
+            {
+                listAdapter = CreateListAdapter();
+            }
+
+            listAdapter.ButtonEnabled = model.HasMore;
+            listView.Adapter = listAdapter;
 
             if (scrollDown)
             {
@@ -142,7 +147,28 @@ namespace Smeedee.Android.Widgets
                                  {"Date", (DateTime.Now - changeSet.Date).PrettyPrint()}
                              });
             }
+            InsertDummyEntryForButton(data);
             return data;
+        }
+
+        private static void InsertDummyEntryForButton(List<IDictionary<string, object>> list)
+        {
+            list.Add(new Dictionary<string, object>  {
+                                 {"Msg", ""},
+                                 {"Image", Resource.Drawable.DefaultPerson}, 
+                                 {"User", ""}, 
+                                 {"Date", ""}
+                             });
+        }
+
+        private int lastRevisionBeforeLoad = -1;
+        private bool ShouldRecreateListAdapter()
+        {
+            if (listAdapter == null) return true;
+            if (model.Commits.Count == 0) return true;
+            var modelWasChanged = lastRevisionBeforeLoad != model.Commits.Last().Revision;
+            lastRevisionBeforeLoad = model.Commits.Last().Revision;
+            return modelWasChanged;
         }
     }
 
@@ -153,20 +179,14 @@ namespace Smeedee.Android.Widgets
         public TextColoringAdapterWithLoadMoreButton(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color highlightColor) :
                                   base(context, items, resource, from, to)
         {
-            InsertDummyEntryForButton(items);
             this.context = context;
             this.highlightColor = highlightColor;
-        }
-
-        private static void InsertDummyEntryForButton(IList<IDictionary<string, object>> items)
-        {
-            items.Add(new Dictionary<string, object>());
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             //Force convertView to be null when it's an instance of RelativeLayout. 
-            //This is our loadMoreButton, and the base isn't able to recycle it. 
+            //This is our loadMoreLayout, and the base isn't able to recycle it. 
             convertView = convertView as LinearLayout; 
             var view = base.GetView(position, convertView, parent);
 
@@ -194,19 +214,21 @@ namespace Smeedee.Android.Widgets
             return view;
         }
 
-        private RelativeLayout loadMoreButton;
+        private RelativeLayout loadMoreLayout;
+        private Button loadMoreButton;
         private View GetLoadMoreButton()
         {
-            if (loadMoreButton == null)
+            if (loadMoreLayout == null)
             {
-                loadMoreButton = new RelativeLayout(context);
+                loadMoreLayout = new RelativeLayout(context);
                 var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-                inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreButton);
+                inflater.Inflate(Resource.Layout.LatestCommitsWidget_LoadMore, loadMoreLayout);
 
-                var button = loadMoreButton.GetChildAt(0) as Button;
-                button.Click += LoadMoreClick;
+                loadMoreButton = loadMoreLayout.GetChildAt(0) as Button;
+                loadMoreButton.Click += LoadMoreClick;
+                loadMoreButton.Enabled = buttonEnabled;
             }
-            return loadMoreButton;
+            return loadMoreLayout;
         }
 
         public event EventHandler LoadMoreClick;
@@ -214,6 +236,22 @@ namespace Smeedee.Android.Widgets
         public override bool IsEnabled(int position)
         {
             return (position == Count - 1);
+        }
+
+        private bool buttonEnabled = true;
+        public bool ButtonEnabled
+        {   //Map directly to loadMoreLayout.Enabled when its instantiated,
+            //and map to a backing field while it's not.
+            get
+            {
+                if (false) return true;
+                return loadMoreButton == null ? buttonEnabled : loadMoreButton.Enabled;
+            }
+            set
+            {
+                if (loadMoreButton == null) buttonEnabled = value;
+                else loadMoreButton.Enabled = value;
+            }
         }
     }
 }
