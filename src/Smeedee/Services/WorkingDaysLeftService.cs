@@ -28,7 +28,7 @@ namespace Smeedee.Services
                       ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +
                       ServiceConstants.WORKING_DAYS_LEFT_SERVICE_URL +
                       "?apiKey=" + login.Key;
-            return http.DownloadString(url);
+			return http.DownloadString(url);
         }
 
         private void GetSync(Action<int, DateTime> callback, Action failureCallback)

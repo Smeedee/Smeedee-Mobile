@@ -17,13 +17,13 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_cell;
 		
-		private MonoTouch.UIKit.UILabel __mt_buildStatusLabel;
-		
 		private MonoTouch.UIKit.UILabel __mt_projectNameLabel;
 		
 		private MonoTouch.UIKit.UILabel __mt_usernameLabel;
 		
 		private MonoTouch.UIKit.UILabel __mt_lastBuildTimeLabel;
+		
+		private MonoTouch.UIKit.UIImageView __mt_image;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("cell")]
@@ -35,18 +35,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_cell = value;
 				this.SetNativeField("cell", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("buildStatusLabel")]
-		private MonoTouch.UIKit.UILabel buildStatusLabel {
-			get {
-				this.__mt_buildStatusLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("buildStatusLabel")));
-				return this.__mt_buildStatusLabel;
-			}
-			set {
-				this.__mt_buildStatusLabel = value;
-				this.SetNativeField("buildStatusLabel", value);
 			}
 		}
 		
@@ -83,6 +71,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_lastBuildTimeLabel = value;
 				this.SetNativeField("lastBuildTimeLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("image")]
+		private MonoTouch.UIKit.UIImageView image {
+			get {
+				this.__mt_image = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("image")));
+				return this.__mt_image;
+			}
+			set {
+				this.__mt_image = value;
+				this.SetNativeField("image", value);
 			}
 		}
 	}

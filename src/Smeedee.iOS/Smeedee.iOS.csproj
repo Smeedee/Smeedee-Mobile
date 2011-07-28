@@ -390,5 +390,8 @@
     <Content Include="Images\default_person.jpeg" />
     <Content Include="Images\SettingsIcon.png" />
     <Content Include="Images\StarIcon.png" />
+    <Content Include="Images\icon_buildfailure.png" />
+    <Content Include="Images\icon_buildsuccess.png" />
+    <Content Include="Images\icon_buildunknown.png" />
   </ItemGroup>
 </Project>

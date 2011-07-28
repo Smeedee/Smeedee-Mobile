@@ -71,6 +71,6 @@ namespace Smeedee.iOS
             return buildStatusCellController.TableViewCell;
         }
         
-        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath) { return 70f; }
+        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath) { return 60f; }
     }
 }
