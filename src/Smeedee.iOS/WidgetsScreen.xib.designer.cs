@@ -29,6 +29,10 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIBarButtonItem __mt_refresh;
 		
+		private MonoTouch.UIKit.UILabel __mt_newTitle;
+		
+		private MonoTouch.UIKit.UISegmentedControl __mt_segmentBar;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("scrollView")]
 		private MonoTouch.UIKit.UIScrollView scrollView {
@@ -111,6 +115,30 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_refresh = value;
 				this.SetNativeField("refresh", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("newTitle")]
+		private MonoTouch.UIKit.UILabel newTitle {
+			get {
+				this.__mt_newTitle = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("newTitle")));
+				return this.__mt_newTitle;
+			}
+			set {
+				this.__mt_newTitle = value;
+				this.SetNativeField("newTitle", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("segmentBar")]
+		private MonoTouch.UIKit.UISegmentedControl segmentBar {
+			get {
+				this.__mt_segmentBar = ((MonoTouch.UIKit.UISegmentedControl)(this.GetNativeField("segmentBar")));
+				return this.__mt_segmentBar;
+			}
+			set {
+				this.__mt_segmentBar = value;
+				this.SetNativeField("segmentBar", value);
 			}
 		}
 	}

@@ -6,6 +6,7 @@ namespace Smeedee.Services
     {
         private IPersistenceService cache;
         private IImageService serviceToCache;
+        public const string DEFAULT_URI = "smeedee://default_person.png";
 
         public CachedImageService(IImageService serviceToCache, IPersistenceService cache)
         {

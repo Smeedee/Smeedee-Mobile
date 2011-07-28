@@ -35,6 +35,32 @@ namespace Smeedee.iOS
             TableView.Source = new TopCommitersTableSource(model.Committers);
 			TableView.ReloadData();
 		}
+		
+		public void FixToolbar(UIToolbar toolbar)
+		{
+			Console.WriteLine("Fixing toolbar");
+			/*
+			var label = new UILabel();
+			label.Text = "Top committers";
+			label.BackgroundColor = StyleExtensions.transparent;
+			label.TextColor = UIColor.White;
+			label.Frame = new System.Drawing.RectangleF(5, 5, 160, 30);
+			
+			toolbar.Add(label);
+			
+			var control = new UISegmentedControl();
+			control.InsertSegment("24h", 0, false);
+			control.InsertSegment("week", 1, false);
+			control.InsertSegment("month", 2, false);
+			control.SelectedSegment = 0;
+			control.ControlStyle = UISegmentedControlStyle.Bar;
+			control.TintColor = UIColor.Black;
+			control.BackgroundColor = StyleExtensions.transparent;
+			
+			control.Frame = new System.Drawing.RectangleF(145, 8, 130, 30);
+			
+			toolbar.Add(control);*/
+		}
         
 		public string GetDynamicDescription() 
 		{

@@ -110,8 +110,23 @@ namespace Smeedee.iOS
 				var currentWidget = widgets.ElementAt(CurrentPageIndex());
 	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
 	            
-				titleLabel.Text = attribute.Name;
-	            subTitleLabel.Text = currentWidget.GetDynamicDescription();
+				// Mockup of something we can discuss if we want to implement or not.
+				//
+				newTitle.Hidden = true;
+				segmentBar.Hidden = true;
+				if (currentWidget is TopCommittersWidget)
+				{
+					titleLabel.Text = "";
+	            	subTitleLabel.Text = "";
+					newTitle.Hidden = false;
+					segmentBar.Hidden = false;
+					(currentWidget as TopCommittersWidget).FixToolbar(toolbar);
+				}
+				else
+				{
+					titleLabel.Text = attribute.Name;
+	            	subTitleLabel.Text = currentWidget.GetDynamicDescription();
+				}
 			}
         }
 		
