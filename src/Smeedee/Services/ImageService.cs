@@ -29,7 +29,7 @@ namespace Smeedee
             worker.Invoke(() =>{
                 var webClient = new WebClient();
                 var bytes = webClient.DownloadData(uri);
-                callback(bytes);
+				callback(bytes);
             });
         }
     }

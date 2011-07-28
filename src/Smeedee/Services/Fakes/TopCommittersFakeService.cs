@@ -9,7 +9,7 @@ namespace Smeedee.Services.Fakes
     {
         private Committer[] data = new[] {
             new Committer("Lars Kirkholt Melhus", 17, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
-            new Committer("Dag Olav", 21, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
+            new Committer("Dag Olav", 21, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png_ERROR"),
             new Committer("Borge", 16, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
             new Committer("Lars Eidnes", 17, "https://secure.gravatar.com/avatar/b7fd9909c31a229d444848d0aa8636ec?s=140&d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"),
             new Committer("Hans Hauk", 34, "http://www.gravatar.com/avatar/a2051ec5f2f820b5dc4567e7fe3080f5"),
