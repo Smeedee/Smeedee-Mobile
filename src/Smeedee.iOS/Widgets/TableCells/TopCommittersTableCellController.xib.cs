@@ -4,6 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
@@ -25,6 +26,10 @@ namespace Smeedee.iOS
 			commitLabel.Text = committer.Commits.ToString();
 			commitLabel.Text += committer.Commits == 1 ? " commit" : " commits";
             
+			new UIImageLoader().LoadImageFromUri(committer.ImageUri, (image) => {
+				imageView.Image = image;
+			});
+			
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 	}
