@@ -338,6 +338,15 @@
       <Link>Services\HttpFetcher.cs</Link>
     </Compile>
     <Compile Include="Lib\UIImageLoader.cs" />
+    <Compile Include="..\Smeedee\Services\ValidationService.cs">
+      <Link>Services\ValidationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\TopCommittersService.cs">
+      <Link>Services\TopCommittersService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\WorkingDaysLeftService.cs">
+      <Link>Services\WorkingDaysLeftService.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

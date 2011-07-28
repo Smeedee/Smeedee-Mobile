@@ -24,16 +24,16 @@ namespace Smeedee.iOS
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 			
 			serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
-			serviceLocator.Bind<IValidationService>(new FakeValidationService());
-			serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+			serviceLocator.Bind<IValidationService>(new ValidationService());
+			serviceLocator.Bind<ITopCommittersService>(new TopCommittersService());
 			
 			serviceLocator.Bind<IImageService>(new ImageService(serviceLocator.Get<IBackgroundWorker>()));
-			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
-			serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
+			serviceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
 			
-			serviceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(serviceLocator.Get<IBackgroundWorker>()));
-			serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
+			serviceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+			serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
 		}
 		
 		private static void AssureSettingsExist() 
