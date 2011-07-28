@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Preferences;
 using Android.Views;
 using Android.Widget;
@@ -19,6 +20,7 @@ namespace Smeedee.Android.Widgets
 
         private ListView buildList;
         private BuildStatus model;
+        private DateTime _lastRefreshTime;
 
         public event EventHandler DescriptionChanged;
 
@@ -60,7 +62,6 @@ namespace Smeedee.Android.Widgets
                             { "success_status", (int) build.BuildSuccessState}
                         }).Cast<IDictionary<string, object>>().ToList();
         }
-
         public void Refresh()
         {
             model.Load(() =>
@@ -75,6 +76,12 @@ namespace Smeedee.Android.Widgets
 
                             OnDescriptionChanged(new EventArgs());
                         }));
+            _lastRefreshTime = DateTime.Now;
+        }
+
+        public DateTime LastRefreshTime()
+        {
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()

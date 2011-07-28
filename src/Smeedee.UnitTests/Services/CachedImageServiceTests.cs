@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Smeedee;
+using Smeedee.Services;
 using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Services

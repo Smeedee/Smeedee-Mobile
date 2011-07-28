@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Android.App;
 using Smeedee.Model;
 
-namespace Smeedee
+namespace Smeedee.Android
 {
     public class ContextSwitcher
     {
@@ -13,7 +11,6 @@ namespace Smeedee
         {
             return new ContextSwitcher(context);
         }
-
 
         private List<Action> actions = new List<Action>();
         private readonly Activity activity;

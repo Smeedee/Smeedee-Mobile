@@ -22,6 +22,8 @@ namespace Smeedee.Android
     public class WidgetContainer : Activity
     {
         private const string CURRENT_SCREEN_PERSISTENCE_KEY = "WidgetContainer.CurrentScreen";
+        //TODO: Change the variable below to 10 minutes. Use: new DateTime(0, 0, 0, 0, 10, ).Minute
+        private readonly TimeSpan REFRESH_TEXT_TO_BE_SHOWN_LIMIT = new TimeSpan(0, 0, 5);
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private RealViewSwitcher flipper;
         private IEnumerable<IWidget> widgets;
@@ -63,6 +65,23 @@ namespace Smeedee.Android
         {
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
+
+            ShowRefreshTextAtBottomOrNot();
+        }
+
+        private void ShowRefreshTextAtBottomOrNot()
+        {
+            var currentWidget = flipper.CurrentView as IWidget;
+            if (currentWidget != null)
+            {
+                if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_TEXT_TO_BE_SHOWN_LIMIT)
+                {
+                    var refreshText = FindViewById<TextView>(Resource.Id.RefreshText);
+                    refreshText.Text =
+                        (DateTime.Now - currentWidget.LastRefreshTime()).PrettyPrint() + " since last refresh";
+                    refreshText.Visibility = ViewStates.Visible;
+                }
+            }
         }
 
         void WidgetDescriptionChanged(object sender, EventArgs e)
@@ -156,8 +175,6 @@ namespace Smeedee.Android
                         {
                             currentWidget.Refresh();
                             handler.SendEmptyMessage(0);
-                            //TODO: Update the refresh text by calling widget.LastRefreshTime() and get a DateTime and use
-                            // TimePrettyPrint.PrettyPrint(DateTime.Now - widget.LastRefreshTime())
                         });
                     }
 
@@ -193,7 +210,7 @@ namespace Smeedee.Android
         protected override void OnResume()
         {
             base.OnResume();
-            Log.Debug("TT", "[ REFRESHING WIDGETS ]");
+            Log.Debug("SMEEDEE", "[ REFRESHING WIDGETS ]");
 
             if (hasSettingsChanged)
             {
@@ -202,7 +219,7 @@ namespace Smeedee.Android
                 SetCorrectTopBannerWidgetTitle();
                 SetCorrectTopBannerWidgetDescription();
 
-                Log.Debug("TT", "Just refreshed widget list after having changed settings.");
+                Log.Debug("SMEEDEE", "Just refreshed widget list after having changed settings.");
                 hasSettingsChanged = false;
             }
 
@@ -217,8 +234,6 @@ namespace Smeedee.Android
                 if (widget != null)
                 {
                     widget.Refresh();
-                    //TODO: Update the refresh text by calling widget.LastRefreshTime() and get a DateTime and use
-                    // TimePrettyPrint.PrettyPrint(DateTime.Now - widget.LastRefreshTime())
                 }
             }
         }

@@ -12,6 +12,7 @@ namespace Smeedee.Android.Widgets
     public class WorkingDaysLeftWidget : RelativeLayout, IWidget
     {
         private WorkingDaysLeft model;
+        private DateTime _lastRefreshTime;
 
         private string dynamicDescription;
         private string DynamicDescription
@@ -51,6 +52,12 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             model.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
+            _lastRefreshTime = DateTime.Now;
+        }
+
+        public DateTime LastRefreshTime()
+        {
+            return _lastRefreshTime;
         }
 
         public void Redraw()

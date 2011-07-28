@@ -22,6 +22,7 @@ namespace Smeedee.Android.Widgets
 
         private LatestCommits model;
         private bool scrollDown = false;
+        private DateTime _lastRefreshTime;
 
         public event EventHandler DescriptionChanged;
 
@@ -66,6 +67,12 @@ namespace Smeedee.Android.Widgets
                         Redraw();
                         OnDescriptionChanged(new EventArgs());
                     }));
+            _lastRefreshTime = DateTime.Now;
+        }
+
+        public DateTime LastRefreshTime()
+        {
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()

@@ -121,6 +121,11 @@ namespace Smeedee.UnitTests.Model
             {
             }
 
+            public DateTime LastRefreshTime()
+            {
+                throw new NotImplementedException();
+            }
+
             public string GetDynamicDescription()
             {
                 return "";
@@ -134,6 +139,11 @@ namespace Smeedee.UnitTests.Model
         {
             public void Refresh()
             {
+            }
+
+            public DateTime LastRefreshTime()
+            {
+                throw new NotImplementedException();
             }
 
             public string GetDynamicDescription()
