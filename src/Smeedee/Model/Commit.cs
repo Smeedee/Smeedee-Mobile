@@ -8,13 +8,15 @@ namespace Smeedee.Model
         public string Message { get; private set; }
         public DateTime Date { get; private set; }
         public string User { get; private set; }
+		public Uri ImageUri { get; private set; }
 
-        public Commit(string message, DateTime date, string user, int revision)
+        public Commit(string message, DateTime date, string user, Uri uri, int revision)
         {
-            Guard.NotNull(message, date, user);
+            Guard.NotNull(message, date, user, uri);
             User = user;
             Date = date;
             Message = message;
+			ImageUri = uri;
             Revision = revision;
         }
 
@@ -25,6 +27,7 @@ namespace Smeedee.Model
             return otherCommit.Message == Message &&
                    otherCommit.Date.Equals(Date) &&
                    otherCommit.User == User &&
+				   otherCommit.ImageUri == ImageUri &&
                    otherCommit.Revision == Revision;
         }
 

@@ -73,8 +73,9 @@ namespace Smeedee.UnitTests.Model
         public void Should_not_duplicate_commits_when_new_commits_are_added_between_Load_and_LoadMore()
         {
             model.Load(() => { });
+		    var uri = new Uri("http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png");
 
-            var newData = new List<Commit> {new Commit("Commit msg", DateTime.Now, "larspars", 1)};
+            var newData = new List<Commit> {new Commit("Commit msg", DateTime.Now, "larspars", uri, 1)};
             newData.AddRange(fakeService.data);
             fakeService.data = newData;
 
