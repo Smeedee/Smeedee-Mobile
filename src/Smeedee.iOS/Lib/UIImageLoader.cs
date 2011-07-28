@@ -9,6 +9,7 @@ namespace Smeedee.iOS.Lib
 {
 	public class UIImageLoader
 	{
+		private static UIImage defaultImage = UIImage.FromFile("images/default_person.jpeg");
 		private static Dictionary<Uri, UIImage> cache = new Dictionary<Uri, UIImage>();
 		
 		private IImageService service;
@@ -27,7 +28,7 @@ namespace Smeedee.iOS.Lib
 			else
 			{
 				service.GetImage(uri, (bytes) => {
-					cache[uri] = UIImage.LoadFromData(NSData.FromArray(bytes));
+					cache[uri] = (bytes != null) ? UIImage.LoadFromData(NSData.FromArray(bytes)) : defaultImage;
 					callback(cache[uri]);
 				});
 			}
