@@ -12,9 +12,9 @@ namespace Smeedee.Services.Fakes
             new Committer("Dag Olav", 21, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
             new Committer("Borge", 16, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
             new Committer("Lars Eidnes", 17, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
-            new Committer("Hans Hauk", 34, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
-            new Committer("Jens Ulf", 21, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
-            new Committer("Kari Irak", 0, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
+            new Committer("Hans Hauk", 34, "http://www.gravatar.com/avatar/a2051ec5f2f820b5dc4567e7fe3080f5"),
+            new Committer("Jens Ulf", 21, "http://scienceblogs.com/terrasig/Small%20profile%20avatar.jpg"),
+            new Committer("Kari Irak", 0, "http://avatar.hq-picture.com/avatars/img1/angelina_profile_avatar_picture_97617.jpg"),
         };
 
         private readonly IBackgroundWorker bgWorker;

@@ -21,16 +21,17 @@ namespace Smeedee.iOS
 		
 		public void BindDataToCell(Committer committer)
         {
+            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+			
 			nameLabel.Text = committer.Name;
 			commitLabel.TextColor = UIColor.LightGray;
 			commitLabel.Text = committer.Commits.ToString();
 			commitLabel.Text += committer.Commits == 1 ? " commit" : " commits";
             
 			new UIImageLoader().LoadImageFromUri(committer.ImageUri, (image) => {
-				imageView.Image = image;
+				InvokeOnMainThread(() => imageView.Image = image);
 			});
 			
-            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
         }
 	}
 }
