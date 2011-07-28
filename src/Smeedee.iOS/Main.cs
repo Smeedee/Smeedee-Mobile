@@ -24,15 +24,15 @@ namespace Smeedee.iOS
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 			
 			serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
-			serviceLocator.Bind<IValidationService>(new ValidationService());
-			serviceLocator.Bind<ITopCommittersService>(new TopCommittersService());
 			
+			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
+			serviceLocator.Bind<IValidationService>(new ValidationService());
 			serviceLocator.Bind<IImageService>(new ImageService(serviceLocator.Get<IBackgroundWorker>()));
-			serviceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
 			
 			serviceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+			serviceLocator.Bind<ITopCommittersService>(new TopCommittersService());
+			serviceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
 			serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
 		}
 		

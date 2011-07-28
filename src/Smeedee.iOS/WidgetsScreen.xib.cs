@@ -98,7 +98,6 @@ namespace Smeedee.iOS
 		
 		void WidgetDescriptionChanged(object sender, EventArgs e)
 		{
-			Console.WriteLine("Event catched");
 			SetTitleLabels(CurrentPageIndex());	
 		}
 		
