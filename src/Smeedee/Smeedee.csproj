@@ -90,6 +90,7 @@
     <Compile Include="Model\Committer.cs" />
     <Compile Include="Model\IWidget.cs" />
     <Compile Include="Services\TopCommittersService.cs" />
+    <Compile Include="Services\ValidationService.cs" />
     <Compile Include="Services\WorkingDaysLeftService.cs" />
     <Compile Include="TimeSpanPrettyPrintExtension.cs" />
   </ItemGroup>
