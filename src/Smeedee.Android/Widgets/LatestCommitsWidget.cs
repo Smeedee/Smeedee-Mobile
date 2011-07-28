@@ -158,12 +158,13 @@ namespace Smeedee.Android.Widgets
                              });
         }
 
-        private int commitCountBeforeLoad = -1;
+        private int lastRevisionBeforeLoad = -1;
         private bool ShouldRecreateListAdapter()
         {
             if (listAdapter == null) return true;
-            var modelWasChanged = commitCountBeforeLoad != model.Commits.Count();
-            commitCountBeforeLoad = model.Commits.Count();
+            if (model.Commits.Count == 0) return true;
+            var modelWasChanged = lastRevisionBeforeLoad != model.Commits.Last().Revision;
+            lastRevisionBeforeLoad = model.Commits.Last().Revision;
             return modelWasChanged;
         }
     }
