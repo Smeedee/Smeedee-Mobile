@@ -1,5 +1,6 @@
 using System;
 using Smeedee;
+using Smeedee.Services;
 
 namespace Smeedee.Model
 {
