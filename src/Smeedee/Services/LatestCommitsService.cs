@@ -58,6 +58,7 @@ namespace Smeedee.Services
                                     line[INDEX_COMMIT_MESSAGE].Trim(),
                                     DateTime.Parse(line[INDEX_COMMIT_DATETIME]),
                                     line[INDEX_COMMIT_USER],
+									new Uri(line[3]),
                                     int.Parse(line[INDEX_COMMIT_REVISION])));
                 }
                 catch (FormatException) { }
