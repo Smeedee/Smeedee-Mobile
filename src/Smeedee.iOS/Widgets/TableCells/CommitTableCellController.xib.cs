@@ -30,10 +30,10 @@ namespace Smeedee.iOS
 				message.Text = "No commit message";
 				message.TextColor = UIColor.Red;
 			}
-			/*
+			
 			new UIImageLoader().LoadImageFromUri(commit.ImageUri, (img) => {
-				image.Image = img;
-			});*/
+				InvokeOnMainThread(() => image.Image = img);
+			});
 			
 			message.SizeToFit();
 			var bounds = timestamp.Frame;
