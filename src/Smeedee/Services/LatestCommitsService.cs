@@ -59,7 +59,7 @@ namespace Smeedee.Services
                 {
                     results.Add(new Commit(
                                     line[INDEX_COMMIT_MESSAGE].Trim(),
-                                    DateTime.Parse(line[INDEX_COMMIT_DATETIME]),
+                                    DateTime.ParseExact(line[INDEX_COMMIT_DATETIME], "yyyyMMddHHmmss", CultureInfo.InvariantCulture),
                                     line[INDEX_COMMIT_USER],
 									new Uri(line[INDEX_COMMIT_IMAGE_URI]),
                                     int.Parse(line[INDEX_COMMIT_REVISION])));
