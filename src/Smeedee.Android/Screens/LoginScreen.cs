@@ -25,24 +25,25 @@ namespace Smeedee.Android.Screens
 
             submitButton.Click += delegate
                 {
-                    login.Url = urlInput.Text;
-                    login.Key = keyInput.Text;
-                    if (login.IsValid())
-                    {
-                        var widgetContainer = new Intent(this, typeof(WidgetContainer));
-                        StartActivity(widgetContainer);
-                        Finish();
-                    } else
-                    {
-                        NotifyInvalidInput();
-                    }
+                    login.StoreAndValidate(urlInput.Text, keyInput.Text, (valid) => RunOnUiThread(()=> {
+                        if (valid == "Success!")
+                        {
+                            var widgetContainer = new Intent(this, typeof(WidgetContainer));
+                            StartActivity(widgetContainer);
+                            Finish();
+                        } else
+                        {
+                            NotifyInvalidInput();
+                        }
+                    }));
                 };
         }
 
         private void NotifyInvalidInput()
         {
             var errorNotifier = FindViewById<TextView>(Resource.Id.ErrorNotificationText);
-            errorNotifier.Visibility = ViewStates.Visible;
+            if (errorNotifier != null)
+                errorNotifier.Visibility = ViewStates.Visible;
         }
     }
 }

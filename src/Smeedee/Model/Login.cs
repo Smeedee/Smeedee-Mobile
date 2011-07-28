@@ -32,23 +32,19 @@ namespace Smeedee.Model
 		
 		public void StoreAndValidate(string url, string key, Action<string> callback)
         {
-            var validation = app.ServiceLocator.Get<IValidationService>();
 			Key = key;
 			Url = url;
-
-			validation.Validate(url, key, (validationSuccess) => 
+			IsValid(validationSuccess => 
 			{
 				if (validationSuccess) callback(ValidationSuccess);
 				else callback(ValidationFailed);
 			});
 		}
-		
-        public bool IsValid()
+
+        public void IsValid(Action<bool> callback)
         {
             var validation = app.ServiceLocator.Get<IValidationService>();
-            var validationResult = false;
-            validation.Validate(Url, Key, (result) => validationResult = result);
-            return validationResult;
+            validation.Validate(Url, Key, callback);
         }
 
         private string NormalizeUrl(string url)
