@@ -15,9 +15,7 @@ namespace Smeedee.Model
                 ImageUri = new Uri(url);
             } catch (Exception e)
             {
-                //Use a special uri to tell the image cache to load the default image from disk.
-                //TODO: Actually implement this in the image cache
-                ImageUri = new Uri("smeedee://default_person.png");
+                ImageUri = new Uri(CachedImageService.DEFAULT_URI);
             }
         }
         
