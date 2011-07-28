@@ -49,6 +49,11 @@ namespace Smeedee.iOS
 			return (!model.LoadError) ? string.Format("Actual working days left until {0}", model.UntillDate.ToLongDateString()) : "Actual working days left of project";
 		}
 		
+		public DateTime LastRefreshTime()
+		{
+			return DateTime.Now;	
+		}
+		
         public event EventHandler DescriptionChanged;
         public void OnDescriptionChanged(EventArgs args)
         {

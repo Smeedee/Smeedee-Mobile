@@ -41,6 +41,11 @@ namespace Smeedee.iOS
 			return model.Description;	
 		}
 		
+		public DateTime LastRefreshTime()
+		{
+			return DateTime.Now;	
+		}
+		
         public event EventHandler DescriptionChanged;
         public void OnDescriptionChanged(EventArgs args)
         {
