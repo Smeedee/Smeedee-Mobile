@@ -72,21 +72,21 @@ namespace Smeedee.UnitTests.Services
         [Test]
         public void Should_ask_http_downloader_to_download_from_the_correct_url()
         {
-            new Login().Url = "http://services.smeedee.org/smeedee";
+            new Login {Url = "http://services.smeedee.org/smeedee", Key = "key123"};
             downloader.SetHtmlString("");
             service.Get10Latest(r => { });
 
-            Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/LatestCommits/", downloader.UrlAskedFor);
+            Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/LatestCommits/?apiKey=key123", downloader.UrlAskedFor);
         }
 
         [Test]
         public void Should_ask_http_downloader_to_download_from_the_correct_url_when_looking_up_by_revision()
         {
-            new Login().Url = "http://services.smeedee.org/smeedee";
+            new Login {Url = "http://services.smeedee.org/smeedee", Key = "key123"};
             downloader.SetHtmlString("");
             service.Get10AfterRevision(10, r => { });
 
-            Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/LatestCommits/?revision=10", downloader.UrlAskedFor);
+            Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/LatestCommits/?apiKey=key123&revision=10", downloader.UrlAskedFor);
         }
 
         [Test]

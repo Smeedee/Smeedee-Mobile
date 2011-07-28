@@ -29,8 +29,8 @@ namespace Smeedee.Android
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
             App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-            App.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
             App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+            App.ServiceLocator.Bind<IValidationService>(new ValidationService());
 
             App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
             App.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
@@ -46,22 +46,12 @@ namespace Smeedee.Android
         {
             base.OnCreate(bundle);
 
-            Log.Debug("SMEEDEE", "In MainActivity");
-            Log.Debug("SMEEDEE", "URL: " + new Login().Url);
-            Log.Debug("SMEEDEE", "Key: " + new Login().Key);
-            Log.Debug("SMEEDEE", "Valid? "+ new Login().IsValid());
-            
-            var activity = DetermineNextActivity();
-            StartActivity(activity);
-            Finish();
-        }
-
-        private Intent DetermineNextActivity()
-        {
-            Type nextActivity = new Login().IsValid()
-                                    ? typeof (WidgetContainer)
-                                    : typeof (LoginScreen);
-            return new Intent(this, nextActivity);
+            new Login().IsValid(valid =>
+            {
+                Type nextActivity = valid ? typeof(WidgetContainer) : typeof(LoginScreen);
+                StartActivity(new Intent(this, nextActivity));
+                Finish();
+            });
         }
     }
 }

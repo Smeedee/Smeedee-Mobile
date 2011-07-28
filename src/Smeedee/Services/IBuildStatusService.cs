@@ -6,6 +6,6 @@ namespace Smeedee.Services
 {
     public interface IBuildStatusService
     {
-        void Load(Action<AsyncResult<IEnumerable<Build>>> callback);
+        void Load(Action<IEnumerable<Build>> callback);
     }
 }
