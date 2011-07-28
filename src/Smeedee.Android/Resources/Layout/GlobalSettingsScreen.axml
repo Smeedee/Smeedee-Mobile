@@ -7,22 +7,6 @@
       android:title="@string/GlobalSettingsScreenAvailableWidgetsTitle"
       android:summary="@string/GlobalSettingsScreenAvailableWidgetsSummary">
     </PreferenceScreen>
-    <!--
-    <CheckBoxPreference
-      android:title="@string/GlobalSettingsScreenSlideShowCheckboxTitle"
-      android:key="slideShowEnabled"
-      android:summaryOn="@string/GlobalSettingsScreenSlideShowOn"
-      android:summaryOff="@string/GlobalSettingsScreenSlideShowOff"
-      android:defaultValue="false" />
-    <ListPreference
-      android:id="@+id/slideShowInterval"
-      android:title="@string/GlobalSettingsScreenSlideShowIntervalTitle"
-      android:key="slideShowInterval"
-      android:summary="@string/GlobalSettingsScreenSlideShowIntervalSummary" 
-      android:entries="@array/slideShowIntervalArray"
-      android:entryValues="@array/slideShowIntervalValues"
-      android:defaultValue="20000" />
-    -->
   </PreferenceCategory>
   
   <PreferenceCategory 

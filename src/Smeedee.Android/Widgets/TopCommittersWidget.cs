@@ -14,6 +14,7 @@ namespace Smeedee.Android.Widgets
     public class TopCommittersWidget : RelativeLayout, IWidget
     {
         private readonly TopCommitters _model;
+        private DateTime _lastRefreshTime;
 
         public event EventHandler DescriptionChanged;
 
@@ -35,6 +36,12 @@ namespace Smeedee.Android.Widgets
         public void Refresh()
         {
             _model.Load(() => ((Activity)Context).RunOnUiThread(UpdateListView));
+            _lastRefreshTime = DateTime.Now;
+        }
+
+        public DateTime LastRefreshTime()
+        {
+            return _lastRefreshTime;
         }
 
         private void UpdateListView()

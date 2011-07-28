@@ -13,6 +13,7 @@ namespace Smeedee.Services
         private const int INDEX_COMMIT_DATETIME = 1;
         private const int INDEX_COMMIT_USER = 2;
         private const int INDEX_COMMIT_REVISION = 3;
+        private const int INDEX_COMMIT_IMAGE_URI = 4;
 
         private readonly IFetchHttp downloader;
         private readonly IBackgroundWorker bgWorker;
@@ -60,7 +61,7 @@ namespace Smeedee.Services
                                     line[INDEX_COMMIT_MESSAGE].Trim(),
                                     DateTime.Parse(line[INDEX_COMMIT_DATETIME]),
                                     line[INDEX_COMMIT_USER],
-									new Uri(line[3]),
+									new Uri(line[INDEX_COMMIT_IMAGE_URI]),
                                     int.Parse(line[INDEX_COMMIT_REVISION])));
                 }
                 catch (FormatException) { }

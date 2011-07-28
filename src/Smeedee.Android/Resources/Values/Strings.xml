@@ -3,10 +3,10 @@
   <string name="ApplicationName">Smeedee Mobile</string>
 
   <!--LoginScreen-->
-  <string name="LoginScreenErrorNotificationText">Authentication failed. Please check your url and password</string>
-  <string name="LoginScreenBtnLogin">Login</string>
-  <string name="LoginScreenServerUrlHint">Server URL</string>
-  <string name="LoginScreenUserPasswordHint">User Password</string>
+  <string name="LoginScreenErrorNotificationText">Authentication failed. Please check your server url and user key</string>
+  <string name="LoginScreenBtnLogin">Log in</string>
+  <string name="LoginScreenServerUrlHint">Server Url</string>
+  <string name="LoginScreenUserPasswordHint">User Key</string>
   
   <!-- Menu-->
   <string name="MenuBtnRefreshCurrentWidget">Refresh</string>

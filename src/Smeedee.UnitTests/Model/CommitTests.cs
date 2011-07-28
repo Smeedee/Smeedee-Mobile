@@ -28,7 +28,7 @@ namespace Smeedee.UnitTests.Model
         }
 		
 		[Test]
-		[ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
 		public void Uri_constructor_argument_cannot_be_null()
 		{
 			new Commit("msg", DateTime.Now, "larmel", null, 1);	

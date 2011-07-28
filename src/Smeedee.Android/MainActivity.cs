@@ -24,7 +24,7 @@ namespace Smeedee.Android
         public override void OnCreate()
         {
             base.OnCreate();
-            Log.Debug("TT", "Application is being run");
+            Log.Debug("SMEEDEE", "Application is being run");
 
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
