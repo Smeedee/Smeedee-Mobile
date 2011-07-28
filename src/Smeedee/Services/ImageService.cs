@@ -7,6 +7,14 @@ using Smeedee;
 
 namespace Smeedee
 {
+    // Usage Android:
+    // var img = new ImageView();
+    // var bmp = new BitmapFactory().decodeByteArray(bytes);
+    // img.setImageBitmap(bmp);
+    
+    // Usage iPhone:
+    // UIImage img = UIImage.LoadFromData(NSData.FromArray(bytes));
+    
     public class ImageService : IImageService
     {
         private IBackgroundWorker worker;
@@ -18,18 +26,24 @@ namespace Smeedee
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
-            //Usage Android:
-            //var img = new ImageView();
-            //var bmp = new BitmapFactory().decodeByteArray(bytes);
-            //img.setImageBitmap(bmp);
-            
-            //Usage iPhone:
-            //UIImage img = UIImage.LoadFromData(NSData.FromArray(bytes));
-            
-            worker.Invoke(() =>{
+			// WebClient is not thread-safe, need new instance for each thread
+            worker.Invoke(() => {
                 var webClient = new WebClient();
-                var bytes = webClient.DownloadData(uri);
-				callback(bytes);
+				byte[] data;
+				
+				try {
+                	data = webClient.DownloadData(uri);
+				} 
+				catch (WebException) 
+				{
+					data = null;
+				}
+				finally
+				{
+					webClient.Dispose();
+				}
+				
+				callback(data);
             });
         }
     }

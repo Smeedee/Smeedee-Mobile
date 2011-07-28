@@ -6,6 +6,8 @@ using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests
 {
+	// TODO: Move this to integration test. Dont have that in iOS project
+	
 	[TestFixture]
 	public class ImageServiceTests
 	{
@@ -29,6 +31,20 @@ namespace Smeedee.UnitTests
 			});
 			
 			Assert.IsFalse(empty);
+		}
+		
+		[Test]
+		public void Should_return_null_on_invalid_uri()
+		{
+			var uri = new Uri("http://obvoiusly.invalid.com/not/a/picture.png");
+			var service = new ImageService(worker);
+			
+			var wasNull = false;
+			service.GetImage(uri, (bytes) => {
+				wasNull = bytes == null;
+			});
+			
+			Assert.IsTrue(wasNull);
 		}
 	}
 }
