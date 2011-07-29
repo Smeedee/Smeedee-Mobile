@@ -10,7 +10,6 @@ namespace Smeedee.iOS
 {
     public class AppDelegateShared
     {
-        private SmeedeeApp app = SmeedeeApp.Instance;
         private UIWindow window;
         private UITabBarController tabBarController;
 		private UIViewController loginHeaderController;
@@ -26,6 +25,7 @@ namespace Smeedee.iOS
             this.tabBarController = tabBarController;
 			this.loginHeaderController = loginHeaderController;
 			this.loginController = loginController;
+			
 			login = new Login();
 			previousWasServerConfig = false;
         }
@@ -83,9 +83,9 @@ namespace Smeedee.iOS
 				loginHeaderController.View.Frame = new RectangleF(0, 0, 320, 150);
 				loginController.View.Frame = new RectangleF(0, 150, 320, 460);
 				
-				window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
-				
 				(loginController as ServerConfigTableViewController).LoginAction = ServerCallback;
+				
+				window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
 			}
 		}
 		

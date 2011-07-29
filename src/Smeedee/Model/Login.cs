@@ -5,8 +5,8 @@ namespace Smeedee.Model
 {
     public class Login
     {
-        public const string LoginKey = "Login_Key";
-        public const string LoginUrl = "Login_Url";
+        public const string LoginKey = "Server.Key";
+        public const string LoginUrl = "Server.Url";
 		public const string ValidationSuccess = "Success!";
 		public const string ValidationFailed = "Failed!";
 
