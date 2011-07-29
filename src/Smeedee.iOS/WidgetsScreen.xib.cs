@@ -113,13 +113,28 @@ namespace Smeedee.iOS
 				if (currentWidget is IToolbarControl) 
 				{
 					var item = (currentWidget as IToolbarControl).ToolbarConfigurationItem();
-					if (toolbar.Items.Count() == 3)
-						toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[2] }, true);
-					else
-						toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[1] }, true);
+					AddToolbarItem(item);
+				}
+				else
+				{
+					RemoveToolbarItem();
 				}
 			}
         }
+		
+		private void AddToolbarItem(UIBarButtonItem item)
+		{
+			if (toolbar.Items.Count() == 3)
+				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[2] }, true);
+			else
+				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[1] }, true);
+		}
+		
+		private void RemoveToolbarItem()
+		{
+			if (toolbar.Items.Count() == 3)
+				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
+		}
 		
 		private int CurrentPageIndex()
         {
