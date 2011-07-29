@@ -95,7 +95,7 @@
 					<object class="IBUILabel" id="643008131">
 						<reference key="NSNextResponder" ref="926071213"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{6, 7}, {213, 29}}</string>
+						<string key="NSFrame">{{6, 7}, {193, 29}}</string>
 						<reference key="NSSuperview" ref="926071213"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -105,7 +105,7 @@
 						<string key="IBUIText">Committers</string>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">20</double>
+							<double key="NSSize">17</double>
 							<int key="NSfFlags">16</int>
 						</object>
 						<object class="NSColor" key="IBUITextColor">

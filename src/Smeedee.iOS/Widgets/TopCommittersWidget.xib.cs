@@ -13,6 +13,9 @@ namespace Smeedee.iOS
     {
 		private TopCommitters model;
 		
+		// Need to be declared here, or it will be garbage collected
+		private UISegmentedControl toolbarControl;
+		
         public TopCommittersWidget() : base("TopCommittersWidget", null)
         {
 			model = new TopCommitters();
@@ -21,7 +24,6 @@ namespace Smeedee.iOS
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-			//TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			TableView.SeparatorColor = StyleExtensions.tableSeparator;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
             Refresh();
@@ -39,24 +41,33 @@ namespace Smeedee.iOS
 		
 		public UIBarButtonItem ToolbarConfigurationItem()
 		{
-			/*
-			var item = new UIBarButtonItem("heya", UIBarButtonItemStyle.Bordered, null);
+			var current = model.TimePeriod;
 			
-			return item;*/
+			toolbarControl = new UISegmentedControl();
+			toolbarControl.InsertSegment("24h", 0, false);
+			toolbarControl.InsertSegment("week", 1, false);
+			toolbarControl.InsertSegment("month", 2, false);
+			toolbarControl.SelectedSegment = (current == TimePeriod.PastDay) ? 0 : (current == TimePeriod.PastWeek) ? 1 : 2;
+			toolbarControl.ControlStyle = UISegmentedControlStyle.Bar;
+			toolbarControl.Frame = new System.Drawing.RectangleF(0, 10, 130, 30);
+			toolbarControl.UserInteractionEnabled = true;
 			
-			var control = new UISegmentedControl();
-			control.InsertSegment("24h", 0, false);
-			control.InsertSegment("week", 1, false);
-			control.InsertSegment("month", 2, false);
-			control.SelectedSegment = 0;
-			control.ControlStyle = UISegmentedControlStyle.Bar;
-			control.TintColor = UIColor.Black;
-			control.BackgroundColor = StyleExtensions.transparent;
+			toolbarControl.ValueChanged += delegate {
+				switch (toolbarControl.SelectedSegment) {
+				case 0:
+					model.TimePeriod = TimePeriod.PastDay;
+					break;
+				case 1:
+					model.TimePeriod = TimePeriod.PastWeek;
+					break;
+				default:
+					model.TimePeriod = TimePeriod.PastMonth;
+					break;
+				}
+				Refresh();
+			};
 			
-			control.Frame = new System.Drawing.RectangleF(0, 10, 130, 30);
-			
-			var item = new UIBarButtonItem(control);
-			return item;
+			return new UIBarButtonItem(toolbarControl);
 		}
         
 		public string GetDynamicDescription() 
