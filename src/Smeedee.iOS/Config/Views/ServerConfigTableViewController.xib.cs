@@ -74,6 +74,9 @@ namespace Smeedee.iOS
 				buttonCell = new UITableViewCell();
 				buttonCell.TextLabel.Text = "Connect";
 				buttonCell.TextLabel.TextAlignment = UITextAlignment.Center;
+				buttonCell.TextLabel.TextColor = StyleExtensions.lightGrayText;
+				buttonCell.BackgroundColor = StyleExtensions.grayTableCell;
+				buttonCell.SelectionStyle = UITableViewCellSelectionStyle.Gray;
 				return buttonCell;
 			}
         }
