@@ -23,15 +23,9 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
-		private MonoTouch.UIKit.UILabel __mt_subTitleLabel;
-		
-		private MonoTouch.UIKit.UILabel __mt_titleLabel;
-		
 		private MonoTouch.UIKit.UIBarButtonItem __mt_refresh;
 		
-		private MonoTouch.UIKit.UILabel __mt_newTitle;
-		
-		private MonoTouch.UIKit.UISegmentedControl __mt_segmentBar;
+		private MonoTouch.UIKit.UILabel __mt_titleLabel;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("scrollView")]
@@ -82,30 +76,6 @@ namespace Smeedee.iOS {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("subTitleLabel")]
-		private MonoTouch.UIKit.UILabel subTitleLabel {
-			get {
-				this.__mt_subTitleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("subTitleLabel")));
-				return this.__mt_subTitleLabel;
-			}
-			set {
-				this.__mt_subTitleLabel = value;
-				this.SetNativeField("subTitleLabel", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("titleLabel")]
-		private MonoTouch.UIKit.UILabel titleLabel {
-			get {
-				this.__mt_titleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("titleLabel")));
-				return this.__mt_titleLabel;
-			}
-			set {
-				this.__mt_titleLabel = value;
-				this.SetNativeField("titleLabel", value);
-			}
-		}
-		
 		[MonoTouch.Foundation.Connect("refresh")]
 		private MonoTouch.UIKit.UIBarButtonItem refresh {
 			get {
@@ -118,27 +88,15 @@ namespace Smeedee.iOS {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("newTitle")]
-		private MonoTouch.UIKit.UILabel newTitle {
+		[MonoTouch.Foundation.Connect("titleLabel")]
+		private MonoTouch.UIKit.UILabel titleLabel {
 			get {
-				this.__mt_newTitle = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("newTitle")));
-				return this.__mt_newTitle;
+				this.__mt_titleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("titleLabel")));
+				return this.__mt_titleLabel;
 			}
 			set {
-				this.__mt_newTitle = value;
-				this.SetNativeField("newTitle", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("segmentBar")]
-		private MonoTouch.UIKit.UISegmentedControl segmentBar {
-			get {
-				this.__mt_segmentBar = ((MonoTouch.UIKit.UISegmentedControl)(this.GetNativeField("segmentBar")));
-				return this.__mt_segmentBar;
-			}
-			set {
-				this.__mt_segmentBar = value;
-				this.SetNativeField("segmentBar", value);
+				this.__mt_titleLabel = value;
+				this.SetNativeField("titleLabel", value);
 			}
 		}
 	}

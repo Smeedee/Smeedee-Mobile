@@ -9,9 +9,12 @@ using Smeedee;
 namespace Smeedee.iOS
 {
     [Widget("Top committers", StaticDescription = "See which developer has committed the most code", SettingsType = typeof(TopCommittersConfigTableViewController))]
-    public partial class TopCommittersWidget : UITableViewController, IWidget
+    public partial class TopCommittersWidget : UITableViewController, IWidget, IToolbarControl
     {
 		private TopCommitters model;
+		
+		// Need to be declared here, or it will be garbage collected
+		private UISegmentedControl toolbarControl;
 		
         public TopCommittersWidget() : base("TopCommittersWidget", null)
         {
@@ -21,7 +24,6 @@ namespace Smeedee.iOS
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-			//TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			TableView.SeparatorColor = StyleExtensions.tableSeparator;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
             Refresh();
@@ -37,30 +39,35 @@ namespace Smeedee.iOS
 			TableView.ReloadData();
 		}
 		
-		public void FixToolbar(UIToolbar toolbar)
+		public UIBarButtonItem ToolbarConfigurationItem()
 		{
-			Console.WriteLine("Fixing toolbar");
-			/*
-			var label = new UILabel();
-			label.Text = "Top committers";
-			label.BackgroundColor = StyleExtensions.transparent;
-			label.TextColor = UIColor.White;
-			label.Frame = new System.Drawing.RectangleF(5, 5, 160, 30);
+			var current = model.TimePeriod;
 			
-			toolbar.Add(label);
+			toolbarControl = new UISegmentedControl();
+			toolbarControl.InsertSegment("24h", 0, false);
+			toolbarControl.InsertSegment("week", 1, false);
+			toolbarControl.InsertSegment("month", 2, false);
+			toolbarControl.SelectedSegment = (current == TimePeriod.PastDay) ? 0 : (current == TimePeriod.PastWeek) ? 1 : 2;
+			toolbarControl.ControlStyle = UISegmentedControlStyle.Bar;
+			toolbarControl.Frame = new System.Drawing.RectangleF(0, 10, 130, 30);
+			toolbarControl.UserInteractionEnabled = true;
 			
-			var control = new UISegmentedControl();
-			control.InsertSegment("24h", 0, false);
-			control.InsertSegment("week", 1, false);
-			control.InsertSegment("month", 2, false);
-			control.SelectedSegment = 0;
-			control.ControlStyle = UISegmentedControlStyle.Bar;
-			control.TintColor = UIColor.Black;
-			control.BackgroundColor = StyleExtensions.transparent;
+			toolbarControl.ValueChanged += delegate {
+				switch (toolbarControl.SelectedSegment) {
+				case 0:
+					model.TimePeriod = TimePeriod.PastDay;
+					break;
+				case 1:
+					model.TimePeriod = TimePeriod.PastWeek;
+					break;
+				default:
+					model.TimePeriod = TimePeriod.PastMonth;
+					break;
+				}
+				Refresh();
+			};
 			
-			control.Frame = new System.Drawing.RectangleF(145, 8, 130, 30);
-			
-			toolbar.Add(control);*/
+			return new UIBarButtonItem(toolbarControl);
 		}
         
 		public string GetDynamicDescription() 
