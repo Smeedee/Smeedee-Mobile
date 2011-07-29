@@ -98,7 +98,7 @@
 							<object class="IBUILabel" id="361071570">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{154, 32}, {101, 18}}</string>
+								<string key="NSFrame">{{194, 33}, {101, 18}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -120,7 +120,7 @@
 							<object class="IBUIImageView" id="747624589">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{263, 19}, {32, 32}}</string>
+								<string key="NSFrame">{{263, 5}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -285,7 +285,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDfQAAwjAAAA</bytes>
 					</object>
-					<string>{{374, 457}, {320, 60}}</string>
+					<string>{{418, 757}, {320, 60}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
