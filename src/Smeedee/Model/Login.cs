@@ -10,18 +10,18 @@ namespace Smeedee.Model
 		public const string ValidationSuccess = "Success!";
 		public const string ValidationFailed = "Failed!";
 
-        private IPersistenceService persistence;
+        private readonly IPersistenceService persistence;
         private SmeedeeApp app = SmeedeeApp.Instance;
 
         public string Key
         {
-            get { return persistence.Get(LoginKey, ""); } //o8rzdNQn
+            get { return persistence.Get(LoginKey, "o8rzdNQn"); } //
             set { persistence.Save(LoginKey, value); }
         }
 
         public string Url
         {
-            get { return NormalizeUrl(persistence.Get(LoginUrl, "")); } //http://services.smeedee.org/smeedee
+            get { return NormalizeUrl(persistence.Get(LoginUrl, "http://services.smeedee.org/smeedee")); } //
             set { persistence.Save(LoginUrl, value); }
         }
 
