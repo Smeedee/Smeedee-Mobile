@@ -25,8 +25,6 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIBarButtonItem __mt_refresh;
 		
-		private MonoTouch.UIKit.UISegmentedControl __mt_segmentBar;
-		
 		private MonoTouch.UIKit.UILabel __mt_titleLabel;
 		
 		#pragma warning disable 0169
@@ -87,18 +85,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_refresh = value;
 				this.SetNativeField("refresh", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("segmentBar")]
-		private MonoTouch.UIKit.UISegmentedControl segmentBar {
-			get {
-				this.__mt_segmentBar = ((MonoTouch.UIKit.UISegmentedControl)(this.GetNativeField("segmentBar")));
-				return this.__mt_segmentBar;
-			}
-			set {
-				this.__mt_segmentBar = value;
-				this.SetNativeField("segmentBar", value);
 			}
 		}
 		

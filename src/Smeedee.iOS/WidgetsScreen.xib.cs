@@ -103,20 +103,12 @@ namespace Smeedee.iOS
         {
 			if (widgets.Count() == 0) {
 				titleLabel.Text = "No enabled widgets";
+				
 			} else {
 				var currentWidget = widgets.ElementAt(CurrentPageIndex());
 	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
 	            
-				// Mockup of something we can discuss if we want to implement or not.
-				//
 				titleLabel.Text = attribute.Name;
-				
-				segmentBar.Hidden = true;
-				if (currentWidget is TopCommittersWidget)
-				{
-					segmentBar.Hidden = false;
-					(currentWidget as TopCommittersWidget).FixToolbar(toolbar);
-				}
 			}
         }
 		
