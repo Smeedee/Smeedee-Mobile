@@ -22,7 +22,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			TableView.SeparatorColor = UIColor.DarkGray;
+			TableView.SeparatorColor = StyleExtensions.tableSeparator;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 			Refresh();
         }
@@ -70,7 +70,7 @@ namespace Smeedee.iOS
 		private LatestCommits model;
 		private LatestCommitsWidget controller;
         
-        private const float CELL_PADDING = 20f;
+        private const float CELL_PADDING = 15f;
         
         public LatestCommitsTableSource(LatestCommitsWidget controller, LatestCommits model)
         {
