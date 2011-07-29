@@ -347,6 +347,7 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftService.cs">
       <Link>Services\WorkingDaysLeftService.cs</Link>
     </Compile>
+    <Compile Include="Model\IToolbarControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
