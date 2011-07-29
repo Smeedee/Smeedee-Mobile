@@ -109,6 +109,15 @@ namespace Smeedee.iOS
 	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
 	            
 				titleLabel.Text = attribute.Name;
+				
+				if (currentWidget is IToolbarControl) 
+				{
+					var item = (currentWidget as IToolbarControl).ToolbarConfigurationItem();
+					if (toolbar.Items.Count() == 3)
+						toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[2] }, true);
+					else
+						toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[1] }, true);
+				}
 			}
         }
 		

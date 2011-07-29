@@ -9,7 +9,7 @@ using Smeedee;
 namespace Smeedee.iOS
 {
     [Widget("Top committers", StaticDescription = "See which developer has committed the most code", SettingsType = typeof(TopCommittersConfigTableViewController))]
-    public partial class TopCommittersWidget : UITableViewController, IWidget
+    public partial class TopCommittersWidget : UITableViewController, IWidget, IToolbarControl
     {
 		private TopCommitters model;
 		
@@ -37,18 +37,13 @@ namespace Smeedee.iOS
 			TableView.ReloadData();
 		}
 		
-		public void FixToolbar(UIToolbar toolbar)
+		public UIBarButtonItem ToolbarConfigurationItem()
 		{
-			Console.WriteLine("Fixing toolbar");
+			
+			var item = new UIBarButtonItem("heya", UIBarButtonItemStyle.Bordered, null);
+			
+			return item;
 			/*
-			var label = new UILabel();
-			label.Text = "Top committers";
-			label.BackgroundColor = StyleExtensions.transparent;
-			label.TextColor = UIColor.White;
-			label.Frame = new System.Drawing.RectangleF(5, 5, 160, 30);
-			
-			toolbar.Add(label);
-			
 			var control = new UISegmentedControl();
 			control.InsertSegment("24h", 0, false);
 			control.InsertSegment("week", 1, false);
@@ -58,9 +53,8 @@ namespace Smeedee.iOS
 			control.TintColor = UIColor.Black;
 			control.BackgroundColor = StyleExtensions.transparent;
 			
-			control.Frame = new System.Drawing.RectangleF(145, 8, 130, 30);
+			control.Frame = new System.Drawing.RectangleF(145, 8, 130, 30);*/
 			
-			toolbar.Add(control);*/
 		}
         
 		public string GetDynamicDescription() 
