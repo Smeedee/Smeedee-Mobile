@@ -22,8 +22,6 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			titleLabel.StyleAsHeadline();
-			subTitleLabel.StyleAsDescription();
             scrollView.Scrolled += ScrollViewScrolled;
 			refresh.Clicked += delegate {
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
@@ -105,27 +103,19 @@ namespace Smeedee.iOS
         {
 			if (widgets.Count() == 0) {
 				titleLabel.Text = "No enabled widgets";
-	            subTitleLabel.Text = "Press configuration to enable";
 			} else {
 				var currentWidget = widgets.ElementAt(CurrentPageIndex());
 	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
 	            
 				// Mockup of something we can discuss if we want to implement or not.
 				//
-				newTitle.Hidden = true;
+				titleLabel.Text = attribute.Name;
+				
 				segmentBar.Hidden = true;
 				if (currentWidget is TopCommittersWidget)
 				{
-					titleLabel.Text = "";
-	            	subTitleLabel.Text = "";
-					newTitle.Hidden = false;
 					segmentBar.Hidden = false;
 					(currentWidget as TopCommittersWidget).FixToolbar(toolbar);
-				}
-				else
-				{
-					titleLabel.Text = attribute.Name;
-	            	subTitleLabel.Text = currentWidget.GetDynamicDescription();
 				}
 			}
         }
