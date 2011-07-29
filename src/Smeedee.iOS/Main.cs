@@ -12,6 +12,8 @@ namespace Smeedee.iOS
 {
     public class Application
     {
+		private const bool USE_FAKES = true;
+		
         static void Main (string[] args)
         {
 			ConfigureDependencies();
@@ -30,10 +32,24 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<IValidationService>(new ValidationService());
 			serviceLocator.Bind<IImageService>(new ImageService(serviceLocator.Get<IBackgroundWorker>()));
 			
-			serviceLocator.Bind<IBuildStatusService>(new BuildStatusService());
-			serviceLocator.Bind<ITopCommittersService>(new TopCommittersService());
-			serviceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
-			serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
+			if (USE_FAKES)
+			{
+				serviceLocator.Bind<IValidationService>(new FakeValidationService());
+				
+				serviceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(serviceLocator.Get<IBackgroundWorker>()));
+				serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+				serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
+				serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
+			}
+			else
+			{
+				serviceLocator.Bind<IValidationService>(new ValidationService());
+				
+				serviceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+				serviceLocator.Bind<ITopCommittersService>(new TopCommittersService());
+				serviceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
+				serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
+			}
 		}
 		
 		private static void AssureSettingsExist() 

@@ -39,11 +39,11 @@ namespace Smeedee.iOS
 		
 		public UIBarButtonItem ToolbarConfigurationItem()
 		{
-			
+			/*
 			var item = new UIBarButtonItem("heya", UIBarButtonItemStyle.Bordered, null);
 			
-			return item;
-			/*
+			return item;*/
+			
 			var control = new UISegmentedControl();
 			control.InsertSegment("24h", 0, false);
 			control.InsertSegment("week", 1, false);
@@ -53,8 +53,10 @@ namespace Smeedee.iOS
 			control.TintColor = UIColor.Black;
 			control.BackgroundColor = StyleExtensions.transparent;
 			
-			control.Frame = new System.Drawing.RectangleF(145, 8, 130, 30);*/
+			control.Frame = new System.Drawing.RectangleF(0, 10, 130, 30);
 			
+			var item = new UIBarButtonItem(control);
+			return item;
 		}
         
 		public string GetDynamicDescription() 
