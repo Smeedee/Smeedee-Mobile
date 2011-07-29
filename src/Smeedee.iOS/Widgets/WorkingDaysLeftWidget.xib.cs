@@ -21,7 +21,12 @@ namespace Smeedee.iOS
 		public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			daysLabel.StyleAsHeadline();
+			//daysLabel.StyleAsHeadline();
+			
+			daysLabel.Hidden = true;
+			topLabel.Hidden = true;
+			bottomLabel.Hidden = true;
+			
 			Refresh();
         }
 		
@@ -29,13 +34,19 @@ namespace Smeedee.iOS
 		{
 			if (model.LoadError)
 			{
-				daysLabel.Text = "0";
+				//daysLabel.Text = "0";
 				overtimeLabel.Text = "Error loading data";
 			}
 			else
 			{
+				daysLabel.Hidden = false;
+				topLabel.Hidden = false;
+				bottomLabel.Hidden = false;
+				
 				daysLabel.Text = model.DaysLeft.ToString();
-				overtimeLabel.Hidden = !model.IsOnOvertime;
+				topLabel.Text = model.DaysLeftText;
+				bottomLabel.Text = string.Format("until {0:dddd, MMMM d, yyyy}", model.UntillDate);
+				bottomLabel.Hidden = model.IsOnOvertime;
 			}
 		}
 		
