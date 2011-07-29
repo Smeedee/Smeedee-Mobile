@@ -57,7 +57,6 @@ namespace Smeedee.iOS
 		{
 			if (response == Login.ValidationSuccess) {
 				Console.WriteLine("Login succeded, showing widgets");
-            	RegisterAllSupportedWidgets(); // ?
 				window.InvokeOnMainThread(ShowWidgets);
 			}
 			else
@@ -94,10 +93,5 @@ namespace Smeedee.iOS
 		{
             window.AddSubview(tabBarController.View);
 		}
-		
-        private void RegisterAllSupportedWidgets()
-        {
-            app.RegisterAvailableWidgets();
-        }
     }
 }
