@@ -74,7 +74,7 @@
 							<object class="IBUILabel" id="284202555">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 29}, {136, 21}}</string>
+								<string key="NSFrame">{{10, 31}, {136, 21}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -87,7 +87,7 @@
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<object class="NSColor" key="IBUITextColor" id="691132212">
+								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 								</object>
@@ -98,7 +98,7 @@
 							<object class="IBUILabel" id="361071570">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{194, 33}, {101, 18}}</string>
+								<string key="NSFrame">{{194, 35}, {101, 18}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -111,7 +111,10 @@
 									<double key="NSSize">12</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<reference key="IBUITextColor" ref="691132212"/>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+								</object>
 								<reference key="IBUIHighlightedColor" ref="985586555"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
@@ -120,7 +123,7 @@
 							<object class="IBUIImageView" id="747624589">
 								<reference key="NSNextResponder" ref="984992411"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{263, 5}, {32, 32}}</string>
+								<string key="NSFrame">{{263, 6}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

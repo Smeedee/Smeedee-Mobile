@@ -21,7 +21,8 @@ namespace Smeedee.iOS
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+			//TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+			TableView.SeparatorColor = StyleExtensions.tableSeparator;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
             Refresh();
         }
@@ -97,7 +98,7 @@ namespace Smeedee.iOS
 		
 		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 		{
-			return 60f;
+			return 64f;
 		}
         
         public override int RowsInSection (UITableView tableview, int section)
