@@ -8,15 +8,14 @@
     android:id="@+id/LatestCommitsWidget_CommitterIcon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:maxHeight="70px"
-    android:maxWidth="70px"
+    android:maxHeight="70dp"
+    android:maxWidth="70dp"
     android:adjustViewBounds="true"
     android:src="@drawable/defaultperson"
-    android:paddingBottom="6px"
-    android:paddingLeft="6px"
-    android:paddingTop="6px"
-    android:paddingRight="10px"
-    />
+    android:paddingBottom="6dp"
+    android:paddingLeft="6dp"
+    android:paddingTop="6dp"
+    android:paddingRight="10dp" />
   <LinearLayout 
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -25,19 +24,16 @@
       android:id="@+id/LatestCommitsWidget_ChangesetUser"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textStyle="bold"
-      />
+      android:textStyle="bold" />
     <TextView
       android:id="@+id/LatestCommitsWidget_ChangesetText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textColor="#FFF"
-      />
+      android:textColor="@color/white" />
     <TextView
       android:id="@+id/LatestCommitsWidget_ChangesetDate"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:paddingBottom="4px"
-      />
+      android:paddingBottom="4dp" />
   </LinearLayout>
 </LinearLayout>

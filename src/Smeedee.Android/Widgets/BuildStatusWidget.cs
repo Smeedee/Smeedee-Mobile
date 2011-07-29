@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.Preferences;
 using Android.Views;
 using Android.Widget;
@@ -21,6 +20,7 @@ namespace Smeedee.Android.Widgets
         private ListView buildList;
         private BuildStatus model;
         private DateTime _lastRefreshTime;
+        private IPersistenceService persistence;
 
         public event EventHandler DescriptionChanged;
 
@@ -34,6 +34,7 @@ namespace Smeedee.Android.Widgets
             model = new BuildStatus();
             CreateGui();
             buildList = FindViewById<ListView>(Resource.Id.BuildStatusWidget_build_list);
+            persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
             Refresh();
         }
 
@@ -51,8 +52,7 @@ namespace Smeedee.Android.Widgets
 
         private IList<IDictionary<string, object>> GetListAdapterFromBuildModels()
         {
-            var prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
-            var showTriggeredBy = prefs.GetBoolean("showTriggeredBy", true);
+            var showTriggeredBy = persistence.Get("BuildStatus.ShowTriggeredBy", true);
 
             return model.Builds.Select(build => new Dictionary<String, object>
                         {

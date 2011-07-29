@@ -5,20 +5,18 @@
   android:gravity="center"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-    
   <ImageView
     android:id="@+id/SmeedeeIcon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="5sp"
+    android:paddingBottom="5dp"
     android:src="@drawable/icon_smeedee" />
   <TextView
     android:id="@+id/SmeedeeStartPageTextView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_below="@id/SmeedeeIcon"
-    android:textColor="#f25000"
+    android:textColor="@color/smeedee_orange"
     android:textSize="20sp"
     android:text="@string/StartPageWidgetTitle" />
-    
 </LinearLayout>
