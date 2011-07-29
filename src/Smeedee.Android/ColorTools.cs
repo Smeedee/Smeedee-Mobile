@@ -3,7 +3,7 @@ using Android.Graphics;
 
 namespace Smeedee.Android
 {
-    public class ColorTools
+    public static class ColorTools
     {
         public static Color GetColorFromHex(string hex)
         {

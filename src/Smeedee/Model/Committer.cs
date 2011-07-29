@@ -1,11 +1,14 @@
 using System;
-using Smeedee;
 using Smeedee.Services;
 
 namespace Smeedee.Model
 {
     public class Committer
     {
+        public string Name { get; private set; }
+        public int Commits { get; private set; }
+        public Uri ImageUri { get; private set; }
+
         public Committer(string name, int commits, string url)
         {
             Guard.NotNull(name);
@@ -20,20 +23,6 @@ namespace Smeedee.Model
             }
         }
         
-        public string Name {
-            get;
-            private set;
-        }
-
-        public int Commits {
-            get; 
-            private set;
-        }
-
-        public Uri ImageUri
-        {
-            get;
-            private set;
-        }
+        
     }
 }

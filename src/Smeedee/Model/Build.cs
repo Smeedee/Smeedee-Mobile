@@ -18,7 +18,7 @@ namespace Smeedee.Model
         public DateTime BuildTime { get; private set; }
         public BuildState BuildSuccessState { get; private set; }
         public string ProjectName { get; private set; }
-        public string Username { get; set; }
+        public string Username { get; set; } // Is set to "" from outside when user disables the username from configuration
     }
 
 

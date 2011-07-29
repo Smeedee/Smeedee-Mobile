@@ -15,13 +15,13 @@ namespace Smeedee.Model
 
         public string Key
         {
-            get { return persistence.Get(LoginKey, ""); }
+            get { return persistence.Get(LoginKey, ""); } //o8rzdNQn
             set { persistence.Save(LoginKey, value); }
         }
 
         public string Url
         {
-            get { return NormalizeUrl(persistence.Get(LoginUrl, "")); }
+            get { return NormalizeUrl(persistence.Get(LoginUrl, "")); } //http://services.smeedee.org/smeedee
             set { persistence.Save(LoginUrl, value); }
         }
 

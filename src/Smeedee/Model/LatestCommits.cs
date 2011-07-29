@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Smeedee.Services;
 
 namespace Smeedee.Model
 {
@@ -10,19 +9,16 @@ namespace Smeedee.Model
 		private const string HighlightEmptyPropertyKey = "LatestCommits.HighlightEmpty";
 		
         private const int MAX_LOADED_COMMITS = 40; //Restrict in order to not blow up memory
-        private ILatestCommitsService service;
+        private readonly ILatestCommitsService service;
+        private readonly IPersistenceService persistence;
         private SmeedeeApp app = SmeedeeApp.Instance;
 
         public List<Commit> Commits { get; private set; }
-
         public bool HasMore { get; private set; }
-
         public string DynamicDescription
         {
             get { return "Latest " + Commits.Count() + " commits"; }
         }
-
-		private IPersistenceService persistence;
 
         public LatestCommits()
         {
@@ -35,13 +31,13 @@ namespace Smeedee.Model
         public void Load(Action callback)
         {
             service.Get10Latest(loadedCommits =>
-            {
-                HasMore = loadedCommits.Count() == 10;
-                Commits = loadedCommits.ToList();
-                callback();
-            });
+                                    {
+                                        HasMore = loadedCommits.Count() == 10;
+                                        Commits = loadedCommits.ToList();
+                                        callback();
+                                    });
         }
-        
+
         public void LoadMore(Action callback)
         {
             if (!HasMore || Commits.Count == 0 || Commits.Count >= MAX_LOADED_COMMITS)
