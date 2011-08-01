@@ -13,17 +13,23 @@ namespace Smeedee.iOS
         private const int SCREEN_WIDTH = 320;
 		
 		private static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+		private static int loadingCounter = 0;
 		public static void StartLoading()
 		{
+			loadingCounter++;
 			spinner.Hidden = false;
 			spinner.StartAnimating();
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 		}
 		public static void StopLoading()
 		{
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-			spinner.StopAnimating();
-			spinner.Hidden = true;
+			loadingCounter--;
+			if (loadingCounter == 0) 
+			{
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+				spinner.StopAnimating();
+				spinner.Hidden = true;
+			}
 		}
 		
 		private IList<IWidget> widgets;
