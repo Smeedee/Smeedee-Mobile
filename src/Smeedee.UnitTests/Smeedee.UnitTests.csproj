@@ -75,7 +75,6 @@
     <Compile Include="Model\CommitterTests.cs" />
     <Compile Include="Model\WorkingDaysLeftTests.cs" />
     <Compile Include="Services\BuildStatusServiceTests.cs" />
-    <Compile Include="Services\CachedImageServiceTests.cs" />
     <Compile Include="Fakes\FakeHttpFetcher.cs" />
     <Compile Include="Services\FakeImageServiceTests.cs" />
     <Compile Include="Resources\PersistenceServiceResources.Designer.cs">
@@ -86,6 +85,7 @@
     <Compile Include="Fakes\FakeKVStorage.cs" />
     <Compile Include="Services\ImageServiceTests.cs" />
     <Compile Include="Services\LatestCommitsServiceTests.cs" />
+    <Compile Include="Services\MemoryCachedImageServiceTests.cs" />
     <Compile Include="Services\ServiceLocatorTests.cs" />
     <Compile Include="Services\ValidationServiceTests.cs" />
     <Compile Include="Services\WorkingDaysLeftServiceTests.cs" />

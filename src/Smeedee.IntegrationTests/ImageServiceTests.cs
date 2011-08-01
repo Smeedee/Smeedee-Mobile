@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Smeedee;
+using Smeedee.Model;
 using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.IntegrationTests
@@ -15,7 +16,8 @@ namespace Smeedee.IntegrationTests
     {
         private byte[] GetImageBytesFromDagbladet()
         {
-            var imageService = new ImageService(new NoBackgroundInvocation());
+            SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
+            var imageService = new ImageService();
             byte[] recievedBytes = null;
             imageService.GetImage(new Uri("http://www.dagbladet.no/favicon.ico"),
                                   bytes => recievedBytes = bytes);
