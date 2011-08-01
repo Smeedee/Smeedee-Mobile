@@ -240,7 +240,6 @@ namespace Smeedee.Android
 
             RefreshAllCurrentlyEnabledWidgets();
             HideTheBottomRefreshButton();
-
             StartRefreshTimer();
         }
 

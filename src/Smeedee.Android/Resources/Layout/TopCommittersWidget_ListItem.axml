@@ -2,8 +2,7 @@
 <RelativeLayout
   xmlns:a="http://schemas.android.com/apk/res/android"
   a:layout_width="fill_parent"
-  a:layout_height="fill_parent"
-  a:gravity="center_vertical">
+  a:layout_height="fill_parent" >
   <ImageView
     a:id="@+id/TopCommitters_Icon"
     a:layout_width="wrap_content"
@@ -18,20 +17,28 @@
     a:paddingRight="10dp" />
   <TextView
     a:id="@+id/TopCommittersWidget_committer_name"
-    a:layout_width="wrap_content"
+    a:layout_width="fill_parent"
     a:layout_height="wrap_content"
     a:layout_toRightOf="@id/TopCommitters_Icon"
-    a:layout_centerVertical="true"
     a:textColor="@color/white"
+    a:paddingBottom="15dp"
     a:textAppearance="@android:style/TextAppearance.Medium" />
+  <TextView
+    a:id="@+id/TopCommittersWidget_commit_bar"
+    a:layout_width="wrap_content"
+    a:layout_height="wrap_content"
+    a:layout_below="@id/TopCommittersWidget_committer_name"
+    a:layout_toRightOf="@id/TopCommitters_Icon"
+    a:height="15dp"
+    a:background="@color/smeedee_lightgrey" />
   <TextView
     a:id="@+id/TopCommittersWidget_number_of_commits"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
-    a:layout_alignParentRight="true"
-    a:layout_centerVertical="true"
-    a:paddingRight="10dp"
-    a:textColor="@color/white"
-    a:textAppearance="@android:style/TextAppearance.Medium" />
+    a:layout_toRightOf="@id/TopCommittersWidget_commit_bar"
+    a:layout_below="@id/TopCommittersWidget_committer_name"
+    a:paddingLeft="3dp"
+    a:textAppearance="@android:style/TextAppearance.Small" />
+
 </RelativeLayout>
 

@@ -108,6 +108,9 @@ namespace Smeedee.Android.Widgets
         {
         }
 
+        public override bool IsEnabled(int position) // To disable list item clicks
+        { return false; }
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = base.GetView(position, convertView, parent);
@@ -124,11 +127,6 @@ namespace Smeedee.Android.Widgets
                     buildStatusView.SetImageResource(Resource.Drawable.icon_buildunknown);
             } 
             return view;
-        }
-
-        public override bool IsEnabled(int position)
-        {
-            return false;
         }
     }
 }
