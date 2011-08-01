@@ -12,7 +12,7 @@ namespace Smeedee.iOS
 {
     public class Application
     {
-		private const bool USE_FAKES = false;
+		private const bool USE_FAKES = true;
 		
         static void Main (string[] args)
         {
@@ -29,7 +29,7 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
 			
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
-			serviceLocator.Bind<IImageService>(new ImageService(serviceLocator.Get<IBackgroundWorker>()));
+			serviceLocator.Bind<IImageService>(new ImageService());
 			
 			if (USE_FAKES)
 			{

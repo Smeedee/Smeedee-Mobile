@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Android.Util;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -45,7 +44,7 @@ namespace Smeedee.Services
                 }
                 catch (Exception e)
                 {
-                    Log.Debug("Smeedee", e.ToString());
+                    //Log.Debug("Smeedee", e.ToString());
                 }
             }
             callback(bytes);
