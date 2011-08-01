@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="BitmapCache.cs" />
     <Compile Include="ColorTools.cs" />
+    <Compile Include="ImageViewExtensions.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RealViewSwitcher.cs" />
     <Compile Include="Screens\About.cs" />

@@ -120,10 +120,11 @@ namespace Smeedee.Android.Widgets
 
             var adapter = new TextColoringAdapterWithLoadMoreButton(Context, listItems, layout, from, to, GetHighlightColor());
             adapter.LoadMoreClick += (o, e) =>
-                                         {
-                                             scrollDown = true;
-                                             model.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
-                                         };
+            {
+                scrollDown = true;
+                GC.Collect(0); //LoadMore is expensive memory wise, so we do a minor GC here
+                model.LoadMore(() => ((Activity) Context).RunOnUiThread(Redraw));
+            };
             return adapter;
         }
         
