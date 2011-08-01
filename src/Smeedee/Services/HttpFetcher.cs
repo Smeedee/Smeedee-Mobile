@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using Android.Util;
 
 namespace Smeedee.Services
 {
@@ -15,8 +14,7 @@ namespace Smeedee.Services
             }
             catch (Exception e)
             {
-                Log.Debug("SMEEDEE", "Exception: " + e.Message);
-                return e.Message;
+                return "";
             }
         }
     }

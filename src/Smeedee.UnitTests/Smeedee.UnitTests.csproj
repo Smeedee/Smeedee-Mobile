@@ -83,7 +83,6 @@
       <DependentUpon>PersistenceServiceResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Fakes\FakeKVStorage.cs" />
-    <Compile Include="Services\ImageServiceTests.cs" />
     <Compile Include="Services\LatestCommitsServiceTests.cs" />
     <Compile Include="Services\MemoryCachedImageServiceTests.cs" />
     <Compile Include="Services\ServiceLocatorTests.cs" />

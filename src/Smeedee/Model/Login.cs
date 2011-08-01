@@ -31,8 +31,8 @@ namespace Smeedee.Model
             _persistence = app.ServiceLocator.Get<IPersistenceService>();
 
             // Remove this later on
-            Key = "o8rzdNQn";
-            Url = "http://services.smeedee.org/smeedee/";
+            //Key = "o8rzdNQn";
+            //Url = "http://services.smeedee.org/smeedee/";
         }
 		
 		public void StoreAndValidate(string url, string key, Action<string> callback)

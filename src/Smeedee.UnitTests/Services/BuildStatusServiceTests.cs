@@ -98,7 +98,8 @@ namespace Smeedee.UnitTests.Services
             downloader.SetHtmlString("");
             service.Load(r => { });
 
-            Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/BuildStatus/?apiKey=key123", downloader.UrlAskedFor);
+            Assert.AreEqual("http://services.smeedee.org/smeedee/MobileServices/BuildStatus/?apiKey=key123", 
+                downloader.UrlAskedFor);
         }
     }
 }
