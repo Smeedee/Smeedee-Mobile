@@ -21,7 +21,7 @@ namespace Smeedee.UnitTests.Services
         {
             imageService = new FakeImageService(new NoBackgroundInvocation());
             cache = new FakePersistenceService();
-            cachedImageService = new CachedImageService(imageService, cache);
+            cachedImageService = new CachedImageService(imageService);
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Smeedee.UnitTests.Services
         {
             return; //TODO: Enable these tests when the image service is implemented
             var imageService = new MyFakeImageService();
-            var cachedImageService = new CachedImageService(imageService, cache);
+            var cachedImageService = new CachedImageService(imageService);
             for (int i = 0; i < 5; ++i)
                 cachedImageService.GetImage(new Uri("http://example.com"), (bytes) => { });
 

@@ -1,43 +1,64 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using Android.Util;
+using Smeedee.Model;
 
 namespace Smeedee.Services
 {
     public class CachedImageService : IImageService
     {
-        private IPersistenceService cache;
         private IImageService serviceToCache;
+        private string cachePath;
         public const string DEFAULT_URI = "smeedee://default_person.png";
 
-        public CachedImageService(IImageService serviceToCache, IPersistenceService cache)
+        public CachedImageService(IImageService serviceToCache)
         {
             this.serviceToCache = serviceToCache;
-            this.cache = cache;
+            this.cachePath = SmeedeeApp.Instance.ServiceLocator.Get<Directories>().CacheDir;
         }
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
-            throw new NotImplementedException();
-            //TODO: Get filename from persistance, and use regular disk access to get the image
-            /*
-            var cacheKey = "image_cache." + uri;
-            var cached = cache.Get<byte[]>(cacheKey, null);
-            if (cached == null)
+            var fileName = cachePath + "Smeedee_img" + uri.GetHashCode();
+
+            if (File.Exists(fileName))
             {
-                serviceToCache.GetImage(uri, (bytes) => CacheAndCallback(bytes, cacheKey, callback));
+                var bytes = File.ReadAllBytes(fileName);
+                if (IsMissingImagePlaceholder(bytes))
+                    bytes = null;
+                callback(bytes);
             } else
             {
-                callback(cached);
+                serviceToCache.GetImage(uri, bytes => SaveAndCallback(bytes, fileName, callback));
             }
-             */
         }
 
-        private void CacheAndCallback(byte[] bytes, string cacheKey, Action<byte[]> callback)
+        private void SaveAndCallback(byte[] bytes, string fileName, Action<byte[]> callback)
         {
-            throw new NotImplementedException(); 
-            //TODO: Save filenames to persistance, and use regular disk access to save the images
-            /*
-            cache.Save(cacheKey, bytes);
-            callback(bytes);*/
+            bytes = bytes ?? GetMissingImagePlaceholder();
+            lock (this)
+            {
+                try
+                {
+                    File.WriteAllBytes(fileName, bytes);
+                }
+                catch (Exception e)
+                {
+                    Log.Debug("Smeedee", e.ToString());
+                }
+            }
+            callback(bytes);
+        }
+
+        private byte[] GetMissingImagePlaceholder()
+        {
+            return new byte[] {0, 0, 0};
+        }
+
+        private bool IsMissingImagePlaceholder(byte[] bytes)
+        {
+            return bytes.Length == 3 && bytes.All(b => b == 0);
         }
     }
 }

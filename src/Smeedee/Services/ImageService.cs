@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using Smeedee;
+using Smeedee.Model;
 
 namespace Smeedee
 {
@@ -19,9 +20,9 @@ namespace Smeedee
     {
         private IBackgroundWorker worker;
 
-        public ImageService(IBackgroundWorker worker)
+        public ImageService()
         {
-            this.worker = worker;
+            this.worker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
         }
 
         public void GetImage(Uri uri, Action<byte[]> callback)

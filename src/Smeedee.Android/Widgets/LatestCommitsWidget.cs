@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -10,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
+using Smeedee.Services;
 using Ids = Smeedee.Android.Resource.Id;
 
 namespace Smeedee.Android.Widgets
@@ -22,7 +24,8 @@ namespace Smeedee.Android.Widgets
 
         private LatestCommits model;
         private bool scrollDown = false;
-		private DateTime _lastRefreshTime;        private TextColoringAdapterWithLoadMoreButton listAdapter;
+		private DateTime _lastRefreshTime;        
+        private TextColoringAdapterWithLoadMoreButton listAdapter;
 
         public event EventHandler DescriptionChanged;
 
@@ -110,8 +113,8 @@ namespace Smeedee.Android.Widgets
 
         private TextColoringAdapterWithLoadMoreButton CreateListAdapter()
         {
-            var from = new[] { "Image", "User", "Msg", "Date" };
-            var to = new[] { Ids.LatestCommitsWidget_CommitterIcon, Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
+            var from = new[] { "User", "Msg", "Date" };
+            var to = new[] { Ids.LatestCommitsWidget_ChangesetUser, Ids.LatestCommitsWidget_ChangesetText, Ids.LatestCommitsWidget_ChangesetDate };
             var listItems = CreateListItems();
             var layout = Resource.Layout.LatestCommitsWidget_ListItem;
 
@@ -142,7 +145,7 @@ namespace Smeedee.Android.Widgets
                 data.Add(new Dictionary<string, object>
                              {
                                  {"Msg", msg},
-                                 {"Image", Resource.Drawable.DefaultPerson}, 
+                                 {"Image", changeSet.ImageUri}, 
                                  {"User", changeSet.User}, 
                                  {"Date", (DateTime.Now - changeSet.Date).PrettyPrint()}
                              });
@@ -155,7 +158,7 @@ namespace Smeedee.Android.Widgets
         {
             list.Add(new Dictionary<string, object>  {
                                  {"Msg", ""},
-                                 {"Image", Resource.Drawable.DefaultPerson}, 
+                                 {"Image", null}, 
                                  {"User", ""}, 
                                  {"Date", ""}
                              });
@@ -176,23 +179,44 @@ namespace Smeedee.Android.Widgets
     {
         private readonly Color highlightColor;
         private readonly Context context;
+        private readonly IList<IDictionary<string, object>> items;
+        private IImageService imageService;
+
+        public List<ImageView> Images;
+
         public TextColoringAdapterWithLoadMoreButton(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to, Color highlightColor) :
                                   base(context, items, resource, from, to)
         {
+            this.items = items;
             this.context = context;
             this.highlightColor = highlightColor;
+            Images = new List<ImageView>(Count - 1);
+            imageService = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             //Force convertView to be null when it's an instance of RelativeLayout. 
             //This is our loadMoreLayout, and the base isn't able to recycle it. 
-            convertView = convertView as LinearLayout; 
+            convertView = convertView as LinearLayout;
             var view = base.GetView(position, convertView, parent);
 
-            if (position == Count - 1) return GetLoadMoreButton(); 
-
+            if (position == Count - 1) return GetLoadMoreButton();
+            LoadImage(position, view);
             return FindTextViewAndSetColor(view);
+        }
+
+        private void LoadImage(int position, View view)
+        {
+            var image = (view as LinearLayout).GetChildAt(0) as ImageView;
+            image.SetImageResource(Resource.Drawable.DefaultPerson);
+            var uri = items[position]["Image"] as Uri;
+            imageService.GetImage(uri, bytes =>
+            {
+                if (bytes == null) return;
+                var bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length);
+                ((Activity) context).RunOnUiThread(() => image.SetImageBitmap(bmp));
+            });
         }
 
         private View FindTextViewAndSetColor(View view)
@@ -239,6 +263,7 @@ namespace Smeedee.Android.Widgets
         }
 
         private bool buttonEnabled = true;
+
         public bool ButtonEnabled
         {   //Map directly to loadMoreLayout.Enabled when its instantiated,
             //and map to a backing field while it's not.
