@@ -12,7 +12,17 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
-		public static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+		private static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+		public static void StartLoading()
+		{
+			spinner.Hidden = false;
+			spinner.StartAnimating();
+		}
+		public static void StopLoading()
+		{
+			spinner.StopAnimating();
+			spinner.Hidden = true;
+		}
 		
 		private IList<IWidget> widgets;
 		
@@ -157,4 +167,5 @@ namespace Smeedee.iOS
             pageControl.CurrentPage = page;
         }
     }
+	
 }
