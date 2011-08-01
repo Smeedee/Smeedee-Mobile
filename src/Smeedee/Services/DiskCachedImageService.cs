@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Android.Util;
 using Smeedee.Model;
 
 namespace Smeedee.Services
@@ -39,14 +38,7 @@ namespace Smeedee.Services
             bytes = bytes ?? GetMissingImagePlaceholder();
             lock (this)
             {
-                try
-                {
-                    File.WriteAllBytes(fileName, bytes);
-                }
-                catch (Exception e)
-                {
-                    Log.Debug("Smeedee", e.ToString());
-                }
+                File.WriteAllBytes(fileName, bytes);
             }
             callback(bytes);
         }
