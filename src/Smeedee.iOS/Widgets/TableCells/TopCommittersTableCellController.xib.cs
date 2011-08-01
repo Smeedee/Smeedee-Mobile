@@ -27,8 +27,8 @@ namespace Smeedee.iOS
 			nameLabel.Text = committer.Name;
 			commitLabel.Text = committer.Commits.ToString();
 			
-			float red = 0.7f * (1.0f - percent);
-			float green = 0.7f * percent;
+			float red = 0.6f * (1.0f - percent);
+			float green = 0.6f * percent;
 			graph.BackgroundColor = UIColor.FromRGB(red, green, 0f);
 			
 			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, percent * (graph.Frame.Width - 50f), graph.Frame.Height);
