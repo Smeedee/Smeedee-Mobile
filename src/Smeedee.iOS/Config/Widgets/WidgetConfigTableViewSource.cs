@@ -48,12 +48,18 @@ namespace Smeedee.iOS
 		{
 			InsertSegment("ON", 0, false);
 			InsertSegment("OFF", 1, false);
+			Frame = new System.Drawing.RectangleF(0, 0, 100, 30);
+			
 			ControlStyle = UISegmentedControlStyle.Bar;
 			BackgroundColor = StyleExtensions.transparent;
 			TintColor = UIColor.FromRGB(100, 100, 100);
 			
 			SelectedSegment = (on) ? 0 : 1;
-			Frame = new System.Drawing.RectangleF(0, 0, 100, 30);
+		}
+		
+		public bool On 
+		{
+			get { return SelectedSegment == 0; }
 		}
 	}
 }
