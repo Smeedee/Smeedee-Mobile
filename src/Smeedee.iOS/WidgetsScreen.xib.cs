@@ -12,11 +12,14 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
+		public static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+		
 		private IList<IWidget> widgets;
 		
         public WidgetsScreen (IntPtr handle) : base (handle)
         {
 			widgets = new List<IWidget>();
+			spinner.Center = new PointF(320/2, 460/2);
         }
 		
         public override void ViewDidLoad()
@@ -24,10 +27,10 @@ namespace Smeedee.iOS
             base.ViewDidLoad();
             scrollView.Scrolled += ScrollViewScrolled;
 			refresh.Clicked += delegate {
-				Console.WriteLine("show loading animation");
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
-				Console.WriteLine("hide loading animation");
 			};
+			View.AddSubview(spinner);
+			spinner.Hidden = true;
         }
 		
 		public override void ViewWillAppear(bool animated)

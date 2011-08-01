@@ -36,8 +36,19 @@ namespace Smeedee.iOS
         
         public void Refresh()
         {
+			Console.WriteLine("show loading animation");
+			InvokeOnMainThread(() => {
+				WidgetsScreen.spinner.Hidden = false;
+				WidgetsScreen.spinner.StartAnimating();
+			});
 			model.Load(() =>  {
 				InvokeOnMainThread(UpdateUI);
+				
+				Console.WriteLine("hide loading animation");
+				InvokeOnMainThread(() => {
+					WidgetsScreen.spinner.StopAnimating();
+					WidgetsScreen.spinner.Hidden = true;
+				});
 			});
         }
 		
