@@ -11,7 +11,7 @@ namespace Smeedee.iOS
 	{
 		// Needs to be declared here to avoid GC issues
 		// See http://stackoverflow.com/questions/6156165/why-does-my-uiswitch-crash-when-it-is-a-tableview-cell-accessoryview
-		private UISwitch enabledSwitch;
+		private DarkSwitch darkSwitch;
 		
 		protected WidgetModel widgetModel;
 		
@@ -22,14 +22,14 @@ namespace Smeedee.iOS
 		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			enabledSwitch = new UISwitch();
-			enabledSwitch.SetState(widgetModel.Enabled, false);
-			enabledSwitch.ValueChanged += delegate {
-				widgetModel.Enabled = enabledSwitch.On;
+			darkSwitch = new DarkSwitch(true);
+			darkSwitch.ValueChanged += delegate {
+				Console.WriteLine("Selected " + darkSwitch.SelectedSegment);
+				widgetModel.Enabled = darkSwitch.SelectedSegment == 0;
 			};
 			
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, "EnableWidgetUISwitch") {
-				AccessoryView = enabledSwitch, 
+				AccessoryView = darkSwitch, 
 			};
 			cell.TextLabel.Text = "Enabled";
 			cell.StyleAsSettingsTableCell();
@@ -40,6 +40,21 @@ namespace Smeedee.iOS
 		
         public override int NumberOfSections(UITableView tableView) { return 1; }
         public override int RowsInSection(UITableView tableview, int section) { return 1; }
+	}
+	
+	internal class DarkSwitch : UISegmentedControl
+	{
+		public DarkSwitch(bool on)
+		{
+			InsertSegment("ON", 0, false);
+			InsertSegment("OFF", 1, false);
+			ControlStyle = UISegmentedControlStyle.Bar;
+			BackgroundColor = StyleExtensions.transparent;
+			TintColor = UIColor.FromRGB(100, 100, 100);
+			
+			SelectedSegment = (on) ? 0 : 1;
+			Frame = new System.Drawing.RectangleF(0, 0, 100, 30);
+		}
 	}
 }
 

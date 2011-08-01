@@ -37,7 +37,7 @@ namespace Smeedee.iOS
 			self.BackgroundColor = blackBackground;
 			self.SeparatorColor = tableSeparator;
 			self.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
-			//self.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
+			self.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 		}
 		
 		public static void StyleAsSettingsTableCell(this UITableViewCell self)
