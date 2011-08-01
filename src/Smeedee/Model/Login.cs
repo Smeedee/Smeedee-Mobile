@@ -44,6 +44,7 @@ namespace Smeedee.Model
         public void IsValid(Action<bool> callback)
         {
             var validation = app.ServiceLocator.Get<IValidationService>();
+			Console.WriteLine(string.Format("Validating {0} : {1}", Url, Key));
             validation.Validate(Url, Key, callback);
         }
 

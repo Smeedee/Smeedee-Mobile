@@ -50,7 +50,7 @@ namespace Smeedee.iOS
 		
 		private bool ServerIsConfigured()
 		{
-			return !string.IsNullOrEmpty(Login.LoginUrl) && !string.IsNullOrEmpty(Login.LoginKey);
+			return !string.IsNullOrEmpty(login.Url) && !string.IsNullOrEmpty(login.Key);
 		}
 		
 		private void ServerCallback(string response)

@@ -36,7 +36,9 @@ namespace Smeedee.iOS
         
         public void Refresh()
         {
-			model.Load(() => InvokeOnMainThread(UpdateUI));
+			model.Load(() =>  {
+				InvokeOnMainThread(UpdateUI);
+			});
         }
 		
 		public void LoadMore()

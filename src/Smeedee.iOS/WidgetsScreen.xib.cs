@@ -24,7 +24,9 @@ namespace Smeedee.iOS
             base.ViewDidLoad();
             scrollView.Scrolled += ScrollViewScrolled;
 			refresh.Clicked += delegate {
+				Console.WriteLine("show loading animation");
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
+				Console.WriteLine("hide loading animation");
 			};
         }
 		

@@ -59,6 +59,7 @@ namespace Smeedee.iOS
 	                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
 	            
 	            cell.TextLabel.Text = widget.Name;
+				cell.TextLabel.HighlightedTextColor = UIColor.Black;
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
             	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 	            cell.StyleAsSettingsTableCell();

@@ -92,6 +92,8 @@ namespace Smeedee.iOS
 			
 			new Login().StoreAndValidate(url, key, (str) => {
 				
+				Console.WriteLine(string.Format("Response from server: {0}", str));
+				
 				InvokeOnMainThread(() => {
 					buttonCell.TextLabel.Text = str;
 					buttonCell.TextLabel.TextColor = (str == Login.ValidationSuccess) ? UIColor.FromRGB(50, 150, 50) : UIColor.FromRGB(150, 50, 50);
