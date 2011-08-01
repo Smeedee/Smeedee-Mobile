@@ -25,7 +25,7 @@ namespace Smeedee.iOS
 			darkSwitch = new DarkSwitch(true);
 			darkSwitch.ValueChanged += delegate {
 				Console.WriteLine("Selected " + darkSwitch.SelectedSegment);
-				widgetModel.Enabled = darkSwitch.SelectedSegment == 0;
+				widgetModel.Enabled = darkSwitch.On;
 			};
 			
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, "EnableWidgetUISwitch") {
