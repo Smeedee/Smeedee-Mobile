@@ -20,7 +20,6 @@ namespace Smeedee.iOS
 		public static readonly UIColor tableSeparator = UIColor.FromRGB(20, 20, 20);
 		
 		
-		
 		public static void StyleAsHeadline(this UILabel self) 
 		{
 			self.TextColor = headlineColor;				
@@ -44,9 +43,11 @@ namespace Smeedee.iOS
 			self.BackgroundColor = grayTableCell;
 			self.TextLabel.TextColor = lightGrayText;
 			self.TextLabel.BackgroundColor = transparent;
+			self.TextLabel.HighlightedTextColor = UIColor.Black;
 			if (self.DetailTextLabel != null) {
 				self.DetailTextLabel.TextColor = darkGrayText;
 				self.DetailTextLabel.BackgroundColor = transparent;
+				self.DetailTextLabel.HighlightedTextColor = grayTableCell;
 			}
 			self.SelectionStyle = UITableViewCellSelectionStyle.Gray;
 		}

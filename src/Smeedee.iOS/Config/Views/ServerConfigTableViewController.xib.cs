@@ -19,7 +19,7 @@ namespace Smeedee.iOS
 			Title = "Smeedee Server";
 			
 			table.Source = new ServerConfigTableSource(this);
-			//table.ScrollEnabled = false;
+			table.SeparatorColor = UIColor.Black;
 		}
 		
 		public Action<string> LoginAction
@@ -73,11 +73,8 @@ namespace Smeedee.iOS
 			default:
 				buttonCell = new UITableViewCell();
 				buttonCell.TextLabel.Text = "Connect";
+				buttonCell.StyleAsSettingsTableCell();
 				buttonCell.TextLabel.TextAlignment = UITextAlignment.Center;
-				buttonCell.TextLabel.TextColor = StyleExtensions.lightGrayText;
-				buttonCell.TextLabel.HighlightedTextColor = UIColor.Black;
-				buttonCell.BackgroundColor = StyleExtensions.grayTableCell;
-				buttonCell.SelectionStyle = UITableViewCellSelectionStyle.Gray;
 				return buttonCell;
 			}
         }
