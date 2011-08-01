@@ -114,8 +114,8 @@
     <Compile Include="..\Smeedee\Services\BuildStatusService.cs">
       <Link>Services\BuildStatusService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\CachedImageService.cs">
-      <Link>Services\CachedImageService.cs</Link>
+    <Compile Include="..\Smeedee\Services\DiskCachedImageService.cs">
+      <Link>Services\DiskCachedImageService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\FakeBuildStatusService.cs">
       <Link>Services\Fakes\FakeBuildStatusService.cs</Link>
@@ -186,6 +186,7 @@
     <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
       <Link>TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
+    <Compile Include="BitmapCache.cs" />
     <Compile Include="ColorTools.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RealViewSwitcher.cs" />
