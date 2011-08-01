@@ -50,7 +50,7 @@ namespace Smeedee.Android
 
             new Login().IsValid(valid =>
             {
-                Type nextActivity = valid ? typeof(WidgetContainer) : typeof(LoginScreen);
+                var nextActivity = valid ? typeof(WidgetContainer) : typeof(LoginScreen);
                 StartActivity(new Intent(this, nextActivity));
                 Finish();
             });

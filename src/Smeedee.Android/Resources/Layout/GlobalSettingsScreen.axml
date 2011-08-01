@@ -3,7 +3,7 @@
   <PreferenceCategory 
     android:title="@string/GlobalSettingsScreenPreferenceCategory1">
     <PreferenceScreen
-      android:key="availableWidgets"
+      android:key="GlobalSettings.AvailableWidgets"
       android:title="@string/GlobalSettingsScreenAvailableWidgetsTitle"
       android:summary="@string/GlobalSettingsScreenAvailableWidgetsSummary">
     </PreferenceScreen>
@@ -12,7 +12,7 @@
   <PreferenceCategory 
     android:title="@string/GlobalSettingsScreenPreferenceCategory2">
     <smeedee.android.screens.ServerSettingsPreference
-      android:key="ServerSettingsPreference"
+      android:key="GlobalSettings.ServerSettingsPreference"
       android:title="@string/GlobalSettingsScreenServerSettingsTitle"
       android:summary="@string/GlobalSettingsScreenServerSettingsSummary"
       android:positiveButtonText="@string/GlobalSettingsScreenServerSettingsPositiveButton"

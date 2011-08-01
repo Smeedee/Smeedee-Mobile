@@ -39,10 +39,10 @@ namespace Smeedee.Android
 
             SetContentView(Resource.Layout.Main);
 
-            flipper = FindViewById<RealViewSwitcher>(Resource.Id.Flipper);
+            flipper = FindViewById<RealViewSwitcher>(Resource.Id.WidgetContainerFlipper);
             flipper.ScreenChanged += HandleScreenChanged;
 
-            _bottomRefreshButton = FindViewById<Button>(Resource.Id.BtnBottomRefresh);
+            _bottomRefreshButton = FindViewById<Button>(Resource.Id.WidgetContainerBtnBottomRefresh);
             _bottomRefreshButton.Click += delegate
                                        {
                                            RefreshCurrentWidget();
@@ -69,7 +69,26 @@ namespace Smeedee.Android
             SetCorrectTopBannerWidgetDescription();
             ShowRefreshButtonAtBottom(null);
         }
+        private void SetCorrectTopBannerWidgetTitle()
+        {
+            var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetContainerWidgetNameInTopBanner);
+            widgetTitle.Text = GetWidgetNameOfCurrentlyDisplayedWidget();
+        }
 
+        private void SetCorrectTopBannerWidgetDescription()
+        {
+            var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetContainerWidgetDynamicDescriptionInTopBanner);
+            var currentWidget = flipper.CurrentView as IWidget;
+
+            widgetDescriptionDynamic.Text = (currentWidget != null) ? currentWidget.GetDynamicDescription() : "No description";
+        }
+
+        private string GetWidgetNameOfCurrentlyDisplayedWidget()
+        {
+            return (from widget in SmeedeeApp.Instance.AvailableWidgets
+                    where widget.Type == flipper.CurrentView.GetType()
+                    select widget.Name).Single();
+        }
         private void ShowRefreshButtonAtBottom(System.Object timer)
         {
             if (timer != null)
@@ -127,27 +146,6 @@ namespace Smeedee.Android
             return instances;
         }
 
-        private void SetCorrectTopBannerWidgetTitle()
-        {
-            var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetNameInTopBanner);
-            widgetTitle.Text = GetWidgetNameOfCurrentlyDisplayedWidget();
-        }
-
-        private void SetCorrectTopBannerWidgetDescription()
-        {
-            var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetDynamicDescriptionInTopBanner);
-            var currentWidget = flipper.CurrentView as IWidget;
-
-            widgetDescriptionDynamic.Text = (currentWidget != null) ? currentWidget.GetDynamicDescription() : "No description";
-        }
-
-        private string GetWidgetNameOfCurrentlyDisplayedWidget()
-        {
-            return (from widget in SmeedeeApp.Instance.AvailableWidgets
-                    where widget.Type == flipper.CurrentView.GetType()
-                    select widget.Name).Single();
-        }
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.Main, menu);
@@ -158,7 +156,7 @@ namespace Smeedee.Android
         {
             base.OnPrepareOptionsMenu(menu);
 
-            var configMenuItem = menu.FindItem(Resource.Id.BtnWidgetSettings);
+            var configMenuItem = menu.FindItem(Resource.Id.MenuBtnWidgetSettings);
             var attribs = (WidgetAttribute)(flipper.CurrentView.GetType().GetCustomAttributes(typeof(WidgetAttribute), true)[0]);
 
             if (configMenuItem != null)
@@ -171,11 +169,11 @@ namespace Smeedee.Android
         {
             switch (item.ItemId)
             {
-                case Resource.Id.BtnRefreshCurrentWidget:
+                case Resource.Id.MenuBtnRefreshCurrentWidget:
                     RefreshCurrentWidget();
                     return true;
 
-                case Resource.Id.BtnWidgetSettings:
+                case Resource.Id.MenuBtnWidgetSettings:
 
                     var widgetName = GetWidgetNameOfCurrentlyDisplayedWidget();
                     var widgetModel = SmeedeeApp.Instance.AvailableWidgets.Single(wm => wm.Name == widgetName);
@@ -186,13 +184,13 @@ namespace Smeedee.Android
                     }
                     return true;
 
-                case Resource.Id.BtnGlobalSettings:
+                case Resource.Id.MenuBtnGlobalSettings:
 
                     var globalSettings = new Intent(this, typeof(GlobalSettings));
                     StartActivity(globalSettings);
                     return true;
 
-                case Resource.Id.BtnAbout:
+                case Resource.Id.MenuBtnAbout:
 
                     var about = new Intent(this, typeof(About));
                     StartActivity(about);
@@ -242,7 +240,6 @@ namespace Smeedee.Android
 
             RefreshAllCurrentlyEnabledWidgets();
             HideTheBottomRefreshButton();
-
             StartRefreshTimer();
         }
 

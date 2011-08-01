@@ -21,7 +21,7 @@ namespace Smeedee.iOS
 		public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			daysLabel.StyleAsHeadline();
+			ToggleHidden(true);
 			Refresh();
         }
 		
@@ -29,19 +29,33 @@ namespace Smeedee.iOS
 		{
 			if (model.LoadError)
 			{
-				daysLabel.Text = "0";
-				overtimeLabel.Text = "Error loading data";
+				topLabel.Text = "Error loading data";
 			}
 			else
 			{
+				ToggleHidden(false);
+				
 				daysLabel.Text = model.DaysLeft.ToString();
-				overtimeLabel.Hidden = !model.IsOnOvertime;
+				topLabel.Text = model.DaysLeftText;
+				bottomLabel.Text = string.Format("until {0:dddd, MMMM d, yyyy}", model.UntillDate);
+				bottomLabel.Hidden = model.IsOnOvertime;
 			}
+		}
+		
+		private void ToggleHidden(bool hidden)
+		{
+			daysLabel.Hidden = hidden;
+			topLabel.Hidden = hidden;
+			bottomLabel.Hidden = hidden;
 		}
 		
 		public void Refresh() 
 		{
-			model.Load(() => InvokeOnMainThread(UpdateUI));
+			InvokeOnMainThread(WidgetsScreen.StartLoading);
+			model.Load(() => {
+				InvokeOnMainThread(UpdateUI);
+				InvokeOnMainThread(WidgetsScreen.StopLoading);
+			});
 		}
 		
 		public string GetDynamicDescription() 

@@ -16,8 +16,8 @@ namespace Smeedee.Android.Screens
             SetContentView(Resource.Layout.LoginScreen);
 
             var submitButton = FindViewById<Button>(Resource.Id.BtnLogin);
-            var urlInput = FindViewById<EditText>(Resource.Id.ServerUrlInput);
-            var keyInput = FindViewById<EditText>(Resource.Id.UserPasswordInput);
+            var urlInput = FindViewById<EditText>(Resource.Id.LoginScreenServerUrlInput);
+            var keyInput = FindViewById<EditText>(Resource.Id.LoginScreenUserKeyInput);
 
             var login = new Login();
             urlInput.Text = login.Url;
@@ -26,7 +26,7 @@ namespace Smeedee.Android.Screens
             submitButton.Click += delegate
                 {
                     login.StoreAndValidate(urlInput.Text, keyInput.Text, (valid) => RunOnUiThread(()=> {
-                        if (valid == "Success!")
+                        if (valid == Login.ValidationSuccess)
                         {
                             var widgetContainer = new Intent(this, typeof(WidgetContainer));
                             StartActivity(widgetContainer);

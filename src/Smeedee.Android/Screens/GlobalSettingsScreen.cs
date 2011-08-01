@@ -25,7 +25,7 @@ namespace Smeedee.Android.Screens
 
         private void PopulateAvailableWidgetsList()
         {
-            var availableWidgetsCategory = (PreferenceScreen)FindPreference("availableWidgets");
+            var availableWidgetsCategory = (PreferenceScreen)FindPreference("GlobalSettings.AvailableWidgets");
             var widgets = SmeedeeApp.Instance.AvailableWidgets;
             foreach (var widgetModel in widgets)
             {
@@ -73,8 +73,8 @@ namespace Smeedee.Android.Screens
         }
         protected override void OnBindDialogView(View view)
         {
-            _serverUrlBox.Text = _persistence.Get(Login.LoginUrl, "http://folk.ntnu.no/dagolap/s/");
-            _userKeyBox.Text = _persistence.Get(Login.LoginKey, "pass");
+            _serverUrlBox.Text = _persistence.Get(Login.LoginUrl, "");
+            _userKeyBox.Text = _persistence.Get(Login.LoginKey, "");
         }
         protected override View OnCreateDialogView()
         {

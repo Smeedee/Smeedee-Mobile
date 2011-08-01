@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Smeedee
 {
     public static class Csv
     {
-        private const char lineSeparator = '\a'; //unprintable character alert
-        private const char columnSeparator = '\f'; //unprintable character form feed
+        private const char LineSeparator = '\a'; //unprintable character alert
+        private const char ColumnSeparator = '\f'; //unprintable character form feed
         
         public static IEnumerable<string[]> FromCsv(string str)
         {
-            return str.Split(lineSeparator).Select(s => s.Split(columnSeparator));
+            return str.Split(LineSeparator).Select(s => s.Split(ColumnSeparator));
         }
 
         public static string ToCsv(IEnumerable<string[]> csv)
         {
-            var rows = csv.Select(row => String.Join(columnSeparator.ToString(), row.Select(StripSpecialChars)));
-            return String.Join(lineSeparator.ToString(), rows);
+            var rows = csv.Select(row => String.Join(ColumnSeparator.ToString(), row.Select(StripSpecialChars)));
+            return String.Join(LineSeparator.ToString(), rows);
         }
 
         private static string StripSpecialChars(string str)
         {
-            return str.Replace(columnSeparator.ToString(), "").Replace(lineSeparator.ToString(), "");
+            return str.Replace(ColumnSeparator.ToString(), "").Replace(LineSeparator.ToString(), "");
         }
     }
 }

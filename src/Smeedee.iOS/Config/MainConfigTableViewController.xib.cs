@@ -59,6 +59,7 @@ namespace Smeedee.iOS
 	                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
 	            
 	            cell.TextLabel.Text = widget.Name;
+				cell.TextLabel.HighlightedTextColor = UIColor.Black;
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
             	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 	            cell.StyleAsSettingsTableCell();
@@ -83,6 +84,20 @@ namespace Smeedee.iOS
 				}
 			}
         }
+		
+		public override UIView GetViewForHeader (UITableView tableView, int section)
+		{
+			if (section == 1)
+				return new ConfigTableSectionHeader("Widgets");
+			return null;
+		}
+		
+		public override float GetHeightForHeader (UITableView tableView, int section)
+		{
+			if (section == 1)
+				return ConfigTableSectionHeader.Height;
+			return 0;
+		}
 	}
 }
 

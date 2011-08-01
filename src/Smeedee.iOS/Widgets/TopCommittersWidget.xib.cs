@@ -9,9 +9,12 @@ using Smeedee;
 namespace Smeedee.iOS
 {
     [Widget("Top committers", StaticDescription = "See which developer has committed the most code", SettingsType = typeof(TopCommittersConfigTableViewController))]
-    public partial class TopCommittersWidget : UITableViewController, IWidget
+    public partial class TopCommittersWidget : UITableViewController, IWidget, IToolbarControl
     {
 		private TopCommitters model;
+		
+		// Need to be declared here, or it will be garbage collected
+		private UISegmentedControl toolbarControl;
 		
         public TopCommittersWidget() : base("TopCommittersWidget", null)
         {
@@ -21,19 +24,54 @@ namespace Smeedee.iOS
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+			TableView.SeparatorColor = StyleExtensions.tableSeparator;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
             Refresh();
         }
 		
         public void Refresh()
         {
-			model.Load(() => InvokeOnMainThread(UpdateUI));
+			InvokeOnMainThread(WidgetsScreen.StartLoading);
+			model.Load(() => {
+				InvokeOnMainThread(UpdateUI);
+				InvokeOnMainThread(WidgetsScreen.StopLoading);
+			});
         }
 		
 		private void UpdateUI() {
             TableView.Source = new TopCommitersTableSource(model.Committers);
 			TableView.ReloadData();
+		}
+		
+		public UIBarButtonItem ToolbarConfigurationItem()
+		{
+			var current = model.TimePeriod;
+			
+			toolbarControl = new UISegmentedControl();
+			toolbarControl.InsertSegment("24h", 0, false);
+			toolbarControl.InsertSegment("week", 1, false);
+			toolbarControl.InsertSegment("month", 2, false);
+			toolbarControl.SelectedSegment = (current == TimePeriod.PastDay) ? 0 : (current == TimePeriod.PastWeek) ? 1 : 2;
+			toolbarControl.ControlStyle = UISegmentedControlStyle.Bar;
+			toolbarControl.Frame = new System.Drawing.RectangleF(0, 10, 130, 30);
+			toolbarControl.UserInteractionEnabled = true;
+			
+			toolbarControl.ValueChanged += delegate {
+				switch (toolbarControl.SelectedSegment) {
+				case 0:
+					model.TimePeriod = TimePeriod.PastDay;
+					break;
+				case 1:
+					model.TimePeriod = TimePeriod.PastWeek;
+					break;
+				default:
+					model.TimePeriod = TimePeriod.PastMonth;
+					break;
+				}
+				Refresh();
+			};
+			
+			return new UIBarButtonItem(toolbarControl);
 		}
         
 		public string GetDynamicDescription() 
@@ -71,7 +109,7 @@ namespace Smeedee.iOS
 		
 		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 		{
-			return 60f;
+			return 64f;
 		}
         
         public override int RowsInSection (UITableView tableview, int section)

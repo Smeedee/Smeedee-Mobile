@@ -22,7 +22,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			TableView.SeparatorColor = UIColor.DarkGray;
+			TableView.SeparatorColor = StyleExtensions.tableSeparator;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 			Refresh();
         }
@@ -36,7 +36,11 @@ namespace Smeedee.iOS
         
         public void Refresh()
         {
-			model.Load(() => InvokeOnMainThread(UpdateUI));
+			InvokeOnMainThread(WidgetsScreen.StartLoading);
+			model.Load(() =>  {
+				InvokeOnMainThread(UpdateUI);
+				InvokeOnMainThread(WidgetsScreen.StopLoading);
+			});
         }
 		
 		public void LoadMore()
@@ -70,7 +74,7 @@ namespace Smeedee.iOS
 		private LatestCommits model;
 		private LatestCommitsWidget controller;
         
-        private const float CELL_PADDING = 20f;
+        private const float CELL_PADDING = 15f;
         
         public LatestCommitsTableSource(LatestCommitsWidget controller, LatestCommits model)
         {
@@ -89,7 +93,7 @@ namespace Smeedee.iOS
 				
 				return height + CELL_PADDING;
 			}
-			return 60;
+			return 30;
 		}
 		
 		public override float GetHeightForFooter (UITableView tableView, int section) {	return 0; }
@@ -99,9 +103,7 @@ namespace Smeedee.iOS
        
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-			var section = indexPath.Section;
-			var row = indexPath.Row;
-			if (section == 0) {
+			if (indexPath.Section == 0) {
 	            var commit = model.Commits.ElementAt(indexPath.Row);
 	            
 	            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
@@ -112,8 +114,6 @@ namespace Smeedee.iOS
 			else
 			{
 				var buttonController = buttonCellFactory.NewTableCellController(tableView, indexPath) as LatestCommitsLoadMoreTableCellController;
-				buttonController.TableViewCell.BackgroundColor = UIColor.DarkGray;
-				
 				return buttonController.TableViewCell;
 			}
         }
@@ -122,7 +122,11 @@ namespace Smeedee.iOS
 		{
 			if (indexPath.Section == 1)
 			{
-				model.LoadMore(() => controller.LoadMore());	
+				InvokeOnMainThread(WidgetsScreen.StartLoading);
+				model.LoadMore(() => {
+					controller.LoadMore();
+					InvokeOnMainThread(WidgetsScreen.StopLoading);
+				});	
 			}
 		}
     }

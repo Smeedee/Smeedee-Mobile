@@ -10,17 +10,19 @@ namespace Smeedee.Model
         public const string SortingPropertyKey = "BuildStatus.Sorting";
         public const string BrokenFirstPropertyKey = "BuildStatus.BrokenFirst";
 
-        private readonly IBuildStatusService buildService = SmeedeeApp.Instance.ServiceLocator.Get<IBuildStatusService>();
-	    private readonly IPersistenceService persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+        private readonly IBuildStatusService _buildService = SmeedeeApp.Instance.ServiceLocator.Get<IBuildStatusService>();
+	    private readonly IPersistenceService _persistenceService = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+
+        private List<Build> _builds;
 
         public BuildStatus()
         {
-            builds = new List<Build>();
+            _builds = new List<Build>();
         }
 
         public void Load(Action callback)
         {
-            buildService.Load(args =>
+            _buildService.Load(args =>
             {
                 Builds = args.ToList();
                 callback();
@@ -30,30 +32,34 @@ namespace Smeedee.Model
         public BuildOrder Ordering { 
             get
             {
-                var orderValue = persistenceService.Get(SortingPropertyKey, "buildname");
-                if (orderValue == "buildname") return BuildOrder.BuildName;
-                if (orderValue == "buildtime") return BuildOrder.BuildTime;
-                return BuildOrder.BuildTime;
+                var orderValue = _persistenceService.Get(SortingPropertyKey, "buildtime");
+                return orderValue == "buildname" ? BuildOrder.BuildName : BuildOrder.BuildTime;
             } 
             set
             {
-                if (value == BuildOrder.BuildName) persistenceService.Save(SortingPropertyKey, "buildname");
-                else if (value == BuildOrder.BuildTime) persistenceService.Save(SortingPropertyKey, "buildtime");
-            } 
+                switch (value)
+                {
+                    case BuildOrder.BuildName:
+                        _persistenceService.Save(SortingPropertyKey, "buildname");
+                        break;
+                    case BuildOrder.BuildTime:
+                        _persistenceService.Save(SortingPropertyKey, "buildtime");
+                        break;
+                }
+            }
         }
 
         public bool BrokenBuildsAtTop { 
             get 
             { 
-                var brokenAtTop = persistenceService.Get(BrokenFirstPropertyKey, true);
+                var brokenAtTop = _persistenceService.Get(BrokenFirstPropertyKey, true);
                 return brokenAtTop;
             } set
             {
-                persistenceService.Save(BrokenFirstPropertyKey, value);
+                _persistenceService.Save(BrokenFirstPropertyKey, value);
             }
         }
-
-	    private List<Build> builds;
+	    
         public List<Build> Builds { 
             get
             {
@@ -62,25 +68,25 @@ namespace Smeedee.Model
             } 
             private set
             {
-                builds = value;
+                _builds = value;
             } 
         }
 
 	    public int GetNumberOfBuildsByState(BuildState successState)
 	    {
-            return builds.Where(build => build.BuildSuccessState == successState).Count();
+            return _builds.Where(build => build.BuildSuccessState == successState).Count();
 	    }
 
         private List<Build> GetOrderedBuilds(IComparer<Build> comparer)
         {
-            return builds.OrderBy(b => b, comparer).ToList();
+            return _builds.OrderBy(b => b, comparer).ToList();
         }
 
         private List<Build> GetOrderedBuildsWithBrokenFirst(IComparer<Build> comparer)
         {
-            var brokenBuilds = builds.Where(b => b.BuildSuccessState == BuildState.Broken).OrderBy(b => b, comparer).ToList();
-            var workingBuilds = builds.Where(b => b.BuildSuccessState == BuildState.Working).OrderBy(b => b, comparer).ToList();
-            var unknownBuilds = builds.Where(b => b.BuildSuccessState == BuildState.Unknown).OrderBy(b => b, comparer).ToList();
+            var brokenBuilds = _builds.Where(b => b.BuildSuccessState == BuildState.Broken).OrderBy(b => b, comparer).ToList();
+            var workingBuilds = _builds.Where(b => b.BuildSuccessState == BuildState.Working).OrderBy(b => b, comparer).ToList();
+            var unknownBuilds = _builds.Where(b => b.BuildSuccessState == BuildState.Unknown).OrderBy(b => b, comparer).ToList();
 
             var orderedBuilds = brokenBuilds;
             orderedBuilds.AddRange(workingBuilds);
@@ -95,7 +101,7 @@ namespace Smeedee.Model
                 var numberOfWorkingBuilds = GetNumberOfBuildsByState(BuildState.Working);
                 var numberOfBrokenBuilds = GetNumberOfBuildsByState(BuildState.Broken);
                 var numberOfUnknownBuilds = GetNumberOfBuildsByState(BuildState.Unknown);
-                var numberOfBuilds = builds.Count();
+                var numberOfBuilds = _builds.Count();
 
                 if (numberOfBuilds == 0)
                     return "No builds fetched from the Smeedee Server";

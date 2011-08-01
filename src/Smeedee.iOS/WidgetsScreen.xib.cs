@@ -12,22 +12,46 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
+		private static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+		private static int loadingCounter = 0;
+		public static void StartLoading()
+		{
+			Console.WriteLine("show loading animation");
+			loadingCounter++;
+			spinner.Hidden = false;
+			spinner.StartAnimating();
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+		}
+		public static void StopLoading()
+		{
+			Console.WriteLine("hide loading animation");
+			if (loadingCounter > 0)
+				loadingCounter--;
+			if (loadingCounter == 0) 
+			{
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+				spinner.StopAnimating();
+				spinner.Hidden = true;
+			}
+		}
+		
 		private IList<IWidget> widgets;
 		
         public WidgetsScreen (IntPtr handle) : base (handle)
         {
 			widgets = new List<IWidget>();
+			spinner.Center = new PointF(320/2, 460/2);
         }
 		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			titleLabel.StyleAsHeadline();
-			subTitleLabel.StyleAsDescription();
             scrollView.Scrolled += ScrollViewScrolled;
 			refresh.Clicked += delegate {
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
 			};
+			View.AddSubview(spinner);
+			spinner.Hidden = true;
         }
 		
 		public override void ViewWillAppear(bool animated)
@@ -105,15 +129,38 @@ namespace Smeedee.iOS
         {
 			if (widgets.Count() == 0) {
 				titleLabel.Text = "No enabled widgets";
-	            subTitleLabel.Text = "Press configuration to enable";
+				
 			} else {
 				var currentWidget = widgets.ElementAt(CurrentPageIndex());
 	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
 	            
 				titleLabel.Text = attribute.Name;
-	            subTitleLabel.Text = currentWidget.GetDynamicDescription();
+				
+				if (currentWidget is IToolbarControl) 
+				{
+					var item = (currentWidget as IToolbarControl).ToolbarConfigurationItem();
+					AddToolbarItem(item);
+				}
+				else
+				{
+					RemoveToolbarItem();
+				}
 			}
         }
+		
+		private void AddToolbarItem(UIBarButtonItem item)
+		{
+			if (toolbar.Items.Count() == 3)
+				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[2] }, true);
+			else
+				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[1] }, true);
+		}
+		
+		private void RemoveToolbarItem()
+		{
+			if (toolbar.Items.Count() == 3)
+				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
+		}
 		
 		private int CurrentPageIndex()
         {
@@ -131,4 +178,5 @@ namespace Smeedee.iOS
             pageControl.CurrentPage = page;
         }
     }
+	
 }

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout 
   xmlns:a="http://schemas.android.com/apk/res/android"
-  a:paddingBottom="5sp"
-  a:paddingTop="5sp"
+  a:paddingBottom="5dp"
+  a:paddingTop="5dp"
   a:layout_width="fill_parent"
   a:layout_height="fill_parent">
   <TextView 
@@ -17,7 +17,6 @@
     a:layout_below="@id/BuildStatuswidget_projectname"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content" />
-  <!-- Timestamp -->
   <TextView 
     a:id="@+id/BuildStatuswidget_datetime"
     a:layout_below="@id/BuildStatuswidget_username"
@@ -30,15 +29,15 @@
     a:id="@+id/BuildStatuswidget_buildstatus"
     a:visibility="invisible"
     a:background="#151"
-    a:layout_marginRight="8dip"
-    a:width="5dip"
+    a:layout_marginRight="8dp"
+    a:width="5dp"
     a:layout_alignParentRight="true"
-    a:layout_width="5dip"
+    a:layout_width="5dp"
     a:layout_height="fill_parent"/>
 
   <ImageView
     a:id="@+id/BuildStatuswidget_buildstatusdisplay"
-    a:layout_marginRight="8dip"
+    a:layout_marginRight="8dp"
     a:layout_alignParentRight="true"
     a:layout_centerVertical="true"
     a:layout_width="wrap_content"

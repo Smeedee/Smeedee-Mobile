@@ -23,11 +23,9 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
-		private MonoTouch.UIKit.UILabel __mt_subTitleLabel;
+		private MonoTouch.UIKit.UIBarButtonItem __mt_refresh;
 		
 		private MonoTouch.UIKit.UILabel __mt_titleLabel;
-		
-		private MonoTouch.UIKit.UIBarButtonItem __mt_refresh;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("scrollView")]
@@ -78,15 +76,15 @@ namespace Smeedee.iOS {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("subTitleLabel")]
-		private MonoTouch.UIKit.UILabel subTitleLabel {
+		[MonoTouch.Foundation.Connect("refresh")]
+		private MonoTouch.UIKit.UIBarButtonItem refresh {
 			get {
-				this.__mt_subTitleLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("subTitleLabel")));
-				return this.__mt_subTitleLabel;
+				this.__mt_refresh = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("refresh")));
+				return this.__mt_refresh;
 			}
 			set {
-				this.__mt_subTitleLabel = value;
-				this.SetNativeField("subTitleLabel", value);
+				this.__mt_refresh = value;
+				this.SetNativeField("refresh", value);
 			}
 		}
 		
@@ -99,18 +97,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_titleLabel = value;
 				this.SetNativeField("titleLabel", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("refresh")]
-		private MonoTouch.UIKit.UIBarButtonItem refresh {
-			get {
-				this.__mt_refresh = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("refresh")));
-				return this.__mt_refresh;
-			}
-			set {
-				this.__mt_refresh = value;
-				this.SetNativeField("refresh", value);
 			}
 		}
 	}

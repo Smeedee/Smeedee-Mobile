@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Android.Widgets.Settings;
@@ -50,11 +51,18 @@ namespace Smeedee.Android.Widgets
             var to = new[] { Resource.Id.TopCommittersWidget_committer_name, Resource.Id.TopCommittersWidget_number_of_commits };
 
             var data = _model.Committers
-                            .Select(c => new Dictionary<string, object> { {"name", c.Name}, {"commits", c.Commits} })
+                            .Select(c =>
+                                        {
+                                            
+                                            return new Dictionary<string, object>
+                                                       {{"name", c.Name}, {"commits", c.Commits}};
+                                        })
                             .Cast<IDictionary<string, object>>().ToList();
 
             var listView = FindViewById<ListView>(Resource.Id.TopCommittersList);
-            listView.Adapter = new TopCommittersAdapter(Context, data, Resource.Layout.TopCommittersWidget_ListItem, from, to);
+            var topCommittersAdapter = new TopCommittersAdapter(Context, data, Resource.Layout.TopCommittersWidget_ListItem, from, to);
+            topCommittersAdapter.SetModel(_model);
+            listView.Adapter = topCommittersAdapter;
         }
 
         public string GetDynamicDescription()
@@ -71,7 +79,36 @@ namespace Smeedee.Android.Widgets
 
     internal class TopCommittersAdapter : SimpleAdapter
     {
-        public TopCommittersAdapter(Context context, IList<IDictionary<string, object>> data, int resource, string[] @from, int[] to) : base(context, data, resource, from, to) { }
-        public override bool IsEnabled(int position) { return false; }
+        private TopCommitters _model;
+        private int _commitBarFullWidth;
+
+        public TopCommittersAdapter(IntPtr doNotUse) 
+            : base(doNotUse)
+        {
+        }
+
+        public TopCommittersAdapter(Context context, IList<IDictionary<string, object>> data, int resource, string[] @from, int[] to)
+            : base(context, data, resource, from, to)
+        {
+        }
+        public void SetModel(TopCommitters model)
+        {
+            _model = model;
+        }
+        public override bool IsEnabled(int position) // To disable list item clicks
+        { return false; }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            var view = base.GetView(position, convertView, parent);
+            var commits = Convert.ToInt32(((TextView)view.FindViewById(Resource.Id.TopCommittersWidget_number_of_commits)).Text);
+            var committerbar = (TextView) view.FindViewById(Resource.Id.TopCommittersWidget_commit_bar);
+            if (_commitBarFullWidth <= 0)
+                _commitBarFullWidth = ((TextView)view.FindViewById(Resource.Id.TopCommittersWidget_committer_name)).MeasuredWidth;
+            var percent = commits / (float)_model.Committers.First().Commits;
+            committerbar.SetWidth(Convert.ToInt32(percent * (_commitBarFullWidth - 70f)));
+
+            return view;
+        }
     }
 }

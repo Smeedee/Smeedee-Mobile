@@ -21,6 +21,10 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UILabel __mt_overtimeLabel;
 		
+		private MonoTouch.UIKit.UILabel __mt_topLabel;
+		
+		private MonoTouch.UIKit.UILabel __mt_bottomLabel;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -55,6 +59,30 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_overtimeLabel = value;
 				this.SetNativeField("overtimeLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("topLabel")]
+		private MonoTouch.UIKit.UILabel topLabel {
+			get {
+				this.__mt_topLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("topLabel")));
+				return this.__mt_topLabel;
+			}
+			set {
+				this.__mt_topLabel = value;
+				this.SetNativeField("topLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("bottomLabel")]
+		private MonoTouch.UIKit.UILabel bottomLabel {
+			get {
+				this.__mt_bottomLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("bottomLabel")));
+				return this.__mt_bottomLabel;
+			}
+			set {
+				this.__mt_bottomLabel = value;
+				this.SetNativeField("bottomLabel", value);
 			}
 		}
 	}
