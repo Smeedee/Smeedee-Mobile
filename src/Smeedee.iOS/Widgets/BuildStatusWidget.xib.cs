@@ -64,7 +64,7 @@ namespace Smeedee.iOS
 					model.Ordering = BuildOrder.BuildTime;
 					break;
 				}
-				Refresh();
+				InvokeOnMainThread(UpdateUI);
 			};
 			
 			return new UIBarButtonItem(toolbarControl);

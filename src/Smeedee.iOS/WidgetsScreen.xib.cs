@@ -16,6 +16,7 @@ namespace Smeedee.iOS
 		private static int loadingCounter = 0;
 		public static void StartLoading()
 		{
+			Console.WriteLine("show loading animation");
 			loadingCounter++;
 			spinner.Hidden = false;
 			spinner.StartAnimating();
@@ -23,6 +24,7 @@ namespace Smeedee.iOS
 		}
 		public static void StopLoading()
 		{
+			Console.WriteLine("hide loading animation");
 			loadingCounter--;
 			if (loadingCounter == 0) 
 			{
