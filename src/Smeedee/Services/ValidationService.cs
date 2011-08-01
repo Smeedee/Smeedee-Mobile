@@ -16,6 +16,7 @@ namespace Smeedee.Services
 
         public void Validate(string url, string key, Action<bool> callback)
         {
+            
             bgWorker.Invoke(() =>
                                 {
                                     url += ServiceConstants.MOBILE_SERVICES_RELATIVE_PATH +

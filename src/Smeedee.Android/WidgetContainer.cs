@@ -101,8 +101,9 @@ namespace Smeedee.Android
             {
                 if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES)
                 {
+                    _bottomRefreshButton.Visibility = ViewStates.Invisible;
                     _bottomRefreshButton.Text =
-                        (DateTime.Now - currentWidget.LastRefreshTime()).PrettyPrint() + " since last refresh. Click to refresh";
+                        (DateTime.Now - currentWidget.LastRefreshTime()).Minutes + " minutes since last refresh. Click to refresh";
                     _bottomRefreshButton.Visibility = ViewStates.Visible;
                     
                 }
@@ -205,13 +206,14 @@ namespace Smeedee.Android
             var currentWidget = flipper.CurrentView as IWidget;
             if (currentWidget != null)
             {
-                var dialog = ProgressDialog.Show(this, "Refreshing", "Updating data for widget", true);
+                var dialog = ProgressDialog.Show(this, "Refreshing...", "Updating data for widget", true);
                 var handler = new ProgressHandler(dialog);
-                ThreadPool.QueueUserWorkItem(arg =>
-                                                 {
-                                                     currentWidget.Refresh();
-                                                     handler.SendEmptyMessage(0);
-                                                 });
+                var bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+                bgWorker.Invoke(() =>
+                                  {
+                                      currentWidget.Refresh();
+                                      handler.SendEmptyMessage(0);
+                                  });
                 HideTheBottomRefreshButton();
                 StartRefreshTimer();
             }
@@ -306,17 +308,17 @@ namespace Smeedee.Android
         }
     }
 
-    class ProgressHandler : Handler
+    public class ProgressHandler : Handler
     {
-        private readonly ProgressDialog dialog;
+        private readonly ProgressDialog _dialog;
         public ProgressHandler(ProgressDialog dialog)
         {
-            this.dialog = dialog;
+            _dialog = dialog;
         }
         public override void HandleMessage(Message msg)
         {
             base.HandleMessage(msg);
-            dialog.Dismiss();
+            _dialog.Dismiss();
         }
     }
 }

@@ -9,7 +9,7 @@
       a:summary="@string/TopCommittersSettingsNumberOfCommittersSummary"
       a:entries="@array/TopCommittersCountArray"
       a:entryValues="@array/TopCommittersCountValues"
-      a:defaultValue="5" />
+      a:defaultValue="10" />
   </PreferenceCategory>
 
   <PreferenceCategory
@@ -20,7 +20,7 @@
       a:summary="@string/TopCommittersSettingsTimePeriodSummary"
       a:entries="@array/TopCommittersTimeArray"
       a:entryValues="@array/TopCommittersTimeValues"
-      a:defaultValue="1" />
+      a:defaultValue="2" />
   </PreferenceCategory>
   
 </PreferenceScreen>

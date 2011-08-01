@@ -51,7 +51,7 @@ namespace Smeedee.Android.Screens
         private EditText _userKeyBox;
         private readonly Context _context;
 
-        private IPersistenceService _persistence;
+        private readonly IPersistenceService _persistence;
 
         public ServerSettingsPreference(IntPtr doNotUse) 
             : base(doNotUse)
@@ -73,6 +73,7 @@ namespace Smeedee.Android.Screens
         }
         protected override void OnBindDialogView(View view)
         {
+            base.OnBindDialogView(view);
             _serverUrlBox.Text = _persistence.Get(Login.LoginUrl, "");
             _userKeyBox.Text = _persistence.Get(Login.LoginKey, "");
         }
@@ -82,14 +83,14 @@ namespace Smeedee.Android.Screens
             layout.SetPadding(10, 10, 10, 10);
             layout.SetBackgroundColor(Color.Black);
 
-            _serverUrl = new TextView(_context) {Text = "Server Url"};
+            _serverUrl = new TextView(_context) {Text = "Server url:"};
             _serverUrl.SetTextColor(Color.White);
             _serverUrl.SetPadding(0, 8, 0, 3);
 
             _serverUrlBox = new EditText(_context);
             _serverUrlBox.SetSingleLine(true);
 
-            _userKey = new TextView(_context) {Text = "User key"};
+            _userKey = new TextView(_context) {Text = "User key:"};
             _userKey.SetTextColor(Color.White);
 
             _userKeyBox = new EditText(_context);
@@ -106,16 +107,22 @@ namespace Smeedee.Android.Screens
         {
             if (!positiveResult) return;
 
-            var successText = Login.ValidationFailed;
-            new Login().StoreAndValidate(_serverUrlBox.Text, _userKeyBox.Text, (str) => successText = str);
-
-            if (successText == Login.ValidationSuccess)
-                Toast.MakeText(_context, "Successfully connected to " + _serverUrlBox.Text, ToastLength.Long).Show();
-            else
-            {
-                Toast.MakeText(_context, "Connection failed. Please try again", ToastLength.Long).Show();
-                ShowDialog(null);
-            }
+            var dialog = ProgressDialog.Show(_context, "Please wait...", "Connecting to server and validating key...");
+            var handler = new ProgressHandler(dialog);
+            
+            new Login().StoreAndValidate(_serverUrlBox.Text, _userKeyBox.Text, str 
+                => ((Activity)_context).RunOnUiThread(() 
+                    =>
+                    {
+                        if (str == Login.ValidationSuccess)
+                            Toast.MakeText(_context, "Successfully connected to " + _serverUrlBox.Text, ToastLength.Long).Show();
+                        else
+                        {
+                            Toast.MakeText(_context, "Connection failed. Please try again", ToastLength.Long).Show();
+                            ShowDialog(null);
+                        }
+                        handler.SendEmptyMessage(0);                                                                                                                 
+                    }));
         }
     }
 }

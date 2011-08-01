@@ -9,7 +9,7 @@ namespace Smeedee.Services.Fakes
 		}
 		public void Validate(string url, string key, Action<bool> callback) 
 		{
-			callback(url != "" && key != "");
+			callback(url != "http://dennemaaduuhaakorreeeeekt" && key != "");
 		}
 	}
 }

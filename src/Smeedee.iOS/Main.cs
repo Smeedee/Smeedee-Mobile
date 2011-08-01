@@ -35,7 +35,7 @@ namespace Smeedee.iOS
 			{
 				serviceLocator.Bind<IValidationService>(new FakeValidationService());
 				
-				serviceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService(serviceLocator.Get<IBackgroundWorker>()));
+				serviceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
 				serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
 				serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
 				serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
