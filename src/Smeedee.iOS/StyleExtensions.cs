@@ -13,7 +13,9 @@ namespace Smeedee.iOS
 		
 		public static readonly UIColor grayTableCell = UIColor.FromRGB(70, 70, 70);//UIColor.FromWhiteAlpha(0.7f, 0.7f);
 		public static readonly UIColor lightGrayText = UIColor.FromRGB(218, 218, 218);
-		public static readonly UIColor darkGrayText = UIColor.FromRGB(121, 121, 121);
+		
+		public static readonly UIColor darkGrayText = UIColor.FromRGB(150, 150, 150);
+		public static readonly UIColor darkGrayTextHighlight = UIColor.FromRGB(50, 50, 50);
 		
 		public static readonly UIColor darkGrayHeadline = UIColor.FromWhiteAlpha(0.5f, 0.5f);
 		
@@ -47,14 +49,9 @@ namespace Smeedee.iOS
 			if (self.DetailTextLabel != null) {
 				self.DetailTextLabel.TextColor = darkGrayText;
 				self.DetailTextLabel.BackgroundColor = transparent;
-				self.DetailTextLabel.HighlightedTextColor = grayTableCell;
+				self.DetailTextLabel.HighlightedTextColor = darkGrayTextHighlight;
 			}
 			self.SelectionStyle = UITableViewCellSelectionStyle.Gray;
-		}
-		
-		public static void StyleAsGreyButton(this UIButton self) 
-		{
-			
 		}
 	}
 }
