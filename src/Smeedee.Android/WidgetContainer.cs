@@ -102,7 +102,7 @@ namespace Smeedee.Android
                 if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES)
                 {
                     _bottomRefreshButton.Text =
-                        (DateTime.Now - currentWidget.LastRefreshTime()).PrettyPrint() + " since last refresh. Click to refresh";
+                        (DateTime.Now - currentWidget.LastRefreshTime()).Minutes + " minutes since last refresh. Click to refresh";
                     _bottomRefreshButton.Visibility = ViewStates.Visible;
                     
                 }
