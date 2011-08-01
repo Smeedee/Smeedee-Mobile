@@ -63,13 +63,13 @@ namespace Smeedee.iOS
 			Console.WriteLine("Getting row at index " + indexPath.Row);
 			
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, string.Format("RadioButtonTableCell{0}{1}", indexPath.Section, indexPath.Row)) {
-				Accessory = UITableViewCellAccessory.None
+				AccessoryView = null
 			};
 			
 			if (IsNumberOfCommitters(indexPath.Section)) 
 			{
 				if (indexPath.Row == countSelected) 
-					cell.Accessory = UITableViewCellAccessory.Checkmark;
+					cell.AccessoryView = RadioGroupTableViewSource.BlackAccessoryCheckmark();
 				cell.TextLabel.Text = string.Format("Top {0} committers", countValues[indexPath.Row]);
 				countCells.Insert(indexPath.Row, cell);
 			}
@@ -77,7 +77,7 @@ namespace Smeedee.iOS
 			if (IsTimePeriod(indexPath.Section))
 			{
 				if (indexPath.Row == timeSelected) 
-					cell.Accessory = UITableViewCellAccessory.Checkmark;
+					cell.AccessoryView = RadioGroupTableViewSource.BlackAccessoryCheckmark();
 				cell.TextLabel.Text = string.Format("Past {0}", timeValues[indexPath.Row].ToSuffix());
 				timeCells.Insert(indexPath.Row, cell);
 			}
@@ -96,8 +96,8 @@ namespace Smeedee.iOS
 					Console.WriteLine("Avoided exception");
 					return;
 				}
-				countCells[countSelected].Accessory = UITableViewCellAccessory.None;
-				countCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
+				countCells[countSelected].AccessoryView = null;
+				countCells[indexPath.Row].AccessoryView = RadioGroupTableViewSource.BlackAccessoryCheckmark();
 				countSelected = indexPath.Row;
 				
 				model.NumberOfCommitters = countValues[countSelected];
@@ -115,8 +115,8 @@ namespace Smeedee.iOS
 					Console.WriteLine("Avoided exception");
 					return;
 				}
-				timeCells[timeSelected].Accessory = UITableViewCellAccessory.None;
-				timeCells[indexPath.Row].Accessory = UITableViewCellAccessory.Checkmark;
+				timeCells[timeSelected].AccessoryView = null;
+				timeCells[indexPath.Row].AccessoryView = RadioGroupTableViewSource.BlackAccessoryCheckmark();
 				timeSelected = indexPath.Row;
 				
 				model.TimePeriod = timeValues[timeSelected];

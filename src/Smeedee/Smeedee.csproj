@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Csv.cs" />
+    <Compile Include="Directories.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\BuildOrder.cs" />
     <Compile Include="Model\BuildStatus.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Services\IValidationService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />
     <Compile Include="Services\LatestCommitsService.cs" />
+    <Compile Include="Services\MemoryCachedImageService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
     <Compile Include="Services\Fakes\WorkingDaysLeftFakeService.cs" />
@@ -80,7 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\CachedImageService.cs" />
+    <Compile Include="Services\DiskCachedImageService.cs" />
     <Compile Include="Services\Fakes\FakeImageService.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />

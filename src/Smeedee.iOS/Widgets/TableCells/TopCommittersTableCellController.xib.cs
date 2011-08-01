@@ -26,7 +26,7 @@ namespace Smeedee.iOS
 			
 			nameLabel.Text = committer.Name;
 			commitLabel.Text = committer.Commits.ToString();
-            
+			
 			//graph.BackgroundColor = UIColor.FromRGB(20, 20, 20);
 			//commitLabel.TextColor = UIColor.FromRGB(70, 70, 70);
 			

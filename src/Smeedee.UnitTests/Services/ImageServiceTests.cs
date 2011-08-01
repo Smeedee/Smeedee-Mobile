@@ -15,7 +15,8 @@ namespace Smeedee.UnitTests
 		
 		[SetUp]
 		public void SetUp()
-		{
+        {
+            SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
 			worker = new NoBackgroundInvocation();
 		}
 		
@@ -23,7 +24,7 @@ namespace Smeedee.UnitTests
 		public void Should_load_byte_array_of_google_logo()
 		{
 			var uri = new Uri("http://www.google.com/images/logo.png");
-			var service = new ImageService(worker);
+			var service = new ImageService();
 			
 			var empty = true;
 			service.GetImage(uri, (bytes) => {
@@ -37,7 +38,7 @@ namespace Smeedee.UnitTests
 		public void Should_return_null_on_invalid_uri()
 		{
 			var uri = new Uri("http://obvoiusly.invalid.com/not/a/picture.png");
-			var service = new ImageService(worker);
+			var service = new ImageService();
 			
 			var wasNull = false;
 			service.GetImage(uri, (bytes) => {

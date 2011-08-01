@@ -63,12 +63,18 @@ namespace Smeedee.Services.Fakes
         
         public void Get10AfterRevision(int fromIndex, Action<IEnumerable<Commit>> callback)
         {
-            bgWorker.Invoke(() => callback(Deserialize(PretendToGetDataFromHttp(fromIndex))));
+            bgWorker.Invoke(() => {
+				System.Threading.Thread.Sleep(5000);
+				callback(Deserialize(PretendToGetDataFromHttp(fromIndex)));
+			});
         }
 
         public void Get10Latest(Action<IEnumerable<Commit>> callback)
         {
-            bgWorker.Invoke(() => callback(Deserialize(PretendToGetDataFromHttp(0))));
+            bgWorker.Invoke(() => {
+				System.Threading.Thread.Sleep(5000);
+				callback(Deserialize(PretendToGetDataFromHttp(0)));
+			});
         }
     }
 }

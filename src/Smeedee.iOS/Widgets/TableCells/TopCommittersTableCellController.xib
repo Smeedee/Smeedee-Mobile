@@ -50,7 +50,7 @@
 							<object class="IBUIView" id="138355622">
 								<reference key="NSNextResponder" ref="283776712"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{65, 46}, {254, 10}}</string>
+								<string key="NSFrame">{{65, 26}, {254, 10}}</string>
 								<reference key="NSSuperview" ref="283776712"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="991526988">
 									<int key="NSColorSpace">3</int>
@@ -104,7 +104,7 @@
 							<object class="IBUILabel" id="598604192">
 								<reference key="NSNextResponder" ref="283776712"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{65, 46}, {254, 10}}</string>
+								<string key="NSFrame">{{65, 26}, {254, 10}}</string>
 								<reference key="NSSuperview" ref="283776712"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -132,7 +132,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">"Added some new features in one of ..."</string>
+								<string key="IBUIText"/>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">14</double>

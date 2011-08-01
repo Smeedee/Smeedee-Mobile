@@ -12,11 +12,35 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
+		private static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+		private static int loadingCounter = 0;
+		public static void StartLoading()
+		{
+			Console.WriteLine("show loading animation");
+			loadingCounter++;
+			spinner.Hidden = false;
+			spinner.StartAnimating();
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+		}
+		public static void StopLoading()
+		{
+			Console.WriteLine("hide loading animation");
+			if (loadingCounter > 0)
+				loadingCounter--;
+			if (loadingCounter == 0) 
+			{
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+				spinner.StopAnimating();
+				spinner.Hidden = true;
+			}
+		}
+		
 		private IList<IWidget> widgets;
 		
         public WidgetsScreen (IntPtr handle) : base (handle)
         {
 			widgets = new List<IWidget>();
+			spinner.Center = new PointF(320/2, 460/2);
         }
 		
         public override void ViewDidLoad()
@@ -26,6 +50,8 @@ namespace Smeedee.iOS
 			refresh.Clicked += delegate {
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
 			};
+			View.AddSubview(spinner);
+			spinner.Hidden = true;
         }
 		
 		public override void ViewWillAppear(bool animated)
@@ -152,4 +178,5 @@ namespace Smeedee.iOS
             pageControl.CurrentPage = page;
         }
     }
+	
 }

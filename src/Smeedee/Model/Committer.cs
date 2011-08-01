@@ -19,7 +19,7 @@ namespace Smeedee.Model
                 ImageUri = new Uri(url);
             } catch (Exception e)
             {
-                ImageUri = new Uri(CachedImageService.DEFAULT_URI);
+                ImageUri = new Uri(DiskCachedImageService.DEFAULT_URI);
             }
         }
         

@@ -19,7 +19,7 @@ namespace Smeedee.iOS
 			Title = "Smeedee Server";
 			
 			table.Source = new ServerConfigTableSource(this);
-			//table.ScrollEnabled = false;
+			table.SeparatorColor = UIColor.Black;
 		}
 		
 		public Action<string> LoginAction
@@ -59,20 +59,21 @@ namespace Smeedee.iOS
 				if (indexPath.Row == 0) {
 					cellController.BindDataToCell(loginModel.Url);
 					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
-					cellController.TextInput.Placeholder = "http://smeedee.someurl.com";
+					cellController.TextInput.Placeholder = "url";
 					serverUrl = cellController;
 				}
 				else
 				{
 					cellController.BindDataToCell(loginModel.Key);
 					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
-					cellController.TextInput.Placeholder = "password";
+					cellController.TextInput.Placeholder = "key";
 					userKey = cellController;
 				}
 				return cellController.TableViewCell;
 			default:
 				buttonCell = new UITableViewCell();
 				buttonCell.TextLabel.Text = "Connect";
+				buttonCell.StyleAsSettingsTableCell();
 				buttonCell.TextLabel.TextAlignment = UITextAlignment.Center;
 				return buttonCell;
 			}
@@ -85,13 +86,17 @@ namespace Smeedee.iOS
 			var url = serverUrl.TextInput.Text;
 			var key = userKey.TextInput.Text;
 			
+			Console.WriteLine(string.Format("Logging in with {0} : {1}", url, key));
+			WidgetsScreen.StartLoading();
+			
 			new Login().StoreAndValidate(url, key, (str) => {
 				
-				buttonCell.TextLabel.Text = str;
-				buttonCell.TextLabel.TextColor = (str == Login.ValidationSuccess) ? UIColor.FromRGB(50, 150, 50) : UIColor.FromRGB(150, 50, 50);
+				Console.WriteLine(string.Format("Response from server: {0}", str));
 				
-				buttonCell.SetSelected(false, true);
-				
+				InvokeOnMainThread(() => {
+					buttonCell.SetSelected(false, true);
+				});
+				WidgetsScreen.StopLoading();
 				controller.LoginAction(str);
 			});
 		}

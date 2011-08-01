@@ -8,9 +8,12 @@ using Smeedee.Model;
 namespace Smeedee.iOS
 {
     [Widget("Build Status", StaticDescription = "View the status of your builds", SettingsType = typeof(BuildStatusConfigTableViewController))]
-    public partial class BuildStatusWidget : UITableViewController, IWidget
+    public partial class BuildStatusWidget : UITableViewController, IWidget, IToolbarControl
 	{
 		private BuildStatus model;
+		
+		// Needs to be declared outside to avoid GC
+		private UISegmentedControl toolbarControl;
 		
         public BuildStatusWidget() : base("BuildStatusWidget", null)
         {
@@ -27,13 +30,44 @@ namespace Smeedee.iOS
 		
         public void Refresh()
         {
-			model.Load(() => InvokeOnMainThread(UpdateUI));
+			InvokeOnMainThread(WidgetsScreen.StartLoading);
+			model.Load(() => {
+				InvokeOnMainThread(UpdateUI);
+				InvokeOnMainThread(WidgetsScreen.StopLoading);
+			});
         }
 		
 		private void UpdateUI()
 		{
             TableView.Source = new BuildStatusTableSource(model);
 			TableView.ReloadData();
+		}
+		
+		public UIBarButtonItem ToolbarConfigurationItem()
+		{
+			var current = model.Ordering;
+			
+			toolbarControl = new UISegmentedControl();
+			toolbarControl.InsertSegment("name", 0, false);
+			toolbarControl.InsertSegment("time", 1, false);
+			toolbarControl.SelectedSegment = (current == BuildOrder.BuildName) ? 0 : 1;
+			toolbarControl.ControlStyle = UISegmentedControlStyle.Bar;
+			toolbarControl.Frame = new System.Drawing.RectangleF(0, 10, 100, 30);
+			toolbarControl.UserInteractionEnabled = true;
+			
+			toolbarControl.ValueChanged += delegate {
+				switch (toolbarControl.SelectedSegment) {
+				case 0:
+					model.Ordering = BuildOrder.BuildName;
+					break;
+				default:
+					model.Ordering = BuildOrder.BuildTime;
+					break;
+				}
+				InvokeOnMainThread(UpdateUI);
+			};
+			
+			return new UIBarButtonItem(toolbarControl);
 		}
         
 		public string GetDynamicDescription() 

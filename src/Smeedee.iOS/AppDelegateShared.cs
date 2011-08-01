@@ -10,11 +10,13 @@ namespace Smeedee.iOS
 {
     public class AppDelegateShared
     {
-        private SmeedeeApp app = SmeedeeApp.Instance;
         private UIWindow window;
         private UITabBarController tabBarController;
 		private UIViewController loginHeaderController;
 		private UIViewController loginController;
+		
+		private Login login;
+		private bool previousWasServerConfig;
         
         public AppDelegateShared(UIWindow window, UITabBarController tabBarController, 
 			UIViewController loginHeaderController, UIViewController loginController)
@@ -23,33 +25,79 @@ namespace Smeedee.iOS
             this.tabBarController = tabBarController;
 			this.loginHeaderController = loginHeaderController;
 			this.loginController = loginController;
+			
+			login = new Login();
+			previousWasServerConfig = false;
         }
         
         public void FinishedLaunching()
         {
-			loginHeaderController.View.Frame = new RectangleF(0, 0, 320, 150);
-			loginController.View.Frame = new RectangleF(0, 150, 320, 460);
-			
-			window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
-			
-			(loginController as ServerConfigTableViewController).LoginAction = delegate(string str) {
-				if (str == Login.ValidationSuccess) {
-	            	RegisterAllSupportedWidgets();
-					window.InvokeOnMainThread( () => {
-						AddMainTabBarToMenu();
-					});
-				}
-			};
+			if (!ServerIsConfigured())
+			{
+				Console.WriteLine("Server is not configured");
+				ShowServerConfiguration();
+			}
+			else
+			{
+				Console.WriteLine("Server is configured, attempting to connect ...");
+				WidgetsScreen.StartLoading();
+				ShowSplashScreen();
+				login.StoreAndValidate(login.Url, login.Key, ServerCallback);
+			}
         }
 		
-        private void RegisterAllSupportedWidgets()
-        {
-            app.RegisterAvailableWidgets();
-        }
-        
-        private void AddMainTabBarToMenu()
-        {
+		private bool ServerIsConfigured()
+		{
+			return !string.IsNullOrEmpty(login.Url) && !string.IsNullOrEmpty(login.Key);
+		}
+		
+		private void ServerCallback(string response)
+		{
+			WidgetsScreen.StopLoading();
+			if (response == Login.ValidationSuccess) {
+				Console.WriteLine("Login succeded, showing widgets");
+				window.InvokeOnMainThread(ShowWidgets);
+			}
+			else
+			{
+				Console.WriteLine("Login failed, showing server configuration");
+				window.InvokeOnMainThread(ShowServerConfiguration);
+			}
+		}
+		
+		private void ShowSplashScreen()
+		{
+			var image = UIImage.FromFile("images/logo.png");
+			var splash = new UIImageView(image);
+			const int imageSize = 61;
+			splash.Frame = new RectangleF(320/2f-imageSize/2f, 460/2f-imageSize/2f, (float)imageSize, (float)imageSize);
+			
+			var label = new UILabel();
+			label.Text = "Connecting ...";
+			label.TextColor = StyleExtensions.darkGrayText;
+			label.BackgroundColor = UIColor.Black;
+			label.Frame = new RectangleF(120, 280, 200, 30);
+			
+			window.AddSubview(splash);
+			window.AddSubview(label);
+		}
+		
+		private void ShowServerConfiguration()
+		{
+			if (!previousWasServerConfig) {
+				previousWasServerConfig = true;
+				loginHeaderController.View.Frame = new RectangleF(0, 0, 320, 150);
+				loginController.View.Frame = new RectangleF(0, 150, 320, 460);
+				
+				(loginController as ServerConfigTableViewController).LoginAction = ServerCallback;
+				
+				window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
+			}
+		}
+		
+		private void ShowWidgets()
+		{
             window.AddSubview(tabBarController.View);
-        }
+		}
     }
 }

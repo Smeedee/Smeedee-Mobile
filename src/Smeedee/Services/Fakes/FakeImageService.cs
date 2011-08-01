@@ -11,7 +11,7 @@ namespace Smeedee
         private byte[] bytes;
         private IBackgroundWorker worker;
         private Image defaultImage = Resources.default_person;
-  
+        public int GetImageCalls;
         public FakeImageService(IBackgroundWorker worker)
         {
             this.worker = worker;
@@ -20,6 +20,7 @@ namespace Smeedee
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
+            GetImageCalls++;
             worker.Invoke(() => callback(bytes));
         }
 

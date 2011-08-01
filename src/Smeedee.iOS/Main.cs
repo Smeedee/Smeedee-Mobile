@@ -17,7 +17,7 @@ namespace Smeedee.iOS
         static void Main (string[] args)
         {
 			ConfigureDependencies();
-			AssureSettingsExist();
+			RegisterAvailableWidgets();
             UIApplication.Main (args);
         }
 		
@@ -29,7 +29,6 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
 			
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
-			serviceLocator.Bind<IValidationService>(new ValidationService());
 			serviceLocator.Bind<IImageService>(new ImageService(serviceLocator.Get<IBackgroundWorker>()));
 			
 			if (USE_FAKES)
@@ -52,20 +51,9 @@ namespace Smeedee.iOS
 			}
 		}
 		
-		private static void AssureSettingsExist() 
-		{	
-			PutIfNull("Server.Url", "http://www.smeedee.com/app");
-			PutIfNull("Server.Key", "password");
-			
-			// All widgets are enabled by default in WidgetsScreen
-		}
-		
-		private static void PutIfNull(string key, string val) {
-			var persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-			var currentValue = persistence.Get(key, "");
-			if (currentValue == "") 
-				persistence.Save(key, val);
-		}
+        private static void RegisterAvailableWidgets()
+        {
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
+        }
     }
-	
 }

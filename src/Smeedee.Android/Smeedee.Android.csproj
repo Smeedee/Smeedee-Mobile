@@ -54,6 +54,9 @@
     <Compile Include="..\Smeedee\Csv.cs">
       <Link>Csv.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Directories.cs">
+      <Link>Directories.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Guard.cs">
       <Link>Guard.cs</Link>
     </Compile>
@@ -111,8 +114,8 @@
     <Compile Include="..\Smeedee\Services\BuildStatusService.cs">
       <Link>Services\BuildStatusService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\CachedImageService.cs">
-      <Link>Services\CachedImageService.cs</Link>
+    <Compile Include="..\Smeedee\Services\DiskCachedImageService.cs">
+      <Link>Services\DiskCachedImageService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\FakeBuildStatusService.cs">
       <Link>Services\Fakes\FakeBuildStatusService.cs</Link>
@@ -147,6 +150,9 @@
     <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
       <Link>Services\ILatestCommitsService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\ImageService.cs">
+      <Link>Services\ImageService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\IPersistenceService.cs">
       <Link>Services\IPersistenceService.cs</Link>
     </Compile>
@@ -161,6 +167,9 @@
     </Compile>
     <Compile Include="..\Smeedee\Services\LatestCommitsService.cs">
       <Link>Services\LatestCommitsService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\MemoryCachedImageService.cs">
+      <Link>Services\MemoryCachedImageService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\ServiceLocator.cs">
       <Link>Services\ServiceLocator.cs</Link>
@@ -177,7 +186,9 @@
     <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
       <Link>TimeSpanPrettyPrintExtension.cs</Link>
     </Compile>
+    <Compile Include="BitmapCache.cs" />
     <Compile Include="ColorTools.cs" />
+    <Compile Include="ImageViewExtensions.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RealViewSwitcher.cs" />
     <Compile Include="Screens\About.cs" />
