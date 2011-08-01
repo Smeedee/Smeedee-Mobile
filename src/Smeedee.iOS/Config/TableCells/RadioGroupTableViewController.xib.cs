@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
@@ -49,11 +50,11 @@ namespace Smeedee.iOS
 			var row = indexPath.Row;
 			
 			cell[row] = new UITableViewCell(UITableViewCellStyle.Default, "DefaultCheckmarkCell") {
-				Accessory = UITableViewCellAccessory.None
+				AccessoryView = null
 			};
 			
 			if (row == selected)
-				cell[row].Accessory = UITableViewCellAccessory.Checkmark;
+				cell[row].AccessoryView = BlackAccessoryCheckmark();
 			
 			cell[row].TextLabel.Text = labels[row];
 			cell[row].StyleAsSettingsTableCell();
@@ -65,8 +66,9 @@ namespace Smeedee.iOS
 		{
 			var row = indexPath.Row;
 			
-			cell[selected].Accessory = UITableViewCellAccessory.None;
-			cell[row].Accessory = UITableViewCellAccessory.Checkmark;
+			cell[selected].AccessoryView = null;
+			cell[row].AccessoryView = BlackAccessoryCheckmark();
+			
 			selected = row;
 			
 			Console.WriteLine("Row selected: " + row);
@@ -74,16 +76,20 @@ namespace Smeedee.iOS
 			
 			cell[row].SetSelected(false, true);
 		}
+		
 		public override UIView GetViewForHeader (UITableView tableView, int section)
 		{	
-		
 			return new ConfigTableSectionHeader(headline);
-			
 		}
 		
 		public override float GetHeightForHeader (UITableView tableView, int section)
 		{
 			return (float)ConfigTableSectionHeader.Height;
+		}
+		
+		private UIView BlackAccessoryCheckmark()
+		{
+			return new UIImageView(UIImage.FromFile("images/checkmark.png")) { Frame = new RectangleF(285, 15, 15, 15) };
 		}
 	}
 }

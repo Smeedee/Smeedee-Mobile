@@ -394,5 +394,6 @@
     <Content Include="Images\icon_buildfailure.png" />
     <Content Include="Images\icon_buildsuccess.png" />
     <Content Include="Images\icon_buildunknown.png" />
+    <Content Include="Images\checkmark.png" />
   </ItemGroup>
 </Project>
