@@ -63,7 +63,7 @@ namespace Smeedee.Services
                         uri = new Uri(line[INDEX_COMMIT_IMAGE_URI]);
                     } catch (FormatException)
                     {
-                        uri = new Uri(CachedImageService.DEFAULT_URI);
+                        uri = new Uri(DiskCachedImageService.DEFAULT_URI);
                     }
                     results.Add(new Commit(
                                     line[INDEX_COMMIT_MESSAGE].Trim(),

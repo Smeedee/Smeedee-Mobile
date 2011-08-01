@@ -1,47 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Smeedee;
+using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.UnitTests.Fakes;
 
 namespace Smeedee.UnitTests.Services
 {
     [TestFixture]
-    public class CachedImageServiceTests
+    public class DiskCachedImageServiceTests
     {
         private FakeImageService imageService;
         private FakePersistenceService cache;
-        private CachedImageService cachedImageService;
+        private DiskCachedImageService _diskCachedImageService;
+        private SmeedeeApp app = SmeedeeApp.Instance;
 
         [SetUp]
         public void SetUp()
         {
+            app.ServiceLocator.Bind(new Directories {CacheDir = "C:\\"});
             imageService = new FakeImageService(new NoBackgroundInvocation());
             cache = new FakePersistenceService();
-            cachedImageService = new CachedImageService(imageService);
+            _diskCachedImageService = new DiskCachedImageService(imageService);
         }
 
         [Test]
         public void Should_actually_use_cache()
         {
-            return; //TODO: Enable these tests when the image service is implemented
-            cachedImageService.GetImage(new Uri("http://example.com"), (bytes) => {});
-
-            Assert.AreEqual(1, cache.GetCalls);
-            Assert.AreEqual(1, cache.SaveCalls);
+            var uri = new Uri("http://example.com");
+            _diskCachedImageService.GetImage(uri, (bytes) => {});
+            File.Delete("C:\\Smeedee_img" + uri.GetHashCode());
+            Assert.AreEqual(1, imageService.GetImageCalls);
         }
 
         [Test]
         public void Should_hit_underlying_image_service_only_once_for_same_uri()
         {
-            return; //TODO: Enable these tests when the image service is implemented
             var imageService = new MyFakeImageService();
-            var cachedImageService = new CachedImageService(imageService);
+            var cachedImageService = new DiskCachedImageService(imageService);
+            var uri = new Uri("http://example.com");
             for (int i = 0; i < 5; ++i)
-                cachedImageService.GetImage(new Uri("http://example.com"), (bytes) => { });
+                cachedImageService.GetImage(uri, (bytes) => { });
+            File.Delete("C:\\Smeedee_img" + uri.GetHashCode());
 
             Assert.AreEqual(1, imageService.GetCalls);
         }
@@ -49,10 +53,11 @@ namespace Smeedee.UnitTests.Services
         [Test]
         public void Should_call_the_given_callback_when_loaded()
         {
-            return; //TODO: Enable these tests when the image service is implemented
             var callbacks = 0;
-            cachedImageService.GetImage(new Uri("http://example.com"), (bytes) => callbacks += 1);
-            cachedImageService.GetImage(new Uri("http://example.com"), (bytes) => callbacks += 1);
+            var uri = new Uri("http://example.com");
+            _diskCachedImageService.GetImage(uri, (bytes) => callbacks += 1);
+            _diskCachedImageService.GetImage(uri, (bytes) => callbacks += 1);
+            File.Delete("C:\\Smeedee_img" + uri.GetHashCode());
 
             Assert.AreEqual(2, callbacks);
         }

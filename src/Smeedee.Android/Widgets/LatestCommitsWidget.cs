@@ -211,10 +211,17 @@ namespace Smeedee.Android.Widgets
             var image = (view as LinearLayout).GetChildAt(0) as ImageView;
             image.SetImageResource(Resource.Drawable.DefaultPerson);
             var uri = items[position]["Image"] as Uri;
+            Log.Debug("Smeedee", "Trying to load " + uri.AbsoluteUri);
             imageService.GetImage(uri, bytes =>
             {
-                if (bytes == null) return;
+                if (bytes == null)
+                {
+                    Log.Debug("Smeedee", "Got null from imgSrvc ");
+                    return;
+                }
+                Log.Debug("Smeedee", "Got bytes of length: " + bytes.Length);
                 var bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length);
+                Log.Debug("Smeedee", "Got bmp: '" + bmp + "'");
                 ((Activity) context).RunOnUiThread(() => image.SetImageBitmap(bmp));
             });
         }

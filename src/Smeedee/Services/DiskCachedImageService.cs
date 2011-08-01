@@ -6,13 +6,13 @@ using Smeedee.Model;
 
 namespace Smeedee.Services
 {
-    public class CachedImageService : IImageService
+    public class DiskCachedImageService : IImageService
     {
         private IImageService serviceToCache;
         private string cachePath;
         public const string DEFAULT_URI = "smeedee://default_person.png";
 
-        public CachedImageService(IImageService serviceToCache)
+        public DiskCachedImageService(IImageService serviceToCache)
         {
             this.serviceToCache = serviceToCache;
             this.cachePath = SmeedeeApp.Instance.ServiceLocator.Get<Directories>().CacheDir;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using Smeedee;
 using Smeedee.Model;
 
@@ -28,7 +29,7 @@ namespace Smeedee
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
 			// WebClient is not thread-safe, need new instance for each thread
-            worker.Invoke(() => {
+            new Thread(() => {
                 var webClient = new WebClient();
 				byte[] data;
 				
@@ -45,7 +46,7 @@ namespace Smeedee
 				}
 				
 				callback(data);
-            });
+            }).Start();
         }
     }
 }
