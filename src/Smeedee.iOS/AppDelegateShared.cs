@@ -35,15 +35,13 @@ namespace Smeedee.iOS
 			if (!ServerIsConfigured())
 			{
 				Console.WriteLine("Server is not configured");
-				
 				ShowServerConfiguration();
 			}
 			else
 			{
-				ShowSplashScreen();
-				
 				Console.WriteLine("Server is configured, attempting to connect ...");
-				
+				WidgetsScreen.StartLoading();
+				ShowSplashScreen();
 				login.StoreAndValidate(login.Url, login.Key, ServerCallback);
 			}
         }
@@ -55,6 +53,7 @@ namespace Smeedee.iOS
 		
 		private void ServerCallback(string response)
 		{
+			WidgetsScreen.StopLoading();
 			if (response == Login.ValidationSuccess) {
 				Console.WriteLine("Login succeded, showing widgets");
 				window.InvokeOnMainThread(ShowWidgets);
@@ -73,7 +72,14 @@ namespace Smeedee.iOS
 			const int imageSize = 61;
 			splash.Frame = new RectangleF(320/2f-imageSize/2f, 460/2f-imageSize/2f, (float)imageSize, (float)imageSize);
 			
+			var label = new UILabel();
+			label.Text = "Connecting ...";
+			label.TextColor = StyleExtensions.darkGrayText;
+			label.BackgroundColor = UIColor.Black;
+			label.Frame = new RectangleF(120, 280, 200, 30);
+			
 			window.AddSubview(splash);
+			window.AddSubview(label);
 		}
 		
 		private void ShowServerConfiguration()

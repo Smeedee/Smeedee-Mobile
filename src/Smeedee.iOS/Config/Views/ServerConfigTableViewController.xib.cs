@@ -75,6 +75,7 @@ namespace Smeedee.iOS
 				buttonCell.TextLabel.Text = "Connect";
 				buttonCell.TextLabel.TextAlignment = UITextAlignment.Center;
 				buttonCell.TextLabel.TextColor = StyleExtensions.lightGrayText;
+				buttonCell.TextLabel.HighlightedTextColor = UIColor.Black;
 				buttonCell.BackgroundColor = StyleExtensions.grayTableCell;
 				buttonCell.SelectionStyle = UITableViewCellSelectionStyle.Gray;
 				return buttonCell;
@@ -89,17 +90,16 @@ namespace Smeedee.iOS
 			var key = userKey.TextInput.Text;
 			
 			Console.WriteLine(string.Format("Logging in with {0} : {1}", url, key));
+			WidgetsScreen.StartLoading();
 			
 			new Login().StoreAndValidate(url, key, (str) => {
 				
 				Console.WriteLine(string.Format("Response from server: {0}", str));
 				
 				InvokeOnMainThread(() => {
-					buttonCell.TextLabel.Text = str;
-					buttonCell.TextLabel.TextColor = (str == Login.ValidationSuccess) ? UIColor.FromRGB(50, 150, 50) : UIColor.FromRGB(150, 50, 50);
-					
 					buttonCell.SetSelected(false, true);
 				});
+				WidgetsScreen.StopLoading();
 				controller.LoginAction(str);
 			});
 		}

@@ -25,7 +25,8 @@ namespace Smeedee.iOS
 		public static void StopLoading()
 		{
 			Console.WriteLine("hide loading animation");
-			loadingCounter--;
+			if (loadingCounter > 0)
+				loadingCounter--;
 			if (loadingCounter == 0) 
 			{
 				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
