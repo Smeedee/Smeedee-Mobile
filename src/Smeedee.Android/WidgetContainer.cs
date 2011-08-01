@@ -103,7 +103,7 @@ namespace Smeedee.Android
                 {
                     _bottomRefreshButton.Visibility = ViewStates.Invisible;
                     _bottomRefreshButton.Text =
-                        (DateTime.Now - currentWidget.LastRefreshTime()).PrettyPrint() + " since last refresh. Click to refresh";
+                        (DateTime.Now - currentWidget.LastRefreshTime()).Minutes + " minutes since last refresh. Click to refresh";
                     _bottomRefreshButton.Visibility = ViewStates.Visible;
                     
                 }
