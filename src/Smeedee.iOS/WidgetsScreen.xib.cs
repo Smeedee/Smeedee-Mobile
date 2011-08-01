@@ -17,9 +17,11 @@ namespace Smeedee.iOS
 		{
 			spinner.Hidden = false;
 			spinner.StartAnimating();
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 		}
 		public static void StopLoading()
 		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 			spinner.StopAnimating();
 			spinner.Hidden = true;
 		}
