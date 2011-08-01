@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.Util;
 using Smeedee.Services;
 
 namespace Smeedee.Model
@@ -10,25 +11,29 @@ namespace Smeedee.Model
 		public const string ValidationSuccess = "Success!";
 		public const string ValidationFailed = "Failed!";
 
-        private readonly IPersistenceService persistence;
+        private readonly IPersistenceService _persistence;
         private SmeedeeApp app = SmeedeeApp.Instance;
 
         public string Key
         {
-            get { return persistence.Get(LoginKey, "o8rzdNQn"); } //
-            set { persistence.Save(LoginKey, value); }
+            get { return _persistence.Get(LoginKey, ""); } //
+            set { _persistence.Save(LoginKey, value); }
         }
 
         public string Url
         {
-            get { return NormalizeUrl(persistence.Get(LoginUrl, "http://services.smeedee.org/smeedee")); } //
-            set { persistence.Save(LoginUrl, value); }
+            get { return NormalizeUrl(_persistence.Get(LoginUrl, "")); } //
+            set { _persistence.Save(LoginUrl, value); }
         }
 
         public Login()
         {
-            persistence = app.ServiceLocator.Get<IPersistenceService>();
-		}
+            _persistence = app.ServiceLocator.Get<IPersistenceService>();
+
+            // Remove this later on
+            Key = "o8rzdNQn";
+            Url = "http://services.smeedee.org/smeedee/";
+        }
 		
 		public void StoreAndValidate(string url, string key, Action<string> callback)
         {
