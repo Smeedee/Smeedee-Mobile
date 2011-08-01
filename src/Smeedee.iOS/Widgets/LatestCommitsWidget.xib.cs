@@ -125,7 +125,11 @@ namespace Smeedee.iOS
 		{
 			if (indexPath.Section == 1)
 			{
-				model.LoadMore(() => controller.LoadMore());	
+				InvokeOnMainThread(WidgetsScreen.StartLoading);
+				model.LoadMore(() => {
+					controller.LoadMore();
+					InvokeOnMainThread(WidgetsScreen.StopLoading);
+				});	
 			}
 		}
     }
