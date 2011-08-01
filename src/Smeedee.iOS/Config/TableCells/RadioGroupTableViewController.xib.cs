@@ -87,7 +87,7 @@ namespace Smeedee.iOS
 			return (float)ConfigTableSectionHeader.Height;
 		}
 		
-		private UIView BlackAccessoryCheckmark()
+		public static UIView BlackAccessoryCheckmark()
 		{
 			return new UIImageView(UIImage.FromFile("images/checkmark.png")) { Frame = new RectangleF(285, 15, 15, 15) };
 		}
