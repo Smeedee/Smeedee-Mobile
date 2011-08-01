@@ -20,15 +20,13 @@ namespace Smeedee.iOS
 	
 	public class LatestCommitsConfigTableViewSource : WidgetConfigTableViewSource
 	{
-		private UITableViewController controller;
 		private LatestCommits model;
 		
-		private UISwitch emptySwitch;
+		private DarkSwitch emptySwitch;
 		
 		public LatestCommitsConfigTableViewSource(UITableViewController controller) 
 			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(LatestCommitsConfigTableViewController)).First())
 		{
-			this.controller = controller;
 			this.model = new LatestCommits();
 		}
 		
@@ -40,10 +38,8 @@ namespace Smeedee.iOS
 			if (indexPath.Section == 0) 
 				return base.GetCell(tableView, indexPath);
 			
-			emptySwitch = new UISwitch();
-			emptySwitch.SetState(model.HighlightEmpty, false);
+			emptySwitch = new DarkSwitch(model.HighlightEmpty);
 			emptySwitch.ValueChanged += delegate {
-				Console.WriteLine("Setting state to " + emptySwitch.On);
 				model.HighlightEmpty = emptySwitch.On;
 			};
 			
