@@ -12,77 +12,97 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
-		private IList<IWidget> widgets;
+		// Solving a race condition when the view is appearing
+		private volatile bool appearing = false;
 		
-        public WidgetsScreen (IntPtr handle) : base (handle)
-        {
-			widgets = new List<IWidget>();
-        }
+		private WidgetModel[] models;
+		private IWidget[] widgets;
+		private IWidget[] displayedWidgets;
+		
+        public WidgetsScreen (IntPtr handle) : base (handle) { }
 		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+			View.AddSubview(LoadingIndicator.Instance);
+			
+			pageControl.HidesForSinglePage = true;
+			
             scrollView.Scrolled += ScrollViewScrolled;
 			refresh.Clicked += delegate {
-				widgets.ElementAt(CurrentPageIndex()).Refresh();
+				displayedWidgets[CurrentPageIndex()].Refresh();
 			};
-			pageControl.HidesForSinglePage = true;
-			Console.WriteLine("View loaded");
-			View.AddSubview(LoadingIndicator.Instance);
+			
+			models = SmeedeeApp.Instance.AvailableWidgets.ToArray();
+			widgets = new IWidget[models.Count()];
+			
+			for (int i = 0; i < models.Count(); ++i) {
+				var instance = Activator.CreateInstance(models[i].Type);
+				widgets[i] = (instance as IWidget);
+			}
+			
+			ResetView();
         }
 		
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 			
-			EmptyScrollView();
-			RemoveToolbarItem();
-            InstantiateEnabledWidgets();
-			AddWidgetsToScrollView();
+			appearing = true;
+			ResetView();
+			appearing = false;
 			
-			Console.WriteLine("View appearing");
 			SetTitleLabels(CurrentPageIndex());
 		}
-        
+		
+		private void ResetView()
+		{
+			RemoveToolbarItem();
+			EmptyScrollView();
+			AddWidgetsToScrollView();
+		}
+		
 		private void EmptyScrollView() {
 			foreach (var view in scrollView.Subviews) 
 				view.RemoveFromSuperview();
 		}
 		
-		private void InstantiateEnabledWidgets()
-		{
-			widgets.Clear();
-			foreach (var widgetModel in SmeedeeApp.Instance.EnabledWidgets) {
-				var instance = Activator.CreateInstance(widgetModel.Type);
-				widgets.Add(instance as IWidget);
-			}
-		}
-		
         private void AddWidgetsToScrollView()
         {
-            var count = widgets.Count();
+            var count = NumberOfEnabledWidgets();
             var scrollViewWidth = SCREEN_WIDTH * count;
+			
+			displayedWidgets = new IWidget[count];
             
             scrollView.Frame.Width = scrollViewWidth;
             scrollView.ContentSize = new SizeF(scrollViewWidth, SCREEN_WIDTH);
             
-            for (int i = 0; i < count; i++)
-            {
-                var widget = (widgets.ElementAt(i) as UIViewController).View;
-                
-                var frame = scrollView.Frame;
-                frame.Location = new PointF(SCREEN_WIDTH * i, 0);
-                widget.Frame = frame;
-                
-                scrollView.AddSubview(widget);
-            }
-			
+			int scrollViewIndex = 0;
+			for (int i = 0; i < models.Count(); ++i)
+			{
+				if (models[i].Enabled)
+				{
+					displayedWidgets[scrollViewIndex] = widgets[i];
+					var widgetView = (widgets[i] as UIViewController).View;
+					
+	                var frame = scrollView.Frame;
+	                frame.Location = new PointF(SCREEN_WIDTH * scrollViewIndex, 0);
+	                widgetView.Frame = frame;
+	                
+	                scrollView.AddSubview(widgetView);
+					
+					scrollViewIndex++;
+				}
+			}
             pageControl.Pages = count;
             SetPageControlIndex(CurrentPageIndex());
         }
 		
+		// Race condition between this and ViewWillAppear
+		// Both are called simultanously when going from settings to widgets
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
+			if (appearing) return;
 			var pageIndex = CurrentPageIndex();
             if (pageControl.CurrentPage != pageIndex)
             {
@@ -93,13 +113,15 @@ namespace Smeedee.iOS
 		
         private void SetTitleLabels(int widgetIndex)
         {
-			if (widgets.Count() == 0) 
+			if (displayedWidgets.Count() == 0) 
 			{
 				titleLabel.Text = "No enabled widgets";
 			} 
 			else 
 			{
-				var currentWidget = widgets.ElementAt(CurrentPageIndex());
+				Console.WriteLine("Setting labels for index " + CurrentPageIndex());
+				Console.WriteLine("Currently displaying " + displayedWidgets.Count() + " widgets");
+				var currentWidget = displayedWidgets[CurrentPageIndex()];
 	            var attribute = currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First() as WidgetAttribute;
 	            
 				titleLabel.Text = attribute.Name;
@@ -118,16 +140,24 @@ namespace Smeedee.iOS
 		
 		private int CurrentPageIndex()
         {
-			if (widgets.Count == 0)
+			if (displayedWidgets.Count() == 0)
 				return 0;
             
 			var index = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
-            var max = (widgets.Count() - 1);
+            var max = (displayedWidgets.Count() - 1);
             
             if (index < 0) return 0;
             if (index > max) return max;
             
             return index;
+		}
+		
+		private int NumberOfEnabledWidgets()
+		{
+			var count = 0;
+			foreach (var m in models)
+				if (m.Enabled) count++;
+			return count;
 		}
 		
         private void SetPageControlIndex(int page)
