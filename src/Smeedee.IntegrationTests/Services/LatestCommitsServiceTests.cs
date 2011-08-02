@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using NUnit.Framework;
 using Smeedee.Model;
 using Smeedee.Services;
@@ -13,6 +10,7 @@ namespace Smeedee.IntegrationTests
     public class LatestCommitsServiceTests
     {
         [Test]
+        [Ignore]
         public void Should_be_able_to_fetch_and_parse_service_when_server_is_running_on_localhost()
         {
             var persistance = new FakePersistenceService();

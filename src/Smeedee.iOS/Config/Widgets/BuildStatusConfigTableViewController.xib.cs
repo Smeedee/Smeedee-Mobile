@@ -23,8 +23,7 @@ namespace Smeedee.iOS
 		private UITableViewController controller;
 		private BuildStatus model;
 		
-		private UISwitch topSwitch;
-		//private UISwitch nameSwitch;
+		private DarkSwitch topSwitch;
 		
 		public BuildStatusConfigTableSource(UITableViewController controller) 
 			: base(SmeedeeApp.Instance.AvailableWidgets.Where(e => e.SettingsType == typeof(BuildStatusConfigTableViewController)).First())
@@ -33,11 +32,7 @@ namespace Smeedee.iOS
 			this.model = new BuildStatus();
 		}
 		
-		public override int NumberOfSections (UITableView tableView) 
-		{ 
-			return 2; 
-		}
-		
+		public override int NumberOfSections (UITableView tableView) { return 2; }
 		public override int RowsInSection(UITableView tableView, int section)
 		{
 			if (section == 0) 
@@ -55,15 +50,13 @@ namespace Smeedee.iOS
 			
 			if (row == 0)
 			{
-				topSwitch = new UISwitch();
-				topSwitch.SetState(model.BrokenBuildsAtTop, false);
+				topSwitch = new DarkSwitch(model.BrokenBuildsAtTop);
 				topSwitch.ValueChanged += delegate {
 					model.BrokenBuildsAtTop = topSwitch.On;
 				};
 				
 				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SimpleCheckboxCell") {
 					AccessoryView = topSwitch, 
-					SelectionStyle = UITableViewCellSelectionStyle.None
 				};
 				cell.TextLabel.Text = "Broken builds first";
 				

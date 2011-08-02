@@ -21,7 +21,11 @@
     a:id="@+id/BuildStatuswidget_datetime"
     a:layout_below="@id/BuildStatuswidget_username"
     a:layout_width="wrap_content"
-    a:layout_height="wrap_content" />
+    a:layout_height="wrap_content" 
+    a:layout_alignParentRight="true"
+    a:layout_alignParentBottom="true"
+    a:textStyle="italic"
+    a:paddingRight="12dp" />
   
   <!-- This textview is sort of a hack so that we have
        a value we can convert to color in the widget -->
@@ -33,15 +37,14 @@
     a:width="5dp"
     a:layout_alignParentRight="true"
     a:layout_width="5dp"
-    a:layout_height="fill_parent"/>
+    a:layout_height="wrap_content"/>
 
   <ImageView
     a:id="@+id/BuildStatuswidget_buildstatusdisplay"
     a:layout_marginRight="8dp"
     a:layout_alignParentRight="true"
-    a:layout_centerVertical="true"
+    a:layout_centerHorizontal="true"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
-    a:src="@drawable/icon_buildunknown"
-    />
+    a:src="@drawable/icon_buildunknown" />
 </RelativeLayout>

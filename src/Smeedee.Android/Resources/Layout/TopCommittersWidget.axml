@@ -6,7 +6,7 @@
   a:orientation="vertical">
   <ListView
     a:id="@+id/TopCommittersList"
-    a:layout_width="fill_parent"
-    a:layout_height="wrap_content">
+    a:layout_height="wrap_content"
+    a:layout_width="fill_parent">
   </ListView>
 </LinearLayout>

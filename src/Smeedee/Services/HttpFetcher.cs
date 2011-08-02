@@ -12,7 +12,7 @@ namespace Smeedee.Services
             {
                 return client.DownloadString(url);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return "";
             }

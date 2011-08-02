@@ -120,9 +120,6 @@
     <Compile Include="..\Smeedee\Model\WorkingDaysLeft.cs">
       <Link>Model\WorkingDaysLeft.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\CachedImageService.cs">
-      <Link>Services\CachedImageService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Services\IImageService.cs">
       <Link>Services\IImageService.cs</Link>
     </Compile>
@@ -348,6 +345,12 @@
       <Link>Services\WorkingDaysLeftService.cs</Link>
     </Compile>
     <Compile Include="Model\IToolbarControl.cs" />
+    <Compile Include="..\Smeedee\Services\DiskCachedImageService.cs">
+      <Link>Services\DiskCachedImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Directories.cs">
+      <Link>Lib\Directories.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

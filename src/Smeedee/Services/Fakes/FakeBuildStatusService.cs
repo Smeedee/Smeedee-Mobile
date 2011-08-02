@@ -9,11 +9,11 @@ namespace Smeedee
     {
         private readonly IEnumerable<Build> builds;
         private readonly IEnumerable<Build> builds2;
-        private readonly IBackgroundWorker bgWorker;
+        private readonly IBackgroundWorker bgWorker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
         private bool buildListSwitch;
-        public FakeBuildStatusService(IBackgroundWorker bgWorker)
+
+        public FakeBuildStatusService()
         {
-            this.bgWorker = bgWorker;
             builds = new List<Build>()
                          {
                             new Build("ASmeedee-Mobile - Master", BuildState.Working, "dagolap", new DateTime(2010, 1, 1, 1, 1, 1)),
@@ -37,11 +37,10 @@ namespace Smeedee
 
         public void Load(Action<IEnumerable<Build>> callback)
         {
-            //if (buildListSwitch)
+            if (buildListSwitch)
                 bgWorker.Invoke(() => callback(builds));
-            /*else
+            else
                 bgWorker.Invoke(() => callback(builds2));
-			 */
             buildListSwitch = !buildListSwitch;
         }
     }

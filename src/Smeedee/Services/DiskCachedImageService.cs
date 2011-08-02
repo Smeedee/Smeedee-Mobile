@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using Smeedee.Model;
@@ -38,7 +38,14 @@ namespace Smeedee.Services
             bytes = bytes ?? GetMissingImagePlaceholder();
             lock (this)
             {
-                File.WriteAllBytes(fileName, bytes);
+                try
+                {
+                    File.WriteAllBytes(fileName, bytes);
+                }
+                catch (Exception e)
+                {
+                    //Log.Debug("Smeedee", e.ToString());
+                }
             }
             callback(bytes);
         }

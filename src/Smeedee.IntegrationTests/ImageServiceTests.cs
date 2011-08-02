@@ -25,6 +25,7 @@ namespace Smeedee.IntegrationTests
         }
 
         [Test]
+        [Ignore]
         public void Should_respond_with_a_byte_array_when_GetImage_is_called()
         {
             byte[] bytes = GetImageBytesFromDagbladet();
@@ -33,6 +34,7 @@ namespace Smeedee.IntegrationTests
         }
 
         [Test]
+        [Ignore]
         public void Recieved_byte_array_should_be_parseable_as_an_image()
         {
             byte[] bytes = GetImageBytesFromDagbladet();

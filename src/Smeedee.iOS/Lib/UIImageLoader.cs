@@ -28,8 +28,11 @@ namespace Smeedee.iOS.Lib
 			else
 			{
 				service.GetImage(uri, (bytes) => {
-					cache[uri] = (bytes != null) ? UIImage.LoadFromData(NSData.FromArray(bytes)) : defaultImage;
-					callback(cache[uri]);
+					using (var pool = new NSAutoreleasePool())
+					{
+						cache[uri] = (bytes != null) ? UIImage.LoadFromData(NSData.FromArray(bytes)) : defaultImage;
+						callback(cache[uri]);
+					}
 				});
 			}
 		}
