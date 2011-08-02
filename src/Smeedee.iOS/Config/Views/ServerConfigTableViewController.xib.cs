@@ -32,6 +32,7 @@ namespace Smeedee.iOS
     {
 		private Login loginModel;
 		private ServerConfigTableViewController controller;
+		
 		private LabelTextInputTableCellController serverUrl;
 		private LabelTextInputTableCellController userKey;
 		
@@ -57,14 +58,14 @@ namespace Smeedee.iOS
 			switch (indexPath.Section) {
 			case 0:
 				if (indexPath.Row == 0) {
-					cellController.BindDataToCell(loginModel.Url);
+					cellController.BindDataToCell(string.IsNullOrEmpty(loginModel.Url) ? Login.DefaultSmeedeeUrl : loginModel.Url);
 					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
 					cellController.TextInput.Placeholder = "url";
 					serverUrl = cellController;
 				}
 				else
 				{
-					cellController.BindDataToCell(loginModel.Key);
+					cellController.BindDataToCell(string.IsNullOrEmpty(loginModel.Key) ? Login.DefaultSmeedeeKey : loginModel.Key);
 					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
 					cellController.TextInput.Placeholder = "key";
 					userKey = cellController;
