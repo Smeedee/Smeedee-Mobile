@@ -13,7 +13,9 @@ namespace Smeedee.iOS
         private const int SCREEN_WIDTH = 320;
 		
 		private static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+		
 		private static int loadingCounter = 0;
+		
 		public static void StartLoading()
 		{
 			Console.WriteLine("show loading animation");
@@ -22,6 +24,7 @@ namespace Smeedee.iOS
 			spinner.StartAnimating();
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 		}
+		
 		public static void StopLoading()
 		{
 			Console.WriteLine("hide loading animation");
@@ -50,6 +53,7 @@ namespace Smeedee.iOS
 			refresh.Clicked += delegate {
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
 			};
+			pageControl.HidesForSinglePage = true;
 			View.AddSubview(spinner);
 			spinner.Hidden = true;
         }
@@ -59,8 +63,8 @@ namespace Smeedee.iOS
 			base.ViewWillAppear(animated);
 			
 			EmptyScrollView();
+			RemoveToolbarItem();
             InstantiateEnabledWidgets();
-			AttachEventHandler();
 			AddWidgetsToScrollView();
 			
 			SetTitleLabels(CurrentPageIndex());
@@ -77,14 +81,6 @@ namespace Smeedee.iOS
 			foreach (var widgetModel in SmeedeeApp.Instance.EnabledWidgets) {
 				var instance = Activator.CreateInstance(widgetModel.Type);
 				widgets.Add(instance as IWidget);
-			}
-		}
-		
-		private void AttachEventHandler()
-		{
-			foreach (var widget in widgets)
-			{
-				widget.DescriptionChanged += WidgetDescriptionChanged;
 			}
 		}
 		
@@ -106,8 +102,9 @@ namespace Smeedee.iOS
                 
                 scrollView.AddSubview(widget);
             }
-            
+			
             pageControl.Pages = count;
+            SetPageControlIndex(CurrentPageIndex());
         }
 		
         private void ScrollViewScrolled(object sender, EventArgs e)
@@ -116,23 +113,20 @@ namespace Smeedee.iOS
             if (pageControl.CurrentPage != pageIndex)
             {
                 SetTitleLabels(pageIndex);
-                SetCurrentPage(pageIndex);
+                SetPageControlIndex(pageIndex);
             }
         }
 		
-		void WidgetDescriptionChanged(object sender, EventArgs e)
-		{
-			SetTitleLabels(CurrentPageIndex());	
-		}
-		
         private void SetTitleLabels(int widgetIndex)
         {
-			if (widgets.Count() == 0) {
+			if (widgets.Count() == 0) 
+			{
 				titleLabel.Text = "No enabled widgets";
-				
-			} else {
+			} 
+			else 
+			{
 				var currentWidget = widgets.ElementAt(CurrentPageIndex());
-	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
+	            var attribute = currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First() as WidgetAttribute;
 	            
 				titleLabel.Text = attribute.Name;
 				
@@ -148,6 +142,28 @@ namespace Smeedee.iOS
 			}
         }
 		
+		private int CurrentPageIndex()
+        {
+			if (widgets.Count == 0)
+				return 0;
+            
+			var index = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+            var max = (widgets.Count() - 1);
+            
+            if (index < 0) return 0;
+            if (index > max) return max;
+            
+            return index;
+		}
+		
+        private void SetPageControlIndex(int page)
+        {
+			Console.WriteLine("Setting page index to " + page);
+            pageControl.CurrentPage = page;
+        }
+		
+		// Inline configuration toolbar
+		//
 		private void AddToolbarItem(UIBarButtonItem item)
 		{
 			if (toolbar.Items.Count() == 3)
@@ -161,22 +177,5 @@ namespace Smeedee.iOS
 			if (toolbar.Items.Count() == 3)
 				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
 		}
-		
-		private int CurrentPageIndex()
-        {
-            var index = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
-            var max = (widgets.Count() - 1);
-            
-            if (index < 0) return 0;
-            if (index > max) return max;
-            
-            return index;
-		}
-		
-        private void SetCurrentPage(int page)
-        {
-            pageControl.CurrentPage = page;
-        }
     }
-	
 }
