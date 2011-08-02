@@ -51,7 +51,8 @@ namespace Smeedee.Android
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
-                App.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
+                App.ServiceLocator.Bind<IValidationService>(new FakeValidationService()); 
+                App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
                 App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
 
                 App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());

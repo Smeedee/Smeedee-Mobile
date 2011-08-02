@@ -4,15 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Smeedee.Model;
+using Smeedee.Services;
+using Smeedee.Services.Fakes;
+using Smeedee.WP7.Services.Fakes;
+using Smeedee.WP7.ViewModels;
 
 namespace Smeedee.WP7
 {
@@ -20,15 +19,10 @@ namespace Smeedee.WP7
     {
         private static MainViewModel viewModel = null;
 
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
         public static MainViewModel ViewModel
         {
             get
             {
-                // Delay creation of the view model until necessary
                 if (viewModel == null)
                     viewModel = new MainViewModel();
 
@@ -36,39 +30,60 @@ namespace Smeedee.WP7
             }
         }
 
-        /// <summary>
-        /// Provides easy access to the root frame of the Phone Application.
-        /// </summary>
-        /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
-        /// <summary>
-        /// Constructor for the Application object.
-        /// </summary>
         public App()
         {
-            // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
-            // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                // Display the current frame rate counters
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
-
-                // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
-
-                // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are being GPU accelerated with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
             }
 
-            // Standard Silverlight initialization
             InitializeComponent();
 
-            // Phone-specific initialization
             InitializePhoneApplication();
+
+            BindDependencies();
+        }
+
+        private bool USE_FAKES = true;
+        private void BindDependencies()
+        {
+            
+            var app = SmeedeeApp.Instance;
+            //app.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
+            if (!USE_FAKES)
+            {
+                app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+                //app.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+                app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+                app.ServiceLocator.Bind<IValidationService>(new ValidationService());
+                app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "C:/" });
+                app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+
+                app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+                app.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
+                app.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
+                app.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
+            }
+
+            else
+            {
+                app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+                app.ServiceLocator.Bind<IPersistenceService>(new FakePersister());
+                app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+                app.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
+                app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "C:/" });
+                app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
+                //app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+
+                app.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
+                app.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
+                app.ServiceLocator.Bind<IWorkingDaysLeftService>(new FakeWorkingDaysLeftService());
+                app.ServiceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
+            }
         }
 
         // Code to execute when the application is launching (eg, from Start)
