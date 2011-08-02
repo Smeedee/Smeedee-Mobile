@@ -6,6 +6,7 @@ using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
+using Smeedee.iOS.Lib;
 using Smeedee;
 
 namespace Smeedee.iOS
@@ -43,7 +44,7 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
 			
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
-			serviceLocator.Bind<IImageService>(new ImageService());
+			serviceLocator.Bind<IImageService>(new TrivialImageService());
 			
 			if (USE_FAKES)
 			{

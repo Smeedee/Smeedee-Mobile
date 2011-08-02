@@ -119,8 +119,6 @@ namespace Smeedee.iOS
 			} 
 			else 
 			{
-				Console.WriteLine("Setting labels for index " + CurrentPageIndex());
-				Console.WriteLine("Currently displaying " + displayedWidgets.Count() + " widgets");
 				var currentWidget = displayedWidgets[CurrentPageIndex()];
 	            var attribute = currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First() as WidgetAttribute;
 	            
@@ -162,7 +160,6 @@ namespace Smeedee.iOS
 		
         private void SetPageControlIndex(int page)
         {
-			Console.WriteLine("Setting page index to " + page);
             pageControl.CurrentPage = page;
         }
 		

@@ -17,7 +17,7 @@ namespace Smeedee.iOS.Lib
 		
 		public UIImageLoader()
 		{
-			service = new TrivialImageLoader();//SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
+			service = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
 		}
 		
 		public void LoadImageFromUri(Uri uri, Action<UIImage> callback) 
@@ -39,7 +39,7 @@ namespace Smeedee.iOS.Lib
 		}
 	}
 	
-	internal class TrivialImageLoader : IImageService
+	internal class TrivialImageService : IImageService
 	{
 		private IBackgroundWorker worker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 		
@@ -53,14 +53,10 @@ namespace Smeedee.iOS.Lib
                     var client = new WebClient();
 					data = client.DownloadData(uri);
 				} 
-				catch (WebException e) 
+				catch (WebException) 
 				{
-					Console.WriteLine("Image error: " + e.Message);
-                    //Do nothing, call callback with null as argument
+                    // Do nothing, call callback with null as argument
 				}
-				
-				Console.WriteLine("Returning image data: " + data);
-				
 				callback(data);
             });
 		}
