@@ -47,6 +47,7 @@
     <Compile Include="Lib\Csv.cs" />
     <Compile Include="Lib\Directories.cs" />
     <Compile Include="Lib\Guard.cs" />
+    <Compile Include="Lib\StreamExtensions.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\BuildOrder.cs" />
     <Compile Include="Model\BuildStatus.cs" />
