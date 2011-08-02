@@ -67,6 +67,9 @@
     <Compile Include="..\Smeedee\Lib\Guard.cs">
       <Link>Lib\Guard.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Lib\IFileIO.cs">
+      <Link>Lib\IFileIO.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Lib\StreamExtensions.cs">
       <Link>Lib\StreamExtensions.cs</Link>
     </Compile>
