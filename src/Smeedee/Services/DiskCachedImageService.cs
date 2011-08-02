@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Smeedee.Model;
+using Smeedee.Lib;
 
 namespace Smeedee.Services
 {
@@ -9,12 +10,14 @@ namespace Smeedee.Services
     {
         private IImageService serviceToCache;
         private string cachePath;
+        private IFileIO fileReader;
         public const string DEFAULT_URI = "smeedee://default_person.png";
 
         public DiskCachedImageService(IImageService serviceToCache)
         {
             this.serviceToCache = serviceToCache;
             this.cachePath = SmeedeeApp.Instance.ServiceLocator.Get<Directories>().CacheDir;
+            this.fileReader = SmeedeeApp.Instance.ServiceLocator.Get<IFileIO>();
         }
 
         public void GetImage(Uri uri, Action<byte[]> callback)
@@ -23,7 +26,7 @@ namespace Smeedee.Services
 
             if (File.Exists(fileName))
             {
-                var bytes = File.ReadAllBytes(fileName);
+                var bytes = fileReader.ReadAllBytes(fileName);
                 if (IsMissingImagePlaceholder(bytes))
                     bytes = null;
                 callback(bytes);
@@ -38,14 +41,7 @@ namespace Smeedee.Services
             bytes = bytes ?? GetMissingImagePlaceholder();
             lock (this)
             {
-                try
-                {
-                    File.WriteAllBytes(fileName, bytes);
-                }
-                catch (Exception e)
-                {
-                    //Log.Debug("Smeedee", e.ToString());
-                }
+                fileReader.WriteAllBytes(fileName, bytes);
             }
             callback(bytes);
         }

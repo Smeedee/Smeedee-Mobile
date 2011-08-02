@@ -206,7 +206,7 @@ namespace Smeedee.Android.Widgets
 
         private void LoadImage(int position, View view)
         {
-            var image = (view as LinearLayout).GetChildAt(0) as ImageView;;
+            var image = (view as LinearLayout).GetChildAt(0) as ImageView;
             var uri = items[position]["Image"] as Uri;
             image.LoadUriOrDefault(uri, Resource.Drawable.DefaultPerson);
         }

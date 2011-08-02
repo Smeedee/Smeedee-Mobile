@@ -54,7 +54,7 @@ namespace Smeedee.Model
             get
             {
                 var stored = persistence.Get(TimePeriodPropertyKey, DefaultTimePeriodPropertyValue);
-                return (TimePeriod) Enum.Parse(typeof (TimePeriod), stored);
+                return (TimePeriod) Enum.Parse(typeof (TimePeriod), stored, true);
             }
             set { persistence.Save(TimePeriodPropertyKey, value.ToString()); }
         }

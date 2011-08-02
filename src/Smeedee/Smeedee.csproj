@@ -44,8 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Csv.cs" />
-    <Compile Include="Directories.cs" />
+    <Compile Include="Lib\Csv.cs" />
+    <Compile Include="Lib\Directories.cs" />
+    <Compile Include="Lib\Guard.cs" />
+    <Compile Include="Lib\IFileIO.cs" />
+    <Compile Include="Lib\StreamExtensions.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\BuildOrder.cs" />
     <Compile Include="Model\BuildStatus.cs" />
@@ -60,8 +63,10 @@
     <Compile Include="Services\AsyncResult.cs" />
     <Compile Include="Services\BuildStatusService.cs" />
     <Compile Include="Services\Fakes\FakeBuildStatusService.cs" />
+    <Compile Include="Services\Fakes\FakeLatestCommitsService.cs" />
+    <Compile Include="Services\Fakes\FakeTopCommittersService.cs" />
     <Compile Include="Services\Fakes\FakeValidationService.cs" />
-    <Compile Include="Services\Fakes\LatestCommitsFakeService.cs" />
+    <Compile Include="Services\Fakes\FakeWorkingDaysLeftService.cs" />
     <Compile Include="Services\HttpFetcher.cs" />
     <Compile Include="Services\IBuildStatusService.cs" />
     <Compile Include="Services\IFetchHttp.cs" />
@@ -72,10 +77,7 @@
     <Compile Include="Services\LatestCommitsService.cs" />
     <Compile Include="Services\MemoryCachedImageService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
-    <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
-    <Compile Include="Services\Fakes\WorkingDaysLeftFakeService.cs" />
     <Compile Include="Services\BackgroundWorker.cs" />
-    <Compile Include="Guard.cs" />
     <Compile Include="Services\IBackgroundWorker.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -94,7 +96,7 @@
     <Compile Include="Services\TopCommittersService.cs" />
     <Compile Include="Services\ValidationService.cs" />
     <Compile Include="Services\WorkingDaysLeftService.cs" />
-    <Compile Include="TimeSpanPrettyPrintExtension.cs" />
+    <Compile Include="Lib\TimeSpanPrettyPrintExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

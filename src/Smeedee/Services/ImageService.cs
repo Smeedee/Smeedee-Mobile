@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using Smeedee;
+using Smeedee.Lib;
 using Smeedee.Model;
 
 namespace Smeedee
@@ -19,30 +20,31 @@ namespace Smeedee
     
     public class ImageService : IImageService
     {
-        private IBackgroundWorker worker;
-
-        public ImageService()
-        {
-            this.worker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
-        }
+        private readonly TimeSpan TIMEOUT = TimeSpan.FromSeconds(15);
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
 			// WebClient is not thread-safe, need new instance for each thread
             new Thread(() => {
-                var webClient = new WebClient();
-				byte[] data;
-				
-				try {
-                	data = webClient.DownloadData(uri);
+				byte[] data = null;
+                try
+                {
+                    var manualReset = new ManualResetEvent(false);
+                    var client = new WebClient();
+
+                    client.OpenReadCompleted += (o, e) =>
+                    {
+                        if (e.Error == null)
+                            data = e.Result.ReadToEnd();
+                        manualReset.Set();
+                    };
+                    client.OpenReadAsync(uri);
+
+                    manualReset.WaitOne(TIMEOUT);
 				} 
 				catch (WebException) 
 				{
-					data = null;
-				}
-				finally
-				{
-					webClient.Dispose();
+                    //Do nothing, call callback with null as argument
 				}
 				
 				callback(data);

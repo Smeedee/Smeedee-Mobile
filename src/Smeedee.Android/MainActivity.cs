@@ -3,8 +3,10 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Util;
+using Smeedee.Android.Lib;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
+using Smeedee.Lib;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
@@ -15,6 +17,7 @@ namespace Smeedee.Android
     public class SmeedeeApplication : Application
     {
         public SmeedeeApp App { get; private set; }
+        private const bool USE_FAKES = false;
 
         public SmeedeeApplication(IntPtr handle) : base(handle)
         {
@@ -27,17 +30,35 @@ namespace Smeedee.Android
             Log.Debug("SMEEDEE", "Application is being run");
 
             // Fill in global bindings here:
-            App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-            App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-            App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
-            App.ServiceLocator.Bind<IValidationService>(new ValidationService());
-            App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
-            App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+            App.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
+            if (!USE_FAKES)
+            {
+                App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+                App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+                App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+                App.ServiceLocator.Bind<IValidationService>(new ValidationService());
+                App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
+                App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
 
-            App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
-            App.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
-            App.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
-            App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
+                App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+                App.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
+                App.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
+                App.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
+            }
+            
+            else
+            {
+                App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+                App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+                App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+                App.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
+                App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+
+                App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
+                App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
+                App.ServiceLocator.Bind<IWorkingDaysLeftService>(new FakeWorkingDaysLeftService());
+                App.ServiceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
+            }
         }
     }
 

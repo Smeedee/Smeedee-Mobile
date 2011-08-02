@@ -44,7 +44,7 @@ namespace Smeedee.Services
                 {
                     results.Add(new Build(
                             line[INDEX_BUILD_NAME],
-                            (BuildState) Enum.Parse(typeof (BuildState), line[INDEX_BUILD_STATUS]),
+                            (BuildState) Enum.Parse(typeof (BuildState), line[INDEX_BUILD_STATUS], true),
                             line[INDEX_BUILD_TRIGGER_USERNAME],
                             DateTime.ParseExact(line[INDEX_BUILD_DATETIME], "yyyyMMddHHmmss", CultureInfo.InvariantCulture)));
                 }
