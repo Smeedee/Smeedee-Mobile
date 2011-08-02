@@ -159,21 +159,37 @@ namespace Smeedee.iOS
 		private UIActivityIndicatorView spinner;
 		private UILabel label;
 		
+		private const int ScreenWidth = 320;
+		private const int ScreenHeight = 400;
+		private const int Padding = 10;
+		private const int TextWidth = 65;
+		private const int SpinnerSize = 20;
+		private const int SeparateWidth = 5;
+		private const int Width = Padding + SpinnerSize + SeparateWidth + TextWidth + Padding;
+		private const int Height = Padding + SpinnerSize + Padding;
+		
 		// Singleton
 		public readonly static LoadingIndicator Instance = new LoadingIndicator();
 		
 		private LoadingIndicator() : base()
 		{
-			Center = new PointF(320/2, 460/2);
-			Frame = new RectangleF(0, 0, 100, 60);
+			Frame = new RectangleF((ScreenWidth - Width) / 2, ScreenHeight / 2, Width, Height);
+			BackgroundColor = UIColor.FromWhiteAlpha(0.4f, 0.4f);
 			
-			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
-			label = new UILabel() {
-				Text = "Loading ...",
-				TextColor = StyleExtensions.darkGrayText
+			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray) {
+				Frame = new RectangleF(Padding, Padding, SpinnerSize, SpinnerSize)
 			};
-			AddSubview(spinner);
+			
+			label = new UILabel() {
+				Frame = new RectangleF(Padding + SpinnerSize + SeparateWidth, Padding, TextWidth, SpinnerSize),
+				Text = "Loading...",
+				TextColor = StyleExtensions.lightGrayText,
+				BackgroundColor = StyleExtensions.transparent,
+				AdjustsFontSizeToFitWidth = true
+			};
+			
 			AddSubview(label);
+			AddSubview(spinner);
 			
 			StopLoading();
 		}
@@ -182,7 +198,7 @@ namespace Smeedee.iOS
 		{
 			Console.WriteLine("show loading animation");
 			loadingCounter++;
-			spinner.Hidden = false;
+			Hidden = false;
 			spinner.StartAnimating();
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 		}
@@ -196,7 +212,7 @@ namespace Smeedee.iOS
 			{
 				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 				spinner.StopAnimating();
-				spinner.Hidden = true;
+				Hidden = true;
 			}
 		}
 	}
