@@ -12,25 +12,29 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Smeedee.Lib;
 using Smeedee.Model;
+using Smeedee.Services;
+using Smeedee.Services.Fakes;
+using Smeedee.WP7.Services.Fakes;
 
 namespace Smeedee.WP7
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
+        private static TopCommittersViewModel viewModel = null;
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static MainViewModel ViewModel
+        /// <returns>The TopCommittersViewModel object.</returns>
+        public static TopCommittersViewModel ViewModel
         {
             get
             {
                 // Delay creation of the view model until necessary
                 if (viewModel == null)
-                    viewModel = new MainViewModel();
+                    viewModel = new TopCommittersViewModel();
 
                 return viewModel;
             }
@@ -69,6 +73,46 @@ namespace Smeedee.WP7
 
             // Phone-specific initialization
             InitializePhoneApplication();
+
+            BindDependencies();
+        }
+
+        private bool USE_FAKES = true;
+        private void BindDependencies()
+        {
+            
+            var app = SmeedeeApp.Instance;
+            //app.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
+            if (!USE_FAKES)
+            {
+                app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+                //app.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+                app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+                app.ServiceLocator.Bind<IValidationService>(new ValidationService());
+                app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "C:/" });
+                app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+
+                app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
+                app.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
+                app.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
+                app.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
+            }
+
+            else
+            {
+                app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+                app.ServiceLocator.Bind<IPersistenceService>(new FakePersister());
+                app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
+                app.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
+                app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "C:/" });
+                app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
+                //app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+
+                app.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
+                app.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
+                app.ServiceLocator.Bind<IWorkingDaysLeftService>(new FakeWorkingDaysLeftService());
+                app.ServiceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
+            }
         }
 
         // Code to execute when the application is launching (eg, from Start)

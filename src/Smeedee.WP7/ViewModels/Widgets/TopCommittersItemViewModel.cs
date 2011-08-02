@@ -13,55 +13,43 @@ using System.Windows.Shapes;
 
 namespace Smeedee.WP7
 {
-    public class ItemViewModel : INotifyPropertyChanged
+    public class TopCommittersItemViewModel : INotifyPropertyChanged
     {
-        private string _lineOne;
-        /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
-        /// </summary>
-        /// <returns></returns>
-        public string LineOne
+        private string _name;
+        public string Name
         {
             get
             {
-                return _lineOne;
+                return _name;
             }
             set
             {
-                if (value != _lineOne)
+                if (value != _name)
                 {
-                    _lineOne = value;
-                    NotifyPropertyChanged("LineOne");
+                    _name = value;
+                    NotifyPropertyChanged("Name");
                 }
             }
         }
 
-        private string _lineTwo;
-        /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
-        /// </summary>
-        /// <returns></returns>
-        public string LineTwo
+        private string _commits;
+        public string Commits
         {
             get
             {
-                return _lineTwo;
+                return _commits;
             }
             set
             {
-                if (value != _lineTwo)
+                if (value != _commits)
                 {
-                    _lineTwo = value;
-                    NotifyPropertyChanged("LineTwo");
+                    _commits = value;
+                    NotifyPropertyChanged("Commits");
                 }
             }
         }
 
         private string _lineThree;
-        /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
-        /// </summary>
-        /// <returns></returns>
         public string LineThree
         {
             get

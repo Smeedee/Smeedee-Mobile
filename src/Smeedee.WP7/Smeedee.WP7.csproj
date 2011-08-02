@@ -206,8 +206,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Services\Fakes\FakePersister.cs" />
+    <Compile Include="ViewModels\Widgets\TopCommittersItemViewModel.cs" />
+    <Compile Include="ViewModels\Widgets\TopCommittersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -228,6 +229,9 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\Smeedee\Resources\default_person.jpeg">
+      <Link>Resources\Images\default_person.jpeg</Link>
+    </Resource>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
