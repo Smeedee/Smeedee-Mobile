@@ -28,15 +28,6 @@ namespace Smeedee.Android
             Log.Debug("SMEEDEE", "Application is being run");
 
             // Fill in global bindings here:
-<<<<<<< HEAD
-            App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-            App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-            App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
-            App.ServiceLocator.Bind<IValidationService>(new ValidationService());
-            App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
-            //App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
-            App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
-=======
             if (!USE_FAKES)
             {
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
@@ -60,7 +51,6 @@ namespace Smeedee.Android
                 App.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
                 App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
                 App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
->>>>>>> e7d59ad0404de301698675b362bdc68fb263b409
 
                 App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
                 App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
