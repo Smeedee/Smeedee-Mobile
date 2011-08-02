@@ -101,7 +101,7 @@ namespace Smeedee.iOS
 			});
 			
 			Console.WriteLine(string.Format("Logging in with {0} : {1}", url, key));
-			WidgetsScreen.StartLoading();
+			LoadingIndicator.Instance.StartLoading();
 			
 			new Login().StoreAndValidate(url, key, (str) => {
 				
@@ -117,7 +117,7 @@ namespace Smeedee.iOS
 					}
 					buttonCell.SetSelected(false, true);
 				});
-				WidgetsScreen.StopLoading();
+				LoadingIndicator.Instance.StopLoading();
 				controller.LoginAction(str);
 			});
 		}

@@ -12,38 +12,11 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
-		private static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
-		
-		private static int loadingCounter = 0;
-		
-		public static void StartLoading()
-		{
-			Console.WriteLine("show loading animation");
-			loadingCounter++;
-			spinner.Hidden = false;
-			spinner.StartAnimating();
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-		}
-		
-		public static void StopLoading()
-		{
-			Console.WriteLine("hide loading animation");
-			if (loadingCounter > 0)
-				loadingCounter--;
-			if (loadingCounter == 0) 
-			{
-				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-				spinner.StopAnimating();
-				spinner.Hidden = true;
-			}
-		}
-		
 		private IList<IWidget> widgets;
 		
         public WidgetsScreen (IntPtr handle) : base (handle)
         {
 			widgets = new List<IWidget>();
-			spinner.Center = new PointF(320/2, 460/2);
         }
 		
         public override void ViewDidLoad()
@@ -54,8 +27,8 @@ namespace Smeedee.iOS
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
 			};
 			pageControl.HidesForSinglePage = true;
-			View.AddSubview(spinner);
-			spinner.Hidden = true;
+			
+			View.AddSubview(LoadingIndicator.Instance);
         }
 		
 		public override void ViewWillAppear(bool animated)
@@ -178,4 +151,53 @@ namespace Smeedee.iOS
 				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
 		}
     }
+	
+	internal class LoadingIndicator : UIView
+	{
+		private int loadingCounter = 0;
+		
+		private UIActivityIndicatorView spinner;
+		private UILabel label;
+		
+		// Singleton
+		public readonly static LoadingIndicator Instance = new LoadingIndicator();
+		
+		private LoadingIndicator() : base()
+		{
+			Center = new PointF(320/2, 460/2);
+			Frame = new RectangleF(0, 0, 100, 60);
+			
+			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
+			label = new UILabel() {
+				Text = "Loading ...",
+				TextColor = StyleExtensions.darkGrayText
+			};
+			AddSubview(spinner);
+			AddSubview(label);
+			
+			StopLoading();
+		}
+		
+		public void StartLoading()
+		{
+			Console.WriteLine("show loading animation");
+			loadingCounter++;
+			spinner.Hidden = false;
+			spinner.StartAnimating();
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+		}
+		
+		public void StopLoading()
+		{
+			Console.WriteLine("hide loading animation");
+			if (loadingCounter > 0)
+				loadingCounter--;
+			if (loadingCounter == 0) 
+			{
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+				spinner.StopAnimating();
+				spinner.Hidden = true;
+			}
+		}
+	}
 }
