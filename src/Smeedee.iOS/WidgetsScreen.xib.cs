@@ -27,7 +27,7 @@ namespace Smeedee.iOS
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
 			};
 			pageControl.HidesForSinglePage = true;
-			
+			Console.WriteLine("View loaded");
 			View.AddSubview(LoadingIndicator.Instance);
         }
 		
@@ -40,6 +40,7 @@ namespace Smeedee.iOS
             InstantiateEnabledWidgets();
 			AddWidgetsToScrollView();
 			
+			Console.WriteLine("View appearing");
 			SetTitleLabels(CurrentPageIndex());
 		}
         
