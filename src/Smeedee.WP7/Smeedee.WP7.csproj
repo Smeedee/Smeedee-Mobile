@@ -211,8 +211,11 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\Widgets\BuildStatusItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\BuildStatusViewModel.cs" />
+    <Compile Include="ViewModels\Widgets\LatestCommitsItemViewModel.cs" />
+    <Compile Include="ViewModels\Widgets\LatestCommitsViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersViewModel.cs" />
+    <Compile Include="ViewModels\Widgets\WorkingDaysLeftViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

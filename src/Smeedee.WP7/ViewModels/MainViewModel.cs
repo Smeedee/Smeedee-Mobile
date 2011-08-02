@@ -40,10 +40,46 @@ namespace Smeedee.WP7.ViewModels
             }
         }
 
+        private WorkingDaysLeftViewModel _workingDaysLeft = new WorkingDaysLeftViewModel();
+        public WorkingDaysLeftViewModel WorkingDaysLeft
+        {
+            get
+            {
+                return _workingDaysLeft;
+            }
+            set
+            {
+                if (value != _workingDaysLeft)
+                {
+                    _workingDaysLeft = value;
+                    NotifyPropertyChanged("WorkingDaysLeft");
+                }
+            }
+        }
+
+        private LatestCommitsViewModel _latestCommits = new LatestCommitsViewModel();
+        public LatestCommitsViewModel LatestCommits
+        {
+            get
+            {
+                return _latestCommits;
+            }
+            set
+            {
+                if (value != _latestCommits)
+                {
+                    _latestCommits = value;
+                    NotifyPropertyChanged("LatestCommits");
+                }
+            }
+        }
+
         public void LoadData()
         {
             _topCommitters.LoadData();
             _buildStatus.LoadData();
+            _workingDaysLeft.LoadData();
+            _latestCommits.LoadData();
         }
     }
 }

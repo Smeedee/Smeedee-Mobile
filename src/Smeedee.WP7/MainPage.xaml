@@ -19,7 +19,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Title="SMEEDEE">
-            <!--Pivot item one-->
+            
             <controls:PivotItem Header="top committers">
                 <!--Double line list with text wrapping-->
                 <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding TopCommitters.Items}">
@@ -37,13 +37,13 @@
                 </ListBox>
             </controls:PivotItem>
  
-            <!--Pivot item two-->
+            
             <controls:PivotItem Header="build status"> 
                 <!--Triple line list no text wrapping-->
                     <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                                <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
                                     <StackPanel Margin="0,0,0,17">
                                         <TextBlock Text="{Binding ProjectName}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                         <TextBlock Text="{Binding UserName}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -56,6 +56,31 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="days left">
+                <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                    <TextBlock Text="{Binding WorkingDaysLeft.DaysLeft}" Style="{StaticResource PhoneTextExtraLargeStyle}"></TextBlock>
+                    <TextBlock Text="{Binding WorkingDaysLeft.DaysLeftSuffix}" Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,0,20"></TextBlock>
+                </StackPanel>
+            </controls:PivotItem>
+
+
+            <controls:PivotItem Header="latest commits">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding LatestCommits.Items}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                                <Image Source="Resources\Images\default_person.jpeg"></Image>
+                                <StackPanel Margin="0,0,0,17">
+                                    <TextBlock Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    <TextBlock Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
