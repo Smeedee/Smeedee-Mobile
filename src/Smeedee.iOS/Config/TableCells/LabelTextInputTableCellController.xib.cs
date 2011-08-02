@@ -38,6 +38,13 @@ namespace Smeedee.iOS
 				return true;
 			};
 		}
+		
+		public void BindOnEditAction(Action action)
+		{
+			textInput.EditingDidBegin += delegate {
+				action();
+			};	
+		}
 	}
 }
 

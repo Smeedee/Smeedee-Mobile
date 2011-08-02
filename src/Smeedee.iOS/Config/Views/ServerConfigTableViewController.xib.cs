@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
@@ -58,25 +59,32 @@ namespace Smeedee.iOS
 			
 			switch (indexPath.Section) {
 			case 0:
-				if (indexPath.Row == 0) {
+				if (indexPath.Row == 0) 
+				{
 					cellController.BindDataToCell(string.IsNullOrEmpty(loginModel.Url) ? Login.DefaultSmeedeeUrl : loginModel.Url);
+					
 					cellController.BindActionToReturn((textField) => loginModel.Url = textField.Text);
+					cellController.BindOnEditAction(ResetButton);
+					
 					cellController.TextInput.Placeholder = "url";
 					serverUrl = cellController;
 				}
 				else
 				{
 					cellController.BindDataToCell(string.IsNullOrEmpty(loginModel.Key) ? Login.DefaultSmeedeeKey : loginModel.Key);
+					
 					cellController.BindActionToReturn((textField) => loginModel.Key = textField.Text);
+					cellController.BindOnEditAction(ResetButton);
+					
 					cellController.TextInput.Placeholder = "key";
 					userKey = cellController;
 				}
 				return cellController.TableViewCell;
+			
 			default:
 				buttonCell = new UITableViewCell();
-				buttonCell.TextLabel.Text = "Connect";
-				buttonCell.StyleAsSettingsTableCell();
 				buttonCell.TextLabel.TextAlignment = UITextAlignment.Center;
+				ResetButton();
 				return buttonCell;
 			}
         }
@@ -88,6 +96,10 @@ namespace Smeedee.iOS
 			var url = serverUrl.TextInput.Text;
 			var key = userKey.TextInput.Text;
 			
+			InvokeOnMainThread(() => {
+				ResetButton();
+			});
+			
 			Console.WriteLine(string.Format("Logging in with {0} : {1}", url, key));
 			WidgetsScreen.StartLoading();
 			
@@ -96,11 +108,24 @@ namespace Smeedee.iOS
 				Console.WriteLine(string.Format("Response from server: {0}", str));
 				
 				InvokeOnMainThread(() => {
+					if (str == Login.ValidationSuccess) {
+						buttonCell.BackgroundColor = UIColor.FromRGB(0, 128, 0);
+						buttonCell.TextLabel.Text = "Success";
+					} else {
+						buttonCell.BackgroundColor = UIColor.FromRGB(128, 0, 0);
+						buttonCell.TextLabel.Text = "Could not connect";
+					}
 					buttonCell.SetSelected(false, true);
 				});
 				WidgetsScreen.StopLoading();
 				controller.LoginAction(str);
 			});
+		}
+		
+		private void ResetButton()
+		{
+			buttonCell.TextLabel.Text = "Connect";
+			buttonCell.StyleAsSettingsTableCell();
 		}
 	}
 }
