@@ -12,35 +12,11 @@ namespace Smeedee.iOS
     {
         private const int SCREEN_WIDTH = 320;
 		
-		private static UIActivityIndicatorView spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray);
-		private static int loadingCounter = 0;
-		public static void StartLoading()
-		{
-			Console.WriteLine("show loading animation");
-			loadingCounter++;
-			spinner.Hidden = false;
-			spinner.StartAnimating();
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-		}
-		public static void StopLoading()
-		{
-			Console.WriteLine("hide loading animation");
-			if (loadingCounter > 0)
-				loadingCounter--;
-			if (loadingCounter == 0) 
-			{
-				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-				spinner.StopAnimating();
-				spinner.Hidden = true;
-			}
-		}
-		
 		private IList<IWidget> widgets;
 		
         public WidgetsScreen (IntPtr handle) : base (handle)
         {
 			widgets = new List<IWidget>();
-			spinner.Center = new PointF(320/2, 460/2);
         }
 		
         public override void ViewDidLoad()
@@ -50,8 +26,9 @@ namespace Smeedee.iOS
 			refresh.Clicked += delegate {
 				widgets.ElementAt(CurrentPageIndex()).Refresh();
 			};
-			View.AddSubview(spinner);
-			spinner.Hidden = true;
+			pageControl.HidesForSinglePage = true;
+			
+			View.AddSubview(LoadingIndicator.Instance);
         }
 		
 		public override void ViewWillAppear(bool animated)
@@ -59,8 +36,8 @@ namespace Smeedee.iOS
 			base.ViewWillAppear(animated);
 			
 			EmptyScrollView();
+			RemoveToolbarItem();
             InstantiateEnabledWidgets();
-			AttachEventHandler();
 			AddWidgetsToScrollView();
 			
 			SetTitleLabels(CurrentPageIndex());
@@ -77,14 +54,6 @@ namespace Smeedee.iOS
 			foreach (var widgetModel in SmeedeeApp.Instance.EnabledWidgets) {
 				var instance = Activator.CreateInstance(widgetModel.Type);
 				widgets.Add(instance as IWidget);
-			}
-		}
-		
-		private void AttachEventHandler()
-		{
-			foreach (var widget in widgets)
-			{
-				widget.DescriptionChanged += WidgetDescriptionChanged;
 			}
 		}
 		
@@ -106,8 +75,9 @@ namespace Smeedee.iOS
                 
                 scrollView.AddSubview(widget);
             }
-            
+			
             pageControl.Pages = count;
+            SetPageControlIndex(CurrentPageIndex());
         }
 		
         private void ScrollViewScrolled(object sender, EventArgs e)
@@ -116,23 +86,20 @@ namespace Smeedee.iOS
             if (pageControl.CurrentPage != pageIndex)
             {
                 SetTitleLabels(pageIndex);
-                SetCurrentPage(pageIndex);
+                SetPageControlIndex(pageIndex);
             }
         }
 		
-		void WidgetDescriptionChanged(object sender, EventArgs e)
-		{
-			SetTitleLabels(CurrentPageIndex());	
-		}
-		
         private void SetTitleLabels(int widgetIndex)
         {
-			if (widgets.Count() == 0) {
+			if (widgets.Count() == 0) 
+			{
 				titleLabel.Text = "No enabled widgets";
-				
-			} else {
+			} 
+			else 
+			{
 				var currentWidget = widgets.ElementAt(CurrentPageIndex());
-	            var attribute = (WidgetAttribute) currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First();
+	            var attribute = currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First() as WidgetAttribute;
 	            
 				titleLabel.Text = attribute.Name;
 				
@@ -148,6 +115,28 @@ namespace Smeedee.iOS
 			}
         }
 		
+		private int CurrentPageIndex()
+        {
+			if (widgets.Count == 0)
+				return 0;
+            
+			var index = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
+            var max = (widgets.Count() - 1);
+            
+            if (index < 0) return 0;
+            if (index > max) return max;
+            
+            return index;
+		}
+		
+        private void SetPageControlIndex(int page)
+        {
+			Console.WriteLine("Setting page index to " + page);
+            pageControl.CurrentPage = page;
+        }
+		
+		// Inline configuration toolbar
+		//
 		private void AddToolbarItem(UIBarButtonItem item)
 		{
 			if (toolbar.Items.Count() == 3)
@@ -161,22 +150,70 @@ namespace Smeedee.iOS
 			if (toolbar.Items.Count() == 3)
 				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
 		}
-		
-		private int CurrentPageIndex()
-        {
-            var index = (int)Math.Floor((scrollView.ContentOffset.X - scrollView.Frame.Width / 2) / scrollView.Frame.Width) + 1;
-            var max = (widgets.Count() - 1);
-            
-            if (index < 0) return 0;
-            if (index > max) return max;
-            
-            return index;
-		}
-		
-        private void SetCurrentPage(int page)
-        {
-            pageControl.CurrentPage = page;
-        }
     }
 	
+	internal class LoadingIndicator : UIView
+	{
+		private int loadingCounter = 0;
+		
+		private UIActivityIndicatorView spinner;
+		private UILabel label;
+		
+		private const int ScreenWidth = 320;
+		private const int ScreenHeight = 400;
+		private const int Padding = 10;
+		private const int TextWidth = 65;
+		private const int SpinnerSize = 20;
+		private const int SeparateWidth = 5;
+		private const int Width = Padding + SpinnerSize + SeparateWidth + TextWidth + Padding;
+		private const int Height = Padding + SpinnerSize + Padding;
+		
+		// Singleton
+		public readonly static LoadingIndicator Instance = new LoadingIndicator();
+		
+		private LoadingIndicator() : base()
+		{
+			Frame = new RectangleF((ScreenWidth - Width) / 2, ScreenHeight / 2, Width, Height);
+			BackgroundColor = UIColor.FromWhiteAlpha(0.4f, 0.4f);
+			
+			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray) {
+				Frame = new RectangleF(Padding, Padding, SpinnerSize, SpinnerSize)
+			};
+			
+			label = new UILabel() {
+				Frame = new RectangleF(Padding + SpinnerSize + SeparateWidth, Padding, TextWidth, SpinnerSize),
+				Text = "Loading...",
+				TextColor = StyleExtensions.lightGrayText,
+				BackgroundColor = StyleExtensions.transparent,
+				AdjustsFontSizeToFitWidth = true
+			};
+			
+			AddSubview(label);
+			AddSubview(spinner);
+			
+			StopLoading();
+		}
+		
+		public void StartLoading()
+		{
+			Console.WriteLine("show loading animation");
+			loadingCounter++;
+			Hidden = false;
+			spinner.StartAnimating();
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+		}
+		
+		public void StopLoading()
+		{
+			Console.WriteLine("hide loading animation");
+			if (loadingCounter > 0)
+				loadingCounter--;
+			if (loadingCounter == 0) 
+			{
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+				spinner.StopAnimating();
+				Hidden = true;
+			}
+		}
+	}
 }

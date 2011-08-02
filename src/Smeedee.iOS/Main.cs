@@ -18,8 +18,22 @@ namespace Smeedee.iOS
         {
 			ConfigureDependencies();
 			RegisterAvailableWidgets();
+			EnableAllWidgetsByDefault();
             UIApplication.Main (args);
         }
+		
+        private static void RegisterAvailableWidgets()
+        {
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
+        }
+		
+		private static void EnableAllWidgetsByDefault()
+		{
+			foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
+			{
+				widgetModel.Enabled = true;
+			}
+		}
 		
 		private static void ConfigureDependencies() 
 		{
@@ -36,9 +50,9 @@ namespace Smeedee.iOS
 				serviceLocator.Bind<IValidationService>(new FakeValidationService());
 				
 				serviceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
-				serviceLocator.Bind<ITopCommittersService>(new TopCommittersFakeService());
+				serviceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
 				serviceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
-				serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftFakeService());
+				serviceLocator.Bind<IWorkingDaysLeftService>(new FakeWorkingDaysLeftService());
 			}
 			else
 			{
@@ -50,10 +64,5 @@ namespace Smeedee.iOS
 				serviceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
 			}
 		}
-		
-        private static void RegisterAvailableWidgets()
-        {
-            SmeedeeApp.Instance.RegisterAvailableWidgets();
-        }
     }
 }

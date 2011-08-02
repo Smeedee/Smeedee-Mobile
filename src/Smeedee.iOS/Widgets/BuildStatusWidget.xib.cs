@@ -30,10 +30,10 @@ namespace Smeedee.iOS
 		
         public void Refresh()
         {
-			InvokeOnMainThread(WidgetsScreen.StartLoading);
+			InvokeOnMainThread(LoadingIndicator.Instance.StartLoading);
 			model.Load(() => {
 				InvokeOnMainThread(UpdateUI);
-				InvokeOnMainThread(WidgetsScreen.StopLoading);
+				InvokeOnMainThread(LoadingIndicator.Instance.StopLoading);
 			});
         }
 		

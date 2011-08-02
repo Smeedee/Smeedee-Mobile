@@ -22,7 +22,7 @@ namespace Smeedee.iOS
 		
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			darkSwitch = new DarkSwitch(true);
+			darkSwitch = new DarkSwitch(widgetModel.Enabled);
 			darkSwitch.ValueChanged += delegate {
 				Console.WriteLine("Selected " + darkSwitch.SelectedSegment);
 				widgetModel.Enabled = darkSwitch.On;

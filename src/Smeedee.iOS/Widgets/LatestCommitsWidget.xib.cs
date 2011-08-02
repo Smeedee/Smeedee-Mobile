@@ -36,10 +36,10 @@ namespace Smeedee.iOS
         
         public void Refresh()
         {
-			InvokeOnMainThread(WidgetsScreen.StartLoading);
+			InvokeOnMainThread(LoadingIndicator.Instance.StartLoading);
 			model.Load(() =>  {
 				InvokeOnMainThread(UpdateUI);
-				InvokeOnMainThread(WidgetsScreen.StopLoading);
+				InvokeOnMainThread(LoadingIndicator.Instance.StopLoading);
 			});
         }
 		
@@ -122,10 +122,10 @@ namespace Smeedee.iOS
 		{
 			if (indexPath.Section == 1)
 			{
-				InvokeOnMainThread(WidgetsScreen.StartLoading);
+				InvokeOnMainThread(LoadingIndicator.Instance.StartLoading);
 				model.LoadMore(() => {
 					controller.LoadMore();
-					InvokeOnMainThread(WidgetsScreen.StopLoading);
+					InvokeOnMainThread(LoadingIndicator.Instance.StopLoading);
 				});	
 			}
 		}

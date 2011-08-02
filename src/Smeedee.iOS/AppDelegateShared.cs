@@ -40,7 +40,7 @@ namespace Smeedee.iOS
 			else
 			{
 				Console.WriteLine("Server is configured, attempting to connect ...");
-				WidgetsScreen.StartLoading();
+				LoadingIndicator.Instance.StartLoading();
 				ShowSplashScreen();
 				login.StoreAndValidate(login.Url, login.Key, ServerCallback);
 			}
@@ -53,7 +53,7 @@ namespace Smeedee.iOS
 		
 		private void ServerCallback(string response)
 		{
-			WidgetsScreen.StopLoading();
+			LoadingIndicator.Instance.StopLoading();
 			if (response == Login.ValidationSuccess) {
 				Console.WriteLine("Login succeded, showing widgets");
 				window.InvokeOnMainThread(ShowWidgets);

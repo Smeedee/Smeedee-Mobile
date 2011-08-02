@@ -157,12 +157,6 @@
     <Compile Include="..\Smeedee\Services\IBackgroundWorker.cs">
       <Link>Services\IBackgroundWorker.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Guard.cs">
-      <Link>Lib\Guard.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\TimeSpanPrettyPrintExtension.cs">
-      <Link>Lib\TimeSpanPrettyPrintExtension.cs</Link>
-    </Compile>
     <Compile Include="Widgets\TopCommittersWidget.xib.cs">
       <DependentUpon>TopCommittersWidget.xib</DependentUpon>
     </Compile>
@@ -227,12 +221,6 @@
     <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
       <Link>Services\ILatestCommitsService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\Fakes\LatestCommitsFakeService.cs">
-      <Link>Services\Fakes\LatestCommitsFakeService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
-      <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Model\Login.cs">
       <Link>Model\Login.cs</Link>
     </Compile>
@@ -294,14 +282,8 @@
     <Compile Include="..\Smeedee\Services\IFetchHttp.cs">
       <Link>Services\IFetchHttp.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Csv.cs">
-      <Link>Lib\Csv.cs</Link>
-    </Compile>
     <Compile Include="..\Smeedee\Model\ServiceConstants.cs">
       <Link>Model\ServiceConstants.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\Fakes\WorkingDaysLeftFakeService.cs">
-      <Link>Services\Fakes\WorkingDaysLeftFakeService.cs</Link>
     </Compile>
     <Compile Include="Widgets\TableCells\LatestCommitsLoadMoreTableCellController.xib.cs">
       <DependentUpon>LatestCommitsLoadMoreTableCellController.xib</DependentUpon>
@@ -348,8 +330,32 @@
     <Compile Include="..\Smeedee\Services\DiskCachedImageService.cs">
       <Link>Services\DiskCachedImageService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Directories.cs">
+    <Compile Include="..\Smeedee\Lib\Csv.cs">
+      <Link>Lib\Csv.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Lib\Directories.cs">
       <Link>Lib\Directories.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Lib\Guard.cs">
+      <Link>Lib\Guard.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Lib\IFileIO.cs">
+      <Link>Lib\IFileIO.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Lib\StreamExtensions.cs">
+      <Link>Lib\StreamExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Lib\TimeSpanPrettyPrintExtension.cs">
+      <Link>Lib\TimeSpanPrettyPrintExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeLatestCommitsService.cs">
+      <Link>Services\Fakes\FakeLatestCommitsService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeTopCommittersService.cs">
+      <Link>Services\Fakes\FakeTopCommittersService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeWorkingDaysLeftService.cs">
+      <Link>Services\Fakes\FakeWorkingDaysLeftService.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
