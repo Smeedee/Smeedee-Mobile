@@ -10,6 +10,8 @@
     android:layout_height="wrap_content"
     android:maxHeight="70dp"
     android:maxWidth="70dp"
+    android:minWidth="70dp"
+    android:scaleType="fitCenter"
     android:adjustViewBounds="true"
     android:src="@drawable/defaultperson"
     android:paddingBottom="6dp"
