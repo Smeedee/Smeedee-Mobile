@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using Smeedee.Model;
 using Smeedee.Services;
 using MonoTouch.Foundation;
@@ -16,7 +17,7 @@ namespace Smeedee.iOS.Lib
 		
 		public UIImageLoader()
 		{
-			service = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
+			service = new TrivialImageLoader();//SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
 		}
 		
 		public void LoadImageFromUri(Uri uri, Action<UIImage> callback) 
@@ -35,6 +36,33 @@ namespace Smeedee.iOS.Lib
 					}
 				});
 			}
+		}
+	}
+	
+	internal class TrivialImageLoader : IImageService
+	{
+		private IBackgroundWorker worker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
+		
+		public void GetImage(Uri uri, Action<byte[]> callback)
+		{
+			// WebClient is not thread-safe, need new instance for each thread
+            worker.Invoke(() => {
+				byte[] data = null;
+                try
+                {
+                    var client = new WebClient();
+					data = client.DownloadData(uri);
+				} 
+				catch (WebException e) 
+				{
+					Console.WriteLine("Image error: " + e.Message);
+                    //Do nothing, call callback with null as argument
+				}
+				
+				Console.WriteLine("Returning image data: " + data);
+				
+				callback(data);
+            });
 		}
 	}
 }
