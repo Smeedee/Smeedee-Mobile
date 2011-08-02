@@ -44,8 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Csv.cs" />
-    <Compile Include="Directories.cs" />
+    <Compile Include="Lib\Csv.cs" />
+    <Compile Include="Lib\Directories.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\BuildOrder.cs" />
     <Compile Include="Model\BuildStatus.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
     <Compile Include="Services\Fakes\WorkingDaysLeftFakeService.cs" />
     <Compile Include="Services\BackgroundWorker.cs" />
-    <Compile Include="Guard.cs" />
+    <Compile Include="Lib\Guard.cs" />
     <Compile Include="Services\IBackgroundWorker.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -94,7 +94,7 @@
     <Compile Include="Services\TopCommittersService.cs" />
     <Compile Include="Services\ValidationService.cs" />
     <Compile Include="Services\WorkingDaysLeftService.cs" />
-    <Compile Include="TimeSpanPrettyPrintExtension.cs" />
+    <Compile Include="Lib\TimeSpanPrettyPrintExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

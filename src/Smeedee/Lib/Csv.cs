@@ -16,8 +16,8 @@ namespace Smeedee
 
         public static string ToCsv(IEnumerable<string[]> csv)
         {
-            var rows = csv.Select(row => String.Join(ColumnSeparator.ToString(), row.Select(StripSpecialChars)));
-            return String.Join(LineSeparator.ToString(), rows);
+            var rows = csv.Select(row => String.Join(ColumnSeparator.ToString(), row.Select(StripSpecialChars).ToArray()));
+            return String.Join(LineSeparator.ToString(), rows.ToArray());
         }
 
         private static string StripSpecialChars(string str)
