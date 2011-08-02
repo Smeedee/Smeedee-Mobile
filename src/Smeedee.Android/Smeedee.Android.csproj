@@ -123,17 +123,17 @@
     <Compile Include="..\Smeedee\Services\Fakes\FakeBuildStatusService.cs">
       <Link>Services\Fakes\FakeBuildStatusService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeLatestCommitsService.cs">
+      <Link>Services\Fakes\FakeLatestCommitsService.cs</Link>
+    </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeTopCommittersService.cs">
+      <Link>Services\Fakes\FakeTopCommittersService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\FakeValidationService.cs">
       <Link>Services\Fakes\FakeValidationService.cs</Link>
     </Compile>
-    <Compile Include="..\Smeedee\Services\Fakes\LatestCommitsFakeService.cs">
-      <Link>Services\Fakes\LatestCommitsFakeService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\Fakes\TopCommittersFakeService.cs">
-      <Link>Services\Fakes\TopCommittersFakeService.cs</Link>
-    </Compile>
-    <Compile Include="..\Smeedee\Services\Fakes\WorkingDaysLeftFakeService.cs">
-      <Link>Services\Fakes\WorkingDaysLeftFakeService.cs</Link>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeWorkingDaysLeftService.cs">
+      <Link>Services\Fakes\FakeWorkingDaysLeftService.cs</Link>
     </Compile>
     <Compile Include="..\Smeedee\Services\HttpFetcher.cs">
       <Link>Services\HttpFetcher.cs</Link>

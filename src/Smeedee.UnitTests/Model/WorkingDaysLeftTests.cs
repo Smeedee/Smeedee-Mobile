@@ -9,14 +9,14 @@ namespace Smeedee.UnitTests.Model
     [TestFixture]
     public class WorkingDaysLeftTests
     {
-        private WorkingDaysLeftFakeService fakeService;
+        private FakeWorkingDaysLeftService fakeService;
         private WorkingDaysLeft model;
 
         [SetUp]
         public void SetUp()
         {
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
-            fakeService = new WorkingDaysLeftFakeService();
+            fakeService = new FakeWorkingDaysLeftService();
             SmeedeeApp.Instance.ServiceLocator.Bind<IWorkingDaysLeftService>(fakeService);
             model = new WorkingDaysLeft();
         }
