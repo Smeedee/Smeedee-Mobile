@@ -207,6 +207,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Fakes\FakePersister.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\Widgets\BuildStatusItemViewModel.cs" />
+    <Compile Include="ViewModels\Widgets\BuildStatusViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersViewModel.cs" />
   </ItemGroup>

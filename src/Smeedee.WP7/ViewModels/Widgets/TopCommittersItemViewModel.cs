@@ -1,19 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-
-namespace Smeedee.WP7
+﻿
+namespace Smeedee.WP7.ViewModels.Widgets
 {
-    public class TopCommittersItemViewModel : INotifyPropertyChanged
+    public class TopCommittersItemViewModel : ViewModelBase
     {
         private string _name;
         public string Name
@@ -63,16 +51,6 @@ namespace Smeedee.WP7
                     _lineThree = value;
                     NotifyPropertyChanged("LineThree");
                 }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
