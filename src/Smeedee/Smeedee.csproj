@@ -61,7 +61,7 @@
     <Compile Include="Services\BuildStatusService.cs" />
     <Compile Include="Services\Fakes\FakeBuildStatusService.cs" />
     <Compile Include="Services\Fakes\FakeValidationService.cs" />
-    <Compile Include="Services\Fakes\LatestCommitsFakeService.cs" />
+    <Compile Include="Services\Fakes\FakeLatestCommitsService.cs" />
     <Compile Include="Services\HttpFetcher.cs" />
     <Compile Include="Services\IBuildStatusService.cs" />
     <Compile Include="Services\IFetchHttp.cs" />
@@ -72,8 +72,8 @@
     <Compile Include="Services\LatestCommitsService.cs" />
     <Compile Include="Services\MemoryCachedImageService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
-    <Compile Include="Services\Fakes\TopCommittersFakeService.cs" />
-    <Compile Include="Services\Fakes\WorkingDaysLeftFakeService.cs" />
+    <Compile Include="Services\Fakes\FakeTopCommittersService.cs" />
+    <Compile Include="Services\Fakes\FakeWorkingDaysLeftService.cs" />
     <Compile Include="Services\BackgroundWorker.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Services\IBackgroundWorker.cs" />

@@ -5,7 +5,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Services.Fakes
 {
-    public class TopCommittersFakeService : ITopCommittersService
+    public class FakeTopCommittersService : ITopCommittersService
     {
         private Committer[] data = new[] {
             new Committer("Lars Kirkholt Melhus", 17, "http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png"),
@@ -20,7 +20,7 @@ namespace Smeedee.Services.Fakes
         private readonly IBackgroundWorker bgWorker;
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
 
-        public TopCommittersFakeService()
+        public FakeTopCommittersService()
         {
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
         }
