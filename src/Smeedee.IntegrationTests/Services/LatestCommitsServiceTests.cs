@@ -10,6 +10,7 @@ namespace Smeedee.IntegrationTests
     public class LatestCommitsServiceTests
     {
         [Test]
+        [Ignore]
         public void Should_be_able_to_fetch_and_parse_service_when_server_is_running_on_localhost()
         {
             var persistance = new FakePersistenceService();
