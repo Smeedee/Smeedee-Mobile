@@ -6,8 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
     d:DataContext="{d:DesignData Source=SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -22,6 +22,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot Title="SMEEDEE">
+            
             <!-- home screen -->
             <controls:PivotItem>
                 <controls:PivotItem.Header>
@@ -53,6 +54,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
+            
             <!-- build status -->
             <controls:PivotItem>
                 <controls:PivotItem.Header>
@@ -101,9 +103,8 @@
                 </StackPanel>
             </controls:PivotItem>
 
-
+            <!-- latest commits -->
             <controls:PivotItem>
- 			    <!-- latest commits -->     
                 <controls:PivotItem.Header>
                     <TextBlock Text="latest commits" Foreground="#f25000"/>
                 </controls:PivotItem.Header>

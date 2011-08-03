@@ -1,7 +1,8 @@
 <ViewModels:MainViewModel 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- 	xmlns:local="clr-namespace:Smeedee.WP7" xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets">
+ 	xmlns:local="clr-namespace:Smeedee.WP7" xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
+    xmlns:ViewModels="clr-namespace:Smeedee.WP7.ViewModels">
 
 	<ViewModels:MainViewModel.LatestCommits>
         <Widgets:LatestCommitsViewModel>
@@ -11,6 +12,7 @@
             </Widgets:LatestCommitsViewModel.Items>
         </Widgets:LatestCommitsViewModel>
     </ViewModels:MainViewModel.LatestCommits>
+    
     <ViewModels:MainViewModel.BuildStatus>
         <Widgets:BuildStatusViewModel>
             <Widgets:BuildStatusViewModel.Items>
@@ -20,3 +22,5 @@
             </Widgets:BuildStatusViewModel.Items>
         </Widgets:BuildStatusViewModel>
     </ViewModels:MainViewModel.BuildStatus>
+    
+</ViewModels:MainViewModel>
