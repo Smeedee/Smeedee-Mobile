@@ -40,9 +40,9 @@ namespace Smeedee.WP7
 
             InitializeComponent();
 
-            InitializePhoneApplication();
-
             BindDependencies();
+
+            InitializePhoneApplication();
         }
 
         private bool USE_FAKES = false;
@@ -50,7 +50,6 @@ namespace Smeedee.WP7
         {
             
             var app = SmeedeeApp.Instance;
-            //app.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
 
             app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
             app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "" }); //We cache in the root of our IsolatedStorage, so we have an empty string here
@@ -60,7 +59,8 @@ namespace Smeedee.WP7
                 //app.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 app.ServiceLocator.Bind<IPersistenceService>(new FakePersister()); //<-Still fake! TODO
                 app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
-                app.ServiceLocator.Bind<IValidationService>(new ValidationService());                app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
+                app.ServiceLocator.Bind<IValidationService>(new ValidationService());                
+                app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
                 app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 
                 app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());

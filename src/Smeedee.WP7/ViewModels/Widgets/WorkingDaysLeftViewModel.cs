@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Smeedee.Model;
 
 namespace Smeedee.WP7.ViewModels.Widgets
@@ -54,6 +46,22 @@ namespace Smeedee.WP7.ViewModels.Widgets
                 }
             }
         }
+        private string _untillText;
+        public string UntillText
+        {
+            get
+            {
+                return _untillText;
+            }
+            set
+            {
+                if (value != _untillText)
+                {
+                    _untillText = value;
+                    NotifyPropertyChanged("UntillText");
+                }
+            }
+        }
 
         public bool IsDataLoaded
         {
@@ -67,6 +75,12 @@ namespace Smeedee.WP7.ViewModels.Widgets
             {
                 DaysLeft = model.DaysLeft;
                 DaysLeftSuffix = CreateSuffix();
+
+                if (model.IsOnOvertime)
+                    UntillText = "You should have been finished by " + model.UntillDate.DayOfWeek.ToString() + " " +
+                                      model.UntillDate.Date.ToShortDateString();
+                else
+                    UntillText = "untill " + model.UntillDate.DayOfWeek.ToString() + " " + model.UntillDate.Date.ToShortDateString();
             }));
             IsDataLoaded = true;
         }
