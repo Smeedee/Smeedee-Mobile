@@ -16,9 +16,9 @@
     <ViewModels:MainViewModel.BuildStatus>
         <Widgets:BuildStatusViewModel>
             <Widgets:BuildStatusViewModel.Items>
-                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - dev" UserName="dagolap" BuildTime="One hour ago" />
-                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - app" UserName="system" BuildTime="One hour ago" />
-                <Widgets:BuildStatusItemViewModel ProjectName="Smeede System - tests" UserName="system" BuildTime="One hour ago" />
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - dev" UserName="dagolap" BuildTime="One hour ago" BuildStatusImage="Resources/Images/icon_buildfailure.png"/>
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - app" UserName="system" BuildTime="One hour ago" BuildStatusImage="Resources/Images/icon_buildsuccess.png"/>
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede System - tests" UserName="system" BuildTime="One hour ago" BuildStatusImage="Resources/Images/icon_buildunknown.png"/>
             </Widgets:BuildStatusViewModel.Items>
         </Widgets:BuildStatusViewModel>
     </ViewModels:MainViewModel.BuildStatus>

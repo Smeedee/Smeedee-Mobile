@@ -1,5 +1,4 @@
-﻿using System;
-using Smeedee.WP7.ViewModels.Widgets;
+﻿using Smeedee.WP7.ViewModels.Widgets;
 
 namespace Smeedee.WP7.ViewModels
 {
