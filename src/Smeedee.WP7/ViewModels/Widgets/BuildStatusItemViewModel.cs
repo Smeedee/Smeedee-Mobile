@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Windows.Media.Imaging;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {
@@ -49,6 +49,22 @@ namespace Smeedee.WP7.ViewModels.Widgets
                 {
                     _buildTime = value;
                     NotifyPropertyChanged("BuildTime");
+                }
+            }
+        }
+        private string _statusBuildStatusImage;
+        public string BuildStatusImage
+        {
+            get
+            {
+                return _statusBuildStatusImage;
+            }
+            set
+            {
+                if (value != _statusBuildStatusImage)
+                {
+                    _statusBuildStatusImage = value;
+                    NotifyPropertyChanged("BuildStatusImage");
                 }
             }
         }

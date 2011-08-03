@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Smeedee.Model;
+using Smeedee.WP7.Converters;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {
@@ -28,7 +31,18 @@ namespace Smeedee.WP7.ViewModels.Widgets
             {
                 foreach (var build in model.Builds)
                 {
-                    Items.Add(new BuildStatusItemViewModel { ProjectName = build.ProjectName, UserName = build.Username, BuildTime = build.BuildTime.ToString()});
+                    var statusImageUri = "";
+
+                    if (build.BuildSuccessState == BuildState.Broken) statusImageUri = "Resources/Images/icon_buildfailure.png";
+                    if (build.BuildSuccessState == BuildState.Working) statusImageUri = "Resources/Images/icon_buildsuccess.png";
+                    if (build.BuildSuccessState == BuildState.Unknown) statusImageUri = "Resources/Images/icon_buildunknown.png";
+                    
+                    Items.Add(new BuildStatusItemViewModel 
+                    {   ProjectName = build.ProjectName, 
+                        UserName = build.Username, 
+                        BuildTime = (DateTime.Now - build.BuildTime).PrettyPrint(),
+                        BuildStatusImage = statusImageUri
+                    });
                 }
             }));
             IsDataLoaded = true;

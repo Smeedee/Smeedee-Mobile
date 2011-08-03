@@ -69,7 +69,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+                                <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
@@ -77,16 +77,16 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Text="{Binding ProjectName}" Grid.Column="0" Grid.Row="0" Padding="0,12,0,0" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Text="{Binding UserName}" Grid.Column="0" Grid.Row="1" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                <TextBlock Text="{Binding BuildTime}" Grid.Column="0" Grid.Row="2" TextWrapping="NoWrap" Margin="12,6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" FontStyle="Italic" />
-
-                                <Image Source="Resources\Images\default_person.jpeg" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Right" Width="100" Height="100"></Image>
                                 
-                                </Grid>
+                                <Image Source="{Binding BuildStatusImage}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" Width="64" Height="64"></Image>
+                                <TextBlock Text="{Binding BuildTime}" Grid.Column="1" Grid.Row="1" TextWrapping="NoWrap" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" FontStyle="Italic" />
+
+                            </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
