@@ -2,6 +2,7 @@
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Ink;
 using System.Windows.Input;
@@ -19,10 +20,14 @@ namespace Smeedee.WP7
             if (item == LatestCommitsViewModel.ButtonPlaceholderItem && element is ListBoxItem)
             {
                 var loadMoreButton = new Button { Content = "Load more" };
-                loadMoreButton.Click += (o, e) => App.ViewModel.LatestCommits.LoadMore();
+                loadMoreButton.Click += (o, e) =>
+                                            {
+                                                loadMoreButton.Opacity = 0;
+                                                App.ViewModel.LatestCommits.LoadMore();
+                                            };
+                loadMoreButton.IsEnabled = App.ViewModel.LatestCommits.LoadMoreButtonIsEnabled;
                 (element as ListBoxItem).Content = loadMoreButton;
                 (element as ListBoxItem).UpdateLayout();
-
             }
             else
             {
