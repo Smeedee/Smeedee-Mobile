@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -26,7 +21,7 @@ namespace Smeedee.WP7
             get
             {
                 if (viewModel == null)
-                    viewModel = new MainViewModel();
+                    viewModel = new MainViewModel(); // This is where all our other ViewModels are stored as properties
 
                 return viewModel;
             }
@@ -56,7 +51,6 @@ namespace Smeedee.WP7
             
             var app = SmeedeeApp.Instance;
             //app.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
-            Console.WriteLine("Hello");
 
             app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
             app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "" }); //We cache in the root of our IsolatedStorage, so we have an empty string here

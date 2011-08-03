@@ -22,12 +22,14 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <!--Pivot Control-->
         <controls:Pivot Title="SMEEDEE">
             
             
             <!-- home screen -->
-            <controls:PivotItem Header="home">
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="home" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                 <StackPanel Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image Source="Resources\Images\icon_smeedee.png" Width="100"></Image>
                     <TextBlock Text="smeedee mobile" Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,0,20"></TextBlock>
@@ -36,7 +38,10 @@
 
             
             <!-- top committers -->
-            <controls:PivotItem Header="top committers">
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="top committers" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                 <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding TopCommitters.Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -54,28 +59,33 @@
 
 
             <!-- build status -->
-            <controls:PivotItem Header="build status"> 
-                    <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
-                                    <StackPanel Margin="0,0,0,17">
-                                        <TextBlock Text="{Binding ProjectName}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding UserName}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                    <Image Source="Resources\Images\default_person.jpeg"></Image>
-                                        <TextBlock Text="{Binding BuildTime}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="build status" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
+                <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                                <StackPanel Margin="0,0,0,17">
+                                    <TextBlock Text="{Binding ProjectName}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                    <TextBlock Text="{Binding UserName}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                <StackPanel>
+                                <Image Source="Resources\Images\default_person.jpeg"></Image>
+                                    <TextBlock Text="{Binding BuildTime}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </controls:PivotItem>
 
-            
-            <!-- working days left -->
-            <controls:PivotItem Header="days left">
+			<!-- working days left -->            
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="days left" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                 <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
                     <TextBlock Text="{Binding WorkingDaysLeft.DaysLeft}" Style="{StaticResource PhoneTextExtraLargeStyle}"></TextBlock>
                     <TextBlock Text="{Binding WorkingDaysLeft.DaysLeftSuffix}" Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,0,20"></TextBlock>
@@ -83,8 +93,11 @@
             </controls:PivotItem>
 
 
-            <!-- latest commits -->
-            <controls:PivotItem Header="latest commits">
+            <controls:PivotItem>
+ 			    <!-- latest commits -->     
+                <controls:PivotItem.Header>
+                    <TextBlock Text="latest commits" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding LatestCommits.Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -100,9 +113,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </controls:PivotItem>
-            
-            
+            </controls:PivotItem>            
         </controls:Pivot>
     </Grid>
  
