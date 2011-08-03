@@ -17,7 +17,7 @@
     shell:SystemTray.IsVisible="True">
     
     <UserControl.Resources>
-        <Converters:CachedImageConverter x:Key="CachedImageConverter"/>
+        <Converters:UriToImageConverter x:Key="UriToImageConverter"/>
     </UserControl.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -102,7 +102,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,0,0,0" HorizontalAlignment="Stretch">
-                                <Image Source="{Binding Image, Converter={StaticResource CachedImageConverter}}"></Image>
+                                <Image Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
 
                                 <StackPanel Margin="0,0,0,17" HorizontalAlignment="Stretch">
                                     <TextBlock Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
