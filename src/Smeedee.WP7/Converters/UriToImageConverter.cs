@@ -16,15 +16,19 @@ using Smeedee.Model;
 
 namespace Smeedee.WP7.Converters
 {
-    public class CachedImageConverter: IValueConverter
+    public class UriToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType,
                                 object parameter, CultureInfo culture)
         {
             var image = new BitmapImage(new Uri("pack://application/Resources/Images/default_person.jpeg"));
             var imageService = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
-            imageService.GetImage(value as Uri, bytes => 
-                Deployment.Current.Dispatcher.BeginInvoke(() => image.SetSource(new MemoryStream(bytes))));
+            imageService.GetImage(value as Uri, bytes =>
+            {
+                if (bytes == null) return;
+                Deployment.Current.Dispatcher.BeginInvoke(
+                    () => image.SetSource(new MemoryStream(bytes)));
+            });
             return image;
         }
 
