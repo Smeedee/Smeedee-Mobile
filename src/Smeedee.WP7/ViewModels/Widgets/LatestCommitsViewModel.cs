@@ -61,7 +61,15 @@ namespace Smeedee.WP7.ViewModels.Widgets
 
         public void LoadMore()
         {
-            
+            model.LoadMore(() => Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                Items.Clear();
+                foreach (var commit in model.Commits)
+                {
+                    Items.Add(new LatestCommitsItemViewModel { Message = commit.Message, User = commit.User, Date = (DateTime.Now - commit.Date).PrettyPrint(), Image = commit.ImageUri });
+                }
+                Items.Add(ButtonPlaceholderItem);
+            }));
         }
     }
 }

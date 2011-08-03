@@ -14,13 +14,17 @@ namespace Smeedee.WP7
 {
     public class LoadMoreListBox : ListBox
     {
-        protected override void PrepareContainerForItemOverride(DependencyObject element, object item) {
+        protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
+        {
             if (item == LatestCommitsViewModel.ButtonPlaceholderItem && element is ListBoxItem)
             {
-                var loadMoreButton = new Button {Content = "Load more"};
+                var loadMoreButton = new Button { Content = "Load more" };
                 loadMoreButton.Click += (o, e) => App.ViewModel.LatestCommits.LoadMore();
                 (element as ListBoxItem).Content = loadMoreButton;
-            } else
+                (element as ListBoxItem).UpdateLayout();
+
+            }
+            else
             {
                 base.PrepareContainerForItemOverride(element, item);
             }
