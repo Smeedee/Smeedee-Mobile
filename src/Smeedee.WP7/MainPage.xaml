@@ -61,6 +61,7 @@
                     </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
+                                
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />

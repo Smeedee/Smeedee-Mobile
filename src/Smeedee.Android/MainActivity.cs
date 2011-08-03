@@ -38,6 +38,7 @@ namespace Smeedee.Android
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 App.ServiceLocator.Bind<IValidationService>(new ValidationService());
                 App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
+                App.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
                 App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
 
                 App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
