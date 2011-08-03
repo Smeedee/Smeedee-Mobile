@@ -1,16 +1,18 @@
-<Widgets:TopCommittersViewModel 
+<ViewModels:MainViewModel 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Smeedee.WP7" xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
-    SampleProperty="Sample Text Property Value">
-    
-    <Widgets:TopCommittersViewModel.Items>
-        <Widgets:TopCommittersItemViewModel local:Name="design one" Commits="Maecenas praesent accumsan bibendum" LineThree="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
-        <Widgets:TopCommittersItemViewModel local:Name="design two" Commits="Dictumst eleifend facilisi faucibus" LineThree="Pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent"/>
-        <Widgets:TopCommittersItemViewModel local:Name="design three" Commits="Habitant inceptos interdum lobortis" LineThree="Accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat"/>
-        <Widgets:TopCommittersItemViewModel local:Name="design four" Commits="Nascetur pharetra placerat pulvinar" LineThree="Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum"/>
-        <Widgets:TopCommittersItemViewModel local:Name="design five" Commits="Sagittis senectus sociosqu suscipit" LineThree="Dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis"/>
-        <Widgets:TopCommittersItemViewModel local:Name="design six" Commits="Torquent ultrices vehicula volutpat" LineThree="Senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend"/>
-    </Widgets:TopCommittersViewModel.Items>
-    
-</Widgets:TopCommittersViewModel>
+    xmlns:local="clr-namespace:Smeedee.WP7" 
+    xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
+    xmlns:ViewModels="clr-namespace:Smeedee.WP7.ViewModels" >
+
+    <ViewModels:MainViewModel.BuildStatus>
+        <Widgets:BuildStatusViewModel>
+            <Widgets:BuildStatusViewModel.Items>
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - dev" UserName="dagolap" BuildTime="One hour ago" />
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - app" UserName="system" BuildTime="One hour ago" />
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede System - tests" UserName="system" BuildTime="One hour ago" />
+            </Widgets:BuildStatusViewModel.Items>
+        </Widgets:BuildStatusViewModel>
+    </ViewModels:MainViewModel.BuildStatus>
+
+</ViewModels:MainViewModel>

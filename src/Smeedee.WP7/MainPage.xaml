@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    d:DataContext="{d:DesignData Source=SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -33,7 +33,7 @@
                     <TextBlock Text="top committers" Foreground="#f25000"/>
                 </controls:PivotItem.Header>
                 
-                <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding TopCommitters.Items}">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding TopCommitters.Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
@@ -53,19 +53,32 @@
                 <controls:PivotItem.Header>
                     <TextBlock Text="build status" Foreground="#f25000"/>
                 </controls:PivotItem.Header>
-                    <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
+                    <ListBox Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
-                                    <StackPanel Margin="0,0,0,17">
-                                        <TextBlock Text="{Binding ProjectName}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding UserName}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                    <Image Source="Resources\Images\default_person.jpeg"></Image>
-                                        <TextBlock Text="{Binding BuildTime}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                </StackPanel>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{Binding ProjectName}" Grid.Column="0" Grid.Row="0" Padding="0,12,0,0" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Text="{Binding UserName}" Grid.Column="0" Grid.Row="1" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding BuildTime}" Grid.Column="0" Grid.Row="2" TextWrapping="NoWrap" Margin="12,6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" FontStyle="Italic" />
+
+                                <Image Source="Resources\Images\default_person.jpeg" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Right" Width="100" Height="100"></Image>
+                                
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
