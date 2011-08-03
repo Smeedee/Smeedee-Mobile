@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -15,6 +16,7 @@ namespace Smeedee.WP7.Converters
                                 object parameter, CultureInfo culture)
         {
             var image = new BitmapImage(new Uri("pack://application/Resources/Images/default_person.jpeg"));
+            if (IsInDesignMode()) return image; //don't load urls in the designer
             var imageService = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
             imageService.GetImage(value as Uri, bytes =>
             {
@@ -29,6 +31,11 @@ namespace Smeedee.WP7.Converters
                                     object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        public bool IsInDesignMode()
+        {
+            return DesignerProperties.GetIsInDesignMode(new BitmapImage());
         }
     }
 }
