@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-
 using Microsoft.Phone.Controls;
 
 namespace Smeedee.WP7
 {
+
     public partial class MainPage : PhoneApplicationPage
     {
         // Constructor

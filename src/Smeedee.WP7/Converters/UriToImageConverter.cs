@@ -33,9 +33,12 @@ namespace Smeedee.WP7.Converters
             throw new NotImplementedException();
         }
 
+        private bool? _isInDesignMode = null;
         public bool IsInDesignMode()
         {
-            return DesignerProperties.GetIsInDesignMode(new BitmapImage());
+            if (_isInDesignMode == null)
+                _isInDesignMode = DesignerProperties.GetIsInDesignMode(new BitmapImage());
+            return _isInDesignMode ?? false;
         }
     }
 }

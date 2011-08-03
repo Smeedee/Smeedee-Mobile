@@ -204,6 +204,7 @@
     </Compile>
     <Compile Include="Converters\UriToImageConverter.cs" />
     <Compile Include="Lib\Wp7FileIO.cs" />
+    <Compile Include="LoadMoreListBox.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
