@@ -57,18 +57,17 @@ namespace Smeedee.WP7
             if (!USE_FAKES)
             {
                 //app.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-                app.ServiceLocator.Bind<IPersistenceService>(new FakePersister()); //<-Still fake!
+                app.ServiceLocator.Bind<IPersistenceService>(new FakePersister()); //<-Still fake! TODO
                 app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 app.ServiceLocator.Bind<IValidationService>(new ValidationService());                
                 app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
                 app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 
                 app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
-                app.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
+                app.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService()); 
                 app.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
                 app.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
             }
-
             else
             {
                 app.ServiceLocator.Bind<IPersistenceService>(new FakePersister());

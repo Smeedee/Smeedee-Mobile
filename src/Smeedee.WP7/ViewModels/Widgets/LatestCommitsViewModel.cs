@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net;
 using System.Windows;
 using Smeedee.Model;
 
