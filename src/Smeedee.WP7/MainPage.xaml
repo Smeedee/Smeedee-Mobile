@@ -30,7 +30,7 @@
                 </controls:PivotItem.Header>
                 <StackPanel Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image Source="Resources\Images\icon_smeedee.png" Width="100"></Image>
-                    <TextBlock Text="smeedee mobile" Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,0,20"></TextBlock>
+                    <TextBlock Text="smeedee mobile" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
                 </StackPanel>                
             </controls:PivotItem>
             
@@ -57,39 +57,34 @@
             
             <!-- build status -->
             <controls:PivotItem>
-                <controls:PivotItem.Header>
-                    <TextBlock Text="build status" Foreground="#f25000"/>
-                </controls:PivotItem.Header>
-                    <ListBox Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                
-                                <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
+            <controls:PivotItem.Header>
+                <TextBlock Text="build status" Foreground="#f25000"/>
+            </controls:PivotItem.Header>
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-
-                                <TextBlock Text="{Binding ProjectName}" Grid.Column="0" Grid.Row="0" Padding="0,12,0,0" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Text="{Binding UserName}" Grid.Column="0" Grid.Row="1" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                
-                                <Image Source="{Binding BuildStatusImage}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" Width="64" Height="64"></Image>
-                                <TextBlock Text="{Binding BuildTime}" Grid.Column="1" Grid.Row="1" TextWrapping="NoWrap" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" FontStyle="Italic" />
-
-                            </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                            <TextBlock Text="{Binding ProjectName}" Grid.Column="0" Grid.Row="0" Padding="0,12,0,0" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                            <TextBlock Text="{Binding UserName}" Grid.Column="0" Grid.Row="1" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <Image Source="{Binding BuildStatusImage}" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" Width="64" Height="64"></Image>
+                            <TextBlock Text="{Binding BuildTime}" Grid.Column="1" Grid.Row="1" TextWrapping="NoWrap" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" FontStyle="Italic" />
+                        </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </controls:PivotItem>
 
 			<!-- working days left -->            

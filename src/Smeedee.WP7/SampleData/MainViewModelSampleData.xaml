@@ -1,9 +1,22 @@
 <ViewModels:MainViewModel 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- 	xmlns:local="clr-namespace:Smeedee.WP7" xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
+ 	xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
     xmlns:ViewModels="clr-namespace:Smeedee.WP7.ViewModels">
 
+    <ViewModels:MainViewModel.TopCommitters>
+        <Widgets:TopCommittersViewModel>
+            <Widgets:TopCommittersViewModel.Items>
+                <Widgets:TopCommittersItemViewModel Name="Dag Olav" Commits="232"/>
+                <Widgets:TopCommittersItemViewModel Name="Lars Eidnes" Commits="219"/>
+                <Widgets:TopCommittersItemViewModel Name="Shared Macbook" Commits="200"/>
+                <Widgets:TopCommittersItemViewModel Name="Børge Rødsjø" Commits="178"/>
+                <Widgets:TopCommittersItemViewModel Name="Lars Melhus" Commits="154"/>
+            </Widgets:TopCommittersViewModel.Items>
+        </Widgets:TopCommittersViewModel>
+    </ViewModels:MainViewModel.TopCommitters>
+    
+    
 	<ViewModels:MainViewModel.LatestCommits>
         <Widgets:LatestCommitsViewModel>
             <Widgets:LatestCommitsViewModel.Items>
@@ -12,6 +25,7 @@
             </Widgets:LatestCommitsViewModel.Items>
         </Widgets:LatestCommitsViewModel>
     </ViewModels:MainViewModel.LatestCommits>
+    
     
     <ViewModels:MainViewModel.BuildStatus>
         <Widgets:BuildStatusViewModel>
@@ -22,5 +36,9 @@
             </Widgets:BuildStatusViewModel.Items>
         </Widgets:BuildStatusViewModel>
     </ViewModels:MainViewModel.BuildStatus>
-    
+
+    <ViewModels:MainViewModel.WorkingDaysLeft>
+        <Widgets:WorkingDaysLeftViewModel DaysLeft="8" DaysLeftSuffix="working days left" />
+    </ViewModels:MainViewModel.WorkingDaysLeft>
+
 </ViewModels:MainViewModel>
