@@ -68,7 +68,6 @@ namespace Smeedee.WP7
                 app.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
                 app.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
             }
-
             else
             {
                 app.ServiceLocator.Bind<IPersistenceService>(new FakePersister());

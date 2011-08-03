@@ -112,7 +112,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,0,0,0" HorizontalAlignment="Stretch">
-                                <Image Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
+                                <Image Source="{Binding Image, Converter={StaticResource UriToImageConverter}}" Width="55" VerticalAlignment="Top" Margin="0,19,0,7"></Image>
 
                                 <StackPanel Margin="0,0,0,17" HorizontalAlignment="Stretch">
                                     <TextBlock Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
