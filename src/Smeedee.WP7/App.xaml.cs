@@ -7,9 +7,11 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Smeedee.Lib;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
+using Smeedee.WP7.Lib;
 using Smeedee.WP7.Services.Fakes;
 using Smeedee.WP7.ViewModels;
 
@@ -48,7 +50,7 @@ namespace Smeedee.WP7
             BindDependencies();
         }
 
-        private bool USE_FAKES = true;
+        private bool USE_FAKES = false;
         private void BindDependencies()
         {
             
@@ -58,9 +60,11 @@ namespace Smeedee.WP7
             {
                 app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 //app.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+                app.ServiceLocator.Bind<IPersistenceService>(new FakePersister()); //<-Still fake!
                 app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 app.ServiceLocator.Bind<IValidationService>(new ValidationService());
-                app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "C:/" });
+                app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "" }); //We cache in the root of our IsolatedStorage, so we have an empty string here
+                app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
                 app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
 
                 app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
