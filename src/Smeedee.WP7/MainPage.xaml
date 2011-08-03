@@ -18,7 +18,10 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot Title="SMEEDEE">
-            <controls:PivotItem Header="home">
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="home" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                 <StackPanel Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image Source="Resources\Images\icon_smeedee.png" Width="100"></Image>
                     <TextBlock Text="smeedee mobile" Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,0,20"></TextBlock>
