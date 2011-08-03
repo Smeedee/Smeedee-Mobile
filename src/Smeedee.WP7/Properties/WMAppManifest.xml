@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{c53a25f7-33eb-4719-8812-2e812babc772}" Title="smeedee mobile" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Smeedee.WP7 author" Description="Sample description" Publisher="Smeedee.WP7">
+  <App xmlns="" ProductID="{c53a25f7-33eb-4719-8812-2e812babc772}" Title="smeedee mobile" 
+       RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Smeedee.WP7 author" 
+       Description="Sample description" Publisher="Smeedee.WP7">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>
