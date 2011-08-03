@@ -24,6 +24,7 @@ namespace Smeedee
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
+			Console.WriteLine("Fetching image " + uri);
 			// WebClient is not thread-safe, need new instance for each thread
             new Thread(() => {
 				byte[] data = null;
@@ -32,20 +33,26 @@ namespace Smeedee
                     var manualReset = new ManualResetEvent(false);
                     var client = new WebClient();
 
-                    client.OpenReadCompleted += (o, e) =>
-                    {
-                        if (e.Error == null)
+                    client.OpenReadCompleted += (o, e) => {if (e.Error == null) 
+						{
                             data = e.Result.ReadToEnd();
+						}
+						else {
+							Console.WriteLine("Error: " + e.Error);
+						}
                         manualReset.Set();
                     };
                     client.OpenReadAsync(uri);
 
                     manualReset.WaitOne(TIMEOUT);
 				} 
-				catch (WebException) 
+				catch (WebException e) 
 				{
+					Console.WriteLine("Image error: " + e.Message);
                     //Do nothing, call callback with null as argument
 				}
+				
+				Console.WriteLine("Returning image data: " + data);
 				
 				callback(data);
             }).Start();
