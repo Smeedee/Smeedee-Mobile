@@ -38,7 +38,7 @@
     </ViewModels:MainViewModel.BuildStatus>
 
     <ViewModels:MainViewModel.WorkingDaysLeft>
-        <Widgets:WorkingDaysLeftViewModel DaysLeft="8" DaysLeftSuffix="working days left" />
+        <Widgets:WorkingDaysLeftViewModel DaysLeft="8" DaysLeftSuffix="working days left" UntillText="untill 12/8/2011"/>
     </ViewModels:MainViewModel.WorkingDaysLeft>
 
 </ViewModels:MainViewModel>
