@@ -20,6 +20,14 @@ namespace Smeedee.Services
 
         public string DownloadString(string url)
         {
+            Uri uri;
+            try
+            {
+                uri = new Uri(url);
+            } catch (FormatException)
+            {
+                return "";
+            }
             var manualReset = new ManualResetEvent(false);
             var client = new WebClient();
 
@@ -30,7 +38,7 @@ namespace Smeedee.Services
                     result = e.Result;
                 manualReset.Set();
             };
-            client.DownloadStringAsync(new Uri(url));
+            client.DownloadStringAsync(uri);
 
             manualReset.WaitOne(TIMEOUT);
 
