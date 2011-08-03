@@ -14,7 +14,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
             Items = new ObservableCollection<TopCommittersItemViewModel>();
         }
         public ObservableCollection<TopCommittersItemViewModel> Items { get; private set; }
-        private TopCommitters model;
+        private readonly TopCommitters model;
 
         public bool IsDataLoaded
         {
@@ -28,7 +28,11 @@ namespace Smeedee.WP7.ViewModels.Widgets
             {
                 foreach (var committer in model.Committers)
                 {
-                    Items.Add(new TopCommittersItemViewModel { Name = committer.Name, Commits = committer.Commits + "", LineThree = "blah" });
+                    Items.Add(new TopCommittersItemViewModel 
+                    {   Name = committer.Name, 
+                        Commits = committer.Commits + "", 
+                        Image = committer.ImageUri
+                    });
                 }                      
             }));
             IsDataLoaded = true;

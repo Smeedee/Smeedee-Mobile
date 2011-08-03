@@ -244,11 +244,12 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Images\icon_smeedee.png" />
     <Resource Include="Resources\Images\default_person.jpeg" />
     <Resource Include="Resources\Images\icon_buildfailure.png" />
     <Resource Include="Resources\Images\icon_buildsuccess.png" />
     <Resource Include="Resources\Images\icon_buildunknown.png" />
+    <Content Include="Icon.png" />
+    <Content Include="SmeedeeBackgroundTile.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

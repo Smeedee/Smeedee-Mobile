@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Smeedee.WP7.ViewModels.Widgets
 {
     public class TopCommittersItemViewModel : ViewModelBase
@@ -50,6 +52,22 @@ namespace Smeedee.WP7.ViewModels.Widgets
                 {
                     _lineThree = value;
                     NotifyPropertyChanged("LineThree");
+                }
+            }
+        }
+        private Uri _image;
+        public Uri Image
+        {
+            get
+            {
+                return _image;
+            }
+            set
+            {
+                if (value != _image)
+                {
+                    _image = value;
+                    NotifyPropertyChanged("Image");
                 }
             }
         }

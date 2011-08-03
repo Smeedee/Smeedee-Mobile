@@ -83,15 +83,22 @@ namespace Smeedee.WP7.ViewModels.Widgets
         public void Refresh()
         {
             LoadData();
+            if (model.LoadError)
+            {
+                DaysLeft = 0;
+                DaysLeftSuffix = "";
+                UntillText = "Failed to load project info from server";
+                return;
+            }
+            _lastRefreshTime = DateTime.Now;
         }
-        private DateTime lastRefreshTime;
-        private string dynamicDescription;
-
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
-            return lastRefreshTime;
+            return _lastRefreshTime;
         }
 
+        private string dynamicDescription;
         public string GetDynamicDescription()
         {
             return dynamicDescription;

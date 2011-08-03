@@ -7,11 +7,11 @@
     <ViewModels:MainViewModel.TopCommitters>
         <Widgets:TopCommittersViewModel>
             <Widgets:TopCommittersViewModel.Items>
-                <Widgets:TopCommittersItemViewModel Name="Dag Olav" Commits="232"/>
-                <Widgets:TopCommittersItemViewModel Name="Lars Eidnes" Commits="219"/>
-                <Widgets:TopCommittersItemViewModel Name="Shared Macbook" Commits="200"/>
-                <Widgets:TopCommittersItemViewModel Name="Børge Rødsjø" Commits="178"/>
-                <Widgets:TopCommittersItemViewModel Name="Lars Melhus" Commits="154"/>
+                <Widgets:TopCommittersItemViewModel Name="Dag Olav" Commits="232" Image="Resources\Images\default_person.png"/>
+                <Widgets:TopCommittersItemViewModel Name="Lars Eidnes" Commits="219" Image="Resources\Images\default_person.png"/>
+                <Widgets:TopCommittersItemViewModel Name="Shared Macbook" Commits="200" Image="Resources\Images\default_person.png"/>
+                <Widgets:TopCommittersItemViewModel Name="Børge Rødsjø" Commits="178" Image="Resources\Images\default_person.png"/>
+                <Widgets:TopCommittersItemViewModel Name="Lars Melhus" Commits="154" Image="Resources\Images\default_person.png"/>
             </Widgets:TopCommittersViewModel.Items>
         </Widgets:TopCommittersViewModel>
     </ViewModels:MainViewModel.TopCommitters>

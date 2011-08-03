@@ -65,12 +65,9 @@ namespace Smeedee.Android.Widgets
             var daysView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftNumber);
             var textView = FindViewById<TextView>(Resource.Id.WorkingDaysLeftText);
 
-            var days = model.DaysLeft.ToString();
-            var text = model.DaysLeftText;
-            var untillDate = model.UntillDate;
-
-            daysView.Text = days;
-            textView.Text = text;
+            daysView.Text = model.DaysLeft.ToString();
+            textView.Text = model.DaysLeftText;
+            
             if (model.LoadError)
             {
                 DynamicDescription = "Failed to load project info from server";
@@ -80,12 +77,8 @@ namespace Smeedee.Android.Widgets
             }
             daysView.Visibility = ViewStates.Visible;
             textView.Visibility = ViewStates.Visible;
-            
-            if (model.IsOnOvertime)
-                DynamicDescription = "You should have been finished by " + untillDate.DayOfWeek.ToString() + " " +
-                                      untillDate.Date.ToShortDateString();
-            else
-                DynamicDescription = "Working days left untill " + untillDate.DayOfWeek.ToString() + " " + untillDate.Date.ToShortDateString();
+
+            DynamicDescription = model.UntillText;
         }
 
         public string GetDynamicDescription()
