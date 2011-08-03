@@ -9,12 +9,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Smeedee.Model;
 
 namespace Smeedee.WP7.Services.Fakes
 {
     public class FakePersister : IPersistenceService
     {
-        private Dictionary<string, string> strings = new Dictionary<string, string>(); 
+        private Dictionary<string, string> strings = new Dictionary<string, string>()
+                                                         {
+                                                             {Login.LoginKey, "o8rzdNQn"},
+                                                             {Login.LoginUrl, "http://services.smeedee.org/smeedee/"}
+                                                         }; 
         private Dictionary<string, bool> bools = new Dictionary<string, bool>();
         private Dictionary<string, int> ints = new Dictionary<string, int>();
 

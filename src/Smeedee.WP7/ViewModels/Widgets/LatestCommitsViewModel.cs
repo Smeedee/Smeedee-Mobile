@@ -36,7 +36,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
             {
                 foreach (var commit in model.Commits)
                 {
-                    Items.Add(new LatestCommitsItemViewModel { Message = commit.Message, User = commit.User, Date = commit.Date.ToString() });
+                    Items.Add(new LatestCommitsItemViewModel { Message = commit.Message, User = commit.User, Date = (DateTime.Now - commit.Date).PrettyPrint(), Image = commit.ImageUri });
                 }
             }));
             IsDataLoaded = true;
