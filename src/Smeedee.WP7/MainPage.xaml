@@ -17,11 +17,13 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <!--Pivot Control-->
         <controls:Pivot Title="SMEEDEE">
             
-            <controls:PivotItem Header="top committers">
-                <!--Double line list with text wrapping-->
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="top committers" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
+                
                 <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding TopCommitters.Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -38,8 +40,10 @@
             </controls:PivotItem>
  
             
-            <controls:PivotItem Header="build status"> 
-                <!--Triple line list no text wrapping-->
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="build status" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                     <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding BuildStatus.Items}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -58,7 +62,10 @@
                     </ListBox>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="days left">
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="days left" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                 <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
                     <TextBlock Text="{Binding WorkingDaysLeft.DaysLeft}" Style="{StaticResource PhoneTextExtraLargeStyle}"></TextBlock>
                     <TextBlock Text="{Binding WorkingDaysLeft.DaysLeftSuffix}" Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,0,20"></TextBlock>
@@ -66,7 +73,10 @@
             </controls:PivotItem>
 
 
-            <controls:PivotItem Header="latest commits">
+            <controls:PivotItem>
+                <controls:PivotItem.Header>
+                    <TextBlock Text="latest commits" Foreground="#f25000"/>
+                </controls:PivotItem.Header>
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding LatestCommits.Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
