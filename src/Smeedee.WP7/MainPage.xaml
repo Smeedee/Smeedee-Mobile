@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
+    xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" xmlns:WP7="clr-namespace:Smeedee.WP7" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
     d:DataContext="{d:DesignData Source=SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -127,21 +127,34 @@
                 <controls:PivotItem.Header>
                     <TextBlock Text="latest commits" Foreground="#f25000"/>
                 </controls:PivotItem.Header>
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding LatestCommits.Items}">
+                <WP7:LoadMoreListBox Name="LatestCommitsListBox2" Margin="0,0,-12,0" ItemsSource="{Binding LatestCommits.Items}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,0,0,0" HorizontalAlignment="Stretch">
-                                <Image Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                                <StackPanel Margin="0,0,0,17" HorizontalAlignment="Stretch">
-                                    <TextBlock Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    <TextBlock Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
+                                <Image Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}" Width="55" VerticalAlignment="Top" Margin="0,19,0,7"></Image>
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Message}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                </WP7:LoadMoreListBox>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>

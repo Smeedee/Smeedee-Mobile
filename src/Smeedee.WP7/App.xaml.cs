@@ -7,6 +7,7 @@ using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
 using Smeedee.WP7.Lib;
+using Smeedee.WP7.Services;
 using Smeedee.WP7.Services.Fakes;
 using Smeedee.WP7.ViewModels;
 
@@ -57,7 +58,7 @@ namespace Smeedee.WP7
             if (!USE_FAKES)
             {
                 //app.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-                app.ServiceLocator.Bind<IPersistenceService>(new FakePersister()); //<-Still fake! TODO
+                app.ServiceLocator.Bind<IPersistenceService>(new WpPersister());
                 app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 app.ServiceLocator.Bind<IValidationService>(new ValidationService());                
                 app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
