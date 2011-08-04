@@ -18,8 +18,8 @@ namespace Smeedee.WP7.Widgets
         public WorkingDaysLeftWidget()
         {
             var workingDaysLeftViewModel = new WorkingDaysLeftViewModel();
+            View = new WorkingDaysLeftView() { DataContext = workingDaysLeftViewModel };
             workingDaysLeftViewModel.LoadData();
-            View = new WorkingDaysLeftView() {DataContext = workingDaysLeftViewModel};
         }
 
         public FrameworkElement View { get; set; }

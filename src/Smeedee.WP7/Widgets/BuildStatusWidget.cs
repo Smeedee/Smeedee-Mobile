@@ -18,8 +18,8 @@ namespace Smeedee.WP7.Widgets
         public BuildStatusWidget()
         {
             var buildStatusViewModel = new BuildStatusViewModel();
+            View = new BuildStatusView() { DataContext = buildStatusViewModel };
             buildStatusViewModel.LoadData();
-            View = new BuildStatusView() { DataContext = buildStatusViewModel};
         }
 
         public FrameworkElement View { get; set; }
