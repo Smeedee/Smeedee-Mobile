@@ -8,13 +8,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" 
-    xmlns:WP7="clr-namespace:Smeedee.WP7" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
-    d:DataContext="{d:DesignData Source=SampleData/MainViewModelSampleData.xaml}"
+    xmlns:WP7="clr-namespace:Smeedee.WP7" mc:Ignorable="d" d:DataContext="{d:DesignData Source=SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" d:DesignHeight="768" d:DesignWidth="480">
     
     <UserControl.Resources>
         <Converters:UriToImageConverter x:Key="UriToImageConverter"/>
@@ -40,8 +39,7 @@
                 <controls:PivotItem.Header>
                     <TextBlock Text="top committers" Foreground="#f25000"/>
                 </controls:PivotItem.Header>
-                
-                <ListBox Name="TopCommitersListBox" Margin="0,0,-12,0" ItemsSource="{Binding TopCommitters.Items}">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding TopCommitters.Items}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -49,6 +47,7 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
+                            
                             <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -58,21 +57,15 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                               <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,12,0,0" VerticalAlignment="Top" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
-                                <TextBlock Text="{Binding Name}" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                               
-                                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Rectangle HorizontalAlignment="Left" Grid.Column="0" Fill="Gray" Width="{Binding CommitBarWidth}" Height="15" Margin="5"></Rectangle>
+                                <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,12,0,0" VerticalAlignment="Top" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
+                                <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                
+                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <ProgressBar Height="40" Width="250" HorizontalAlignment="Stretch" Background="#FFF25000" Foreground="#FFF25000" Minimum="0" Maximum="100" Value="{Binding CommitPercent}"/>
                                     <TextBlock Text="{Binding Commits}" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </Grid>
+                                </StackPanel>
                             </Grid>
+                            
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -117,8 +110,8 @@
                 </controls:PivotItem.Header>
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
                     <TextBlock Name="WorkingDaysLeft_Days" Text="{Binding WorkingDaysLeft.DaysLeft}" HorizontalAlignment="Center" Foreground="#f25000" Style="{StaticResource PhoneTextTitle1Style}"></TextBlock>
-                    <TextBlock Text="{Binding WorkingDaysLeft.DaysLeftSuffix}" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
-                    <TextBlock Text="{Binding WorkingDaysLeft.UntillText}" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
+                    <TextBlock Text="{Binding WorkingDaysLeft.DaysLeftSuffix}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
+                    <TextBlock Text="{Binding WorkingDaysLeft.UntillText}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
 
                 </StackPanel>
             </controls:PivotItem>

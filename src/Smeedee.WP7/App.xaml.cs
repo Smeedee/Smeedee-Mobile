@@ -35,14 +35,10 @@ namespace Smeedee.WP7
 
             BindDependencies();
 
-            var persister = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-            persister.Save(Login.LoginUrl, Login.DefaultSmeedeeUrl);
-            persister.Save(Login.LoginKey, Login.DefaultSmeedeeKey);
-
             InitializePhoneApplication();
         }
 
-        private bool USE_FAKES = false;
+        private bool USE_FAKES = true;
         private void BindDependencies()
         {
             

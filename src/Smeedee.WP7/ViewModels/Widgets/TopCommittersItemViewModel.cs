@@ -39,19 +39,19 @@ namespace Smeedee.WP7.ViewModels.Widgets
             }
         }
 
-        private string _commitBarWidth;
-        public string CommitBarWidth
+        private string _commitPercent;
+        public string CommitPercent
         {
             get
             {
-                return _commitBarWidth;
+                return _commitPercent;
             }
             set
             {
-                if (value != _commitBarWidth)
+                if (value != _commitPercent)
                 {
-                    _commitBarWidth = value;
-                    NotifyPropertyChanged("CommitBarWidth");
+                    _commitPercent = value;
+                    NotifyPropertyChanged("CommitPercent");
                 }
             }
         }

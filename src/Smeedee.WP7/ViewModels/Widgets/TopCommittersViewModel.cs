@@ -29,18 +29,20 @@ namespace Smeedee.WP7.ViewModels.Widgets
             {
                 foreach (var committer in model.Committers)
                 {
-                    //var percent = committer.Commits / (float)model.Committers.First().Commits;
-                    //int commitBarWidth = Convert.ToInt32(percent * (CommitBarFullWidth - 100f));
+                    var commitPercent = Convert.ToInt32((committer.Commits/(float)model.Committers.First().Commits)*100);
 
                     Items.Add(new TopCommittersItemViewModel 
                     {   Name = committer.Name, 
                         Commits = committer.Commits + "", 
                         Image = committer.ImageUri,
-                        CommitBarWidth = "200"
+                        CommitPercent = commitPercent.ToString()
                     });
-                }                      
+                }
+                FinishedLoading = true;
             }));
             IsDataLoaded = true;
         }
+
+        public bool FinishedLoading { get; private set; }
     }
 }
