@@ -16,17 +16,20 @@ namespace Smeedee.WP7.Widgets
 {
     public class WorkingDaysLeftWidget : IWpWidget
     {
+        private WorkingDaysLeftViewModel _workingDaysLeftViewModel;
+
         public WorkingDaysLeftWidget()
         {
-            var workingDaysLeftViewModel = new WorkingDaysLeftViewModel();
-            View = new WorkingDaysLeftView() { DataContext = workingDaysLeftViewModel };
-            workingDaysLeftViewModel.LoadData();
+            _workingDaysLeftViewModel = new WorkingDaysLeftViewModel();
+            View = new WorkingDaysLeftView() { DataContext = _workingDaysLeftViewModel };
+            _workingDaysLeftViewModel.LoadData();
         }
 
         public PivotItem View { get; set; }
 
         public void Refresh()
         {
+            _workingDaysLeftViewModel.LoadData();
         }
 
         public DateTime LastRefreshTime()

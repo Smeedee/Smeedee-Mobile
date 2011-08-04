@@ -16,17 +16,20 @@ namespace Smeedee.WP7.Widgets
 {
     public class BuildStatusWidget : IWpWidget
     {
+        private BuildStatusViewModel _buildStatusViewModel;
+
         public BuildStatusWidget()
         {
-            var buildStatusViewModel = new BuildStatusViewModel();
-            View = new BuildStatusView() { DataContext = buildStatusViewModel };
-            buildStatusViewModel.LoadData();
+            _buildStatusViewModel = new BuildStatusViewModel();
+            View = new BuildStatusView() { DataContext = _buildStatusViewModel };
+            _buildStatusViewModel.LoadData();
         }
 
         public PivotItem View { get; set; }
 
         public void Refresh()
         {
+            _buildStatusViewModel.LoadData();
         }
 
         public DateTime LastRefreshTime()

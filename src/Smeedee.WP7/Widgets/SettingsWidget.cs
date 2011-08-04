@@ -25,7 +25,6 @@ namespace Smeedee.WP7.Widgets
 
         public void Refresh()
         {
-            throw new NotImplementedException();
         }
 
         public DateTime LastRefreshTime()

@@ -16,16 +16,18 @@ namespace Smeedee.WP7.Widgets
 {
     public class LatestCommitsWidget : IWpWidget
     {
+        private LatestCommitsViewModel _latestCommitsViewModel;
+
         public LatestCommitsWidget()
         {
-            var latestCommitsViewModel = new LatestCommitsViewModel();
-            View = new LatestCommitsView { DataContext = latestCommitsViewModel };
-            latestCommitsViewModel.LoadData();
+            _latestCommitsViewModel = new LatestCommitsViewModel();
+            View = new LatestCommitsView { DataContext = _latestCommitsViewModel };
+            _latestCommitsViewModel.LoadData();
         }
 
         public void Refresh()
         {
-            throw new NotImplementedException();
+            _latestCommitsViewModel.LoadData();
         }
 
         public DateTime LastRefreshTime()
