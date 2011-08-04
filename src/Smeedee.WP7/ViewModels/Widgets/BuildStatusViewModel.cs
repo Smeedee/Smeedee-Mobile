@@ -33,9 +33,9 @@ namespace Smeedee.WP7.ViewModels.Widgets
                 {
                     var statusImageUri = "";
 
-                    if (build.BuildSuccessState == BuildState.Broken) statusImageUri = "Resources/Images/icon_buildfailure.png";
-                    if (build.BuildSuccessState == BuildState.Working) statusImageUri = "Resources/Images/icon_buildsuccess.png";
-                    if (build.BuildSuccessState == BuildState.Unknown) statusImageUri = "Resources/Images/icon_buildunknown.png";
+                    if (build.BuildSuccessState == BuildState.Broken) statusImageUri = "../Resources/Images/icon_buildfailure.png";
+                    if (build.BuildSuccessState == BuildState.Working) statusImageUri = "../Resources/Images/icon_buildsuccess.png";
+                    if (build.BuildSuccessState == BuildState.Unknown) statusImageUri = "../Resources/Images/icon_buildunknown.png";
                     
                     Items.Add(new BuildStatusItemViewModel 
                     {   ProjectName = build.ProjectName, 
