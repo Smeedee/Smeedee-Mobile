@@ -29,7 +29,10 @@ namespace Smeedee.WP7.Services
         private static void SaveObject(string key, object value)
         {
             var settings = GetSettings();
-            settings.Add(key, value);
+            if (settings.Contains(key))
+                settings[key] = value;
+            else
+                settings.Add(key, value);
             settings.Save();
         }
 
