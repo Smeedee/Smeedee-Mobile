@@ -82,6 +82,9 @@ namespace Smeedee.WP7
                 app.ServiceLocator.Bind<IWorkingDaysLeftService>(new FakeWorkingDaysLeftService());
                 app.ServiceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
             }
+
+            //TODO: Remove this once we have a login screen
+            new Login() {Key = "o8rzdNQn", Url = "http://services.smeedee.org/smeedee/"};
         }
 
         // Code to execute when the application is launching (eg, from Start)
