@@ -103,7 +103,6 @@ namespace Smeedee.WP7.ViewModels.Widgets
         {
             return dynamicDescription;
         }
-
         public event EventHandler DescriptionChanged;
     }
 }

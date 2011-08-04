@@ -39,19 +39,19 @@ namespace Smeedee.WP7.ViewModels.Widgets
             }
         }
 
-        private string _lineThree;
-        public string LineThree
+        private string _commitBarWidth;
+        public string CommitBarWidth
         {
             get
             {
-                return _lineThree;
+                return _commitBarWidth;
             }
             set
             {
-                if (value != _lineThree)
+                if (value != _commitBarWidth)
                 {
-                    _lineThree = value;
-                    NotifyPropertyChanged("LineThree");
+                    _commitBarWidth = value;
+                    NotifyPropertyChanged("CommitBarWidth");
                 }
             }
         }
