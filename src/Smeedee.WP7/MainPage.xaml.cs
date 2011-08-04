@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7
 {
@@ -10,6 +11,9 @@ namespace Smeedee.WP7
             
             DataContext = App.ViewModel;
             Loaded += MainPage_Loaded;
+
+            var view = new SettingsWidget().View;
+            WidgetsPivot.Items.Add(view);
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -66,5 +70,10 @@ namespace Smeedee.WP7
         //    }
         //    return null;
         //}
+
+        private void SettingsIcon_Click(object sender, EventArgs e)
+        {
+            WidgetsPivot.Visibility = Visibility.Collapsed;
+        }
     }
 }

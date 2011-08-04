@@ -1,4 +1,5 @@
-﻿using Smeedee.WP7.ViewModels.Widgets;
+﻿using Smeedee.WP7.ViewModels.Settings;
+using Smeedee.WP7.ViewModels.Widgets;
 
 namespace Smeedee.WP7.ViewModels
 {
@@ -69,6 +70,23 @@ namespace Smeedee.WP7.ViewModels
                 {
                     _latestCommits = value;
                     NotifyPropertyChanged("LatestCommits");
+                }
+            }
+        }
+
+        private SettingsViewModel _settings = new SettingsViewModel();
+        public SettingsViewModel Settings
+        {
+            get
+            {
+                return _settings;
+            }
+            set
+            {
+                if (value != _settings)
+                {
+                    _settings = value;
+                    NotifyPropertyChanged("Settingss");
                 }
             }
         }
