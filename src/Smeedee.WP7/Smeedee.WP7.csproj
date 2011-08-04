@@ -50,6 +50,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -212,6 +213,8 @@
     <Compile Include="Services\Fakes\FakePersister.cs" />
     <Compile Include="Services\WpPersister.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Settings\EnableDisableWidgetViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\Widgets\BuildStatusItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\BuildStatusViewModel.cs" />
@@ -220,6 +223,11 @@
     <Compile Include="ViewModels\Widgets\TopCommittersItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersViewModel.cs" />
     <Compile Include="ViewModels\Widgets\WorkingDaysLeftViewModel.cs" />
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\SettingsWidget.cs" />
+    <Compile Include="Widgets\IWpWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -234,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
