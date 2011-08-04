@@ -7,13 +7,15 @@ namespace Smeedee.Services.Fakes
 {
     public class FakeLatestCommitsService : ILatestCommitsService
     {
-		private static Uri uri = new Uri("http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png");
+        private static Uri uri = new Uri("http://theme.identi.ca/0.9.7/identica/default-avatar-profile.png");
+        private static Uri uri2 = new Uri("http://dl.dropbox.com/u/8310121/soc2011_ppl/lars_e.jpg");
+        private static Uri uri3 = new Uri("http://dl.dropbox.com/u/8310121/soc2011_ppl/borge.jpg");
 		
         private List<Commit> data = new List<Commit>
             {
             new Commit("Refactored HerpFactory.Derp()", new DateTime(2011, 7, 7, 12, 0, 0), "larmel", uri, 1),
             new Commit("Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it? ", new DateTime(2011, 7, 7, 1, 10, 0), "larmel", uri, 2),
-            new Commit("", new DateTime(2011, 7, 6, 2, 0, 0), "larspars", uri, 3),
+            new Commit("", new DateTime(2011, 7, 6, 2, 0, 0), "larspars", uri2, 3),
             new Commit("Coded new codes.", new DateTime(2011, 7, 6, 1, 0, 0), "dagolap", uri, 4),
             new Commit("Programmed them programs.", new DateTime(2011, 7, 5, 1, 0, 0), "rodsjo", uri, 5),
             new Commit("", new DateTime(2011, 7, 5, 2, 0, 0), "rodsjo", uri, 6),
@@ -21,10 +23,10 @@ namespace Smeedee.Services.Fakes
             new Commit("Blabla", new DateTime(2011, 7, 3, 2, 0, 0), "dagolap", uri, 8),
             new Commit("Changed Smeedee", new DateTime(2011, 7, 2, 2, 0, 0), "alex", uri, 9),
             new Commit("TopBanner far to left", new DateTime(2011, 7, 2, 2, 0, 0), "alex", uri, 10),
-            new Commit("Flipper working", new DateTime(2011, 7, 1, 2, 0, 0), "rodsjo", uri, 11),
+            new Commit("Flipper working", new DateTime(2011, 7, 1, 2, 0, 0), "rodsjo", uri3, 11),
             new Commit("OnGesture working", new DateTime(2011, 7, 1, 2, 0, 0), "alex", uri, 12),
             new Commit("Color changes", new DateTime(2011, 7, 1, 2, 0, 0), "larmel", uri, 13),
-            new Commit("Don't know what to say", new DateTime(2011, 7, 1, 2, 0, 0), "larspars", uri, 14),
+            new Commit("Don't know what to say", new DateTime(2011, 7, 1, 2, 0, 0), "larspars", uri2, 14),
             new Commit("Merged", new DateTime(2011, 7, 1, 2, 0, 0), "larmel", uri, 15),
             new Commit("This is number 16", new DateTime(2011, 7, 1, 2, 0, 0), "larmel", uri, 16),
             new Commit("This is number 17", new DateTime(2011, 7, 1, 2, 0, 0), "larmel", uri, 17),

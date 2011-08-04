@@ -70,7 +70,8 @@ namespace Smeedee.WP7.ViewModels.Widgets
             {
                 Items.Add(new LatestCommitsItemViewModel { Message = commit.Message, User = commit.User, Date = (DateTime.Now - commit.Date).PrettyPrint(), Image = commit.ImageUri });
             }
-            Items.Add(ButtonPlaceholderItem);
+            Items.Add(null);
+            //Items.Add(ButtonPlaceholderItem);
             NotifyPropertyChanged("LoadMoreButtonIsEnabled");
         }
     }
