@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" 
-    xmlns:WP7="clr-namespace:Smeedee.WP7" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
+    xmlns:WP7="clr-namespace:Smeedee.WP7" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696" 
     d:DataContext="{d:DesignData Source=SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -161,15 +161,16 @@
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="Resources/Images/appbar.favs.rest.png" Text="View widgets"/>
+            <shell:ApplicationBarIconButton IconUri="Resources/Images/appbar.feature.settings.rest.png" Text="Settings"/>
+            <shell:ApplicationBarIconButton IconUri="Resources/Images/appbar.refresh.rest.png" Text="Refresh"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
