@@ -15,6 +15,7 @@ namespace Smeedee.WP7
 
             WidgetsPivot.Items.Add(new SettingsWidget().View);
             WidgetsPivot.Items.Add(new LatestCommitsWidget().View);
+            WidgetsPivot.Items.Add(new HomeScreenWidget().View);
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
