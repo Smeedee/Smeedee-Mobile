@@ -9,13 +9,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" 
     xmlns:WP7="clr-namespace:Smeedee.WP7"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
     d:DataContext="{d:DesignData Source=SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True" d:DesignHeight="768" d:DesignWidth="480">
+    shell:SystemTray.IsVisible="True" 
+    d:DesignHeight="768" 
+    d:DesignWidth="480">
     
     <UserControl.Resources>
         <Converters:UriToImageConverter x:Key="UriToImageConverter"/>
