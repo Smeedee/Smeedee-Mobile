@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Microsoft.Phone.Controls;
 using Smeedee.WP7.Views;
 using Smeedee.WP7.Widgets;
 
@@ -21,7 +22,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
             latestCommitsViewModel.LoadData();
             View = new TopCommittersView { DataContext = latestCommitsViewModel };
         }
-        public FrameworkElement View { get; set; }
+        public PivotItem View { get; set; }
 
         public void Refresh()
         {
