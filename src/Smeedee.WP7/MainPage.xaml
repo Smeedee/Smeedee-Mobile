@@ -111,18 +111,6 @@
                 </ListBox>
             </controls:PivotItem>
 
-			<!-- working days left -->            
-            <controls:PivotItem>
-                <controls:PivotItem.Header>
-                    <TextBlock Text="days left" Foreground="#f25000"/>
-                </controls:PivotItem.Header>
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
-                    <TextBlock Name="WorkingDaysLeft_Days" Text="{Binding WorkingDaysLeft.DaysLeft}" HorizontalAlignment="Center" Foreground="#f25000" Style="{StaticResource PhoneTextTitle1Style}"></TextBlock>
-                    <TextBlock Text="{Binding WorkingDaysLeft.DaysLeftSuffix}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
-                    <TextBlock Text="{Binding WorkingDaysLeft.UntillText}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
-
-                </StackPanel>
-            </controls:PivotItem>
 
         </controls:Pivot>
     </Grid>

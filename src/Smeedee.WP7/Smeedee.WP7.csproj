@@ -223,6 +223,9 @@
     <Compile Include="ViewModels\Widgets\TopCommittersItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersViewModel.cs" />
     <Compile Include="ViewModels\Widgets\WorkingDaysLeftViewModel.cs" />
+    <Compile Include="Views\WorkingDaysLeftView.xaml.cs">
+      <DependentUpon>WorkingDaysLeftView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeScreenView.xaml.cs">
       <DependentUpon>HomeScreenView.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,7 @@
     <Compile Include="Widgets\LatestCommitsWidget.cs" />
     <Compile Include="Widgets\SettingsWidget.cs" />
     <Compile Include="Widgets\IWpWidget.cs" />
+    <Compile Include="Widgets\WorkingDaysLeftWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -250,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="Views\WorkingDaysLeftView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\HomeScreenView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

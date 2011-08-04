@@ -8,16 +8,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Smeedee.WP7.ViewModels.Widgets;
 using Smeedee.WP7.Views;
 
 namespace Smeedee.WP7.Widgets
 {
-    public class HomeScreenWidget : IWpWidget
+    public class WorkingDaysLeftWidget : IWpWidget
     {
-        public HomeScreenWidget()
+        public WorkingDaysLeftWidget()
         {
-            View = new HomeScreenView();
+            var workingDaysLeftViewModel = new WorkingDaysLeftViewModel();
+            workingDaysLeftViewModel.LoadData();
+            View = new WorkingDaysLeftView() {DataContext = workingDaysLeftViewModel};
         }
+
         public FrameworkElement View { get; set; }
 
         public void Refresh()

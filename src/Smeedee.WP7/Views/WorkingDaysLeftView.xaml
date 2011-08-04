@@ -1,0 +1,22 @@
+﻿<controls:PivotItem x:Class="Smeedee.WP7.Views.WorkingDaysLeftView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:WP7="clr-namespace:Smeedee.WP7" 
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+
+    <controls:PivotItem.Header>
+        <TextBlock Text="days left" Foreground="#f25000"/>
+    </controls:PivotItem.Header>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
+        <TextBlock Name="WorkingDaysLeft_Days" Text="{Binding DaysLeft}" HorizontalAlignment="Center" Foreground="#f25000" Style="{StaticResource PhoneTextTitle1Style}"></TextBlock>
+        <TextBlock Text="{Binding DaysLeftSuffix}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
+        <TextBlock Text="{Binding UntillText}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
+    </StackPanel>
+</controls:PivotItem>
