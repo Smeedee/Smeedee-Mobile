@@ -17,7 +17,9 @@ namespace Smeedee.WP7.Widgets
     {
         public LatestCommitsWidget()
         {
-            View = new LatestCommitsView { DataContext = new LatestCommitsViewModel() };
+            var latestCommitsViewModel = new LatestCommitsViewModel();
+            latestCommitsViewModel.LoadData();
+            View = new LatestCommitsView { DataContext = latestCommitsViewModel };
         }
 
         public void Refresh()

@@ -13,7 +13,7 @@
     <controls:PivotItem.Header>
         <TextBlock Text="latest commits" Foreground="#f25000"/>
     </controls:PivotItem.Header>
-    <WP7:LoadMoreListBox x:Name="LatestCommitsListBox2" Margin="0,0,-12,0" ItemsSource="{Binding LatestCommits.Items}">
+    <WP7:LoadMoreListBox x:Name="LatestCommitsListBox2" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
         <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
