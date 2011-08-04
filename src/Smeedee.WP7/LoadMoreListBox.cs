@@ -8,8 +8,9 @@ namespace Smeedee.WP7
     {
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
-            if (item == LatestCommitsViewModel.ButtonPlaceholderItem && element is ListBoxItem)
+            if (item == null || item == LatestCommitsViewModel.ButtonPlaceholderItem && element is ListBoxItem)
             {
+                var listBoxItem = (element as ListBoxItem);
                 var loadMoreButton = new Button { Content = "Load more" };
                 loadMoreButton.Click += (o, e) =>
                                             {
@@ -17,8 +18,7 @@ namespace Smeedee.WP7
                                                 App.ViewModel.LatestCommits.LoadMore();
                                             };
                 loadMoreButton.IsEnabled = App.ViewModel.LatestCommits.LoadMoreButtonIsEnabled;
-                (element as ListBoxItem).Content = loadMoreButton;
-                (element as ListBoxItem).UpdateLayout();
+                listBoxItem.Content = loadMoreButton;
             }
             else
             {

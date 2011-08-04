@@ -144,7 +144,7 @@
 
                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Message}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Right" FontStyle="Italic"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -154,15 +154,16 @@
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="Resources/Images/appbar.favs.rest.png" Text="View widgets"/>
+            <shell:ApplicationBarIconButton IconUri="Resources/Images/appbar.feature.settings.rest.png" Text="Settings"/>
+            <shell:ApplicationBarIconButton IconUri="Resources/Images/appbar.refresh.rest.png" Text="Refresh"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
