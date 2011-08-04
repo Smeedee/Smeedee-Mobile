@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Smeedee.WP7.ViewModels.Widgets;
 using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7
@@ -18,6 +19,7 @@ namespace Smeedee.WP7
             WidgetsPivot.Items.Add(new HomeScreenWidget().View);
             WidgetsPivot.Items.Add(new WorkingDaysLeftWidget().View);
             WidgetsPivot.Items.Add(new BuildStatusWidget().View);
+            WidgetsPivot.Items.Add(new TopCommittersWidget().View);
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
