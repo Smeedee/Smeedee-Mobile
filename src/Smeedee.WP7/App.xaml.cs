@@ -13,19 +13,13 @@ using Smeedee.WP7.ViewModels;
 
 namespace Smeedee.WP7
 {
-    public partial class App : Application
+    public partial class App
     {
-        private static MainViewModel viewModel = null;
+        private static MainViewModel viewModel;
 
         public static MainViewModel ViewModel
         {
-            get
-            {
-                if (viewModel == null)
-                    viewModel = new MainViewModel(); // This is where all our other ViewModels are stored as properties
-
-                return viewModel;
-            }
+            get { return viewModel ?? (viewModel = new MainViewModel()); }
         }
 
         public PhoneApplicationFrame RootFrame { get; private set; }
@@ -35,13 +29,15 @@ namespace Smeedee.WP7
             UnhandledException += Application_UnhandledException;
 
             if (System.Diagnostics.Debugger.IsAttached)
-            {
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
-            }
+                Current.Host.Settings.EnableFrameRateCounter = true;
 
             InitializeComponent();
 
             BindDependencies();
+
+            var persister = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
+            persister.Save(Login.LoginUrl, Login.DefaultSmeedeeUrl);
+            persister.Save(Login.LoginKey, Login.DefaultSmeedeeKey);
 
             InitializePhoneApplication();
         }
@@ -57,7 +53,6 @@ namespace Smeedee.WP7
 
             if (!USE_FAKES)
             {
-                //app.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 app.ServiceLocator.Bind<IPersistenceService>(new WpPersister());
                 app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 app.ServiceLocator.Bind<IValidationService>(new ValidationService());                
@@ -95,9 +90,9 @@ namespace Smeedee.WP7
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
             // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
+            if (!ViewModel.IsDataLoaded)
             {
-                App.ViewModel.LoadData();
+                ViewModel.LoadData();
             }
         }
 
