@@ -13,13 +13,6 @@ namespace Smeedee.WP7
             
             DataContext = App.ViewModel;
             Loaded += MainPage_Loaded;
-
-            WidgetsPivot.Items.Add(new SettingsWidget().View);
-            WidgetsPivot.Items.Add(new LatestCommitsWidget().View);
-            WidgetsPivot.Items.Add(new HomeScreenWidget().View);
-            WidgetsPivot.Items.Add(new WorkingDaysLeftWidget().View);
-            WidgetsPivot.Items.Add(new BuildStatusWidget().View);
-            WidgetsPivot.Items.Add(new TopCommittersWidget().View);
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
