@@ -38,7 +38,7 @@ namespace Smeedee.WP7
             InitializePhoneApplication();
         }
 
-        private bool USE_FAKES = true;
+        private bool USE_FAKES = false;
         private void BindDependencies()
         {
             

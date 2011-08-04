@@ -47,11 +47,10 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            
                             <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -60,12 +59,18 @@
                                 <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,12,0,0" VerticalAlignment="Top" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
                                 <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 
-                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <ProgressBar Height="40" Width="250" HorizontalAlignment="Stretch" Background="#FFF25000" Foreground="#FFF25000" Minimum="0" Maximum="100" Value="{Binding CommitPercent}"/>
-                                    <TextBlock Text="{Binding Commits}" Grid.Column="1" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
+                                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ProgressBar Grid.Column="0" Height="40" Width="Auto" HorizontalAlignment="Stretch" Background="#FFF25000" Foreground="#FFF25000" Minimum="0" Maximum="100" Value="{Binding CommitPercent}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Commits}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </Grid>
                             </Grid>
-                            
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
