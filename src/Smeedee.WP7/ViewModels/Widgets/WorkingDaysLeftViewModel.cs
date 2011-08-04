@@ -74,13 +74,8 @@ namespace Smeedee.WP7.ViewModels.Widgets
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 DaysLeft = model.DaysLeft;
-                DaysLeftSuffix = CreateSuffix();
-
-                if (model.IsOnOvertime)
-                    UntillText = "You should have been finished by " + model.UntillDate.DayOfWeek.ToString() + " " +
-                                      model.UntillDate.Date.ToShortDateString();
-                else
-                    UntillText = "untill " + model.UntillDate.DayOfWeek.ToString() + " " + model.UntillDate.Date.ToShortDateString();
+                DaysLeftSuffix = model.DaysLeftText;
+                UntillText = model.UntillText;
             }));
             IsDataLoaded = true;
         }
@@ -88,26 +83,26 @@ namespace Smeedee.WP7.ViewModels.Widgets
         public void Refresh()
         {
             LoadData();
+            if (model.LoadError)
+            {
+                DaysLeft = 0;
+                DaysLeftSuffix = "";
+                UntillText = "Failed to load project info from server";
+                return;
+            }
+            _lastRefreshTime = DateTime.Now;
         }
-
-        public string CreateSuffix()
-        {
-            return (DaysLeft == 1) ? "working day left" : "working days left";
-        }
-
-        private DateTime lastRefreshTime;
-        private string dynamicDescription;
-
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
-            return lastRefreshTime;
+            return _lastRefreshTime;
         }
 
+        private string dynamicDescription;
         public string GetDynamicDescription()
         {
             return dynamicDescription;
         }
-
         public event EventHandler DescriptionChanged;
     }
 }

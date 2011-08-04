@@ -1,23 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace Smeedee.WP7.Services
 {
     public class WpPersister : IPersistenceService
     {
-        private IsolatedStorageSettings GetSettings()
+        private static IsolatedStorageSettings GetSettings()
         {
-            return System.IO.IsolatedStorage.IsolatedStorageSettings.ApplicationSettings;
+            return IsolatedStorageSettings.ApplicationSettings;
         }
 
         public void Save(string key, string value)
@@ -35,7 +26,7 @@ namespace Smeedee.WP7.Services
             SaveObject(key, value);
         }
 
-        private void SaveObject(string key, object value)
+        private static void SaveObject(string key, object value)
         {
             var settings = GetSettings();
             settings.Add(key, value);
@@ -59,7 +50,7 @@ namespace Smeedee.WP7.Services
             return GetObject(key, defaultValue);
         }
 
-        private T GetObject<T>(string key, T defaultValue)
+        private static T GetObject<T>(string key, T defaultValue)
         {   
             try
             {

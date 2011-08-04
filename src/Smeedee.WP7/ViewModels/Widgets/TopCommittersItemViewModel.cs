@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Smeedee.WP7.ViewModels.Widgets
 {
     public class TopCommittersItemViewModel : ViewModelBase
@@ -37,19 +39,35 @@ namespace Smeedee.WP7.ViewModels.Widgets
             }
         }
 
-        private string _lineThree;
-        public string LineThree
+        private string _commitBarWidth;
+        public string CommitBarWidth
         {
             get
             {
-                return _lineThree;
+                return _commitBarWidth;
             }
             set
             {
-                if (value != _lineThree)
+                if (value != _commitBarWidth)
                 {
-                    _lineThree = value;
-                    NotifyPropertyChanged("LineThree");
+                    _commitBarWidth = value;
+                    NotifyPropertyChanged("CommitBarWidth");
+                }
+            }
+        }
+        private Uri _image;
+        public Uri Image
+        {
+            get
+            {
+                return _image;
+            }
+            set
+            {
+                if (value != _image)
+                {
+                    _image = value;
+                    NotifyPropertyChanged("Image");
                 }
             }
         }
