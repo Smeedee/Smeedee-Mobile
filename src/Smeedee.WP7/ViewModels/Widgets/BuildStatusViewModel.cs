@@ -23,6 +23,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
         {
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
+                Items.Clear();
                 foreach (var build in model.Builds)
                 {
                     var statusImageUri = "";

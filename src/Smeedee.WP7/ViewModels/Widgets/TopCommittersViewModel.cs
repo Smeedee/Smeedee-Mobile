@@ -24,6 +24,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
         {
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke( () =>
             {
+                Items.Clear();
                 foreach (var committer in model.Committers)
                 {
                     var commitPercent = Convert.ToInt32((committer.Commits/(float)model.Committers.First().Commits)*100);
