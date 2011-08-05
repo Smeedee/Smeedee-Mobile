@@ -58,7 +58,7 @@ namespace Smeedee.WP7
                 app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
                 app.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService()); 
                 app.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
-                app.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
+                app.ServiceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
             }
             else
             {
