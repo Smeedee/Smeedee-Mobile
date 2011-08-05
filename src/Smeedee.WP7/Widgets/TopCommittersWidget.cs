@@ -9,11 +9,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Smeedee.Model;
 using Smeedee.WP7.Views;
 using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {
+    [Widget("Top Committers", StaticDescription = "A list of most active committers")]
     public class TopCommittersWidget : IWpWidget
     {
         private TopCommittersViewModel _latestCommitsViewModel;

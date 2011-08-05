@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using Smeedee.Model;
 using Smeedee.WP7.ViewModels.Settings;
 using Smeedee.WP7.ViewModels.Widgets;
 using Smeedee.WP7.Widgets;
@@ -15,6 +16,7 @@ namespace Smeedee.WP7.ViewModels
         public ObservableCollection<PivotItem> WidgetViews { get; private set; }
         public ObservableCollection<PivotItem> SettingsViews { get; private set; }
         private Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
+        private SmeedeeApp _app = SmeedeeApp.Instance;
 
         public MainViewModel()
         {
@@ -24,16 +26,9 @@ namespace Smeedee.WP7.ViewModels
 
         private void FindAvailableWidgets()
         {
-            var widgets = new IWpWidget[] {
-                                  new BuildStatusWidget(),
-                                  new HomeScreenWidget(),
-                                  new LatestCommitsWidget(),
-                                  new TopCommittersWidget(),
-                                  new WorkingDaysLeftWidget()
-                                };
-            var settings = new[] {
-                                  new SettingsWidget()
-                                 };
+            _app.RegisterAvailableWidgets();
+            var widgetModels = _app.AvailableWidgets; //PretendToFindModels();
+            var widgets = widgetModels.Select(m => Activator.CreateInstance(m.Type) as IWpWidget);
 
             viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
             WidgetViews = new ObservableCollection<PivotItem>();
@@ -43,15 +38,11 @@ namespace Smeedee.WP7.ViewModels
                 viewToWidgetMap.Add(widget.View, widget);
             }
 
-            SettingsViews = new ObservableCollection<PivotItem>();
-            foreach (var widget in settings)
-            {
-                SettingsViews.Add(widget.View);
-                viewToWidgetMap.Add(widget.View, widget);
-            }
+            var enableDisableWidget = new SettingsWidget(widgetModels);
+            SettingsViews = new ObservableCollection<PivotItem> { enableDisableWidget.View };
         }
-
-        public bool WidgetIsEnabled(IWpWidget widget)
+        
+        private bool WidgetIsEnabled(IWpWidget widget)
         {
             return true; //TODO
         }

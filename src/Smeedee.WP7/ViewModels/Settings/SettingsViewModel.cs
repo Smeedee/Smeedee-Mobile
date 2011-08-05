@@ -12,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Smeedee.Model;
 using Smeedee.WP7.ViewModels.Widgets;
+using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7.ViewModels.Settings
 {
@@ -19,34 +20,14 @@ namespace Smeedee.WP7.ViewModels.Settings
     {
         private IPersistenceService _persistance;
 
-        public SettingsViewModel()
+        public ObservableCollection<EnableDisableWidgetViewModel> Widgets { get; private set; }
+
+        public SettingsViewModel(IEnumerable<WidgetModel> models)
         {
             _persistance = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
             Widgets = new ObservableCollection<EnableDisableWidgetViewModel>();
-            FindAvailableWidgets();
-        }
-
-        private void FindAvailableWidgets()
-        {
-            foreach (var widget in FakeData()) 
-                Widgets.Add(widget);
-        }
-
-        private List<EnableDisableWidgetViewModel> FakeData()
-        {
-            return new List<EnableDisableWidgetViewModel>
-                       {
-                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Top Committers"},
-                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Build Status"},
-                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Working Days Left"},
-                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Latest Commits"}
-                       };
-        }
-
-        public ObservableCollection<EnableDisableWidgetViewModel> Widgets { get; private set; }
-        public void Show()
-        {
-            Console.WriteLine("dhh");
+            foreach (var model in models)
+                Widgets.Add(new EnableDisableWidgetViewModel(_persistance) { WidgetName = model.Name});
         }
     }
 }
