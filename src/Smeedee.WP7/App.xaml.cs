@@ -88,11 +88,6 @@ namespace Smeedee.WP7
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Ensure that application state is restored appropriately
-            if (!ViewModel.IsDataLoaded)
-            {
-                ViewModel.LoadData();
-            }
         }
 
         // Code to execute when the application is deactivated (sent to background)

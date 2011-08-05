@@ -16,8 +16,6 @@ namespace Smeedee.WP7.ViewModels
         public ObservableCollection<PivotItem> SettingsViews { get; private set; }
         private Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
 
-        public bool IsDataLoaded;
-
         public MainViewModel()
         {
             FindAvailableWidgets();
@@ -57,11 +55,7 @@ namespace Smeedee.WP7.ViewModels
         {
             return true; //TODO
         }
-
-        public void LoadData()
-        { //TODO: Remove this
-        }
-
+        
         public IWpWidget GetWidgetForView(PivotItem view)
         {
             return viewToWidgetMap[view];
