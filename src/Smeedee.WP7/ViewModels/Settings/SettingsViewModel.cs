@@ -22,11 +22,11 @@ namespace Smeedee.WP7.ViewModels.Settings
 
         public ObservableCollection<EnableDisableWidgetViewModel> Widgets { get; private set; }
 
-        public SettingsViewModel(IEnumerable<WidgetModel> models)
+        public SettingsViewModel()
         {
             _persistance = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
             Widgets = new ObservableCollection<EnableDisableWidgetViewModel>();
-            foreach (var model in models)
+            foreach (var model in SmeedeeApp.Instance.AvailableWidgets)
                 Widgets.Add(new EnableDisableWidgetViewModel(_persistance) { WidgetName = model.Name});
         }
     }

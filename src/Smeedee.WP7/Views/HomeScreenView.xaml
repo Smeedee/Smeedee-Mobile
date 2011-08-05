@@ -8,11 +8,13 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+                    
+    Header="home">
 
-    <controls:PivotItem.Header>
+    <!--controls:PivotItem.Header>
         <TextBlock Text="home" Foreground="#f25000"/>
-    </controls:PivotItem.Header>
+    </controls:PivotItem.Header-->
     <StackPanel Name="Home" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Image Source="../Icon.png" Width="100"></Image>
         <TextBlock Text="smeedee mobile" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>

@@ -28,10 +28,22 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!-- Widgets -->
-        <controls:Pivot Title="SMEEDEE" Name="WidgetsPivot" ItemsSource="{Binding WidgetViews}" Visibility="{Binding WidgetsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}">
+        <controls:Pivot Name="WidgetsPivot" 
+                        ItemsSource="{Binding WidgetViews}" 
+                        Visibility="{Binding WidgetsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}" 
+                        Foreground="#f25000">
+            <controls:Pivot.Title>
+                <TextBlock Text="SMEEDEE" Foreground="#fff"/>
+            </controls:Pivot.Title>
         </controls:Pivot>
         <!-- Settings -->
-        <controls:Pivot Title="SMEEDEE" Name="SettingsPivot" ItemsSource="{Binding SettingsViews}" Visibility="{Binding SettingsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}">            
+        <controls:Pivot Name="SettingsPivot" 
+                        ItemsSource="{Binding SettingsViews}" 
+                        Visibility="{Binding SettingsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Foreground="#f25000">
+            <controls:Pivot.Title>
+                <TextBlock Text="SMEEDEE SETTINGS" Foreground="#fff"/>
+            </controls:Pivot.Title>
         </controls:Pivot>
     </Grid>
  

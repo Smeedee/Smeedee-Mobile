@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using Microsoft.Phone.Controls;
 using Smeedee.Model;
@@ -15,38 +16,60 @@ namespace Smeedee.WP7.ViewModels
     {
         public ObservableCollection<PivotItem> WidgetViews { get; private set; }
         public ObservableCollection<PivotItem> SettingsViews { get; private set; }
-        private Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
+        private readonly Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
+        private SettingsWidget _enableDisableWidget;
         private SmeedeeApp _app = SmeedeeApp.Instance;
 
         public MainViewModel()
         {
-            FindAvailableWidgets();
+            _app.RegisterAvailableWidgets();
+            WidgetViews = new ObservableCollection<PivotItem>();
+            viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
+            InstantiateSettings();
+            InstantiateWidgets();
             WidgetsAreShowing = true;
         }
 
-        private void FindAvailableWidgets()
-        {
-            _app.RegisterAvailableWidgets();
-            var widgetModels = _app.AvailableWidgets; //PretendToFindModels();
-            var widgets = widgetModels.Select(m => Activator.CreateInstance(m.Type) as IWpWidget);
 
-            viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
-            WidgetViews = new ObservableCollection<PivotItem>();
-            foreach (var widget in widgets)
-            {
-                WidgetViews.Add(widget.View);
-                viewToWidgetMap.Add(widget.View, widget);
-            }
-
-            var enableDisableWidget = new SettingsWidget(widgetModels);
-            SettingsViews = new ObservableCollection<PivotItem> { enableDisableWidget.View };
-        }
-        
-        private bool WidgetIsEnabled(IWpWidget widget)
+        private void InstantiateSettings()
         {
-            return true; //TODO
+            _enableDisableWidget = new SettingsWidget();
+            SettingsViews = new ObservableCollection<PivotItem> { _enableDisableWidget.View };
         }
-        
+
+        private void InstantiateWidgets()
+        {
+            var modelsToBeEnabled = _enableDisableWidget.EnabledWidgets();
+            var enabledWidgets = viewToWidgetMap.Values;
+            var enabledWidgetsThatShouldBeDisabled =
+                enabledWidgets.Where(enabledWidget => !modelsToBeEnabled.Any(m => m.Type == enabledWidget.GetType())).ToList();
+            var disabledModelsThatShouldBeEnabled =
+                modelsToBeEnabled.Where(model => !enabledWidgets.Any(w => w.GetType() == model.Type)).ToList();
+
+            foreach (var widget in enabledWidgetsThatShouldBeDisabled)
+                RemoveWidget(widget);
+            foreach (var model in disabledModelsThatShouldBeEnabled)
+                AddWidget(model);
+        }
+
+        private void AddWidget(WidgetModel model)
+        {
+            var widget = Activator.CreateInstance(model.Type) as IWpWidget;
+            WidgetViews.Add(widget.View);
+            viewToWidgetMap.Add(widget.View, widget);
+        }
+
+        private void RemoveWidget(IWpWidget widget)
+        {
+            WidgetViews.Remove(widget.View);
+            viewToWidgetMap.Remove(widget.View);
+        }
+
+        private void OnExitSettings()
+        {
+            InstantiateWidgets();
+        }
+
         public IWpWidget GetWidgetForView(PivotItem view)
         {
             return viewToWidgetMap[view];
@@ -64,6 +87,7 @@ namespace Smeedee.WP7.ViewModels
                 if (value != _settingsAreShowing)
                 {
                     _settingsAreShowing = value;
+                    if (!_settingsAreShowing) OnExitSettings();
                     NotifyPropertyChanged("SettingsAreShowing");
                     NotifyPropertyChanged("WidgetsAreShowing");
                 }
@@ -81,6 +105,7 @@ namespace Smeedee.WP7.ViewModels
                 if (value != !_settingsAreShowing)
                 {
                     _settingsAreShowing = !value;
+                    if (!_settingsAreShowing) OnExitSettings();
                     NotifyPropertyChanged("SettingsAreShowing");
                     NotifyPropertyChanged("WidgetsAreShowing");
                 }

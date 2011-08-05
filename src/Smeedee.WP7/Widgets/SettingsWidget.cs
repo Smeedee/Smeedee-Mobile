@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,13 +20,18 @@ namespace Smeedee.WP7.Widgets
     public class SettingsWidget
     {
         public PivotItem View { get; set; }
-        public SettingsViewModel ViewModel { get; set; }
+        private SettingsViewModel _viewModel;
 
-        public SettingsWidget(IEnumerable<WidgetModel> widgets)
+        public SettingsWidget()
         {
-            ViewModel = new SettingsViewModel(widgets);
-            View = new SettingsView { DataContext = ViewModel };
-            
+            _viewModel = new SettingsViewModel();
+            View = new SettingsView { DataContext = _viewModel };
+        }
+
+        public IEnumerable<WidgetModel> EnabledWidgets()
+        {
+            return SmeedeeApp.Instance.AvailableWidgets
+                .Where(m => _viewModel.Widgets.Where(vm => vm.WidgetName == m.Name).First().Enabled);
         }
     }
 }

@@ -9,11 +9,10 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
-
-    <controls:PivotItem.Header>
-        <TextBlock Text="days left" Foreground="#f25000"/>
-    </controls:PivotItem.Header>
+    d:DesignHeight="480" d:DesignWidth="480"
+                    
+    Header="days left">
+    
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
         <TextBlock Name="WorkingDaysLeft_Days" Text="{Binding DaysLeft}" HorizontalAlignment="Center" Foreground="#f25000" Style="{StaticResource PhoneTextTitle1Style}"></TextBlock>
         <TextBlock Text="{Binding DaysLeftSuffix}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
