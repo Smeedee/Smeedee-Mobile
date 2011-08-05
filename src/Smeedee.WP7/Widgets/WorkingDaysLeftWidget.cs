@@ -22,16 +22,18 @@ namespace Smeedee.WP7.Widgets
         {
             _workingDaysLeftViewModel = new WorkingDaysLeftViewModel();
             View = new WorkingDaysLeftView() { DataContext = _workingDaysLeftViewModel };
-            _workingDaysLeftViewModel.LoadData();
+            Refresh();
         }
 
         public PivotItem View { get; set; }
 
         public void Refresh()
         {
+            _lastRefreshTime = DateTime.Now;
             _workingDaysLeftViewModel.LoadData();
         }
 
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
             return DateTime.Now;

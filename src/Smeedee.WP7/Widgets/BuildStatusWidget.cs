@@ -22,19 +22,21 @@ namespace Smeedee.WP7.Widgets
         {
             _buildStatusViewModel = new BuildStatusViewModel();
             View = new BuildStatusView() { DataContext = _buildStatusViewModel };
-            _buildStatusViewModel.LoadData();
+            Refresh();
         }
 
         public PivotItem View { get; set; }
 
         public void Refresh()
         {
+            _lastRefreshTime = DateTime.Now;
             _buildStatusViewModel.LoadData();
         }
 
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
-            return DateTime.Now;
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()

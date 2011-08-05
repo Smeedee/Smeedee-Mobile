@@ -8,14 +8,11 @@ using Smeedee.Model;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {
-    public class TopCommittersViewModel : ViewModelBase
+    public class TopCommittersViewModel
     {
         public ObservableCollection<TopCommittersItemViewModel> Items { get; private set; }
         private readonly TopCommitters model;
-
-        public bool IsDataLoaded { get; private set; }
-
-        public int CommitBarFullWidth { get; set; }
+        
         public TopCommittersViewModel()
        
         {
@@ -38,11 +35,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
                         CommitPercent = commitPercent.ToString()
                     });
                 }
-                FinishedLoading = true;
             }));
-            IsDataLoaded = true;
         }
-
-        public bool FinishedLoading { get; private set; }
     }
 }

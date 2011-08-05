@@ -4,7 +4,7 @@ using Smeedee.Model;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {
-    public class WorkingDaysLeftViewModel : ViewModelBase, IWidget
+    public class WorkingDaysLeftViewModel : ViewModelBase
     {
         private readonly WorkingDaysLeft model;
 
@@ -62,47 +62,23 @@ namespace Smeedee.WP7.ViewModels.Widgets
                 }
             }
         }
-
-        public bool IsDataLoaded
-        {
-            get;
-            private set;
-        }
-
+        
         public void LoadData()
         {
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                DaysLeft = model.DaysLeft;
-                DaysLeftSuffix = model.DaysLeftText;
-                UntillText = model.UntillText;
+                if (model.LoadError)
+                {
+                    DaysLeft = 0;
+                    DaysLeftSuffix = "";
+                    UntillText = "Failed to load project info from server";
+                } else
+                {
+                    DaysLeft = model.DaysLeft;
+                    DaysLeftSuffix = model.DaysLeftText;
+                    UntillText = model.UntillText;
+                }
             }));
-            IsDataLoaded = true;
         }
-
-        public void Refresh()
-        {
-            LoadData();
-            if (model.LoadError)
-            {
-                DaysLeft = 0;
-                DaysLeftSuffix = "";
-                UntillText = "Failed to load project info from server";
-                return;
-            }
-            _lastRefreshTime = DateTime.Now;
-        }
-        private DateTime _lastRefreshTime;
-        public DateTime LastRefreshTime()
-        {
-            return _lastRefreshTime;
-        }
-
-        private string dynamicDescription;
-        public string GetDynamicDescription()
-        {
-            return dynamicDescription;
-        }
-        public event EventHandler DescriptionChanged;
     }
 }

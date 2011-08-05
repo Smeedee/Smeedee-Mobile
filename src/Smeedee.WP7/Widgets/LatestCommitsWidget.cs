@@ -22,17 +22,19 @@ namespace Smeedee.WP7.Widgets
         {
             _latestCommitsViewModel = new LatestCommitsViewModel();
             View = new LatestCommitsView { DataContext = _latestCommitsViewModel };
-            _latestCommitsViewModel.LoadData();
+            Refresh();
         }
 
         public void Refresh()
         {
+            _lastRefreshTime = DateTime.Now;
             _latestCommitsViewModel.LoadData();
         }
 
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
-            throw new NotImplementedException();
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()

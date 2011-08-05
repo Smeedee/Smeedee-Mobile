@@ -16,21 +16,27 @@ namespace Smeedee.WP7.ViewModels.Widgets
 {
     public class TopCommittersWidget : IWpWidget
     {
+        private TopCommittersViewModel _latestCommitsViewModel;
+
         public TopCommittersWidget()
         {
-            var latestCommitsViewModel = new TopCommittersViewModel();
-            latestCommitsViewModel.LoadData();
-            View = new TopCommittersView { DataContext = latestCommitsViewModel };
+            _latestCommitsViewModel = new TopCommittersViewModel();
+            View = new TopCommittersView { DataContext = _latestCommitsViewModel };
+            Refresh();
         }
+
         public PivotItem View { get; set; }
 
         public void Refresh()
         {
+            _lastRefreshTime = DateTime.Now;
+            _latestCommitsViewModel.LoadData();
         }
 
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
-            return DateTime.Now;
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()
