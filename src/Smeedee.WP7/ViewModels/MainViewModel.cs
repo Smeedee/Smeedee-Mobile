@@ -43,7 +43,7 @@ namespace Smeedee.WP7.ViewModels
                 viewToWidgetMap.Add(widget.View, widget);
             }
 
-            SettingsViews = new ObservableCollection<PivotItem> { new SettingsWidget().View };
+            SettingsViews = new ObservableCollection<PivotItem>();
             foreach (var widget in settings)
             {
                 SettingsViews.Add(widget.View);

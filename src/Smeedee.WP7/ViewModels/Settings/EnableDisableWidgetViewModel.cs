@@ -13,24 +13,31 @@ namespace Smeedee.WP7.ViewModels.Settings
 {
     public class EnableDisableWidgetViewModel : ViewModelBase
     {
-        private bool _enabled = true;
+        private IPersistenceService _persistance;
+        public EnableDisableWidgetViewModel(IPersistenceService persistance)
+        {
+            _persistance = persistance;
+        }
+
         public bool Enabled
         {
             get
             {
-                return _enabled;
+                return _persistance.Get("WidgetEnabled_"+WidgetName, true);
             }
             set
             {
-                if (value != _enabled)
+                if (value != _persistance.Get("WidgetEnabled_"+WidgetName, true))
                 {
-                    _enabled = value;
+                    _persistance.Save("WidgetEnabled_" + WidgetName, value);
                     NotifyPropertyChanged("Enabled");
                 }
             }
         }
 
         private string _widgetName;
+
+
         public string WidgetName
         {
             get

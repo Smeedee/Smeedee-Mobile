@@ -24,7 +24,7 @@
             <DataTemplate>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding WidgetName}" Margin="0,0,0,0"></TextBlock>
-                    <toolkit:ToggleSwitch Margin="0,0,0,0" IsChecked="{Binding Enabled}"></toolkit:ToggleSwitch>
+                    <toolkit:ToggleSwitch Margin="0,0,0,0" IsChecked="{Binding Enabled, Mode=TwoWay}"></toolkit:ToggleSwitch>
                 </StackPanel>
             </DataTemplate>
         </ListBox.ItemTemplate>

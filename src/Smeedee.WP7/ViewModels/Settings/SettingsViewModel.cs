@@ -10,14 +10,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Smeedee.Model;
 using Smeedee.WP7.ViewModels.Widgets;
 
 namespace Smeedee.WP7.ViewModels.Settings
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private IPersistenceService _persistance;
+
         public SettingsViewModel()
         {
+            _persistance = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
             Widgets = new ObservableCollection<EnableDisableWidgetViewModel>();
             FindAvailableWidgets();
         }
@@ -32,10 +36,10 @@ namespace Smeedee.WP7.ViewModels.Settings
         {
             return new List<EnableDisableWidgetViewModel>
                        {
-                           new EnableDisableWidgetViewModel {Enabled = true, WidgetName = "Top Committers"},
-                           new EnableDisableWidgetViewModel {Enabled = true, WidgetName = "Build Status"},
-                           new EnableDisableWidgetViewModel {Enabled = true, WidgetName = "Working Days Left"},
-                           new EnableDisableWidgetViewModel {Enabled = true, WidgetName = "Latest Commits"}
+                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Top Committers"},
+                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Build Status"},
+                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Working Days Left"},
+                           new EnableDisableWidgetViewModel(_persistance) {WidgetName = "Latest Commits"}
                        };
         }
 
