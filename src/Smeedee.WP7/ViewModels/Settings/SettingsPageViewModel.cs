@@ -16,18 +16,21 @@ using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7.ViewModels.Settings
 {
-    public class SettingsViewModel : ViewModelBase
+    public class SettingsPageViewModel : ViewModelBase
     {
         private IPersistenceService _persistance;
 
-        public ObservableCollection<EnableDisableWidgetViewModel> Widgets { get; private set; }
+        public ObservableCollection<EnableDisableWidgetItemViewModel> EnableDisableWidgets { get; private set; }
 
-        public SettingsViewModel()
+        public LoginViewModel LoginViewModel { get; private set; }
+
+        public SettingsPageViewModel()
         {
+            LoginViewModel = new LoginViewModel();
             _persistance = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
-            Widgets = new ObservableCollection<EnableDisableWidgetViewModel>();
+            EnableDisableWidgets = new ObservableCollection<EnableDisableWidgetItemViewModel>();
             foreach (var model in SmeedeeApp.Instance.AvailableWidgets)
-                Widgets.Add(new EnableDisableWidgetViewModel(_persistance) { WidgetName = model.Name});
+                EnableDisableWidgets.Add(new EnableDisableWidgetItemViewModel(_persistance) { WidgetName = model.Name});
         }
     }
 }

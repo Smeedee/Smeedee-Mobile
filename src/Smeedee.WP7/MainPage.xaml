@@ -23,38 +23,24 @@
     <UserControl.Resources>
         <Converters:UriToImageConverter x:Key="UriToImageConverter"/>
         <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <Converters:NegatedBoolToVisibilityConverter x:Key="NegatedBoolToVisibilityConverter"/>
         <Converters:BoolNegationConverter x:Key="BoolNegationConverter"/>
     </UserControl.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <!-- Widgets 
         
-                        Visibility="{Binding WidgetsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}" 
-        -->
-        <controls:Pivot Name="WidgetsPivot" 
-                        ItemsSource="{Binding WidgetViews}" 
-                        Visibility="Collapsed"
-                        Foreground="#f25000">
+        <!-- Widgets -->
+        <controls:Pivot Name="WidgetsPivot" ItemsSource="{Binding WidgetViews}" Foreground="#f25000"
+                        Visibility="{Binding WidgetsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}">
             <controls:Pivot.Title>
                 <TextBlock Text="SMEEDEE" Foreground="#fff"/>
             </controls:Pivot.Title>
         </controls:Pivot>
-        <!-- Settings
-        
-                        Visibility="{Binding SettingsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}"
-        -->
-        <controls:Pivot Name="SettingsPivot" 
-                        ItemsSource="{Binding SettingsViews}" 
-                        Visibility="Collapsed"
-                        Foreground="#f25000">
-            <controls:Pivot.Title>
-                <TextBlock Text="SMEEDEE SETTINGS" Foreground="#fff"/>
-            </controls:Pivot.Title>
-        </controls:Pivot>
-        
+                
         <!-- Login -->
-        <Grid Background="Transparent" x:Name="LoginScreen" DataContext="{Binding LoginViewModel}">
+        <Grid Background="Transparent" x:Name="LoginScreen"
+              Visibility="{Binding WidgetsAreShowing, Converter={StaticResource NegatedBoolToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -65,15 +51,14 @@
                 <TextBlock Text="login" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
             </StackPanel>
 
-            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" DataContext="{Binding LoginViewModel}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="URL"  Margin="12,0,12,-10"/>
-                    <TextBox Text="{Binding Url}"></TextBox>
+                    <TextBox Text="{Binding Url, Mode=TwoWay}"></TextBox>
                     <TextBlock Text="Key" Margin="12,5,12,-10" />
-                    <TextBox Text="{Binding Key}"></TextBox>
-                    <Button Content="Login" IsEnabled="{Binding IsValidating, Converter={StaticResource BoolNegationConverter}}"></Button>
-                    <TextBlock Text="Validating login..." Style="{StaticResource PhoneTextSubtleStyle}" Visibility="{Binding IsValidating, Converter={StaticResource BoolToVisibilityConverter}}"></TextBlock>
-                    <TextBlock Text="Login failed" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="Red"  Visibility="{Binding ValidationFailed, Converter={StaticResource BoolToVisibilityConverter}}"></TextBlock>
+                    <TextBox Text="{Binding Key, Mode=TwoWay}"></TextBox>
+                    <Button Content="Login" IsEnabled="{Binding IsValidating, Converter={StaticResource BoolNegationConverter}}" Click="LoginViewModel_Validate"></Button>
+                    <TextBlock Text="{Binding StatusText}" Foreground="{Binding StatusColor}"></TextBlock>
                 </StackPanel>
             </Grid>
         </Grid>

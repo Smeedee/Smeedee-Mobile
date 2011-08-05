@@ -18,7 +18,6 @@ namespace Smeedee.WP7.ViewModels
         public ObservableCollection<PivotItem> SettingsViews { get; private set; }
         public LoginViewModel LoginViewModel { get; private set; }
         private readonly Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
-        private SettingsWidget _enableDisableWidget;
         private SmeedeeApp _app = SmeedeeApp.Instance;
 
         public MainViewModel()
@@ -27,21 +26,13 @@ namespace Smeedee.WP7.ViewModels
             _app.RegisterAvailableWidgets();
             WidgetViews = new ObservableCollection<PivotItem>();
             viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
-            InstantiateSettings();
             InstantiateWidgets();
             WidgetsAreShowing = true;
         }
 
-
-        private void InstantiateSettings()
-        {
-            _enableDisableWidget = new SettingsWidget();
-            SettingsViews = new ObservableCollection<PivotItem> { _enableDisableWidget.View };
-        }
-
         private void InstantiateWidgets()
         {
-            var modelsToBeEnabled = _enableDisableWidget.EnabledWidgets();
+            var modelsToBeEnabled = SmeedeeApp.Instance.AvailableWidgets.Where(EnableDisableWidgetItemViewModel.IsEnabled);
             var enabledWidgets = viewToWidgetMap.Values;
             var enabledWidgetsThatShouldBeDisabled =
                 enabledWidgets.Where(enabledWidget => !modelsToBeEnabled.Any(m => m.Type == enabledWidget.GetType())).ToList();
@@ -69,7 +60,7 @@ namespace Smeedee.WP7.ViewModels
             viewToWidgetMap.Remove(widget.View);
         }
 
-        private void OnExitSettings()
+        public void OnExitSettings()
         {
             InstantiateWidgets();
         }
@@ -79,38 +70,18 @@ namespace Smeedee.WP7.ViewModels
             return viewToWidgetMap[view];
         }
 
-        private bool _settingsAreShowing;
-        public bool SettingsAreShowing
-        {
-            get
-            {
-                return _settingsAreShowing;
-            }
-            set
-            {
-                if (value != _settingsAreShowing)
-                {
-                    _settingsAreShowing = value;
-                    if (!_settingsAreShowing) OnExitSettings();
-                    NotifyPropertyChanged("SettingsAreShowing");
-                    NotifyPropertyChanged("WidgetsAreShowing");
-                }
-            }
-        }
-
+        private bool _widgetsAreShowing;
         public bool WidgetsAreShowing
         {
             get
             {
-                return !_settingsAreShowing;
+                return _widgetsAreShowing;
             }
             set
             {
-                if (value != !_settingsAreShowing)
+                if (value != _widgetsAreShowing)
                 {
-                    _settingsAreShowing = !value;
-                    if (!_settingsAreShowing) OnExitSettings();
-                    NotifyPropertyChanged("SettingsAreShowing");
+                    _widgetsAreShowing = value;
                     NotifyPropertyChanged("WidgetsAreShowing");
                 }
             }

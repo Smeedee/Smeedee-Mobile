@@ -60,7 +60,7 @@ namespace Smeedee.WP7
                 app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
                 app.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService()); 
                 app.ServiceLocator.Bind<IWorkingDaysLeftService>(new WorkingDaysLeftService());
-                app.ServiceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
+                app.ServiceLocator.Bind<ITopCommittersService>(new TopCommittersService());
             }
             else
             {
@@ -75,8 +75,12 @@ namespace Smeedee.WP7
                 app.ServiceLocator.Bind<ITopCommittersService>(new FakeTopCommittersService());
             }
 
-            //TODO: Remove this once we have a login screen
-            new Login() {Key = "o8rzdNQn", Url = "http://services.smeedee.org/smeedee/"};
+            var login = new Login();
+            if (login.Key == "" && login.Url == "")
+            {
+                login.Key = "o8rzdNQn";
+                login.Url = "http://services.smeedee.org/smeedee/";
+            }
         }
 
         // Code to execute when the application is launching (eg, from Start)

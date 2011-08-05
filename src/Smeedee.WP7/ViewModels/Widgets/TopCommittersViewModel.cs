@@ -22,6 +22,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
 
         public void LoadData()
         {
+            model.TimePeriod = TimePeriod.PastWeek;
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke( () =>
             {
                 Items.Clear();

@@ -8,36 +8,34 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Smeedee.WP7.ViewModels.Settings;
 
-namespace Smeedee.WP7.ViewModels.Settings
+namespace Smeedee.WP7.SampleData
 {
-    public class EnableDisableWidgetViewModel : ViewModelBase
+    public class FakeEnableDisableWidgetItemViewModel : EnableDisableWidgetItemViewModel
     {
-        private IPersistenceService _persistance;
-        public EnableDisableWidgetViewModel(IPersistenceService persistance)
+        public FakeEnableDisableWidgetItemViewModel() : base(null)
         {
-            _persistance = persistance;
         }
 
+        private bool _enabled;
         public bool Enabled
         {
             get
             {
-                return _persistance.Get("WidgetEnabled_"+WidgetName, true);
+                return _enabled;
             }
             set
             {
-                if (value != _persistance.Get("WidgetEnabled_"+WidgetName, true))
+                if (value != _enabled)
                 {
-                    _persistance.Save("WidgetEnabled_" + WidgetName, value);
+                    _enabled = value;
                     NotifyPropertyChanged("Enabled");
                 }
             }
         }
 
         private string _widgetName;
-
-
         public string WidgetName
         {
             get
@@ -53,6 +51,5 @@ namespace Smeedee.WP7.ViewModels.Settings
                 }
             }
         }
-
     }
 }

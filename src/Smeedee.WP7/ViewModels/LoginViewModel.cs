@@ -65,6 +65,7 @@ namespace Smeedee.WP7.ViewModels
                 {
                     _isValidating = value;
                     NotifyPropertyChanged("IsValidating");
+                    NotifyPropertyChanged("StatusColor");
                 }
             }
         }
@@ -82,8 +83,58 @@ namespace Smeedee.WP7.ViewModels
                 {
                     _validationFailed = value;
                     NotifyPropertyChanged("ValidationFailed");
+                    NotifyPropertyChanged("StatusColor");
                 }
             }
+        }
+
+        private string _statusText = "";
+        public string StatusText
+        {
+            get
+            {
+                return _statusText;
+            }
+            set
+            {
+                if (value != _statusText)
+                {
+                    _statusText = value;
+                    NotifyPropertyChanged("StatusText");
+                }
+            }
+        }
+
+        private SolidColorBrush _statusColor = new SolidColorBrush(Color.FromArgb(byte.MaxValue, 0, 0, 0));
+        public SolidColorBrush StatusColor
+        {
+            get
+            {
+                if (IsValidating) return new SolidColorBrush(Colors.White);
+                if (ValidationFailed) return new SolidColorBrush(Colors.Red);
+                return new SolidColorBrush(Colors.White);
+            }
+        }
+
+        public event EventHandler OnSuccessfulValidation;
+
+        public void Validate()
+        {
+            IsValidating = true;
+            StatusText = "Validating...";
+            _login.IsValid(valid => Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                IsValidating = false;
+                ValidationFailed = !valid;
+                if (valid)
+                {
+                    StatusText = "Successfully validated url and key!";
+                    if (OnSuccessfulValidation != null) OnSuccessfulValidation(this, null);
+                } else
+                {
+                    StatusText = "Validation failed";
+                }
+            }));
         }
     }
 }
