@@ -15,7 +15,7 @@ namespace Smeedee.Services
          * In summary: We take an async api, make it sync, then fire up a thread to use it asynchronously.
          * And this dance is intentional:)         
          */
-        static ManualResetEvent manualReset = new ManualResetEvent(false);
+        static ManualResetEvent manualReset;
         private readonly TimeSpan TIMEOUT = TimeSpan.FromSeconds(15);
 
         public string DownloadString(string url)

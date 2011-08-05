@@ -23,28 +23,60 @@
     <UserControl.Resources>
         <Converters:UriToImageConverter x:Key="UriToImageConverter"/>
         <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <Converters:BoolNegationConverter x:Key="BoolNegationConverter"/>
     </UserControl.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <!-- Widgets -->
+        <!-- Widgets 
+        
+                        Visibility="{Binding WidgetsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}" 
+        -->
         <controls:Pivot Name="WidgetsPivot" 
                         ItemsSource="{Binding WidgetViews}" 
-                        Visibility="{Binding WidgetsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}" 
+                        Visibility="Collapsed"
                         Foreground="#f25000">
             <controls:Pivot.Title>
                 <TextBlock Text="SMEEDEE" Foreground="#fff"/>
             </controls:Pivot.Title>
         </controls:Pivot>
-        <!-- Settings -->
+        <!-- Settings
+        
+                        Visibility="{Binding SettingsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}"
+        -->
         <controls:Pivot Name="SettingsPivot" 
                         ItemsSource="{Binding SettingsViews}" 
-                        Visibility="{Binding SettingsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Visibility="Collapsed"
                         Foreground="#f25000">
             <controls:Pivot.Title>
                 <TextBlock Text="SMEEDEE SETTINGS" Foreground="#fff"/>
             </controls:Pivot.Title>
         </controls:Pivot>
+        
+        <!-- Login -->
+        <Grid Background="Transparent" x:Name="LoginScreen" DataContext="{Binding LoginViewModel}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+                <TextBlock Text="SMEEDEE" Style="{StaticResource PhoneTextNormalStyle}"/>
+                <TextBlock Text="login" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            </StackPanel>
+
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="URL"  Margin="12,0,12,-10"/>
+                    <TextBox Text="{Binding Url}"></TextBox>
+                    <TextBlock Text="Key" Margin="12,5,12,-10" />
+                    <TextBox Text="{Binding Key}"></TextBox>
+                    <Button Content="Login" IsEnabled="{Binding IsValidating, Converter={StaticResource BoolNegationConverter}}"></Button>
+                    <TextBlock Text="Validating login..." Style="{StaticResource PhoneTextSubtleStyle}" Visibility="{Binding IsValidating, Converter={StaticResource BoolToVisibilityConverter}}"></TextBlock>
+                    <TextBlock Text="Login failed" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="Red"  Visibility="{Binding ValidationFailed, Converter={StaticResource BoolToVisibilityConverter}}"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

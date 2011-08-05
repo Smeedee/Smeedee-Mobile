@@ -16,12 +16,14 @@ namespace Smeedee.WP7.ViewModels
     {
         public ObservableCollection<PivotItem> WidgetViews { get; private set; }
         public ObservableCollection<PivotItem> SettingsViews { get; private set; }
+        public LoginViewModel LoginViewModel { get; private set; }
         private readonly Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
         private SettingsWidget _enableDisableWidget;
         private SmeedeeApp _app = SmeedeeApp.Instance;
 
         public MainViewModel()
         {
+            LoginViewModel = new LoginViewModel();
             _app.RegisterAvailableWidgets();
             WidgetViews = new ObservableCollection<PivotItem>();
             viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
@@ -61,6 +63,8 @@ namespace Smeedee.WP7.ViewModels
 
         private void RemoveWidget(IWpWidget widget)
         {
+            //TODO: This sometimes throws an ArgumentOutOfRangeException (from within the Pivot view).
+            //We need to figure out when and why and stop it, or see if we can catch it and ignore it
             WidgetViews.Remove(widget.View);
             viewToWidgetMap.Remove(widget.View);
         }
@@ -110,6 +114,12 @@ namespace Smeedee.WP7.ViewModels
                     NotifyPropertyChanged("WidgetsAreShowing");
                 }
             }
+        }
+
+        public void LoadWidgets()
+        {
+            foreach (var widget in viewToWidgetMap.Values)
+                widget.Refresh();
         }
     }
 }

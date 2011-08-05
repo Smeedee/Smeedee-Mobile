@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -33,26 +35,26 @@ namespace Smeedee.WP7
 
             InitializeComponent();
 
-            BindDependencies();
-
             InitializePhoneApplication();
+
+            BindDependencies();
         }
+
 
         private bool USE_FAKES = false;
         private void BindDependencies()
         {
-            
             var app = SmeedeeApp.Instance;
 
             app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
             app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "" }); //We cache in the root of our IsolatedStorage, so we have an empty string here
+            app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
+            app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
 
             if (!USE_FAKES)
             {
                 app.ServiceLocator.Bind<IPersistenceService>(new WpPersister());
-                app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
-                app.ServiceLocator.Bind<IValidationService>(new ValidationService());                
-                app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
+                app.ServiceLocator.Bind<IValidationService>(new ValidationService());          
                 app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 
                 app.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
@@ -63,7 +65,6 @@ namespace Smeedee.WP7
             else
             {
                 app.ServiceLocator.Bind<IPersistenceService>(new FakePersister());
-                app.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 app.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
                 app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
                 //app.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
