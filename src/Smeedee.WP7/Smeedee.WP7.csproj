@@ -223,7 +223,7 @@
     <Compile Include="ViewModels\Widgets\LatestCommitsViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersViewModel.cs" />
-    <Compile Include="ViewModels\Widgets\TopCommittersWidget.cs" />
+    <Compile Include="Widgets\TopCommittersWidget.cs" />
     <Compile Include="ViewModels\Widgets\WorkingDaysLeftViewModel.cs" />
     <Compile Include="Views\BuildStatusView.xaml.cs">
       <DependentUpon>BuildStatusView.xaml</DependentUpon>

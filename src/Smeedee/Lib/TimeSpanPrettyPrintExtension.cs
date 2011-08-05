@@ -16,7 +16,7 @@ namespace Smeedee
 
             if (delta < 0)
             {
-                return ts.Negate().PrettyPrint().Replace("ago", "into the future").Replace("yesterday", "tomorrow");
+                return "recent"; //Timezone differences makes this seem to have happened in the future.
             }
             if (delta < 1*MINUTE)
             {
