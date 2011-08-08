@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using Smeedee.Model;
-using Smeedee.WP7.Converters;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {

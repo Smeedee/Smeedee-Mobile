@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -76,11 +74,9 @@ namespace Smeedee.WP7
             }
 
             var login = new Login();
-            if (login.Key == "" && login.Url == "")
-            {
-                login.Key = "o8rzdNQn";
-                login.Url = "http://services.smeedee.org/smeedee/";
-            }
+            if (login.Key != "" || login.Url != "") return;
+            login.Key = "o8rzdNQn";
+            login.Url = "http://services.smeedee.org/smeedee/";
         }
 
         // Code to execute when the application is launching (eg, from Start)
