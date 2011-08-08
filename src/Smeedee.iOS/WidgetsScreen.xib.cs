@@ -70,7 +70,7 @@ namespace Smeedee.iOS
 		
         private void AddWidgetsToScrollView()
         {
-            var count = NumberOfEnabledWidgets();
+            var count = (from m in models where m.Enabled select m).Count();
             var scrollViewWidth = SCREEN_WIDTH * count;
 			
 			displayedWidgets = new IWidget[count];
@@ -78,45 +78,48 @@ namespace Smeedee.iOS
             scrollView.Frame.Width = scrollViewWidth;
             scrollView.ContentSize = new SizeF(scrollViewWidth, SCREEN_WIDTH);
             
-			int scrollViewIndex = 0;
-			for (int i = 0; i < models.Count(); ++i)
-			{
-				if (models[i].Enabled)
-				{
-					displayedWidgets[scrollViewIndex] = widgets[i];
-					var widgetView = (widgets[i] as UIViewController).View;
-					
-	                var frame = scrollView.Frame;
-	                frame.Location = new PointF(SCREEN_WIDTH * scrollViewIndex, 0);
-	                widgetView.Frame = frame;
-	                
-	                scrollView.AddSubview(widgetView);
-					
-					scrollViewIndex++;
-				}
-			}
-			
 			if (count == 0)
 			{
 				var view = new UIImageView(UIImage.FromFile("images/logo.png"));
 				view.Frame = new RectangleF((SCREEN_WIDTH - 61) / 2.0f, 140, 61, 61);
 				this.scrollView.AddSubview(view);
 			}
+			else
+			{
+				int scrollViewIndex = 0;
+				for (int i = 0; i < models.Count(); ++i)
+				{
+					if (models[i].Enabled)
+					{
+						displayedWidgets[scrollViewIndex] = widgets[i];
+						var widgetView = (widgets[i] as UIViewController).View;
+						
+		                var frame = scrollView.Frame;
+		                frame.Location = new PointF(SCREEN_WIDTH * scrollViewIndex, 0);
+		                widgetView.Frame = frame;
+		                
+		                scrollView.AddSubview(widgetView);
+						
+						scrollViewIndex++;
+					}
+				}
+			}
 			
             pageControl.Pages = count;
-            SetPageControlIndex(CurrentPageIndex());
+        	pageControl.CurrentPage = CurrentPageIndex();
         }
 		
 		// Race condition between this and ViewWillAppear
 		// Both are called simultanously when going from settings to widgets
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
+			Console.WriteLine("Scrolled");
 			if (appearing) return;
 			var pageIndex = CurrentPageIndex();
             if (pageControl.CurrentPage != pageIndex)
             {
                 SetTitleLabels(pageIndex);
-                SetPageControlIndex(pageIndex);
+            	pageControl.CurrentPage = pageIndex;
             }
         }
 		
@@ -159,21 +162,6 @@ namespace Smeedee.iOS
             return index;
 		}
 		
-		private int NumberOfEnabledWidgets()
-		{
-			var count = 0;
-			foreach (var m in models)
-				if (m.Enabled) count++;
-			return count;
-		}
-		
-        private void SetPageControlIndex(int page)
-        {
-            pageControl.CurrentPage = page;
-        }
-		
-		// Inline configuration toolbar
-		//
 		private void AddToolbarItem(UIBarButtonItem item)
 		{
 			if (toolbar.Items.Count() == 3)
