@@ -30,7 +30,8 @@ namespace Smeedee.iOS
 			
             scrollView.Scrolled += ScrollViewScrolled;
 			refresh.Clicked += delegate {
-				displayedWidgets[CurrentPageIndex()].Refresh();
+				if (displayedWidgets.Length > 0)
+					displayedWidgets[CurrentPageIndex()].Refresh();
 			};
 			
 			models = SmeedeeApp.Instance.AvailableWidgets.ToArray();
