@@ -8,28 +8,35 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Microsoft.Phone.Controls;
+using Smeedee.Model;
 using Smeedee.WP7.ViewModels.Widgets;
 using Smeedee.WP7.Views;
 
 namespace Smeedee.WP7.Widgets
 {
+    [Widget("Latest Commits", StaticDescription = "Displays latest commits")]
     public class LatestCommitsWidget : IWpWidget
     {
+        private LatestCommitsViewModel _latestCommitsViewModel;
+
         public LatestCommitsWidget()
         {
-            var latestCommitsViewModel = new LatestCommitsViewModel();
-            latestCommitsViewModel.LoadData();
-            View = new LatestCommitsView { DataContext = latestCommitsViewModel };
+            _latestCommitsViewModel = new LatestCommitsViewModel();
+            View = new LatestCommitsView { DataContext = _latestCommitsViewModel };
+            Refresh();
         }
 
         public void Refresh()
         {
-            throw new NotImplementedException();
+            _lastRefreshTime = DateTime.Now;
+            _latestCommitsViewModel.LoadData();
         }
 
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
-            throw new NotImplementedException();
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()
@@ -39,6 +46,6 @@ namespace Smeedee.WP7.Widgets
 
         public event EventHandler DescriptionChanged;
 
-        public FrameworkElement View { get; set; }
+        public PivotItem View { get; set; }
     }
 }

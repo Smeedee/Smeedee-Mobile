@@ -13,9 +13,9 @@ using Microsoft.Phone.Controls;
 
 namespace Smeedee.WP7.Views
 {
-    public partial class SettingsView : PivotItem
+    public partial class TopCommittersView : PivotItem
     {
-        public SettingsView()
+        public TopCommittersView()
         {
             InitializeComponent();
         }

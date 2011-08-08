@@ -1,0 +1,16 @@
+<Settings:SettingsPageViewModel 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ 	xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
+    xmlns:ViewModels="clr-namespace:Smeedee.WP7.ViewModels"
+    xmlns:Settings="clr-namespace:Smeedee.WP7.ViewModels.Settings"
+    xmlns:SampleData="clr-namespace:Smeedee.WP7.SampleData">
+
+    <Settings:SettingsPageViewModel.EnableDisableWidgets>
+        <SampleData:FakeEnableDisableWidgetItemViewModel Enabled="true" WidgetName="Working Days Left"/>
+        <SampleData:FakeEnableDisableWidgetItemViewModel Enabled="true" WidgetName="Top Committers"/>
+        <SampleData:FakeEnableDisableWidgetItemViewModel Enabled="true" WidgetName="Build Status"/>
+        <SampleData:FakeEnableDisableWidgetItemViewModel Enabled="true" WidgetName="Latest Commits"/>
+    </Settings:SettingsPageViewModel.EnableDisableWidgets> 
+
+</Settings:SettingsPageViewModel>

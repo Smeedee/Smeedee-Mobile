@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using Smeedee.WP7.ViewModels.Widgets;
 
@@ -13,11 +14,11 @@ namespace Smeedee.WP7
                 var listBoxItem = (element as ListBoxItem);
                 var loadMoreButton = new Button { Content = "Load more" };
                 loadMoreButton.Click += (o, e) =>
-                                            {
-                                                loadMoreButton.Opacity = 0;
-                                                App.ViewModel.LatestCommits.LoadMore();
-                                            };
-                loadMoreButton.IsEnabled = App.ViewModel.LatestCommits.LoadMoreButtonIsEnabled;
+                {
+                    loadMoreButton.Opacity = 0;
+                    (DataContext as LatestCommitsViewModel).LoadMore();
+                };
+                loadMoreButton.IsEnabled = (DataContext as LatestCommitsViewModel).LoadMoreButtonIsEnabled;
                 listBoxItem.Content = loadMoreButton;
             }
             else

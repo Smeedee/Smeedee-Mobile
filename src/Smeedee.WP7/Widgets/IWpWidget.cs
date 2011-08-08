@@ -8,12 +8,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Microsoft.Phone.Controls;
 using Smeedee.Model;
 
 namespace Smeedee.WP7.Widgets
 {
     public interface IWpWidget : IWidget
     {
-        FrameworkElement View { get; set; }
+        PivotItem View { get; set; }
     }
 }

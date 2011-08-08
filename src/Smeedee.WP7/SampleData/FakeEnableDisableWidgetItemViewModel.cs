@@ -8,12 +8,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Smeedee.WP7.ViewModels.Settings;
 
-namespace Smeedee.WP7.ViewModels.Settings
+namespace Smeedee.WP7.SampleData
 {
-    public class EnableDisableWidgetViewModel : ViewModelBase
+    public class FakeEnableDisableWidgetItemViewModel : EnableDisableWidgetItemViewModel
     {
-        private bool _enabled = true;
+        public FakeEnableDisableWidgetItemViewModel() : base(null)
+        {
+        }
+
+        private bool _enabled;
         public bool Enabled
         {
             get
@@ -46,6 +51,5 @@ namespace Smeedee.WP7.ViewModels.Settings
                 }
             }
         }
-
     }
 }

@@ -1,102 +1,96 @@
-﻿using Smeedee.WP7.ViewModels.Settings;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Windows;
+using Microsoft.Phone.Controls;
+using Smeedee.Model;
+using Smeedee.WP7.ViewModels.Settings;
 using Smeedee.WP7.ViewModels.Widgets;
+using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public bool IsDataLoaded;
-        
-        private TopCommittersViewModel _topCommitters = new TopCommittersViewModel();
-        public TopCommittersViewModel TopCommitters
+        public ObservableCollection<PivotItem> WidgetViews { get; private set; }
+        public ObservableCollection<PivotItem> SettingsViews { get; private set; }
+        public LoginViewModel LoginViewModel { get; private set; }
+        private readonly Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
+        private SmeedeeApp _app = SmeedeeApp.Instance;
+
+        public MainViewModel()
         {
-            get
-            {
-                return _topCommitters;
-            }
-            set
-            {
-                if (value != _topCommitters)
-                {
-                    _topCommitters = value;
-                    NotifyPropertyChanged("TopCommitters");
-                }
-            }
+            LoginViewModel = new LoginViewModel();
+            _app.RegisterAvailableWidgets();
+            WidgetViews = new ObservableCollection<PivotItem>();
+            viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
+            InstantiateWidgets();
+            WidgetsAreShowing = true;
         }
-        private BuildStatusViewModel _buildStatus = new BuildStatusViewModel();
-        public BuildStatusViewModel BuildStatus
+
+        private void InstantiateWidgets()
+        {
+            var modelsToBeEnabled = SmeedeeApp.Instance.AvailableWidgets.Where(EnableDisableWidgetItemViewModel.IsEnabled);
+            var enabledWidgets = viewToWidgetMap.Values;
+            var enabledWidgetsThatShouldBeDisabled =
+                enabledWidgets.Where(enabledWidget => !modelsToBeEnabled.Any(m => m.Type == enabledWidget.GetType())).ToList();
+            var disabledModelsThatShouldBeEnabled =
+                modelsToBeEnabled.Where(model => !enabledWidgets.Any(w => w.GetType() == model.Type)).ToList();
+
+            foreach (var widget in enabledWidgetsThatShouldBeDisabled)
+                RemoveWidget(widget);
+            foreach (var model in disabledModelsThatShouldBeEnabled)
+                AddWidget(model);
+        }
+
+        private void AddWidget(WidgetModel model)
+        {
+            var widget = Activator.CreateInstance(model.Type) as IWpWidget;
+            WidgetViews.Add(widget.View);
+            viewToWidgetMap.Add(widget.View, widget);
+        }
+
+        private void RemoveWidget(IWpWidget widget)
+        {
+            //TODO: This sometimes throws an ArgumentOutOfRangeException (from within the Pivot view).
+            //We need to figure out when and why and stop it, or see if we can catch it and ignore it
+            WidgetViews.Remove(widget.View);
+            viewToWidgetMap.Remove(widget.View);
+        }
+
+        public void OnExitSettings()
+        {
+            InstantiateWidgets();
+        }
+
+        public IWpWidget GetWidgetForView(PivotItem view)
+        {
+            return viewToWidgetMap[view];
+        }
+
+        private bool _widgetsAreShowing;
+        public bool WidgetsAreShowing
         {
             get
             {
-                return _buildStatus;
+                return _widgetsAreShowing;
             }
             set
             {
-                if (value != _buildStatus)
+                if (value != _widgetsAreShowing)
                 {
-                    _buildStatus = value;
-                    NotifyPropertyChanged("BuildStatus");
+                    _widgetsAreShowing = value;
+                    NotifyPropertyChanged("WidgetsAreShowing");
                 }
             }
         }
 
-        private WorkingDaysLeftViewModel _workingDaysLeft = new WorkingDaysLeftViewModel();
-        public WorkingDaysLeftViewModel WorkingDaysLeft
+        public void LoadWidgets()
         {
-            get
-            {
-                return _workingDaysLeft;
-            }
-            set
-            {
-                if (value != _workingDaysLeft)
-                {
-                    _workingDaysLeft = value;
-                    NotifyPropertyChanged("WorkingDaysLeft");
-                }
-            }
-        }
-
-        private LatestCommitsViewModel _latestCommits = new LatestCommitsViewModel();
-        public LatestCommitsViewModel LatestCommits
-        {
-            get
-            {
-                return _latestCommits;
-            }
-            set
-            {
-                if (value != _latestCommits)
-                {
-                    _latestCommits = value;
-                    NotifyPropertyChanged("LatestCommits");
-                }
-            }
-        }
-
-        private SettingsViewModel _settings = new SettingsViewModel();
-        public SettingsViewModel Settings
-        {
-            get
-            {
-                return _settings;
-            }
-            set
-            {
-                if (value != _settings)
-                {
-                    _settings = value;
-                    NotifyPropertyChanged("Settingss");
-                }
-            }
-        }
-
-        public void LoadData()
-        {
-            _topCommitters.LoadData();
-            _buildStatus.LoadData();
-            _workingDaysLeft.LoadData();
-            _latestCommits.LoadData();
+            foreach (var widget in viewToWidgetMap.Values)
+                widget.Refresh();
         }
     }
 }

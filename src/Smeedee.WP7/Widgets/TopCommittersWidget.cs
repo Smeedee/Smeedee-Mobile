@@ -11,25 +11,34 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Smeedee.Model;
 using Smeedee.WP7.Views;
+using Smeedee.WP7.Widgets;
 
-namespace Smeedee.WP7.Widgets
+namespace Smeedee.WP7.ViewModels.Widgets
 {
-    [Widget("Smeedee")]
-    public class HomeScreenWidget : IWpWidget
+    [Widget("Top Committers", StaticDescription = "A list of most active committers")]
+    public class TopCommittersWidget : IWpWidget
     {
-        public HomeScreenWidget()
+        private TopCommittersViewModel _latestCommitsViewModel;
+
+        public TopCommittersWidget()
         {
-            View = new HomeScreenView();
+            _latestCommitsViewModel = new TopCommittersViewModel();
+            View = new TopCommittersView { DataContext = _latestCommitsViewModel };
+            Refresh();
         }
+
         public PivotItem View { get; set; }
 
         public void Refresh()
         {
+            _lastRefreshTime = DateTime.Now;
+            _latestCommitsViewModel.LoadData();
         }
 
+        private DateTime _lastRefreshTime;
         public DateTime LastRefreshTime()
         {
-            return DateTime.Now;
+            return _lastRefreshTime;
         }
 
         public string GetDynamicDescription()
