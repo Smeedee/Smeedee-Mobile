@@ -20,42 +20,26 @@ namespace Smeedee
     
     public class ImageService : IImageService
     {
-        private readonly TimeSpan TIMEOUT = TimeSpan.FromSeconds(15);
+		private IBackgroundWorker worker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
 			Console.WriteLine("Fetching image " + uri);
-			// WebClient is not thread-safe, need new instance for each thread
-            new Thread(() => {
+			
+			worker.Invoke(() => {
 				byte[] data = null;
-                try
-                {
-                    var manualReset = new ManualResetEvent(false);
-                    var client = new WebClient();
-
-                    client.OpenReadCompleted += (o, e) => {if (e.Error == null) 
-						{
-                            data = e.Result.ReadToEnd();
-						}
-						else {
-							Console.WriteLine("Error: " + e.Error);
-						}
-                        manualReset.Set();
-                    };
-                    client.OpenReadAsync(uri);
-
-                    manualReset.WaitOne(TIMEOUT);
+				var client = new WebClient();
+				try 
+				{
+					data = client.DownloadData(uri);
+					Console.WriteLine("Returned: " + data);
 				} 
 				catch (WebException e) 
 				{
-					Console.WriteLine("Image error: " + e.Message);
-                    //Do nothing, call callback with null as argument
+					Console.WriteLine("Error: " + e.Message);
 				}
-				
-				Console.WriteLine("Returning image data: " + data);
-				
 				callback(data);
-            }).Start();
+			});
         }
     }
 }

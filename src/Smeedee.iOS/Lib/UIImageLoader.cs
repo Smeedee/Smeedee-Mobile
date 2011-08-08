@@ -11,31 +11,19 @@ namespace Smeedee.iOS.Lib
 	public class UIImageLoader
 	{
 		private static UIImage defaultImage = UIImage.FromFile("images/default_person.jpeg");
-		private static Dictionary<Uri, UIImage> cache = new Dictionary<Uri, UIImage>();
+		private readonly IImageService service = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
 		
-		private IImageService service;
-		
-		public UIImageLoader()
-		{
-			service = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
-		}
+		public UIImageLoader() { }
 		
 		public void LoadImageFromUri(Uri uri, Action<UIImage> callback) 
 		{
-			if (cache.ContainsKey(uri)) 
-			{
-				callback(cache[uri]);
-			}
-			else
-			{
-				service.GetImage(uri, (bytes) => {
-					using (var pool = new NSAutoreleasePool())
-					{
-						cache[uri] = (bytes != null) ? UIImage.LoadFromData(NSData.FromArray(bytes)) : defaultImage;
-						callback(cache[uri]);
-					}
-				});
-			}
+			service.GetImage(uri, (bytes) => {
+				using (var pool = new NSAutoreleasePool())
+				{
+					var ret = (bytes != null) ? UIImage.LoadFromData(NSData.FromArray(bytes)) : defaultImage;
+					callback(ret);
+				}
+			});
 		}
 	}
 	
