@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets">
 
-        <Widgets:BuildStatusViewModel.Items>
+    <Widgets:BuildStatusViewModel.Items>
         <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - dev" UserName="dagolap" BuildTime="One hour ago"/>
         <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - app" UserName="system" BuildTime="One hour ago"/>
         <Widgets:BuildStatusItemViewModel ProjectName="Smeede System - tests" UserName="system" BuildTime="One hour ago"/>

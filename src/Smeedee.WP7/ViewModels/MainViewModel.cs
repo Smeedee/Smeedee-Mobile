@@ -22,8 +22,6 @@ namespace Smeedee.WP7.ViewModels
             LoginViewModel = new LoginViewModel();
             WidgetViews = new ObservableCollection<PivotItem>();
             viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
-            InstantiateWidgets();
-            WidgetsAreShowing = true;
         }
 
         private void InstantiateWidgets()
@@ -85,6 +83,8 @@ namespace Smeedee.WP7.ViewModels
                 if (value != _widgetsAreShowing)
                 {
                     _widgetsAreShowing = value;
+                    if (_widgetsAreShowing && WidgetViews.Count == 0)
+                        InstantiateWidgets(); 
                     NotifyPropertyChanged("WidgetsAreShowing");
                 }
             }
