@@ -27,6 +27,7 @@ namespace Smeedee.iOS.Lib
 		public static void StyleAsWidgetHeadline(this UILabel self)
 		{
 			self.TextColor = smeedeeOrange;
+			self.ShadowColor = smeedeeOrangeAlpha;
 		}
 		
 		public static void StyleAsSettingsTable(this UITableView self)
