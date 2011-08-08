@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Smeedee.Model;
 using Smeedee.Services;
 
@@ -38,9 +39,9 @@ namespace Smeedee
         public void Load(Action<IEnumerable<Build>> callback)
         {
             if (buildListSwitch)
-                bgWorker.Invoke(() => callback(builds));
+                bgWorker.Invoke(() => { Thread.Sleep(1000); callback(builds); });
             else
-                bgWorker.Invoke(() => callback(builds2));
+                bgWorker.Invoke(() => { Thread.Sleep(1000); callback(builds2); });
             buildListSwitch = !buildListSwitch;
         }
     }

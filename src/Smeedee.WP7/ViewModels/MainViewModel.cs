@@ -20,7 +20,6 @@ namespace Smeedee.WP7.ViewModels
         public MainViewModel()
         {
             LoginViewModel = new LoginViewModel();
-            _app.RegisterAvailableWidgets();
             WidgetViews = new ObservableCollection<PivotItem>();
             viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
             InstantiateWidgets();

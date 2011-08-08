@@ -38,7 +38,7 @@ namespace Smeedee.WP7
         }
 
 
-        private bool USE_FAKES = false;
+        private bool USE_FAKES = true;
         private void BindDependencies()
         {
             var app = SmeedeeApp.Instance;
@@ -82,12 +82,14 @@ namespace Smeedee.WP7
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
         }
 
         // Code to execute when the application is deactivated (sent to background)
