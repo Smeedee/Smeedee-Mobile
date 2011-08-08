@@ -30,7 +30,7 @@ namespace Smeedee.Android.Screens
                     var dialog = ProgressDialog.Show(this, "", "Connecting to server and validating key...", true);
                     var handler = new ProgressHandler(dialog);
 
-                    new Login().StoreAndValidate(urlInput.Text, keyInput.Text, (valid) => RunOnUiThread(() =>
+                    new Login().ValidateAndStore(urlInput.Text, keyInput.Text, (valid) => RunOnUiThread(() =>
                         {
                             if (valid == Login.ValidationSuccess)
                             {

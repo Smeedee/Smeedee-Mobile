@@ -104,9 +104,14 @@ namespace Smeedee.Android.Widgets
             var commits = Convert.ToInt32(((TextView)view.FindViewById(Resource.Id.TopCommittersWidget_number_of_commits)).Text);
             var committerbar = (TextView) view.FindViewById(Resource.Id.TopCommittersWidget_commit_bar);
             if (_commitBarFullWidth <= 0)
-                _commitBarFullWidth = ((TextView)view.FindViewById(Resource.Id.TopCommittersWidget_committer_name)).MeasuredWidth;
-            var percent = commits / (float)_model.Committers.First().Commits;
-            committerbar.SetWidth(Convert.ToInt32(percent * (_commitBarFullWidth - 70f)));
+                _commitBarFullWidth = (view.FindViewById<TextView>(Resource.Id.TopCommittersWidget_committer_name)).MeasuredWidth;
+            if (_model.Committers != null && _model.Committers.Count() >= 1)
+            {
+                var percent = commits/(float) _model.Committers.First().Commits;
+                committerbar.SetWidth(Convert.ToInt32(percent*(_commitBarFullWidth - 70f)));
+            }
+            else 
+                committerbar.SetWidth(1);
 
             return view;
         }

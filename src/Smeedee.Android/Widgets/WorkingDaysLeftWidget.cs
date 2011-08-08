@@ -77,8 +77,6 @@ namespace Smeedee.Android.Widgets
             }
             daysView.Visibility = ViewStates.Visible;
             textView.Visibility = ViewStates.Visible;
-
-            DynamicDescription = model.UntillText;
         }
 
         public string GetDynamicDescription()

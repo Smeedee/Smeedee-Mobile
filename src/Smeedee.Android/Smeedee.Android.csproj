@@ -198,7 +198,6 @@
     <Compile Include="Lib\MonoFileIO.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RealViewSwitcher.cs" />
-    <Compile Include="Screens\About.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />

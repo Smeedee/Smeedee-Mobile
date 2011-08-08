@@ -43,10 +43,7 @@ namespace Smeedee.Android
             flipper.ScreenChanged += HandleScreenChanged;
 
             _bottomRefreshButton = FindViewById<Button>(Resource.Id.WidgetContainerBtnBottomRefresh);
-            _bottomRefreshButton.Click += delegate
-                                       {
-                                           RefreshCurrentWidget();
-                                       };
+            _bottomRefreshButton.Click += delegate { RefreshCurrentWidget(); };
 
             AddWidgetsToFlipper();
 
@@ -55,10 +52,7 @@ namespace Smeedee.Android
                 widget.DescriptionChanged += WidgetDescriptionChanged;
             }
 
-            preferenceChangeListener = new SharedPreferencesChangeListener(() =>
-                                                                               {
-                                                                                   hasSettingsChanged = true;
-                                                                               });
+            preferenceChangeListener = new SharedPreferencesChangeListener(() => { hasSettingsChanged = true; });
             prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);   
         }
@@ -190,12 +184,6 @@ namespace Smeedee.Android
                     var globalSettings = new Intent(this, typeof(GlobalSettings));
                     StartActivity(globalSettings);
                     return true;
-
-                case Resource.Id.MenuBtnAbout:
-
-                    var about = new Intent(this, typeof(About));
-                    StartActivity(about);
-                    return true;
                 default:
                     return base.OnOptionsItemSelected(item);
             }
@@ -206,7 +194,7 @@ namespace Smeedee.Android
             var currentWidget = flipper.CurrentView as IWidget;
             if (currentWidget != null)
             {
-                var dialog = ProgressDialog.Show(this, "Refreshing...", "Updating data for widget", true);
+                var dialog = ProgressDialog.Show(this, "", "Refreshing widget", true);
                 var handler = new ProgressHandler(dialog);
                 var bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
                 bgWorker.Invoke(() =>

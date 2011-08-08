@@ -33,7 +33,7 @@
       android:text="@string/LoginScreenErrorNotificationText"
       android:paddingLeft="5dp"
       android:paddingRight="5dp"
-      android:textAppearance="@android:style/TextAppearance.Medium"
+      android:textAppearance="@android:style/TextAppearance.Small"
       android:visibility="invisible"
       android:textColor="@color/red" />
     <Button
