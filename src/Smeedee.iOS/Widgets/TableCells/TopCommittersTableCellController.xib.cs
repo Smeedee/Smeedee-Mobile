@@ -34,7 +34,7 @@ namespace Smeedee.iOS
 			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, percent * (graph.Frame.Width - 50f), graph.Frame.Height);
 			commitLabel.Frame = new RectangleF(graph.Frame.X + graph.Frame.Width + 5, graph.Frame.Y, 50f, commitLabel.Frame.Height);
 			
-			new UIImageLoader().LoadImageFromUri(committer.ImageUri, (image) => {
+			UIImageLoader.LoadImageFromUri(committer.ImageUri, (image) => {
 				InvokeOnMainThread(() => imageView.Image = image);
 			});
 			
