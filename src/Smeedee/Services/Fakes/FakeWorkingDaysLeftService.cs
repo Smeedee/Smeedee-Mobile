@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using Smeedee.Model;
 
 namespace Smeedee.Services.Fakes
@@ -32,6 +33,7 @@ namespace Smeedee.Services.Fakes
                 failureCallback();
                 return;
             }
+            Thread.Sleep(5000);
             var httpData = GetDataFromHttp();
             var data = Csv.FromCsv(httpData).First();
             callback(int.Parse(data[0]), DateTime.Parse(data[1]));

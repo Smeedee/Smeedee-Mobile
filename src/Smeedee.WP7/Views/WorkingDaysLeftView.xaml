@@ -4,8 +4,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-    xmlns:WP7="clr-namespace:Smeedee.WP7" 
-    mc:Ignorable="d"
+    xmlns:WP7="clr-namespace:Smeedee.WP7" xmlns:Converters="clr-namespace:Smeedee.WP7.Converters"
+                    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                    mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -13,9 +14,21 @@
                     
     Header="days left">
     
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
-        <TextBlock Name="WorkingDaysLeft_Days" Text="{Binding DaysLeft}" HorizontalAlignment="Center" Foreground="#f25000" Style="{StaticResource PhoneTextTitle1Style}"></TextBlock>
-        <TextBlock Text="{Binding DaysLeftSuffix}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
-        <TextBlock Text="{Binding UntillText}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
-    </StackPanel>
+    <controls:PivotItem.Resources>
+        <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </controls:PivotItem.Resources>
+
+    <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <toolkit:PerformanceProgressBar Grid.Row="0" IsIndeterminate="{Binding IsLoading}" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" Foreground="#fff"></toolkit:PerformanceProgressBar>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
+            <TextBlock Name="WorkingDaysLeft_Days" Text="{Binding DaysLeft}" HorizontalAlignment="Center" Foreground="#f25000" Style="{StaticResource PhoneTextTitle1Style}"></TextBlock>
+            <TextBlock Text="{Binding DaysLeftSuffix}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
+            <TextBlock Text="{Binding UntillText}" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
+        </StackPanel>
+    </Grid>
 </controls:PivotItem>
