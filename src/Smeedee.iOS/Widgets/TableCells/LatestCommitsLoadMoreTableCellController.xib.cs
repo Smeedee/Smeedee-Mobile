@@ -30,7 +30,7 @@ namespace Smeedee.iOS
 			
 			cell.BackgroundColor = StyleExtensions.blackBackground;
 			
-			label.BackgroundColor = StyleExtensions.smeedeeOrangeAlpha;
+			label.BackgroundColor = StyleExtensions.tableSeparator;
 			label.TextColor = StyleExtensions.lightGrayText;
 			
 			label.HighlightedTextColor = StyleExtensions.blackBackground;
