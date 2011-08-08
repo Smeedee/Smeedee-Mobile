@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Smeedee.Lib;
 
-namespace Smeedee.WP7.Lib
+namespace Smeedee.Lib
 {
     public class Wp7FileIO : IFileIO
     {

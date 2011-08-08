@@ -29,8 +29,10 @@ namespace Smeedee.WP7.ViewModels
 
         private void InstantiateWidgets()
         {
-            var modelsToBeEnabled = SmeedeeApp.Instance.AvailableWidgets.Where(EnableDisableWidgetItemViewModel.IsEnabled);
-            modelsToBeEnabled.Except(m => m.Name == HomeScreenWidget.Name)
+            var homeScreen       = _app.AvailableWidgets.Where(m => m.Name == HomeScreenWidget.Name).First();
+            var availableWidgets = _app.AvailableWidgets.Where(m => m.Name != HomeScreenWidget.Name);
+            var modelsToBeEnabled = availableWidgets.Where(EnableDisableWidgetItemViewModel.IsEnabled);
+
             var enabledWidgets = viewToWidgetMap.Values;
             var enabledWidgetsThatShouldBeDisabled =
                 enabledWidgets.Where(enabledWidget => !modelsToBeEnabled.Any(m => m.Type == enabledWidget.GetType())).ToList();
@@ -42,11 +44,8 @@ namespace Smeedee.WP7.ViewModels
             foreach (var model in disabledModelsThatShouldBeEnabled)
                 AddWidget(model);
 
-            var widgetAttributes = type.GetCustomAttributes(typeof(WidgetAttribute), true);
-            var typeHasAttributes = (widgetAttributes.Count() > 0 && widgetAttributes is WidgetAttribute[]);
-            var type = typeof (HomeScreenWidget);
             if (WidgetViews.Count == 0)
-                AddWidget((type.GetCustomAttributes(typeof(WidgetAttribute), true) as WidgetAttribute).;
+                AddWidget(homeScreen);
         }
 
         private void AddWidget(WidgetModel model)

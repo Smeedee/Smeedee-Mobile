@@ -6,7 +6,6 @@ using Smeedee.Lib;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
-using Smeedee.WP7.Lib;
 using Smeedee.WP7.Services;
 using Smeedee.WP7.Services.Fakes;
 using Smeedee.WP7.ViewModels;
