@@ -45,6 +45,7 @@ namespace Smeedee.WP7.ViewModels
         private void AddWidget(WidgetModel model)
         {
             var widget = Activator.CreateInstance(model.Type) as IWpWidget;
+            if (widget == null) return;
             WidgetViews.Add(widget.View);
             viewToWidgetMap.Add(widget.View, widget);
         }
