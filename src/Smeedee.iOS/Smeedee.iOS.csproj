@@ -414,5 +414,6 @@
     <Content Include="Images\checkmark.png" />
     <Content Include="Images\19-gear.png" />
     <Content Include="Images\28-star.png" />
+    <Content Include="Images\calendar.png" />
   </ItemGroup>
 </Project>

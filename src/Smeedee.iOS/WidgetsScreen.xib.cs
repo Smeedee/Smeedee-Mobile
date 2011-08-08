@@ -43,8 +43,6 @@ namespace Smeedee.iOS
 				var instance = Activator.CreateInstance(models[i].Type);
 				widgets[i] = (instance as IWidget);
 			}
-			
-			ResetView();
         }
 		
 		public override void ViewWillAppear(bool animated)
@@ -101,6 +99,7 @@ namespace Smeedee.iOS
 		                widgetView.Frame = frame;
 		                
 		                scrollView.AddSubview(widgetView);
+						(widgets[i] as UIViewController).ViewWillAppear(true);
 						
 						scrollViewIndex++;
 					}

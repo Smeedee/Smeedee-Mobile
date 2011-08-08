@@ -64,7 +64,19 @@ namespace Smeedee.iOS
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
             	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 	            cell.StyleAsSettingsTableCell();
-				
+				/* Calendar icon test
+				if (indexPath.Row == 2)
+				{
+					cell.TextLabel.Frame = new RectangleF(cell.TextLabel.Frame.X + 60, cell.TextLabel.Frame.Y, cell.TextLabel.Frame.Width - 60, cell.TextLabel.Frame.Height);
+					cell.DetailTextLabel.Frame = new RectangleF(cell.DetailTextLabel.Frame.X + 60, cell.DetailTextLabel.Frame.Y, cell.DetailTextLabel.Frame.Width - 60, cell.DetailTextLabel.Frame.Height);
+					
+					var image = new UIImageView(UIImage.FromFile("images/calendar.png")) { 
+						Frame = new RectangleF(7, 4, 40, 40)
+					};
+					
+					cell.AddSubview(image);
+				}*/
+					
 	            return cell;
 			}
         }
