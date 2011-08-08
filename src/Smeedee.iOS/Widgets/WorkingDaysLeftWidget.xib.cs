@@ -1,10 +1,10 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
@@ -22,6 +22,7 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
 			ToggleHidden(true);
+			daysLabel.TextColor = StyleExtensions.smeedeeOrange;
 			Refresh();
         }
 		
