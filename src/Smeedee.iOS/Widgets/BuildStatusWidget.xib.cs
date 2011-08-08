@@ -29,6 +29,12 @@ namespace Smeedee.iOS
 			Refresh();
         }
 		
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			InvokeOnMainThread(UpdateUI);
+		}
+		
         public void Refresh()
         {
 			InvokeOnMainThread(LoadingIndicator.Instance.StartLoading);

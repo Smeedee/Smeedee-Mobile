@@ -28,6 +28,12 @@ namespace Smeedee.iOS
 			Refresh();
         }
 		
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			InvokeOnMainThread(UpdateUI);
+		}
+		
 		private void UpdateUI()
 		{
 			TableView.Source = new LatestCommitsTableSource(this, model);

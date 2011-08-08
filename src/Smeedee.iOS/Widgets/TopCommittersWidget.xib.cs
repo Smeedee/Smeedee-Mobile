@@ -33,7 +33,7 @@ namespace Smeedee.iOS
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			Console.WriteLine("Appearing<!!!");
+			InvokeOnMainThread(UpdateUI);
 		}
 		
         public void Refresh()
