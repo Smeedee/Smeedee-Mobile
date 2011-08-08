@@ -25,6 +25,8 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UIView __mt_graph;
 		
+		private MonoTouch.UIKit.UIView __mt_graphTop;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("imageView")]
 		private MonoTouch.UIKit.UIImageView imageView {
@@ -83,6 +85,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_graph = value;
 				this.SetNativeField("graph", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("graphTop")]
+		private MonoTouch.UIKit.UIView graphTop {
+			get {
+				this.__mt_graphTop = ((MonoTouch.UIKit.UIView)(this.GetNativeField("graphTop")));
+				return this.__mt_graphTop;
+			}
+			set {
+				this.__mt_graphTop = value;
+				this.SetNativeField("graphTop", value);
 			}
 		}
 	}

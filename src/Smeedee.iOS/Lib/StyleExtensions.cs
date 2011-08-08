@@ -8,6 +8,8 @@ namespace Smeedee.iOS.Lib
 		public static readonly UIColor transparent = UIColor.FromWhiteAlpha(1.0f, 0.0f);
 		
         public static readonly UIColor smeedeeOrange = UIColor.FromRGB(242, 80, 0); //f25000
+        public static readonly UIColor smeedeeOrangeAlpha = smeedeeOrange.ColorWithAlpha(0.2f);
+		
 		public static readonly UIColor descriptionColor = UIColor.FromRGB(255, 255, 255); //1d1d1d
 		
 		public static readonly UIColor blackBackground = UIColor.FromRGB(0, 0, 0);

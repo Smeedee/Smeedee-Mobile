@@ -11,6 +11,8 @@ namespace Smeedee.iOS
 {
 	public partial class TopCommittersTableCellController : TableViewCellController
 	{
+		private static int barHeight = 5;
+		
 		public TopCommittersTableCellController () : base("TopCommittersTableCellController", null)
 		{
 		}
@@ -26,18 +28,20 @@ namespace Smeedee.iOS
 			
 			nameLabel.Text = committer.Name;
 			commitLabel.Text = committer.Commits.ToString();
-			
-			float red = 0.6f * (1.0f - percent);
-			float green = 0.6f * percent;
-			graph.BackgroundColor = UIColor.FromRGB(red, green, 0f);
-			
-			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, percent * (graph.Frame.Width - 50f), graph.Frame.Height);
-			commitLabel.Frame = new RectangleF(graph.Frame.X + graph.Frame.Width + 5, graph.Frame.Y, 50f, commitLabel.Frame.Height);
+			StyleProgressBar(percent);
 			
 			UIImageLoader.LoadImageFromUri(committer.ImageUri, (image) => {
 				InvokeOnMainThread(() => imageView.Image = image);
 			});
-			
         }
+		
+		private void StyleProgressBar(float percent)
+		{
+			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, graph.Frame.Width, barHeight);
+			graph.BackgroundColor = StyleExtensions.smeedeeOrangeAlpha;
+			
+			graphTop.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, graph.Frame.Width * percent, barHeight);
+			graphTop.BackgroundColor = StyleExtensions.smeedeeOrange;
+		}
 	}
 }
