@@ -177,7 +177,6 @@
     </Compile>
     <Compile Include="Lib\TableCellFactory.cs" />
     <Compile Include="Lib\TableViewCellController.cs" />
-    <Compile Include="StyleExtensions.cs" />
     <Compile Include="Widgets\TableCells\CommitTableCellController.xib.cs">
       <DependentUpon>CommitTableCellController.xib</DependentUpon>
     </Compile>
@@ -361,6 +360,7 @@
       <Link>Services\MemoryCachedImageService.cs</Link>
     </Compile>
     <Compile Include="Lib\LoadingIndicator.cs" />
+    <Compile Include="Lib\StyleExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />

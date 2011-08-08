@@ -4,6 +4,7 @@ using System.Linq;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 using System.Drawing;
+using Smeedee.iOS.Lib;
 
 using Smeedee.Model;
 

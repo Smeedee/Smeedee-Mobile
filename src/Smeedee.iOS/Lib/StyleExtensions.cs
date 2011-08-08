@@ -1,6 +1,7 @@
 using System;
 using MonoTouch.UIKit;
-namespace Smeedee.iOS
+
+namespace Smeedee.iOS.Lib
 {
 	public static class StyleExtensions
 	{
