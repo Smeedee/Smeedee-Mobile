@@ -17,12 +17,17 @@ namespace Smeedee.iOS.Lib
 			var service = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
 			
 			service.GetImage(uri, (bytes) => {
-				using (var pool = new NSAutoreleasePool())
-				{
-					var ret = (bytes != null) ? UIImage.LoadFromData(NSData.FromArray(bytes)) : defaultImage;
-					callback(ret);
-				}
+				var image = ImageFromBytes(bytes);
+				callback(image);
 			});
+		}
+		
+		private static UIImage ImageFromBytes(byte[] result)
+		{	
+			using (var pool = new NSAutoreleasePool())
+			{
+				return (result != null) ? UIImage.LoadFromData(NSData.FromArray(result)) : defaultImage;
+			}
 		}
 	}
 }
