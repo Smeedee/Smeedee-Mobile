@@ -4,40 +4,54 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-    xmlns:WP7="clr-namespace:Smeedee.WP7" mc:Ignorable="d"
+    xmlns:WP7="clr-namespace:Smeedee.WP7" xmlns:Converters="clr-namespace:Smeedee.WP7.Converters"
+                    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                    mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480"
                     
     Header="latest commits">
+    
+    <controls:PivotItem.Resources>
+        <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </controls:PivotItem.Resources>
 
-    <WP7:LoadMoreListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-        <ListBox.ItemContainerStyle>
-            <Style TargetType="ListBoxItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-            </Style>
-        </ListBox.ItemContainerStyle>
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+    <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <toolkit:PerformanceProgressBar Grid.Row="0" IsIndeterminate="{Binding IsLoading}" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" Foreground="#fff"></toolkit:PerformanceProgressBar>
 
-                    <Image Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}" Width="55" VerticalAlignment="Top" Margin="0,19,0,7"></Image>
+        <WP7:LoadMoreListBox Grid.Row="1" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Message}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Right" FontStyle="Italic"/>
-                </Grid>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </WP7:LoadMoreListBox>
+                        <Image Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}" Width="55" VerticalAlignment="Top" Margin="0,19,0,7"></Image>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding User}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Message}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Right" FontStyle="Italic"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </WP7:LoadMoreListBox>
+    </Grid>
 </controls:PivotItem>

@@ -6,7 +6,6 @@ using Smeedee.Lib;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
-using Smeedee.WP7.Lib;
 using Smeedee.WP7.Services;
 using Smeedee.WP7.Services.Fakes;
 using Smeedee.WP7.ViewModels;
@@ -83,12 +82,14 @@ namespace Smeedee.WP7
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
         }
 
         // Code to execute when the application is deactivated (sent to background)

@@ -18,6 +18,23 @@ namespace Smeedee.WP7.ViewModels.Widgets
             }
         }
 
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                if (value != _isLoading)
+                {
+                    _isLoading = value;
+                    NotifyPropertyChanged("IsLoading");
+                }
+            }
+        }
+
         public LatestCommitsViewModel()
         {
             model = new LatestCommits();
@@ -26,11 +43,13 @@ namespace Smeedee.WP7.ViewModels.Widgets
         
         public void LoadData()
         {
+            IsLoading = true;
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke(StoreDataFromModel));
         }
 
         public void LoadMore()
         {
+            IsLoading = true;
             model.LoadMore(() => Deployment.Current.Dispatcher.BeginInvoke(StoreDataFromModel));
         }
 
@@ -47,6 +66,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
             Items.Add(null);
             //Items.Add(ButtonPlaceholderItem);
             NotifyPropertyChanged("LoadMoreButtonIsEnabled");
+            IsLoading = false;
         }
     }
 }

@@ -5,7 +5,7 @@ using Smeedee.Model;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {
-    public class BuildStatusViewModel
+    public class BuildStatusViewModel : ViewModelBase
     {
         public ObservableCollection<BuildStatusItemViewModel> Items { get; private set; }
         private readonly BuildStatus model;
@@ -16,8 +16,26 @@ namespace Smeedee.WP7.ViewModels.Widgets
             Items = new ObservableCollection<BuildStatusItemViewModel>();
         }
 
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                if (value != _isLoading)
+                {
+                    _isLoading = value;
+                    NotifyPropertyChanged("IsLoading");
+                }
+            }
+        }
+
         public void LoadData()
         {
+            IsLoading = true;
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 Items.Clear();
@@ -36,6 +54,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
                         BuildStatusImage = statusImageUri
                     });
                 }
+                IsLoading = false;
             }));
         }
     }

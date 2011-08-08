@@ -4,8 +4,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-    xmlns:WP7="clr-namespace:Smeedee.WP7" 
-    mc:Ignorable="d"
+    xmlns:WP7="clr-namespace:Smeedee.WP7"
+                    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                    xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -13,39 +14,51 @@
                     
     Header="top committers">
 
-    <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-        <ListBox.ItemContainerStyle>
-            <Style TargetType="ListBoxItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-            </Style>
-        </ListBox.ItemContainerStyle>
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,12,0,0" VerticalAlignment="Top" Width="55" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
-                    <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource PhoneTextLargeStyle}"/>
+    <controls:PivotItem.Resources>
+        <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </controls:PivotItem.Resources>
+    
+    <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <toolkit:PerformanceProgressBar Grid.Row="0" IsIndeterminate="{Binding IsLoading}" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" Foreground="#fff"></toolkit:PerformanceProgressBar>
 
-                    <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ListBox Grid.Row="1" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ProgressBar Grid.Column="0" Height="40" Width="Auto" HorizontalAlignment="Stretch" Background="#FFF25000" Foreground="#FFF25000" Minimum="0" Maximum="100" Value="{Binding CommitPercent}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Commits}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,12,0,0" VerticalAlignment="Top" Width="55" Source="{Binding Image, Converter={StaticResource UriToImageConverter}}"></Image>
+                        <TextBlock Text="{Binding Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource PhoneTextLargeStyle}"/>
+
+                        <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ProgressBar Grid.Column="0" Height="40" Width="Auto" HorizontalAlignment="Stretch" Background="#FFF25000" Foreground="#FFF25000" Minimum="0" Maximum="100" Value="{Binding CommitPercent}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Commits}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
 </controls:PivotItem>

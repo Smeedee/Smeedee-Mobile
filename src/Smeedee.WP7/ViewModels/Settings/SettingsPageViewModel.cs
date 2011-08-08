@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 using Smeedee.Model;
+using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7.ViewModels.Settings
 {
@@ -18,7 +19,8 @@ namespace Smeedee.WP7.ViewModels.Settings
             _persistance = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
             EnableDisableWidgets = new ObservableCollection<EnableDisableWidgetItemViewModel>();
             foreach (var model in SmeedeeApp.Instance.AvailableWidgets)
-                EnableDisableWidgets.Add(new EnableDisableWidgetItemViewModel(_persistance) { WidgetName = model.Name});
+                if (model.Name != HomeScreenWidget.Name)
+                    EnableDisableWidgets.Add(new EnableDisableWidgetItemViewModel(_persistance) { WidgetName = model.Name});
         }
     }
 }

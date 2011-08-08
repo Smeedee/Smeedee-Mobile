@@ -23,6 +23,7 @@ namespace Smeedee.Services
             Uri uri;
             try
             {
+                url += (url.Contains("?") ? "&" : "?") + "nocache=" + new Random().Next();
                 uri = new Uri(url);
             } catch (FormatException)
             {
