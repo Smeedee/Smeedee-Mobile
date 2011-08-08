@@ -50,7 +50,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
+      <HintPath>..\..\tools\WPToolkitFeb2011\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -230,7 +232,6 @@
     <Compile Include="ViewModels\Widgets\LatestCommitsViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersItemViewModel.cs" />
     <Compile Include="ViewModels\Widgets\TopCommittersViewModel.cs" />
-    <Compile Include="Widgets\TopCommittersWidget.cs" />
     <Compile Include="ViewModels\Widgets\WorkingDaysLeftViewModel.cs" />
     <Compile Include="Views\BuildStatusView.xaml.cs">
       <DependentUpon>BuildStatusView.xaml</DependentUpon>
@@ -251,6 +252,7 @@
     <Compile Include="Widgets\HomeScreenWidget.cs" />
     <Compile Include="Widgets\LatestCommitsWidget.cs" />
     <Compile Include="Widgets\IWpWidget.cs" />
+    <Compile Include="Widgets\TopCommittersWidget.cs" />
     <Compile Include="Widgets\WorkingDaysLeftWidget.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,13 +268,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <DesignData Include="SampleData\SettingsViewModelSampleData.xaml">
+    <Page Include="SampleData\BuildStatusSampleData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </DesignData>
+    </Page>
+    <Page Include="SampleData\SettingsViewModelSampleData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SettingsPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BuildStatusView.xaml">
       <Generator>MSBuild:Compile</Generator>

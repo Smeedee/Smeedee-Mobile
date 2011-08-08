@@ -2,36 +2,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  	xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
-    xmlns:ViewModels="clr-namespace:Smeedee.WP7.ViewModels"
-    xmlns:Settings="clr-namespace:Smeedee.WP7.ViewModels.Settings">
+    xmlns:ViewModels="clr-namespace:Smeedee.WP7.ViewModels">
 
-
-    <ViewModels:MainViewModel.Settings>
-        <Settings:SettingsViewModel>
-            <Settings:SettingsViewModel.Widgets>
-                <Settings:EnableDisableWidgetViewModel Enabled="true" WidgetName="Working Days Left"/>
-                <Settings:EnableDisableWidgetViewModel Enabled="true" WidgetName="Top Committers"/>
-                <Settings:EnableDisableWidgetViewModel Enabled="true" WidgetName="Build Status"/>
-                <Settings:EnableDisableWidgetViewModel Enabled="true" WidgetName="Latest Commits"/>
-            </Settings:SettingsViewModel.Widgets>
-        </Settings:SettingsViewModel>
-    </ViewModels:MainViewModel.Settings>
-    
-    
     <ViewModels:MainViewModel.TopCommitters>
         <Widgets:TopCommittersViewModel>
             <Widgets:TopCommittersViewModel.Items>
-                <Widgets:TopCommittersItemViewModel Name="Dag Olav" Commits="232" CommitPercent="100" Image="Resources\Images/default_person.jpeg" />
-                <Widgets:TopCommittersItemViewModel Name="Lars Eidnes" Commits="219" CommitPercent="90" Image="Resources\Images\default_person.png" />
-                <Widgets:TopCommittersItemViewModel Name="Shared Macbook" Commits="200" CommitPercent="80" Image="Resources\Images\default_person.png" />
-                <Widgets:TopCommittersItemViewModel Name="Børge Rødsjø" Commits="178" CommitPercent="70" Image="Resources\Images\default_person.png" />
-                <Widgets:TopCommittersItemViewModel Name="Lars Melhus" Commits="50" CommitPercent="20" Image="Resources\Images\default_person.png" />
+                <Widgets:TopCommittersItemViewModel Name="Dag Olav" Commits="232" CommitPercent="100" Image="..\Resources\Images\default_person.jpeg" />
+                <Widgets:TopCommittersItemViewModel Name="Lars Eidnes" Commits="219" CommitPercent="90" Image="..\Resources\Images\default_person.jpeg" />
+                <Widgets:TopCommittersItemViewModel Name="Shared Macbook" Commits="200" CommitPercent="80" Image="..\Resources\Images\default_person.jpeg" />
+                <Widgets:TopCommittersItemViewModel Name="Børge" Commits="178" CommitPercent="70" Image="..\Resources\Images\default_person.jpeg" />
+                <Widgets:TopCommittersItemViewModel Name="Lars Melhus" Commits="50" CommitPercent="20" Image="..\Resources\Images\default_person.jpeg" />
             </Widgets:TopCommittersViewModel.Items>
         </Widgets:TopCommittersViewModel>
     </ViewModels:MainViewModel.TopCommitters>
-    
-    
-	<ViewModels:MainViewModel.LatestCommits>
+
+
+    <ViewModels:MainViewModel.LatestCommits>
         <Widgets:LatestCommitsViewModel>
             <Widgets:LatestCommitsViewModel.Items>
                 <Widgets:LatestCommitsItemViewModel User="Lars Eidnes" Message="This is a long commit message, it should not be hidden but span multiple lines" Date="One hour ago"/>
@@ -39,14 +25,14 @@
             </Widgets:LatestCommitsViewModel.Items>
         </Widgets:LatestCommitsViewModel>
     </ViewModels:MainViewModel.LatestCommits>
-    
-    
+
+
     <ViewModels:MainViewModel.BuildStatus>
         <Widgets:BuildStatusViewModel>
             <Widgets:BuildStatusViewModel.Items>
-                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - dev" UserName="dagolap" BuildTime="One long time since this build" BuildStatusImage="Resources/Images/icon_buildfailure.png"/>
-                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - app" UserName="system" BuildTime="One hour ago" BuildStatusImage="Resources/Images/icon_buildsuccess.png"/>
-                <Widgets:BuildStatusItemViewModel ProjectName="Smeede System - tests" UserName="system" BuildTime="One hour ago" BuildStatusImage="Resources/Images/icon_buildunknown.png"/>
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - dev" UserName="dagolap" BuildTime="One long time since this build" BuildStatusImage="../Resources/Images/icon_buildfailure.png"/>
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - app" UserName="system" BuildTime="One hour ago" BuildStatusImage="../Resources/Images/icon_buildsuccess.png"/>
+                <Widgets:BuildStatusItemViewModel ProjectName="Smeede System - tests" UserName="system" BuildTime="One hour ago" BuildStatusImage="../Resources/Images/icon_buildunknown.png"/>
             </Widgets:BuildStatusViewModel.Items>
         </Widgets:BuildStatusViewModel>
     </ViewModels:MainViewModel.BuildStatus>

@@ -19,7 +19,7 @@
     shell:SystemTray.IsVisible="True" 
     d:DesignHeight="768" 
     d:DesignWidth="480">
-    
+
     <UserControl.Resources>
         <Converters:UriToImageConverter x:Key="UriToImageConverter"/>
         <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>

@@ -1,18 +1,12 @@
-﻿<ViewModels:MainViewModel 
+﻿<Widgets:BuildStatusViewModel
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Smeedee.WP7" 
-    xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets"
-    xmlns:ViewModels="clr-namespace:Smeedee.WP7.ViewModels" >
+    xmlns:Widgets="clr-namespace:Smeedee.WP7.ViewModels.Widgets">
 
-  <ViewModels:MainViewModel.BuildStatus>
-    <Widgets:BuildStatusViewModel>
-      <Widgets:BuildStatusViewModel.Items>
+        <Widgets:BuildStatusViewModel.Items>
         <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - dev" UserName="dagolap" BuildTime="One hour ago"/>
         <Widgets:BuildStatusItemViewModel ProjectName="Smeede Mobile - app" UserName="system" BuildTime="One hour ago"/>
         <Widgets:BuildStatusItemViewModel ProjectName="Smeede System - tests" UserName="system" BuildTime="One hour ago"/>
-      </Widgets:BuildStatusViewModel.Items>
-    </Widgets:BuildStatusViewModel>
-</ViewModels:MainViewModel.BuildStatus>
-
-</ViewModels:MainViewModel>
+    </Widgets:BuildStatusViewModel.Items>
+    
+</Widgets:BuildStatusViewModel>
