@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Phone.Controls;
-using Smeedee.Model;
 using Smeedee.WP7.ViewModels;
-using Smeedee.WP7.ViewModels.Widgets;
-using Smeedee.WP7.Widgets;
 
 namespace Smeedee.WP7
 {
