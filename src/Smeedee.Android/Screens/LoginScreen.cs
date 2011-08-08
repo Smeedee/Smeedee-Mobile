@@ -1,7 +1,6 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
@@ -23,16 +22,15 @@ namespace Smeedee.Android.Screens
             var urlInput = FindViewById<EditText>(Resource.Id.LoginScreenServerUrlInput);
             var keyInput = FindViewById<EditText>(Resource.Id.LoginScreenUserKeyInput);
 
-            var login = new Login();
-            urlInput.Text = login.Url;
-            keyInput.Text = login.Key;
+            urlInput.Text = Login.DefaultSmeedeeUrl;
+            keyInput.Text = Login.DefaultSmeedeeKey;
 
             submitButton.Click += delegate
                 {
-                    var dialog = ProgressDialog.Show(this, "Please wait...", "Connecting to server and validating key...", true);
+                    var dialog = ProgressDialog.Show(this, "", "Connecting to server and validating key...", true);
                     var handler = new ProgressHandler(dialog);
 
-                    login.StoreAndValidate(urlInput.Text, keyInput.Text, (valid) => RunOnUiThread(() =>
+                    new Login().StoreAndValidate(urlInput.Text, keyInput.Text, (valid) => RunOnUiThread(() =>
                         {
                             if (valid == Login.ValidationSuccess)
                             {

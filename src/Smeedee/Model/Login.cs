@@ -51,7 +51,7 @@ namespace Smeedee.Model
             validation.Validate(Url, Key, callback);
         }
 
-        private string NormalizeUrl(string url)
+        private static string NormalizeUrl(string url)
         {
             if (!url.StartsWith("http")) url = "http://" + url;
             if (!url.EndsWith("/")) url += "/";
