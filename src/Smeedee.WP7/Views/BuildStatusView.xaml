@@ -22,8 +22,8 @@
     
     <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <toolkit:PerformanceProgressBar Grid.Row="0" IsIndeterminate="{Binding IsLoading}" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" Foreground="#fff"></toolkit:PerformanceProgressBar>
 
