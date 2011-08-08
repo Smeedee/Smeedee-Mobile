@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:WP7="clr-namespace:Smeedee.WP7"
                     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-                    mc:Ignorable="d"
+                    xmlns:Converters="clr-namespace:Smeedee.WP7.Converters" mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -14,6 +14,10 @@
                     
     Header="top committers">
 
+    <controls:PivotItem.Resources>
+        <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </controls:PivotItem.Resources>
+    
     <Grid Margin="0,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />

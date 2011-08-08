@@ -38,7 +38,7 @@ namespace Smeedee.WP7
         }
 
 
-        private bool USE_FAKES = true;
+        private bool USE_FAKES = false;
         private void BindDependencies()
         {
             var app = SmeedeeApp.Instance;
