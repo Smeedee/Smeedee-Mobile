@@ -5,6 +5,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
@@ -27,6 +28,7 @@ namespace Smeedee.iOS
 			View.AddSubview(LoadingIndicator.Instance);
 			
 			pageControl.HidesForSinglePage = true;
+			titleLabel.StyleAsWidgetHeadline();
 			
             scrollView.Scrolled += ScrollViewScrolled;
 			refresh.Clicked += delegate {
@@ -113,7 +115,6 @@ namespace Smeedee.iOS
 		// Both are called simultanously when going from settings to widgets
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
-			Console.WriteLine("Scrolled");
 			if (appearing) return;
 			var pageIndex = CurrentPageIndex();
             if (pageControl.CurrentPage != pageIndex)

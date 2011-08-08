@@ -7,7 +7,7 @@ namespace Smeedee.iOS.Lib
 	{
 		public static readonly UIColor transparent = UIColor.FromWhiteAlpha(1.0f, 0.0f);
 		
-        public static readonly UIColor headlineColor = UIColor.FromRGB(242, 80, 0); //f25000
+        public static readonly UIColor smeedeeOrange = UIColor.FromRGB(242, 80, 0); //f25000
 		public static readonly UIColor descriptionColor = UIColor.FromRGB(255, 255, 255); //1d1d1d
 		
 		public static readonly UIColor blackBackground = UIColor.FromRGB(0, 0, 0);
@@ -22,10 +22,14 @@ namespace Smeedee.iOS.Lib
 		
 		public static readonly UIColor tableSeparator = UIColor.FromRGB(20, 20, 20);
 		
+		public static void StyleAsWidgetHeadline(this UILabel self)
+		{
+			self.TextColor = smeedeeOrange;
+		}
 		
 		public static void StyleAsHeadline(this UILabel self) 
 		{
-			self.TextColor = headlineColor;				
+			self.TextColor = smeedeeOrange;
 		}
 		
 		public static void StyleAsDescription(this UILabel self) 
