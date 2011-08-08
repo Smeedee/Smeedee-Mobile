@@ -94,6 +94,14 @@ namespace Smeedee.iOS
 					scrollViewIndex++;
 				}
 			}
+			
+			if (count == 0)
+			{
+				var view = new UIImageView(UIImage.FromFile("images/logo.png"));
+				view.Frame = new RectangleF((SCREEN_WIDTH - 61) / 2.0f, 140, 61, 61);
+				this.scrollView.AddSubview(view);
+			}
+			
             pageControl.Pages = count;
             SetPageControlIndex(CurrentPageIndex());
         }
