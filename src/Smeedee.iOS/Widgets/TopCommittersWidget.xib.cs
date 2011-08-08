@@ -75,7 +75,7 @@ namespace Smeedee.iOS
 					model.TimePeriod = TimePeriod.PastMonth;
 					break;
 				}
-				Refresh();
+				ViewWillAppear(true);
 			};
 			
 			return new UIBarButtonItem(toolbarControl);
