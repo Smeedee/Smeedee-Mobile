@@ -360,6 +360,7 @@
     <Compile Include="..\Smeedee\Services\MemoryCachedImageService.cs">
       <Link>Services\MemoryCachedImageService.cs</Link>
     </Compile>
+    <Compile Include="Lib\LoadingIndicator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
