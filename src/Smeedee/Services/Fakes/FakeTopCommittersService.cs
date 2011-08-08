@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Smeedee.Model;
 
 namespace Smeedee.Services.Fakes
@@ -27,6 +28,7 @@ namespace Smeedee.Services.Fakes
 
         private string PretendToGetDataFromHttp(TimePeriod time)
         {
+            Thread.Sleep(5000);
             //In the real implementation, use the TimePeriod in the http call
             var asStrings = data.Select(committer => new[] { committer.Name, committer.Commits.ToString(), committer.ImageUri.ToString() });
             return Csv.ToCsv(asStrings);
