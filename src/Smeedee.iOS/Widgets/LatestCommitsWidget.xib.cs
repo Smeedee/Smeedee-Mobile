@@ -94,7 +94,7 @@ namespace Smeedee.iOS
 				
 				return height + CELL_PADDING;
 			}
-			return 30;
+			return LatestCommitsLoadMoreTableCellController.Height;
 		}
 		
 		public override float GetHeightForFooter (UITableView tableView, int section) {	return 0; }
@@ -115,6 +115,7 @@ namespace Smeedee.iOS
 			else
 			{
 				var buttonController = buttonCellFactory.NewTableCellController(tableView, indexPath) as LatestCommitsLoadMoreTableCellController;
+				buttonController.ApplyStyling();
 				return buttonController.TableViewCell;
 			}
         }
