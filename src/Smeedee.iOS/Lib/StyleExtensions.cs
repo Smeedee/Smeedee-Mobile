@@ -29,16 +29,6 @@ namespace Smeedee.iOS.Lib
 			self.TextColor = smeedeeOrange;
 		}
 		
-		public static void StyleAsHeadline(this UILabel self) 
-		{
-			self.TextColor = smeedeeOrange;
-		}
-		
-		public static void StyleAsDescription(this UILabel self) 
-		{
-			self.TextColor = descriptionColor;
-		}
-		
 		public static void StyleAsSettingsTable(this UITableView self)
 		{
 			self.BackgroundColor = blackBackground;
