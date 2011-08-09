@@ -6,7 +6,7 @@ namespace Smeedee.iOS
 	{
 		public void Log(string message, params string[] more)
 		{
-			Console.WriteLine(message + string.Join(" ", more));
+			Console.WriteLine(message + " " + string.Join(" ", more));
 		}
 	}
 }
