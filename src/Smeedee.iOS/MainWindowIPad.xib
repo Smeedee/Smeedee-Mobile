@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="7"/>
+			<integer value="10"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -67,9 +67,13 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
-				<object class="IBUIViewController" key="IBUISelectedViewController" id="266454344">
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="693882024">
-						<string key="IBUITitle">Item 1</string>
+				<object class="IBUIViewController" key="IBUISelectedViewController" id="327936178">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="969590420">
+						<string key="IBUITitle">Settings</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">images/19-gear.png</string>
+						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUITabBar"/>
 					</object>
@@ -82,10 +86,13 @@
 				</object>
 				<object class="NSMutableArray" key="IBUIViewControllers">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<reference ref="266454344"/>
-					<object class="IBUIViewController" id="327936178">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="969590420">
-							<string key="IBUITitle">Item 2</string>
+					<object class="IBUIViewController" id="266454344">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="693882024">
+							<string key="IBUITitle">Widgets</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">images/28-star.png</string>
+							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							<reference key="IBUITabBar"/>
 						</object>
@@ -96,6 +103,7 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
+					<reference ref="327936178"/>
 				</object>
 				<object class="IBUITabBar" key="IBUITabBar" id="845002153">
 					<nil key="NSNextResponder"/>
@@ -108,7 +116,7 @@
 					<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				</object>
 			</object>
-			<object class="IBUIViewController" id="369446530">
+			<object class="IBUIViewController" id="98725873">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
 				</object>
@@ -118,7 +126,7 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
 			</object>
-			<object class="IBUIViewController" id="393502658">
+			<object class="IBUIViewController" id="639799438">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
 				</object>
@@ -160,7 +168,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">login</string>
 						<reference key="source" ref="250404236"/>
-						<reference key="destination" ref="369446530"/>
+						<reference key="destination" ref="98725873"/>
 					</object>
 					<int key="connectionID">15</int>
 				</object>
@@ -168,7 +176,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">loginHeader</string>
 						<reference key="source" ref="250404236"/>
-						<reference key="destination" ref="393502658"/>
+						<reference key="destination" ref="639799438"/>
 					</object>
 					<int key="connectionID">17</int>
 				</object>
@@ -250,12 +258,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">14</int>
-						<reference key="object" ref="369446530"/>
+						<reference key="object" ref="98725873"/>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
-						<reference key="object" ref="393502658"/>
+						<reference key="object" ref="639799438"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -304,7 +312,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>AppDelegateIPad</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{135, 71}, {783, 935}}</string>
+					<string>{{126, 68}, {783, 935}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>WidgetsScreen</string>
@@ -698,6 +706,19 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../../IBCocoaTouchPlugin.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>images/19-gear.png</string>
+				<string>images/28-star.png</string>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{16, 16}</string>
+				<string>{16, 16}</string>
+			</object>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">132</string>
 	</data>
 </archive>
