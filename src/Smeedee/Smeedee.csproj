@@ -71,6 +71,7 @@
     <Compile Include="Services\IBuildStatusService.cs" />
     <Compile Include="Services\IFetchHttp.cs" />
     <Compile Include="Services\ILatestCommitsService.cs" />
+    <Compile Include="Services\ILog.cs" />
     <Compile Include="Services\ITopCommittersService.cs" />
     <Compile Include="Services\IValidationService.cs" />
     <Compile Include="Services\IWorkingDaysLeftService.cs" />

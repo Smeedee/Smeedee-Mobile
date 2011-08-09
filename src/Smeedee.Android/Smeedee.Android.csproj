@@ -159,6 +159,9 @@
     <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
       <Link>Services\ILatestCommitsService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\ILog.cs">
+      <Link>Services\ILog.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\ImageService.cs">
       <Link>Services\ImageService.cs</Link>
     </Compile>
@@ -201,6 +204,7 @@
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
+    <Compile Include="Services\LogService.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\Settings\LatestCommitsSettings.cs" />
     <Compile Include="Widgets\LatestCommitsWidget.cs" />
@@ -226,7 +230,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BuildStatusWidget.axml" />
-    <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml" />
+    <AndroidResource Include="Resources\Layout\BuildStatusWidget_ListItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Layout\LatestCommitsWidget.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

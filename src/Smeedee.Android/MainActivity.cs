@@ -49,6 +49,7 @@ namespace Smeedee.Android
             
             else
             {
+                App.ServiceLocator.Bind<ILog>(new LogService());
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
