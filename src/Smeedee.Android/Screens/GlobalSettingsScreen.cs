@@ -39,28 +39,12 @@ namespace Smeedee.Android.Screens
                                        Title = widgetModel.Name,
                                        Summary = widgetModel.StaticDescription,
                                        Key = widgetModel.Name,
-                                       OnPreferenceClickListener = new CheckBoxPreferenceClick(widgetModel)
                                    };
                 availableWidgetsCategory.AddPreference(checkBox);
             }
         }
     }
 
-    internal class CheckBoxPreferenceClick : Preference.IOnPreferenceClickListener
-    {
-        private readonly WidgetModel _widgetModel;
-        public CheckBoxPreferenceClick(WidgetModel widgetModel)
-        {
-            _widgetModel = widgetModel;
-        }
-        public IntPtr Handle { get { throw new NotImplementedException(); } }
-
-        public bool OnPreferenceClick(Preference preference)
-        {
-            _widgetModel.Enabled = ((CheckBoxPreference)preference).Checked;
-            return true;
-        }
-    }
     public class ServerSettingsPreference : DialogPreference
     {
         private TextView _serverUrl;
