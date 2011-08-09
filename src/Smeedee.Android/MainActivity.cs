@@ -38,8 +38,7 @@ namespace Smeedee.Android
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 App.ServiceLocator.Bind<IValidationService>(new ValidationService());
                 App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
-                App.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
-                App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+                App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 
                 App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
                 App.ServiceLocator.Bind<ILatestCommitsService>(new LatestCommitsService());
@@ -52,9 +51,9 @@ namespace Smeedee.Android
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
-                App.ServiceLocator.Bind<IValidationService>(new FakeValidationService()); 
+                App.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
                 App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
-                App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new DiskCachedImageService(new ImageService())));
+                App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 
                 App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
                 App.ServiceLocator.Bind<ILatestCommitsService>(new FakeLatestCommitsService());
