@@ -1,5 +1,5 @@
 ﻿using System;
-using Smeedee;
+using Android.Util;
 
 namespace Smeedee.Model
 {
@@ -22,8 +22,14 @@ namespace Smeedee.Model
 		
 		public bool Enabled
 		{
-			get { return persistence.Get(Name, true); }
-			set { persistence.Save(Name, value); }
+			get
+			{
+			    return persistence.Get(Name, true);
+			}
+			set
+			{
+			    persistence.Save(Name, value);
+			}
 		}
     }
 }

@@ -15,9 +15,13 @@ namespace Smeedee.Model
 
         public List<Commit> Commits { get; private set; }
         public bool HasMore { get; private set; }
+
         public string DynamicDescription
         {
-            get { return "Latest " + Commits.Count() + " commits"; }
+            get
+            {
+                return "Latest " + Commits.Count() + " commits";
+            }
         }
 
         public LatestCommits()

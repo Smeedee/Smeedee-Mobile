@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Smeedee.Model;
 using Smeedee.WP7.ViewModels.Settings;
@@ -11,81 +14,103 @@ namespace Smeedee.WP7.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public ObservableCollection<PivotItem> WidgetViews { get; private set; }
         public ObservableCollection<PivotItem> SettingsViews { get; private set; }
         public LoginViewModel LoginViewModel { get; private set; }
         private readonly Dictionary<PivotItem, IWpWidget> viewToWidgetMap;
         private SmeedeeApp _app = SmeedeeApp.Instance;
+        public MainPage MainPage;
 
         public MainViewModel()
         {
             LoginViewModel = new LoginViewModel();
-            WidgetViews = new ObservableCollection<PivotItem>();
             viewToWidgetMap = new Dictionary<PivotItem, IWpWidget>();
         }
 
-        private void InstantiateWidgets()
+        /* Databinding the items in a Pivot control is seriously bugged (as of the first WP7 release, at least)
+         * We experienced the problem documented here:
+         * http://social.msdn.microsoft.com/Forums/en-US/windowsphone7series/thread/331e53f2-c169-41b9-a946-c5ee5980562a
+         * 
+         * The solution is to not databind, but rather recreate the entire Pivot control when we change its content.
+         * We do not currently recycle views between each recreation, so we reload every widget when we change 
+         * which widgets are enabled and disabled.         
+         */
+        public void RecreatePivotControlIfChanged()
         {
-            var homeScreen       = _app.AvailableWidgets.Where(m => m.Name == HomeScreenWidget.Name).First();
+            if (EnabledWidgetsHasChanged())
+                CreatePivotControl();
+        }
+
+        private IEnumerable<WidgetModel> GetModelsToBeShown()
+        {
+            var homeScreen = _app.AvailableWidgets.Where(m => m.Name == HomeScreenWidget.Name).First();
             var availableWidgets = _app.AvailableWidgets.Where(m => m.Name != HomeScreenWidget.Name);
             var modelsToBeEnabled = availableWidgets.Where(EnableDisableWidgetItemViewModel.IsEnabled);
-
-            var enabledWidgets = viewToWidgetMap.Values;
-            var enabledWidgetsThatShouldBeDisabled =
-                enabledWidgets.Where(enabledWidget => !modelsToBeEnabled.Any(m => m.Type == enabledWidget.GetType())).ToList();
-            var disabledModelsThatShouldBeEnabled =
-                modelsToBeEnabled.Where(model => !enabledWidgets.Any(w => w.GetType() == model.Type)).ToList();
-
-            foreach (var widget in enabledWidgetsThatShouldBeDisabled)
-                RemoveWidget(widget);
-            foreach (var model in disabledModelsThatShouldBeEnabled)
-                AddWidget(model);
-
-            if (WidgetViews.Count == 0)
-                AddWidget(homeScreen);
+            return modelsToBeEnabled.Count() == 0 ? new[] { homeScreen } : modelsToBeEnabled;
         }
+        
 
-        private void AddWidget(WidgetModel model)
+        private bool EnabledWidgetsHasChanged()
         {
-            var widget = Activator.CreateInstance(model.Type) as IWpWidget;
-            if (widget == null) return;
-            WidgetViews.Add(widget.View);
-            viewToWidgetMap.Add(widget.View, widget);
+            var current = viewToWidgetMap.Values;
+            var shouldBeEnabled = GetModelsToBeShown();
+
+            if (current.Count != shouldBeEnabled.Count()) return true;
+            foreach (var widgetModel in shouldBeEnabled)
+            {
+                if (!current.Any(widget => widgetModel.Type == widget.GetType()))
+                    return true;
+            }
+            return false;
         }
 
-        private void RemoveWidget(IWpWidget widget)
+        private Pivot prevPivot;
+        private void CreatePivotControl()
         {
-            //TODO: This sometimes throws an ArgumentOutOfRangeException (from within the Pivot view).
-            //We need to figure out when and why and stop it, or see if we can catch it and ignore it
-            WidgetViews.Remove(widget.View);
-            viewToWidgetMap.Remove(widget.View);
+            viewToWidgetMap.Clear();
+            var toRemove = prevPivot ?? MainPage.WidgetsPivot;
+            var pivot = CreatePivot();
+            prevPivot = pivot;
+            foreach (var model in GetModelsToBeShown())
+            {
+                var widget = Activator.CreateInstance(model.Type) as IWpWidget;
+                if (widget == null) continue; 
+                pivot.Items.Add(widget.View);
+                viewToWidgetMap.Add(widget.View, widget);
+            }
+            MainPage.LayoutRoot.Children.Remove(toRemove);
+            MainPage.LayoutRoot.Children.Add(pivot);
         }
 
+        private static Pivot CreatePivot()
+        {
+            var pivot = new Pivot() {Foreground = new SolidColorBrush(Color.FromArgb(0xff, 0xf2, 0x50, 0x00))};
+            pivot.Title = new TextBlock() {Foreground = new SolidColorBrush(Colors.White), Text = "SMEEDEE"};
+            return pivot;
+        }
+        
         public void OnExitSettings()
         {
-            InstantiateWidgets();
+            RecreatePivotControlIfChanged();
         }
 
         public IWpWidget GetWidgetForView(PivotItem view)
         {
             return viewToWidgetMap[view];
         }
-
-        private bool _widgetsAreShowing;
-        public bool WidgetsAreShowing
+        
+        private bool _loginIsVisible;
+        public bool LoginIsVisible
         {
             get
             {
-                return _widgetsAreShowing;
+                return _loginIsVisible;
             }
             set
             {
-                if (value != _widgetsAreShowing)
+                if (value != _loginIsVisible)
                 {
-                    _widgetsAreShowing = value;
-                    if (_widgetsAreShowing && WidgetViews.Count == 0)
-                        InstantiateWidgets(); 
-                    NotifyPropertyChanged("WidgetsAreShowing");
+                    _loginIsVisible = value;
+                    NotifyPropertyChanged("LoginIsVisible");
                 }
             }
         }

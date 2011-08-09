@@ -90,14 +90,14 @@ namespace Smeedee.UnitTests.Model
 		[Test]
 		public void Should_store_url_when_changing_server()
 		{
-			login.StoreAndValidate("https://www.example.com/", "", (str) => {});
+			login.ValidateAndStore("https://www.example.com/", "", (str) => {});
 			
 			Assert.AreEqual("https://www.example.com/", login.Url);
 		}
 		[Test]
 		public void Should_store_key_when_changing_server()
 		{
-			login.StoreAndValidate("", "key", (str) => {});
+            login.ValidateAndStore("", "key", (str) => { });
 			
 			Assert.AreEqual("key", login.Key);
 		}
@@ -106,7 +106,7 @@ namespace Smeedee.UnitTests.Model
 		public void Callback_should_be_run_when_changing_server() 
 		{
 			var shouldBeTrue = false;
-			login.StoreAndValidate("", "", (str) => shouldBeTrue = true);
+            login.ValidateAndStore("", "", (str) => shouldBeTrue = true);
 			Assert.IsTrue(shouldBeTrue);
 		}
 		
@@ -114,7 +114,7 @@ namespace Smeedee.UnitTests.Model
 		public void Should_return_sucess_when_correct_validation_against_server()
 		{
 			string s = "";
-			login.StoreAndValidate("http://www.example.com/", "1234", (str) => s = str);
+            login.ValidateAndStore("http://www.example.com/", "1234", (str) => s = str);
 			
 			Assert.AreEqual(Login.ValidationSuccess, s);
 		}
@@ -122,7 +122,7 @@ namespace Smeedee.UnitTests.Model
 		public void Should_return_failed_when_wrong_validation_against_server()
 		{
 			string s = "";
-			login.StoreAndValidate("http://www.example.com/", "failkey", (str) => s = str);
+            login.ValidateAndStore("http://www.example.com/", "failkey", (str) => s = str);
 			
 			Assert.AreEqual(Login.ValidationFailed, s);
 		}

@@ -10,8 +10,8 @@ namespace Smeedee.Model
         public const string TimePeriodPropertyKey = "TopCommitters.TimePeriod";
         public const string NumberOfCommittersPropertyKey = "TopCommitters.NumberOfCommitters";
 
-        private const string DefaultNumberOfCommittersPropertyValue = "5";
-        private static readonly string DefaultTimePeriodPropertyValue = TimePeriod.PastDay.ToString();
+        private const string DefaultNumberOfCommittersPropertyValue = "10";
+        private static readonly string DefaultTimePeriodPropertyValue = TimePeriod.PastMonth.ToString();
 
         private readonly IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
@@ -73,7 +73,7 @@ namespace Smeedee.Model
         {
             get {
                 return _committers[TimePeriod].Count() > 0 ? string.Format("Top {0} committers for the past {1}", NumberOfCommitters, TimePeriod.ToSuffix()) : string.Format("No commits found for the past {0}", TimePeriod.ToSuffix());
-            }
+                }
         }
     }
 

@@ -105,7 +105,6 @@ namespace Smeedee.WP7.ViewModels
             }
         }
 
-        private SolidColorBrush _statusColor = new SolidColorBrush(Color.FromArgb(byte.MaxValue, 0, 0, 0));
         public SolidColorBrush StatusColor
         {
             get

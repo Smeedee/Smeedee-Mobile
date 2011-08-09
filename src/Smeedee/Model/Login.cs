@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.Util;
 using Smeedee.Services;
 
 namespace Smeedee.Model
@@ -18,13 +19,13 @@ namespace Smeedee.Model
 
         public string Key
         {
-            get { return _persistence.Get(LoginKey, ""); } //
+            get { return _persistence.Get(LoginKey, ""); }
             set { _persistence.Save(LoginKey, value); }
         }
 
         public string Url
         {
-            get { return _persistence.Get(LoginUrl, ""); } //
+            get { return _persistence.Get(LoginUrl, ""); }
             set { _persistence.Save(LoginUrl, NormalizeUrl(value)); }
         }
 
@@ -33,10 +34,11 @@ namespace Smeedee.Model
             _persistence = app.ServiceLocator.Get<IPersistenceService>();
         }
 		
-		public void StoreAndValidate(string url, string key, Action<string> callback)
+		public void ValidateAndStore(string url, string key, Action<string> callback)
         {
-			Key = key;
-			Url = url;
+            Key = key;
+            Url = url;
+
 			IsValid(validationSuccess => 
 			{
 				if (validationSuccess) callback(ValidationSuccess);
@@ -50,7 +52,7 @@ namespace Smeedee.Model
             validation.Validate(Url, Key, callback);
         }
 
-        private string NormalizeUrl(string url)
+        private static string NormalizeUrl(string url)
         {
             if (!url.StartsWith("http")) url = "http://" + url;
             if (!url.EndsWith("/")) url += "/";

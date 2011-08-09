@@ -11,6 +11,7 @@ using Android.Widget;
 using Android.OS;
 using Java.Lang;
 using Smeedee.Android.Screens;
+using Smeedee.Android.Widgets;
 using Smeedee.Model;
 using Exception = System.Exception;
 
@@ -27,9 +28,6 @@ namespace Smeedee.Android
         private RealViewSwitcher flipper;
         private IEnumerable<IWidget> widgets;
 
-        private ISharedPreferencesOnSharedPreferenceChangeListener preferenceChangeListener;
-        private ISharedPreferences prefs;
-        private bool hasSettingsChanged;
         private Button _bottomRefreshButton;
         private Timer _timer;
 
@@ -43,10 +41,7 @@ namespace Smeedee.Android
             flipper.ScreenChanged += HandleScreenChanged;
 
             _bottomRefreshButton = FindViewById<Button>(Resource.Id.WidgetContainerBtnBottomRefresh);
-            _bottomRefreshButton.Click += delegate
-                                       {
-                                           RefreshCurrentWidget();
-                                       };
+            _bottomRefreshButton.Click += delegate { RefreshCurrentWidget(); };
 
             AddWidgetsToFlipper();
 
@@ -54,13 +49,6 @@ namespace Smeedee.Android
             {
                 widget.DescriptionChanged += WidgetDescriptionChanged;
             }
-
-            preferenceChangeListener = new SharedPreferencesChangeListener(() =>
-                                                                               {
-                                                                                   hasSettingsChanged = true;
-                                                                               });
-            prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            prefs.RegisterOnSharedPreferenceChangeListener(preferenceChangeListener);   
         }
 
         void HandleScreenChanged(object sender, EventArgs e)
@@ -97,7 +85,7 @@ namespace Smeedee.Android
                 t.Dispose();
             }
             var currentWidget = flipper.CurrentView as IWidget;
-            if (currentWidget != null)
+            if (currentWidget != null && currentWidget != typeof(StartPageWidget))
             {
                 if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES)
                 {
@@ -122,6 +110,7 @@ namespace Smeedee.Android
             widgets = GetWidgets();
             foreach (var widget in widgets)
             {
+                if (widget.GetType() == typeof(StartPageWidget)) continue;
                 flipper.AddView(widget as View);
             }
         }
@@ -190,12 +179,6 @@ namespace Smeedee.Android
                     var globalSettings = new Intent(this, typeof(GlobalSettings));
                     StartActivity(globalSettings);
                     return true;
-
-                case Resource.Id.MenuBtnAbout:
-
-                    var about = new Intent(this, typeof(About));
-                    StartActivity(about);
-                    return true;
                 default:
                     return base.OnOptionsItemSelected(item);
             }
@@ -204,19 +187,18 @@ namespace Smeedee.Android
         private void RefreshCurrentWidget()
         {
             var currentWidget = flipper.CurrentView as IWidget;
-            if (currentWidget != null)
-            {
-                var dialog = ProgressDialog.Show(this, "Refreshing...", "Updating data for widget", true);
-                var handler = new ProgressHandler(dialog);
-                var bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
-                bgWorker.Invoke(() =>
-                                  {
-                                      currentWidget.Refresh();
-                                      handler.SendEmptyMessage(0);
-                                  });
-                HideTheBottomRefreshButton();
-                StartRefreshTimer();
-            }
+            if (currentWidget == null) return;
+
+            var dialog = ProgressDialog.Show(this, "", "Refreshing widget", true);
+            var handler = new ProgressHandler(dialog);
+            var bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+            bgWorker.Invoke(() =>
+                                {
+                                    currentWidget.Refresh();
+                                    handler.SendEmptyMessage(0);
+                                });
+            HideTheBottomRefreshButton();
+            StartRefreshTimer();
         }
 
         private void HideTheBottomRefreshButton()
@@ -227,19 +209,12 @@ namespace Smeedee.Android
         protected override void OnResume()
         {
             base.OnResume();
-            Log.Debug("SMEEDEE", "[ REFRESHING WIDGETS ]");
 
-            if (hasSettingsChanged)
-            {
-                CheckForEnabledAndDisabledWidgets();
-                flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
-                SetCorrectTopBannerWidgetTitle();
-                SetCorrectTopBannerWidgetDescription();
-
-                Log.Debug("SMEEDEE", "Just refreshed widget list after having changed settings.");
-                hasSettingsChanged = false;
-            }
-
+            // This could be optimized. Now, all widgets gets refreshed for every little change in settings
+            CheckForEnabledAndDisabledWidgets();
+            flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
+            SetCorrectTopBannerWidgetTitle();
+            SetCorrectTopBannerWidgetDescription();
             RefreshAllCurrentlyEnabledWidgets();
             HideTheBottomRefreshButton();
             StartRefreshTimer();
@@ -265,20 +240,26 @@ namespace Smeedee.Android
 
         private void CheckForEnabledAndDisabledWidgets()
         {
-            var widgetModels = SmeedeeApp.Instance.AvailableWidgets;
-
-            var newWidgets = new List<IWidget>();
-            foreach (var widgetModel in widgetModels.Where(w => w.Enabled))
-            {
-                var model = widgetModel;
-                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == model.Type));
-            }
-
             flipper.RemoveAllViews();
 
-            foreach (var newWidget in newWidgets)
+            var widgetModels = SmeedeeApp.Instance.EnabledWidgets;
+
+            var newWidgets = new List<IWidget>();
+            foreach (var widgetModel in widgetModels)
             {
-                flipper.AddView((View)newWidget);
+                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type && widget.GetType() != typeof(StartPageWidget)));
+            }
+
+            if (newWidgets.Count() > 0)
+            {
+                foreach (var newWidget in newWidgets)
+                {
+                    flipper.AddView((View)newWidget);
+                }
+            }
+            else
+            {   // If there are now widgets enabled; add the Start Page Widget
+                flipper.AddView((View)widgets.Single(w => w.GetType() == typeof(StartPageWidget)));
             }
             flipper.CurrentScreen = 0;
         }
@@ -287,24 +268,6 @@ namespace Smeedee.Android
         {
             base.OnPause();
             app.ServiceLocator.Get<IPersistenceService>().Save(CURRENT_SCREEN_PERSISTENCE_KEY, flipper.CurrentScreen);
-        }
-    }
-    
-    public class SharedPreferencesChangeListener : ISharedPreferencesOnSharedPreferenceChangeListener
-    {
-        private readonly Action callbackOnPreferencesChanged;
-        public SharedPreferencesChangeListener(Action callback)
-        {
-            callbackOnPreferencesChanged = callback;
-        }
-        public IntPtr Handle
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
-        {
-            callbackOnPreferencesChanged();
         }
     }
 

@@ -101,13 +101,13 @@ namespace Smeedee.Model
                 var numberOfWorkingBuilds = GetNumberOfBuildsByState(BuildState.Working);
                 var numberOfBrokenBuilds = GetNumberOfBuildsByState(BuildState.Broken);
                 var numberOfUnknownBuilds = GetNumberOfBuildsByState(BuildState.Unknown);
-                var numberOfBuilds = _builds.Count();
+	            var numberOfBuilds = _builds.Count();
 
-                if (numberOfBuilds == 0)
+
+                if (numberOfBuilds <= 0)
                     return "No builds fetched from the Smeedee Server";
 	            if (numberOfWorkingBuilds == 0 && numberOfUnknownBuilds == 0)
 	                return "OMG! All builds are broken!";
-	            
                 var description = "";
 	            if (numberOfWorkingBuilds > 0)
 	                description = numberOfWorkingBuilds + " working";

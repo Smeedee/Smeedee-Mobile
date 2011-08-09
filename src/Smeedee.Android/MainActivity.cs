@@ -70,8 +70,8 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            
-            new Login().IsValid(valid =>
+            var login = new Login();
+            login.IsValid(valid =>
             {
                 var nextActivity = valid ? typeof(WidgetContainer) : typeof(LoginScreen);
                 StartActivity(new Intent(this, nextActivity));

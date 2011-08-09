@@ -31,8 +31,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         
         <!-- Widgets -->
-        <controls:Pivot Name="WidgetsPivot" ItemsSource="{Binding WidgetViews}" Foreground="#f25000"
-                        Visibility="{Binding WidgetsAreShowing, Converter={StaticResource BoolToVisibilityConverter}}">
+        <controls:Pivot Name="WidgetsPivot" Foreground="#f25000">
             <controls:Pivot.Title>
                 <TextBlock Text="SMEEDEE" Foreground="#fff"/>
             </controls:Pivot.Title>
@@ -40,7 +39,7 @@
                 
         <!-- Login -->
         <Grid Background="Transparent" x:Name="LoginScreen"
-              Visibility="{Binding WidgetsAreShowing, Converter={StaticResource NegatedBoolToVisibilityConverter}}">
+              Visibility="{Binding LoginIsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

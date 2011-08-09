@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.Content;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Android.Widgets.Settings;
@@ -53,7 +52,6 @@ namespace Smeedee.Android.Widgets
             var data = _model.Committers
                             .Select(c =>
                                         {
-                                            
                                             return new Dictionary<string, object>
                                                        {{"name", c.Name}, {"commits", c.Commits}};
                                         })
@@ -103,10 +101,17 @@ namespace Smeedee.Android.Widgets
             var view = base.GetView(position, convertView, parent);
             var commits = Convert.ToInt32(((TextView)view.FindViewById(Resource.Id.TopCommittersWidget_number_of_commits)).Text);
             var committerbar = (TextView) view.FindViewById(Resource.Id.TopCommittersWidget_commit_bar);
+            var committerbarBackground = (TextView)view.FindViewById(Resource.Id.TopCommittersWidget_commit_bar_background);
             if (_commitBarFullWidth <= 0)
-                _commitBarFullWidth = ((TextView)view.FindViewById(Resource.Id.TopCommittersWidget_committer_name)).MeasuredWidth;
-            var percent = commits / (float)_model.Committers.First().Commits;
-            committerbar.SetWidth(Convert.ToInt32(percent * (_commitBarFullWidth - 70f)));
+                _commitBarFullWidth = (view.FindViewById<TextView>(Resource.Id.TopCommittersWidget_committer_name)).MeasuredWidth;
+            if (_model.Committers != null && _model.Committers.Count() >= 1)
+            {
+                var percent = commits/(float) _model.Committers.First().Commits;
+                committerbar.SetWidth(Convert.ToInt32(percent*(_commitBarFullWidth - 70f)));
+                committerbarBackground.SetWidth(_commitBarFullWidth - 70);
+            }
+            else 
+                committerbar.SetWidth(1);
 
             return view;
         }

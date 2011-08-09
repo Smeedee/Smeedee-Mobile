@@ -56,6 +56,8 @@ namespace Smeedee.Model
             }
         }
 
+        public string DynamicDescription { get { return UntillText; } }
+
         public string UntillText
         {
             get

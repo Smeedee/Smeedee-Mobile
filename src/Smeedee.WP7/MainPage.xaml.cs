@@ -13,7 +13,7 @@ namespace Smeedee.WP7
         {
             InitializeComponent();
 
-            App.ViewModel.WidgetsAreShowing = false;
+            App.ViewModel.LoginIsVisible = true;
             DataContext = App.ViewModel;
             Loaded += MainPage_Loaded;
         }
@@ -23,7 +23,9 @@ namespace Smeedee.WP7
             _loginViewModel = App.ViewModel.LoginViewModel;
             _loginViewModel.OnSuccessfulValidation += (o, ev) =>
             {
-                App.ViewModel.WidgetsAreShowing = true;
+                App.ViewModel.LoginIsVisible = false;
+                App.ViewModel.MainPage = this;
+                App.ViewModel.RecreatePivotControlIfChanged();
             };
             _loginViewModel.Validate();
         }
@@ -32,12 +34,7 @@ namespace Smeedee.WP7
         {
             NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
         }
-
-        private void WidgetsButton_Click(object sender, EventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
-        }
-
+        
         private void RefreshButton_Click(object sender, EventArgs e)
         {
             var selected = (PivotItem)WidgetsPivot.SelectedItem;
