@@ -12,7 +12,7 @@
     a:maxWidth="70dp"
     a:adjustViewBounds="true"
     a:paddingBottom="6dp"
-    a:paddingLeft="6dp"
+    a:paddingLeft="3dp"
     a:paddingTop="6dp"
     a:paddingRight="10dp" />
   <TextView
@@ -21,6 +21,7 @@
     a:layout_height="wrap_content"
     a:layout_toRightOf="@id/TopCommitters_Icon"
     a:textColor="@color/white"
+    a:paddingTop="5dp"
     a:paddingBottom="15dp"
     a:textAppearance="@android:style/TextAppearance.Medium" />
   <LinearLayout
@@ -51,7 +52,7 @@
       a:layout_width="wrap_content"
       a:layout_height="wrap_content"
       a:layout_gravity="center_vertical"
-      a:paddingLeft="3dp"
+      a:paddingLeft="10dp"
       a:textAppearance="@android:style/TextAppearance.Small" />
   </LinearLayout>
 

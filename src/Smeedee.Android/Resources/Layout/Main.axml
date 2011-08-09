@@ -3,30 +3,38 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-  
-  <TextView
-    android:id="@+id/WidgetContainerWidgetNameInTopBanner"
+  <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/WidgetContainerTopBanner"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:textColor="@color/smeedee_orange"
-    android:textAppearance="@android:style/TextAppearance.Large" />
-
-  <TextView
-    android:id="@+id/WidgetContainerWidgetDynamicDescriptionInTopBanner"
-    android:layout_below="@id/WidgetContainerWidgetNameInTopBanner"
-    android:layout_alignParentLeft="true"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:textAppearance="@android:style/TextAppearance.Small"
-    android:paddingBottom="2sp"/>
+    android:background="@drawable/topbanner_background"
+    android:padding="0dip">
+    <TextView
+      android:id="@+id/WidgetContainerWidgetNameInTopBanner"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:paddingLeft="3dp"
+      android:textColor="@color/smeedee_orange"
+      android:textAppearance="@android:style/TextAppearance.Large" />
+    <TextView
+      android:id="@+id/WidgetContainerWidgetDynamicDescriptionInTopBanner"
+      android:layout_alignParentLeft="true"
+      android:layout_width="fill_parent"
+      android:paddingLeft="3dp"
+      android:layout_height="wrap_content"
+      android:textAppearance="@android:style/TextAppearance.Small"
+      android:paddingBottom="2sp"/>
+  </LinearLayout>
   
   <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_below="@id/WidgetContainerWidgetDynamicDescriptionInTopBanner">
+    android:layout_below="@id/WidgetContainerTopBanner">
     
     <smeedee.android.RealViewSwitcher
       android:id="@+id/WidgetContainerFlipper"

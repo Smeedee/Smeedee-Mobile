@@ -2,31 +2,36 @@ using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Smeedee.Model;
 using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
 	internal class LoadingIndicator : UIView
 	{
+		private ILog logger = SmeedeeApp.Instance.ServiceLocator.Get<ILog>();
+		
+		// Counting up and down when different objects call start/stop loading
+		// Only hide view when counter reaches zero. Needs thread-safety.
 		private int loadingCounter = 0;
 		
 		private UIActivityIndicatorView spinner;
 		private UILabel label;
-		
-		private const int ScreenWidth = 320;
-		private const int ScreenHeight = 400;
-		private const int Padding = 10;
-		private const int TextWidth = 65;
-		private const int SpinnerSize = 20;
-		private const int SeparateWidth = 5;
-		private const int Width = Padding + SpinnerSize + SeparateWidth + TextWidth + Padding;
-		private const int Height = Padding + SpinnerSize + Padding;
 		
 		// Singleton
 		public readonly static LoadingIndicator Instance = new LoadingIndicator();
 		
 		private LoadingIndicator() : base()
 		{
+			const int ScreenWidth = 320;
+			const int ScreenHeight = 400;
+			const int Padding = 10;
+			const int TextWidth = 65;
+			const int SpinnerSize = 20;
+			const int SeparateWidth = 5;
+			const int Width = Padding + SpinnerSize + SeparateWidth + TextWidth + Padding;
+			const int Height = Padding + SpinnerSize + Padding;
+		
 			Frame = new RectangleF((ScreenWidth - Width) / 2, ScreenHeight / 2, Width, Height);
 			BackgroundColor = UIColor.FromWhiteAlpha(0.4f, 0.4f);
 			
@@ -45,28 +50,33 @@ namespace Smeedee.iOS
 			AddSubview(label);
 			AddSubview(spinner);
 			
-			StopLoading();
+			Hidden = true;
 		}
 		
 		public void StartLoading()
 		{
-			Console.WriteLine("show loading animation");
-			loadingCounter++;
-			Hidden = false;
-			spinner.StartAnimating();
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+			lock (this)
+			{
+				loadingCounter++;
+				logger.Log("Show loading animation", loadingCounter.ToString());
+				Hidden = false;
+				spinner.StartAnimating();
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+			}
 		}
 		
 		public void StopLoading()
 		{
-			Console.WriteLine("hide loading animation");
-			if (loadingCounter > 0)
-				loadingCounter--;
-			if (loadingCounter == 0) 
+			lock (this)
 			{
-				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-				spinner.StopAnimating();
-				Hidden = true;
+				logger.Log("Hide loading animation", loadingCounter.ToString());
+				loadingCounter--;
+				if (loadingCounter == 0) 
+				{
+					UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+					spinner.StopAnimating();
+					Hidden = true;
+				}
 			}
 		}
 	}

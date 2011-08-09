@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
-using Smeedee;
-using Smeedee.Lib;
 using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee
 {
@@ -20,11 +15,12 @@ namespace Smeedee
     
     public class ImageService : IImageService
     {
+		private ILog logger = SmeedeeApp.Instance.ServiceLocator.Get<ILog>();
 		private IBackgroundWorker worker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
 
         public void GetImage(Uri uri, Action<byte[]> callback)
         {
-			Console.WriteLine("Fetching image " + uri);
+			logger.Log("[Fetching]", uri.ToString());
 			
 			worker.Invoke(() => {
 				byte[] data = null;
@@ -32,11 +28,11 @@ namespace Smeedee
 				try 
 				{
 					data = client.DownloadData(uri);
-					Console.WriteLine("Returned: " + data);
+					logger.Log("[Image]", data.ToString());
 				} 
 				catch (WebException e) 
 				{
-					Console.WriteLine("Error: " + e.Message);
+					logger.Log("Exception", e.Message);
 				}
 				callback(data);
 			});
