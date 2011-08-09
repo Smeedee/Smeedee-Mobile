@@ -101,12 +101,9 @@ namespace Smeedee.iOS
 				ResetButton();
 			});
 			
-			Console.WriteLine(string.Format("Logging in with {0} : {1}", url, key));
 			LoadingIndicator.Instance.StartLoading();
 			
 			new Login().ValidateAndStore(url, key, (str) => {
-				
-				Console.WriteLine(string.Format("Response from server: {0}", str));
 				
 				InvokeOnMainThread(() => {
 					if (str == Login.ValidationSuccess) {
