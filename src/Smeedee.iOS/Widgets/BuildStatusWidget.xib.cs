@@ -24,15 +24,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			TableView.SeparatorColor = StyleExtensions.tableSeparator;
-			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
-			
-			// Bugfix for iPad. Incorrectly sets background color to gray
-			// http://stackoverflow.com/questions/2688007/uitableview-backgroundcolor-always-gray-on-ipad
-			if (Platform.Name == Device.Ipad)
-			{
-				TableView.BackgroundView = new UIView();
-			}
+			TableView.StyleAsWidgetTable();
 			Refresh();
         }
 		

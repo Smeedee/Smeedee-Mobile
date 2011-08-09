@@ -30,12 +30,34 @@ namespace Smeedee.iOS.Lib
 			self.ShadowColor = smeedeeOrangeAlpha;
 		}
 		
+		public static void StyleAsWidgetTable(this UITableView self)
+		{
+			self.BackgroundColor = blackBackground;
+			self.SeparatorColor = tableSeparator;
+			self.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+			self.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+			
+			// Bugfix for iPad. Incorrectly sets background color to gray
+			// http://stackoverflow.com/questions/2688007/uitableview-backgroundcolor-always-gray-on-ipad
+			if (Platform.Name == Device.Ipad)
+			{
+				self.BackgroundView = new UIView();
+			}
+		}
+		
 		public static void StyleAsSettingsTable(this UITableView self)
 		{
 			self.BackgroundColor = blackBackground;
 			self.SeparatorColor = tableSeparator;
 			self.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
 			self.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+			
+			// Bugfix for iPad. Incorrectly sets background color to gray
+			// http://stackoverflow.com/questions/2688007/uitableview-backgroundcolor-always-gray-on-ipad
+			if (Platform.Name == Device.Ipad)
+			{
+				self.BackgroundView = new UIView();
+			}
 		}
 		
 		public static void StyleAsSettingsTableCell(this UITableViewCell self)
