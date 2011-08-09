@@ -105,7 +105,7 @@ namespace Smeedee.Model
 
 
                 if (numberOfBuilds <= 0)
-                    return "No builds to fetch from the Smeedee Server";
+                    return "No builds fetched from the Smeedee Server";
 	            if (numberOfWorkingBuilds == 0 && numberOfUnknownBuilds == 0)
 	                return "OMG! All builds are broken!";
                 var description = "";

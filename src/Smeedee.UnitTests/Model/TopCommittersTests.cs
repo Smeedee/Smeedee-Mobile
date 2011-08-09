@@ -44,11 +44,11 @@ namespace Smeedee.UnitTests.Model
         }
         
         [Test]
-        public void Should_have_list_of_default_five_committers_after_load()
+        public void Should_have_list_of_default_ten_committers_after_load()
         {
             _model.Load(() => { });
 
-            Assert.AreEqual(5, _model.Committers.Count());
+            Assert.AreEqual(10, _model.Committers.Count());
         }
         
         [Test]
@@ -72,11 +72,11 @@ namespace Smeedee.UnitTests.Model
         }
         
         [Test]
-        public void Should_have_default_time_interval_of_one_day()
+        public void Should_have_default_time_interval_of_past_month()
         {
             var interval = _model.TimePeriod;
 
-            Assert.AreEqual(TimePeriod.PastDay, interval);
+            Assert.AreEqual(TimePeriod.PastMonth, interval);
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace Smeedee.UnitTests.Model
         public void Should_have_special_notification_for_when_there_are_no_committers_to_show()
         {
             topCommittersService.PastDayData = new Committer[] {};
-            Assert.AreEqual("No commits found for the past 24 hours", _model.Description);
+            Assert.AreEqual("No commits found for the past month", _model.Description);
         }
 
         [Test]
