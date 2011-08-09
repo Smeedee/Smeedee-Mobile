@@ -10,6 +10,7 @@ namespace Smeedee.iOS.Lib
 {
 	public class UIImageLoader
 	{
+		private static ILog logger = SmeedeeApp.Instance.ServiceLocator.Get<ILog>();
 		private static UIImage defaultImage = UIImage.FromFile("images/default_person.jpeg");
 		
 		public static void LoadImageFromUri(Uri uri, Action<UIImage> callback) 
@@ -34,7 +35,7 @@ namespace Smeedee.iOS.Lib
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine("Error converting to UIImage: " + e.Message);
+						logger.Log("Error converting to UIImage", e.Message);
 					}
 				}
 				return defaultImage;
