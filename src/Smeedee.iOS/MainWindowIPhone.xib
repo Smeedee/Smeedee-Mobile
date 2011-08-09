@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="11"/>
+			<integer value="10"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -62,12 +62,12 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
-				<object class="IBUIViewController" key="IBUISelectedViewController" id="939900234">
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="828701501">
-						<string key="IBUITitle">Settings</string>
+				<object class="IBUIViewController" key="IBUISelectedViewController" id="562068972">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="387497240">
+						<string key="IBUITitle">Widgets</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Images/SettingsIcon.png</string>
+							<string key="NSResourceName">Images/28-star.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<reference key="IBUITabBar"/>
@@ -81,12 +81,13 @@
 				</object>
 				<object class="NSMutableArray" key="IBUIViewControllers">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIViewController" id="562068972">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="387497240">
-							<string key="IBUITitle">Widgets</string>
+					<reference ref="562068972"/>
+					<object class="IBUIViewController" id="939900234">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="828701501">
+							<string key="IBUITitle">Settings</string>
 							<object class="NSCustomResource" key="IBUIImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">Images/StarIcon.png</string>
+								<string key="NSResourceName">Images/19-gear.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							<reference key="IBUITabBar"/>
@@ -98,7 +99,6 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
-					<reference ref="939900234"/>
 				</object>
 				<object class="IBUITabBar" key="IBUITabBar" id="431847475">
 					<nil key="NSNextResponder"/>
@@ -420,8 +420,8 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>Images/SettingsIcon.png</string>
-				<string>Images/StarIcon.png</string>
+				<string>Images/19-gear.png</string>
+				<string>Images/28-star.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>

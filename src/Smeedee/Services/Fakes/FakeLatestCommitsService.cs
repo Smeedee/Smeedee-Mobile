@@ -73,10 +73,17 @@ namespace Smeedee.Services.Fakes
 
         public void Get10Latest(Action<IEnumerable<Commit>> callback)
         {
+            AddNewCommit();
             bgWorker.Invoke(() => {
                 System.Threading.Thread.Sleep(1500);
 				callback(Deserialize(PretendToGetDataFromHttp(0)));
 			});
+        }
+
+        private void AddNewCommit()
+        {
+            var random = new Random();
+            data.Insert(0, new Commit("Randommsg:" + random.Next(), DateTime.Now, "Random user:" + random.Next(), uri, 0));
         }
     }
 }

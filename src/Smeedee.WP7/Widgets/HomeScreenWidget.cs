@@ -5,9 +5,11 @@ using Smeedee.WP7.Views;
 
 namespace Smeedee.WP7.Widgets
 {
-    [Widget("Smeedee")]
+    [Widget(Name)]
     public class HomeScreenWidget : IWpWidget
     {
+        public const string Name = "Smeedee";
+
         public HomeScreenWidget()
         {
             View = new HomeScreenView();

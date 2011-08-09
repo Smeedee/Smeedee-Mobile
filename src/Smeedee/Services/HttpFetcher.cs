@@ -20,9 +20,11 @@ namespace Smeedee.Services
 
         public string DownloadString(string url)
         {
+			Console.WriteLine("[Request] " + url);
             Uri uri;
             try
             {
+                url += (url.Contains("?") ? "&" : "?") + "nocache=" + new Random().Next();
                 uri = new Uri(url);
             } catch (FormatException)
             {
@@ -41,7 +43,7 @@ namespace Smeedee.Services
             client.DownloadStringAsync(uri);
 
             manualReset.WaitOne(TIMEOUT);
-
+			Console.WriteLine("[Result] " + result);
             return result;
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
@@ -27,6 +28,12 @@ namespace Smeedee.iOS
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 			Refresh();
         }
+		
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			InvokeOnMainThread(UpdateUI);
+		}
 		
         public void Refresh()
         {

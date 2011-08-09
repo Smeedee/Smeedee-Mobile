@@ -15,6 +15,8 @@
     <AssemblyName>SmeedeeiOS</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <BundleIcon>Images\icon_57x57.png</BundleIcon>
+    <BundleIconHigh>Images\icon_114x114.png</BundleIconHigh>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,6 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
+    <None Include="Images\icon_57x57.png" />
+    <None Include="Images\icon_114x114.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowIPhone.xib.designer.cs">
@@ -177,7 +181,6 @@
     </Compile>
     <Compile Include="Lib\TableCellFactory.cs" />
     <Compile Include="Lib\TableViewCellController.cs" />
-    <Compile Include="StyleExtensions.cs" />
     <Compile Include="Widgets\TableCells\CommitTableCellController.xib.cs">
       <DependentUpon>CommitTableCellController.xib</DependentUpon>
     </Compile>
@@ -357,6 +360,11 @@
     <Compile Include="..\Smeedee\Services\Fakes\FakeWorkingDaysLeftService.cs">
       <Link>Services\Fakes\FakeWorkingDaysLeftService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\MemoryCachedImageService.cs">
+      <Link>Services\MemoryCachedImageService.cs</Link>
+    </Compile>
+    <Compile Include="Lib\LoadingIndicator.cs" />
+    <Compile Include="Lib\StyleExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -404,5 +412,8 @@
     <Content Include="Images\icon_buildsuccess.png" />
     <Content Include="Images\icon_buildunknown.png" />
     <Content Include="Images\checkmark.png" />
+    <Content Include="Images\19-gear.png" />
+    <Content Include="Images\28-star.png" />
+    <Content Include="Images\calendar.png" />
   </ItemGroup>
 </Project>

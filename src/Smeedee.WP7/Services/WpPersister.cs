@@ -54,14 +54,13 @@ namespace Smeedee.WP7.Services
         }
 
         private static T GetObject<T>(string key, T defaultValue)
-        {   
+        {
+            var settings = GetSettings();
+            if (!settings.Contains(key)) return defaultValue;
             try
             {
-                return (T)GetSettings()[key];
+                return (T)settings[key];
             } catch (InvalidCastException)
-            {
-                return defaultValue;
-            } catch (KeyNotFoundException)
             {
                 return defaultValue;
             }

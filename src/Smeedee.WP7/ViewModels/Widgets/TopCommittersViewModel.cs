@@ -7,7 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.WP7.ViewModels.Widgets
 {
-    public class TopCommittersViewModel
+    public class TopCommittersViewModel : ViewModelBase
     {
         public ObservableCollection<TopCommittersItemViewModel> Items { get; private set; }
         private readonly TopCommitters model;
@@ -19,9 +19,27 @@ namespace Smeedee.WP7.ViewModels.Widgets
             Items = new ObservableCollection<TopCommittersItemViewModel>();
         }
 
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                if (value != _isLoading)
+                {
+                    _isLoading = value;
+                    NotifyPropertyChanged("IsLoading");
+                }
+            }
+        }
+
         public void LoadData()
         {
             model.TimePeriod = TimePeriod.PastWeek;
+            IsLoading = true;
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke( () =>
             {
                 Items.Clear();
@@ -36,6 +54,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
                         CommitPercent = commitPercent.ToString()
                     });
                 }
+                IsLoading = false;
             }));
         }
     }

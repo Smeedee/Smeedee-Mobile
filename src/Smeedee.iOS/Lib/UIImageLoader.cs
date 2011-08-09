@@ -11,54 +11,23 @@ namespace Smeedee.iOS.Lib
 	public class UIImageLoader
 	{
 		private static UIImage defaultImage = UIImage.FromFile("images/default_person.jpeg");
-		private static Dictionary<Uri, UIImage> cache = new Dictionary<Uri, UIImage>();
 		
-		private IImageService service;
-		
-		public UIImageLoader()
+		public static void LoadImageFromUri(Uri uri, Action<UIImage> callback) 
 		{
-			service = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
+			var service = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
+			
+			service.GetImage(uri, (bytes) => {
+				var image = ImageFromBytes(bytes);
+				callback(image);
+			});
 		}
 		
-		public void LoadImageFromUri(Uri uri, Action<UIImage> callback) 
-		{
-			if (cache.ContainsKey(uri)) 
+		private static UIImage ImageFromBytes(byte[] result)
+		{	
+			using (var pool = new NSAutoreleasePool())
 			{
-				callback(cache[uri]);
+				return (result != null) ? UIImage.LoadFromData(NSData.FromArray(result)) : defaultImage;
 			}
-			else
-			{
-				service.GetImage(uri, (bytes) => {
-					using (var pool = new NSAutoreleasePool())
-					{
-						cache[uri] = (bytes != null) ? UIImage.LoadFromData(NSData.FromArray(bytes)) : defaultImage;
-						callback(cache[uri]);
-					}
-				});
-			}
-		}
-	}
-	
-	internal class TrivialImageService : IImageService
-	{
-		private IBackgroundWorker worker = SmeedeeApp.Instance.ServiceLocator.Get<IBackgroundWorker>();
-		
-		public void GetImage(Uri uri, Action<byte[]> callback)
-		{
-			// WebClient is not thread-safe, need new instance for each thread
-            worker.Invoke(() => {
-				byte[] data = null;
-                try
-                {
-                    var client = new WebClient();
-					data = client.DownloadData(uri);
-				} 
-				catch (WebException) 
-				{
-                    // Do nothing, call callback with null as argument
-				}
-				callback(data);
-            });
 		}
 	}
 }

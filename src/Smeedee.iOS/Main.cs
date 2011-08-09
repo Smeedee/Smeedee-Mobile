@@ -44,7 +44,7 @@ namespace Smeedee.iOS
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
 			
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
-			serviceLocator.Bind<IImageService>(new TrivialImageService());
+			serviceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 			
 			if (USE_FAKES)
 			{

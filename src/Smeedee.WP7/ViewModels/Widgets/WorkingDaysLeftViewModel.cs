@@ -13,6 +13,23 @@ namespace Smeedee.WP7.ViewModels.Widgets
             model = new WorkingDaysLeft();
         }
 
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                if (value != _isLoading)
+                {
+                    _isLoading = value;
+                    NotifyPropertyChanged("IsLoading");
+                }
+            }
+        }
+
         private int _daysLeft;
         public int DaysLeft
         {
@@ -65,6 +82,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
         
         public void LoadData()
         {
+            IsLoading = true;
             model.Load(() => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 if (model.LoadError)
@@ -78,6 +96,7 @@ namespace Smeedee.WP7.ViewModels.Widgets
                     DaysLeftSuffix = model.DaysLeftText;
                     UntillText = model.UntillText;
                 }
+                IsLoading = false;
             }));
         }
     }
