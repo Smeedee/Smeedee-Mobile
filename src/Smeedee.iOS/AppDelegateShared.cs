@@ -11,6 +11,8 @@ namespace Smeedee.iOS
 {
     public class AppDelegateShared
     {
+		private ILog logger = SmeedeeApp.Instance.ServiceLocator.Get<ILog>();
+		
         private UIWindow window;
         private UITabBarController tabBarController;
 		private UIViewController loginHeaderController;
@@ -35,15 +37,18 @@ namespace Smeedee.iOS
         {
 			if (!ServerIsConfigured())
 			{
-				Console.WriteLine("Server is not configured");
+				logger.Log("Server is not configured");
 				ShowServerConfiguration();
 			}
 			else
 			{
-				Console.WriteLine("Server is configured, attempting to connect ...");
+				logger.Log("Server is configured, attempting to connect");
 				LoadingIndicator.Instance.StartLoading();
 				ShowSplashScreen();
-				login.StoreAndValidate(login.Url, login.Key, ServerCallback);
+				login.StoreAndValidate(login.Url, login.Key, (response) => {
+					LoadingIndicator.Instance.StopLoading();
+					ServerCallback(response);
+				});
 			}
         }
 		
@@ -54,14 +59,13 @@ namespace Smeedee.iOS
 		
 		private void ServerCallback(string response)
 		{
-			LoadingIndicator.Instance.StopLoading();
 			if (response == Login.ValidationSuccess) {
-				Console.WriteLine("Login succeded, showing widgets");
+				logger.Log("Login succeded, showing widgets");
 				window.InvokeOnMainThread(ShowWidgets);
 			}
 			else
 			{
-				Console.WriteLine("Login failed, showing server configuration");
+				logger.Log("Login failed, showing server configuration");
 				window.InvokeOnMainThread(ShowServerConfiguration);
 			}
 		}
