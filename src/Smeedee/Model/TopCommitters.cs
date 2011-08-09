@@ -29,6 +29,7 @@ namespace Smeedee.Model
 
         public void Load(Action callback)
         {
+			var currentTimePeriod = TimePeriod;
 			foreach (var time in new [] { TimePeriod.PastDay, TimePeriod.PastWeek, TimePeriod.PastMonth })
 			{
 				var temp = time;
@@ -36,7 +37,7 @@ namespace Smeedee.Model
 					time,
 					(data) => {
 						_committers[temp] = data;
-						if (temp == TimePeriod)
+						if (temp == currentTimePeriod)
 							callback();
 					}
 				);
