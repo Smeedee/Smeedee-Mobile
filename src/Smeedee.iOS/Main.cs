@@ -45,6 +45,7 @@ namespace Smeedee.iOS
 			
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
 			serviceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
+			serviceLocator.Bind<ILog>(new IphoneLogger());
 			
 			if (USE_FAKES)
 			{
