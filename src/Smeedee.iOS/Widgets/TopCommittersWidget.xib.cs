@@ -135,5 +135,10 @@ namespace Smeedee.iOS
 			
             return controller.TableViewCell;
         }
+		
+		public override void Scrolled (UIScrollView scrollView)
+		{
+			
+		}
     }
 }

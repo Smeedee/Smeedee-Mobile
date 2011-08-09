@@ -30,9 +30,7 @@ namespace Smeedee.iOS
 			commitLabel.Text = committer.Commits.ToString();
 			StyleProgressBar(percent);
 			
-			UIImageLoader.LoadImageFromUri(committer.ImageUri, (image) => {
-				InvokeOnMainThread(() => imageView.Image = image);
-			});
+			FadeInImage(committer.ImageUri);
         }
 		
 		private void StyleProgressBar(float percent)
@@ -42,6 +40,20 @@ namespace Smeedee.iOS
 			
 			graphTop.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, graph.Frame.Width * percent, barHeight);
 			graphTop.BackgroundColor = StyleExtensions.smeedeeOrange;
+		}
+		
+		private void FadeInImage(Uri uri)
+		{
+			imageView.Alpha = 0.4f;
+			UIImageLoader.LoadImageFromUri(uri, (image) => {
+				InvokeOnMainThread(() => {
+					UIView.BeginAnimations("FadeImage");
+					UIView.SetAnimationDuration(0.5f);
+					imageView.Image = image;
+					imageView.Alpha = 1.0f;
+					UIView.CommitAnimations();
+				});
+			});
 		}
 	}
 }

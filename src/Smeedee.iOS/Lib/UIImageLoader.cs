@@ -26,6 +26,7 @@ namespace Smeedee.iOS.Lib
 		{	
 			using (var pool = new NSAutoreleasePool())
 			{
+				// InvalidCastException in NSData.FromBytes
 				return (result != null) ? UIImage.LoadFromData(NSData.FromArray(result)) : defaultImage;
 			}
 		}
