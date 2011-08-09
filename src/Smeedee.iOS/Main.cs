@@ -67,4 +67,22 @@ namespace Smeedee.iOS
 			}
 		}
     }
+	
+	internal static class Platform
+	{
+		public static Device Name = Device.Iphone;
+		public static int ScreenWidth 
+		{
+			get { return Name == Device.Iphone ? 320 : 768; }
+		}
+		public static int ScreenHeight
+		{
+			get { return Name == Device.Iphone ? 480 : 1024; }
+		}
+	}
+	
+	internal enum Device
+	{
+		Iphone, Ipad
+	}
 }
