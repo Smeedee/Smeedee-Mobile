@@ -20,6 +20,7 @@ namespace Smeedee.Services
 
         public string DownloadString(string url)
         {
+			Console.WriteLine("[Request] " + url);
             Uri uri;
             try
             {
@@ -42,7 +43,7 @@ namespace Smeedee.Services
             client.DownloadStringAsync(uri);
 
             manualReset.WaitOne(TIMEOUT);
-
+			Console.WriteLine("[Result] " + result);
             return result;
         }
     }

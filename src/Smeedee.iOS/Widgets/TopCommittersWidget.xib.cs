@@ -5,6 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee;
+using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
@@ -21,13 +22,19 @@ namespace Smeedee.iOS
 			model = new TopCommitters();
         }
 		
-        public override void ViewDidLoad ()
+        public override void ViewDidLoad()
         {
             base.ViewDidLoad ();
 			TableView.SeparatorColor = StyleExtensions.tableSeparator;
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
             Refresh();
         }
+		
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			InvokeOnMainThread(UpdateUI);
+		}
 		
         public void Refresh()
         {
@@ -68,7 +75,7 @@ namespace Smeedee.iOS
 					model.TimePeriod = TimePeriod.PastMonth;
 					break;
 				}
-				Refresh();
+				ViewWillAppear(true);
 			};
 			
 			return new UIBarButtonItem(toolbarControl);

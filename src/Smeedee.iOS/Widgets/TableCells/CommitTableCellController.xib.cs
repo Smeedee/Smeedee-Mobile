@@ -31,7 +31,7 @@ namespace Smeedee.iOS
 				message.TextColor = UIColor.Red;
 			}
 			
-			new UIImageLoader().LoadImageFromUri(commit.ImageUri, (img) => {
+			UIImageLoader.LoadImageFromUri(commit.ImageUri, (img) => {
 				InvokeOnMainThread(() => image.Image = img);
 			});
 			

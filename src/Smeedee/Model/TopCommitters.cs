@@ -10,33 +10,42 @@ namespace Smeedee.Model
         public const string TimePeriodPropertyKey = "TopCommitters.TimePeriod";
         public const string NumberOfCommittersPropertyKey = "TopCommitters.NumberOfCommitters";
 
-        private const string DefaultNumberOfCommittersPropertyValue = "5";
-        private static readonly string DefaultTimePeriodPropertyValue = TimePeriod.PastDay.ToString();
+        private const string DefaultNumberOfCommittersPropertyValue = "10";
+        private static readonly string DefaultTimePeriodPropertyValue = TimePeriod.PastMonth.ToString();
 
         private readonly IPersistenceService persistence = SmeedeeApp.Instance.ServiceLocator.Get<IPersistenceService>();
         private readonly ITopCommittersService service = SmeedeeApp.Instance.ServiceLocator.Get<ITopCommittersService>();
 
-        private IEnumerable<Committer> _committers;
+		private Dictionary<TimePeriod, IEnumerable<Committer>> _committers;
 
         public TopCommitters()
         {
-            _committers = new List<Committer>();
+			_committers = new Dictionary<TimePeriod, IEnumerable<Committer>>() {
+				{ TimePeriod.PastDay, new List<Committer>() },
+				{ TimePeriod.PastWeek, new List<Committer>() },
+				{ TimePeriod.PastMonth, new List<Committer>() }
+			};
         }
 
         public void Load(Action callback)
         {
-            service.LoadTopCommiters(
-                TimePeriod,
-                (committers) => { 
-                    _committers = committers;
-                    callback();
-                }
-            );
+			foreach (var time in new [] { TimePeriod.PastDay, TimePeriod.PastWeek, TimePeriod.PastMonth })
+			{
+				var temp = time;
+				service.LoadTopCommiters(
+					time,
+					(data) => {
+						_committers[temp] = data;
+						if (temp == TimePeriod)
+							callback();
+					}
+				);
+			}
         }
 
         public IEnumerable<Committer> Committers 
         {
-            get { return _committers.OrderByDescending(e => e.Commits).Take(NumberOfCommitters); }
+            get { return _committers[TimePeriod].OrderByDescending(e => e.Commits).Take(NumberOfCommitters); }
         }
 
         public int NumberOfCommitters
@@ -62,8 +71,8 @@ namespace Smeedee.Model
         public string Description
         {
             get {
-                return _committers.Count() > 0 ? string.Format("Top {0} committers for the past {1}", NumberOfCommitters, TimePeriod.ToSuffix()) : string.Format("No commits found for the past {0}", TimePeriod.ToSuffix());
-            }
+                return _committers[TimePeriod].Count() > 0 ? string.Format("Top {0} committers for the past {1}", NumberOfCommitters, TimePeriod.ToSuffix()) : string.Format("No commits found for the past {0}", TimePeriod.ToSuffix());
+                }
         }
     }
 

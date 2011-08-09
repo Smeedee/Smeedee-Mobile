@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.Content;
-using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Android.Widgets.Settings;

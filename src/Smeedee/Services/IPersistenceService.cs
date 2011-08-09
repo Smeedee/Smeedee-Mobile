@@ -1,5 +1,4 @@
-﻿
-namespace Smeedee
+﻿namespace Smeedee
 {
     public interface IPersistenceService
     {

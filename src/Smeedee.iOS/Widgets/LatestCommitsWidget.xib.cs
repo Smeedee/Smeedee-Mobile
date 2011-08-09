@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee;
+using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
@@ -26,6 +27,12 @@ namespace Smeedee.iOS
 			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
 			Refresh();
         }
+		
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			InvokeOnMainThread(UpdateUI);
+		}
 		
 		private void UpdateUI()
 		{
@@ -93,7 +100,7 @@ namespace Smeedee.iOS
 				
 				return height + CELL_PADDING;
 			}
-			return 30;
+			return LatestCommitsLoadMoreTableCellController.Height;
 		}
 		
 		public override float GetHeightForFooter (UITableView tableView, int section) {	return 0; }
@@ -114,6 +121,7 @@ namespace Smeedee.iOS
 			else
 			{
 				var buttonController = buttonCellFactory.NewTableCellController(tableView, indexPath) as LatestCommitsLoadMoreTableCellController;
+				buttonController.ApplyStyling();
 				return buttonController.TableViewCell;
 			}
         }

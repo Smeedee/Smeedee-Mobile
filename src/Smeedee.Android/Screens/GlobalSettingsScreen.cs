@@ -15,10 +15,12 @@ namespace Smeedee.Android.Screens
     [Activity(Label = "Smeedee settings", Theme = "@android:style/Theme")]
     public class GlobalSettings : PreferenceActivity
     {
+        
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
+            
             
             PopulateAvailableWidgetsList();
         }
@@ -26,23 +28,23 @@ namespace Smeedee.Android.Screens
         private void PopulateAvailableWidgetsList()
         {
             var availableWidgetsCategory = (PreferenceScreen)FindPreference("GlobalSettings.AvailableWidgets");
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
-            foreach (var widgetModel in widgets)
+            
+            foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
             {
                 if (widgetModel.Type == typeof(StartPageWidget)) continue;
 
                 var checkBox = new CheckBoxPreference(this)
                                    {
-                                       Checked = true,
+                                       Checked = widgetModel.Enabled,
                                        Title = widgetModel.Name,
                                        Summary = widgetModel.StaticDescription,
-                                       Key = widgetModel.Name
+                                       Key = widgetModel.Name,
                                    };
-
                 availableWidgetsCategory.AddPreference(checkBox);
             }
         }
     }
+
     public class ServerSettingsPreference : DialogPreference
     {
         private TextView _serverUrl;
@@ -107,10 +109,10 @@ namespace Smeedee.Android.Screens
         {
             if (!positiveResult) return;
 
-            var dialog = ProgressDialog.Show(_context, "Please wait...", "Connecting to server and validating key...");
+            var dialog = ProgressDialog.Show(_context, "", "Connecting to server and validating key...");
             var handler = new ProgressHandler(dialog);
             
-            new Login().StoreAndValidate(_serverUrlBox.Text, _userKeyBox.Text, str 
+            new Login().ValidateAndStore(_serverUrlBox.Text, _userKeyBox.Text, str 
                 => ((Activity)_context).RunOnUiThread(() 
                     =>
                     {

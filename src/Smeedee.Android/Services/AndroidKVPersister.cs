@@ -19,7 +19,6 @@ namespace Smeedee.Android.Services
             editor.Commit();
         }
 
-
         public string Get(string key, string defaultValue)
         {
             try
@@ -70,6 +69,4 @@ namespace Smeedee.Android.Services
             }
         }
     }
-     
-
 }
