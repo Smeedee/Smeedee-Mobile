@@ -33,10 +33,13 @@ namespace Smeedee.iOS
 		
 		private void StyleProgressBar(float percent)
 		{
-			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, graph.Frame.Width, barHeight);
+			
+			float width = (float) (Platform.ScreenWidth - graph.Frame.X - commitLabel.Frame.Width - 25);
+			
+			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, width, barHeight);
 			graph.BackgroundColor = StyleExtensions.smeedeeOrangeAlpha;
 			
-			graphTop.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, graph.Frame.Width * percent, barHeight);
+			graphTop.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, width * percent, barHeight);
 			graphTop.BackgroundColor = StyleExtensions.smeedeeOrange;
 		}
 		
