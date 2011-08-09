@@ -11,8 +11,6 @@ namespace Smeedee.iOS
 {
     public partial class WidgetsScreen : UIViewController
     {
-        private const int SCREEN_WIDTH = 320;
-		
 		// Solving a race condition when the view is appearing
 		private volatile bool appearing = false;
 		
@@ -71,17 +69,17 @@ namespace Smeedee.iOS
         private void AddWidgetsToScrollView()
         {
             var count = (from m in models where m.Enabled select m).Count();
-            var scrollViewWidth = SCREEN_WIDTH * count;
+            var scrollViewWidth = Platform.ScreenWidth * count;
 			
 			displayedWidgets = new IWidget[count];
             
             scrollView.Frame.Width = scrollViewWidth;
-            scrollView.ContentSize = new SizeF(scrollViewWidth, SCREEN_WIDTH);
+            scrollView.ContentSize = new SizeF(scrollViewWidth, Platform.ScreenWidth);
             
 			if (count == 0)
 			{
 				var view = new UIImageView(UIImage.FromFile("images/logo.png"));
-				view.Frame = new RectangleF((SCREEN_WIDTH - 61) / 2.0f, 140, 61, 61);
+				view.Frame = new RectangleF((Platform.ScreenWidth - 61) / 2.0f, 140, 61, 61);
 				this.scrollView.AddSubview(view);
 			}
 			else
@@ -95,7 +93,7 @@ namespace Smeedee.iOS
 						var widgetView = (widgets[i] as UIViewController).View;
 						
 		                var frame = scrollView.Frame;
-		                frame.Location = new PointF(SCREEN_WIDTH * scrollViewIndex, 0);
+		                frame.Location = new PointF(Platform.ScreenWidth * scrollViewIndex, 0);
 		                widgetView.Frame = frame;
 		                
 		                scrollView.AddSubview(widgetView);
