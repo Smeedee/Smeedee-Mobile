@@ -48,12 +48,12 @@ namespace Smeedee.Android.Widgets
         {
             var from = new[] { "name", "commits" };
             var to = new[] { Resource.Id.TopCommittersWidget_committer_name, Resource.Id.TopCommittersWidget_number_of_commits };
-
+            
             var data = _model.Committers
                             .Select(c =>
                                         {
                                             return new Dictionary<string, object>
-                                                       {{"name", c.Name}, {"commits", c.Commits}};
+                                                       {{"name", c.Name}, {"commits", c.Commits}, {"image", c.ImageUri}};
                                         })
                             .Cast<IDictionary<string, object>>().ToList();
 
@@ -79,15 +79,17 @@ namespace Smeedee.Android.Widgets
     {
         private TopCommitters _model;
         private int _commitBarFullWidth;
+        private IList<IDictionary<string, object>> items;
 
         public TopCommittersAdapter(IntPtr doNotUse) 
             : base(doNotUse)
         {
         }
 
-        public TopCommittersAdapter(Context context, IList<IDictionary<string, object>> data, int resource, string[] @from, int[] to)
-            : base(context, data, resource, from, to)
+        public TopCommittersAdapter(Context context, IList<IDictionary<string, object>> items, int resource, string[] from, int[] to)
+            : base(context, items, resource, from, to)
         {
+            this.items = items;
         }
         public void SetModel(TopCommitters model)
         {
@@ -107,13 +109,22 @@ namespace Smeedee.Android.Widgets
             if (_model.Committers != null && _model.Committers.Count() >= 1)
             {
                 var percent = commits/(float) _model.Committers.First().Commits;
-                committerbar.SetWidth(Convert.ToInt32(percent*(_commitBarFullWidth - 70f)));
-                committerbarBackground.SetWidth(_commitBarFullWidth - 70);
+                committerbar.SetWidth(Convert.ToInt32(percent*(_commitBarFullWidth - 65f)));
+                committerbarBackground.SetWidth(_commitBarFullWidth - 65);
             }
             else 
                 committerbar.SetWidth(1);
 
+
+            LoadImage(position, view);
+
             return view;
+        }
+        private void LoadImage(int position, View view)
+        {
+            var image = (view as RelativeLayout).GetChildAt(0) as ImageView;
+            var uri = items[position]["image"] as Uri;
+            image.LoadUriOrDefault(uri, Resource.Drawable.DefaultPerson);
         }
     }
 }

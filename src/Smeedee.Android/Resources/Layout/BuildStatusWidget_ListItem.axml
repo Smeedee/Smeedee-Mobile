@@ -10,11 +10,13 @@
     a:text="projectname"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
+    a:paddingLeft="3dp"
     a:textAppearance="@android:style/TextAppearance.Medium"
     a:textColor="@color/build_status_project_name"/>
   <TextView 
     a:id="@+id/BuildStatuswidget_username"
     a:layout_below="@id/BuildStatuswidget_projectname"
+    a:paddingLeft="3dp"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content" />
   <TextView 
@@ -43,7 +45,7 @@
     a:id="@+id/BuildStatuswidget_buildstatusdisplay"
     a:layout_marginRight="8dp"
     a:layout_alignParentRight="true"
-    a:layout_centerHorizontal="true"
+    a:layout_centerVertical="true"
     a:layout_width="wrap_content"
     a:layout_height="wrap_content"
     a:src="@drawable/icon_buildunknown" />

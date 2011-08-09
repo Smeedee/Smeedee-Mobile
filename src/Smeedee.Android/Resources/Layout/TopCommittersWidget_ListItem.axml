@@ -5,14 +5,14 @@
   a:layout_height="fill_parent" >
   <ImageView
     a:id="@+id/TopCommitters_Icon"
-    a:layout_width="wrap_content"
+    a:layout_width="70dp"
     a:layout_height="wrap_content"
     a:src="@drawable/defaultperson"
-    a:maxHeight="70dp"
     a:maxWidth="70dp"
+    a:minWidth="70dp"
     a:adjustViewBounds="true"
     a:paddingBottom="6dp"
-    a:paddingLeft="6dp"
+    a:paddingLeft="3dp"
     a:paddingTop="6dp"
     a:paddingRight="10dp" />
   <TextView
@@ -21,6 +21,7 @@
     a:layout_height="wrap_content"
     a:layout_toRightOf="@id/TopCommitters_Icon"
     a:textColor="@color/white"
+    a:paddingTop="5dp"
     a:paddingBottom="15dp"
     a:textAppearance="@android:style/TextAppearance.Medium" />
   <LinearLayout
@@ -51,7 +52,7 @@
       a:layout_width="wrap_content"
       a:layout_height="wrap_content"
       a:layout_gravity="center_vertical"
-      a:paddingLeft="3dp"
+      a:paddingLeft="10dp"
       a:textAppearance="@android:style/TextAppearance.Small" />
   </LinearLayout>
 

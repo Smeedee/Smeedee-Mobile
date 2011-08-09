@@ -6,9 +6,8 @@
     android:layout_height="fill_parent">
   <ImageView
     android:id="@+id/LatestCommitsWidget_CommitterIcon"
-    android:layout_width="wrap_content"
+    android:layout_width="70dp"
     android:layout_height="wrap_content"
-    android:maxHeight="70dp"
     android:maxWidth="70dp"
     android:minWidth="70dp"
     android:scaleType="fitCenter"
@@ -25,13 +24,13 @@
       android:id="@+id/LatestCommitsWidget_ChangesetUser"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textStyle="bold" />
+      android:textStyle="bold"
+      android:textColor="@color/white"/>
     <TextView
       android:id="@+id/LatestCommitsWidget_ChangesetText"
       android:layout_below="@id/LatestCommitsWidget_ChangesetUser"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textColor="@color/white" />
+      android:layout_height="wrap_content"/>
     <TextView
       android:id="@+id/LatestCommitsWidget_ChangesetDate"
       android:layout_width="wrap_content"
