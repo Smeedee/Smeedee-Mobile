@@ -40,12 +40,12 @@ namespace Smeedee.iOS
 		{
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 			
+			serviceLocator.Bind<ILog>(new IphoneLogger());
 			serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
 			
 			serviceLocator.Bind<IFetchHttp>(new HttpFetcher());
 			serviceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
-			serviceLocator.Bind<ILog>(new IphoneLogger());
 			
 			if (USE_FAKES)
 			{
