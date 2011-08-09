@@ -3,6 +3,7 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.Services;
 using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
