@@ -2,7 +2,6 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Util;
 using Smeedee.Android.Lib;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
@@ -27,12 +26,11 @@ namespace Smeedee.Android
         public override void OnCreate()
         {
             base.OnCreate();
-            Log.Debug("SMEEDEE", "Application is being run");
-
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
             if (!USE_FAKES)
             {
+                App.ServiceLocator.Bind<ILog>(new LogService());
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
@@ -74,7 +72,7 @@ namespace Smeedee.Android
             var login = new Login();
             login.IsValid(valid =>
             {
-                var nextActivity = valid ? typeof(WidgetContainer) : typeof(LoginScreen);
+                var nextActivity = valid ? typeof(StartUpLoadingScreen) : typeof(LoginScreen);
                 StartActivity(new Intent(this, nextActivity));
                 Finish();
             });

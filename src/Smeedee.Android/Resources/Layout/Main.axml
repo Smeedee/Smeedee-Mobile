@@ -29,7 +29,6 @@
       android:textAppearance="@android:style/TextAppearance.Small"
       android:paddingBottom="2sp"/>
   </LinearLayout>
-  
   <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"

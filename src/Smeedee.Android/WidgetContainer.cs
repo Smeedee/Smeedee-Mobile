@@ -4,29 +4,23 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
-using Android.Preferences;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Java.Lang;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
-using Exception = System.Exception;
 
 namespace Smeedee.Android
 {
-    [Activity(
-        Label = "Smeedee Mobile",
-        Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "Smeedee Mobile", Theme = "@android:style/Theme.NoTitleBar")]
     public class WidgetContainer : Activity
     {
         private const string CURRENT_SCREEN_PERSISTENCE_KEY = "WidgetContainer.CurrentScreen";
         private readonly TimeSpan REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES = new TimeSpan(0, 5, 0);
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private RealViewSwitcher flipper;
-        private IEnumerable<IWidget> widgets;
+        private static IEnumerable<IWidget> _widgets;
 
         private Button _bottomRefreshButton;
         private Timer _timer;
@@ -45,10 +39,15 @@ namespace Smeedee.Android
 
             AddWidgetsToFlipper();
 
-            foreach (var widget in widgets)
+            foreach (var widget in _widgets)
             {
                 widget.DescriptionChanged += WidgetDescriptionChanged;
             }
+        }
+
+        public static void SetWidgets(IEnumerable<IWidget> widgets)
+        {
+            _widgets = widgets;
         }
 
         void HandleScreenChanged(object sender, EventArgs e)
@@ -107,33 +106,11 @@ namespace Smeedee.Android
 
         private void AddWidgetsToFlipper()
         {
-            widgets = GetWidgets();
-            foreach (var widget in widgets)
+            foreach (var widget in _widgets)
             {
                 if (widget.GetType() == typeof(StartPageWidget)) continue;
                 flipper.AddView(widget as View);
             }
-        }
-
-        private IEnumerable<IWidget> GetWidgets()
-        {
-            app.RegisterAvailableWidgets();
-
-            var availableWidgets = SmeedeeApp.Instance.AvailableWidgets;
-            var instances = new List<IWidget>();
-            foreach (var widget in availableWidgets)
-            {
-                try
-                {
-                    Log.Debug("SMEEDEE", "Instantiating widget of type: " + widget.Type.Name);
-                    instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
-                }
-                catch (Exception e)
-                {
-                    Log.Debug("SMEEDEE", Throwable.FromException(e), "Exception thrown when instatiating widget");
-                }
-            }
-            return instances;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -247,7 +224,7 @@ namespace Smeedee.Android
             var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels)
             {
-                newWidgets.AddRange(widgets.Where(widget => widget.GetType() == widgetModel.Type && widget.GetType() != typeof(StartPageWidget)));
+                newWidgets.AddRange(_widgets.Where(widget => widget.GetType() == widgetModel.Type && widget.GetType() != typeof(StartPageWidget)));
             }
 
             if (newWidgets.Count() > 0)
@@ -259,7 +236,7 @@ namespace Smeedee.Android
             }
             else
             {   // If there are now widgets enabled; add the Start Page Widget
-                flipper.AddView((View)widgets.Single(w => w.GetType() == typeof(StartPageWidget)));
+                flipper.AddView((View)_widgets.Single(w => w.GetType() == typeof(StartPageWidget)));
             }
             flipper.CurrentScreen = 0;
         }
