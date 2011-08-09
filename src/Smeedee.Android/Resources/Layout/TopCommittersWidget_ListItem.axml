@@ -29,8 +29,8 @@
     a:layout_height="wrap_content"
     a:layout_below="@id/TopCommittersWidget_committer_name"
     a:layout_toRightOf="@id/TopCommitters_Icon"
-    a:height="15dp"
-    a:background="@color/smeedee_lightgrey" />
+    a:height="10dp"
+    a:background="@color/smeedee_orange" />
   <TextView
     a:id="@+id/TopCommittersWidget_number_of_commits"
     a:layout_width="wrap_content"

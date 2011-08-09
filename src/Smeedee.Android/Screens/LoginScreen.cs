@@ -7,7 +7,7 @@ using Smeedee.Model;
 
 namespace Smeedee.Android.Screens
 {
-    [Activity(Label = "Please enter login information", Theme = "@android:style/Theme.Dialog")]
+    [Activity(Label = "Please enter server url and key", Theme = "@android:style/Theme.Dialog")]
     public class LoginScreen : Activity
     {
         private IBackgroundWorker _bgWorker;

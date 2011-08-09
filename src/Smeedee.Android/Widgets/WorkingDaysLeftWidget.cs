@@ -1,7 +1,6 @@
 using System;
 using Android.App;
 using Android.Content;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Model;
@@ -13,20 +12,6 @@ namespace Smeedee.Android.Widgets
     {
         private WorkingDaysLeft model;
         private DateTime _lastRefreshTime;
-
-        private string dynamicDescription;
-        private string DynamicDescription
-        {
-            get { return dynamicDescription; }
-            set
-            {
-                if (value != dynamicDescription)
-                {
-                    dynamicDescription = value;
-                    if (DescriptionChanged != null) DescriptionChanged(this, null);
-                }
-            }
-        }
 
         public event EventHandler DescriptionChanged;
 
@@ -54,6 +39,7 @@ namespace Smeedee.Android.Widgets
             model.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
             _lastRefreshTime = DateTime.Now;
         }
+      
 
         public DateTime LastRefreshTime()
         {
@@ -70,7 +56,6 @@ namespace Smeedee.Android.Widgets
             
             if (model.LoadError)
             {
-                DynamicDescription = "Failed to load project info from server";
                 daysView.Visibility = ViewStates.Invisible;
                 textView.Visibility = ViewStates.Invisible;
                 return;
@@ -81,7 +66,7 @@ namespace Smeedee.Android.Widgets
 
         public string GetDynamicDescription()
         {
-            return DynamicDescription;
+            return model.DynamicDescription;
         }
 
         public void OnDescriptionChanged(EventArgs args)

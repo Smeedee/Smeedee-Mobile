@@ -15,10 +15,12 @@ namespace Smeedee.Android.Screens
     [Activity(Label = "Smeedee settings", Theme = "@android:style/Theme")]
     public class GlobalSettings : PreferenceActivity
     {
+        
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
+            
             
             PopulateAvailableWidgetsList();
         }
@@ -26,21 +28,37 @@ namespace Smeedee.Android.Screens
         private void PopulateAvailableWidgetsList()
         {
             var availableWidgetsCategory = (PreferenceScreen)FindPreference("GlobalSettings.AvailableWidgets");
-            var widgets = SmeedeeApp.Instance.AvailableWidgets;
-            foreach (var widgetModel in widgets)
+            
+            foreach (var widgetModel in SmeedeeApp.Instance.AvailableWidgets)
             {
                 if (widgetModel.Type == typeof(StartPageWidget)) continue;
 
                 var checkBox = new CheckBoxPreference(this)
                                    {
-                                       Checked = true,
+                                       Checked = widgetModel.Enabled,
                                        Title = widgetModel.Name,
                                        Summary = widgetModel.StaticDescription,
-                                       Key = widgetModel.Name
+                                       Key = widgetModel.Name,
+                                       OnPreferenceClickListener = new CheckBoxPreferenceClick(widgetModel)
                                    };
-
                 availableWidgetsCategory.AddPreference(checkBox);
             }
+        }
+    }
+
+    internal class CheckBoxPreferenceClick : Preference.IOnPreferenceClickListener
+    {
+        private readonly WidgetModel _widgetModel;
+        public CheckBoxPreferenceClick(WidgetModel widgetModel)
+        {
+            _widgetModel = widgetModel;
+        }
+        public IntPtr Handle { get { throw new NotImplementedException(); } }
+
+        public bool OnPreferenceClick(Preference preference)
+        {
+            _widgetModel.Enabled = ((CheckBoxPreference)preference).Checked;
+            return true;
         }
     }
     public class ServerSettingsPreference : DialogPreference

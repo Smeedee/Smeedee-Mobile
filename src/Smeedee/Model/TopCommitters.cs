@@ -27,7 +27,7 @@ namespace Smeedee.Model
         {
             service.LoadTopCommiters(
                 TimePeriod,
-                (committers) => { 
+                committers => { 
                     _committers = committers;
                     callback();
                 }

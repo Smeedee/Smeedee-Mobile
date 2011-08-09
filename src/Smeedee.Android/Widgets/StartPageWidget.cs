@@ -1,6 +1,5 @@
 using System;
 using Android.Content;
-using Android.Graphics;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -11,10 +10,9 @@ namespace Smeedee.Android.Widgets
     [WidgetAttribute("Smeedee")]
     public class StartPageWidget : RelativeLayout, IWidget
     {
-        private const string DynamicDescription = "Flip left and right to see your data";
+        private const string DynamicDescription = "Enable widgets at the settings menu";
 
         public event EventHandler DescriptionChanged;
-        private DateTime _lastRefreshTime;
 
         public StartPageWidget(Context context) :
             base(context)
@@ -39,20 +37,11 @@ namespace Smeedee.Android.Widgets
             }
         }
 
-        public void Refresh()
-        {
-            _lastRefreshTime = DateTime.Now;
-        }
+        public void Refresh() { }
 
-        public DateTime LastRefreshTime()
-        {
-            return _lastRefreshTime;
-        }
+        public DateTime LastRefreshTime() { return DateTime.Now; }
 
-        public string GetDynamicDescription()
-        {
-            return DynamicDescription;
-        }
+        public string GetDynamicDescription() { return DynamicDescription; }
 
         public void OnDescriptionChanged(EventArgs args)
         {

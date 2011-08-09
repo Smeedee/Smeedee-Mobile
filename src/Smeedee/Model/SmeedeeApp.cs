@@ -17,7 +17,6 @@ namespace Smeedee.Model
         }
 
         public ServiceLocator ServiceLocator { get; private set; }
-		
         public IList<WidgetModel> AvailableWidgets { get; private set; }
 		public IList<WidgetModel> EnabledWidgets 
 		{ 
