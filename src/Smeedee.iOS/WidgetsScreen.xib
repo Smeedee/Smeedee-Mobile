@@ -215,8 +215,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="18351300"/>
 							<reference ref="534137258"/>
-							<reference ref="286776936"/>
 							<reference ref="643008131"/>
+							<reference ref="286776936"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -275,6 +275,7 @@
 					<string>23.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
 					<string>33.IBPluginDependency</string>
+					<string>33.IBViewBoundsToFrameTransform</string>
 					<string>9.IBPluginDependency</string>
 					<string>9.IBViewBoundsToFrameTransform</string>
 				</object>
@@ -291,10 +292,13 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwigAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{209, 331}, {320, 411}}</string>
+					<string>{{259, 552}, {320, 411}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABAwAAAwggAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw+4AAA</bytes>
