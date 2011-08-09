@@ -107,8 +107,8 @@ namespace Smeedee.Android.Widgets
             if (_model.Committers != null && _model.Committers.Count() >= 1)
             {
                 var percent = commits/(float) _model.Committers.First().Commits;
-                committerbar.SetWidth(Convert.ToInt32(percent*(_commitBarFullWidth - 70f)));
-                committerbarBackground.SetWidth(_commitBarFullWidth - 70);
+                committerbar.SetWidth(Convert.ToInt32(percent*(_commitBarFullWidth - 65f)));
+                committerbarBackground.SetWidth(_commitBarFullWidth - 65);
             }
             else 
                 committerbar.SetWidth(1);
