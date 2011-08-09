@@ -13,9 +13,7 @@ namespace Smeedee.iOS
 	{
 		private static int barHeight = 5;
 		
-		public TopCommittersTableCellController () : base("TopCommittersTableCellController", null)
-		{
-		}
+		public TopCommittersTableCellController () : base("TopCommittersTableCellController", null) { }
 		
         public override UITableViewCell TableViewCell
         {
@@ -30,7 +28,7 @@ namespace Smeedee.iOS
 			commitLabel.Text = committer.Commits.ToString();
 			StyleProgressBar(percent);
 			
-			FadeInImage(committer.ImageUri);
+			DisplayImage(committer.ImageUri);
         }
 		
 		private void StyleProgressBar(float percent)
@@ -42,16 +40,11 @@ namespace Smeedee.iOS
 			graphTop.BackgroundColor = StyleExtensions.smeedeeOrange;
 		}
 		
-		private void FadeInImage(Uri uri)
+		private void DisplayImage(Uri uri)
 		{
-			imageView.Alpha = 0.4f;
 			UIImageLoader.LoadImageFromUri(uri, (image) => {
 				InvokeOnMainThread(() => {
-					UIView.BeginAnimations("FadeImage");
-					UIView.SetAnimationDuration(0.5f);
 					imageView.Image = image;
-					imageView.Alpha = 1.0f;
-					UIView.CommitAnimations();
 				});
 			});
 		}

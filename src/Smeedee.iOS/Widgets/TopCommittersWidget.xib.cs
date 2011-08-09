@@ -101,6 +101,7 @@ namespace Smeedee.iOS
     
     public class TopCommitersTableSource : UITableViewSource
     {
+        private const string CELL_ID = "TopCommitterCell";
 		private TableCellFactory cellFactory = new TableCellFactory("TopCommittersTableCellController", typeof(TopCommittersTableCellController));		
         private IEnumerable<Committer> committers;
         
@@ -109,22 +110,13 @@ namespace Smeedee.iOS
             this.committers = committers;
         }
         
-        public override int NumberOfSections (UITableView tableView)
-        {
-            return 1;
-        }
-		
-		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
-		{
-			return 64f;
-		}
+        public override int NumberOfSections (UITableView tableView) { return 1; }
+		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath) { return 64f; }
         
         public override int RowsInSection (UITableView tableview, int section)
         {
             return committers.Count();
         }
-        
-        private const string CELL_ID = "TopCommitterCell";
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
@@ -135,10 +127,5 @@ namespace Smeedee.iOS
 			
             return controller.TableViewCell;
         }
-		
-		public override void Scrolled (UIScrollView scrollView)
-		{
-			
-		}
     }
 }
