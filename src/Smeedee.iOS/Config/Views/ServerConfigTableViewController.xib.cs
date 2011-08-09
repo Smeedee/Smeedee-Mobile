@@ -22,6 +22,7 @@ namespace Smeedee.iOS
 			
 			table.Source = new ServerConfigTableSource(this);
 			table.SeparatorColor = UIColor.Black;
+			table.BackgroundColor = UIColor.Black;
 			table.ScrollEnabled = false;
 		}
 		
