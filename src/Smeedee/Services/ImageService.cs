@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using Smeedee.Lib;
 using Smeedee.Model;
 using Smeedee.Services;
 

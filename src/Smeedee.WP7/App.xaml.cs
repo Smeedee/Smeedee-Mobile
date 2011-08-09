@@ -6,6 +6,7 @@ using Smeedee.Lib;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
+using Smeedee.WP7.Lib;
 using Smeedee.WP7.Services;
 using Smeedee.WP7.Services.Fakes;
 using Smeedee.WP7.ViewModels;
@@ -43,6 +44,7 @@ namespace Smeedee.WP7
         {
             var app = SmeedeeApp.Instance;
 
+            app.ServiceLocator.Bind<ILog>(new NoLog());
             app.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
             app.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = "" }); //We cache in the root of our IsolatedStorage, so we have an empty string here
             app.ServiceLocator.Bind<IFileIO>(new Wp7FileIO());
