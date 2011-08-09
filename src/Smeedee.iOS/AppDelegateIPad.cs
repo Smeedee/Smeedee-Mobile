@@ -11,7 +11,7 @@ namespace Smeedee.iOS
         // This method is invoked when the application has loaded its UI and its ready to run
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            var sharedApp = new AppDelegateShared(window, tabBar, null, null);
+            var sharedApp = new AppDelegateShared(window, tabBar, loginHeader, login);
             sharedApp.FinishedLaunching();
    
             window.MakeKeyAndVisible();
