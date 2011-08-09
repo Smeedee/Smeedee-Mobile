@@ -25,6 +25,7 @@ namespace Smeedee.iOS
         {
             base.ViewDidLoad();
 			TableView.StyleAsWidgetTable();
+			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
 			Refresh();
         }
 		
