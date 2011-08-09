@@ -1,5 +1,4 @@
 ﻿using System;
-using Android.Util;
 
 namespace Smeedee.Model
 {

@@ -45,7 +45,7 @@ namespace Smeedee.iOS
 				logger.Log("Server is configured, attempting to connect");
 				LoadingIndicator.Instance.StartLoading();
 				ShowSplashScreen();
-				login.StoreAndValidate(login.Url, login.Key, (response) => {
+				login.ValidateAndStore(login.Url, login.Key, (response) => {
 					LoadingIndicator.Instance.StopLoading();
 					ServerCallback(response);
 				});
