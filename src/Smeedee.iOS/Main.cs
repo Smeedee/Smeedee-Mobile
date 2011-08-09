@@ -40,6 +40,7 @@ namespace Smeedee.iOS
 		{
 			var serviceLocator = SmeedeeApp.Instance.ServiceLocator;
 			
+			serviceLocator.Bind<ILog>(new IphoneLogger());
 			serviceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
 			serviceLocator.Bind<IPersistenceService>(new IphoneKVPersister());
 			

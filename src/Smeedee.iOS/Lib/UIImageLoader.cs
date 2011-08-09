@@ -10,6 +10,7 @@ namespace Smeedee.iOS.Lib
 {
 	public class UIImageLoader
 	{
+		private static ILog logger = SmeedeeApp.Instance.ServiceLocator.Get<ILog>();
 		private static UIImage defaultImage = UIImage.FromFile("images/default_person.jpeg");
 		
 		public static void LoadImageFromUri(Uri uri, Action<UIImage> callback) 
@@ -26,7 +27,18 @@ namespace Smeedee.iOS.Lib
 		{	
 			using (var pool = new NSAutoreleasePool())
 			{
-				return (result != null) ? UIImage.LoadFromData(NSData.FromArray(result)) : defaultImage;
+				if (result != null)
+				{
+					try 
+					{
+						return UIImage.LoadFromData(NSData.FromArray(result));
+					}
+					catch (Exception e)
+					{
+						logger.Log("Error converting to UIImage", e.Message);
+					}
+				}
+				return defaultImage;
 			}
 		}
 	}

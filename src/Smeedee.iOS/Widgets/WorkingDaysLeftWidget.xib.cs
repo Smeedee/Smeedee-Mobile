@@ -36,7 +36,7 @@ namespace Smeedee.iOS
 		{
 			if (model.LoadError)
 			{
-				topLabel.Text = "Error loading data";
+				ToggleHidden(true);
 			}
 			else
 			{
@@ -72,7 +72,7 @@ namespace Smeedee.iOS
 		
 		public DateTime LastRefreshTime()
 		{
-			return DateTime.Now;	
+			throw new NotImplementedException();
 		}
 		
         public event EventHandler DescriptionChanged;

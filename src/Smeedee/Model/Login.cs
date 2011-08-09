@@ -1,5 +1,4 @@
 ﻿using System;
-using Android.Util;
 using Smeedee.Services;
 
 namespace Smeedee.Model
