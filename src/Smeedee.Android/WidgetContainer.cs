@@ -196,17 +196,23 @@ namespace Smeedee.Android
             // and each widget configuration
             var logger = app.ServiceLocator.Get<ILog>();
             
-
             CheckForEnabledAndDisabledWidgets();
             flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
 
             logger.Log("SMEEDEE", "OnResume starting to refreshing widgets");
-            RefreshAllCurrentlyEnabledWidgets(); // This taks some time
+            RefreshAllCurrentlyEnabledWidgets(); // This taks some time in background threads
 
             HideTheBottomRefreshButton();
             StartRefreshTimer();
+            HideTheRefreshWheel();
+        }
+
+        private void HideTheRefreshWheel()
+        {
+            var refreshWheel = FindViewById<ProgressBar>(Resource.Id.WidgetContainerProgressBar);
+            refreshWheel.Visibility = ViewStates.Invisible;
         }
 
         private void StartRefreshTimer()
