@@ -169,6 +169,9 @@
     <Compile Include="..\Smeedee\Services\ILatestCommitsService.cs">
       <Link>Services\ILatestCommitsService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\ILog.cs">
+      <Link>Services\ILog.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\ImageService.cs">
       <Link>Services\ImageService.cs</Link>
     </Compile>
@@ -209,6 +212,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NegatedBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\UriToImageConverter.cs" />
+    <Compile Include="Lib\NoLog.cs" />
     <Compile Include="Lib\WebClientDownloadDataExtension.cs" />
     <Compile Include="Lib\Wp7FileIO.cs" />
     <Compile Include="LoadMoreListBox.cs" />
