@@ -26,6 +26,8 @@ namespace Smeedee.iOS
 			
 			nameLabel.Text = committer.Name;
 			commitLabel.Text = committer.Commits.ToString();
+			nameLabel.TextColor = StyleExtensions.lightGrayText;
+			
 			StyleProgressBar(percent);
 			
 			DisplayImage(committer.ImageUri);
@@ -33,14 +35,13 @@ namespace Smeedee.iOS
 		
 		private void StyleProgressBar(float percent)
 		{
-			
 			float width = (float) (Platform.ScreenWidth - graph.Frame.X - commitLabel.Frame.Width - 25);
 			
 			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, width, barHeight);
-			graph.BackgroundColor = StyleExtensions.smeedeeOrangeAlpha;
+			graph.BackgroundColor = /*UIColor.FromRGB(100, 100, 100);*/ StyleExtensions.smeedeeOrangeAlpha;
 			
 			graphTop.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, width * percent, barHeight);
-			graphTop.BackgroundColor = StyleExtensions.smeedeeOrange;
+			graphTop.BackgroundColor = /*StyleExtensions.lightGrayText;*/ StyleExtensions.smeedeeOrange;
 		}
 		
 		private void DisplayImage(Uri uri)

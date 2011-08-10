@@ -5,6 +5,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
 {
@@ -24,6 +25,9 @@ namespace Smeedee.iOS
             projectNameLabel.Text = build.ProjectName;
 			usernameLabel.Text = build.Username;
 			lastBuildTimeLabel.Text = TimeSpanPrettyPrintExtension.PrettyPrint(DateTime.Now - build.BuildTime);
+			
+			projectNameLabel.TextColor = StyleExtensions.smeedeeOrange;
+			usernameLabel.TextColor = StyleExtensions.lightGrayText;
 			
 			switch (build.BuildSuccessState) {
 			case BuildState.Broken:
