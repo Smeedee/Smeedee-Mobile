@@ -13,7 +13,7 @@ namespace Smeedee.iOS
 {
     public class Application
     {
-		private const bool USE_FAKES = true;
+		private const bool USE_FAKES = false;
 		
         static void Main (string[] args)
         {

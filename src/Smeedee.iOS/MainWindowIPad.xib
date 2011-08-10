@@ -121,16 +121,6 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
 			</object>
-			<object class="IBUIViewController" id="128908967">
-				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
-					<int key="IBUIStatusBarStyle">2</int>
-				</object>
-				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
-					<int key="interfaceOrientation">1</int>
-				</object>
-				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-				<bool key="IBUIHorizontal">NO</bool>
-			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -166,14 +156,6 @@
 						<reference key="destination" ref="654249246"/>
 					</object>
 					<int key="connectionID">15</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">loginHeader</string>
-						<reference key="source" ref="250404236"/>
-						<reference key="destination" ref="128908967"/>
-					</object>
-					<int key="connectionID">17</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -256,11 +238,6 @@
 						<reference key="object" ref="654249246"/>
 						<reference key="parent" ref="0"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">16</int>
-						<reference key="object" ref="128908967"/>
-						<reference key="parent" ref="0"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -276,9 +253,6 @@
 					<string>14.CustomClassName</string>
 					<string>14.IBEditorWindowLastContentRect</string>
 					<string>14.IBPluginDependency</string>
-					<string>16.CustomClassName</string>
-					<string>16.IBEditorWindowLastContentRect</string>
-					<string>16.IBPluginDependency</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
 					<string>4.CustomClassName</string>
@@ -299,9 +273,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ServerConfigTableViewController</string>
 					<string>{{284, -67}, {783, 935}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>LoginScreen</string>
-					<string>{{319, 71}, {783, 935}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{246, 45}, {783, 935}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

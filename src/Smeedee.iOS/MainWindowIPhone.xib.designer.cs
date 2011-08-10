@@ -21,8 +21,6 @@ namespace Smeedee.iOS {
 		
 		private ServerConfigTableViewController __mt_login;
 		
-		private LoginScreen __mt_loginHeader;
-		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("window")]
 		private MonoTouch.UIKit.UIWindow window {
@@ -57,18 +55,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_login = value;
 				this.SetNativeField("login", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("loginHeader")]
-		private LoginScreen loginHeader {
-			get {
-				this.__mt_loginHeader = ((LoginScreen)(this.GetNativeField("loginHeader")));
-				return this.__mt_loginHeader;
-			}
-			set {
-				this.__mt_loginHeader = value;
-				this.SetNativeField("loginHeader", value);
 			}
 		}
 	}

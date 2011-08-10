@@ -21,8 +21,7 @@ namespace Smeedee.iOS
 		private Login login;
 		private bool previousWasServerConfig;
         
-        public AppDelegateShared(UIWindow window, UITabBarController tabBarController, 
-			UIViewController loginHeaderController, UIViewController loginController)
+        public AppDelegateShared(UIWindow window, UITabBarController tabBarController, UIViewController loginController)
         {
             this.window = window;
             this.tabBarController = tabBarController;
@@ -93,14 +92,11 @@ namespace Smeedee.iOS
 		{
 			if (!previousWasServerConfig) {
 				previousWasServerConfig = true;
-				//loginHeaderController.View.Frame = new RectangleF(0, 0, Platform.ScreenWidth, 150);
-				loginController.View.Frame = new RectangleF(0, 0, Platform.ScreenWidth, Platform.ScreenHeight - 150);
+				loginController.View.Frame = new RectangleF(0, 0, Platform.ScreenWidth, Platform.ScreenHeight);
 				
 				(loginController as ServerConfigTableViewController).LoginAction = ServerCallback;
 				
 				window.AddSubview(loginController.View);
-				
-				//window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
 			}
 		}
 		
