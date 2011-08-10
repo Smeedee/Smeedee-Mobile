@@ -14,7 +14,6 @@ namespace Smeedee.Model
 		public const string DefaultSmeedeeKey = "o8rzdNQn";
 
         private readonly IPersistenceService _persistence;
-        private ILog logger;
         private SmeedeeApp app = SmeedeeApp.Instance;
 
         public string Key
@@ -32,7 +31,6 @@ namespace Smeedee.Model
         public Login()
         {
             _persistence = app.ServiceLocator.Get<IPersistenceService>();
-            logger = app.ServiceLocator.Get<ILog>();
         }
 		
 		public void ValidateAndStore(string url, string key, Action<string> callback)

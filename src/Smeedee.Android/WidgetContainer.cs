@@ -194,11 +194,17 @@ namespace Smeedee.Android
 
             // This could be optimized. Now, all widgets gets refreshed for every little change in both gloabl settings
             // and each widget configuration
+            var logger = app.ServiceLocator.Get<ILog>();
+            
+
             CheckForEnabledAndDisabledWidgets();
             flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
-            RefreshAllCurrentlyEnabledWidgets();
+
+            logger.Log("SMEEDEE", "OnResume starting to refreshing widgets");
+            RefreshAllCurrentlyEnabledWidgets(); // This taks some time
+
             HideTheBottomRefreshButton();
             StartRefreshTimer();
         }
