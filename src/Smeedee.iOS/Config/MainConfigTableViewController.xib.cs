@@ -19,16 +19,24 @@ namespace Smeedee.iOS
 			
 			TableView.StyleAsSettingsTable();
 		}
+		
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			Platform.Orientation = toInterfaceOrientation;
+		}
+		
+		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+		{
+			return true;
+		}
 	}
 	
 	public class MainConfigTableSource : UITableViewSource
     {
 		private MainConfigTableViewController controller;
-		private Login loginModel;
 		
 		public MainConfigTableSource(MainConfigTableViewController controller) : base() {
 			this.controller = controller;
-			loginModel = new Login();
 		}
 		
         public override int NumberOfSections(UITableView tableView) { return 2; }
