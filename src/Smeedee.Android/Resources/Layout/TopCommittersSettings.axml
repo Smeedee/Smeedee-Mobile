@@ -20,7 +20,7 @@
       a:summary="@string/TopCommittersSettingsTimePeriodSummary"
       a:entries="@array/TopCommittersTimeArray"
       a:entryValues="@array/TopCommittersTimeValues"
-      a:defaultValue="2" />
+      a:defaultValue="30" />
   </PreferenceCategory>
   
 </PreferenceScreen>
