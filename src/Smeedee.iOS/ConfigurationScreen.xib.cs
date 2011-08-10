@@ -13,5 +13,15 @@ namespace Smeedee.iOS
 			this.NavigationBar.BarStyle = UIBarStyle.Black;
 			PushViewController( new MainConfigTableViewController(), false);
         }
+		
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			Platform.Orientation = toInterfaceOrientation;
+		}
+		
+		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+		{
+			return true;
+		}
     }
 }

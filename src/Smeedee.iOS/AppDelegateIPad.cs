@@ -18,7 +18,5 @@ namespace Smeedee.iOS
             window.MakeKeyAndVisible();
             return true;
         }
-		
-		// TODO: Handle flip
     }
 }

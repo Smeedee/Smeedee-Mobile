@@ -173,5 +173,17 @@ namespace Smeedee.iOS
 			if (toolbar.Items.Count() == 3)
 				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
 		}
+		
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			Console.WriteLine("Rotating");
+			Platform.Orientation = toInterfaceOrientation;
+			ResetView();
+		}
+		
+		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+		{
+			return true;
+		}
     }
 }

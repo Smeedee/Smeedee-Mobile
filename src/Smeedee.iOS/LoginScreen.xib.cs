@@ -34,6 +34,18 @@ namespace Smeedee.iOS
 		}
 
 		#endregion
+	
+	
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			Platform.Orientation = toInterfaceOrientation;
+		}
+		
+		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+		{
+			return true;
+		}
 	}
+	
 }
 
