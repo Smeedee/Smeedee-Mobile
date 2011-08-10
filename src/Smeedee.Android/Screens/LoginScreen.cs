@@ -19,8 +19,9 @@ namespace Smeedee.Android.Screens
             var urlInput = FindViewById<EditText>(Resource.Id.LoginScreenServerUrlInput);
             var keyInput = FindViewById<EditText>(Resource.Id.LoginScreenUserKeyInput);
 
-            urlInput.Text = Login.DefaultSmeedeeUrl;
-            keyInput.Text = Login.DefaultSmeedeeKey;
+            var login = new Login();
+            urlInput.Text = login.Url;
+            keyInput.Text = login.Key;
 
             submitButton.Click += delegate
                 {

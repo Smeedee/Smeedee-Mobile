@@ -10,6 +10,7 @@ using Android.OS;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
+using Smeedee.Services;
 
 namespace Smeedee.Android
 {
@@ -19,6 +20,8 @@ namespace Smeedee.Android
         private const string CURRENT_SCREEN_PERSISTENCE_KEY = "WidgetContainer.CurrentScreen";
         private readonly TimeSpan REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES = new TimeSpan(0, 10, 0);
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
+        private IBackgroundWorker bgWorker; 
+        private ILog logger;
         private RealViewSwitcher flipper;
         private static IEnumerable<IWidget> _widgets;
 
@@ -30,6 +33,8 @@ namespace Smeedee.Android
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Main);
+            bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+            logger = app.ServiceLocator.Get<ILog>();
 
             flipper = FindViewById<RealViewSwitcher>(Resource.Id.WidgetContainerFlipper);
             flipper.ScreenChanged += HandleScreenChanged;
@@ -50,12 +55,13 @@ namespace Smeedee.Android
             _widgets = widgets;
         }
 
-        void HandleScreenChanged(object sender, EventArgs e)
+        private void HandleScreenChanged(object sender, EventArgs e)
         {
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
             ShowRefreshButtonAtBottom(null);
         }
+
         private void SetCorrectTopBannerWidgetTitle()
         {
             var widgetTitle = FindViewById<TextView>(Resource.Id.WidgetContainerWidgetNameInTopBanner);
@@ -64,10 +70,12 @@ namespace Smeedee.Android
 
         private void SetCorrectTopBannerWidgetDescription()
         {
-            var widgetDescriptionDynamic = FindViewById<TextView>(Resource.Id.WidgetContainerWidgetDynamicDescriptionInTopBanner);
             var currentWidget = flipper.CurrentView as IWidget;
 
-            widgetDescriptionDynamic.Text = (currentWidget != null) ? currentWidget.GetDynamicDescription() : "No description";
+            var widgetDescription = FindViewById<TextView>(Resource.Id.WidgetContainerWidgetDynamicDescriptionInTopBanner);
+            widgetDescription.Text = (currentWidget != null)
+                                                ? currentWidget.GetDynamicDescription()
+                                                : "No description";
         }
 
         private string GetWidgetNameOfCurrentlyDisplayedWidget()
@@ -76,6 +84,7 @@ namespace Smeedee.Android
                     where widget.Type == flipper.CurrentView.GetType()
                     select widget.Name).Single();
         }
+
         private void ShowRefreshButtonAtBottom(Object timer)
         {
             if (timer != null)
@@ -84,20 +93,21 @@ namespace Smeedee.Android
                 t.Dispose();
             }
             var currentWidget = flipper.CurrentView as IWidget;
-            if (currentWidget != null && currentWidget != typeof(StartPageWidget))
+            if (currentWidget != null && currentWidget.GetType() != typeof (StartPageWidget) &&
+                currentWidget.GetType() != typeof (WorkingDaysLeftWidget))
             {
                 if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES)
                 {
                     _bottomRefreshButton.Visibility = ViewStates.Invisible;
                     _bottomRefreshButton.Text =
-                        (DateTime.Now - currentWidget.LastRefreshTime()).Minutes + " minutes since last refresh. Click to refresh";
+                        (DateTime.Now - currentWidget.LastRefreshTime()).Minutes +
+                        " minutes since last refresh. Click to refresh";
                     _bottomRefreshButton.Visibility = ViewStates.Visible;
-                    
                 }
             }
         }
 
-        void WidgetDescriptionChanged(object sender, EventArgs e)
+        private void WidgetDescriptionChanged(object sender, EventArgs e)
         {
             if (sender != flipper.CurrentView) return;
             SetCorrectTopBannerWidgetDescription();
@@ -106,9 +116,8 @@ namespace Smeedee.Android
 
         private void AddWidgetsToFlipper()
         {
-            foreach (var widget in _widgets)
+            foreach (var widget in _widgets.Where(widget => widget.GetType() != typeof (StartPageWidget)))
             {
-                if (widget.GetType() == typeof(StartPageWidget)) continue;
                 flipper.AddView(widget as View);
             }
         }
@@ -124,11 +133,12 @@ namespace Smeedee.Android
             base.OnPrepareOptionsMenu(menu);
 
             var configMenuItem = menu.FindItem(Resource.Id.MenuBtnWidgetSettings);
-            var attribs = (WidgetAttribute)(flipper.CurrentView.GetType().GetCustomAttributes(typeof(WidgetAttribute), true)[0]);
+            var attribs =
+                (WidgetAttribute) (flipper.CurrentView.GetType().GetCustomAttributes(typeof (WidgetAttribute), true)[0]);
 
             if (configMenuItem != null)
                 configMenuItem.SetEnabled(attribs.SettingsType != null);
-            
+
             return true;
         }
 
@@ -146,14 +156,12 @@ namespace Smeedee.Android
                     var widgetModel = SmeedeeApp.Instance.AvailableWidgets.Single(wm => wm.Name == widgetName);
 
                     if (widgetModel.SettingsType != null)
-                    {
                         StartActivity(new Intent(this, widgetModel.SettingsType));
-                    }
                     return true;
 
                 case Resource.Id.MenuBtnGlobalSettings:
 
-                    var globalSettings = new Intent(this, typeof(GlobalSettings));
+                    var globalSettings = new Intent(this, typeof (GlobalSettings));
                     StartActivity(globalSettings);
                     return true;
                 default:
@@ -166,9 +174,8 @@ namespace Smeedee.Android
             var currentWidget = flipper.CurrentView as IWidget;
             if (currentWidget == null) return;
 
-            var dialog = ProgressDialog.Show(this, "", "Refreshing widget", true);
+            var dialog = ProgressDialog.Show(this, "", "Refreshing...", true);
             var handler = new ProgressHandler(dialog);
-            var bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
             bgWorker.Invoke(() =>
                                 {
                                     currentWidget.Refresh();
@@ -187,12 +194,22 @@ namespace Smeedee.Android
         {
             base.OnResume();
 
-            // This could be optimized. Now, all widgets gets refreshed for every little change in settings
+            // This could be optimized. Now, all widgets gets refreshed for every little change in both gloabl settings
+            // and each widget configuration
             CheckForEnabledAndDisabledWidgets();
             flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
+
+            //var dialog = ProgressDialog.Show(this, "", "Refreshing...", true);
+            //var handler = new ProgressHandler(dialog);
             RefreshAllCurrentlyEnabledWidgets();
+            //bgWorker.Invoke(() =>
+            //    {
+                    
+            //        handler.SendEmptyMessage(0);
+            //    });
+
             HideTheBottomRefreshButton();
             StartRefreshTimer();
         }
@@ -205,8 +222,12 @@ namespace Smeedee.Android
 
         private void RefreshAllCurrentlyEnabledWidgets()
         {
+            
             for (var i = 0; i < flipper.ChildCount; i++)
             {
+                // Can add calls to handler.SendMessage(i) here, to update the progressdialog, if the
+                // progress dialog syle is set to horizontal
+                
                 var widget = flipper.GetChildAt(i) as IWidget;
                 if (widget != null)
                 {
@@ -220,24 +241,22 @@ namespace Smeedee.Android
             flipper.RemoveAllViews();
 
             var widgetModels = SmeedeeApp.Instance.EnabledWidgets;
+            var enabledWidgets = new List<IWidget>();
 
-            var newWidgets = new List<IWidget>();
             foreach (var widgetModel in widgetModels)
             {
-                newWidgets.AddRange(_widgets.Where(widget => widget.GetType() == widgetModel.Type && widget.GetType() != typeof(StartPageWidget)));
+                enabledWidgets.AddRange(_widgets.Where(widget => widget.GetType() == widgetModel.Type && widget.GetType() != typeof(StartPageWidget)));
             }
 
-            if (newWidgets.Count() > 0)
+            if (enabledWidgets.Count() > 0)
             {
-                foreach (var newWidget in newWidgets)
+                foreach (var enabledWidget in enabledWidgets)
                 {
-                    flipper.AddView((View)newWidget);
+                    flipper.AddView((View)enabledWidget);
                 }
             }
             else
-            {   // If there are now widgets enabled; add the Start Page Widget
                 flipper.AddView((View)_widgets.Single(w => w.GetType() == typeof(StartPageWidget)));
-            }
             flipper.CurrentScreen = 0;
         }
 
@@ -248,17 +267,21 @@ namespace Smeedee.Android
         }
     }
 
-    public class ProgressHandler : Handler
+    internal class ProgressHandler : Handler
     {
         private readonly ProgressDialog _dialog;
+        
         public ProgressHandler(ProgressDialog dialog)
         {
             _dialog = dialog;
         }
+        
         public override void HandleMessage(Message msg)
         {
             base.HandleMessage(msg);
-            _dialog.Dismiss();
+            
+            if (msg.What == 0) 
+                _dialog.Dismiss();
         }
     }
 }
