@@ -37,7 +37,7 @@ namespace Smeedee.WP7
         
         private void RefreshButton_Click(object sender, EventArgs e)
         {
-            var selected = (PivotItem)WidgetsPivot.SelectedItem;
+            var selected = (PivotItem)App.ViewModel.WidgetsPivot.SelectedItem;
             if (selected != null)
                 App.ViewModel.GetWidgetForView(selected).Refresh();
         }

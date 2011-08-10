@@ -40,6 +40,8 @@ namespace Smeedee.Services
             {
                 if (e.Error == null)
                     result = e.Result;
+                else
+                    logger.Log("[SMEEDEE HttpError]", ""+e.Error);
                 manualReset.Set();
             };
             client.DownloadStringAsync(uri);
