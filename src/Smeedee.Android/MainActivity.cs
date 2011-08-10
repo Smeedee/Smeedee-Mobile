@@ -47,7 +47,7 @@ namespace Smeedee.Android
             
             else
             {
-                App.ServiceLocator.Bind<ILog>(new FakeLogService());
+                App.ServiceLocator.Bind<ILog>(new LogService());
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
@@ -69,7 +69,14 @@ namespace Smeedee.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
             var login = new Login();
+            if (login.Url == "" && login.Key == "")
+            {
+                login.Url = Login.DefaultSmeedeeUrl;
+                login.Key = Login.DefaultSmeedeeKey;
+            }
+
             login.IsValid(valid =>
             {
                 var nextActivity = valid ? typeof(StartUpLoadingScreen) : typeof(LoginScreen);
