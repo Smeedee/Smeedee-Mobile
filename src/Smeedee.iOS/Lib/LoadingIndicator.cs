@@ -3,6 +3,7 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
+using Smeedee.Services;
 using Smeedee.iOS.Lib;
 
 namespace Smeedee.iOS
@@ -23,8 +24,8 @@ namespace Smeedee.iOS
 		
 		private LoadingIndicator() : base()
 		{
-			const int ScreenWidth = 320;
-			const int ScreenHeight = 400;
+			int ScreenWidth = Platform.ScreenWidth;
+			int ScreenHeight = Platform.ScreenHeight - 80;
 			const int Padding = 10;
 			const int TextWidth = 65;
 			const int SpinnerSize = 20;

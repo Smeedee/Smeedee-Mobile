@@ -5,11 +5,11 @@
   a:layout_height="fill_parent" >
   <ImageView
     a:id="@+id/TopCommitters_Icon"
-    a:layout_width="wrap_content"
+    a:layout_width="70dp"
     a:layout_height="wrap_content"
     a:src="@drawable/defaultperson"
-    a:maxHeight="70dp"
     a:maxWidth="70dp"
+    a:minWidth="70dp"
     a:adjustViewBounds="true"
     a:paddingBottom="6dp"
     a:paddingLeft="3dp"

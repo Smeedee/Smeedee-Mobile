@@ -25,8 +25,7 @@ namespace Smeedee.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad ();
-			TableView.SeparatorColor = StyleExtensions.tableSeparator;
-			TableView.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+			TableView.StyleAsWidgetTable();
             Refresh();
         }
 		

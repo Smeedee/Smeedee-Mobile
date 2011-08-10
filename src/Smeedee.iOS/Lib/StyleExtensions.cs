@@ -14,7 +14,7 @@ namespace Smeedee.iOS.Lib
 		
 		public static readonly UIColor blackBackground = UIColor.FromRGB(0, 0, 0);
 		
-		public static readonly UIColor grayTableCell = UIColor.FromRGB(70, 70, 70);//UIColor.FromWhiteAlpha(0.7f, 0.7f);
+		public static readonly UIColor grayTableCell = UIColor.FromRGB(35, 35, 35);
 		public static readonly UIColor lightGrayText = UIColor.FromRGB(218, 218, 218);
 		
 		public static readonly UIColor darkGrayText = UIColor.FromRGB(150, 150, 150);
@@ -30,12 +30,34 @@ namespace Smeedee.iOS.Lib
 			self.ShadowColor = smeedeeOrangeAlpha;
 		}
 		
+		public static void StyleAsWidgetTable(this UITableView self)
+		{
+			self.BackgroundColor = blackBackground;
+			self.SeparatorColor = tableSeparator;
+			self.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+			self.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+			
+			if (Platform.Name == Device.Ipad)
+			{
+				// Bugfix for iPad. Incorrectly sets background color to gray
+				// http://stackoverflow.com/questions/2688007/uitableview-backgroundcolor-always-gray-on-ipad
+				self.BackgroundView = new UIView();
+				
+				self.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+			}
+		}
+		
 		public static void StyleAsSettingsTable(this UITableView self)
 		{
 			self.BackgroundColor = blackBackground;
 			self.SeparatorColor = tableSeparator;
 			self.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
 			self.IndicatorStyle = UIScrollViewIndicatorStyle.White;
+			
+			if (Platform.Name == Device.Ipad)
+			{
+				self.BackgroundView = new UIView();
+			}
 		}
 		
 		public static void StyleAsSettingsTableCell(this UITableViewCell self)

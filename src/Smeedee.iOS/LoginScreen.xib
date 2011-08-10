@@ -44,7 +44,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIImageView" id="603161849">
 						<reference key="NSNextResponder" ref="907092710"/>
-						<int key="NSvFlags">274</int>
+						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{128, 55}, {61, 61}}</string>
 						<reference key="NSSuperview" ref="907092710"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -174,7 +174,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABBoAAAwxYAAA</bytes>
 					</object>
-					<string>{{250, 566}, {320, 150}}</string>
+					<string>{{285, 592}, {320, 150}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>

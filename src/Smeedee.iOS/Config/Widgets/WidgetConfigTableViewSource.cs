@@ -25,7 +25,6 @@ namespace Smeedee.iOS
 		{
 			darkSwitch = new DarkSwitch(widgetModel.Enabled);
 			darkSwitch.ValueChanged += delegate {
-				Console.WriteLine("Selected " + darkSwitch.SelectedSegment);
 				widgetModel.Enabled = darkSwitch.On;
 			};
 			
