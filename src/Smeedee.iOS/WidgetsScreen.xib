@@ -115,11 +115,11 @@
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="396523283">
+							<object class="NSColorSpace" key="NSCustomColorSpace" id="151657259">
 								<int key="NSID">1</int>
 							</object>
 						</object>
-						<object class="NSColor" key="IBUIHighlightedColor" id="509106716">
+						<object class="NSColor" key="IBUIHighlightedColor" id="641500763">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
@@ -130,7 +130,7 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 					</object>
-					<object class="IBUILabel" id="197919220">
+					<object class="IBUILabel" id="372590215">
 						<reference key="NSNextResponder" ref="926071213"/>
 						<int key="NSvFlags">-2147483358</int>
 						<string key="NSFrame">{{20, 1}, {280, 43}}</string>
@@ -153,9 +153,9 @@
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
-							<reference key="NSCustomColorSpace" ref="396523283"/>
+							<reference key="NSCustomColorSpace" ref="151657259"/>
 						</object>
-						<reference key="IBUIHighlightedColor" ref="509106716"/>
+						<reference key="IBUIHighlightedColor" ref="641500763"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
@@ -222,7 +222,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">centeredTitle</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="197919220"/>
+						<reference key="destination" ref="372590215"/>
 					</object>
 					<int key="connectionID">43</int>
 				</object>
@@ -256,7 +256,7 @@
 							<reference ref="534137258"/>
 							<reference ref="643008131"/>
 							<reference ref="286776936"/>
-							<reference ref="197919220"/>
+							<reference ref="372590215"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -300,7 +300,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">42</int>
-						<reference key="object" ref="197919220"/>
+						<reference key="object" ref="372590215"/>
 						<reference key="parent" ref="926071213"/>
 					</object>
 				</object>

@@ -38,6 +38,8 @@ namespace Smeedee.iOS
 				title = titleLabel;
 			}
 			
+			scrollView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
+			
 			pageControl.HidesForSinglePage = true;
 			titleLabel.StyleAsWidgetHeadline();
 			
@@ -83,12 +85,15 @@ namespace Smeedee.iOS
         {
             var count = (from m in models where m.Enabled select m).Count();
             var scrollViewWidth = Platform.ScreenWidth * count;
+			var scrollViewHeight = 10; // Just some number smaller than the actual size. Will resize correctly.
 			
 			displayedWidgets = new IWidget[count];
             
             scrollView.Frame.Width = scrollViewWidth;
-            scrollView.ContentSize = new SizeF(scrollViewWidth, Platform.ScreenWidth);
+            scrollView.ContentSize = new SizeF(scrollViewWidth, scrollViewHeight);
             
+			Console.WriteLine("Setting size to " + scrollViewWidth + ", " + scrollViewHeight);
+			
 			if (count == 0)
 			{
 				var view = new UIImageView(UIImage.FromFile("images/logo.png"));
