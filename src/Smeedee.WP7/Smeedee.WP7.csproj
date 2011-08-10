@@ -331,6 +331,9 @@
     <Content Include="Resources\Images\appbar.refresh.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Images\checkmark.png" />
+    <Resource Include="Resources\Images\questionmark.png" />
+    <Resource Include="Resources\Images\redx.png" />
     <Content Include="SmeedeeBackgroundTile.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
