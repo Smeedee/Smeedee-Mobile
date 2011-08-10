@@ -114,7 +114,7 @@ namespace Smeedee.iOS
 	            
 	            var controller = cellFactory.NewTableCellController(tableView, indexPath) as CommitTableCellController;
 	            controller.BindDataToCell(commit, model.HighlightEmpty);
-	            
+				
 	            return controller.TableViewCell;
 			}
 			else

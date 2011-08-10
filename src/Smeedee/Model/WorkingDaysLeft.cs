@@ -63,9 +63,8 @@ namespace Smeedee.Model
             get
             {
                 return IsOnOvertime
-                       ? "you should have been finished by " + UntillDate.DayOfWeek + " " +
-                         UntillDate.Date.ToShortDateString()
-                       : "untill " + UntillDate.DayOfWeek + " " + UntillDate.Date.ToShortDateString();
+                       ? "you should have been finished by " + UntillDate.ToLongDateString()
+                       : "untill " + UntillDate.ToLongDateString();
             } 
         }
     }

@@ -26,8 +26,9 @@ namespace Smeedee.iOS.Lib
 		
 		public static void StyleAsWidgetHeadline(this UILabel self)
 		{
-			self.TextColor = smeedeeOrange;
-			self.ShadowColor = smeedeeOrangeAlpha;
+			//self.TextColor = smeedeeOrange;
+			//self.ShadowColor = smeedeeOrangeAlpha;
+			self.TextColor = UIColor.White;
 		}
 		
 		public static void StyleAsWidgetTable(this UITableView self)

@@ -206,7 +206,6 @@
     <Compile Include="RealViewSwitcher.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
-    <Compile Include="Screens\StartUpLoadingScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Services\SimpleHttpFetcher.cs" />

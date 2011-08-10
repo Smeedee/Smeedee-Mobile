@@ -59,8 +59,8 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">larmel</string>
 								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">17</double>
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">15</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<object class="NSColor" key="IBUITextColor" id="952783061">
@@ -109,6 +109,7 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
 								</object>
+								<float key="IBUIAlpha">0.89999997615814209</float>
 								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -120,7 +121,7 @@
 							<object class="IBUILabel" id="726302746">
 								<reference key="NSNextResponder" ref="1005012094"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{64, 23}, {240, 21}}</string>
+								<string key="NSFrame">{{64, 21}, {240, 21}}</string>
 								<reference key="NSSuperview" ref="1005012094"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>

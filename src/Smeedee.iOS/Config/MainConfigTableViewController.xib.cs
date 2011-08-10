@@ -19,16 +19,24 @@ namespace Smeedee.iOS
 			
 			TableView.StyleAsSettingsTable();
 		}
+		
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			Platform.Orientation = toInterfaceOrientation;
+		}
+		
+		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+		{
+			return true;
+		}
 	}
 	
 	public class MainConfigTableSource : UITableViewSource
     {
 		private MainConfigTableViewController controller;
-		private Login loginModel;
 		
 		public MainConfigTableSource(MainConfigTableViewController controller) : base() {
 			this.controller = controller;
-			loginModel = new Login();
 		}
 		
         public override int NumberOfSections(UITableView tableView) { return 2; }
@@ -100,16 +108,14 @@ namespace Smeedee.iOS
 		
 		public override UIView GetViewForHeader (UITableView tableView, int section)
 		{
-			if (section == 1)
-				return new ConfigTableSectionHeader("Widgets");
-			return null;
+			if (section == 0)
+				return new ConfigTableSectionHeader("Server");
+			return new ConfigTableSectionHeader("Widgets");
 		}
 		
 		public override float GetHeightForHeader (UITableView tableView, int section)
 		{
-			if (section == 1)
-				return ConfigTableSectionHeader.Height;
-			return 0;
+			return ConfigTableSectionHeader.Height;
 		}
 	}
 }

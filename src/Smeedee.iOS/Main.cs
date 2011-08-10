@@ -71,13 +71,31 @@ namespace Smeedee.iOS
 	internal static class Platform
 	{
 		public static Device Name = Device.Iphone;
+		
+		public static UIInterfaceOrientation Orientation = UIInterfaceOrientation.Portrait;
+		
 		public static int ScreenWidth 
 		{
-			get { return Name == Device.Iphone ? 320 : 768; }
+			get 
+			{ 
+				if (Name == Device.Iphone) 
+					return IsPortrait() ? 320 : 480;
+				return IsPortrait() ? 768 : 1024;
+			}
 		}
 		public static int ScreenHeight
 		{
-			get { return Name == Device.Iphone ? 480 : 1024; }
+			get 
+			{
+				if (Name == Device.Iphone)
+					return IsPortrait() ? 480 : 320;
+				return IsPortrait() ? 1024 : 768;
+			}
+		}
+		
+		private static bool IsPortrait()
+		{
+			return Orientation == UIInterfaceOrientation.Portrait || Orientation == UIInterfaceOrientation.PortraitUpsideDown;
 		}
 	}
 	

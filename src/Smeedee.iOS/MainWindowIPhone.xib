@@ -56,7 +56,6 @@
 			</object>
 			<object class="IBUITabBarController" id="716737191">
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
-				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="interfaceOrientation">1</int>
 				</object>
@@ -111,14 +110,6 @@
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				</object>
 			</object>
-			<object class="IBUIViewController" id="482643739">
-				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
-					<int key="interfaceOrientation">1</int>
-				</object>
-				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-				<bool key="IBUIHorizontal">NO</bool>
-			</object>
 			<object class="IBUIViewController" id="53960938">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -162,14 +153,6 @@
 						<reference key="destination" ref="53960938"/>
 					</object>
 					<int key="connectionID">23</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">loginHeader</string>
-						<reference key="source" ref="987256611"/>
-						<reference key="destination" ref="482643739"/>
-					</object>
-					<int key="connectionID">25</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -255,11 +238,6 @@
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">24</int>
-						<reference key="object" ref="482643739"/>
-						<reference key="parent" ref="0"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -282,9 +260,6 @@
 					<string>20.CustomClassName</string>
 					<string>20.IBEditorWindowLastContentRect</string>
 					<string>20.IBPluginDependency</string>
-					<string>24.CustomClassName</string>
-					<string>24.IBEditorWindowLastContentRect</string>
-					<string>24.IBPluginDependency</string>
 					<string>4.CustomClassName</string>
 					<string>4.IBPluginDependency</string>
 					<string>8.IBEditorWindowLastContentRect</string>
@@ -316,9 +291,6 @@
 					<integer value="1"/>
 					<string>ServerConfigTableViewController</string>
 					<string>{{420, 393}, {320, 480}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>LoginScreen</string>
-					<string>{{441, 370}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>AppDelegateIPhone</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

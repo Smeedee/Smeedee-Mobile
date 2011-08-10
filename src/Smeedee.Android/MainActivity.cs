@@ -1,7 +1,9 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
+using Android.Widget;
 using Smeedee.Android.Lib;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
@@ -65,6 +67,9 @@ namespace Smeedee.Android
         {
             
             base.OnCreate(bundle);
+
+            SetContentView(Resource.Layout.StartUpLoadingScreen);
+
             var login = new Login();
             if (login.Url == "" && login.Key == "")
             {
@@ -74,7 +79,7 @@ namespace Smeedee.Android
 
             login.IsValid(valid =>
             {
-                var nextActivity = valid ? typeof(StartUpLoadingScreen) : typeof(LoginScreen);
+                var nextActivity = valid ? typeof(WidgetContainer) : typeof(LoginScreen);
                 StartActivity(new Intent(this, nextActivity));
                 Finish();
             });

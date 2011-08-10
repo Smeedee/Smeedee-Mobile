@@ -15,29 +15,15 @@ namespace Smeedee.iOS {
 	[MonoTouch.Foundation.Register("WorkingDaysLeftWidget")]
 	public partial class WorkingDaysLeftWidget {
 		
-		private MonoTouch.UIKit.UIView __mt_view;
-		
 		private MonoTouch.UIKit.UILabel __mt_daysLabel;
-		
-		private MonoTouch.UIKit.UILabel __mt_overtimeLabel;
 		
 		private MonoTouch.UIKit.UILabel __mt_topLabel;
 		
 		private MonoTouch.UIKit.UILabel __mt_bottomLabel;
 		
-		#pragma warning disable 0169
-		[MonoTouch.Foundation.Connect("view")]
-		private MonoTouch.UIKit.UIView view {
-			get {
-				this.__mt_view = ((MonoTouch.UIKit.UIView)(this.GetNativeField("view")));
-				return this.__mt_view;
-			}
-			set {
-				this.__mt_view = value;
-				this.SetNativeField("view", value);
-			}
-		}
+		private MonoTouch.UIKit.UIView __mt_view;
 		
+		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("daysLabel")]
 		private MonoTouch.UIKit.UILabel daysLabel {
 			get {
@@ -47,18 +33,6 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_daysLabel = value;
 				this.SetNativeField("daysLabel", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("overtimeLabel")]
-		private MonoTouch.UIKit.UILabel overtimeLabel {
-			get {
-				this.__mt_overtimeLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("overtimeLabel")));
-				return this.__mt_overtimeLabel;
-			}
-			set {
-				this.__mt_overtimeLabel = value;
-				this.SetNativeField("overtimeLabel", value);
 			}
 		}
 		
@@ -83,6 +57,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_bottomLabel = value;
 				this.SetNativeField("bottomLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("view")]
+		private MonoTouch.UIKit.UIView view {
+			get {
+				this.__mt_view = ((MonoTouch.UIKit.UIView)(this.GetNativeField("view")));
+				return this.__mt_view;
+			}
+			set {
+				this.__mt_view = value;
+				this.SetNativeField("view", value);
 			}
 		}
 	}

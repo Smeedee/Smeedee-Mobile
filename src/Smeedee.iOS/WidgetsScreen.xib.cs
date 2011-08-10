@@ -18,12 +18,27 @@ namespace Smeedee.iOS
 		private IWidget[] widgets;
 		private IWidget[] displayedWidgets;
 		
+		private UILabel title;
+		
         public WidgetsScreen (IntPtr handle) : base (handle) { }
 		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 			View.AddSubview(LoadingIndicator.Instance);
+			
+			if (Platform.Name == Device.Ipad)
+			{
+				title = centeredTitle;
+				title.Hidden = false;
+				titleLabel.Hidden = true;
+			}
+			else
+			{
+				title = titleLabel;
+			}
+			
+			scrollView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 			
 			pageControl.HidesForSinglePage = true;
 			titleLabel.StyleAsWidgetHeadline();
@@ -70,11 +85,12 @@ namespace Smeedee.iOS
         {
             var count = (from m in models where m.Enabled select m).Count();
             var scrollViewWidth = Platform.ScreenWidth * count;
+			var scrollViewHeight = 10; // Just some number smaller than the actual size. Will resize correctly.
 			
 			displayedWidgets = new IWidget[count];
             
             scrollView.Frame.Width = scrollViewWidth;
-            scrollView.ContentSize = new SizeF(scrollViewWidth, Platform.ScreenWidth);
+            scrollView.ContentSize = new SizeF(scrollViewWidth, scrollViewHeight);
             
 			if (count == 0)
 			{
@@ -123,16 +139,17 @@ namespace Smeedee.iOS
 		
         private void SetTitleLabels(int widgetIndex)
         {
+			
 			if (displayedWidgets.Count() == 0) 
 			{
-				titleLabel.Text = "No enabled widgets";
+				title.Text = "No enabled widgets";
 			} 
 			else 
 			{
 				var currentWidget = displayedWidgets[CurrentPageIndex()];
 	            var attribute = currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First() as WidgetAttribute;
 	            
-				titleLabel.Text = attribute.Name;
+				title.Text = attribute.Name;
 				
 				if (currentWidget is IToolbarControl) 
 				{
@@ -172,6 +189,19 @@ namespace Smeedee.iOS
 		{
 			if (toolbar.Items.Count() == 3)
 				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
+		}
+		
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			Platform.Orientation = toInterfaceOrientation;
+			ResetView();
+			
+			LoadingIndicator.Instance.Center = new PointF(Platform.ScreenWidth / 2f, Platform.ScreenHeight / 2f);
+		}
+		
+		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+		{
+			return true;
 		}
     }
 }

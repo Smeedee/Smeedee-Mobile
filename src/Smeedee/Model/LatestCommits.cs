@@ -11,7 +11,6 @@ namespace Smeedee.Model
         private const int MAX_LOADED_COMMITS = 40; //Restrict in order to not blow up memory
         private readonly ILatestCommitsService service;
         private readonly IPersistenceService persistence;
-        private SmeedeeApp app = SmeedeeApp.Instance;
 
         public List<Commit> Commits { get; private set; }
         public bool HasMore { get; private set; }

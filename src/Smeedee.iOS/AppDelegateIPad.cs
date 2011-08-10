@@ -12,13 +12,11 @@ namespace Smeedee.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 			Platform.Name = Device.Ipad;
-            var sharedApp = new AppDelegateShared(window, tabBar, loginHeader, login);
+            var sharedApp = new AppDelegateShared(window, tabBar, login);
             sharedApp.FinishedLaunching();
    
             window.MakeKeyAndVisible();
             return true;
         }
-		
-		// TODO: Handle flip
     }
 }
