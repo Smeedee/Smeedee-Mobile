@@ -132,6 +132,7 @@
 								<string key="NSFrame">{{263, 6}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="984992411"/>
 								<reference key="IBUIBackgroundColor" ref="716294366"/>
+								<float key="IBUIAlpha">0.80000001192092896</float>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
