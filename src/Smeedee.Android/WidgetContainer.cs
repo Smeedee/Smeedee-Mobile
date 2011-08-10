@@ -17,7 +17,7 @@ namespace Smeedee.Android
     public class WidgetContainer : Activity
     {
         private const string CURRENT_SCREEN_PERSISTENCE_KEY = "WidgetContainer.CurrentScreen";
-        private readonly TimeSpan REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES = new TimeSpan(0, 5, 0);
+        private readonly TimeSpan REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES = new TimeSpan(0, 10, 0);
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private RealViewSwitcher flipper;
         private static IEnumerable<IWidget> _widgets;
@@ -76,7 +76,7 @@ namespace Smeedee.Android
                     where widget.Type == flipper.CurrentView.GetType()
                     select widget.Name).Single();
         }
-        private void ShowRefreshButtonAtBottom(System.Object timer)
+        private void ShowRefreshButtonAtBottom(Object timer)
         {
             if (timer != null)
             {

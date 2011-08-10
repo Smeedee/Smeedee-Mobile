@@ -16,7 +16,7 @@ namespace Smeedee.Android
     public class SmeedeeApplication : Application
     {
         public SmeedeeApp App { get; private set; }
-        private const bool USE_FAKES = false;
+        private const bool USE_FAKES = true;
 
         public SmeedeeApplication(IntPtr handle) : base(handle)
         {
