@@ -92,8 +92,6 @@ namespace Smeedee.iOS
             scrollView.Frame.Width = scrollViewWidth;
             scrollView.ContentSize = new SizeF(scrollViewWidth, scrollViewHeight);
             
-			Console.WriteLine("Setting size to " + scrollViewWidth + ", " + scrollViewHeight);
-			
 			if (count == 0)
 			{
 				var view = new UIImageView(UIImage.FromFile("images/logo.png"));
@@ -195,7 +193,6 @@ namespace Smeedee.iOS
 		
 		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
-			Console.WriteLine("Rotating");
 			Platform.Orientation = toInterfaceOrientation;
 			ResetView();
 			

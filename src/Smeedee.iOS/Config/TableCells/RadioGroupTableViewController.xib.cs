@@ -21,6 +21,16 @@ namespace Smeedee.iOS
 			
 			TableView.StyleAsSettingsTable();
 		}
+		
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			Platform.Orientation = toInterfaceOrientation;
+		}
+		
+		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+		{
+			return true;
+		}
 	}
 	
 	public class RadioGroupTableViewSource : UITableViewSource

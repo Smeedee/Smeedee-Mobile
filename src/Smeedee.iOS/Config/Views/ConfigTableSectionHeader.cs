@@ -34,7 +34,7 @@ namespace Smeedee.iOS
 			label.Text = header;
 			label.BackgroundColor = StyleExtensions.transparent;
 			label.Font = UIFont.BoldSystemFontOfSize(17);
-			label.TextColor = StyleExtensions.smeedeeOrange; //StyleExtensions.darkGrayHeadline;
+			label.TextColor = StyleExtensions.smeedeeOrange;
 		}
 	}
 }

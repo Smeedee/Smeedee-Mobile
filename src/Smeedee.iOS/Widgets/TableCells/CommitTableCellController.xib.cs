@@ -25,6 +25,8 @@ namespace Smeedee.iOS
 			message.Text = commit.Message;
 			timestamp.Text = (DateTime.Now-commit.Date).PrettyPrint();
 			
+			username.TextColor = StyleExtensions.smeedeeOrange;
+			
 			if (commit.Message == "" && highlightEmpty)
 			{
 				message.Text = "No commit message";
