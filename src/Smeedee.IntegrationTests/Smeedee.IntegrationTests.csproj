@@ -49,6 +49,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Smeedee.UnitTests\Fakes\FakeLogService.cs">
+      <Link>Fakes\FakeLogService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee.UnitTests\Fakes\FakePersistenceService.cs">
       <Link>Fakes\FakePersistenceService.cs</Link>
     </Compile>

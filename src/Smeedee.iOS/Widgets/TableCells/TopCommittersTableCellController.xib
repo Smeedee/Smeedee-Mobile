@@ -114,7 +114,7 @@
 							</object>
 							<object class="IBUILabel" id="598604192">
 								<reference key="NSNextResponder" ref="283776712"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{289, 24}, {30, 10}}</string>
 								<reference key="NSSuperview" ref="283776712"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -307,7 +307,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDDwAAwkAAAA</bytes>
 					</object>
-					<string>{{275, 538}, {339, 62}}</string>
+					<string>{{210, 594}, {339, 62}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>

@@ -75,13 +75,15 @@ namespace Smeedee.iOS
 			var image = UIImage.FromFile("images/logo.png");
 			var splash = new UIImageView(image);
 			const int imageSize = 61;
-			splash.Frame = new RectangleF(320/2f-imageSize/2f, 460/2f-imageSize/2f, (float)imageSize, (float)imageSize);
+			splash.Frame = new RectangleF(Platform.ScreenWidth/2f-imageSize/2f, Platform.ScreenHeight/2f-imageSize/2f, (float)imageSize, (float)imageSize);
 			
 			var label = new UILabel();
 			label.Text = "Connecting ...";
+			var labelWidth = 120;
+			label.TextAlignment = UITextAlignment.Center;
 			label.TextColor = StyleExtensions.darkGrayText;
 			label.BackgroundColor = UIColor.Black;
-			label.Frame = new RectangleF(120, 280, 200, 30);
+			label.Frame = new RectangleF(Platform.ScreenWidth/2f-labelWidth/2f, splash.Frame.Y + splash.Frame.Height + 10, labelWidth, 30);
 			
 			window.AddSubview(splash);
 			window.AddSubview(label);
@@ -91,8 +93,8 @@ namespace Smeedee.iOS
 		{
 			if (!previousWasServerConfig) {
 				previousWasServerConfig = true;
-				loginHeaderController.View.Frame = new RectangleF(0, 0, 320, 150);
-				loginController.View.Frame = new RectangleF(0, 150, 320, 460);
+				loginHeaderController.View.Frame = new RectangleF(0, 0, Platform.ScreenWidth, 150);
+				loginController.View.Frame = new RectangleF(0, 150, Platform.ScreenWidth, Platform.ScreenHeight - 150);
 				
 				(loginController as ServerConfigTableViewController).LoginAction = ServerCallback;
 				

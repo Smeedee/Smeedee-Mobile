@@ -4,7 +4,7 @@ using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.UnitTests.Fakes;
 
-namespace Smeedee.IntegrationTests
+namespace Smeedee.IntegrationTests.Services
 {
     [TestFixture]
     public class LatestCommitsServiceTests

@@ -21,10 +21,16 @@ namespace Smeedee.iOS
 		public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			ToggleHidden(true);
-			daysLabel.TextColor = StyleExtensions.smeedeeOrange;
+			ToggleHidden(false);
+			StyleDaysLeftLabel();
 			Refresh();
         }
+		
+		private void StyleDaysLeftLabel()
+		{
+			daysLabel.TextColor = StyleExtensions.smeedeeOrange;
+			// TODO: Change font size for iPad
+		}
 		
 		public override void ViewWillAppear(bool animated)
 		{

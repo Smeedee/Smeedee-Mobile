@@ -6,6 +6,7 @@ using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.Services.Fakes;
 using Smeedee.UnitTests.Fakes;
+using FakeLogService = Smeedee.UnitTests.Fakes.FakeLogService;
 
 namespace Smeedee.UnitTests.Services
 {
@@ -23,6 +24,7 @@ namespace Smeedee.UnitTests.Services
             SmeedeeApp.Instance.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
             SmeedeeApp.Instance.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
             SmeedeeApp.Instance.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
+            SmeedeeApp.Instance.ServiceLocator.Bind<ILog>(new FakeLogService());
             service = new BuildStatusService();
         }
 

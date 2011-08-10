@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="CsvTests.cs" />
     <Compile Include="Fakes\FakeBuildStatusService.cs" />
+    <Compile Include="Fakes\FakeLogService.cs" />
     <Compile Include="Fakes\FakePersistenceService.cs" />
     <Compile Include="Fakes\LatestCommitsFakeService.cs" />
     <Compile Include="Fakes\NoBackgroundInvocation.cs" />

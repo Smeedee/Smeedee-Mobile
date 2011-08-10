@@ -37,7 +37,6 @@ namespace Smeedee.iOS
 		{
 			this.controller = controller;
 			model = new TopCommitters();
-			Console.WriteLine("Created source");
 			countSelected = countValues.IndexOf(model.NumberOfCommitters);
 			timeSelected = timeValues.IndexOf(model.TimePeriod);
 		}
@@ -60,8 +59,6 @@ namespace Smeedee.iOS
 		{
 			if (indexPath.Section == 0) 
 				return base.GetCell(tableView, indexPath);
-			
-			Console.WriteLine("Getting row at index " + indexPath.Row);
 			
 			var cell = new UITableViewCell(UITableViewCellStyle.Default, string.Format("RadioButtonTableCell{0}{1}", indexPath.Section, indexPath.Row)) {
 				AccessoryView = null
@@ -94,7 +91,6 @@ namespace Smeedee.iOS
 			{
 				// Ugly fix for nullpointer, happens when you click a cell that is not yet created by GetCell
 				if (countCells[countSelected] == null) {
-					Console.WriteLine("Avoided exception");
 					return;
 				}
 				countCells[countSelected].AccessoryView = null;
@@ -102,18 +98,14 @@ namespace Smeedee.iOS
 				countSelected = indexPath.Row;
 				
 				model.NumberOfCommitters = countValues[countSelected];
-				Console.WriteLine("Selecting row " + indexPath.Row);
 				
 				countCells[countSelected].SetSelected(false, true);
 			}
 			
 			if (IsTimePeriod(indexPath.Section)) 
 			{
-				Console.WriteLine("Selecting " + indexPath.Row + ", deselecting " + timeSelected);
-				
 				// Ugly fix for nullpointer, happens when you click a cell that is not yet created by GetCell
 				if (timeCells[timeSelected] == null) {
-					Console.WriteLine("Avoided exception");
 					return;
 				}
 				timeCells[timeSelected].AccessoryView = null;
@@ -121,7 +113,6 @@ namespace Smeedee.iOS
 				timeSelected = indexPath.Row;
 				
 				model.TimePeriod = timeValues[timeSelected];
-				Console.WriteLine("Selecting row " + indexPath.Row);
 				
 				timeCells[timeSelected].SetSelected(false, true);
 			}

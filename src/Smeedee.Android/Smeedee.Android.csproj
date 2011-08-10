@@ -132,6 +132,9 @@
     <Compile Include="..\Smeedee\Services\Fakes\FakeLatestCommitsService.cs">
       <Link>Services\Fakes\FakeLatestCommitsService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeLogService.cs">
+      <Link>Services\Fakes\FakeLogService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\FakeTopCommittersService.cs">
       <Link>Services\Fakes\FakeTopCommittersService.cs</Link>
     </Compile>
@@ -203,6 +206,7 @@
     <Compile Include="RealViewSwitcher.cs" />
     <Compile Include="Screens\GlobalSettingsScreen.cs" />
     <Compile Include="Screens\LoginScreen.cs" />
+    <Compile Include="Screens\StartUpLoadingScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
@@ -255,6 +259,7 @@
     <AndroidResource Include="Resources\Layout\LatestCommitsWidget_LoadMore.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\StartUpLoadingScreen.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
