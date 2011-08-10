@@ -21,6 +21,7 @@ namespace Smeedee.UnitTests.Model
             fakePersistenceService = new FakePersistenceService();
             SmeedeeApp.Instance.ServiceLocator.Bind<IPersistenceService>(fakePersistenceService);
 			SmeedeeApp.Instance.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
+            SmeedeeApp.Instance.ServiceLocator.Bind<ILog>(new FakeLogService());
             login = new Login();
         }
 

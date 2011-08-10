@@ -28,9 +28,10 @@ namespace Smeedee.Android
             base.OnCreate();
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
-            App.ServiceLocator.Bind<ILog>(new LogService());
+            
             if (!USE_FAKES)
             {
+                App.ServiceLocator.Bind<ILog>(new LogService());
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
@@ -46,6 +47,7 @@ namespace Smeedee.Android
             
             else
             {
+                App.ServiceLocator.Bind<ILog>(new FakeLogService());
                 App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
                 App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
                 App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
