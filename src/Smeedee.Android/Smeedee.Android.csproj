@@ -132,6 +132,9 @@
     <Compile Include="..\Smeedee\Services\Fakes\FakeLatestCommitsService.cs">
       <Link>Services\Fakes\FakeLatestCommitsService.cs</Link>
     </Compile>
+    <Compile Include="..\Smeedee\Services\Fakes\FakeLogService.cs">
+      <Link>Services\Fakes\FakeLogService.cs</Link>
+    </Compile>
     <Compile Include="..\Smeedee\Services\Fakes\FakeTopCommittersService.cs">
       <Link>Services\Fakes\FakeTopCommittersService.cs</Link>
     </Compile>

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Smeedee;
 
-namespace Smeedee.UnitTests.Services
+namespace Smeedee.UnitTests.Fakes
 {
     public class FakeKVStorage : IPersistenceService
     {

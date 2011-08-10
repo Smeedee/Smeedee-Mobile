@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
-using Smeedee;
 using Smeedee.Model;
 using Smeedee.UnitTests.Fakes;
 
