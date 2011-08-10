@@ -33,8 +33,8 @@ namespace Smeedee.Android.Screens
                             if (valid == Login.ValidationSuccess)
                             {
                                 dialog.SetMessage("Successfully connected to " + urlInput.Text);
-                                var startUpLoadingScreen = new Intent(this, typeof(StartUpLoadingScreen));
-                                StartActivity(startUpLoadingScreen);
+                                var widgetContainer = new Intent(this, typeof(WidgetContainer));
+                                StartActivity(widgetContainer);
                                 Finish();
                                 handler.SendEmptyMessage(0);
                             } else

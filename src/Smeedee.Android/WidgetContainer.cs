@@ -7,10 +7,13 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Java.Lang;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Widgets;
 using Smeedee.Model;
 using Smeedee.Services;
+using Exception = System.Exception;
+using Object = System.Object;
 
 namespace Smeedee.Android
 {
@@ -20,7 +23,8 @@ namespace Smeedee.Android
         private const string CURRENT_SCREEN_PERSISTENCE_KEY = "WidgetContainer.CurrentScreen";
         private readonly TimeSpan REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES = new TimeSpan(0, 10, 0);
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
-        private IBackgroundWorker bgWorker; 
+        private IBackgroundWorker bgWorker;
+        private ILog logger;
         private RealViewSwitcher flipper;
         private static IEnumerable<IWidget> _widgets;
 
@@ -33,6 +37,7 @@ namespace Smeedee.Android
 
             SetContentView(Resource.Layout.Main);
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
+            logger = SmeedeeApp.Instance.ServiceLocator.Get<ILog>();
 
             flipper = FindViewById<RealViewSwitcher>(Resource.Id.WidgetContainerFlipper);
             flipper.ScreenChanged += HandleScreenChanged;
@@ -46,11 +51,6 @@ namespace Smeedee.Android
             {
                 widget.DescriptionChanged += WidgetDescriptionChanged;
             }
-        }
-
-        public static void SetWidgets(IEnumerable<IWidget> widgets)
-        {
-            _widgets = widgets;
         }
 
         private void HandleScreenChanged(object sender, EventArgs e)
@@ -114,10 +114,33 @@ namespace Smeedee.Android
 
         private void AddWidgetsToFlipper()
         {
+            _widgets = GetWidgets();
+
             foreach (var widget in _widgets.Where(widget => widget.GetType() != typeof (StartPageWidget)))
             {
                 flipper.AddView(widget as View);
             }
+        }
+
+        private IEnumerable<IWidget> GetWidgets()
+        {
+            SmeedeeApp.Instance.RegisterAvailableWidgets();
+
+            var availableWidgets = SmeedeeApp.Instance.AvailableWidgets;
+            var instances = new List<IWidget>();
+            foreach (var widget in availableWidgets)
+            {
+                try
+                {
+                    logger.Log("SMEEDEE", "Instantiating widget of type: " + widget.Type.Name);
+                    instances.Add(Activator.CreateInstance(widget.Type, this) as IWidget);
+                }
+                catch (Exception e)
+                {
+                    logger.Log("SMEEDEE", Throwable.FromException(e).ToString(), "Exception thrown when instatiating widget");
+                }
+            }
+            return instances;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -130,12 +153,16 @@ namespace Smeedee.Android
         {
             base.OnPrepareOptionsMenu(menu);
 
-            var configMenuItem = menu.FindItem(Resource.Id.MenuBtnWidgetSettings);
+            var refreshMenuBtn = menu.FindItem(Resource.Id.MenuBtnRefreshCurrentWidget);
+            if (flipper.CurrentView.GetType() == typeof(StartPageWidget))
+                refreshMenuBtn.SetEnabled(false);
+
+            var configMenuBtn = menu.FindItem(Resource.Id.MenuBtnWidgetSettings);
             var attribs =
                 (WidgetAttribute) (flipper.CurrentView.GetType().GetCustomAttributes(typeof (WidgetAttribute), true)[0]);
 
-            if (configMenuItem != null)
-                configMenuItem.SetEnabled(attribs.SettingsType != null);
+            if (configMenuBtn != null)
+                configMenuBtn.SetEnabled(attribs.SettingsType != null);
 
             return true;
         }
@@ -179,6 +206,8 @@ namespace Smeedee.Android
                                     currentWidget.Refresh();
                                     handler.SendEmptyMessage(0);
                                 });
+            SetCorrectTopBannerWidgetDescription();
+            SetCorrectTopBannerWidgetTitle();
             HideTheBottomRefreshButton();
             StartRefreshTimer();
         }
