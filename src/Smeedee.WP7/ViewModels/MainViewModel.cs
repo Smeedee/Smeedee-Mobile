@@ -63,22 +63,21 @@ namespace Smeedee.WP7.ViewModels
             return false;
         }
 
-        private Pivot prevPivot;
+        public Pivot WidgetsPivot { get; private set; }
         private void CreatePivotControl()
         {
             viewToWidgetMap.Clear();
-            var toRemove = prevPivot ?? MainPage.WidgetsPivot;
-            var pivot = CreatePivot();
-            prevPivot = pivot;
+            var toRemove = WidgetsPivot ?? MainPage.WidgetsPivot;
+            WidgetsPivot = CreatePivot();
             foreach (var model in GetModelsToBeShown())
             {
                 var widget = Activator.CreateInstance(model.Type) as IWpWidget;
-                if (widget == null) continue; 
-                pivot.Items.Add(widget.View);
+                if (widget == null) continue;
+                WidgetsPivot.Items.Add(widget.View);
                 viewToWidgetMap.Add(widget.View, widget);
             }
             MainPage.LayoutRoot.Children.Remove(toRemove);
-            MainPage.LayoutRoot.Children.Add(pivot);
+            MainPage.LayoutRoot.Children.Add(WidgetsPivot);
         }
 
         private static Pivot CreatePivot()

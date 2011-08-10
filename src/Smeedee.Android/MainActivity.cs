@@ -2,7 +2,6 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Util;
 using Smeedee.Android.Lib;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;
@@ -17,7 +16,7 @@ namespace Smeedee.Android
     public class SmeedeeApplication : Application
     {
         public SmeedeeApp App { get; private set; }
-        private const bool USE_FAKES = true;
+        private const bool USE_FAKES = false;
 
         public SmeedeeApplication(IntPtr handle) : base(handle)
         {
@@ -27,17 +26,17 @@ namespace Smeedee.Android
         public override void OnCreate()
         {
             base.OnCreate();
-            Log.Debug("SMEEDEE", "Application is being run");
-
             // Fill in global bindings here:
             App.ServiceLocator.Bind<IFileIO>(new MonoFileIO());
+            App.ServiceLocator.Bind<IFetchHttp>(new SimpleHttpFetcher());
+            App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
+            App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
+            App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
+            App.ServiceLocator.Bind<ILog>(new LogService());
+            
             if (!USE_FAKES)
             {
-                App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-                App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-                App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 App.ServiceLocator.Bind<IValidationService>(new ValidationService());
-                App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
                 App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 
                 App.ServiceLocator.Bind<IBuildStatusService>(new BuildStatusService());
@@ -48,12 +47,7 @@ namespace Smeedee.Android
             
             else
             {
-                App.ServiceLocator.Bind<ILog>(new LogService());
-                App.ServiceLocator.Bind<IBackgroundWorker>(new BackgroundWorker());
-                App.ServiceLocator.Bind<IPersistenceService>(new AndroidKVPersister(this));
-                App.ServiceLocator.Bind<IFetchHttp>(new HttpFetcher());
                 App.ServiceLocator.Bind<IValidationService>(new FakeValidationService());
-                App.ServiceLocator.Bind<Directories>(new Directories() { CacheDir = this.CacheDir.AbsolutePath });
                 App.ServiceLocator.Bind<IImageService>(new MemoryCachedImageService(new ImageService()));
 
                 App.ServiceLocator.Bind<IBuildStatusService>(new FakeBuildStatusService());
@@ -69,11 +63,18 @@ namespace Smeedee.Android
     {
         protected override void OnCreate(Bundle bundle)
         {
+            
             base.OnCreate(bundle);
             var login = new Login();
+            if (login.Url == "" && login.Key == "")
+            {
+                login.Url = Login.DefaultSmeedeeUrl;
+                login.Key = Login.DefaultSmeedeeKey;
+            }
+
             login.IsValid(valid =>
             {
-                var nextActivity = valid ? typeof(WidgetContainer) : typeof(LoginScreen);
+                var nextActivity = valid ? typeof(StartUpLoadingScreen) : typeof(LoginScreen);
                 StartActivity(new Intent(this, nextActivity));
                 Finish();
             });

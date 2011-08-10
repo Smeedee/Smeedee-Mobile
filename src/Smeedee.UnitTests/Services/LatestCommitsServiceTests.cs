@@ -23,6 +23,7 @@ namespace Smeedee.UnitTests.Services
             app.ServiceLocator.Bind<IFetchHttp>(downloader);
             app.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
             app.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
+            app.ServiceLocator.Bind<ILog>(new FakeLogService());
             service = new LatestCommitsService();
         }
 

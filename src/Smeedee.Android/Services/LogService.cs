@@ -7,7 +7,7 @@ namespace Smeedee.Android.Services
     {
         public void Log(string message, params string[] more)
         {
-            Logger.Log.Debug(message, string.Join(" ", more));
+            Logger.Log.Info(message, string.Join(" ", more));
         }
     }
 }

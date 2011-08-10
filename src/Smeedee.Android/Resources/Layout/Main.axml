@@ -26,15 +26,21 @@
       android:layout_width="fill_parent"
       android:paddingLeft="3dp"
       android:layout_height="wrap_content"
-      android:textAppearance="@android:style/TextAppearance.Small"
-      android:paddingBottom="2sp"/>
+      android:textAppearance="@android:style/TextAppearance.Small"/>
   </LinearLayout>
-  
   <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="center"
     android:layout_below="@id/WidgetContainerTopBanner">
+    
+    <ProgressBar
+      android:id="@+id/WidgetContainerProgressBar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:visibility="visible"/>
     
     <smeedee.android.RealViewSwitcher
       android:id="@+id/WidgetContainerFlipper"

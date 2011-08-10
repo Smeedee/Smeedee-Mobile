@@ -22,7 +22,7 @@ namespace Smeedee.Services
 
         public string DownloadString(string url)
         {
-			logger.Log("[Request]", url);
+			logger.Log("[SMEEDEE REQUEST]", url);
             Uri uri;
             try
             {
@@ -40,13 +40,15 @@ namespace Smeedee.Services
             {
                 if (e.Error == null)
                     result = e.Result;
+                else
+                    logger.Log("[SMEEDEE HttpError]", ""+e.Error);
                 manualReset.Set();
             };
             client.DownloadStringAsync(uri);
 
             manualReset.WaitOne(TIMEOUT);
 			
-			logger.Log("[Result]", result);
+			logger.Log("[SMEEDEE RESULT]", result);
             return result;
         }
     }

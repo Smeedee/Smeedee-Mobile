@@ -17,6 +17,7 @@ namespace Smeedee.UnitTests.Services
         {
             app.ServiceLocator.Bind<IBackgroundWorker>(new NoBackgroundInvocation());
             app.ServiceLocator.Bind<IPersistenceService>(new FakePersistenceService());
+            app.ServiceLocator.Bind<ILog>(new FakeLogService());
         }
 
         private void SetData(int daysLeft, DateTime deadline)

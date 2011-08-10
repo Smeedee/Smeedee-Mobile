@@ -64,6 +64,7 @@
     <Compile Include="Services\BuildStatusService.cs" />
     <Compile Include="Services\Fakes\FakeBuildStatusService.cs" />
     <Compile Include="Services\Fakes\FakeLatestCommitsService.cs" />
+    <Compile Include="Services\Fakes\FakeLogService.cs" />
     <Compile Include="Services\Fakes\FakeTopCommittersService.cs" />
     <Compile Include="Services\Fakes\FakeValidationService.cs" />
     <Compile Include="Services\Fakes\FakeWorkingDaysLeftService.cs" />
