@@ -198,6 +198,8 @@ namespace Smeedee.iOS
 			Console.WriteLine("Rotating");
 			Platform.Orientation = toInterfaceOrientation;
 			ResetView();
+			
+			LoadingIndicator.Instance.Center = new PointF(Platform.ScreenWidth / 2f, Platform.ScreenHeight / 2f);
 		}
 		
 		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
