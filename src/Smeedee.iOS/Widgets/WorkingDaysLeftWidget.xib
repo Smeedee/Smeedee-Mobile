@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="15"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -42,17 +42,17 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="348190998">
+					<object class="IBUIView" id="426899456">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">301</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="554701344">
-								<reference key="NSNextResponder" ref="348190998"/>
-								<int key="NSvFlags">293</int>
+								<reference key="NSNextResponder" ref="426899456"/>
+								<int key="NSvFlags">-2147483355</int>
 								<string key="NSFrame">{{74, 1}, {159, 83}}</string>
-								<reference key="NSSuperview" ref="348190998"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="254720790">
+								<reference key="NSSuperview" ref="426899456"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="800522476">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MCAwAA</bytes>
 								</object>
@@ -80,10 +80,10 @@
 								<int key="IBUITextAlignment">1</int>
 							</object>
 							<object class="IBUILabel" id="688901373">
-								<reference key="NSNextResponder" ref="348190998"/>
-								<int key="NSvFlags">293</int>
+								<reference key="NSNextResponder" ref="426899456"/>
+								<int key="NSvFlags">-2147483355</int>
 								<string key="NSFrame">{{20, 77}, {267, 24}}</string>
-								<reference key="NSSuperview" ref="348190998"/>
+								<reference key="NSSuperview" ref="426899456"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -106,10 +106,10 @@
 								<int key="IBUITextAlignment">1</int>
 							</object>
 							<object class="IBUILabel" id="497357899">
-								<reference key="NSNextResponder" ref="348190998"/>
-								<int key="NSvFlags">293</int>
+								<reference key="NSNextResponder" ref="426899456"/>
+								<int key="NSvFlags">-2147483355</int>
 								<string key="NSFrame">{{40, 97}, {226, 26}}</string>
-								<reference key="NSSuperview" ref="348190998"/>
+								<reference key="NSSuperview" ref="426899456"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -130,7 +130,7 @@
 						</object>
 						<string key="NSFrame">{{20, 20}, {307, 138}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="IBUIBackgroundColor" ref="254720790"/>
+						<reference key="IBUIBackgroundColor" ref="800522476"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
@@ -193,7 +193,7 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="348190998"/>
+							<reference ref="426899456"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -210,7 +210,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">15</int>
-						<reference key="object" ref="348190998"/>
+						<reference key="object" ref="426899456"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="554701344"/>
@@ -222,17 +222,17 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
 						<reference key="object" ref="554701344"/>
-						<reference key="parent" ref="348190998"/>
+						<reference key="parent" ref="426899456"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
 						<reference key="object" ref="688901373"/>
-						<reference key="parent" ref="348190998"/>
+						<reference key="parent" ref="426899456"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">12</int>
 						<reference key="object" ref="497357899"/>
-						<reference key="parent" ref="348190998"/>
+						<reference key="parent" ref="426899456"/>
 					</object>
 				</object>
 			</object>

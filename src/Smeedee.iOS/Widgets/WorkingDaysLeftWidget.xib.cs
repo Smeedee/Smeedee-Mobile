@@ -21,7 +21,6 @@ namespace Smeedee.iOS
 		public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-			ToggleHidden(false);
 			StyleDaysLeftLabel();
 			Refresh();
         }
@@ -29,7 +28,6 @@ namespace Smeedee.iOS
 		private void StyleDaysLeftLabel()
 		{
 			daysLabel.TextColor = StyleExtensions.smeedeeOrange;
-			// TODO: Change font size for iPad
 		}
 		
 		public override void ViewWillAppear(bool animated)
@@ -46,12 +44,23 @@ namespace Smeedee.iOS
 			}
 			else
 			{
-				ToggleHidden(false);
+				// Somewhat ugly hack. If the untill date is default (zeroes),
+				// no data has been loaded and we hide the widget.
+				var hasNotLoaded = model.UntillDate == new DateTime();
 				
 				daysLabel.Text = model.DaysLeft.ToString();
 				topLabel.Text = model.DaysLeftText;
-				bottomLabel.Text = string.Format("until {0:dddd, MMMM d, yyyy}", model.UntillDate);
-				bottomLabel.Hidden = model.IsOnOvertime;
+				bottomLabel.Text = model.UntillText;
+				
+				if (hasNotLoaded) 
+				{ 
+					ToggleHidden(true); 
+				} 
+				else 
+				{ 
+					ToggleHidden(false);
+					bottomLabel.Hidden = model.IsOnOvertime;
+				}
 			}
 		}
 		
