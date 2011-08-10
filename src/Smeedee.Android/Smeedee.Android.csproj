@@ -209,6 +209,7 @@
     <Compile Include="Screens\StartUpLoadingScreen.cs" />
     <Compile Include="Services\AndroidKVPersister.cs" />
     <Compile Include="Services\LogService.cs" />
+    <Compile Include="Services\SimpleHttpFetcher.cs" />
     <Compile Include="Widgets\BuildStatusWidget.cs" />
     <Compile Include="Widgets\Settings\LatestCommitsSettings.cs" />
     <Compile Include="Widgets\LatestCommitsWidget.cs" />
