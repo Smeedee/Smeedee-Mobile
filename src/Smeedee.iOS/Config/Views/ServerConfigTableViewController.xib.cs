@@ -23,6 +23,9 @@ namespace Smeedee.iOS
 			table.Source = new ServerConfigTableSource(this);
 			table.StyleAsSettingsTable();
 			table.ScrollEnabled = false;
+			
+			// Need to set content size to be able to scroll
+			this.scrollView.ContentSize = new SizeF(320, 363);
 		}
 		
 		public Action<string> LoginAction

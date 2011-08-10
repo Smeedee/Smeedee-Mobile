@@ -93,12 +93,14 @@ namespace Smeedee.iOS
 		{
 			if (!previousWasServerConfig) {
 				previousWasServerConfig = true;
-				loginHeaderController.View.Frame = new RectangleF(0, 0, Platform.ScreenWidth, 150);
-				loginController.View.Frame = new RectangleF(0, 150, Platform.ScreenWidth, Platform.ScreenHeight - 150);
+				//loginHeaderController.View.Frame = new RectangleF(0, 0, Platform.ScreenWidth, 150);
+				loginController.View.Frame = new RectangleF(0, 0, Platform.ScreenWidth, Platform.ScreenHeight - 150);
 				
 				(loginController as ServerConfigTableViewController).LoginAction = ServerCallback;
 				
-				window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
+				window.AddSubview(loginController.View);
+				
+				//window.AddSubviews(new [] {loginHeaderController.View, loginController.View});
 			}
 		}
 		
