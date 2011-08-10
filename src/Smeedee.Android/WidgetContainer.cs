@@ -21,7 +21,6 @@ namespace Smeedee.Android
         private readonly TimeSpan REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES = new TimeSpan(0, 10, 0);
         private readonly SmeedeeApp app = SmeedeeApp.Instance;
         private IBackgroundWorker bgWorker; 
-        private ILog logger;
         private RealViewSwitcher flipper;
         private static IEnumerable<IWidget> _widgets;
 
@@ -34,7 +33,6 @@ namespace Smeedee.Android
 
             SetContentView(Resource.Layout.Main);
             bgWorker = app.ServiceLocator.Get<IBackgroundWorker>();
-            logger = app.ServiceLocator.Get<ILog>();
 
             flipper = FindViewById<RealViewSwitcher>(Resource.Id.WidgetContainerFlipper);
             flipper.ScreenChanged += HandleScreenChanged;
@@ -200,16 +198,7 @@ namespace Smeedee.Android
             flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
             SetCorrectTopBannerWidgetTitle();
             SetCorrectTopBannerWidgetDescription();
-
-            //var dialog = ProgressDialog.Show(this, "", "Refreshing...", true);
-            //var handler = new ProgressHandler(dialog);
             RefreshAllCurrentlyEnabledWidgets();
-            //bgWorker.Invoke(() =>
-            //    {
-                    
-            //        handler.SendEmptyMessage(0);
-            //    });
-
             HideTheBottomRefreshButton();
             StartRefreshTimer();
         }
@@ -225,9 +214,6 @@ namespace Smeedee.Android
             
             for (var i = 0; i < flipper.ChildCount; i++)
             {
-                // Can add calls to handler.SendMessage(i) here, to update the progressdialog, if the
-                // progress dialog syle is set to horizontal
-                
                 var widget = flipper.GetChildAt(i) as IWidget;
                 if (widget != null)
                 {
@@ -267,7 +253,7 @@ namespace Smeedee.Android
         }
     }
 
-    internal class ProgressHandler : Handler
+    public class ProgressHandler : Handler
     {
         private readonly ProgressDialog _dialog;
         
