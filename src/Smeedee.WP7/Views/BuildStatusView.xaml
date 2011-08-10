@@ -45,7 +45,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding ProjectName}" Grid.Column="0" Grid.Row="0" Padding="0,12,0,0" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                        <Image Source="{Binding BuildStatusImage}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Width="50" Height="50"></Image>
+                        <Image Source="{Binding BuildStatusImage}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Width="32" Height="32" Margin="0,12,0,0"></Image>
                         <Grid Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
