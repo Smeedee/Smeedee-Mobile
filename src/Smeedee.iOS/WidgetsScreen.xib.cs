@@ -18,12 +18,25 @@ namespace Smeedee.iOS
 		private IWidget[] widgets;
 		private IWidget[] displayedWidgets;
 		
+		private UILabel title;
+		
         public WidgetsScreen (IntPtr handle) : base (handle) { }
 		
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 			View.AddSubview(LoadingIndicator.Instance);
+			
+			if (Platform.Name == Device.Ipad)
+			{
+				title = centeredTitle;
+				title.Hidden = false;
+				titleLabel.Hidden = true;
+			}
+			else
+			{
+				title = titleLabel;
+			}
 			
 			pageControl.HidesForSinglePage = true;
 			titleLabel.StyleAsWidgetHeadline();
@@ -123,16 +136,17 @@ namespace Smeedee.iOS
 		
         private void SetTitleLabels(int widgetIndex)
         {
+			
 			if (displayedWidgets.Count() == 0) 
 			{
-				titleLabel.Text = "No enabled widgets";
+				title.Text = "No enabled widgets";
 			} 
 			else 
 			{
 				var currentWidget = displayedWidgets[CurrentPageIndex()];
 	            var attribute = currentWidget.GetType().GetCustomAttributes(typeof(WidgetAttribute), true).First() as WidgetAttribute;
 	            
-				titleLabel.Text = attribute.Name;
+				title.Text = attribute.Name;
 				
 				if (currentWidget is IToolbarControl) 
 				{

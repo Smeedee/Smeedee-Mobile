@@ -27,6 +27,8 @@ namespace Smeedee.iOS {
 		
 		private MonoTouch.UIKit.UILabel __mt_titleLabel;
 		
+		private MonoTouch.UIKit.UILabel __mt_centeredTitle;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("scrollView")]
 		private MonoTouch.UIKit.UIScrollView scrollView {
@@ -97,6 +99,18 @@ namespace Smeedee.iOS {
 			set {
 				this.__mt_titleLabel = value;
 				this.SetNativeField("titleLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("centeredTitle")]
+		private MonoTouch.UIKit.UILabel centeredTitle {
+			get {
+				this.__mt_centeredTitle = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("centeredTitle")));
+				return this.__mt_centeredTitle;
+			}
+			set {
+				this.__mt_centeredTitle = value;
+				this.SetNativeField("centeredTitle", value);
 			}
 		}
 	}
