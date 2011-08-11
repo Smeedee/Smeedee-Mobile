@@ -91,18 +91,15 @@ namespace Smeedee.Android
                 t.Dispose();
             }
             var currentWidget = flipper.CurrentView as IWidget;
-            if (currentWidget != null && currentWidget.GetType() != typeof (StartPageWidget) &&
-                currentWidget.GetType() != typeof (WorkingDaysLeftWidget))
-            {
-                if ((DateTime.Now - currentWidget.LastRefreshTime()) > REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES)
-                {
-                    _bottomRefreshButton.Visibility = ViewStates.Invisible;
-                    _bottomRefreshButton.Text =
-                        (DateTime.Now - currentWidget.LastRefreshTime()).Minutes +
-                        " minutes since last refresh. Click to refresh";
-                    _bottomRefreshButton.Visibility = ViewStates.Visible;
-                }
-            }
+            if (currentWidget == null || currentWidget.GetType() == typeof (StartPageWidget) ||
+                currentWidget.GetType() == typeof (WorkingDaysLeftWidget)) return;
+            if ((DateTime.Now - currentWidget.LastRefreshTime()) <= REFRESH_BUTTON_TO_BE_SHOWN_LIMIT_IN_MINUTES) return;
+            
+            _bottomRefreshButton.Visibility = ViewStates.Invisible;
+            _bottomRefreshButton.Text =
+                (DateTime.Now - currentWidget.LastRefreshTime()).Minutes +
+                " minutes since last refresh. Click to refresh";
+            _bottomRefreshButton.Visibility = ViewStates.Visible;
         }
 
         private void WidgetDescriptionChanged(object sender, EventArgs e)
@@ -199,6 +196,7 @@ namespace Smeedee.Android
             var currentWidget = flipper.CurrentView as IWidget;
             if (currentWidget == null) return;
 
+            logger.Log("SMEEDEE", "Refreshing widget");
             var dialog = ProgressDialog.Show(this, "", "Refreshing...", true);
             var handler = new ProgressHandler(dialog);
             bgWorker.Invoke(() =>
@@ -235,13 +233,13 @@ namespace Smeedee.Android
 
             HideTheBottomRefreshButton();
             StartRefreshTimer();
-            HideTheRefreshWheel();
+            HideTheStartUpRefreshWheel();
         }
 
-        private void HideTheRefreshWheel()
+        private void HideTheStartUpRefreshWheel()
         {
-            var refreshWheel = FindViewById<ProgressBar>(Resource.Id.WidgetContainerProgressBar);
-            refreshWheel.Visibility = ViewStates.Invisible;
+            var startUpRefreshWheel = FindViewById<ProgressBar>(Resource.Id.WidgetContainerProgressBar);
+            startUpRefreshWheel.Visibility = ViewStates.Invisible;
         }
 
         private void StartRefreshTimer()
@@ -252,7 +250,6 @@ namespace Smeedee.Android
 
         private void RefreshAllCurrentlyEnabledWidgets()
         {
-            
             for (var i = 0; i < flipper.ChildCount; i++)
             {
                 var widget = flipper.GetChildAt(i) as IWidget;
@@ -287,9 +284,16 @@ namespace Smeedee.Android
             flipper.CurrentScreen = 0;
         }
 
+        // Called when another activity comes in foreground of this one
         protected override void OnPause()
         {
             base.OnPause();
+            app.ServiceLocator.Get<IPersistenceService>().Save(CURRENT_SCREEN_PERSISTENCE_KEY, flipper.CurrentScreen);
+        }
+        // Called when the activity is no longer visible
+        protected override void OnStop()
+        {
+            base.OnStop();
             app.ServiceLocator.Get<IPersistenceService>().Save(CURRENT_SCREEN_PERSISTENCE_KEY, flipper.CurrentScreen);
         }
     }

@@ -29,5 +29,10 @@ namespace Smeedee.Android.Widgets.Settings
             if (sortOn == "projectname")
                 buildOrderPreference.Summary = "Order by project name";
         }
+        protected override void OnResume()
+        {
+            base.OnResume();
+            LoadPreferences();
+        }
     }
 }

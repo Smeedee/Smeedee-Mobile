@@ -42,6 +42,11 @@ namespace Smeedee.Android.Widgets.Settings
             base.OnWindowFocusChanged(hasFocus);
             LoadPreferences();
         }
+        protected override void OnResume()
+        {
+            base.OnResume();
+            LoadPreferences();
+        }
     }
 
     public class ColoredListPreference : ListPreference

@@ -223,7 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\Layout\GlobalSettingsScreen.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -251,9 +250,6 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\TopCommittersSettings.axml">
       <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Values\Arrays.xml">
-      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BuildStatusSettings.axml" />
     <AndroidResource Include="Resources\Layout\LatestCommitsWidget_LoadMore.axml">
@@ -308,9 +304,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Arrays.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Layout\About.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\icon_smeedee_blackwhite.png" />

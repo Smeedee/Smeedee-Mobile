@@ -31,5 +31,10 @@ namespace Smeedee.Android.Widgets.Settings
             base.OnWindowFocusChanged(hasFocus);
             UpdateSummaryForPreferences();
         }
+        protected override void OnResume()
+        {
+            base.OnResume();
+            UpdateSummaryForPreferences();
+        }
     }
 }

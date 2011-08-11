@@ -20,8 +20,6 @@ namespace Smeedee.Android.Screens
         {
             base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Layout.GlobalSettingsScreen);
-            
-            
             PopulateAvailableWidgetsList();
         }
 
