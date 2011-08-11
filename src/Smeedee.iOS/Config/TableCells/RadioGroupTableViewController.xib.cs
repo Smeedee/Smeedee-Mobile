@@ -100,7 +100,7 @@ namespace Smeedee.iOS
 		
 		public static UIView BlackAccessoryCheckmark()
 		{
-			return new UIImageView(UIImage.FromFile("images/checkmark.png")) { Frame = new RectangleF(285, 15, 15, 15) };
+			return new UIImageView(UIImage.FromFile("Images/checkmark.png")) { Frame = new RectangleF(285, 15, 15, 15) };
 		}
 	}
 }
