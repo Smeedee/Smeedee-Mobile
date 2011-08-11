@@ -198,9 +198,9 @@
     <Compile Include="..\Smeedee\Services\WorkingDaysLeftService.cs">
       <Link>Services\WorkingDaysLeftService.cs</Link>
     </Compile>
-    <Compile Include="BitmapCache.cs" />
-    <Compile Include="ColorTools.cs" />
-    <Compile Include="ImageViewExtensions.cs" />
+    <Compile Include="Lib\BitmapCache.cs" />
+    <Compile Include="Lib\ColorTools.cs" />
+    <Compile Include="Lib\ImageViewExtensions.cs" />
     <Compile Include="Lib\MonoFileIO.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RealViewSwitcher.cs" />

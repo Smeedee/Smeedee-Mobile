@@ -5,6 +5,7 @@ using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Lib;
 using Smeedee.Android.Widgets.Settings;
 using Smeedee.Model;
 
@@ -79,7 +80,7 @@ namespace Smeedee.Android.Widgets
     {
         private TopCommitters _model;
         private int _commitBarFullWidth;
-        private IList<IDictionary<string, object>> items;
+        private readonly IList<IDictionary<string, object>> items;
 
         public TopCommittersAdapter(IntPtr doNotUse) 
             : base(doNotUse)

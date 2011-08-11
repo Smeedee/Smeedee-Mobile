@@ -9,6 +9,7 @@ using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Lib;
 using Object = Java.Lang.Object;
 
 namespace Smeedee.Android.Widgets.Settings

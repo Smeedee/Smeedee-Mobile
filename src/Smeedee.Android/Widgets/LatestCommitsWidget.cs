@@ -8,6 +8,7 @@ using Android.Preferences;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Smeedee.Android.Lib;
 using Smeedee.Android.Widgets.Settings;
 using Smeedee.Lib;
 using Smeedee.Model;
@@ -177,7 +178,6 @@ namespace Smeedee.Android.Widgets
         private readonly Color highlightColor;
         private readonly Context context;
         private readonly IList<IDictionary<string, object>> items;
-        private IImageService imageService;
 
         public List<ImageView> Images;
 
@@ -188,7 +188,6 @@ namespace Smeedee.Android.Widgets
             this.context = context;
             this.highlightColor = highlightColor;
             Images = new List<ImageView>(Count - 1);
-            imageService = SmeedeeApp.Instance.ServiceLocator.Get<IImageService>();
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -205,7 +204,9 @@ namespace Smeedee.Android.Widgets
 
         private void LoadImage(int position, View view)
         {
-            var image = (view as LinearLayout).GetChildAt(0) as ImageView;
+            var linearLayout = view as LinearLayout;
+            if (linearLayout == null) return;
+            var image = linearLayout.GetChildAt(0) as ImageView;
             var uri = items[position]["Image"] as Uri;
             image.LoadUriOrDefault(uri, Resource.Drawable.DefaultPerson);
         }
