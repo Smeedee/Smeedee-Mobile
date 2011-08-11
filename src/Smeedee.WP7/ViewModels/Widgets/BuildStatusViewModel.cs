@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using Smeedee.Lib;
 using Smeedee.Model;
 
 namespace Smeedee.WP7.ViewModels.Widgets
