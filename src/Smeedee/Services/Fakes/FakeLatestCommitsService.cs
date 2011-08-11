@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Smeedee.Lib;
 using Smeedee.Model;
 
 namespace Smeedee.Services.Fakes
@@ -17,9 +18,9 @@ namespace Smeedee.Services.Fakes
             new Commit("Fixed a lot, so this is a really long commit message. In this commit message I have also included several newlines \n\n 1) How will that look? \r\n 2) Should we shorten it? ", new DateTime(2011, 7, 7, 1, 10, 0), "larmel", uri, 2),
             new Commit("", new DateTime(2011, 7, 6, 2, 0, 0), "larspars", uri2, 3),
             new Commit("Coded new codes.", new DateTime(2011, 7, 6, 1, 0, 0), "dagolap", uri, 4),
-            new Commit("Programmed them programs.", new DateTime(2011, 7, 5, 1, 0, 0), "rodsjo", uri, 5),
-            new Commit("", new DateTime(2011, 7, 5, 2, 0, 0), "rodsjo", uri, 6),
-            new Commit("", new DateTime(2011, 7, 4, 2, 0, 0), "larspars", uri, 7),
+            new Commit("Programmed them programs.", new DateTime(2011, 7, 5, 1, 0, 0), "rodsjo", uri2, 5),
+            new Commit("", new DateTime(2011, 7, 5, 2, 0, 0), "rodsjo", uri2, 6),
+            new Commit("", new DateTime(2011, 7, 4, 2, 0, 0), "larspars", uri3, 7),
             new Commit("Blabla", new DateTime(2011, 7, 3, 2, 0, 0), "dagolap", uri, 8),
             new Commit("Changed Smeedee", new DateTime(2011, 7, 2, 2, 0, 0), "alex", uri, 9),
             new Commit("TopBanner far to left", new DateTime(2011, 7, 2, 2, 0, 0), "alex", uri, 10),

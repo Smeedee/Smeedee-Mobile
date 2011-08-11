@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Smeedee.Lib;
 
 namespace Smeedee.Model
 {

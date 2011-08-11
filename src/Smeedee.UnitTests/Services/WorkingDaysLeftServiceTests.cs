@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Smeedee.Lib;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.UnitTests.Fakes;

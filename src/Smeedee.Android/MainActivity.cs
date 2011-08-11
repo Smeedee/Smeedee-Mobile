@@ -1,9 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.OS;
-using Android.Widget;
 using Smeedee.Android.Lib;
 using Smeedee.Android.Screens;
 using Smeedee.Android.Services;

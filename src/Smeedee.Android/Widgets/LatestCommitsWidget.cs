@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -10,6 +9,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Android.Widgets.Settings;
+using Smeedee.Lib;
 using Smeedee.Model;
 using Ids = Smeedee.Android.Resource.Id;
 

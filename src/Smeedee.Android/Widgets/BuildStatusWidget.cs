@@ -6,6 +6,7 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Smeedee.Android.Widgets.Settings;
+using Smeedee.Lib;
 using Smeedee.Model;
 
 namespace Smeedee.Android.Widgets
