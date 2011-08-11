@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Smeedee
+namespace Smeedee.Lib
 {
     public static class Csv
     {

@@ -1,4 +1,4 @@
-namespace Smeedee
+namespace Smeedee.Lib
 {
     public class Directories
     {

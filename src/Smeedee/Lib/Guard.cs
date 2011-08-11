@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Smeedee
+namespace Smeedee.Lib
 {
     public static class Guard
     {
