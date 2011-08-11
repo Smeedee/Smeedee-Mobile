@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee.iOS.Lib;
+using Smeedee.Lib;
 
 namespace Smeedee.iOS
 {
