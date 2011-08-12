@@ -38,10 +38,10 @@ namespace Smeedee.iOS
 			float width = (float) (Platform.ScreenWidth - graph.Frame.X - commitLabel.Frame.Width - 25);
 			
 			graph.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, width, barHeight);
-			graph.BackgroundColor = /*UIColor.FromRGB(100, 100, 100);*/ StyleExtensions.smeedeeOrangeAlpha;
+			graph.BackgroundColor = StyleExtensions.smeedeeOrangeAlpha;
 			
 			graphTop.Frame = new RectangleF(graph.Frame.X, graph.Frame.Y, width * percent, barHeight);
-			graphTop.BackgroundColor = /*StyleExtensions.lightGrayText;*/ StyleExtensions.smeedeeOrange;
+			graphTop.BackgroundColor = StyleExtensions.smeedeeOrange;
 		}
 		
 		private void DisplayImage(Uri uri)

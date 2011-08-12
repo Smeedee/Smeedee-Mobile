@@ -6,7 +6,7 @@ using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.iOS.Lib;
 
-namespace Smeedee.iOS
+namespace Smeedee.iOS.Views
 {
 	internal class LoadingIndicator : UIView
 	{
@@ -19,7 +19,6 @@ namespace Smeedee.iOS
 		private UIActivityIndicatorView spinner;
 		private UILabel label;
 		
-		// Singleton
 		public readonly static LoadingIndicator Instance = new LoadingIndicator();
 		
 		private LoadingIndicator() : base()
@@ -34,13 +33,15 @@ namespace Smeedee.iOS
 			const int Height = Padding + SpinnerSize + Padding;
 		
 			Frame = new RectangleF((ScreenWidth - Width) / 2, ScreenHeight / 2, Width, Height);
-			BackgroundColor = UIColor.FromWhiteAlpha(0.4f, 0.4f);
+			BackgroundColor = UIColor.FromWhiteAlpha(0.5f, 0.5f);
 			
-			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray) {
+			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
 				Frame = new RectangleF(Padding, Padding, SpinnerSize, SpinnerSize)
 			};
 			
-			label = new UILabel() {
+			label = new UILabel
+            {
 				Frame = new RectangleF(Padding + SpinnerSize + SeparateWidth, Padding, TextWidth, SpinnerSize),
 				Text = "Loading...",
 				TextColor = StyleExtensions.lightGrayText,
@@ -72,6 +73,7 @@ namespace Smeedee.iOS
 			{
 				logger.Log("Hide loading animation", loadingCounter.ToString());
 				loadingCounter--;
+                
 				if (loadingCounter == 0) 
 				{
 					UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
@@ -82,4 +84,3 @@ namespace Smeedee.iOS
 		}
 	}
 }
-
