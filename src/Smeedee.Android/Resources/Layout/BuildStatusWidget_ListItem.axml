@@ -26,6 +26,7 @@
     a:layout_height="wrap_content" 
     a:layout_alignParentRight="true"
     a:layout_alignParentBottom="true"
+    a:textColor="@color/smeedee_lightgrey"
     a:textStyle="italic"
     a:paddingRight="12dp" />
   
