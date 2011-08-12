@@ -33,7 +33,7 @@ namespace Smeedee.iOS.Views
 			const int Height = Padding + SpinnerSize + Padding;
 		
 			Frame = new RectangleF((ScreenWidth - Width) / 2, ScreenHeight / 2, Width, Height);
-			BackgroundColor = UIColor.FromWhiteAlpha(0.4f, 0.4f);
+			BackgroundColor = UIColor.FromWhiteAlpha(0.5f, 0.5f);
 			
 			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
             {
