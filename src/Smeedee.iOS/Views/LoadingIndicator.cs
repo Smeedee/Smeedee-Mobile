@@ -19,7 +19,6 @@ namespace Smeedee.iOS.Views
 		private UIActivityIndicatorView spinner;
 		private UILabel label;
 		
-		// Singleton
 		public readonly static LoadingIndicator Instance = new LoadingIndicator();
 		
 		private LoadingIndicator() : base()
@@ -36,11 +35,13 @@ namespace Smeedee.iOS.Views
 			Frame = new RectangleF((ScreenWidth - Width) / 2, ScreenHeight / 2, Width, Height);
 			BackgroundColor = UIColor.FromWhiteAlpha(0.4f, 0.4f);
 			
-			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray) {
+			spinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.Gray)
+            {
 				Frame = new RectangleF(Padding, Padding, SpinnerSize, SpinnerSize)
 			};
 			
-			label = new UILabel() {
+			label = new UILabel
+            {
 				Frame = new RectangleF(Padding + SpinnerSize + SeparateWidth, Padding, TextWidth, SpinnerSize),
 				Text = "Loading...",
 				TextColor = StyleExtensions.lightGrayText,
@@ -72,6 +73,7 @@ namespace Smeedee.iOS.Views
 			{
 				logger.Log("Hide loading animation", loadingCounter.ToString());
 				loadingCounter--;
+                
 				if (loadingCounter == 0) 
 				{
 					UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
@@ -82,4 +84,3 @@ namespace Smeedee.iOS.Views
 		}
 	}
 }
-
