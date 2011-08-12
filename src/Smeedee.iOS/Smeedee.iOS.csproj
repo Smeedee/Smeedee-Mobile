@@ -415,9 +415,9 @@
     <Content Include="Images\19-gear.png" />
     <Content Include="Images\28-star.png" />
     <Content Include="Images\calendar.png" />
-    <Content Include="logo_29x29.png" />
-    <Content Include="logo_57x57.png" />
-    <Content Include="logo_58x58.png" />
-    <Content Include="logo_114x114.png" />
+    <Content Include="logo114x114.png" />
+    <Content Include="logo29x29.png" />
+    <Content Include="logo58x58.png" />
+    <Content Include="logo57x57.png" />
   </ItemGroup>
 </Project>
