@@ -357,13 +357,13 @@
     <Compile Include="..\Smeedee\Services\MemoryCachedImageService.cs">
       <Link>Services\MemoryCachedImageService.cs</Link>
     </Compile>
-    <Compile Include="Lib\LoadingIndicator.cs" />
     <Compile Include="Lib\StyleExtensions.cs" />
     <Compile Include="..\Smeedee\Services\ILog.cs">
       <Link>Services\ILog.cs</Link>
     </Compile>
     <Compile Include="Services\IphoneLogger.cs" />
     <Compile Include="Views\DisclosureIndicatorView.cs" />
+    <Compile Include="Views\LoadingIndicator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
