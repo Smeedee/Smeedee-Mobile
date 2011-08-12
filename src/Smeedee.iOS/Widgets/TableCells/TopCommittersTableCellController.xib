@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">768</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -116,23 +116,25 @@
 							<object class="IBUILabel" id="598604192">
 								<reference key="NSNextResponder" ref="283776712"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{289, 24}, {30, 10}}</string>
+								<string key="NSFrame">{{292, 20}, {34, 19}}</string>
 								<reference key="NSSuperview" ref="283776712"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">39</string>
+								<string key="IBUIText">392</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">12</double>
+									<double key="NSSize">18</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<reference key="IBUITextColor" ref="991526988"/>
 								<reference key="IBUIHighlightedColor" ref="771566193"/>
 								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">10</float>
+								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+								<float key="IBUIMinimumFontSize">18</float>
+								<int key="IBUITextAlignment">2</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{339, 62}</string>
@@ -236,9 +238,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="99558549"/>
 							<reference ref="973099813"/>
-							<reference ref="598604192"/>
 							<reference ref="138355622"/>
 							<reference ref="539608295"/>
+							<reference ref="598604192"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -298,7 +300,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABCggAAwmgAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABDkYAAwggAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -308,7 +310,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDDwAAwkAAAA</bytes>
 					</object>
-					<string>{{210, 594}, {339, 62}}</string>
+					<string>{{756, 694}, {339, 62}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
