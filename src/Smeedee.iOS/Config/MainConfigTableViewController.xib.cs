@@ -33,25 +33,29 @@ namespace Smeedee.iOS
 	
 	public class MainConfigTableSource : UITableViewSource
     {
+        private const string CELL_ID = "MainConfigTableViewCell";
+        
 		private MainConfigTableViewController controller;
 		
-		public MainConfigTableSource(MainConfigTableViewController controller) : base() {
+		public MainConfigTableSource(MainConfigTableViewController controller) : base()
+        {
 			this.controller = controller;
 		}
 		
-        public override int NumberOfSections(UITableView tableView) { return 2; }
+        public override int NumberOfSections(UITableView tableView)
+        {
+            return 2;
+        }
+        
         public override int RowsInSection(UITableView tableview, int section)
         {
 			return (section == 0) ? 1 : SmeedeeApp.Instance.AvailableWidgets.Count;
         }
         
-        private const string CELL_ID = "MainConfigTableViewCell";
-        
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-			UITableViewCell cell =
-                tableView.DequeueReusableCell(CELL_ID) ??
-                new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
+            var cell = tableView.DequeueReusableCell(CELL_ID) ??
+                       new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
             
 			switch (indexPath.Section) 
 			{
@@ -72,9 +76,10 @@ namespace Smeedee.iOS
             return cell;
         }
 		
-        public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-			if (indexPath.Section == 0) {
+			if (indexPath.Section == 0)
+            {
 				var instance = new ServerConfigTableViewController();
 				controller.NavigationController.PushViewController(instance, true);
 			}
@@ -89,17 +94,18 @@ namespace Smeedee.iOS
 			}
         }
 		
-		public override UIView GetViewForHeader (UITableView tableView, int section)
+		public override UIView GetViewForHeader(UITableView tableView, int section)
 		{
 			if (section == 0)
+            {
 				return new ConfigTableSectionHeader("Server");
+            }
 			return new ConfigTableSectionHeader("Widgets");
 		}
 		
-		public override float GetHeightForHeader (UITableView tableView, int section)
+		public override float GetHeightForHeader(UITableView tableView, int section)
 		{
 			return ConfigTableSectionHeader.Height;
 		}
 	}
 }
-
