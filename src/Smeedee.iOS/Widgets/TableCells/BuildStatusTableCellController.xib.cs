@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee.iOS.Lib;
+using Smeedee.Lib;
 
 namespace Smeedee.iOS
 {
@@ -37,7 +38,7 @@ namespace Smeedee.iOS
 				image.Image = UIImage.FromFile("Images/icon_buildunknown.png");
 				break;
 			case BuildState.Working:
-				InvokeOnMainThread(() => image.Image = UIImage.FromFile("images/icon_buildsuccess.png"));
+				InvokeOnMainThread(() => image.Image = UIImage.FromFile("Images/icon_buildsuccess.png"));
 				break;
 			}
 			

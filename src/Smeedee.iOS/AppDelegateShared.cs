@@ -71,7 +71,7 @@ namespace Smeedee.iOS
 		
 		private void ShowSplashScreen()
 		{
-			var image = UIImage.FromFile("images/logo.png");
+			var image = UIImage.FromFile("Images/logo.png");
 			var splash = new UIImageView(image);
 			const int imageSize = 61;
 			splash.Frame = new RectangleF(Platform.ScreenWidth/2f-imageSize/2f, Platform.ScreenHeight/2f-imageSize/2f, (float)imageSize, (float)imageSize);
