@@ -47,7 +47,7 @@
 
             <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
                 <TextBlock Text="SMEEDEE" Style="{StaticResource PhoneTextNormalStyle}"/>
-                <TextBlock Text="login" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+                <TextBlock Text="login" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="#f25000"/>
             </StackPanel>
 
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" DataContext="{Binding LoginViewModel}">
@@ -57,7 +57,7 @@
                     <TextBlock Text="Key" Margin="12,5,12,-10" />
                     <TextBox Text="{Binding Key, Mode=TwoWay}"></TextBox>
                     <Button Content="Login" IsEnabled="{Binding IsValidating, Converter={StaticResource BoolNegationConverter}}" Click="LoginViewModel_Validate"></Button>
-                    <TextBlock Text="{Binding StatusText}" Foreground="{Binding StatusColor}"></TextBlock>
+                    <TextBlock Text="{Binding StatusText}" Foreground="{Binding StatusColor}" Margin="12,5,12,0"></TextBlock>
                 </StackPanel>
             </Grid>
         </Grid>
