@@ -36,7 +36,11 @@ namespace Smeedee.Android.Widgets
         
         public void Refresh()
         {
-            model.Load(() => ((Activity)Context).RunOnUiThread(Redraw));
+            model.Load(() => ((Activity) Context).RunOnUiThread(() =>
+                {
+                    Redraw();
+                    OnDescriptionChanged(new EventArgs());
+                }));
             _lastRefreshTime = DateTime.Now;
         }
       

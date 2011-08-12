@@ -36,7 +36,11 @@ namespace Smeedee.Android.Widgets
 
         public void Refresh()
         {
-            _model.Load(() => ((Activity)Context).RunOnUiThread(UpdateListView));
+            _model.Load(() => ((Activity) Context).RunOnUiThread( () =>
+                {
+                    UpdateListView();
+                    OnDescriptionChanged(new EventArgs());
+                }));
             _lastRefreshTime = DateTime.Now;
         }
 
