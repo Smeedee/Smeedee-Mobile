@@ -53,17 +53,18 @@ namespace Smeedee.iOS
             
 			switch (indexPath.Section) 
 			{
-			case 0:
-	            cell.TextLabel.Text = "Smeedee server";
-	            cell.DetailTextLabel.Text = "Configure login url and password";
-                break;
-			default:
-				var widget = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
-	            cell.TextLabel.Text = widget.Name;
-				cell.TextLabel.HighlightedTextColor = UIColor.Black;
-	            cell.DetailTextLabel.Text = widget.StaticDescription;
-                break;
+    			case 0:
+    	            cell.TextLabel.Text = "Smeedee server";
+    	            cell.DetailTextLabel.Text = "Configure login url and password";
+                    break;
+    			default:
+    				var widget = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
+    	            cell.TextLabel.Text = widget.Name;
+    				cell.TextLabel.HighlightedTextColor = UIColor.Black;
+    	            cell.DetailTextLabel.Text = widget.StaticDescription;
+                    break;
 			}
+            
             cell.AccessoryView = new DisclosureIndicatorView();
             cell.StyleAsSettingsTableCell();
             return cell;
