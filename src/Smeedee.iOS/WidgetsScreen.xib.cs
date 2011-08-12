@@ -136,7 +136,6 @@ namespace Smeedee.iOS
         {
 			if (appearing) return;
 			var pageIndex = CurrentPageIndex();
-			Console.WriteLine("Current index: " + pageIndex);
             if (pageControl.CurrentPage != pageIndex)
             {
                 SetTitleLabels();
