@@ -17,6 +17,7 @@
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
     <BundleIcon>Images\icon_57x57.png</BundleIcon>
     <BundleIconHigh>Images\icon_114x114.png</BundleIconHigh>
+    <BundleDisplayName>Smeedee</BundleDisplayName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
