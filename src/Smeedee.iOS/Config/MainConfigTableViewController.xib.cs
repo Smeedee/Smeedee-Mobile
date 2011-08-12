@@ -5,7 +5,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 using System.Drawing;
 using Smeedee.iOS.Lib;
-
+using Smeedee.iOS.Views;
 using Smeedee.Model;
 
 namespace Smeedee.iOS
@@ -56,7 +56,7 @@ namespace Smeedee.iOS
 	            
 	            cell.TextLabel.Text = "Smeedee server";
 	            cell.DetailTextLabel.Text = "Configure login url and password";
-            	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+                cell.AccessoryView = new DisclosureIndicatorView();
 	            cell.StyleAsSettingsTableCell();
 				
 	            return cell;
@@ -70,7 +70,7 @@ namespace Smeedee.iOS
 	            cell.TextLabel.Text = widget.Name;
 				cell.TextLabel.HighlightedTextColor = UIColor.Black;
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
-            	cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+            	cell.AccessoryView = new DisclosureIndicatorView();
 	            cell.StyleAsSettingsTableCell();
 				/* Calendar icon test
 				if (indexPath.Row == 2)
