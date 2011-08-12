@@ -45,11 +45,13 @@ namespace Smeedee.iOS
 			return (section == 0) ? 1 : SmeedeeApp.Instance.AvailableWidgets.Count;
         }
         
+        private const string CELL_ID = "MainConfigTableViewCell";
+        
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
 			UITableViewCell cell =
-                tableView.DequeueReusableCell("CellID") ??
-                new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
+                tableView.DequeueReusableCell(CELL_ID) ??
+                new UITableViewCell(UITableViewCellStyle.Subtitle, CELL_ID);
             
 			switch (indexPath.Section) 
 			{
