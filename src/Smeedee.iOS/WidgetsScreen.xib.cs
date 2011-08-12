@@ -194,7 +194,10 @@ namespace Smeedee.iOS
 		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
 			Platform.Orientation = toInterfaceOrientation;
+			
+			appearing = true;
 			ResetView();
+			appearing = false;
 			
 			LoadingIndicator.Instance.Center = new PointF(Platform.ScreenWidth / 2f, Platform.ScreenHeight / 2f);
 		}
