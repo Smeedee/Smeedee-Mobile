@@ -47,46 +47,26 @@ namespace Smeedee.iOS
         
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-			UITableViewCell cell;
+			UITableViewCell cell =
+                tableView.DequeueReusableCell("CellID") ??
+                new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
+            
 			switch (indexPath.Section) 
 			{
 			case 0:
-	            cell = tableView.DequeueReusableCell("CellID") ??
-	                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
-	            
 	            cell.TextLabel.Text = "Smeedee server";
 	            cell.DetailTextLabel.Text = "Configure login url and password";
-                cell.AccessoryView = new DisclosureIndicatorView();
-	            cell.StyleAsSettingsTableCell();
-				
-	            return cell;
-				
+                break;
 			default:
 				var widget = SmeedeeApp.Instance.AvailableWidgets.ElementAt(indexPath.Row);
-				
-	            cell = tableView.DequeueReusableCell("CellID") ??
-	                       new UITableViewCell(UITableViewCellStyle.Subtitle, "CellID");
-	            
 	            cell.TextLabel.Text = widget.Name;
 				cell.TextLabel.HighlightedTextColor = UIColor.Black;
 	            cell.DetailTextLabel.Text = widget.StaticDescription;
-            	cell.AccessoryView = new DisclosureIndicatorView();
-	            cell.StyleAsSettingsTableCell();
-				/* Calendar icon test
-				if (indexPath.Row == 2)
-				{
-					cell.TextLabel.Frame = new RectangleF(cell.TextLabel.Frame.X + 60, cell.TextLabel.Frame.Y, cell.TextLabel.Frame.Width - 60, cell.TextLabel.Frame.Height);
-					cell.DetailTextLabel.Frame = new RectangleF(cell.DetailTextLabel.Frame.X + 60, cell.DetailTextLabel.Frame.Y, cell.DetailTextLabel.Frame.Width - 60, cell.DetailTextLabel.Frame.Height);
-					
-					var image = new UIImageView(UIImage.FromFile("images/calendar.png")) { 
-						Frame = new RectangleF(7, 4, 40, 40)
-					};
-					
-					cell.AddSubview(image);
-				}*/
-					
-	            return cell;
+                break;
 			}
+            cell.AccessoryView = new DisclosureIndicatorView();
+            cell.StyleAsSettingsTableCell();
+            return cell;
         }
 		
         public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
