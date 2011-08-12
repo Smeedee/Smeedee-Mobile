@@ -6,6 +6,7 @@ using Smeedee;
 using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.iOS.Lib;
+using Smeedee.iOS.Views;
 
 namespace Smeedee.iOS
 {

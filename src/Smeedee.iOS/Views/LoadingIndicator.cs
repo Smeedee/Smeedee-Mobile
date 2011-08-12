@@ -6,7 +6,7 @@ using Smeedee.Model;
 using Smeedee.Services;
 using Smeedee.iOS.Lib;
 
-namespace Smeedee.iOS
+namespace Smeedee.iOS.Views
 {
 	internal class LoadingIndicator : UIView
 	{
