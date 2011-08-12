@@ -61,19 +61,25 @@ namespace Smeedee.iOS
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			
-			appearing = true;
 			ResetView();
-			appearing = false;
-			
-			SetTitleLabels(CurrentPageIndex());
+			SetTitleLabels();
 		}
 		
 		private void ResetView()
 		{
+			appearing = true;
 			RemoveToolbarItem();
 			EmptyScrollView();
 			AddWidgetsToScrollView();
+			appearing = false;
+			
+			ScrollViewScrolled(null, null);
+		}
+		
+		private void RemoveToolbarItem()
+		{
+			if (toolbar.Items.Count() == 3)
+				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
 		}
 		
 		private void EmptyScrollView() {
@@ -96,7 +102,7 @@ namespace Smeedee.iOS
 			{
 				var view = new UIImageView(UIImage.FromFile("images/logo.png"));
 				view.Frame = new RectangleF((Platform.ScreenWidth - 61) / 2.0f, 140, 61, 61);
-				this.scrollView.AddSubview(view);
+				scrollView.AddSubview(view);
 			}
 			else
 			{
@@ -125,25 +131,25 @@ namespace Smeedee.iOS
         }
 		
 		// Race condition between this and ViewWillAppear
-		// Both are called simultanously when going from settings to widgets
+		// Both are called simultanously when going from settings to widgets, or flipping
         private void ScrollViewScrolled(object sender, EventArgs e)
         {
 			if (appearing) return;
 			var pageIndex = CurrentPageIndex();
+			Console.WriteLine("Current index: " + pageIndex);
             if (pageControl.CurrentPage != pageIndex)
             {
-                SetTitleLabels(pageIndex);
+                SetTitleLabels();
             	pageControl.CurrentPage = pageIndex;
             }
         }
 		
-        private void SetTitleLabels(int widgetIndex)
+        private void SetTitleLabels()
         {
-			
 			if (displayedWidgets.Count() == 0) 
 			{
 				title.Text = "No enabled widgets";
-			} 
+			}
 			else 
 			{
 				var currentWidget = displayedWidgets[CurrentPageIndex()];
@@ -163,6 +169,14 @@ namespace Smeedee.iOS
 			}
         }
 		
+		private void AddToolbarItem(UIBarButtonItem item)
+		{
+			if (toolbar.Items.Count() == 3)
+				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[2] }, true);
+			else
+				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[1] }, true);
+		}
+		
 		private int CurrentPageIndex()
         {
 			if (displayedWidgets.Count() == 0)
@@ -177,29 +191,16 @@ namespace Smeedee.iOS
             return index;
 		}
 		
-		private void AddToolbarItem(UIBarButtonItem item)
-		{
-			if (toolbar.Items.Count() == 3)
-				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[2] }, true);
-			else
-				toolbar.SetItems(new [] { toolbar.Items[0], item, toolbar.Items[1] }, true);
-		}
-		
-		private void RemoveToolbarItem()
-		{
-			if (toolbar.Items.Count() == 3)
-				toolbar.SetItems(new [] { toolbar.Items[0], toolbar.Items[2] }, true);
-		}
-		
 		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
 			Platform.Orientation = toInterfaceOrientation;
-			
-			appearing = true;
-			ResetView();
-			appearing = false;
-			
 			LoadingIndicator.Instance.Center = new PointF(Platform.ScreenWidth / 2f, Platform.ScreenHeight / 2f);
+			ResetView();
+		}
+		
+		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
+		{
+			SetTitleLabels();
 		}
 		
 		public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
