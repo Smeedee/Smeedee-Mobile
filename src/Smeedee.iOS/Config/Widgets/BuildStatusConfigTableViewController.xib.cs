@@ -5,6 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Smeedee.Model;
 using Smeedee.iOS.Lib;
+using Smeedee.iOS.Views;
 
 namespace Smeedee.iOS
 {
@@ -67,9 +68,8 @@ namespace Smeedee.iOS
 			}
 			else
 			{
-				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell") {
-					Accessory = UITableViewCellAccessory.DisclosureIndicator
-				};
+				var cell = new UITableViewCell(UITableViewCellStyle.Default, "SubtitleDisclosureCell");
+				cell.AccessoryView = new DisclosureIndicatorView();
 				cell.TextLabel.Text = "Build order";
 				
 				// TODO: Gray text to the right of what is currently selected

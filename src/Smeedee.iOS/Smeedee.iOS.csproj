@@ -363,6 +363,7 @@
       <Link>Services\ILog.cs</Link>
     </Compile>
     <Compile Include="Services\IphoneLogger.cs" />
+    <Compile Include="Views\DisclosureIndicatorView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindowIPhone.xib" />
@@ -399,6 +400,7 @@
     <Folder Include="Config\Widgets\" />
     <Folder Include="Config\TableCells\" />
     <Folder Include="Config\Views\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\logo.png" />
