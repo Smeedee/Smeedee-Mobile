@@ -15,8 +15,8 @@
     <AssemblyName>SmeedeeiOS</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
-    <BundleIcon>Images\icon_57x57.png</BundleIcon>
-    <BundleIconHigh>Images\icon_114x114.png</BundleIconHigh>
+    <BundleIcon>logo57x57.png</BundleIcon>
+    <BundleIconHigh>logo114x114.png</BundleIconHigh>
     <BundleDisplayName>Smeedee</BundleDisplayName>
     <BundleVersion>1.0.0</BundleVersion>
   </PropertyGroup>
@@ -90,8 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
-    <None Include="Images\icon_57x57.png" />
-    <None Include="Images\icon_114x114.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowIPhone.xib.designer.cs">
@@ -417,5 +415,9 @@
     <Content Include="Images\19-gear.png" />
     <Content Include="Images\28-star.png" />
     <Content Include="Images\calendar.png" />
+    <Content Include="logo_29x29.png" />
+    <Content Include="logo_57x57.png" />
+    <Content Include="logo_58x58.png" />
+    <Content Include="logo_114x114.png" />
   </ItemGroup>
 </Project>
