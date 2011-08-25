@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
@@ -221,21 +222,22 @@ namespace Smeedee.Android
 
             // This could be optimized. Now, all widgets gets refreshed for every little change in both gloabl settings
             // and each widget configuration
-            var logger = app.ServiceLocator.Get<ILog>();
             
             CheckForEnabledAndDisabledWidgets();
             flipper.CurrentScreen = app.ServiceLocator.Get<IPersistenceService>().Get(CURRENT_SCREEN_PERSISTENCE_KEY, 0);
-            SetCorrectTopBannerWidgetTitle();
-            SetCorrectTopBannerWidgetDescription();
 
             logger.Log("SMEEDEE", "OnResume starting to refreshing widgets");
             RefreshAllCurrentlyEnabledWidgets(); // This taks some time in background threads
 
+            SetCorrectTopBannerWidgetTitle();
+            SetCorrectTopBannerWidgetDescription();
             HideTheBottomRefreshButton();
             StartRefreshTimer();
             HideTheStartUpRefreshWheel();
         }
-
+        public override void OnConfigurationChanged(Configuration newConfig)
+        {
+        }
         private void HideTheStartUpRefreshWheel()
         {
             var startUpRefreshWheel = FindViewById<ProgressBar>(Resource.Id.WidgetContainerProgressBar);
